@@ -6,3 +6,29 @@ body {
 a {
   color: #00B7FF;
 }
+
+.listing{
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 50%;
+
+}
+
+header a{
+    padding: 5px 10px;
+    background-color: lightgrey;
+    border-radius: 5px;
+    margin-right: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+header a.active{
+    background-color: antiquewhite;
+}
+
+header a:hover{
+    background-color: antiquewhite;
+}
