@@ -655,8 +655,11 @@ router.get('/currentlistings', function (req, res) {
     //Find today's date
     var today = new Date();
 
+    console.log('Searching for current events...');
+
     //Sort by current date
     List.find({ start: { $lt: today }, end: { $gt: today } }, {}, function (e, docs) {
+        console.log('Results: ' + docs);
         res.json(docs);
     });
 });
@@ -728,9 +731,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _Layout = __webpack_require__(20);
+var _layout = __webpack_require__(20);
 
-var _Layout2 = _interopRequireDefault(_Layout);
+var _layout2 = _interopRequireDefault(_layout);
 
 var _IndexPage = __webpack_require__(21);
 
@@ -756,7 +759,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var routes = _react2.default.createElement(
   _reactRouter.Route,
-  { path: '/', component: _Layout2.default },
+  { path: '/', component: _layout2.default },
   _react2.default.createElement(_reactRouter.IndexRoute, { component: _IndexPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'current', component: _CurrentPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'ataglance', component: _GlancePage2.default }),

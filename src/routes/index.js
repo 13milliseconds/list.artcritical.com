@@ -31,8 +31,11 @@ router.get('/currentlistings', function (req, res) {
     //Find today's date
     var today = new Date();
     
+    console.log('Searching for current events...');
+    
     //Sort by current date
     List.find({start: {$lt: today}, end: {$gt: today}}, {}, function (e, docs) {
+        console.log('Results: ' + docs);
         res.json(docs);
     });
 });
