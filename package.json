@@ -29,7 +29,8 @@
     "react-dom": "^15.3.2",
     "react-intl": "^2.3.0",
     "react-router": "^2.8.1",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "webpack": "^3.4.1"
   },
   "description": "A list tool for artcritical",
   "main": "app.js",
@@ -43,7 +44,7 @@
     "mongodb": "^2.2.30",
     "mongoimport": "^1.0.6",
     "mongoose": "^4.11.5",
-    "webpack": "^3.0.0-rc.2"
+    "webpack": "^3.4.1"
   },
   "author": "13milliseconds",
   "license": "ISC"
