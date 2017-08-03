@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -88,7 +88,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(6);
+var _alt = __webpack_require__(8);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -141,7 +141,7 @@ var ListActions = function () {
     value: function getGlance() {
       var _this4 = this;
 
-      $.ajax({ url: '/currentlistings' }).done(function (data) {
+      $.ajax({ url: '/glancelistings' }).done(function (data) {
         _this4.getGlanceSuccess(data);
       }).fail(function (jqXhr) {
         _this4.getGlanceFail(jqXhr);
@@ -171,7 +171,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(22);
+var _reactIntl = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -194,8 +194,6 @@ var Listing = function (_React$Component) {
     key: 'render',
     value: function render() {
 
-      //const name = data[this.props.code].name;
-
       return _react2.default.createElement(
         _reactIntl.IntlProvider,
         { locale: 'en' },
@@ -207,7 +205,7 @@ var Listing = function (_React$Component) {
             null,
             this.props.name,
             ' at ',
-            this.props.venue
+            this.props.venue.name
           ),
           _react2.default.createElement(
             'p',
@@ -220,6 +218,18 @@ var Listing = function (_React$Component) {
             'p',
             null,
             this.props.description
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            this.props.venue.address,
+            ', ',
+            this.props.venue.city
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            this.props.neighborhood
           )
         )
       );
@@ -244,7 +254,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(6);
+var _alt = __webpack_require__(8);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -326,6 +336,18 @@ module.exports = require("express");
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-intl");
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -335,7 +357,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _alt = __webpack_require__(23);
+var _alt = __webpack_require__(24);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -344,7 +366,136 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = new _alt2.default();
 
 /***/ }),
-/* 7 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    displayCity: function displayCity($numero) {
+        if ($numero < "20" && $numero >= "10") {
+            return "Tribeca";
+        } else if ($numero < "30" && $numero >= "20") {
+
+            return "Lower East Side";
+        } else if ($numero < "60" && $numero >= "30") {
+
+            return "Soho & Noho & East Village";
+        } else if ($numero < "170" && $numero >= "60") {
+
+            return "West Village & Chelsea";
+        } else if ($numero < "220" && $numero >= "170") {
+
+            return "Midtown & Uptown & Harlem";
+        } else if ($numero < "270" && $numero >= "220") {
+
+            return "Brooklyn";
+        } else if ($numero < "300" && $numero >= "270") {
+
+            return "Queens & Bronx & Staten Island";
+        } else if ($numero < "310" && $numero >= "300") {
+
+            return "Long Island";
+        } else if ($numero < "320" && $numero >= "310") {
+
+            return "Upstate New York";
+        } else if ($numero < "330" && $numero >= "320") {
+
+            return "New Jersey";
+        } else if ($numero < "370" && $numero >= "330") {
+
+            return "Philadelphia";
+        } else {
+            return "";
+        }
+    },
+    displayNeighborhood: function displayNeighborhood($numero) {
+
+        if ($numero < "20" && $numero >= "10") {
+            return "Tribeca and below";
+        } else if ($numero < "30" && $numero >= "20") {
+            return "Lower East Side";
+        } else if ($numero < "40" && $numero >= "30") {
+            return "Soho";
+        } else if ($numero < "60" && $numero >= "40") {
+            return "Noho/East Village";
+        } else if ($numero < "70" && $numero >= "60") {
+            return "West Village";
+        } else if ($numero < "80" && $numero >= "70") {
+            return "19th St and below";
+        } else if ($numero < "90" && $numero >= "80") {
+            return "20th St and nearby";
+        } else if ($numero < "100" && $numero >= "90") {
+            return "21st St and nearby";
+        } else if ($numero < "110" && $numero >= "100") {
+            return "22nd St and nearby";
+        } else if ($numero < "120" && $numero >= "110") {
+            return "23rd St and nearby";
+        } else if ($numero < "130" && $numero >= "120") {
+            return "24th St and nearby";
+        } else if ($numero < "140" && $numero >= "130") {
+            return "25th St and nearby";
+        } else if ($numero < "150" && $numero >= "140") {
+            return "26th St and nearby";
+        } else if ($numero < "160" && $numero >= "150") {
+            return "27th St and above";
+        } else if ($numero < "170" && $numero >= "160") {
+            return "Flatiron/Gramercy Park";
+        } else if ($numero < "180" && $numero >= "170") {
+            return "Midtown";
+        } else if ($numero < "190" && $numero >= "180") {
+            return "57th Street and nearby";
+        } else if ($numero < "200" && $numero >= "190") {
+            return "Upper East Side";
+        } else if ($numero < "210" && $numero >= "200") {
+            return "Upper West Side";
+        } else if ($numero < "220" && $numero >= "210") {
+            return "Harlem";
+        } else if ($numero < "230" && $numero >= "220") {
+            return "Brooklyn South";
+        } else if ($numero < "235" && $numero >= "230") {
+            return "Dumbo/Downtown";
+        } else if ($numero < "240" && $numero >= "235") {
+            return "Fort Greene";
+        } else if ($numero < "250" && $numero >= "240") {
+            return "Bushwick/Bed-stuy";
+        } else if ($numero < "260" && $numero >= "250") {
+            return "Williamsburg / Greenpoint";
+        } else if ($numero < "270" && $numero >= "260") {
+            return "Brooklyn (Other)";
+        } else if ($numero < "272" && $numero >= "270") {
+            return "Ridgewood";
+        } else if ($numero < "274" && $numero >= "272") {
+            return "Long Island City/Astoria";
+        } else if ($numero < "280" && $numero >= "274") {
+            return "Queens (Other)";
+        } else if ($numero < "290" && $numero >= "280") {
+            return "The Bronx";
+        } else if ($numero < "300" && $numero >= "290") {
+            return "Staten Island";
+        } else if ($numero < "310" && $numero >= "300") {
+            return "Long Island";
+        } else if ($numero < "320" && $numero >= "310") {
+            return "Upstate New York";
+        } else if ($numero < "330" && $numero >= "320") {
+            return "New Jersey";
+        } else if ($numero < "340" && $numero >= "330") {
+            return "Philadelphia";
+        } else if ($numero < "350" && $numero >= "340") {
+            return "Old City";
+        } else if ($numero < "360" && $numero >= "350") {
+            return "West Philadelphia";
+        } else if ($numero < "370" && $numero >= "360") {
+            return "North Philadelphia";
+        } else {
+            return "Other";
+        }
+    }
+};
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -395,34 +546,28 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
 var express = __webpack_require__(5);
-var path = __webpack_require__(10);
-var favicon = __webpack_require__(11);
-var logger = __webpack_require__(12);
-var cookieParser = __webpack_require__(13);
-var bodyParser = __webpack_require__(14);
-var http = __webpack_require__(15);
-var debug = __webpack_require__(16)('artcritical-list:server');
+var path = __webpack_require__(12);
+var favicon = __webpack_require__(13);
+var logger = __webpack_require__(14);
+var cookieParser = __webpack_require__(15);
+var bodyParser = __webpack_require__(16);
+var http = __webpack_require__(17);
+var debug = __webpack_require__(18)('artcritical-list:server');
 
-var index = __webpack_require__(17);
-var users = __webpack_require__(28);
+var index = __webpack_require__(19);
+var users = __webpack_require__(30);
 
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(8);
+var mongoose = __webpack_require__(6);
 
 var url = process.env.MONGOLAB_URI;
 
@@ -437,8 +582,9 @@ db.once('open', function () {
   console.log('We are in!');
 });
 
-// Import the list settings
-var List = __webpack_require__(29);
+// Import the Mongoose models
+var List = __webpack_require__(31);
+var Venue = __webpack_require__(32);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -455,6 +601,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Make our db accessible to our router
 app.use(function (req, res, next) {
   req.list = List;
+  req.venue = Venue;
   next();
 });
 
@@ -560,49 +707,49 @@ function onListening() {
 /* WEBPACK VAR INJECTION */}.call(exports, "src"))
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("debug");
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -612,15 +759,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(18);
+var _server = __webpack_require__(20);
 
 var _reactRouter = __webpack_require__(1);
 
-var _routes = __webpack_require__(19);
+var _routes = __webpack_require__(21);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _ErrorPage = __webpack_require__(7);
+var _ErrorPage = __webpack_require__(10);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -628,7 +775,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(5);
 var router = express.Router();
-var JSX = __webpack_require__(27).install();
+var JSX = __webpack_require__(29).install();
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
@@ -638,28 +785,46 @@ var JSX = __webpack_require__(27).install();
 router.get('/', function (req, res, next) {
     var List = req.list;
 
-    List.find({}, {}, function (e, docs) {
+    List.find({}, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
         res.render('index', {
             "title": "The List",
             "index": docs
         });
-    });
+    });;
 });
 
 /*
  * GET currentlist to display.
  */
 router.get('/currentlistings', function (req, res) {
-    var List = req.list;
+    var List = req.list,
+        Venue = req.venue;
 
     //Find today's date
     var today = new Date();
 
     console.log('Searching for current events...');
 
-    //Sort by current date
-    List.find({ start: { $lt: today }, end: { $gt: today } }, {}, function (e, docs) {
-        console.log('Results: ' + docs);
+    List.find({ start: { $lt: today }, end: { $gt: today } }, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+/*
+ * GET GLANCE list to display.
+ */
+router.get('/glancelistings', function (req, res) {
+    var List = req.list,
+        Venue = req.venue;
+
+    //Find today's date
+    var today = new Date();
+    var inaWeek = new Date();
+    inaWeek.setDate(inaWeek.getDate() + 7);
+
+    console.log('Searching for this weeks events...');
+
+    List.find({ $or: [{ start: { $gte: today, $lt: inaWeek } }, { end: { $gte: today, $lt: inaWeek } }] }, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -670,8 +835,7 @@ router.get('/currentlistings', function (req, res) {
 router.get('/alllistings', function (req, res) {
     var List = req.list;
 
-    //Sort by current date
-    List.find({}, {}, function (e, docs) {
+    List.find().sort('neighborhood').populate('venue').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -709,13 +873,13 @@ router.get('*', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -731,27 +895,27 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _layout = __webpack_require__(20);
+var _layout = __webpack_require__(22);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _IndexPage = __webpack_require__(21);
+var _IndexPage = __webpack_require__(23);
 
 var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
-var _CurrentPage = __webpack_require__(24);
+var _CurrentPage = __webpack_require__(25);
 
 var _CurrentPage2 = _interopRequireDefault(_CurrentPage);
 
-var _GlancePage = __webpack_require__(25);
+var _GlancePage = __webpack_require__(26);
 
 var _GlancePage2 = _interopRequireDefault(_GlancePage);
 
-var _EventsPage = __webpack_require__(26);
+var _EventsPage = __webpack_require__(28);
 
 var _EventsPage2 = _interopRequireDefault(_EventsPage);
 
-var _ErrorPage = __webpack_require__(7);
+var _ErrorPage = __webpack_require__(10);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -770,7 +934,7 @@ var routes = _react2.default.createElement(
 exports.default = routes;
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -876,7 +1040,7 @@ var Layout = function (_React$Component) {
 exports.default = Layout;
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -905,6 +1069,10 @@ var _ListStore2 = _interopRequireDefault(_ListStore);
 var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _displayActions = __webpack_require__(9);
+
+var _displayActions2 = _interopRequireDefault(_displayActions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -947,8 +1115,25 @@ var IndexPage = function (_React$Component) {
         key: 'render',
         value: function render() {
 
+            var nh = '';
             var thelist = this.state.allListings.map(function (listing) {
-                return _react2.default.createElement(_listing2.default, listing);
+                var newNh = listing.venue.neighborhood;
+                if (newNh !== nh) {
+                    nh = newNh;
+                    newNh = _displayActions2.default.displayCity(nh);
+                    return _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'h2',
+                            null,
+                            newNh
+                        ),
+                        _react2.default.createElement(_listing2.default, listing)
+                    );
+                } else {
+                    return _react2.default.createElement(_listing2.default, listing);
+                }
             });
 
             return _react2.default.createElement(
@@ -970,19 +1155,13 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-intl");
-
-/***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("alt");
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1011,6 +1190,10 @@ var _listing2 = _interopRequireDefault(_listing);
 var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _displayActions = __webpack_require__(9);
+
+var _displayActions2 = _interopRequireDefault(_displayActions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1052,8 +1235,25 @@ var CurrentPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var nh = '';
             var thelist = this.state.currentListings.map(function (listing) {
-                return _react2.default.createElement(_listing2.default, listing);
+                var newNh = listing.venue.neighborhood;
+                if (newNh !== nh) {
+                    nh = newNh;
+                    newNh = _displayActions2.default.displayCity(nh);
+                    return _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'h2',
+                            null,
+                            newNh
+                        ),
+                        _react2.default.createElement(_listing2.default, listing)
+                    );
+                } else {
+                    return _react2.default.createElement(_listing2.default, listing);
+                }
             });
 
             return _react2.default.createElement(
@@ -1075,7 +1275,7 @@ var CurrentPage = function (_React$Component) {
 exports.default = CurrentPage;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1093,10 +1293,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _listing = __webpack_require__(3);
-
-var _listing2 = _interopRequireDefault(_listing);
-
 var _ListStore = __webpack_require__(4);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
@@ -1104,6 +1300,10 @@ var _ListStore2 = _interopRequireDefault(_ListStore);
 var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _daypage = __webpack_require__(27);
+
+var _daypage2 = _interopRequireDefault(_daypage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1145,19 +1345,29 @@ var GlancePage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var thelist = this.state.glanceListings.map(function (listing) {
-                return _react2.default.createElement(_listing2.default, listing);
-            });
+
+            var thelist = this.state.glanceListings;
+
+            var days = [];
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (var i = 0; i < 7; i++) {
+                var d = new Date();
+                d.setHours(0, 0, 0, 0);
+                d.setDate(today.getDate() + i);
+                days.push(_react2.default.createElement(_daypage2.default, { glanceListings: thelist, date: d }));
+            }
 
             return _react2.default.createElement(
                 'div',
-                { className: 'home' },
+                { className: 'glance' },
                 _react2.default.createElement(
                     'h2',
                     null,
                     'At a Glance'
                 ),
-                thelist
+                days
             );
         }
     }]);
@@ -1168,7 +1378,117 @@ var GlancePage = function (_React$Component) {
 exports.default = GlancePage;
 
 /***/ }),
-/* 26 */
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _listing = __webpack_require__(3);
+
+var _listing2 = _interopRequireDefault(_listing);
+
+var _reactIntl = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DayPage = function (_React$Component) {
+    _inherits(DayPage, _React$Component);
+
+    function DayPage() {
+        _classCallCheck(this, DayPage);
+
+        return _possibleConstructorReturn(this, (DayPage.__proto__ || Object.getPrototypeOf(DayPage)).apply(this, arguments));
+    }
+
+    _createClass(DayPage, [{
+        key: 'render',
+        value: function render() {
+            var date = this.props.date.toISOString();
+
+            var openings = [];
+            var events = [];
+            var closings = [];
+
+            var thelist = this.props.glanceListings.map(function (listing) {
+                // Check if it is an event
+                if (listing.event == true) {
+                    // it IS an event
+
+                    if (listing.start == date) {
+                        events.push(_react2.default.createElement(_listing2.default, listing));
+                    }
+                } else {
+                    //not an event
+
+                    //Check if it starts on this day
+                    if (listing.start == date) {
+                        openings.push(_react2.default.createElement(_listing2.default, listing));
+                    }
+                    //Check if it ends on this day
+                    if (listing.end == date) {
+                        closings.push(_react2.default.createElement(_listing2.default, listing));
+                    }
+                }
+            });
+
+            return _react2.default.createElement(
+                _reactIntl.IntlProvider,
+                { locale: 'en' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'day' },
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        _react2.default.createElement(_reactIntl.FormattedDate, { value: date, weekday: 'long', day: 'numeric', month: 'short' })
+                    ),
+                    openings.length > 0 && _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Openings'
+                    ),
+                    openings,
+                    events.length > 0 && _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Events'
+                    ),
+                    events,
+                    closings.length > 0 && _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Closing'
+                    ),
+                    closings
+                )
+            );
+        }
+    }]);
+
+    return DayPage;
+}(_react2.default.Component);
+
+exports.default = DayPage;
+
+/***/ }),
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1261,13 +1581,13 @@ var EventsPage = function (_React$Component) {
 exports.default = EventsPage;
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1284,13 +1604,13 @@ router.get('/', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(8);
+var mongoose = __webpack_require__(6);
 
 // Create the Listings table ==================================
 
@@ -1299,13 +1619,39 @@ var listingSchema = mongoose.Schema({
     type: String,
     start: Date,
     end: Date,
-    venue: String,
-    description: String
+    description: String,
+    neighborhood: Number,
+    venue: {
+        ref: 'Venue',
+        type: String
+    }
 });
 
 //compile the model
 
 module.exports = mongoose.model('List', listingSchema);
 
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var mongoose = __webpack_require__(6);
+
+// Create the Listings table ==================================
+
+var venueSchema = mongoose.Schema({
+    name: String,
+    website: String,
+    neighborhood: Number
+});
+
+//compile the model
+
+module.exports = mongoose.model('Venue', venueSchema);
+
 /***/ })
 /******/ ]);
+//# sourceMappingURL=server.bundle.js.map

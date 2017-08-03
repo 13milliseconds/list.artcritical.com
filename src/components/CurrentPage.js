@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import ListStore from '../stores/ListStore';
 import Listing from './listing';
 import ListActions from '../actions/ListActions';
+import Display from '../actions/displayActions';
 
 
 export default class CurrentPage extends React.Component {
@@ -26,10 +27,23 @@ export default class CurrentPage extends React.Component {
     }
 
     render() {
+        let nh = ''
         let thelist = this.state.currentListings.map((listing) => {
-          return (
-              <Listing {...listing} />
-          )
+            let newNh = listing.venue.neighborhood;
+            if ( newNh !== nh) {
+                nh = newNh
+                newNh = Display.displayCity(nh)
+                return (
+                    <div>
+                        <h2>{newNh}</h2>
+                        <Listing {...listing} />
+                    </div>
+                )
+            } else {
+                return (
+                  <Listing {...listing} />
+              )   
+            }
         });
         
         return ( 

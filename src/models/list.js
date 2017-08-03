@@ -7,8 +7,12 @@ var listingSchema = mongoose.Schema({
     type: String,
     start: Date,
     end: Date,
-    venue: String,
     description: String,
+    neighborhood: Number,
+    venue: {
+        ref: 'Venue',
+        type: String
+      }
 });
 
 //compile the model

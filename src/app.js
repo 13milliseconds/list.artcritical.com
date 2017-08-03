@@ -29,8 +29,9 @@ db.once('open', function() {
     console.log('We are in!');
 });
 
-// Import the list settings
+// Import the Mongoose models
 var List = require('./models/list.js');
+var Venue = require('./models/venue.js');
 
 
 // view engine setup
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Make our db accessible to our router
 app.use(function(req,res,next){
     req.list = List;
+    req.venue = Venue;
     next();
 });
 

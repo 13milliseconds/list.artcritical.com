@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
-import Listing from './listing';
 import ListStore from '../stores/ListStore';
 import ListActions from '../actions/ListActions';
+import DayPage from './daypage';
 
 
 export default class GlancePage extends React.Component {
@@ -26,16 +26,24 @@ export default class GlancePage extends React.Component {
     }
 
     render() {
-        let thelist = this.state.glanceListings.map((listing) => {
-          return (
-              <Listing {...listing} />
-          )
-        });
+        
+        let thelist = this.state.glanceListings
+        
+        let days = [];
+        let today = new Date();
+        today.setHours(0,0,0,0)
+        
+        for (var i=0; i < 7; i++) {
+            let d = new Date();
+            d.setHours(0,0,0,0);
+            d.setDate(today.getDate() + i );
+            days.push(<DayPage glanceListings={thelist} date={d} />);
+        }
         
         return ( 
-            <div className = "home">
+            <div className = "glance">
                 <h2>At a Glance</h2>
-                {thelist}
+                {days}
             </div>
         );
     }

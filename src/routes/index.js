@@ -14,41 +14,70 @@ import ErrorPage from '../components/ErrorPage';
 router.get('/', function (req, res, next) {
     var List = req.list;
     
-    List.find({}, {}, function (e, docs) {
+    List.find({}, {}).
+    sort('neighborhood').
+    populate('venue').
+    exec(function (e, docs) {
         res.render('index', {
             "title": "The List",
             "index": docs
         });
-    });
+    });;
 });
 
 /*
  * GET currentlist to display.
  */
 router.get('/currentlistings', function (req, res) {
-    var List = req.list;
+    var List = req.list,
+        Venue = req.venue;
     
     //Find today's date
     var today = new Date();
     
     console.log('Searching for current events...');
     
-    //Sort by current date
-    List.find({start: {$lt: today}, end: {$gt: today}}, {}, function (e, docs) {
-        console.log('Results: ' + docs);
+    List.find({start: {$lt: today}, end: {$gt: today}}, {}).
+    sort('neighborhood').
+    populate('venue').
+    exec(function (e, docs) {
         res.json(docs);
     });
 });
+
+/*
+ * GET GLANCE list to display.
+ */
+router.get('/glancelistings', function (req, res) {
+    var List = req.list,
+        Venue = req.venue;
+    
+    //Find today's date
+    var today = new Date();
+    var inaWeek = new Date();
+    inaWeek.setDate(inaWeek.getDate() + 7);
+    
+    console.log('Searching for this weeks events...');
+    
+    List.find({$or: [ {start: {$gte: today, $lt: inaWeek}}, {end: {$gte: today, $lt: inaWeek}}]}, {}).
+    sort('neighborhood').
+    populate('venue').
+    exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
 
 /*
  * GET ALL listings ===================
  */
 router.get('/alllistings', function (req, res) {
     var List = req.list;
-    
-    
-    //Sort by current date
-    List.find({}, {}, function (e, docs) {
+
+    List.find().
+    sort('neighborhood').
+    populate('venue').
+    exec(function (e, docs) {
         res.json(docs);
     });
 });

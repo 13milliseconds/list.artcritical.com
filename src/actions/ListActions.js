@@ -44,8 +44,8 @@ class ListActions {
       });
   }
     
-     getGlance() {
-    $.ajax({ url: '/currentlistings' })
+getGlance() {
+    $.ajax({ url: '/glancelistings' })
       .done((data) => {
         this.getGlanceSuccess(data)
       })
