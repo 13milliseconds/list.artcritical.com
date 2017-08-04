@@ -83,7 +83,7 @@ module.exports = require("react-router");
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -97,59 +97,67 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ListActions = function () {
-  function ListActions() {
-    _classCallCheck(this, ListActions);
+    function ListActions() {
+        _classCallCheck(this, ListActions);
 
-    this.generateActions('getCurrentSuccess', 'getCurrentFail', 'getAllSuccess', 'getAllFail', 'getEventsSuccess', 'getEventsFail', 'getGlanceSuccess', 'getGlanceFail');
-  }
-
-  _createClass(ListActions, [{
-    key: 'getCurrent',
-    value: function getCurrent() {
-      var _this = this;
-
-      $.ajax({ url: '/currentlistings' }).done(function (data) {
-        _this.getCurrentSuccess(data);
-      }).fail(function (jqXhr) {
-        _this.getCurrentFail(jqXhr);
-      });
+        this.generateActions('getCurrentSuccess', 'getCurrentFail', 'getAllSuccess', 'getAllFail', 'getEventsSuccess', 'getEventsFail', 'getGlanceSuccess', 'getGlanceFail');
     }
-  }, {
-    key: 'getAll',
-    value: function getAll() {
-      var _this2 = this;
 
-      $.ajax({ url: '/alllistings' }).done(function (data) {
-        _this2.getAllSuccess(data);
-      }).fail(function (jqXhr) {
-        _this2.getAllFail(jqXhr);
-      });
-    }
-  }, {
-    key: 'getEvents',
-    value: function getEvents() {
-      var _this3 = this;
+    _createClass(ListActions, [{
+        key: 'getCurrent',
+        value: function getCurrent() {
+            var _this = this;
 
-      $.ajax({ url: '/currentlistings' }).done(function (data) {
-        _this3.getEventsSuccess(data);
-      }).fail(function (jqXhr) {
-        _this3.getEventsFail(jqXhr);
-      });
-    }
-  }, {
-    key: 'getGlance',
-    value: function getGlance() {
-      var _this4 = this;
+            $.ajax({
+                url: '/currentlistings'
+            }).done(function (data) {
+                _this.getCurrentSuccess(data);
+            }).fail(function (jqXhr) {
+                _this.getCurrentFail(jqXhr);
+            });
+        }
+    }, {
+        key: 'getAll',
+        value: function getAll() {
+            var _this2 = this;
 
-      $.ajax({ url: '/glancelistings' }).done(function (data) {
-        _this4.getGlanceSuccess(data);
-      }).fail(function (jqXhr) {
-        _this4.getGlanceFail(jqXhr);
-      });
-    }
-  }]);
+            $.ajax({
+                url: '/alllistings'
+            }).done(function (data) {
+                _this2.getAllSuccess(data);
+            }).fail(function (jqXhr) {
+                _this2.getAllFail(jqXhr);
+            });
+        }
+    }, {
+        key: 'getEvents',
+        value: function getEvents() {
+            var _this3 = this;
 
-  return ListActions;
+            $.ajax({
+                url: '/eventslistings'
+            }).done(function (data) {
+                _this3.getEventsSuccess(data);
+            }).fail(function (jqXhr) {
+                _this3.getEventsFail(jqXhr);
+            });
+        }
+    }, {
+        key: 'getGlance',
+        value: function getGlance() {
+            var _this4 = this;
+
+            $.ajax({
+                url: '/glancelistings'
+            }).done(function (data) {
+                _this4.getGlanceSuccess(data);
+            }).fail(function (jqXhr) {
+                _this4.getGlanceFail(jqXhr);
+            });
+        }
+    }]);
+
+    return ListActions;
 }();
 
 exports.default = _alt2.default.createActions(ListActions);
@@ -162,7 +170,7 @@ exports.default = _alt2.default.createActions(ListActions);
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -171,7 +179,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(7);
+var _reactIntl = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -182,61 +190,71 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Listing = function (_React$Component) {
-  _inherits(Listing, _React$Component);
+    _inherits(Listing, _React$Component);
 
-  function Listing() {
-    _classCallCheck(this, Listing);
+    function Listing() {
+        _classCallCheck(this, Listing);
 
-    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
-  }
-
-  _createClass(Listing, [{
-    key: 'render',
-    value: function render() {
-
-      return _react2.default.createElement(
-        _reactIntl.IntlProvider,
-        { locale: 'en' },
-        _react2.default.createElement(
-          'div',
-          { className: 'listing' },
-          _react2.default.createElement(
-            'p',
-            null,
-            this.props.name,
-            ' at ',
-            this.props.venue.name
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.start, format: 'narrow' }),
-            ' to ',
-            _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.end, format: 'short' })
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            this.props.description
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            this.props.venue.address,
-            ', ',
-            this.props.venue.city
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            this.props.neighborhood
-          )
-        )
-      );
+        return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
     }
-  }]);
 
-  return Listing;
+    _createClass(Listing, [{
+        key: 'render',
+        value: function render() {
+
+            var end;
+            if (this.props.event !== true) {
+                end = _react2.default.createElement(
+                    'span',
+                    null,
+                    'to ',
+                    _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.end, format: 'short' })
+                );
+            }
+
+            return _react2.default.createElement(
+                _reactIntl.IntlProvider,
+                { locale: 'en' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'listing' },
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        this.props.name,
+                        ' at ',
+                        this.props.venue.name
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.start, format: 'narrow' }),
+                        ' ',
+                        end
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        this.props.description
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        this.props.venue.address,
+                        ', ',
+                        this.props.venue.city
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        this.props.neighborhood
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Listing;
 }(_react2.default.Component);
 
 exports.default = Listing;
@@ -288,8 +306,8 @@ var ListStore = function () {
             this.allListings = data;
         }
     }, {
-        key: 'onGetEventSuccess',
-        value: function onGetEventSuccess(data) {
+        key: 'onGetEventsSuccess',
+        value: function onGetEventsSuccess(data) {
             this.eventsListings = data;
         }
     }, {
@@ -338,13 +356,13 @@ module.exports = require("express");
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("react-intl");
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-intl");
+module.exports = require("mongoose");
 
 /***/ }),
 /* 8 */
@@ -567,7 +585,7 @@ var users = __webpack_require__(30);
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 
 var url = process.env.MONGOLAB_URI;
 
@@ -802,6 +820,7 @@ router.get('/currentlistings', function (req, res) {
 
     //Find today's date
     var today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     console.log('Searching for current events...');
 
@@ -819,12 +838,32 @@ router.get('/glancelistings', function (req, res) {
 
     //Find today's date
     var today = new Date();
+    today.setHours(0, 0, 0, 0);
     var inaWeek = new Date();
     inaWeek.setDate(inaWeek.getDate() + 7);
+    inaWeek.setHours(0, 0, 0, 0);
 
     console.log('Searching for this weeks events...');
 
     List.find({ $or: [{ start: { $gte: today, $lt: inaWeek } }, { end: { $gte: today, $lt: inaWeek } }] }, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+/*
+ * GET EVENTS list to display.
+ */
+router.get('/eventslistings', function (req, res) {
+    var List = req.list,
+        Venue = req.venue;
+
+    //Find today's date
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    console.log('Searching for the next events...');
+
+    List.find({ $and: [{ start: { $gte: today } }, { event: true }] }, {}).sort('start').populate('venue').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -1398,7 +1437,7 @@ var _listing = __webpack_require__(3);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _reactIntl = __webpack_require__(7);
+var _reactIntl = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1518,6 +1557,8 @@ var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
+var _reactIntl = __webpack_require__(6);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1558,8 +1599,28 @@ var EventsPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var oldDate = void 0;
             var thelist = this.state.eventsListings.map(function (listing) {
-                return _react2.default.createElement(_listing2.default, listing);
+                var newDate = listing.start;
+                if (newDate !== oldDate) {
+                    oldDate = newDate;
+                    return _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'h2',
+                            null,
+                            _react2.default.createElement(
+                                _reactIntl.IntlProvider,
+                                { locale: 'en' },
+                                _react2.default.createElement(_reactIntl.FormattedDate, { value: newDate, format: 'narrow' })
+                            )
+                        ),
+                        _react2.default.createElement(_listing2.default, listing)
+                    );
+                } else {
+                    return _react2.default.createElement(_listing2.default, listing);
+                }
             });
 
             return _react2.default.createElement(
@@ -1610,7 +1671,7 @@ module.exports = router;
 "use strict";
 
 
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
 
@@ -1638,7 +1699,7 @@ module.exports = mongoose.model('List', listingSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
 

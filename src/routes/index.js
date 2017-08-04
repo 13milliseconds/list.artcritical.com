@@ -34,6 +34,7 @@ router.get('/currentlistings', function (req, res) {
     
     //Find today's date
     var today = new Date();
+    today.setHours(0,0,0,0);
     
     console.log('Searching for current events...');
     
@@ -54,13 +55,37 @@ router.get('/glancelistings', function (req, res) {
     
     //Find today's date
     var today = new Date();
+    today.setHours(0,0,0,0);
     var inaWeek = new Date();
     inaWeek.setDate(inaWeek.getDate() + 7);
+    inaWeek.setHours(0,0,0,0);
     
     console.log('Searching for this weeks events...');
     
     List.find({$or: [ {start: {$gte: today, $lt: inaWeek}}, {end: {$gte: today, $lt: inaWeek}}]}, {}).
     sort('neighborhood').
+    populate('venue').
+    exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+
+/*
+ * GET EVENTS list to display.
+ */
+router.get('/eventslistings', function (req, res) {
+    var List = req.list,
+        Venue = req.venue;
+    
+    //Find today's date
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    
+    console.log('Searching for the next events...');
+    
+    List.find({$and: [{start: {$gte: today}}, {event: true}]}, {}).
+    sort('start').
     populate('venue').
     exec(function (e, docs) {
         res.json(docs);

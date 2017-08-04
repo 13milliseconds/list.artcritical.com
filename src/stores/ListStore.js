@@ -16,7 +16,7 @@ class ListStore {
     onGetAllSuccess(data) {
         this.allListings = data;
     }
-    onGetEventSuccess(data) {
+    onGetEventsSuccess(data) {
         this.eventsListings = data;
     }
     onGetGlanceSuccess(data) {
