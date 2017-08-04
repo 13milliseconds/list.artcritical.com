@@ -6,7 +6,7 @@ import {IntlProvider, FormattedDate} from 'react-intl';
 export default class DayPage extends React.Component {
 
     render() {
-        let date = this.props.date.toISOString()
+        let date = this.props.label.toISOString()
         
         let openings = []
         let events = []
@@ -38,17 +38,16 @@ export default class DayPage extends React.Component {
         
         
         return ( 
-             <IntlProvider locale="en">
-                <div className = "day">
-                    <h2><FormattedDate value={date} weekday="long" day="numeric" month="short" /></h2>
+            <div className = "day">
                     { openings.length > 0 && <h3>Openings</h3>}
                         {openings}
                     { events.length > 0 && <h3>Events</h3> }
                         {events}
                     { closings.length > 0 && <h3>Closing</h3> }
                         {closings}
+                        
+                    { (closings.length + events.length + openings.length) == 0 && <h3>Nothing happening today!</h3> }
             </div>
-            </IntlProvider>
         );
     }
 }

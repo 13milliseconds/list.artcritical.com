@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import ListStore from '../stores/ListStore';
 import ListActions from '../actions/ListActions';
 import DayPage from './daypage';
+import Tabs from './tabs';
 
 
 export default class GlancePage extends React.Component {
@@ -37,13 +38,15 @@ export default class GlancePage extends React.Component {
             let d = new Date();
             d.setHours(0,0,0,0);
             d.setDate(today.getDate() + i );
-            days.push(<DayPage glanceListings={thelist} date={d} />);
+            days.push(<DayPage glanceListings={thelist} label={d} />);
         }
         
         return ( 
             <div className = "glance">
-                <h2>At a Glance</h2>
-                {days}
+              <h2>At a Glance</h2>
+                <Tabs>
+                    {days}
+                </Tabs>
             </div>
         );
     }
