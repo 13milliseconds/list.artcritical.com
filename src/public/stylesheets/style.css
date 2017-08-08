@@ -73,3 +73,36 @@ header a:hover{
 .glance li a.active{
     border-bottom: 2px solid red;
 }
+
+label{
+    display: block!important;
+    padding-bottom: 20px;
+}
+label textarea, label input{
+    width: 100%;
+}
+
+#newlistingForm, #newlistingDemo{
+    float: left;
+    width: 50%;
+}
+
+#newlistingForm{
+    padding-right: 50px;
+}
+
+#newlistingDemo .listing{
+    width: 100%;
+}
+
+.venueName{
+    font-weight: bold
+}
+
+#ListingList, #ListingInfo{
+    width: 50%;
+    float: left;
+}
+#ListingList{
+    padding-right: 50px;
+}

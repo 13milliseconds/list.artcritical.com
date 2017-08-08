@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -83,12 +83,112 @@ module.exports = require("react-router");
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIntl = __webpack_require__(5);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Listing = function (_React$Component) {
+  _inherits(Listing, _React$Component);
+
+  function Listing() {
+    _classCallCheck(this, Listing);
+
+    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
+  }
+
+  _createClass(Listing, [{
+    key: 'render',
+    value: function render() {
+
+      var end;
+      if (this.props.event !== true && this.props.end !== '') {
+        end = _react2.default.createElement(
+          'span',
+          null,
+          'to ',
+          _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.end, format: 'short' })
+        );
+      }
+
+      return _react2.default.createElement(
+        _reactIntl.IntlProvider,
+        { locale: 'en' },
+        _react2.default.createElement(
+          'div',
+          { className: 'listing' },
+          _react2.default.createElement(
+            'p',
+            null,
+            this.props.name,
+            ' ',
+            this.props.venue.name && ' at ',
+            _react2.default.createElement(
+              'span',
+              { className: 'venueName' },
+              this.props.venue.name
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            this.props.start !== '' && _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.start, format: 'narrow' }),
+            ' ',
+            end
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            this.props.description
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            this.props.venue.address
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            this.props.neighborhood
+          )
+        )
+      );
+    }
+  }]);
+
+  return Listing;
+}(_react2.default.Component);
+
+exports.default = Listing;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(8);
+var _alt = __webpack_require__(9);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -109,7 +209,7 @@ var ListActions = function () {
             var _this = this;
 
             $.ajax({
-                url: '/currentlistings'
+                url: '/list/currentlistings'
             }).done(function (data) {
                 _this.getCurrentSuccess(data);
             }).fail(function (jqXhr) {
@@ -122,7 +222,7 @@ var ListActions = function () {
             var _this2 = this;
 
             $.ajax({
-                url: '/alllistings'
+                url: '/list/alllistings'
             }).done(function (data) {
                 _this2.getAllSuccess(data);
             }).fail(function (jqXhr) {
@@ -135,7 +235,7 @@ var ListActions = function () {
             var _this3 = this;
 
             $.ajax({
-                url: '/eventslistings'
+                url: '/list/eventslistings'
             }).done(function (data) {
                 _this3.getEventsSuccess(data);
             }).fail(function (jqXhr) {
@@ -148,7 +248,7 @@ var ListActions = function () {
             var _this4 = this;
 
             $.ajax({
-                url: '/glancelistings'
+                url: '/list/glancelistings'
             }).done(function (data) {
                 _this4.getGlanceSuccess(data);
             }).fail(function (jqXhr) {
@@ -163,110 +263,19 @@ var ListActions = function () {
 exports.default = _alt2.default.createActions(ListActions);
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 4 */
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactIntl = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Listing = function (_React$Component) {
-    _inherits(Listing, _React$Component);
-
-    function Listing() {
-        _classCallCheck(this, Listing);
-
-        return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
-    }
-
-    _createClass(Listing, [{
-        key: 'render',
-        value: function render() {
-
-            var end;
-            if (this.props.event !== true) {
-                end = _react2.default.createElement(
-                    'span',
-                    null,
-                    'to ',
-                    _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.end, format: 'short' })
-                );
-            }
-
-            return _react2.default.createElement(
-                _reactIntl.IntlProvider,
-                { locale: 'en' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'listing' },
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        this.props.name,
-                        ' at ',
-                        this.props.venue.name
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.start, format: 'narrow' }),
-                        ' ',
-                        end
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        this.props.description
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        this.props.venue.address,
-                        ', ',
-                        this.props.venue.city
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        this.props.neighborhood
-                    )
-                )
-            );
-        }
-    }]);
-
-    return Listing;
-}(_react2.default.Component);
-
-exports.default = Listing;
+module.exports = require("express");
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-intl");
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -278,11 +287,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(8);
+var _alt = __webpack_require__(9);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-var _ListActions = __webpack_require__(2);
+var _ListActions = __webpack_require__(3);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
@@ -353,38 +362,7 @@ var ListStore = function () {
 exports.default = _alt2.default.createStore(ListStore);
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("express");
-
-/***/ }),
 /* 7 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _alt = __webpack_require__(24);
-
-var _alt2 = _interopRequireDefault(_alt);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _alt2.default();
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -509,11 +487,121 @@ module.exports = {
         } else {
             return "Other";
         }
+    },
+
+    saveListing: function saveListing(newListing) {
+
+        var eventString = JSON.stringify(newListing);
+
+        // Use AJAX to post the object to our adduser service
+        $.ajax({
+            type: 'POST',
+            data: eventString,
+            url: '/list/add',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8"
+        }).done(function (response) {
+
+            // Check for successful (blank) response
+            if (response.msg === '') {
+
+                console.log('Success');
+            } else {
+                console.log(response);
+                // If something goes wrong, alert the error message that our service returned
+                alert('Error: ' + response.msg.message);
+            }
+        });
     }
 };
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _alt = __webpack_require__(26);
+
+var _alt2 = _interopRequireDefault(_alt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _alt2.default();
+
+/***/ }),
 /* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dates");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSelect = __webpack_require__(38);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DateSingle = function (_React$Component) {
+    _inherits(DateSingle, _React$Component);
+
+    function DateSingle(props) {
+        _classCallCheck(this, DateSingle);
+
+        return _possibleConstructorReturn(this, (DateSingle.__proto__ || Object.getPrototypeOf(DateSingle)).call(this, props));
+    }
+
+    _createClass(DateSingle, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(_reactSelect.AsyncCreatable, {
+                name: 'venue',
+                value: this.props.value,
+                loadOptions: this.props.getOptions,
+                onChange: this.props.handleSelectChange
+            });
+        }
+    }]);
+
+    return DateSingle;
+}(_react2.default.Component);
+
+exports.default = DateSingle;
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -564,28 +652,29 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var express = __webpack_require__(6);
-var path = __webpack_require__(12);
-var favicon = __webpack_require__(13);
-var logger = __webpack_require__(14);
-var cookieParser = __webpack_require__(15);
-var bodyParser = __webpack_require__(16);
-var http = __webpack_require__(17);
-var debug = __webpack_require__(18)('artcritical-list:server');
+var express = __webpack_require__(4);
+var path = __webpack_require__(14);
+var favicon = __webpack_require__(15);
+var logger = __webpack_require__(16);
+var cookieParser = __webpack_require__(17);
+var bodyParser = __webpack_require__(18);
+var http = __webpack_require__(19);
+var debug = __webpack_require__(20)('artcritical-list:server');
 
-var index = __webpack_require__(19);
-var users = __webpack_require__(32);
+var index = __webpack_require__(21);
+var venues = __webpack_require__(44);
+var listings = __webpack_require__(45);
 
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(8);
 
 var url = process.env.MONGOLAB_URI;
 
@@ -601,8 +690,8 @@ db.once('open', function () {
 });
 
 // Import the Mongoose models
-var List = __webpack_require__(33);
-var Venue = __webpack_require__(34);
+var List = __webpack_require__(46);
+var Venue = __webpack_require__(47);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -623,8 +712,9 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use('/venues', venues);
+app.use('/list', listings);
 app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -725,49 +815,49 @@ function onListening() {
 /* WEBPACK VAR INJECTION */}.call(exports, "src"))
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("debug");
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -777,148 +867,60 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(20);
+var _server = __webpack_require__(22);
 
 var _reactRouter = __webpack_require__(1);
 
-var _routes = __webpack_require__(21);
+var _routes = __webpack_require__(23);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _ErrorPage = __webpack_require__(10);
+var _ErrorPage = __webpack_require__(12);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var express = __webpack_require__(6);
+var express = __webpack_require__(4);
 var router = express.Router();
-var JSX = __webpack_require__(31).install();
+var JSX = __webpack_require__(42).install();
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-
-/* GET home page. */
-router.get('/', function (req, res, next) {
-    var List = req.list;
-
-    List.find({}, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
-        res.render('index', {
-            "title": "The List",
-            "index": docs
-        });
-    });;
-});
-
-/*
- * GET currentlist to display.
- */
-router.get('/currentlistings', function (req, res) {
-    var List = req.list,
-        Venue = req.venue;
-
-    //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    console.log('Searching for current events...');
-
-    List.find({ start: { $lt: today }, end: { $gt: today } }, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
-        res.json(docs);
-    });
-});
-
-/*
- * GET GLANCE list to display.
- */
-router.get('/glancelistings', function (req, res) {
-    var List = req.list,
-        Venue = req.venue;
-
-    //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    var inaWeek = new Date();
-    inaWeek.setDate(inaWeek.getDate() + 7);
-    inaWeek.setHours(0, 0, 0, 0);
-
-    console.log('Searching for this weeks events...');
-
-    List.find({ $or: [{ start: { $gte: today, $lt: inaWeek } }, { end: { $gte: today, $lt: inaWeek } }] }, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
-        res.json(docs);
-    });
-});
-
-/*
- * GET EVENTS list to display.
- */
-router.get('/eventslistings', function (req, res) {
-    var List = req.list,
-        Venue = req.venue;
-
-    //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    console.log('Searching for the next events...');
-
-    List.find({ $and: [{ start: { $gte: today } }, { event: true }] }, {}).sort('start').populate('venue').exec(function (e, docs) {
-        res.json(docs);
-    });
-});
-
-/*
- * GET ALL listings ===================
- */
-router.get('/alllistings', function (req, res) {
-    var List = req.list;
-
-    List.find().sort('neighborhood').populate('venue').exec(function (e, docs) {
-        res.json(docs);
-    });
-});
+var hist = __webpack_require__(43);
 
 router.get('*', function (req, res) {
-    (0, _reactRouter.match)({ routes: _routes2.default, location: req.url }, function (err, redirect, props) {
-        // in here we can make some decisions all at once
-        if (err) {
-            // there was an error somewhere during route matching
-            return res.status(500).send(err.message);
-        }
-
-        if (redirect) {
-            // we haven't talked about `onEnter` hooks on routes, but before a
-            // route is entered, it can redirect. Here we handle on the server.
-            return res.redirect(redirect.pathname + redirect.search);
-        }
-
-        var markup = void 0;
-
-        if (props) {
-            // if we got props then we matched a route and can render
-            markup = (0, _server.renderToString)(_react2.default.createElement(_reactRouter.RouterContext, props));
-        } else {
-            // no errors, no redirect, we just didn't match anything
-            markup = (0, _server.renderToString)(_react2.default.createElement(_ErrorPage2.default, null));
-            res.status(404);
-        }
-
-        // render the index template with the embedded React markup
-        return res.render('index', { markup: markup });
-    });
+  var location = hist.createLocation(req.path);
+  (0, _reactRouter.match)({
+    routes: _routes2.default,
+    location: location
+  }, function (err, redirectLocation, renderProps) {
+    if (redirectLocation) {
+      res.redirect(301, redirectLocation.pathname + redirectLocation.search);
+    } else if (err) {
+      console.log(err);
+      next(err);
+      // res.send(500, error.message);
+    } else if (renderProps === null) {
+      res.status(404).send('Not found');
+    } else {
+      var markup = (0, _server.renderToString)(_react2.default.createElement(_reactRouter.RouterContext, renderProps));
+      res.render('index', { markup: markup });
+    }
+  });
 });
 
 module.exports = router;
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -934,27 +936,43 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _layout = __webpack_require__(22);
+var _layout = __webpack_require__(24);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _IndexPage = __webpack_require__(23);
+var _IndexPage = __webpack_require__(25);
 
 var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
-var _CurrentPage = __webpack_require__(25);
+var _CurrentPage = __webpack_require__(27);
 
 var _CurrentPage2 = _interopRequireDefault(_CurrentPage);
 
-var _GlancePage = __webpack_require__(26);
+var _GlancePage = __webpack_require__(28);
 
 var _GlancePage2 = _interopRequireDefault(_GlancePage);
 
-var _EventsPage = __webpack_require__(30);
+var _EventsPage = __webpack_require__(32);
 
 var _EventsPage2 = _interopRequireDefault(_EventsPage);
 
-var _ErrorPage = __webpack_require__(10);
+var _AdminPage = __webpack_require__(33);
+
+var _AdminPage2 = _interopRequireDefault(_AdminPage);
+
+var _NewListing = __webpack_require__(34);
+
+var _NewListing2 = _interopRequireDefault(_NewListing);
+
+var _EditListings = __webpack_require__(39);
+
+var _EditListings2 = _interopRequireDefault(_EditListings);
+
+var _Account = __webpack_require__(41);
+
+var _Account2 = _interopRequireDefault(_Account);
+
+var _ErrorPage = __webpack_require__(12);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -967,13 +985,22 @@ var routes = _react2.default.createElement(
   _react2.default.createElement(_reactRouter.Route, { path: 'current', component: _CurrentPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'ataglance', component: _GlancePage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'events', component: _EventsPage2.default }),
+  _react2.default.createElement(
+    _reactRouter.Route,
+    { path: 'admin/', component: _AdminPage2.default },
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _NewListing2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'edit', component: _EditListings2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'account', component: _Account2.default })
+  ),
   _react2.default.createElement(_reactRouter.Route, { path: '*', component: _ErrorPage2.default })
 );
+// Error Components
 
+//Admin Components
 exports.default = routes;
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1041,6 +1068,11 @@ var Layout = function (_React$Component) {
             _reactRouter.Link,
             { to: '/events', activeClassName: 'active' },
             'Events'
+          ),
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/admin', activeClassName: 'active' },
+            'Admin'
           )
         ),
         _react2.default.createElement(
@@ -1079,7 +1111,7 @@ var Layout = function (_React$Component) {
 exports.default = Layout;
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1097,19 +1129,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _listing = __webpack_require__(3);
+var _listing = __webpack_require__(2);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _ListStore = __webpack_require__(5);
+var _ListStore = __webpack_require__(6);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _ListActions = __webpack_require__(2);
+var _ListActions = __webpack_require__(3);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(9);
+var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -1194,13 +1226,13 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("alt");
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1218,19 +1250,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _ListStore = __webpack_require__(5);
+var _ListStore = __webpack_require__(6);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _listing = __webpack_require__(3);
+var _listing = __webpack_require__(2);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _ListActions = __webpack_require__(2);
+var _ListActions = __webpack_require__(3);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(9);
+var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -1314,7 +1346,7 @@ var CurrentPage = function (_React$Component) {
 exports.default = CurrentPage;
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1332,19 +1364,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _ListStore = __webpack_require__(5);
+var _ListStore = __webpack_require__(6);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _ListActions = __webpack_require__(2);
+var _ListActions = __webpack_require__(3);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _daypage = __webpack_require__(27);
+var _daypage = __webpack_require__(29);
 
 var _daypage2 = _interopRequireDefault(_daypage);
 
-var _tabs = __webpack_require__(28);
+var _tabs = __webpack_require__(30);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -1425,7 +1457,7 @@ var GlancePage = function (_React$Component) {
 exports.default = GlancePage;
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1441,11 +1473,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _listing = __webpack_require__(3);
+var _listing = __webpack_require__(2);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _reactIntl = __webpack_require__(4);
+var _reactIntl = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1531,7 +1563,7 @@ var DayPage = function (_React$Component) {
 exports.default = DayPage;
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1547,9 +1579,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(4);
+var _reactIntl = __webpack_require__(5);
 
-var _propTypes = __webpack_require__(29);
+var _propTypes = __webpack_require__(31);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1652,13 +1684,13 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1676,19 +1708,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _ListStore = __webpack_require__(5);
+var _ListStore = __webpack_require__(6);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _listing = __webpack_require__(3);
+var _listing = __webpack_require__(2);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _ListActions = __webpack_require__(2);
+var _ListActions = __webpack_require__(3);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(4);
+var _reactIntl = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1773,36 +1805,953 @@ var EventsPage = function (_React$Component) {
 exports.default = EventsPage;
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports) {
-
-module.exports = require("node-jsx");
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var express = __webpack_require__(6);
-var router = express.Router();
-
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-});
-
-module.exports = router;
-
-/***/ }),
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(7);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var IndexPage = function (_React$Component) {
+    _inherits(IndexPage, _React$Component);
+
+    function IndexPage() {
+        _classCallCheck(this, IndexPage);
+
+        return _possibleConstructorReturn(this, (IndexPage.__proto__ || Object.getPrototypeOf(IndexPage)).apply(this, arguments));
+    }
+
+    _createClass(IndexPage, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'admin' },
+                _react2.default.createElement(
+                    'header',
+                    null,
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Admin page'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.IndexLink,
+                        { to: '/admin', activeClassName: 'active' },
+                        'New Listing'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { to: '/admin/edit', activeClassName: 'active' },
+                        'Edit Listing'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { to: '/admin/account', activeClassName: 'active' },
+                        'Account'
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'admin-content' },
+                    this.props.children
+                )
+            );
+        }
+    }]);
+
+    return IndexPage;
+}(_react2.default.Component);
+
+exports.default = IndexPage;
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ListingForm = __webpack_require__(35);
+
+var _ListingForm2 = _interopRequireDefault(_ListingForm);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NewListing = function (_React$Component) {
+    _inherits(NewListing, _React$Component);
+
+    function NewListing() {
+        _classCallCheck(this, NewListing);
+
+        return _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).apply(this, arguments));
+    }
+
+    _createClass(NewListing, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'new' },
+                _react2.default.createElement(
+                    'h3',
+                    null,
+                    'Create a new listing'
+                ),
+                _react2.default.createElement(_ListingForm2.default, null)
+            );
+        }
+    }]);
+
+    return NewListing;
+}(_react2.default.Component);
+
+exports.default = NewListing;
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _listing = __webpack_require__(2);
+
+var _listing2 = _interopRequireDefault(_listing);
+
+var _formDateRange = __webpack_require__(36);
+
+var _formDateRange2 = _interopRequireDefault(_formDateRange);
+
+var _formDateSingle = __webpack_require__(37);
+
+var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
+
+var _formSelect = __webpack_require__(11);
+
+var _formSelect2 = _interopRequireDefault(_formSelect);
+
+var _displayActions = __webpack_require__(7);
+
+var _displayActions2 = _interopRequireDefault(_displayActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ListingForm = function (_React$Component) {
+    _inherits(ListingForm, _React$Component);
+
+    function ListingForm(props) {
+        _classCallCheck(this, ListingForm);
+
+        var _this = _possibleConstructorReturn(this, (ListingForm.__proto__ || Object.getPrototypeOf(ListingForm)).call(this, props));
+
+        _this.state = {
+            name: '',
+            startDate: '',
+            endDate: '',
+            venue: { label: '', value: '' },
+            description: '',
+            venueInfo: { address: '' },
+            event: false
+        };
+
+        _this.onDatesChange = _this.onDatesChange.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.resetListState = _this.resetListState.bind(_this);
+        _this.handleSelectChange = _this.handleSelectChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
+    }
+
+    _createClass(ListingForm, [{
+        key: 'resetListState',
+        value: function resetListState() {
+            this.setState({
+                name: '',
+                startDate: '',
+                endDate: '',
+                venue: { label: '', value: '' },
+                description: '',
+                venueInfo: {}
+            });
+        }
+
+        //Update values of inputs
+
+    }, {
+        key: 'handleChange',
+        value: function handleChange(event) {
+            var target = event.target;
+            var value = target.type === 'checkbox' ? target.checked : target.value;
+            var name = target.name;
+            this.setState(_defineProperty({}, name, value));
+        }
+
+        //Search as the user types in select box
+
+    }, {
+        key: 'handleSelectChange',
+        value: function handleSelectChange(data) {
+            var _this2 = this;
+
+            this.setState({
+                venue: {
+                    label: data.label,
+                    value: data.value
+                }
+            });
+            if (data.label == data.value) {
+                // Create a new venue
+
+            } else {
+                //Fetch all the venue info
+                return fetch('/venues/getinfo/' + data.value).then(function (response) {
+                    return response.json();
+                }).then(function (json) {
+                    _this2.setState({
+                        venueInfo: json[0]
+                    });
+                });
+            }
+        }
+
+        // Add the listing to the database
+
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            var newEvent = {
+                name: this.state.name,
+                start: this.state.startDate,
+                end: this.state.endDate,
+                description: this.state.description,
+                neighborhood: this.state.venueInfo.neighborhood,
+                venue: this.state.venue.value
+            };
+            _displayActions2.default.saveListing(newEvent);
+            this.resetListState();
+            event.preventDefault();
+        }
+
+        //Handle change of Dates
+
+    }, {
+        key: 'onDatesChange',
+        value: function onDatesChange(value) {
+            this.setState(value);
+        }
+    }, {
+        key: 'saveNewEvent',
+        value: function saveNewEvent(newEvent) {}
+    }, {
+        key: 'render',
+        value: function render() {
+
+            //how ot get option for select element
+            var getOptions = function getOptions(input) {
+                return fetch('/venues/find/' + input).then(function (response) {
+                    return response.json();
+                }).then(function (json) {
+                    return { options: json };
+                });
+            };
+
+            var listing = {
+                name: this.state.name,
+                start: this.state.startDate,
+                end: this.state.endDate,
+                venue: {
+                    _id: this.state.venue.value,
+                    name: this.state.venue.label,
+                    address: this.state.venueInfo.address
+                },
+                description: this.state.description,
+                neighborhood: this.state.venueInfo.neighborhood,
+                event: this.state.event
+            };
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'div',
+                    { id: 'newlistingForm' },
+                    _react2.default.createElement(
+                        'form',
+                        { onSubmit: this.handleSubmit },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            ' Name:',
+                            _react2.default.createElement('input', { name: 'name', placeholder: 'Event name', type: 'text', value: this.state.name, onChange: this.handleChange })
+                        ),
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            ' Venue:',
+                            _react2.default.createElement(_formSelect2.default, { value: this.state.venue, handleSelectChange: this.handleSelectChange, getOptions: getOptions })
+                        ),
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            ' Dates',
+                            this.state.event ? //If an event
+                            _react2.default.createElement(_formDateSingle2.default, { startDate: this.state.startDate, onDatesChange: this.onDatesChange }) : // If not an event
+                            _react2.default.createElement(_formDateRange2.default, { startDate: this.state.startDate, endDate: this.state.endDate, onDatesChange: this.onDatesChange }),
+                            _react2.default.createElement('input', { type: 'checkbox', name: 'event', onChange: this.handleChange }),
+                            ' Event'
+                        ),
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            ' Description:',
+                            _react2.default.createElement('textarea', { name: 'description', type: 'text', value: this.state.description, onChange: this.handleChange })
+                        ),
+                        _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { id: 'newlistingDemo' },
+                    _react2.default.createElement(_listing2.default, listing)
+                )
+            );
+        }
+    }]);
+
+    return ListingForm;
+}(_react2.default.Component);
+
+exports.default = ListingForm;
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDates = __webpack_require__(10);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DateRange = function (_React$Component) {
+    _inherits(DateRange, _React$Component);
+
+    function DateRange(props) {
+        _classCallCheck(this, DateRange);
+
+        var _this = _possibleConstructorReturn(this, (DateRange.__proto__ || Object.getPrototypeOf(DateRange)).call(this, props));
+
+        _this.state = {
+            focusedInput: ''
+        };
+        return _this;
+    }
+
+    _createClass(DateRange, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(_reactDates.DateRangePicker, {
+                startDate: this.props.startDate,
+                endDate: this.props.endDate,
+                isOutsideRange: function isOutsideRange() {
+                    return false;
+                },
+                onDatesChange: function onDatesChange(_ref) {
+                    var startDate = _ref.startDate,
+                        endDate = _ref.endDate;
+                    return _this2.props.onDatesChange({ startDate: startDate, endDate: endDate });
+                } // PropTypes.func.isRequired,
+                , focusedInput: this.state.focusedInput // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                , onFocusChange: function onFocusChange(focusedInput) {
+                    return _this2.setState({ focusedInput: focusedInput });
+                } // PropTypes.func.isRequired,
+            });
+        }
+    }]);
+
+    return DateRange;
+}(_react2.default.Component);
+
+exports.default = DateRange;
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDates = __webpack_require__(10);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DateSingle = function (_React$Component) {
+    _inherits(DateSingle, _React$Component);
+
+    function DateSingle(props) {
+        _classCallCheck(this, DateSingle);
+
+        var _this = _possibleConstructorReturn(this, (DateSingle.__proto__ || Object.getPrototypeOf(DateSingle)).call(this, props));
+
+        _this.state = {
+            focusedInput: ''
+        };
+        return _this;
+    }
+
+    _createClass(DateSingle, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(_reactDates.SingleDatePicker, {
+                id: 'startDate',
+                isOutsideRange: function isOutsideRange() {
+                    return false;
+                },
+                date: this.props.startDate,
+                onDateChange: function onDateChange(startDate) {
+                    return _this2.props.onDatesChange(startDate);
+                } // PropTypes.func.isRequired
+                , focused: this.state.focused // PropTypes.bool
+                , onFocusChange: function onFocusChange(_ref) {
+                    var focused = _ref.focused;
+                    return _this2.setState({ focused: focused });
+                } // PropTypes.func.isRequired
+            });
+        }
+    }]);
+
+    return DateSingle;
+}(_react2.default.Component);
+
+exports.default = DateSingle;
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-select");
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ListingEdit = __webpack_require__(40);
+
+var _ListingEdit2 = _interopRequireDefault(_ListingEdit);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var IndexPage = function (_React$Component) {
+    _inherits(IndexPage, _React$Component);
+
+    function IndexPage() {
+        _classCallCheck(this, IndexPage);
+
+        return _possibleConstructorReturn(this, (IndexPage.__proto__ || Object.getPrototypeOf(IndexPage)).apply(this, arguments));
+    }
+
+    _createClass(IndexPage, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'edit' },
+                _react2.default.createElement(
+                    'h3',
+                    null,
+                    'Edit Listings'
+                ),
+                _react2.default.createElement(_ListingEdit2.default, null)
+            );
+        }
+    }]);
+
+    return IndexPage;
+}(_react2.default.Component);
+
+exports.default = IndexPage;
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _listing = __webpack_require__(2);
+
+var _listing2 = _interopRequireDefault(_listing);
+
+var _formSelect = __webpack_require__(11);
+
+var _formSelect2 = _interopRequireDefault(_formSelect);
+
+var _displayActions = __webpack_require__(7);
+
+var _displayActions2 = _interopRequireDefault(_displayActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ListingEdit = function (_React$Component) {
+    _inherits(ListingEdit, _React$Component);
+
+    function ListingEdit(props) {
+        _classCallCheck(this, ListingEdit);
+
+        var _this = _possibleConstructorReturn(this, (ListingEdit.__proto__ || Object.getPrototypeOf(ListingEdit)).call(this, props));
+
+        _this.state = {
+            listing: ""
+        };
+
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
+    }
+
+    // Add the listing to the database
+
+
+    _createClass(ListingEdit, [{
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {}
+    }, {
+        key: 'handleSelectChange',
+        value: function handleSelectChange() {}
+    }, {
+        key: 'render',
+        value: function render() {
+
+            //how ot get option for select element
+            var getOptions = function getOptions(input) {
+                return fetch('/list/find/' + input).then(function (response) {
+                    return response.json();
+                }).then(function (json) {
+                    return { options: json };
+                });
+            };
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'div',
+                    { id: 'ListingList' },
+                    _react2.default.createElement(
+                        'form',
+                        { onSubmit: this.handleSubmit },
+                        _react2.default.createElement(_formSelect2.default, { value: this.state.listing, handleSelectChange: this.handleSelectChange, getOptions: getOptions }),
+                        _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+                    )
+                ),
+                _react2.default.createElement('div', { id: 'ListingInfo' })
+            );
+        }
+    }]);
+
+    return ListingEdit;
+}(_react2.default.Component);
+
+exports.default = ListingEdit;
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var IndexPage = function (_React$Component) {
+    _inherits(IndexPage, _React$Component);
+
+    function IndexPage() {
+        _classCallCheck(this, IndexPage);
+
+        return _possibleConstructorReturn(this, (IndexPage.__proto__ || Object.getPrototypeOf(IndexPage)).apply(this, arguments));
+    }
+
+    _createClass(IndexPage, [{
+        key: "render",
+        value: function render() {
+
+            return _react2.default.createElement(
+                "div",
+                { className: "account" },
+                _react2.default.createElement(
+                    "h3",
+                    null,
+                    "Your Account"
+                )
+            );
+        }
+    }]);
+
+    return IndexPage;
+}(_react2.default.Component);
+
+exports.default = IndexPage;
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+module.exports = require("node-jsx");
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+module.exports = require("history");
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var express = __webpack_require__(4);
+var router = express.Router();
+
+/* GET All Venues */
+router.get('/', function (req, res, next) {
+    var Venue = req.venue;
+
+    Venue.find().sort('name').exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+/* GET  a set of venue */
+router.get('/find/:venue_id', function (req, res, next) {
+    var Venue = req.venue;
+
+    console.log('Looking for venue ' + req.params.venue_id);
+
+    var regexp = new RegExp("^" + req.params.venue_id, "i");
+    Venue.find({ name: regexp }, function (err, venue) {
+        if (err) res.send(err);
+        var venues = [];
+        venue.map(function (thevenue) {
+            venues.push({
+                value: thevenue._id,
+                label: thevenue.name
+            });
+        });
+
+        res.json(venues);
+    });
+});
+
+/* GET info for one venue */
+router.get('/getinfo/:venue_id', function (req, res, next) {
+    var Venue = req.venue;
+
+    Venue.find({ _id: req.params.venue_id }, function (err, venue) {
+        if (err) res.send(err);
+
+        res.json(venue);
+    });
+});
+
+/*
+ * POST a new venue.
+ */
+router.post('/add', function (req, res) {
+    var Venue = req.venue;
+
+    // define a new entry
+    var newvenue = new Venue(req.body);
+
+    //newvenue.markModified('coordinates');
+
+    //Save this new entry
+    newvenue.save(function (err, newvenue) {
+        res.send(err === null ? {
+            msg: ''
+        } : {
+            msg: err
+        });
+    });
+});
+
+module.exports = router;
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var express = __webpack_require__(4);
+var router = express.Router();
+
+/*
+ * GET currentlist to display.
+ */
+router.get('/currentlistings', function (req, res) {
+    var List = req.list,
+        Venue = req.venue;
+
+    //Find today's date
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    console.log('Searching for current events...');
+
+    List.find({ start: { $lt: today }, end: { $gt: today } }, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+/*
+ * GET GLANCE list to display.
+ */
+router.get('/glancelistings', function (req, res) {
+    var List = req.list,
+        Venue = req.venue;
+
+    //Find today's date
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var inaWeek = new Date();
+    inaWeek.setDate(inaWeek.getDate() + 7);
+    inaWeek.setHours(0, 0, 0, 0);
+
+    console.log('Searching for this weeks events...');
+
+    List.find({ $or: [{ start: { $gte: today, $lt: inaWeek } }, { end: { $gte: today, $lt: inaWeek } }] }, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+/*
+ * GET EVENTS list to display.
+ */
+router.get('/eventslistings', function (req, res) {
+    var List = req.list,
+        Venue = req.venue;
+
+    //Find today's date
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    console.log('Searching for the next events...');
+
+    List.find({ $and: [{ start: { $gte: today } }, { event: true }] }, {}).sort('start').populate('venue').exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+/*
+ * GET ALL listings ===================
+ */
+router.get('/alllistings', function (req, res) {
+    var List = req.list;
+    var Venue = req.venue;
+
+    List.find().sort('neighborhood').populate('venue').exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+/* GET ONE venue */
+router.get('/find/:listing_id', function (req, res, next) {
+    var List = req.list;
+
+    var regexp = new RegExp("^" + req.params.listing_id, "i");
+    List.find({ name: regexp }, function (err, listing) {
+        if (err) res.send(err);
+        var results = [];
+        listing.map(function (thelisting) {
+            results.push({
+                value: thelisting._id,
+                label: thelisting.name
+            });
+        });
+
+        res.json(results);
+    });
+});
+
+/*
+ * POST a new venue.
+ */
+router.post('/add', function (req, res) {
+    var List = req.list;
+
+    // define a new entry
+    var newlisting = new List(req.body);
+
+    //newvenue.markModified('coordinates');
+
+    //Save this new entry
+    newlisting.save(function (err, newlisting) {
+        res.send(err === null ? {
+            msg: ''
+        } : {
+            msg: err
+        });
+    });
+});
+
+module.exports = router;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var mongoose = __webpack_require__(8);
 
 // Create the Listings table ==================================
 
@@ -1824,13 +2773,13 @@ var listingSchema = mongoose.Schema({
 module.exports = mongoose.model('List', listingSchema);
 
 /***/ }),
-/* 34 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(8);
 
 // Create the Listings table ==================================
 

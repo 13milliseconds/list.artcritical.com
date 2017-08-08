@@ -8,7 +8,8 @@ var http = require('http');
 var debug = require('debug')('artcritical-list:server');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var venues = require('./routes/venues');
+var listings = require('./routes/list');
 
 var app = express();
 
@@ -54,8 +55,9 @@ app.use(function(req,res,next){
     next();
 });
 
+app.use('/venues', venues);
+app.use('/list', listings);
 app.use('/', index);
-app.use('/users', users);
 
 
 

@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 
+
 module.exports = {
   entry: path.join(__dirname, 'src/', 'app-client.js'),
   output: {
@@ -8,14 +9,18 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [{
+    loaders: [
+    {
       test: path.join(__dirname, 'src'),
       loader: 'babel-loader',
       query: {
         cacheDirectory: 'babel_cache',
         presets: ['react', 'es2015']
       }
-    }]
+    },
+      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }, // use ! to chain loaders
+      { test: /\.css$/, loader: 'style-loader!css-loader' }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -25,10 +30,10 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
       mangle: true,
-      sourcemap: false,
+      sourcemap: true,
       beautify: false,
       dead_code: true
     })
   ],
-    devtool: 'source-map'
+    devtool: '#source-map'
 };

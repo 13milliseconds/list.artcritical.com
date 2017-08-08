@@ -16,7 +16,7 @@ class ListActions {
 
     getCurrent() {
         $.ajax({
-                url: '/currentlistings'
+                url: '/list/currentlistings'
             })
             .done((data) => {
                 this.getCurrentSuccess(data)
@@ -28,7 +28,7 @@ class ListActions {
 
     getAll() {
         $.ajax({
-                url: '/alllistings'
+                url: '/list/alllistings'
             })
             .done((data) => {
                 this.getAllSuccess(data)
@@ -40,7 +40,7 @@ class ListActions {
 
     getEvents() {
         $.ajax({
-                url: '/eventslistings'
+                url: '/list/eventslistings'
             })
             .done((data) => {
                 this.getEventsSuccess(data)
@@ -52,7 +52,7 @@ class ListActions {
 
     getGlance() {
         $.ajax({
-                url: '/glancelistings'
+                url: '/list/glancelistings'
             })
             .done((data) => {
                 this.getGlanceSuccess(data)

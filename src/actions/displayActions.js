@@ -165,5 +165,32 @@ module.exports = {
         } else {
             return "Other";
         }
+    },
+    
+    saveListing: function (newListing) {
+        
+        var eventString = JSON.stringify(newListing);
+
+        // Use AJAX to post the object to our adduser service
+        $.ajax({
+            type: 'POST',
+            data: eventString,
+            url: '/list/add',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8"
+        }).done(function (response) {
+
+
+            // Check for successful (blank) response
+            if (response.msg === '') {
+
+                console.log('Success');
+
+            } else {
+                console.log(response);
+                // If something goes wrong, alert the error message that our service returned
+                alert('Error: ' + response.msg.message);
+            }
+        });
     }
 };

@@ -11,6 +11,7 @@ export default class Layout extends React.Component {
             <Link to={'/current'} activeClassName="active">Current</Link>
             <Link to={'/ataglance'} activeClassName="active">At a Glance</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
+            <Link to={'/admin'} activeClassName="active">Admin</Link>
         </header>
         <div className="app-content">{this.props.children}</div>
         <footer>
