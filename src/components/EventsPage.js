@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import ListStore from '../stores/ListStore';
 import Listing from './listing';
 import ListActions from '../actions/ListActions';
-import {IntlProvider, FormattedDate} from 'react-intl';
+import Date from './date';
 
 
 export default class EventsPage extends React.Component {
@@ -34,7 +34,7 @@ export default class EventsPage extends React.Component {
                 oldDate = newDate
                 return (
                     <div>
-                        <h2><IntlProvider locale="en"><FormattedDate value={newDate} format="narrow" /></IntlProvider></h2>
+                        <h2><Date date={newDate} /></h2>
                         <Listing {...listing} />
                     </div>
                 )
@@ -48,7 +48,9 @@ export default class EventsPage extends React.Component {
         return ( 
             <div className = "home">
                 <h2>Events</h2>
+            <div className = "listingsWrap">
                 {thelist}
+            </div>
             </div>
         );
     }

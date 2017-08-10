@@ -39,6 +39,10 @@ export default class DayPage extends React.Component {
         
         return ( 
             <div className = "day">
+            <div className="featuredSection">
+                <h2>Featured item</h2>
+            </div>
+            <div className = "listingsWrap">
                     { openings.length > 0 && <h3>Openings</h3>}
                         {openings}
                     { events.length > 0 && <h3>Events</h3> }
@@ -47,6 +51,7 @@ export default class DayPage extends React.Component {
                         {closings}
                         
                     { (closings.length + events.length + openings.length) == 0 && <h3>Nothing happening today!</h3> }
+            </div>
             </div>
         );
     }

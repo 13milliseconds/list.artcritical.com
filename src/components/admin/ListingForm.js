@@ -4,6 +4,7 @@ import DateRange from './formDateRange';
 import DateSingle from './formDateSingle';
 import Select from './formSelect';
 import Display from '../../actions/displayActions';
+import ToggleButton from 'react-toggle-button';
 
 
 
@@ -93,11 +94,6 @@ export default class ListingForm extends React.Component {
         this.setState(value)
     }
     
-    saveNewEvent (newEvent) {
-        
-        
-    }
-    
     render() {
         
         //how ot get option for select element
@@ -129,31 +125,52 @@ export default class ListingForm extends React.Component {
         return ( 
             <div>
             <div id="newlistingForm">
+            <h2>New Event</h2>
             <form onSubmit={this.handleSubmit}>
                
-                <label> Name:
+                <label>Name</label>
+                 <div className="formSection">
                   <input name="name" placeholder="Event name" type="text" value={this.state.name} onChange={this.handleChange} />
-                </label>
-                <label> Venue:
+                    </div>
+                
+                <label>Venue</label>
+                 <div className="formSection">
                   <Select value={this.state.venue} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
-                </label>
-                <label> Dates
+                    </div>
+                
+                
+                <label>Event</label>
+                <div className="formSection">
+                <ToggleButton
+                  value={ this.state.event || false }
+                  onToggle={(value) => {
+                    this.setState({
+                      event: !value,
+                    })
+                  }} />
+                </div>
+                  
+                <label> Dates </label>
+                <div className="formSection">
                    {this.state.event ? //If an event
-                        <DateSingle startDate={this.state.startDate} onDatesChange={this.onDatesChange}/>
+                        <DateSingle startDate={this.state.startDate} endDate={this.state.endDate}  onDatesChange={this.onDatesChange}/>
                         : // If not an event
                         <DateRange startDate={this.state.startDate} endDate={this.state.endDate} onDatesChange={this.onDatesChange}/>
                    }
-                    
-                <input type="checkbox" name="event" onChange={this.handleChange} /> Event
+                </div>  
                 
-                </label>
-                <label> Description:
+                
+                <label>Description</label>
+                 <div className="formSection">
                   <textarea name="description" type="text" value={this.state.description} onChange={this.handleChange} />
-                </label>
+                </div>
+                
                 <input type="submit" value="Submit" />
+                
             </form>
             </div>
             <div id="newlistingDemo">
+            <h2>Listing Preview</h2>
             <Listing {...listing} />
             </div>
             </div>

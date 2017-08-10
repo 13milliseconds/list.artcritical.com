@@ -8,6 +8,7 @@ class ListStore {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
+        this.mylist = [];
     }
 
     onGetCurrentSuccess(data) {

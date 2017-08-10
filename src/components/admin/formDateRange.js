@@ -9,6 +9,7 @@ export default class DateRange extends React.Component {
             focusedInput: ''
         };
       }
+    
         
     render() {
 

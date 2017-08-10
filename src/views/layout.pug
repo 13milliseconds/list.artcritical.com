@@ -1,6 +1,7 @@
 doctype html
 html
   head
+    base(href="/")
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="https://code.jquery.com/jquery-3.2.1.min.js")
@@ -8,8 +9,11 @@ html
     //React
     script(src="https://fb.me/react-15.0.0.js")
     script(src="https://fb.me/react-dom-15.0.0.js")
+    //FontAwesome
+    script(src="https://use.fontawesome.com/dc7b4c448b.js")
   body
     block content
     
     script(src='javascripts/bundle.js')
+    script(src='javascripts/global.js')
     

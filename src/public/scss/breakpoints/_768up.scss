@@ -1,0 +1,98 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Tablet & Small Desktop Stylesheet
+
+Here's where you can start getting into the good stuff.
+This size will work on iPads, other tablets, and desktops.
+So you can start working with more styles, background images,
+and other resources. You'll also notice the grid starts to
+come into play. Have fun!
+
+******************************************************************/
+
+
+/*********************
+GENERAL STYLES
+*********************/
+
+body {}
+
+#banner{
+    width: auto;
+    padding: 20px;
+    a{
+        position: relative;
+        display: inline-block;
+        margin-right: 10px;
+        &:nth-of-type(1) {
+            left: auto;
+        }
+        &:nth-of-type(4) {
+            left: auto;
+        }
+        &:nth-of-type(2) {
+            right: auto;
+        }
+        &:nth-of-type(3) {
+            right: auto;
+        }
+    }
+}
+#header{
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+.menu{
+    position: relative;
+}
+
+#sortPanel {
+    width: 200px;
+    top: 100px;
+    .wrap{
+        width: auto;
+        a{
+            display: table;
+        }
+    }
+}
+
+#banner, #introPanel.active, #loginPanel, #sharePanel, #sortPanel{
+    overflow: auto;
+    position: relative;
+    top: auto;
+    @include transform(translateY(0));
+}
+
+#introPanel{
+    padding: 20px;
+}
+
+#aboutPanel{
+    display: none;
+}
+
+.edit-page{
+     .container{
+         @include row();
+        .header{
+            @include span-columns(3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 50px;
+            
+        }
+         .content{
+             @include shift(3);
+            @include span-columns(9);
+            
+        }
+
+    }   
+}

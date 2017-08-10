@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 var listingSchema = mongoose.Schema({
     name: String,
-    type: String,
+    //type: String,
     start: Date,
     end: Date,
     description: String,
@@ -12,7 +12,8 @@ var listingSchema = mongoose.Schema({
     venue: {
         ref: 'Venue',
         type: String
-      }
+      },
+    event: Boolean
 });
 
 //compile the model

@@ -49,7 +49,9 @@ export default class CurrentPage extends React.Component {
         return ( 
             <div className = "home">
                 <h2>Current</h2>
-                {thelist}
+                <div className = "listingsWrap">
+                    {thelist}
+                </div>
             </div>
         );
     }

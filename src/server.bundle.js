@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -83,7 +83,7 @@ module.exports = require("react-router");
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -92,7 +92,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(5);
+var _date = __webpack_require__(9);
+
+var _date2 = _interopRequireDefault(_date);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -103,74 +105,96 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Listing = function (_React$Component) {
-  _inherits(Listing, _React$Component);
+    _inherits(Listing, _React$Component);
 
-  function Listing() {
-    _classCallCheck(this, Listing);
+    function Listing() {
+        _classCallCheck(this, Listing);
 
-    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
-  }
-
-  _createClass(Listing, [{
-    key: 'render',
-    value: function render() {
-
-      var end;
-      if (this.props.event !== true && this.props.end !== '') {
-        end = _react2.default.createElement(
-          'span',
-          null,
-          'to ',
-          _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.end, format: 'short' })
-        );
-      }
-
-      return _react2.default.createElement(
-        _reactIntl.IntlProvider,
-        { locale: 'en' },
-        _react2.default.createElement(
-          'div',
-          { className: 'listing' },
-          _react2.default.createElement(
-            'p',
-            null,
-            this.props.name,
-            ' ',
-            this.props.venue.name && ' at ',
-            _react2.default.createElement(
-              'span',
-              { className: 'venueName' },
-              this.props.venue.name
-            )
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            this.props.start !== '' && _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.start, format: 'narrow' }),
-            ' ',
-            end
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            this.props.description
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            this.props.venue.address
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            this.props.neighborhood
-          )
-        )
-      );
+        return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
     }
-  }]);
 
-  return Listing;
+    _createClass(Listing, [{
+        key: 'render',
+        value: function render() {
+
+            var end;
+            if (this.props.event !== true && this.props.end !== '') {
+                end = _react2.default.createElement(
+                    'span',
+                    null,
+                    'to ',
+                    _react2.default.createElement(_date2.default, { date: this.props.end })
+                );
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'listing', id: this.props._id },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'listingAdd' },
+                    _react2.default.createElement('div', { className: 'addButton', onClick: this.props.addToList })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'listingContent' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'header' },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            this.props.name,
+                            ' ',
+                            this.props.venue._id !== '' && ' at ',
+                            _react2.default.createElement(
+                                'span',
+                                { className: 'venueName' },
+                                this.props.venue.name
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            this.props.start !== '' && _react2.default.createElement(_date2.default, { date: this.props.start }),
+                            ' ',
+                            end,
+                            ' '
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'moreInfo' },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            this.props.venue.address,
+                            this.props.venue.address !== '' && this.props.venue.city !== '' && ', ',
+                            this.props.venue.city
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            this.props.description
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            this.props.receptionnotes
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'listingClose' },
+                    _react2.default.createElement('i', { className: 'fa fa-plus-square-o', 'aria-hidden': 'true' }),
+                    _react2.default.createElement('i', { className: 'fa fa-minus-square-o', 'aria-hidden': 'true' })
+                )
+            );
+        }
+    }]);
+
+    return Listing;
 }(_react2.default.Component);
 
 exports.default = Listing;
@@ -188,7 +212,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(9);
+var _alt = __webpack_require__(10);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -270,12 +294,6 @@ module.exports = require("express");
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-intl");
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -287,7 +305,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(9);
+var _alt = __webpack_require__(10);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -308,6 +326,7 @@ var ListStore = function () {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
+        this.mylist = [];
     }
 
     _createClass(ListStore, [{
@@ -362,7 +381,7 @@ var ListStore = function () {
 exports.default = _alt2.default.createStore(ListStore);
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -516,6 +535,12 @@ module.exports = {
 };
 
 /***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-intl");
+
+/***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
@@ -532,7 +557,60 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _alt = __webpack_require__(26);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIntl = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Date = function (_React$Component) {
+  _inherits(Date, _React$Component);
+
+  function Date() {
+    _classCallCheck(this, Date);
+
+    return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
+  }
+
+  _createClass(Date, [{
+    key: 'render',
+    value: function render() {
+
+      return _react2.default.createElement(
+        _reactIntl.IntlProvider,
+        { locale: 'en' },
+        _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.date, month: 'long', day: 'numeric' })
+      );
+    }
+  }]);
+
+  return Date;
+}(_react2.default.Component);
+
+exports.default = Date;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _alt = __webpack_require__(27);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -541,13 +619,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = new _alt2.default();
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dates");
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -563,7 +641,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(38);
+var _reactSelect = __webpack_require__(39);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -601,7 +679,7 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -652,24 +730,24 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
 var express = __webpack_require__(4);
-var path = __webpack_require__(14);
-var favicon = __webpack_require__(15);
-var logger = __webpack_require__(16);
-var cookieParser = __webpack_require__(17);
-var bodyParser = __webpack_require__(18);
-var http = __webpack_require__(19);
-var debug = __webpack_require__(20)('artcritical-list:server');
+var path = __webpack_require__(15);
+var favicon = __webpack_require__(16);
+var logger = __webpack_require__(17);
+var cookieParser = __webpack_require__(18);
+var bodyParser = __webpack_require__(19);
+var http = __webpack_require__(20);
+var debug = __webpack_require__(21)('artcritical-list:server');
 
-var index = __webpack_require__(21);
-var venues = __webpack_require__(44);
-var listings = __webpack_require__(45);
+var index = __webpack_require__(22);
+var venues = __webpack_require__(46);
+var listings = __webpack_require__(47);
 
 var app = express();
 
@@ -690,8 +768,8 @@ db.once('open', function () {
 });
 
 // Import the Mongoose models
-var List = __webpack_require__(46);
-var Venue = __webpack_require__(47);
+var List = __webpack_require__(48);
+var Venue = __webpack_require__(49);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -815,49 +893,49 @@ function onListening() {
 /* WEBPACK VAR INJECTION */}.call(exports, "src"))
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("debug");
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -867,15 +945,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(22);
+var _server = __webpack_require__(23);
 
 var _reactRouter = __webpack_require__(1);
 
-var _routes = __webpack_require__(23);
+var _routes = __webpack_require__(24);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _ErrorPage = __webpack_require__(12);
+var _ErrorPage = __webpack_require__(13);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -883,12 +961,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(4);
 var router = express.Router();
-var JSX = __webpack_require__(42).install();
+var JSX = __webpack_require__(44).install();
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var hist = __webpack_require__(43);
+var hist = __webpack_require__(45);
 
 router.get('*', function (req, res) {
   var location = hist.createLocation(req.path);
@@ -914,13 +992,13 @@ router.get('*', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -936,43 +1014,43 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _layout = __webpack_require__(24);
+var _layout = __webpack_require__(25);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _IndexPage = __webpack_require__(25);
+var _IndexPage = __webpack_require__(26);
 
 var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
-var _CurrentPage = __webpack_require__(27);
+var _CurrentPage = __webpack_require__(28);
 
 var _CurrentPage2 = _interopRequireDefault(_CurrentPage);
 
-var _GlancePage = __webpack_require__(28);
+var _GlancePage = __webpack_require__(29);
 
 var _GlancePage2 = _interopRequireDefault(_GlancePage);
 
-var _EventsPage = __webpack_require__(32);
+var _EventsPage = __webpack_require__(33);
 
 var _EventsPage2 = _interopRequireDefault(_EventsPage);
 
-var _AdminPage = __webpack_require__(33);
+var _AdminPage = __webpack_require__(34);
 
 var _AdminPage2 = _interopRequireDefault(_AdminPage);
 
-var _NewListing = __webpack_require__(34);
+var _NewListing = __webpack_require__(35);
 
 var _NewListing2 = _interopRequireDefault(_NewListing);
 
-var _EditListings = __webpack_require__(39);
+var _EditListings = __webpack_require__(41);
 
 var _EditListings2 = _interopRequireDefault(_EditListings);
 
-var _Account = __webpack_require__(41);
+var _Account = __webpack_require__(43);
 
 var _Account2 = _interopRequireDefault(_Account);
 
-var _ErrorPage = __webpack_require__(12);
+var _ErrorPage = __webpack_require__(13);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -987,7 +1065,7 @@ var routes = _react2.default.createElement(
   _react2.default.createElement(_reactRouter.Route, { path: 'events', component: _EventsPage2.default }),
   _react2.default.createElement(
     _reactRouter.Route,
-    { path: 'admin/', component: _AdminPage2.default },
+    { path: 'admin', component: _AdminPage2.default },
     _react2.default.createElement(_reactRouter.IndexRoute, { component: _NewListing2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'edit', component: _EditListings2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'account', component: _Account2.default })
@@ -1000,7 +1078,7 @@ var routes = _react2.default.createElement(
 exports.default = routes;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1111,7 +1189,7 @@ var Layout = function (_React$Component) {
 exports.default = Layout;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1120,6 +1198,8 @@ exports.default = Layout;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1133,7 +1213,7 @@ var _listing = __webpack_require__(2);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _ListStore = __webpack_require__(6);
+var _ListStore = __webpack_require__(5);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -1141,7 +1221,7 @@ var _ListActions = __webpack_require__(3);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(6);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -1163,6 +1243,7 @@ var IndexPage = function (_React$Component) {
 
         _this.state = _ListStore2.default.getState();
         _this.onChange = _this.onChange.bind(_this);
+        _this.addToList = _this.addToList.bind(_this);
         return _this;
     }
 
@@ -1182,13 +1263,34 @@ var IndexPage = function (_React$Component) {
         value: function onChange(state) {
             this.setState(state);
         }
+
+        //Function to add a listing to the personal list
+
+    }, {
+        key: 'addToList',
+        value: function addToList(e, listing) {
+            //Select this listing
+            var thislisting = $(e.target).closest('.listing');
+            if (thislisting.hasClass('selected')) {
+                //Close the currently open tab
+                $(thislisting).removeClass('selected');
+            } else {
+                //Open this listing
+                $(thislisting).addClass('selected');
+
+                this.setState({
+                    mylist: this.state.mylist.concat(listing)
+                });
+            }
+        }
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
 
             var nh = '';
             var thelist = this.state.allListings.map(function (listing) {
-                var newNh = listing.venue.neighborhood;
+                var newNh = listing.neighborhood;
                 if (newNh !== nh) {
                     nh = newNh;
                     newNh = _displayActions2.default.displayCity(nh);
@@ -1200,10 +1302,14 @@ var IndexPage = function (_React$Component) {
                             null,
                             newNh
                         ),
-                        _react2.default.createElement(_listing2.default, listing)
+                        _react2.default.createElement(_listing2.default, _extends({}, listing, { addToList: function addToList(e) {
+                                return _this2.addToList(e, listing);
+                            } }))
                     );
                 } else {
-                    return _react2.default.createElement(_listing2.default, listing);
+                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { addToList: function addToList(e) {
+                            return _this2.addToList(e, listing);
+                        } }));
                 }
             });
 
@@ -1215,7 +1321,33 @@ var IndexPage = function (_React$Component) {
                     null,
                     'Landing page'
                 ),
-                thelist
+                _react2.default.createElement(
+                    'div',
+                    { className: 'listingsWrap' },
+                    thelist
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'myList' },
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'my list'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Items in your list: ',
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            this.state.mylist.length
+                        )
+                    ),
+                    this.state.mylist.map(function (listing) {
+                        return _react2.default.createElement(_listing2.default, listing);
+                    })
+                )
             );
         }
     }]);
@@ -1226,13 +1358,13 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("alt");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1250,7 +1382,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _ListStore = __webpack_require__(6);
+var _ListStore = __webpack_require__(5);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -1262,7 +1394,7 @@ var _ListActions = __webpack_require__(3);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(6);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -1335,7 +1467,11 @@ var CurrentPage = function (_React$Component) {
                     null,
                     'Current'
                 ),
-                thelist
+                _react2.default.createElement(
+                    'div',
+                    { className: 'listingsWrap' },
+                    thelist
+                )
             );
         }
     }]);
@@ -1346,7 +1482,7 @@ var CurrentPage = function (_React$Component) {
 exports.default = CurrentPage;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1364,7 +1500,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _ListStore = __webpack_require__(6);
+var _ListStore = __webpack_require__(5);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -1372,11 +1508,11 @@ var _ListActions = __webpack_require__(3);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _daypage = __webpack_require__(29);
+var _daypage = __webpack_require__(30);
 
 var _daypage2 = _interopRequireDefault(_daypage);
 
-var _tabs = __webpack_require__(30);
+var _tabs = __webpack_require__(31);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -1457,7 +1593,7 @@ var GlancePage = function (_React$Component) {
 exports.default = GlancePage;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1477,7 +1613,7 @@ var _listing = __webpack_require__(2);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _reactIntl = __webpack_require__(5);
+var _reactIntl = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1530,28 +1666,41 @@ var DayPage = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'day' },
-                openings.length > 0 && _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Openings'
+                _react2.default.createElement(
+                    'div',
+                    { className: 'featuredSection' },
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Featured item'
+                    )
                 ),
-                openings,
-                events.length > 0 && _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Events'
-                ),
-                events,
-                closings.length > 0 && _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Closing'
-                ),
-                closings,
-                closings.length + events.length + openings.length == 0 && _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Nothing happening today!'
+                _react2.default.createElement(
+                    'div',
+                    { className: 'listingsWrap' },
+                    openings.length > 0 && _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Openings'
+                    ),
+                    openings,
+                    events.length > 0 && _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Events'
+                    ),
+                    events,
+                    closings.length > 0 && _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Closing'
+                    ),
+                    closings,
+                    closings.length + events.length + openings.length == 0 && _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Nothing happening today!'
+                    )
                 )
             );
         }
@@ -1563,7 +1712,7 @@ var DayPage = function (_React$Component) {
 exports.default = DayPage;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1579,9 +1728,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(5);
+var _reactIntl = __webpack_require__(7);
 
-var _propTypes = __webpack_require__(31);
+var _propTypes = __webpack_require__(32);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1684,13 +1833,13 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1708,7 +1857,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _ListStore = __webpack_require__(6);
+var _ListStore = __webpack_require__(5);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -1720,7 +1869,9 @@ var _ListActions = __webpack_require__(3);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(5);
+var _date = __webpack_require__(9);
+
+var _date2 = _interopRequireDefault(_date);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1773,11 +1924,7 @@ var EventsPage = function (_React$Component) {
                         _react2.default.createElement(
                             'h2',
                             null,
-                            _react2.default.createElement(
-                                _reactIntl.IntlProvider,
-                                { locale: 'en' },
-                                _react2.default.createElement(_reactIntl.FormattedDate, { value: newDate, format: 'narrow' })
-                            )
+                            _react2.default.createElement(_date2.default, { date: newDate })
                         ),
                         _react2.default.createElement(_listing2.default, listing)
                     );
@@ -1794,7 +1941,11 @@ var EventsPage = function (_React$Component) {
                     null,
                     'Events'
                 ),
-                thelist
+                _react2.default.createElement(
+                    'div',
+                    { className: 'listingsWrap' },
+                    thelist
+                )
             );
         }
     }]);
@@ -1805,7 +1956,7 @@ var EventsPage = function (_React$Component) {
 exports.default = EventsPage;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1886,7 +2037,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1902,7 +2053,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListingForm = __webpack_require__(35);
+var _ListingForm = __webpack_require__(36);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -1930,11 +2081,6 @@ var NewListing = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'new' },
-                _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Create a new listing'
-                ),
                 _react2.default.createElement(_ListingForm2.default, null)
             );
         }
@@ -1946,7 +2092,7 @@ var NewListing = function (_React$Component) {
 exports.default = NewListing;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1966,21 +2112,25 @@ var _listing = __webpack_require__(2);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formDateRange = __webpack_require__(36);
+var _formDateRange = __webpack_require__(37);
 
 var _formDateRange2 = _interopRequireDefault(_formDateRange);
 
-var _formDateSingle = __webpack_require__(37);
+var _formDateSingle = __webpack_require__(38);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
-var _formSelect = __webpack_require__(11);
+var _formSelect = __webpack_require__(12);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(6);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
+
+var _reactToggleButton = __webpack_require__(40);
+
+var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2096,11 +2246,9 @@ var ListingForm = function (_React$Component) {
             this.setState(value);
         }
     }, {
-        key: 'saveNewEvent',
-        value: function saveNewEvent(newEvent) {}
-    }, {
         key: 'render',
         value: function render() {
+            var _this3 = this;
 
             //how ot get option for select element
             var getOptions = function getOptions(input) {
@@ -2132,34 +2280,69 @@ var ListingForm = function (_React$Component) {
                     'div',
                     { id: 'newlistingForm' },
                     _react2.default.createElement(
+                        'h2',
+                        null,
+                        'New Event'
+                    ),
+                    _react2.default.createElement(
                         'form',
                         { onSubmit: this.handleSubmit },
                         _react2.default.createElement(
                             'label',
                             null,
-                            ' Name:',
+                            'Name'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
                             _react2.default.createElement('input', { name: 'name', placeholder: 'Event name', type: 'text', value: this.state.name, onChange: this.handleChange })
                         ),
                         _react2.default.createElement(
                             'label',
                             null,
-                            ' Venue:',
+                            'Venue'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
                             _react2.default.createElement(_formSelect2.default, { value: this.state.venue, handleSelectChange: this.handleSelectChange, getOptions: getOptions })
                         ),
                         _react2.default.createElement(
                             'label',
                             null,
-                            ' Dates',
-                            this.state.event ? //If an event
-                            _react2.default.createElement(_formDateSingle2.default, { startDate: this.state.startDate, onDatesChange: this.onDatesChange }) : // If not an event
-                            _react2.default.createElement(_formDateRange2.default, { startDate: this.state.startDate, endDate: this.state.endDate, onDatesChange: this.onDatesChange }),
-                            _react2.default.createElement('input', { type: 'checkbox', name: 'event', onChange: this.handleChange }),
-                            ' Event'
+                            'Event'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(_reactToggleButton2.default, {
+                                value: this.state.event || false,
+                                onToggle: function onToggle(value) {
+                                    _this3.setState({
+                                        event: !value
+                                    });
+                                } })
                         ),
                         _react2.default.createElement(
                             'label',
                             null,
-                            ' Description:',
+                            ' Dates '
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            this.state.event ? //If an event
+                            _react2.default.createElement(_formDateSingle2.default, { startDate: this.state.startDate, endDate: this.state.endDate, onDatesChange: this.onDatesChange }) : // If not an event
+                            _react2.default.createElement(_formDateRange2.default, { startDate: this.state.startDate, endDate: this.state.endDate, onDatesChange: this.onDatesChange })
+                        ),
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            'Description'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
                             _react2.default.createElement('textarea', { name: 'description', type: 'text', value: this.state.description, onChange: this.handleChange })
                         ),
                         _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
@@ -2168,6 +2351,11 @@ var ListingForm = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { id: 'newlistingDemo' },
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Listing Preview'
+                    ),
                     _react2.default.createElement(_listing2.default, listing)
                 )
             );
@@ -2180,7 +2368,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2196,7 +2384,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(10);
+var _reactDates = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2250,7 +2438,7 @@ var DateRange = function (_React$Component) {
 exports.default = DateRange;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2266,7 +2454,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(10);
+var _reactDates = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2319,13 +2507,19 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-select");
 
 /***/ }),
-/* 39 */
+/* 40 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-toggle-button");
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2341,7 +2535,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListingEdit = __webpack_require__(40);
+var _ListingEdit = __webpack_require__(42);
 
 var _ListingEdit2 = _interopRequireDefault(_ListingEdit);
 
@@ -2385,7 +2579,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2405,11 +2599,11 @@ var _listing = __webpack_require__(2);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formSelect = __webpack_require__(11);
+var _formSelect = __webpack_require__(12);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(6);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -2483,7 +2677,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2538,19 +2732,19 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2624,7 +2818,7 @@ router.post('/add', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2632,6 +2826,20 @@ module.exports = router;
 
 var express = __webpack_require__(4);
 var router = express.Router();
+
+/*
+ * GET ALL listings ===================
+ */
+router.get('/alllistings', function (req, res) {
+    var List = req.list;
+    var Venue = req.venue;
+
+    console.log("Getting all listings");
+
+    List.find().sort('neighborhood').limit(50).populate('venue').exec(function (e, docs) {
+        res.json(docs);
+    });
+});
 
 /*
  * GET currentlist to display.
@@ -2646,7 +2854,7 @@ router.get('/currentlistings', function (req, res) {
 
     console.log('Searching for current events...');
 
-    List.find({ start: { $lt: today }, end: { $gt: today } }, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
+    List.find({ start: { $lt: today } }).limit(50).sort('neighborhood').populate('venue').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -2690,21 +2898,11 @@ router.get('/eventslistings', function (req, res) {
     });
 });
 
-/*
- * GET ALL listings ===================
- */
-router.get('/alllistings', function (req, res) {
-    var List = req.list;
-    var Venue = req.venue;
-
-    List.find().sort('neighborhood').populate('venue').exec(function (e, docs) {
-        res.json(docs);
-    });
-});
-
 /* GET ONE venue */
 router.get('/find/:listing_id', function (req, res, next) {
     var List = req.list;
+
+    console.log("Getting one listing");
 
     var regexp = new RegExp("^" + req.params.listing_id, "i");
     List.find({ name: regexp }, function (err, listing) {
@@ -2722,10 +2920,12 @@ router.get('/find/:listing_id', function (req, res, next) {
 });
 
 /*
- * POST a new venue.
+ * POST a new listing.
  */
 router.post('/add', function (req, res) {
     var List = req.list;
+
+    console.log("Adding one listing");
 
     // define a new entry
     var newlisting = new List(req.body);
@@ -2742,10 +2942,45 @@ router.post('/add', function (req, res) {
     });
 });
 
+/*
+ * UPDATE a listing.
+ */
+router.post('/update', function (req, res) {
+    var List = req.list;
+
+    console.log("Update one listing");
+
+    // define a new entry
+    var thelisting = new List(req.body);
+
+    List.update({ _id: thelisting._id }, { $set: thelisting }, function (err, newlisting) {
+        console.log(newlisting);
+        res.send(err === null ? {
+            msg: ''
+        } : {
+            msg: err
+        });
+    });
+});
+
+/*
+ * DELETE a listing.
+ */
+router.post('/delete/:listing_id', function (req, res) {
+    var List = req.list;
+
+    console.log("Getting one listing");
+
+    var listingToDelete = req.params.listing_id;
+    List.remove({ '_id': listingToDelete }, function (err) {
+        res.send(err === null ? { msg: '' } : { msg: 'error: ' + err });
+    });
+});
+
 module.exports = router;
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2757,7 +2992,7 @@ var mongoose = __webpack_require__(8);
 
 var listingSchema = mongoose.Schema({
     name: String,
-    type: String,
+    //type: String,
     start: Date,
     end: Date,
     description: String,
@@ -2765,7 +3000,8 @@ var listingSchema = mongoose.Schema({
     venue: {
         ref: 'Venue',
         type: String
-    }
+    },
+    event: Boolean
 });
 
 //compile the model
@@ -2773,7 +3009,7 @@ var listingSchema = mongoose.Schema({
 module.exports = mongoose.model('List', listingSchema);
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

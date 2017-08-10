@@ -1,0 +1,223 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Base Mobile Stylesheet
+
+Be light and don't over style since everything here will be
+loaded by mobile devices. You want to keep it as minimal as
+possible. This is called at the top of the main stylsheet
+and will be used across all viewports.
+
+******************************************************************/
+
+
+/*********************
+GENERAL STYLES
+*********************/
+
+html{
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#thelist{
+    min-height: 100%;
+    position: relative;
+}
+
+.app-content{
+    padding: 0 50px 100px;
+}
+
+footer{
+    padding: 0 50px 50px;
+    position: absolute;
+    bottom: 0;
+}
+/*********************
+INDEX PAGE
+*********************/
+.home, .glance, .current{
+    @include row();
+}
+
+.listingsWrap{
+    @include span-columns(6);
+}
+
+.myList{
+    @include span-columns(6);
+}
+
+.featuredSection{
+    @include span-columns(3);
+}
+
+
+/*********************
+LISTING ELEMENTS
+*********************/
+.listing{
+    padding: 0px 10px 20px;
+    border-radius: 5px;
+    @include row();
+    @include transition(background-color .5s);
+    .listingAdd{
+        @include span-columns(1);
+        .addButton{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: azure;
+            border: 1px solid grey;
+            @include transition(.3s);
+            &:hover{
+                background-color: aquamarine;
+            }
+        }
+    }
+    .listingContent{
+        @include span-columns(10);
+    }
+    .listingClose{
+        @include span-columns(1);
+        padding-top: 5px;
+        text-align: right;
+        .fa-minus-square-o{
+            display: none;
+        }
+    }
+    .moreInfo{
+        display: none;
+    }
+    &.active{ 
+        background-color: antiquewhite;
+        .moreInfo{
+        display: block;
+        }
+        .listingClose{
+            .fa-plus-square-o{
+                display: none;
+            }
+            .fa-minus-square-o{
+                display: inline-block;
+            }
+        }
+    }
+    &.selected{
+        background-color: beige;
+    }
+    p{
+        margin: 5px 0;
+        white-space: pre-wrap;//Preserves line-breaks
+    }
+}
+.venueName{
+    font-weight: bold
+}
+
+/*********************
+HEADER
+*********************/
+
+header{
+    padding: 50px 50px 0;
+    a{
+        padding: 5px 10px;
+        background-color: lightgrey;
+        border-radius: 5px;
+        margin-right: 10px;
+        color: black;
+        text-decoration: none;
+        &:hover{
+            background-color: antiquewhite;
+        }
+        &.active{
+            background-color: antiquewhite;
+        }
+    }  
+} 
+
+/*********************
+AT A GLANCE
+*********************/
+
+.glance{
+    ul{
+        padding: 0;
+    }
+    li{
+        display: inline-block;
+        padding-right: 20px;
+        a{
+            text-decoration: none;
+            color: black;
+            &.active{
+                border-bottom: 2px solid red;
+            }
+        }
+    }
+} 
+
+/*********************
+ADMIN
+*********************/
+.admin{
+    header{
+        padding-left: 0;
+    }
+}
+
+#newlistingForm, #newlistingDemo{
+    float: left;
+    width: 50%;
+}
+
+label{
+    display: block!important;
+    @include span-columns(2);
+}
+.formSection{
+    @include span-columns(10);
+    @include omega();
+    padding-bottom: 20px;
+    textarea, input{
+        width: 100%;
+    }
+}
+
+
+#newlistingForm{
+    padding-right: 50px;
+    @include row();
+}
+
+#newlistingDemo{
+    .listing{
+        width: 100%;
+        border: 1px solid grey;
+        padding-top: 20px;
+        .moreInfo{
+            display: block;
+        }
+    }
+}
+
+#ListingList, #ListingInfo{
+    width: 50%;
+    float: left;
+}
+#ListingList{
+    padding-right: 50px;
+}

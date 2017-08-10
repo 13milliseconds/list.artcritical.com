@@ -1,6 +1,25 @@
 var express = require('express');
 var router = express.Router();
 
+
+/*
+ * GET ALL listings ===================
+ */
+router.get('/alllistings', function (req, res) {
+    var List = req.list;
+    var Venue = req.venue;
+
+    console.log("Getting all listings");
+    
+    List.find().
+    sort('neighborhood').
+    limit(50).
+    populate('venue').
+    exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
 /*
  * GET currentlist to display.
  */
@@ -14,7 +33,8 @@ router.get('/currentlistings', function (req, res) {
     
     console.log('Searching for current events...');
     
-    List.find({start: {$lt: today}, end: {$gt: today}}, {}).
+    List.find({start: {$lt: today}}).
+    limit(50).
     sort('neighborhood').
     populate('venue').
     exec(function (e, docs) {
@@ -69,20 +89,7 @@ router.get('/eventslistings', function (req, res) {
 });
 
 
-/*
- * GET ALL listings ===================
- */
-router.get('/alllistings', function (req, res) {
-    var List = req.list;
-    var Venue = req.venue;
 
-    List.find().
-    sort('neighborhood').
-    populate('venue').
-    exec(function (e, docs) {
-        res.json(docs);
-    });
-});
 
 
 
@@ -90,6 +97,7 @@ router.get('/alllistings', function (req, res) {
 router.get('/find/:listing_id', function (req, res, next) {
     var List = req.list;
     
+    console.log("Getting one listing");
     
     var regexp = new RegExp("^"+ req.params.listing_id, "i");
     List.find({ name: regexp}, function(err, listing) {
@@ -109,12 +117,13 @@ router.get('/find/:listing_id', function (req, res, next) {
 });
 
 /*
- * POST a new venue.
+ * POST a new listing.
  */
 router.post('/add', function (req, res) {
     var List = req.list;
 
-
+    console.log("Adding one listing");
+    
     // define a new entry
     var newlisting = new List(req.body);
 
@@ -132,6 +141,46 @@ router.post('/add', function (req, res) {
         );
     });
 
+});
+
+/*
+ * UPDATE a listing.
+ */
+router.post('/update', function (req, res) {
+    var List = req.list;
+
+    console.log("Update one listing");
+    
+    // define a new entry
+    var thelisting = new List(req.body);
+
+    
+    List.update({ _id: thelisting._id }, { $set: thelisting}, function (err, newlisting) {
+        console.log(newlisting)
+        res.send(
+            (err === null) ? {
+                msg: ''
+            } : {
+                msg: err
+            }
+        );
+    });
+    
+});
+
+/*
+ * DELETE a listing.
+ */
+router.post('/delete/:listing_id', function (req, res) {
+    var List = req.list;
+
+    console.log("Getting one listing");
+    
+    var listingToDelete = req.params.listing_id;
+    List.remove({ '_id' : listingToDelete }, function(err) {
+        res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
+    });
+    
 });
 
 
