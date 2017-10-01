@@ -10,9 +10,9 @@ export default class IndexPage extends React.Component {
             <div className = "admin">
                 <header>
                     <h2>Admin page</h2>
-                    <IndexLink to={'/admin'} activeClassName="active">New Listing</IndexLink>
-                    <Link to={'/admin/edit'} activeClassName="active">Edit Listing</Link>
-                    <Link to={'/admin/account'} activeClassName="active">Account</Link>
+                    <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
+                    <Link to={'/account/newlisting'} activeClassName="active">New Listing</Link>
+                    <Link to={'/account/edit'} activeClassName="active">Edit Listing</Link>
                 </header>
                 <div className="admin-content">{this.props.children}</div>
             </div>

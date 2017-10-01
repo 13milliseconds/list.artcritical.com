@@ -38,7 +38,7 @@ export default class GlancePage extends React.Component {
             let d = new Date();
             d.setHours(0,0,0,0);
             d.setDate(today.getDate() + i );
-            days.push(<DayPage glanceListings={thelist} label={d} />);
+            days.push(<DayPage glanceListings={thelist} mylist={this.props.mylist} label={d} />);
         }
         
         return ( 

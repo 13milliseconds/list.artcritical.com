@@ -93,7 +93,7 @@ router.get('/eventslistings', function (req, res) {
 
 
 
-/* GET ONE venue */
+/* GET ONE listing */
 router.get('/find/:listing_id', function (req, res, next) {
     var List = req.list;
     
@@ -113,6 +113,21 @@ router.get('/find/:listing_id', function (req, res, next) {
         
             res.json(results);
         });
+
+});
+
+/* GET ONE listing */
+router.get('/getinfo/:listing_id', function (req, res, next) {
+   var List = req.list;
+    
+    List.findOne({ _id: req.params.listing_id}).
+    populate('venue').
+    exec(function (e, docs) {
+        if (e)
+            res.send(e);
+
+        res.json(docs);
+    });
 
 });
 

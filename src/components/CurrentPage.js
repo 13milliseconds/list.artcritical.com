@@ -36,12 +36,12 @@ export default class CurrentPage extends React.Component {
                 return (
                     <div>
                         <h2>{newNh}</h2>
-                        <Listing {...listing} />
+                        <Listing {...listing} mylist = {this.props.mylist}/>
                     </div>
                 )
             } else {
                 return (
-                  <Listing {...listing} />
+                  <Listing {...listing} mylist = {this.props.mylist}/>
               )   
             }
         });

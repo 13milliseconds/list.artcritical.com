@@ -10,7 +10,9 @@ class ListActions {
             'getEventsSuccess',
             'getEventsFail',
             'getGlanceSuccess',
-            'getGlanceFail'
+            'getGlanceFail',
+            'getMylistSuccess',
+            'getMylistFailure'
         );
     }
 
@@ -59,6 +61,21 @@ class ListActions {
             })
             .fail((jqXhr) => {
                 this.getGlanceFail(jqXhr)
+            });
+    }
+    
+    getMylist() {
+        console.log('Getting mylist');
+        $.ajax({
+                url: '/auth/getmylist'
+            })
+            .done((data) => {
+                console.log('Got mylist');
+                this.getMylistSuccess(data)
+            })
+            .fail((jqXhr) => {
+                console.log('Failed to get mylist');
+                this.getMylistFailure(jqXhr)
             });
     }
 }

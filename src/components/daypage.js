@@ -4,6 +4,10 @@ import {IntlProvider, FormattedDate} from 'react-intl';
 
 
 export default class DayPage extends React.Component {
+    
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         let date = this.props.label.toISOString()
@@ -18,7 +22,7 @@ export default class DayPage extends React.Component {
                 // it IS an event
                 
                 if ( listing.start == date) {
-                    events.push(<Listing {...listing} />) 
+                    events.push(<Listing {...listing} mylist = {this.props.mylist}/>) 
                 }
                 
             } else {
@@ -26,11 +30,11 @@ export default class DayPage extends React.Component {
                 
                 //Check if it starts on this day
                 if ( listing.start == date) {
-                    openings.push(<Listing {...listing} />) 
+                    openings.push(<Listing {...listing} mylist = {this.props.mylist}/>) 
                 } 
                 //Check if it ends on this day
                 if ( listing.end == date) {
-                    closings.push(<Listing {...listing} />)  
+                    closings.push(<Listing {...listing} mylist = {this.props.mylist}/>)  
                 } 
             }
                   

@@ -45,6 +45,7 @@ footer{
     position: absolute;
     bottom: 0;
 }
+
 /*********************
 INDEX PAGE
 *********************/
@@ -147,6 +148,9 @@ header{
             background-color: antiquewhite;
         }
     }  
+    div{
+        display: inline-block;
+    }
 } 
 
 /*********************
@@ -195,6 +199,9 @@ label{
     textarea, input{
         width: 100%;
     }
+}
+input.invalid{
+    border: 2px solid red!important;
 }
 
 

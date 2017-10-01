@@ -35,12 +35,12 @@ export default class EventsPage extends React.Component {
                 return (
                     <div>
                         <h2><Date date={newDate} /></h2>
-                        <Listing {...listing} />
+                        <Listing {...listing} mylist = {this.props.mylist}/>
                     </div>
                 )
             } else {
                 return (
-                  <Listing {...listing} />
+                  <Listing {...listing} mylist = {this.props.mylist}/>
               )   
             }
         });

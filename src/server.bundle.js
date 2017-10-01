@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -88,13 +88,120 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _alt = __webpack_require__(10);
+
+var _alt2 = _interopRequireDefault(_alt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ListActions = function () {
+    function ListActions() {
+        _classCallCheck(this, ListActions);
+
+        this.generateActions('getCurrentSuccess', 'getCurrentFail', 'getAllSuccess', 'getAllFail', 'getEventsSuccess', 'getEventsFail', 'getGlanceSuccess', 'getGlanceFail', 'getMylistSuccess', 'getMylistFailure');
+    }
+
+    _createClass(ListActions, [{
+        key: 'getCurrent',
+        value: function getCurrent() {
+            var _this = this;
+
+            $.ajax({
+                url: '/list/currentlistings'
+            }).done(function (data) {
+                _this.getCurrentSuccess(data);
+            }).fail(function (jqXhr) {
+                _this.getCurrentFail(jqXhr);
+            });
+        }
+    }, {
+        key: 'getAll',
+        value: function getAll() {
+            var _this2 = this;
+
+            $.ajax({
+                url: '/list/alllistings'
+            }).done(function (data) {
+                _this2.getAllSuccess(data);
+            }).fail(function (jqXhr) {
+                _this2.getAllFail(jqXhr);
+            });
+        }
+    }, {
+        key: 'getEvents',
+        value: function getEvents() {
+            var _this3 = this;
+
+            $.ajax({
+                url: '/list/eventslistings'
+            }).done(function (data) {
+                _this3.getEventsSuccess(data);
+            }).fail(function (jqXhr) {
+                _this3.getEventsFail(jqXhr);
+            });
+        }
+    }, {
+        key: 'getGlance',
+        value: function getGlance() {
+            var _this4 = this;
+
+            $.ajax({
+                url: '/list/glancelistings'
+            }).done(function (data) {
+                _this4.getGlanceSuccess(data);
+            }).fail(function (jqXhr) {
+                _this4.getGlanceFail(jqXhr);
+            });
+        }
+    }, {
+        key: 'getMylist',
+        value: function getMylist() {
+            var _this5 = this;
+
+            console.log('Getting mylist');
+            $.ajax({
+                url: '/auth/getmylist'
+            }).done(function (data) {
+                console.log('Got mylist');
+                _this5.getMylistSuccess(data);
+            }).fail(function (jqXhr) {
+                console.log('Failed to get mylist');
+                _this5.getMylistFailure(jqXhr);
+            });
+        }
+    }]);
+
+    return ListActions;
+}();
+
+exports.default = _alt2.default.createActions(ListActions);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _date = __webpack_require__(9);
+var _date = __webpack_require__(14);
 
 var _date2 = _interopRequireDefault(_date);
+
+var _AuthActions = __webpack_require__(5);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -107,15 +214,43 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Listing = function (_React$Component) {
     _inherits(Listing, _React$Component);
 
-    function Listing() {
+    function Listing(props) {
         _classCallCheck(this, Listing);
 
-        return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
+        // Function binding
+        var _this = _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).call(this, props));
+
+        _this.addToList = _this.addToList.bind(_this);
+        return _this;
     }
 
+    //Function to add a listing to the personal list
+
+
     _createClass(Listing, [{
+        key: 'addToList',
+        value: function addToList(e, listing) {
+
+            //Select this listing
+            var thislisting = $(e.target).closest('.listing');
+
+            //Add or remove the listing to the user's list
+            _AuthActions2.default.addToUserList(listing);
+
+            if (thislisting.hasClass('selected')) {
+
+                //Close the currently open tab
+                $(thislisting).removeClass('selected');
+            } else {
+
+                //Open this listing
+                $(thislisting).addClass('selected');
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
 
             var end;
             if (this.props.event !== true && this.props.end !== '') {
@@ -126,14 +261,21 @@ var Listing = function (_React$Component) {
                     _react2.default.createElement(_date2.default, { date: this.props.end })
                 );
             }
+            var id = this.props._id;
+            // Check if the listing is in mylist
+            var mylistIndex = this.props.mylist.filter(function (v) {
+                return v._id === id;
+            }).length;
 
             return _react2.default.createElement(
                 'div',
-                { className: 'listing', id: this.props._id },
+                { className: mylistIndex > 0 ? 'listing selected' : 'listing notselected', id: this.props._id },
                 _react2.default.createElement(
                     'div',
                     { className: 'listingAdd' },
-                    _react2.default.createElement('div', { className: 'addButton', onClick: this.props.addToList })
+                    _react2.default.createElement('div', { className: 'addButton', onClick: function onClick(e) {
+                            return _this2.addToList(e, _this2.props);
+                        } })
                 ),
                 _react2.default.createElement(
                     'div',
@@ -200,93 +342,6 @@ var Listing = function (_React$Component) {
 exports.default = Listing;
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _alt = __webpack_require__(10);
-
-var _alt2 = _interopRequireDefault(_alt);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ListActions = function () {
-    function ListActions() {
-        _classCallCheck(this, ListActions);
-
-        this.generateActions('getCurrentSuccess', 'getCurrentFail', 'getAllSuccess', 'getAllFail', 'getEventsSuccess', 'getEventsFail', 'getGlanceSuccess', 'getGlanceFail');
-    }
-
-    _createClass(ListActions, [{
-        key: 'getCurrent',
-        value: function getCurrent() {
-            var _this = this;
-
-            $.ajax({
-                url: '/list/currentlistings'
-            }).done(function (data) {
-                _this.getCurrentSuccess(data);
-            }).fail(function (jqXhr) {
-                _this.getCurrentFail(jqXhr);
-            });
-        }
-    }, {
-        key: 'getAll',
-        value: function getAll() {
-            var _this2 = this;
-
-            $.ajax({
-                url: '/list/alllistings'
-            }).done(function (data) {
-                _this2.getAllSuccess(data);
-            }).fail(function (jqXhr) {
-                _this2.getAllFail(jqXhr);
-            });
-        }
-    }, {
-        key: 'getEvents',
-        value: function getEvents() {
-            var _this3 = this;
-
-            $.ajax({
-                url: '/list/eventslistings'
-            }).done(function (data) {
-                _this3.getEventsSuccess(data);
-            }).fail(function (jqXhr) {
-                _this3.getEventsFail(jqXhr);
-            });
-        }
-    }, {
-        key: 'getGlance',
-        value: function getGlance() {
-            var _this4 = this;
-
-            $.ajax({
-                url: '/list/glancelistings'
-            }).done(function (data) {
-                _this4.getGlanceSuccess(data);
-            }).fail(function (jqXhr) {
-                _this4.getGlanceFail(jqXhr);
-            });
-        }
-    }]);
-
-    return ListActions;
-}();
-
-exports.default = _alt2.default.createActions(ListActions);
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
@@ -300,7 +355,7 @@ module.exports = require("express");
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -309,7 +364,9 @@ var _alt = __webpack_require__(10);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-var _ListActions = __webpack_require__(3);
+__webpack_require__(40);
+
+var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
@@ -317,68 +374,118 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ListStore = function () {
-    function ListStore() {
-        _classCallCheck(this, ListStore);
+var AuthActions = function () {
+  function AuthActions() {
+    _classCallCheck(this, AuthActions);
 
-        this.bindActions(_ListActions2.default);
-        this.currentListings = [];
-        this.allListings = [];
-        this.eventsListings = [];
-        this.glanceListings = [];
-        this.mylist = [];
+    this.generateActions('sessionCheckFailure', 'sessionCheckSuccess', 'addToMyListSuccess', 'addToMyListFailure');
+  }
+
+  _createClass(AuthActions, [{
+    key: 'loginAttempt',
+    value: function loginAttempt() {
+      return true;
     }
+  }, {
+    key: 'loginFailure',
+    value: function loginFailure(error) {
+      return error;
+    }
+  }, {
+    key: 'loginSuccess',
+    value: function loginSuccess(action) {
+      return action;
+    }
+  }, {
+    key: 'attemptLogIn',
+    value: async function attemptLogIn(userData) {
+      var _this = this;
 
-    _createClass(ListStore, [{
-        key: 'onGetCurrentSuccess',
-        value: function onGetCurrentSuccess(data) {
-            this.currentListings = data;
-        }
-    }, {
-        key: 'onGetAllSuccess',
-        value: function onGetAllSuccess(data) {
-            this.allListings = data;
-        }
-    }, {
-        key: 'onGetEventsSuccess',
-        value: function onGetEventsSuccess(data) {
-            this.eventsListings = data;
-        }
-    }, {
-        key: 'onGetGlanceSuccess',
-        value: function onGetGlanceSuccess(data) {
-            this.glanceListings = data;
-        }
-    }, {
-        key: 'onGetCurrentFail',
-        value: function onGetCurrentFail(jqXhr) {
-            // Handle multiple response formats, fallback to HTTP status code number.
-            toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-    }, {
-        key: 'onGetAllFail',
-        value: function onGetAllFail(jqXhr) {
-            // Handle multiple response formats, fallback to HTTP status code number.
-            toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-    }, {
-        key: 'onGetEventsFail',
-        value: function onGetEventsFail(jqXhr) {
-            // Handle multiple response formats, fallback to HTTP status code number.
-            toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-    }, {
-        key: 'onGetGlanceFail',
-        value: function onGetGlanceFail(jqXhr) {
-            // Handle multiple response formats, fallback to HTTP status code number.
-            toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-    }]);
+      this.loginAttempt();
 
-    return ListStore;
+      // contact login API
+      await fetch(
+      // where to contact
+      '/auth/login',
+      // what to send
+      {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+      }).then(function (response) {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      }).then(function (json) {
+        if (json) {
+          _this.loginSuccess(json);
+        } else {
+          _this.loginFailure(new Error('Authentication Failed'));
+        }
+      }).catch(function (error) {
+        _this.loginFailure(new Error(error));
+      });
+    }
+  }, {
+    key: 'checkSession',
+    value: async function checkSession() {
+      var _this2 = this;
+
+      // contact the API
+      await fetch('/auth/checksession', {
+        method: 'GET',
+        credentials: 'same-origin'
+      }).then(function (response) {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      }).then(function (json) {
+        if (json.local.username) {
+          _this2.sessionCheckSuccess(json);
+        } else {
+          _this2.sessionCheckFailure(error);
+        }
+      }).catch(function (error) {
+        _this2.sessionCheckFailure(error);
+      });
+    }
+  }, {
+    key: 'addToUserList',
+    value: async function addToUserList(listing) {
+      var _this3 = this;
+
+      var listData = { listingID: listing._id };
+
+      //Upload the ID to the user profile
+      await fetch('/auth/addtolist', {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: JSON.stringify(listData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function (response) {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      }).then(function (json) {
+        _this3.addToMyListSuccess(json);
+      }).catch(function (error) {
+        _this3.addToMyListFailure(error);
+      });
+    }
+  }]);
+
+  return AuthActions;
 }();
 
-exports.default = _alt2.default.createStore(ListStore);
+exports.default = _alt2.default.createActions(AuthActions);
 
 /***/ }),
 /* 6 */
@@ -538,16 +645,267 @@ module.exports = {
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-intl");
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
 module.exports = require("mongoose");
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _alt = __webpack_require__(10);
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _ListActions = __webpack_require__(2);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _AuthActions = __webpack_require__(5);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ListStore = function () {
+    function ListStore() {
+        _classCallCheck(this, ListStore);
+
+        this.bindActions(_ListActions2.default);
+        this.bindActions(_AuthActions2.default);
+        //List states
+        this.currentListings = [];
+        this.allListings = [];
+        this.eventsListings = [];
+        this.glanceListings = [];
+        this.mylist = [];
+        // Auth states
+        this.name = '';
+        this.id = '';
+        this.isLoggedIn = false;
+        this.isLoggingIn = false;
+        this.email = '';
+    }
+
+    //List Reducers
+
+    _createClass(ListStore, [{
+        key: 'onGetCurrentSuccess',
+        value: function onGetCurrentSuccess(data) {
+            this.currentListings = data;
+        }
+    }, {
+        key: 'onGetAllSuccess',
+        value: function onGetAllSuccess(data) {
+            this.allListings = data;
+        }
+    }, {
+        key: 'onGetEventsSuccess',
+        value: function onGetEventsSuccess(data) {
+            this.eventsListings = data;
+        }
+    }, {
+        key: 'onGetGlanceSuccess',
+        value: function onGetGlanceSuccess(data) {
+            this.glanceListings = data;
+        }
+    }, {
+        key: 'onGetCurrentFail',
+        value: function onGetCurrentFail(jqXhr) {
+            // Handle multiple response formats, fallback to HTTP status code number.
+            toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+    }, {
+        key: 'onGetAllFail',
+        value: function onGetAllFail(jqXhr) {
+            // Handle multiple response formats, fallback to HTTP status code number.
+            toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+    }, {
+        key: 'onGetEventsFail',
+        value: function onGetEventsFail(jqXhr) {
+            // Handle multiple response formats, fallback to HTTP status code number.
+            toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+    }, {
+        key: 'onGetGlanceFail',
+        value: function onGetGlanceFail(jqXhr) {
+            // Handle multiple response formats, fallback to HTTP status code number.
+            toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+
+        // Auth Reducers
+
+        // LOGIN ATTEMPT
+
+    }, {
+        key: 'onLoginAttempt',
+        value: function onLoginAttempt() {
+            this.isLoggingIn = true;
+            this.loginRedirect = false;
+        }
+    }, {
+        key: 'onLoginFailure',
+        value: function onLoginFailure(error) {
+            console.log(error);
+            this.name = '';
+            this.id = '';
+            this.isLoggedIn = false;
+            this.isLoggingIn = false;
+            this.email = '';
+        }
+    }, {
+        key: 'onLoginSuccess',
+        value: function onLoginSuccess(action) {
+            this.name = action.local.name;
+            this.id = action._id;
+            this.isLoggedIn = true;
+            this.isLoggingIn = false;
+            this.email = action.local.email;
+            //Redirect to index
+            this.loginRedirect = true;
+        }
+
+        // CHECK SESSION
+
+    }, {
+        key: 'onSessionCheckFailure',
+        value: function onSessionCheckFailure() {
+            this.name = '';
+            this.id = '';
+            this.isLoggedIn = false;
+            this.isLoggingIn = false;
+            this.email = '';
+        }
+    }, {
+        key: 'onSessionCheckSuccess',
+        value: function onSessionCheckSuccess(action) {
+            this.name = action.local.name;
+            this.id = action._id;
+            this.isLoggedIn = true;
+            this.isLoggingIn = false;
+            this.email = action.local.email;
+        }
+
+        // ADD TO MYLIST
+
+    }, {
+        key: 'onAddToMyListSuccess',
+        value: function onAddToMyListSuccess(response) {
+            this.mylist = response;
+        }
+    }, {
+        key: 'onAddToMyListFailure',
+        value: function onAddToMyListFailure(error) {
+            console.log(error);
+        }
+
+        // GET MYLIST
+
+    }, {
+        key: 'onGetMylistSuccess',
+        value: function onGetMylistSuccess(data) {
+            this.mylist = data;
+        }
+    }, {
+        key: 'onGetMylistFailure',
+        value: function onGetMylistFailure(jqXhr) {
+            // Handle multiple response formats, fallback to HTTP status code number.
+            toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+    }]);
+
+    return ListStore;
+}();
+
+exports.default = _alt2.default.createStore(ListStore);
+
+/***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _alt = __webpack_require__(39);
+
+var _alt2 = _interopRequireDefault(_alt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _alt2.default();
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-intl");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("bcrypt");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var mongoose = __webpack_require__(7);
+var bcrypt = __webpack_require__(12); // encripts password
+
+// Create the Listings table ==================================
+
+var userSchema = mongoose.Schema({
+    local: {
+        name: String,
+        username: String,
+        password: String
+    },
+    facebook: {
+        id: String,
+        token: String,
+        email: String,
+        name: String
+    },
+    mylist: [String]
+});
+
+userSchema.methods.generateHash = function (password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+userSchema.methods.validPassword = function (password) {
+    return bcrypt.compareSync(password, this.local.password);
+};
+
+//compile the model
+
+module.exports = mongoose.model('User', userSchema);
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -563,7 +921,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(7);
+var _reactIntl = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -600,32 +958,19 @@ var Date = function (_React$Component) {
 exports.default = Date;
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 15 */
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _alt = __webpack_require__(27);
-
-var _alt2 = _interopRequireDefault(_alt);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _alt2.default();
+module.exports = require("react-toggle-button");
 
 /***/ }),
-/* 11 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dates");
 
 /***/ }),
-/* 12 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -641,7 +986,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(39);
+var _reactSelect = __webpack_require__(62);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -679,7 +1024,7 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 13 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -730,29 +1075,36 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 14 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
 var express = __webpack_require__(4);
-var path = __webpack_require__(15);
-var favicon = __webpack_require__(16);
-var logger = __webpack_require__(17);
-var cookieParser = __webpack_require__(18);
-var bodyParser = __webpack_require__(19);
-var http = __webpack_require__(20);
-var debug = __webpack_require__(21)('artcritical-list:server');
+var path = __webpack_require__(20);
+var favicon = __webpack_require__(21);
+var logger = __webpack_require__(22);
+var cookieParser = __webpack_require__(23);
+var bodyParser = __webpack_require__(24);
+var http = __webpack_require__(25);
+var debug = __webpack_require__(26)('artcritical-list:server');
 
-var index = __webpack_require__(22);
-var venues = __webpack_require__(46);
-var listings = __webpack_require__(47);
+var expressValidator = __webpack_require__(27);
+
+//Authentification
+var passport = __webpack_require__(9);
+var flash = __webpack_require__(28);
+var session = __webpack_require__(29);
+var bcrypt = __webpack_require__(12); // encripts password
+
+// Get the User model
+__webpack_require__(30)(passport);
 
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(8);
+var mongoose = __webpack_require__(7);
 
 var url = process.env.MONGOLAB_URI;
 
@@ -768,8 +1120,9 @@ db.once('open', function () {
 });
 
 // Import the Mongoose models
-var List = __webpack_require__(48);
-var Venue = __webpack_require__(49);
+var List = __webpack_require__(33);
+var Venue = __webpack_require__(34);
+var User = __webpack_require__(13);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -779,19 +1132,43 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator());
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+
+//Create sessions
+var maxAge = 7 * 24 * 3600 * 1000;
+app.use(session({ secret: 'woot', cookie: { maxAge: maxAge } }));
+
+//start authentitification
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Setup flash messages
+app.use(flash());
+app.use(function (req, res, next) {
+  res.locals.message = req.flash();
+  next();
+});
 
 // Make our db accessible to our router
 app.use(function (req, res, next) {
   req.list = List;
   req.venue = Venue;
+  req.userlist = User;
   next();
 });
 
+var index = __webpack_require__(35);
+var venues = __webpack_require__(68);
+var listings = __webpack_require__(69);
+var auth = __webpack_require__(70);
+
 app.use('/venues', venues);
 app.use('/list', listings);
+app.use('/auth', auth);
 app.use('/', index);
 
 // catch 404 and forward to error handler
@@ -893,49 +1270,257 @@ function onListening() {
 /* WEBPACK VAR INJECTION */}.call(exports, "src"))
 
 /***/ }),
-/* 15 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 16 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 17 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 18 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 19 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 20 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 21 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("debug");
 
 /***/ }),
-/* 22 */
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-validator");
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
+
+module.exports = require("connect-flash");
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-session");
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// config/passport.js
+
+// load all the things we need
+var LocalStrategy = __webpack_require__(31).Strategy;
+var FacebookStrategy = __webpack_require__(32).Strategy;
+
+// load up the user model
+var User = __webpack_require__(13);
+
+// expose this function to our app using module.exports
+module.exports = function (passport) {
+
+    // =========================================================================
+    // passport session setup ==================================================
+    // =========================================================================
+    // required for persistent login sessions
+    // passport needs ability to serialize and unserialize users out of session
+
+    // used to serialize the user for the session
+    passport.serializeUser(function (user, done) {
+        console.log('serializeUser called.');
+        done(null, user._id);
+    });
+
+    passport.deserializeUser(function (id, done) {
+        console.log('deserializeUser called.');
+        User.findById(id, function (err, user) {
+            done(err, user);
+        });
+    });
+
+    // =========================================================================
+    // LOCAL SIGNUP ============================================================
+    // =========================================================================
+    // we are using named strategies since we have one for login and one for signup
+    // by default, if there was no name, it would just be called 'local'
+
+    passport.use('local-signup', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true // allows us to pass back the entire request to the callback
+    }, function (req, email, password, done) {
+        console.log('Passport Signup Initialization');
+        // asynchronous
+        // User.findOne wont fire unless data is sent back
+        process.nextTick(function () {
+
+            // find a user whose email is the same as the forms email
+            // we are checking to see if the user trying to login already exists
+            User.findOne({ 'local.email': email }, function (err, user) {
+                // if there are any errors, return the error
+                if (err) return done(err);
+                console.log('Error: ' + err);
+
+                // check to see if theres already a user with that email
+                if (user) {
+                    console.log('That email is already taken.');
+                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                } else {
+                    console.log("New User..");
+                    // if there is no user with that email
+                    // create the user
+                    var newUser = new User();
+
+                    // set the user's local credentials
+                    newUser.local.email = email;
+                    newUser.local.password = newUser.generateHash(password);
+
+                    // save the user
+                    newUser.save(function (err) {
+                        if (err) throw err;
+                        return done(null, newUser);
+                    });
+                }
+            });
+        });
+    }));
+
+    // Generates hash using bCrypt
+    var createHash = function createHash(password) {
+        return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+    };
+
+    // =========================================================================
+    // LOCAL LOGIN =============================================================
+    // =========================================================================
+    // we are using named strategies since we have one for login and one for signup
+    // by default, if there was no name, it would just be called 'local'
+
+    passport.use('local-login', new LocalStrategy(function (username, password, done) {
+        console.log('Signing In ' + username);
+        User.findOne({ 'local.username': username }, function (err, user) {
+            if (err) {
+                console.log('Incorrect Something');
+                return done(err);
+            }
+            if (!user) {
+                console.log('Incorrect Username');
+                return done(null, false, { message: 'Incorrect username.' });
+            }
+            if (!user.validPassword(password)) {
+                console.log('Incorrect Password');
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+            console.log('Signed In');
+            return done(null, user);
+        });
+    }));
+
+    passport.use(new FacebookStrategy({
+        clientID: "1154923567943109",
+        clientSecret: "9ab1f837eabcc53aafadc9657eb65f19",
+        callbackURL: "http://localhost:3000/auth/facebook/callback"
+    }, function (accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+            return cb(err, user);
+        });
+    }));
+};
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-local");
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-facebook");
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var mongoose = __webpack_require__(7);
+
+// Create the Listings table ==================================
+
+var listingSchema = mongoose.Schema({
+    name: String,
+    //type: String,
+    start: Date,
+    end: Date,
+    description: String,
+    neighborhood: Number,
+    venue: {
+        ref: 'Venue',
+        type: String
+    },
+    event: Boolean
+});
+
+//compile the model
+
+module.exports = mongoose.model('List', listingSchema);
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var mongoose = __webpack_require__(7);
+
+// Create the Listings table ==================================
+
+var venueSchema = mongoose.Schema({
+    name: String,
+    website: String,
+    neighborhood: Number
+});
+
+//compile the model
+
+module.exports = mongoose.model('Venue', venueSchema);
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -945,15 +1530,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(23);
+var _server = __webpack_require__(36);
 
 var _reactRouter = __webpack_require__(1);
 
-var _routes = __webpack_require__(24);
+var _routes = __webpack_require__(37);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _ErrorPage = __webpack_require__(13);
+var _ErrorPage = __webpack_require__(18);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -961,15 +1546,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(4);
 var router = express.Router();
-var JSX = __webpack_require__(44).install();
+var JSX = __webpack_require__(66).install();
+var passport = __webpack_require__(9);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var hist = __webpack_require__(45);
+var history = __webpack_require__(67);
+var historyObj = history.createMemoryHistory();
+
+// Check if user is connected
+function isAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next(null);
+  }
+  res.redirect('/');
+}
 
 router.get('*', function (req, res) {
-  var location = hist.createLocation(req.path);
+  var location = historyObj.createLocation(req.path);
+  if (req.user) {}
   (0, _reactRouter.match)({
     routes: _routes2.default,
     location: location
@@ -984,7 +1580,7 @@ router.get('*', function (req, res) {
       res.status(404).send('Not found');
     } else {
       var markup = (0, _server.renderToString)(_react2.default.createElement(_reactRouter.RouterContext, renderProps));
-      res.render('index', { markup: markup });
+      res.render('index', { markup: markup, user: req.user });
     }
   });
 });
@@ -992,13 +1588,13 @@ router.get('*', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 23 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 24 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1014,48 +1610,61 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _layout = __webpack_require__(25);
+var _layout = __webpack_require__(38);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _IndexPage = __webpack_require__(26);
+var _IndexPage = __webpack_require__(41);
 
 var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
-var _CurrentPage = __webpack_require__(28);
+var _CurrentPage = __webpack_require__(42);
 
 var _CurrentPage2 = _interopRequireDefault(_CurrentPage);
 
-var _GlancePage = __webpack_require__(29);
+var _GlancePage = __webpack_require__(43);
 
 var _GlancePage2 = _interopRequireDefault(_GlancePage);
 
-var _EventsPage = __webpack_require__(33);
+var _EventsPage = __webpack_require__(47);
 
 var _EventsPage2 = _interopRequireDefault(_EventsPage);
 
-var _AdminPage = __webpack_require__(34);
+var _SignUpPage = __webpack_require__(48);
+
+var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
+
+var _LogInPage = __webpack_require__(52);
+
+var _LogInPage2 = _interopRequireDefault(_LogInPage);
+
+var _myList = __webpack_require__(56);
+
+var _myList2 = _interopRequireDefault(_myList);
+
+var _AdminPage = __webpack_require__(57);
 
 var _AdminPage2 = _interopRequireDefault(_AdminPage);
 
-var _NewListing = __webpack_require__(35);
+var _NewListing = __webpack_require__(58);
 
 var _NewListing2 = _interopRequireDefault(_NewListing);
 
-var _EditListings = __webpack_require__(41);
+var _EditListings = __webpack_require__(63);
 
 var _EditListings2 = _interopRequireDefault(_EditListings);
 
-var _Account = __webpack_require__(43);
+var _Account = __webpack_require__(65);
 
 var _Account2 = _interopRequireDefault(_Account);
 
-var _ErrorPage = __webpack_require__(13);
+var _ErrorPage = __webpack_require__(18);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//Signin Components
 var routes = _react2.default.createElement(
   _reactRouter.Route,
   { path: '/', component: _layout2.default },
@@ -1063,12 +1672,15 @@ var routes = _react2.default.createElement(
   _react2.default.createElement(_reactRouter.Route, { path: 'current', component: _CurrentPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'ataglance', component: _GlancePage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'events', component: _EventsPage2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _SignUpPage2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'mylist', component: _myList2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LogInPage2.default }),
   _react2.default.createElement(
     _reactRouter.Route,
-    { path: 'admin', component: _AdminPage2.default },
-    _react2.default.createElement(_reactRouter.IndexRoute, { component: _NewListing2.default }),
+    { path: 'account', component: _AdminPage2.default },
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Account2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'edit', component: _EditListings2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'account', component: _Account2.default })
+    _react2.default.createElement(_reactRouter.Route, { path: 'newlisting', component: _NewListing2.default })
   ),
   _react2.default.createElement(_reactRouter.Route, { path: '*', component: _ErrorPage2.default })
 );
@@ -1078,14 +1690,14 @@ var routes = _react2.default.createElement(
 exports.default = routes;
 
 /***/ }),
-/* 25 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1096,6 +1708,18 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
+var _ListStore = __webpack_require__(8);
+
+var _ListStore2 = _interopRequireDefault(_ListStore);
+
+var _AuthActions = __webpack_require__(5);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
+
+var _ListActions = __webpack_require__(2);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1105,91 +1729,162 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Layout = function (_React$Component) {
-  _inherits(Layout, _React$Component);
+    _inherits(Layout, _React$Component);
 
-  function Layout() {
-    _classCallCheck(this, Layout);
+    function Layout(props) {
+        _classCallCheck(this, Layout);
 
-    return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
-  }
+        var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
 
-  _createClass(Layout, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'app-container' },
-        _react2.default.createElement(
-          'header',
-          null,
-          _react2.default.createElement(
-            'h1',
-            null,
-            ' Welcome to the List'
-          ),
-          _react2.default.createElement(
-            _reactRouter.IndexLink,
-            { to: '/', activeClassName: 'active' },
-            'All'
-          ),
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/current', activeClassName: 'active' },
-            'Current'
-          ),
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/ataglance', activeClassName: 'active' },
-            'At a Glance'
-          ),
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/events', activeClassName: 'active' },
-            'Events'
-          ),
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/admin', activeClassName: 'active' },
-            'Admin'
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'app-content' },
-          this.props.children
-        ),
-        _react2.default.createElement(
-          'footer',
-          null,
-          _react2.default.createElement(
-            'p',
-            null,
-            'This is a first version of the new list using ',
-            _react2.default.createElement(
-              'strong',
-              null,
-              'React'
-            ),
-            ' and ',
-            _react2.default.createElement(
-              'strong',
-              null,
-              'Express'
-            ),
-            '.'
-          )
-        )
-      );
+        _this.state = _ListStore2.default.getState();
+        _this.onChange = _this.onChange.bind(_this);
+        return _this;
     }
-  }]);
 
-  return Layout;
+    _createClass(Layout, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            // Before the component mounts, check for an existing user session
+            _AuthActions2.default.checkSession();
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _ListStore2.default.listen(this.onChange);
+            // Get my list
+            _ListActions2.default.getMylist();
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            _ListStore2.default.unlisten(this.onChange);
+        }
+    }, {
+        key: 'onChange',
+        value: function onChange(state) {
+            this.setState(state);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _state = this.state,
+                isLoggedIn = _state.isLoggedIn,
+                name = _state.name;
+
+            var renderLogin = function renderLogin() {
+                return _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/login', activeClassName: 'active' },
+                    'Login'
+                );
+            };
+            var renderGreeting = function renderGreeting(name) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { to: '/account', activeClassName: 'active' },
+                        'Admin'
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        'Welcome, ',
+                        name
+                    )
+                );
+            };
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'app-container' },
+                _react2.default.createElement(
+                    'header',
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Welcome to the List'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.IndexLink,
+                        { to: '/', activeClassName: 'active' },
+                        'All'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { to: '/current', activeClassName: 'active' },
+                        'Current'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { to: '/ataglance', activeClassName: 'active' },
+                        'At a Glance'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { to: '/events', activeClassName: 'active' },
+                        'Events'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { to: '/mylist', activeClassName: 'active' },
+                        'my list (',
+                        this.state.mylist.length,
+                        ')'
+                    ),
+                    isLoggedIn ? renderGreeting(name) : renderLogin()
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'app-content' },
+                    _react2.default.cloneElement(this.props.children, this.state)
+                ),
+                _react2.default.createElement(
+                    'footer',
+                    null,
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'This is a first version of the new list using ',
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            'React'
+                        ),
+                        ' and ',
+                        _react2.default.createElement(
+                            'strong',
+                            null,
+                            'Express'
+                        ),
+                        '.'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Layout;
 }(_react2.default.Component);
 
 exports.default = Layout;
 
 /***/ }),
-/* 26 */
+/* 39 */
+/***/ (function(module, exports) {
+
+module.exports = require("alt");
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+module.exports = require("isomorphic-fetch");
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1209,17 +1904,17 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _listing = __webpack_require__(2);
+var _listing = __webpack_require__(3);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _ListStore = __webpack_require__(5);
-
-var _ListStore2 = _interopRequireDefault(_ListStore);
-
-var _ListActions = __webpack_require__(3);
+var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _AuthActions = __webpack_require__(5);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 var _displayActions = __webpack_require__(6);
 
@@ -1239,49 +1934,14 @@ var IndexPage = function (_React$Component) {
     function IndexPage(props) {
         _classCallCheck(this, IndexPage);
 
-        var _this = _possibleConstructorReturn(this, (IndexPage.__proto__ || Object.getPrototypeOf(IndexPage)).call(this, props));
-
-        _this.state = _ListStore2.default.getState();
-        _this.onChange = _this.onChange.bind(_this);
-        _this.addToList = _this.addToList.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (IndexPage.__proto__ || Object.getPrototypeOf(IndexPage)).call(this, props));
     }
 
     _createClass(IndexPage, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            _ListStore2.default.listen(this.onChange);
+            // Get all listings
             _ListActions2.default.getAll();
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            _ListStore2.default.unlisten(this.onChange);
-        }
-    }, {
-        key: 'onChange',
-        value: function onChange(state) {
-            this.setState(state);
-        }
-
-        //Function to add a listing to the personal list
-
-    }, {
-        key: 'addToList',
-        value: function addToList(e, listing) {
-            //Select this listing
-            var thislisting = $(e.target).closest('.listing');
-            if (thislisting.hasClass('selected')) {
-                //Close the currently open tab
-                $(thislisting).removeClass('selected');
-            } else {
-                //Open this listing
-                $(thislisting).addClass('selected');
-
-                this.setState({
-                    mylist: this.state.mylist.concat(listing)
-                });
-            }
         }
     }, {
         key: 'render',
@@ -1289,29 +1949,35 @@ var IndexPage = function (_React$Component) {
             var _this2 = this;
 
             var nh = '';
-            var thelist = this.state.allListings.map(function (listing) {
-                var newNh = listing.neighborhood;
-                if (newNh !== nh) {
-                    nh = newNh;
-                    newNh = _displayActions2.default.displayCity(nh);
-                    return _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            'h2',
+            var thelist = function thelist(mylist) {
+                return _this2.props.allListings.map(function (listing) {
+                    var newNh = listing.neighborhood;
+
+                    if (newNh !== nh) {
+                        nh = newNh;
+                        newNh = _displayActions2.default.displayCity(nh);
+                        return _react2.default.createElement(
+                            'div',
                             null,
-                            newNh
-                        ),
-                        _react2.default.createElement(_listing2.default, _extends({}, listing, { addToList: function addToList(e) {
-                                return _this2.addToList(e, listing);
-                            } }))
-                    );
-                } else {
-                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { addToList: function addToList(e) {
-                            return _this2.addToList(e, listing);
-                        } }));
-                }
-            });
+                            _react2.default.createElement(
+                                'h2',
+                                null,
+                                newNh
+                            ),
+                            _react2.default.createElement(_listing2.default, _extends({}, listing, {
+                                mylist: mylist,
+                                addToList: function addToList(e) {
+                                    return _this2.addToList(e, listing);
+                                }
+                            }))
+                        );
+                    } else {
+                        return _react2.default.createElement(_listing2.default, _extends({}, listing, {
+                            mylist: mylist
+                        }));
+                    }
+                });
+            };
 
             return _react2.default.createElement(
                 'div',
@@ -1324,29 +1990,7 @@ var IndexPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'listingsWrap' },
-                    thelist
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'myList' },
-                    _react2.default.createElement(
-                        'h2',
-                        null,
-                        'my list'
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        'Items in your list: ',
-                        _react2.default.createElement(
-                            'strong',
-                            null,
-                            this.state.mylist.length
-                        )
-                    ),
-                    this.state.mylist.map(function (listing) {
-                        return _react2.default.createElement(_listing2.default, listing);
-                    })
+                    thelist(this.props.mylist)
                 )
             );
         }
@@ -1358,13 +2002,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 27 */
-/***/ (function(module, exports) {
-
-module.exports = require("alt");
-
-/***/ }),
-/* 28 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1374,6 +2012,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -1382,15 +2022,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _ListStore = __webpack_require__(5);
+var _ListStore = __webpack_require__(8);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _listing = __webpack_require__(2);
+var _listing = __webpack_require__(3);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _ListActions = __webpack_require__(3);
+var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
@@ -1438,6 +2078,8 @@ var CurrentPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var nh = '';
             var thelist = this.state.currentListings.map(function (listing) {
                 var newNh = listing.venue.neighborhood;
@@ -1452,10 +2094,10 @@ var CurrentPage = function (_React$Component) {
                             null,
                             newNh
                         ),
-                        _react2.default.createElement(_listing2.default, listing)
+                        _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }))
                     );
                 } else {
-                    return _react2.default.createElement(_listing2.default, listing);
+                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }));
                 }
             });
 
@@ -1482,7 +2124,7 @@ var CurrentPage = function (_React$Component) {
 exports.default = CurrentPage;
 
 /***/ }),
-/* 29 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1500,19 +2142,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _ListStore = __webpack_require__(5);
+var _ListStore = __webpack_require__(8);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _ListActions = __webpack_require__(3);
+var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _daypage = __webpack_require__(30);
+var _daypage = __webpack_require__(44);
 
 var _daypage2 = _interopRequireDefault(_daypage);
 
-var _tabs = __webpack_require__(31);
+var _tabs = __webpack_require__(45);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -1567,7 +2209,7 @@ var GlancePage = function (_React$Component) {
                 var d = new Date();
                 d.setHours(0, 0, 0, 0);
                 d.setDate(today.getDate() + i);
-                days.push(_react2.default.createElement(_daypage2.default, { glanceListings: thelist, label: d }));
+                days.push(_react2.default.createElement(_daypage2.default, { glanceListings: thelist, mylist: this.props.mylist, label: d }));
             }
 
             return _react2.default.createElement(
@@ -1593,7 +2235,7 @@ var GlancePage = function (_React$Component) {
 exports.default = GlancePage;
 
 /***/ }),
-/* 30 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1603,17 +2245,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _listing = __webpack_require__(2);
+var _listing = __webpack_require__(3);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _reactIntl = __webpack_require__(7);
+var _reactIntl = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1626,15 +2270,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var DayPage = function (_React$Component) {
     _inherits(DayPage, _React$Component);
 
-    function DayPage() {
+    function DayPage(props) {
         _classCallCheck(this, DayPage);
 
-        return _possibleConstructorReturn(this, (DayPage.__proto__ || Object.getPrototypeOf(DayPage)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (DayPage.__proto__ || Object.getPrototypeOf(DayPage)).call(this, props));
     }
 
     _createClass(DayPage, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var date = this.props.label.toISOString();
 
             var openings = [];
@@ -1647,18 +2293,18 @@ var DayPage = function (_React$Component) {
                     // it IS an event
 
                     if (listing.start == date) {
-                        events.push(_react2.default.createElement(_listing2.default, listing));
+                        events.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist })));
                     }
                 } else {
                     //not an event
 
                     //Check if it starts on this day
                     if (listing.start == date) {
-                        openings.push(_react2.default.createElement(_listing2.default, listing));
+                        openings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist })));
                     }
                     //Check if it ends on this day
                     if (listing.end == date) {
-                        closings.push(_react2.default.createElement(_listing2.default, listing));
+                        closings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist })));
                     }
                 }
             });
@@ -1712,7 +2358,7 @@ var DayPage = function (_React$Component) {
 exports.default = DayPage;
 
 /***/ }),
-/* 31 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1728,9 +2374,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(7);
+var _reactIntl = __webpack_require__(11);
 
-var _propTypes = __webpack_require__(32);
+var _propTypes = __webpack_require__(46);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1833,13 +2479,13 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 32 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 33 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1849,6 +2495,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -1857,19 +2505,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _ListStore = __webpack_require__(5);
+var _ListStore = __webpack_require__(8);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _listing = __webpack_require__(2);
+var _listing = __webpack_require__(3);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _ListActions = __webpack_require__(3);
+var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _date = __webpack_require__(9);
+var _date = __webpack_require__(14);
 
 var _date2 = _interopRequireDefault(_date);
 
@@ -1913,6 +2561,8 @@ var EventsPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var oldDate = void 0;
             var thelist = this.state.eventsListings.map(function (listing) {
                 var newDate = listing.start;
@@ -1926,10 +2576,10 @@ var EventsPage = function (_React$Component) {
                             null,
                             _react2.default.createElement(_date2.default, { date: newDate })
                         ),
-                        _react2.default.createElement(_listing2.default, listing)
+                        _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }))
                     );
                 } else {
-                    return _react2.default.createElement(_listing2.default, listing);
+                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }));
                 }
             });
 
@@ -1956,7 +2606,721 @@ var EventsPage = function (_React$Component) {
 exports.default = EventsPage;
 
 /***/ }),
-/* 34 */
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = __webpack_require__(1);
+
+var _SignUpForm = __webpack_require__(49);
+
+var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LogInPage = function (_React$Component) {
+    _inherits(LogInPage, _React$Component);
+
+    function LogInPage() {
+        _classCallCheck(this, LogInPage);
+
+        return _possibleConstructorReturn(this, (LogInPage.__proto__ || Object.getPrototypeOf(LogInPage)).apply(this, arguments));
+    }
+
+    _createClass(LogInPage, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'admin' },
+                _react2.default.createElement(
+                    'header',
+                    null,
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Sign Up'
+                    )
+                ),
+                _react2.default.createElement(_SignUpForm2.default, null),
+                'Already signed up? ',
+                _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/login', activeClassName: 'active' },
+                    'Log In'
+                )
+            );
+        }
+    }]);
+
+    return LogInPage;
+}(_react2.default.Component);
+
+exports.default = LogInPage;
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _displayActions = __webpack_require__(6);
+
+var _displayActions2 = _interopRequireDefault(_displayActions);
+
+var _reactToggleButton = __webpack_require__(15);
+
+var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
+
+var _validator = __webpack_require__(50);
+
+var _validator2 = _interopRequireDefault(_validator);
+
+var _axios = __webpack_require__(51);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRouter = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SignUpForm = function (_React$Component) {
+  _inherits(SignUpForm, _React$Component);
+
+  function SignUpForm(props) {
+    _classCallCheck(this, SignUpForm);
+
+    var _this = _possibleConstructorReturn(this, (SignUpForm.__proto__ || Object.getPrototypeOf(SignUpForm)).call(this, props));
+
+    _this.state = {
+      name: '',
+      email: '',
+      password1: '',
+      password2: '',
+      isValid: {
+        name: true,
+        email: true,
+        password1: true,
+        password2: true
+      },
+      errorMessage: {
+        name: '',
+        email: '',
+        password1: '',
+        password2: ''
+      }
+    };
+
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleSaveClick = _this.handleSaveClick.bind(_this);
+    return _this;
+  }
+
+  _createClass(SignUpForm, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
+      var target = event.target;
+      var name = target.name;
+      var value = target.value;
+
+      this.setState(_defineProperty({}, name, value));
+    }
+
+    //Check if valid and updates state
+
+  }, {
+    key: '_getInputStyleName',
+    value: function _getInputStyleName(isValid) {
+      return isValid ? 'valid' : 'invalid';
+    }
+
+    //VALIDATORS
+
+  }, {
+    key: '_validateEmail',
+    value: function _validateEmail(value) {
+      var valid = _validator2.default.isEmail(value);
+      var errorMessage = this.state.errorMessage;
+
+      if (valid) {
+        errorMessage.email = '';
+        this.setState({ errorMessage: errorMessage });
+      } else {
+        errorMessage.email = 'Please enter a valid email address';
+        this.setState({ errorMessage: errorMessage });
+      }
+      return valid;
+    }
+  }, {
+    key: '_validateName',
+    value: function _validateName(value) {
+      var valid = _validator2.default.isLength(value.trim(), 1, 50);
+      var errorMessage = this.state.errorMessage;
+
+      if (valid) {
+        errorMessage.name = '';
+        this.setState({ errorMessage: errorMessage });
+      } else {
+        errorMessage.name = 'Please enter a name.';
+        this.setState({ errorMessage: errorMessage });
+      }
+      return valid;
+    }
+  }, {
+    key: '_validatePassword1',
+    value: function _validatePassword1(value) {
+      var valid = _validator2.default.isLength(value.trim(), 5, 50);
+      var errorMessage = this.state.errorMessage;
+
+      if (valid) {
+        errorMessage.password1 = '';
+        this.setState({ errorMessage: errorMessage });
+      } else {
+        errorMessage.password1 = 'Please enter a password. 5 characters min.';
+        this.setState({ errorMessage: errorMessage });
+      }
+      return valid;
+    }
+  }, {
+    key: '_validatePassword2',
+    value: function _validatePassword2(password1, password2) {
+      var pwValid = this._validatePassword1(this.state.password1);
+      var valid = _validator2.default.equals(password1, password2);
+      var errorMessage = this.state.errorMessage;
+
+      //Check if password is valid
+      if (pwValid) {
+        //Check if passwords match
+        if (valid) {
+          errorMessage.password2 = '';
+          this.setState({ errorMessage: errorMessage });
+        } else {
+          errorMessage.password2 = 'Passwords need to match';
+          this.setState({ errorMessage: errorMessage });
+        }
+
+        return valid;
+      } else {
+        return pwValid;
+      }
+    }
+  }, {
+    key: '_validate',
+    value: function _validate(name, email, password1, password2) {
+      this.setState({
+        isValid: {
+          name: this._validateName(name),
+          email: this._validateEmail(email),
+          password1: this._validatePassword1(password1),
+          password2: this._validatePassword2(password1, password2)
+        }
+      });
+    }
+  }, {
+    key: '_updateUser',
+    value: function _updateUser() {
+      var _state = this.state,
+          name = _state.name,
+          email = _state.email,
+          password1 = _state.password1,
+          password2 = _state.password2;
+
+
+      var updatedUser = {
+        name: name,
+        email: email,
+        password: password1
+
+        // in a real app, you'd send this user obj to an action handler to update store
+      };console.log('updated user:', updatedUser);
+
+      _axios2.default.post('/auth/signup', {
+        name: name,
+        email: email,
+        password: password1
+      }).then(function (response, error) {
+        console.log('Response');
+        if (!error) {
+          _reactRouter.browserHistory.push('/admin');
+          console.log('New user connected');
+        } else {
+          console.log(error);
+        }
+      }).catch(function (error) {});
+    }
+  }, {
+    key: '_areValid',
+    value: function _areValid(name, email, password1, password2) {
+      var result = false;
+
+      if (this._validateName(name) && this._validateEmail(email) && this._validatePassword1(password1) && this._validatePassword2(password1, password2)) {
+
+        result = true;
+      }
+      return result;
+    }
+  }, {
+    key: '_sanitizeValue',
+    value: function _sanitizeValue(value) {
+      return value.trim();
+    }
+  }, {
+    key: 'handleSaveClick',
+    value: function handleSaveClick(event) {
+
+      event.preventDefault();
+
+      var _state2 = this.state,
+          name = _state2.name,
+          email = _state2.email,
+          password1 = _state2.password1,
+          password2 = _state2.password2;
+
+
+      this._validate(name, email, password1, password2);
+
+      if (this._areValid(name, email, password1, password2)) {
+        this._updateUser();
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'form',
+        null,
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('input', { type: 'text',
+            name: 'name',
+            value: this.state.name,
+            className: this._getInputStyleName(this.state.isValid.name),
+            placeholder: 'Name',
+            onChange: this.handleChange
+          }),
+          _react2.default.createElement(
+            'span',
+            null,
+            this.state.errorMessage.name
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('input', { type: 'text',
+            name: 'email',
+            value: this.state.email,
+            className: this._getInputStyleName(this.state.isValid.email),
+            placeholder: 'Email',
+            onChange: this.handleChange
+          }),
+          _react2.default.createElement(
+            'span',
+            null,
+            this.state.errorMessage.email
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('input', { type: 'password',
+            name: 'password1',
+            value: this.state.password1,
+            className: this._getInputStyleName(this.state.isValid.password1),
+            placeholder: 'Password',
+            onChange: this.handleChange
+          }),
+          _react2.default.createElement(
+            'span',
+            null,
+            this.state.errorMessage.password1
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('input', { type: 'password',
+            name: 'password2',
+            value: this.state.password2,
+            className: this._getInputStyleName(this.state.isValid.password2),
+            placeholder: 'Confirm Password',
+            onChange: this.handleChange
+          }),
+          _react2.default.createElement(
+            'span',
+            null,
+            this.state.errorMessage.password2
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'button-container' },
+          _react2.default.createElement('input', { type: 'submit', value: 'Submit', onClick: this.handleSaveClick })
+        )
+      );
+    }
+  }]);
+
+  return SignUpForm;
+}(_react2.default.Component);
+
+;
+
+exports.default = SignUpForm;
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = __webpack_require__(1);
+
+var _LogInForm = __webpack_require__(53);
+
+var _LogInForm2 = _interopRequireDefault(_LogInForm);
+
+var _AuthActions = __webpack_require__(5);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
+
+var _ListActions = __webpack_require__(2);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _reactRouterDom = __webpack_require__(55);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LogInPage = function (_React$Component) {
+    _inherits(LogInPage, _React$Component);
+
+    function LogInPage(props) {
+        _classCallCheck(this, LogInPage);
+
+        return _possibleConstructorReturn(this, (LogInPage.__proto__ || Object.getPrototypeOf(LogInPage)).call(this, props));
+    }
+
+    _createClass(LogInPage, [{
+        key: 'render',
+        value: function render() {
+
+            var redirect = this.props.loginRedirect;
+
+            if (redirect) {
+                _reactRouter.browserHistory.push('/');
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'admin' },
+                _react2.default.createElement(
+                    'header',
+                    null,
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Login'
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'admin-content' },
+                    _react2.default.createElement(_LogInForm2.default, { loginFunction: _AuthActions2.default.attemptLogIn })
+                ),
+                'Need to sign up? ',
+                _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/signup', activeClassName: 'active' },
+                    'Sign Up'
+                )
+            );
+        }
+    }]);
+
+    return LogInPage;
+}(_react2.default.Component);
+
+exports.default = LogInPage;
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactstrap = __webpack_require__(54);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LogInForm = function (_React$Component) {
+    _inherits(LogInForm, _React$Component);
+
+    function LogInForm(props) {
+        _classCallCheck(this, LogInForm);
+
+        var _this = _possibleConstructorReturn(this, (LogInForm.__proto__ || Object.getPrototypeOf(LogInForm)).call(this, props));
+
+        _this.state = {
+            username: '',
+            password: ''
+        };
+
+        // Function binding
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
+    }
+
+    //Update values of inputs
+
+
+    _createClass(LogInForm, [{
+        key: 'handleChange',
+        value: function handleChange(event) {
+            var target = event.target;
+            var value = target.value;
+            var name = target.name;
+
+            this.setState(_defineProperty({}, name, value));
+        }
+
+        // Add the listing to the database
+
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit() {
+            var loginFunction = this.props.loginFunction;
+
+            var formData = this.state;
+            loginFunction(formData);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'form',
+                null,
+                _react2.default.createElement(
+                    _reactstrap.FormGroup,
+                    null,
+                    _react2.default.createElement(
+                        _reactstrap.Label,
+                        null,
+                        'Email'
+                    ),
+                    _react2.default.createElement(_reactstrap.Input, {
+                        name: 'username',
+                        placeholder: 'Email',
+                        type: 'text',
+                        value: this.state.username,
+                        onChange: this.handleChange
+                    })
+                ),
+                _react2.default.createElement(
+                    _reactstrap.FormGroup,
+                    null,
+                    _react2.default.createElement(
+                        _reactstrap.Label,
+                        null,
+                        'Password'
+                    ),
+                    _react2.default.createElement(_reactstrap.Input, {
+                        name: 'password',
+                        placeholder: 'Password',
+                        type: 'password',
+                        value: this.state.password,
+                        onChange: this.handleChange
+                    })
+                ),
+                _react2.default.createElement(
+                    _reactstrap.Button,
+                    { onClick: this.handleSubmit },
+                    'Log In'
+                )
+            );
+        }
+    }]);
+
+    return LogInForm;
+}(_react2.default.Component);
+
+exports.default = LogInForm;
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+module.exports = require("reactstrap");
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _listing = __webpack_require__(3);
+
+var _listing2 = _interopRequireDefault(_listing);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MyList = function (_React$Component) {
+    _inherits(MyList, _React$Component);
+
+    function MyList(props) {
+        _classCallCheck(this, MyList);
+
+        return _possibleConstructorReturn(this, (MyList.__proto__ || Object.getPrototypeOf(MyList)).call(this, props));
+    }
+
+    _createClass(MyList, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'myList' },
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    'my list'
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Items in your list: ',
+                    _react2.default.createElement(
+                        'strong',
+                        null,
+                        this.props.mylist.length
+                    )
+                ),
+                this.props.mylist.map(function (listing) {
+                    return _react2.default.createElement(_listing2.default, listing);
+                })
+            );
+        }
+    }]);
+
+    return MyList;
+}(_react2.default.Component);
+
+exports.default = MyList;
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2008,18 +3372,18 @@ var IndexPage = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactRouter.IndexLink,
-                        { to: '/admin', activeClassName: 'active' },
+                        { to: '/account', activeClassName: 'active' },
+                        'Account'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { to: '/account/newlisting', activeClassName: 'active' },
                         'New Listing'
                     ),
                     _react2.default.createElement(
                         _reactRouter.Link,
-                        { to: '/admin/edit', activeClassName: 'active' },
+                        { to: '/account/edit', activeClassName: 'active' },
                         'Edit Listing'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/admin/account', activeClassName: 'active' },
-                        'Account'
                     )
                 ),
                 _react2.default.createElement(
@@ -2037,7 +3401,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 35 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2053,7 +3417,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListingForm = __webpack_require__(36);
+var _ListingForm = __webpack_require__(59);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -2092,7 +3456,7 @@ var NewListing = function (_React$Component) {
 exports.default = NewListing;
 
 /***/ }),
-/* 36 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2108,19 +3472,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _listing = __webpack_require__(2);
+var _listing = __webpack_require__(3);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formDateRange = __webpack_require__(37);
+var _formDateRange = __webpack_require__(60);
 
 var _formDateRange2 = _interopRequireDefault(_formDateRange);
 
-var _formDateSingle = __webpack_require__(38);
+var _formDateSingle = __webpack_require__(61);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
-var _formSelect = __webpack_require__(12);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -2128,7 +3492,7 @@ var _displayActions = __webpack_require__(6);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(40);
+var _reactToggleButton = __webpack_require__(15);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -2368,7 +3732,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 37 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2384,7 +3748,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(11);
+var _reactDates = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2438,7 +3802,7 @@ var DateRange = function (_React$Component) {
 exports.default = DateRange;
 
 /***/ }),
-/* 38 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2454,7 +3818,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(11);
+var _reactDates = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2507,19 +3871,13 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 39 */
+/* 62 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-select");
 
 /***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-toggle-button");
-
-/***/ }),
-/* 41 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2535,7 +3893,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListingEdit = __webpack_require__(42);
+var _ListingEdit = __webpack_require__(64);
 
 var _ListingEdit2 = _interopRequireDefault(_ListingEdit);
 
@@ -2579,7 +3937,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 42 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2595,11 +3953,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _listing = __webpack_require__(2);
+var _listing = __webpack_require__(3);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formSelect = __webpack_require__(12);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -2624,10 +3982,15 @@ var ListingEdit = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (ListingEdit.__proto__ || Object.getPrototypeOf(ListingEdit)).call(this, props));
 
         _this.state = {
-            listing: ""
+            listing: "",
+            listingInfo: {
+                _id: '',
+                venue: {}
+            }
         };
 
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleSelectChange = _this.handleSelectChange.bind(_this);
         return _this;
     }
 
@@ -2639,7 +4002,25 @@ var ListingEdit = function (_React$Component) {
         value: function handleSubmit(event) {}
     }, {
         key: 'handleSelectChange',
-        value: function handleSelectChange() {}
+        value: function handleSelectChange(data) {
+            var _this2 = this;
+
+            this.setState({
+                listing: {
+                    label: data.label,
+                    value: data.value
+                }
+            });
+            console.log(data.value);
+            //Fetch all the venue info
+            return fetch('/list/getinfo/' + data.value).then(function (response) {
+                return response.json();
+            }).then(function (json) {
+                _this2.setState({
+                    listingInfo: json
+                });
+            });
+        }
     }, {
         key: 'render',
         value: function render() {
@@ -2666,7 +4047,11 @@ var ListingEdit = function (_React$Component) {
                         _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
                     )
                 ),
-                _react2.default.createElement('div', { id: 'ListingInfo' })
+                _react2.default.createElement(
+                    'div',
+                    { id: 'ListingInfo' },
+                    _react2.default.createElement(_listing2.default, this.state.listingInfo)
+                )
             );
         }
     }]);
@@ -2677,7 +4062,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 43 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2732,19 +4117,19 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 44 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 45 */
+/* 67 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 46 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2818,7 +4203,7 @@ router.post('/add', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 47 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2898,7 +4283,7 @@ router.get('/eventslistings', function (req, res) {
     });
 });
 
-/* GET ONE venue */
+/* GET ONE listing */
 router.get('/find/:listing_id', function (req, res, next) {
     var List = req.list;
 
@@ -2916,6 +4301,17 @@ router.get('/find/:listing_id', function (req, res, next) {
         });
 
         res.json(results);
+    });
+});
+
+/* GET ONE listing */
+router.get('/getinfo/:listing_id', function (req, res, next) {
+    var List = req.list;
+
+    List.findOne({ _id: req.params.listing_id }).populate('venue').exec(function (e, docs) {
+        if (e) res.send(e);
+
+        res.json(docs);
     });
 });
 
@@ -2980,54 +4376,134 @@ router.post('/delete/:listing_id', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 48 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(8);
+var express = __webpack_require__(4);
+var router = express.Router();
+var passport = __webpack_require__(9);
 
-// Create the Listings table ==================================
+/*router.get('/facebook', passport.authenticate('facebook'));
 
-var listingSchema = mongoose.Schema({
-    name: String,
-    //type: String,
-    start: Date,
-    end: Date,
-    description: String,
-    neighborhood: Number,
-    venue: {
-        ref: 'Venue',
-        type: String
-    },
-    event: Boolean
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });*/
+
+router.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/admin',
+    failureRedirect: '/signup',
+    failureFlash: true
+}));
+
+// LOGIN
+router.post('/login', async function (req, res) {
+    passport.authenticate('local-login')(req, res, function () {
+        // If logged in, we should have user info to send back
+        if (req.user) {
+            return res.send(JSON.stringify(req.user));
+        }
+
+        // Otherwise return an error
+        return res.send(JSON.stringify({
+            error: 'There was an error logging in'
+        }));
+    });
 });
 
-//compile the model
+/*
+ * UPDATE the user's list
+ */
+router.post('/addtolist', function (req, res) {
+    var Userlist = req.userlist;
+    var List = req.list;
 
-module.exports = mongoose.model('List', listingSchema);
+    //CHECK IF USER IS CONNECTED
+    if (req.user) {
 
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
+        // define variables
+        var userID = req.user._id;
+        var listingID = req.body.listingID;
 
-"use strict";
+        Userlist.findById(userID, function (err, user) {
 
+            if (err) return handleError(err);
 
-var mongoose = __webpack_require__(8);
+            // Check if listing is already in the list
+            var IndexOfListing = user.mylist.indexOf(listingID);
+            if (IndexOfListing == -1) {
 
-// Create the Listings table ==================================
+                //add listing to mylist
+                user.mylist.push(listingID);
+            } else {
 
-var venueSchema = mongoose.Schema({
-    name: String,
-    website: String,
-    neighborhood: Number
+                // Remove from the list
+                user.mylist.splice(IndexOfListing, 1);
+            }
+
+            // Save user with new listing
+            user.save(function (err, updatedUser) {
+                if (err) return handleError(err);
+                List.find({
+                    '_id': { $in: updatedUser.mylist }
+                }).sort('neighborhood').populate('venue').exec(function (e, docs) {
+                    return res.send(JSON.stringify(docs));
+                });
+            });
+        });
+    };
 });
 
-//compile the model
+// GET all listings from my list
+router.get('/getmylist', function (req, res) {
+    var List = req.list;
+    var Venue = req.venue;
 
-module.exports = mongoose.model('Venue', venueSchema);
+    //CHECK IF USER IS CONNECTED
+    if (req.user) {
+        var theirList = req.user.mylist;
+
+        List.find({
+            '_id': { $in: theirList }
+        }).sort('neighborhood').populate('venue').exec(function (e, docs) {
+            res.json(docs);
+        });
+    } else {
+        console.log('No user in the req');
+        return null;
+    }
+});
+
+// GET to check session
+router.get('/checksession', function (req, res) {
+
+    if (req.user) {
+        return res.send(JSON.stringify(req.user));
+    }
+    return res.send(JSON.stringify({}));
+});
+
+// GET to /logout
+router.get('/logout', function (req, res) {
+    req.logout();
+    return res.send(JSON.stringify(req.user));
+});
+
+/*
+ * GET Current User Info ===================
+ */
+router.get('/user', function (req, res) {
+    var User = req.user;
+
+    console.log(User);
+});
+
+module.exports = router;
 
 /***/ })
 /******/ ]);

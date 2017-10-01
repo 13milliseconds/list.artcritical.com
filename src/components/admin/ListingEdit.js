@@ -9,11 +9,17 @@ export default class ListingEdit extends React.Component {
 
     constructor(props) {
         super(props);
+        
         this.state = {
-            listing: ""
+            listing: "",
+            listingInfo: {
+                _id: '',
+                venue: {}
+            }
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
       }
     
     
@@ -22,8 +28,23 @@ export default class ListingEdit extends React.Component {
         
       }
     
-    handleSelectChange () {
-        
+    handleSelectChange (data) {
+        this.setState({
+            listing: { 
+                label: data.label, 
+                value: data.value
+            }
+            });
+        console.log(data.value)
+        //Fetch all the venue info
+        return fetch('/list/getinfo/' + data.value)
+        .then((response) => {
+          return response.json();
+        }).then((json) => {
+          this.setState({
+            listingInfo: json
+            });
+        });
     }
     
     render() {
@@ -37,7 +58,6 @@ export default class ListingEdit extends React.Component {
               return { options: json };
             });
         }
-
         
         return ( 
             <div>
@@ -48,6 +68,7 @@ export default class ListingEdit extends React.Component {
             </form>
             </div>
             <div id="ListingInfo">
+            <Listing {...this.state.listingInfo}/>
             </div>
             </div>
         );

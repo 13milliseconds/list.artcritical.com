@@ -5,6 +5,10 @@ import IndexPage from './components/IndexPage';
 import CurrentPage from './components/CurrentPage';
 import GlancePage from './components/GlancePage';
 import EventsPage from './components/EventsPage';
+//Signin Components
+import SignUpPage from './components/login/SignUpPage';
+import LogInPage from './components/login/LogInPage';
+import MyListPage from './components/myList';
 //Admin Components
 import AdminPage from './components/admin/AdminPage';
 import NewListing from './components/admin/NewListing';
@@ -19,10 +23,13 @@ const routes = (
         <Route path="current" component={CurrentPage}/>
         <Route path="ataglance" component={GlancePage}/>
         <Route path="events" component={EventsPage}/>
-        <Route path="admin" component={AdminPage}>
-            <IndexRoute component={NewListing}/>
+        <Route path="signup" component={SignUpPage}/>
+        <Route path="mylist" component={MyListPage}/>
+        <Route path="login" component={LogInPage}/>
+        <Route path="account" component={AdminPage}>
+            <IndexRoute component={Account}/>
             <Route path="edit" component={EditListings}/>
-            <Route path="account" component={Account}/>
+            <Route path="newlisting" component={NewListing}/>
         </Route>
         <Route path="*" component={ErrorPage}/>
       </Route>

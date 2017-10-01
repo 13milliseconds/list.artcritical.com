@@ -7,9 +7,16 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var debug = require('debug')('artcritical-list:server');
 
-var index = require('./routes/index');
-var venues = require('./routes/venues');
-var listings = require('./routes/list');
+var expressValidator = require('express-validator');
+
+//Authentification
+var passport = require('passport');
+var flash = require('connect-flash');
+var session = require('express-session');
+var bcrypt = require('bcrypt'); // encripts password
+
+// Get the User model
+require('./config/passport')(passport);
 
 var app = express();
 
@@ -26,13 +33,14 @@ var db = mongoose.connection;
 
 
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('open', function () {
     console.log('We are in!');
 });
 
 // Import the Mongoose models
 var List = require('./models/list.js');
 var Venue = require('./models/venue.js');
+var User = require('./models/user.js');
 
 
 // view engine setup
@@ -43,20 +51,45 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator());
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+
+//Create sessions
+var maxAge = 7 * 24 * 3600 * 1000;
+app.use(session({ secret: 'woot', cookie:{maxAge: maxAge}}));
+
+//start authentitification
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+//Setup flash messages
+app.use(flash());
+app.use(function(req, res, next) {
+  res.locals.message = req.flash();
+  next();
+});
 
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
     req.list = List;
     req.venue = Venue;
+    req.userlist = User;
     next();
 });
 
+var index = require('./routes/index');
+var venues = require('./routes/venues');
+var listings = require('./routes/list');
+var auth = require('./routes/auth');
+
 app.use('/venues', venues);
 app.use('/list', listings);
+app.use('/auth', auth);
 app.use('/', index);
 
 
