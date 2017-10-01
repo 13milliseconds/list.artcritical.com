@@ -14,7 +14,7 @@ export default class IndexPage extends React.Component {
                     <Link to={'/account/newlisting'} activeClassName="active">New Listing</Link>
                     <Link to={'/account/edit'} activeClassName="active">Edit Listing</Link>
                 </header>
-                <div className="admin-content">{this.props.children}</div>
+                <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
             </div>
         );
     }

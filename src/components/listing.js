@@ -42,9 +42,12 @@ export default class Listing extends React.Component {
     }
         const id = this.props._id;
         // Check if the listing is in mylist
-        let mylistIndex = this.props.mylist.filter(function(v) {
+        let mylistIndex = 0;
+        if (this.props.mylist) {
+            mylistIndex = this.props.mylist.filter(function(v) {
                 return v._id === id;
-        }).length;
+            }).length;   
+        }
       
       
     return (

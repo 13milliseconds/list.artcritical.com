@@ -14,7 +14,7 @@ export default class MyList extends React.Component {
                     <p>Items in your list: <strong>{this.props.mylist.length}</strong></p>
                     {
                         this.props.mylist.map((listing) => (
-                            <Listing {...listing}/>
+                            <Listing {...listing} mylist={this.props.mylist}/>
                         ))
                     }
                 </div>

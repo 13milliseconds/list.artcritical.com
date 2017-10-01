@@ -33,9 +33,9 @@ export default class Layout extends React.Component {
 
   render() {
       
-      const { isLoggedIn, name } = this.state;
+      const { user } = this.state;
       const renderLogin = () => <Link to={'/login'} activeClassName="active">Login</Link>;
-      const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Admin</Link><span>Welcome, {name}</span></div>;
+      const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Admin</Link><span>Welcome, {user.name}</span></div>;
       
     return (
       <div className="app-container">
@@ -46,7 +46,7 @@ export default class Layout extends React.Component {
             <Link to={'/ataglance'} activeClassName="active">At a Glance</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
             <Link to={'/mylist'} activeClassName="active">my list ({this.state.mylist.length})</Link>
-            { isLoggedIn ? renderGreeting(name) : renderLogin() }
+            { user.isLoggedIn ? renderGreeting(name) : renderLogin() }
         </header>
         <div className="app-content">
             {React.cloneElement(this.props.children, this.state)}

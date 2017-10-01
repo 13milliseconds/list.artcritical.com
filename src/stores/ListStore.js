@@ -13,11 +13,12 @@ class ListStore {
         this.glanceListings = [];
         this.mylist = [];
         // Auth states
-        this.name = '';
-        this.id = '';
-        this.isLoggedIn = false;
-        this.isLoggingIn = false;
-        this.email = '';
+        this.user = {};
+        this.user.name = '';
+        this.user.id = '';
+        this.user.isLoggedIn = false;
+        this.user.isLoggingIn = false;
+        this.user.email = '';
     }
     
     //List Reducers
@@ -62,36 +63,36 @@ class ListStore {
     }
     onLoginFailure(error){
         console.log(error);
-        this.name = '';
-        this.id = '';
-        this.isLoggedIn = false;
-        this.isLoggingIn = false;
-        this.email = '';
+        this.user.name = '';
+        this.user.id = '';
+        this.user.isLoggedIn = false;
+        this.user.isLoggingIn = false;
+        this.user.email = '';
     }
     onLoginSuccess(action){
-        this.name = action.local.name;
-        this.id = action._id;
-        this.isLoggedIn = true;
-        this.isLoggingIn = false;
-        this.email = action.local.email;
+        this.user.name = action.local.name;
+        this.user.id = action._id;
+        this.user.isLoggedIn = true;
+        this.user.isLoggingIn = false;
+        this.user.email = action.local.username;
         //Redirect to index
         this.loginRedirect = true;
     }
     
     // CHECK SESSION
     onSessionCheckFailure() {
-        this.name = '';
-        this.id = '';
-        this.isLoggedIn = false;
-        this.isLoggingIn = false;
-        this.email = '';
+        this.user.name = '';
+        this.user.id = '';
+        this.user.isLoggedIn = false;
+        this.user.isLoggingIn = false;
+        this.user.email = '';
     }
     onSessionCheckSuccess(action){
-        this.name = action.local.name;
-        this.id = action._id;
-        this.isLoggedIn = true;
-        this.isLoggingIn = false;
-        this.email = action.local.email;
+        this.user.name = action.local.name;
+        this.user.id = action._id;
+        this.user.isLoggedIn = true;
+        this.user.isLoggingIn = false;
+        this.user.email = action.local.email;
     }
     
     // ADD TO MYLIST

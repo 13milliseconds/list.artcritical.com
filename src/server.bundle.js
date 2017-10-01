@@ -263,9 +263,12 @@ var Listing = function (_React$Component) {
             }
             var id = this.props._id;
             // Check if the listing is in mylist
-            var mylistIndex = this.props.mylist.filter(function (v) {
-                return v._id === id;
-            }).length;
+            var mylistIndex = 0;
+            if (this.props.mylist) {
+                mylistIndex = this.props.mylist.filter(function (v) {
+                    return v._id === id;
+                }).length;
+            }
 
             return _react2.default.createElement(
                 'div',
@@ -689,11 +692,12 @@ var ListStore = function () {
         this.glanceListings = [];
         this.mylist = [];
         // Auth states
-        this.name = '';
-        this.id = '';
-        this.isLoggedIn = false;
-        this.isLoggingIn = false;
-        this.email = '';
+        this.user = {};
+        this.user.name = '';
+        this.user.id = '';
+        this.user.isLoggedIn = false;
+        this.user.isLoggingIn = false;
+        this.user.email = '';
     }
 
     //List Reducers
@@ -757,20 +761,20 @@ var ListStore = function () {
         key: 'onLoginFailure',
         value: function onLoginFailure(error) {
             console.log(error);
-            this.name = '';
-            this.id = '';
-            this.isLoggedIn = false;
-            this.isLoggingIn = false;
-            this.email = '';
+            this.user.name = '';
+            this.user.id = '';
+            this.user.isLoggedIn = false;
+            this.user.isLoggingIn = false;
+            this.user.email = '';
         }
     }, {
         key: 'onLoginSuccess',
         value: function onLoginSuccess(action) {
-            this.name = action.local.name;
-            this.id = action._id;
-            this.isLoggedIn = true;
-            this.isLoggingIn = false;
-            this.email = action.local.email;
+            this.user.name = action.local.name;
+            this.user.id = action._id;
+            this.user.isLoggedIn = true;
+            this.user.isLoggingIn = false;
+            this.user.email = action.local.username;
             //Redirect to index
             this.loginRedirect = true;
         }
@@ -780,20 +784,20 @@ var ListStore = function () {
     }, {
         key: 'onSessionCheckFailure',
         value: function onSessionCheckFailure() {
-            this.name = '';
-            this.id = '';
-            this.isLoggedIn = false;
-            this.isLoggingIn = false;
-            this.email = '';
+            this.user.name = '';
+            this.user.id = '';
+            this.user.isLoggedIn = false;
+            this.user.isLoggingIn = false;
+            this.user.email = '';
         }
     }, {
         key: 'onSessionCheckSuccess',
         value: function onSessionCheckSuccess(action) {
-            this.name = action.local.name;
-            this.id = action._id;
-            this.isLoggedIn = true;
-            this.isLoggingIn = false;
-            this.email = action.local.email;
+            this.user.name = action.local.name;
+            this.user.id = action._id;
+            this.user.isLoggedIn = true;
+            this.user.isLoggingIn = false;
+            this.user.email = action.local.email;
         }
 
         // ADD TO MYLIST
@@ -1767,9 +1771,7 @@ var Layout = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _state = this.state,
-                isLoggedIn = _state.isLoggedIn,
-                name = _state.name;
+            var user = this.state.user;
 
             var renderLogin = function renderLogin() {
                 return _react2.default.createElement(
@@ -1791,7 +1793,7 @@ var Layout = function (_React$Component) {
                         'span',
                         null,
                         'Welcome, ',
-                        name
+                        user.name
                     )
                 );
             };
@@ -1834,7 +1836,7 @@ var Layout = function (_React$Component) {
                         this.state.mylist.length,
                         ')'
                     ),
-                    isLoggedIn ? renderGreeting(name) : renderLogin()
+                    user.isLoggedIn ? renderGreeting(name) : renderLogin()
                 ),
                 _react2.default.createElement(
                     'div',
@@ -3258,6 +3260,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -3288,6 +3292,7 @@ var MyList = function (_React$Component) {
     _createClass(MyList, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
 
             return _react2.default.createElement(
                 'div',
@@ -3308,7 +3313,7 @@ var MyList = function (_React$Component) {
                     )
                 ),
                 this.props.mylist.map(function (listing) {
-                    return _react2.default.createElement(_listing2.default, listing);
+                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }));
                 })
             );
         }
@@ -3389,7 +3394,7 @@ var IndexPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'admin-content' },
-                    this.props.children
+                    _react2.default.cloneElement(this.props.children, this.props)
                 )
             );
         }
@@ -4089,10 +4094,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var IndexPage = function (_React$Component) {
     _inherits(IndexPage, _React$Component);
 
-    function IndexPage() {
+    function IndexPage(props) {
         _classCallCheck(this, IndexPage);
 
-        return _possibleConstructorReturn(this, (IndexPage.__proto__ || Object.getPrototypeOf(IndexPage)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (IndexPage.__proto__ || Object.getPrototypeOf(IndexPage)).call(this, props));
     }
 
     _createClass(IndexPage, [{
@@ -4106,6 +4111,18 @@ var IndexPage = function (_React$Component) {
                     "h3",
                     null,
                     "Your Account"
+                ),
+                _react2.default.createElement(
+                    "p",
+                    null,
+                    "Name: ",
+                    this.props.user.name
+                ),
+                _react2.default.createElement(
+                    "p",
+                    null,
+                    "Email: ",
+                    this.props.user.username
                 )
             );
         }
