@@ -1,4 +1,4 @@
-module.exports = ListApp = React.createClass({
+module.exports = default class ListApp extends React.Component {
   // Render the component
   render: function(){
 
@@ -9,4 +9,4 @@ module.exports = ListApp = React.createClass({
     )
 
   }
-});
+};

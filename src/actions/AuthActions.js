@@ -9,30 +9,25 @@ class AuthActions {
             'sessionCheckSuccess',
             'addToMyListSuccess',
             'addToMyListFailure',
+            'loginAttempt',
+            'loginFailure',
+            'loginSuccess',
+            'logoutSuccess',
+            'logoutFailure',
+            'registerAttempt',
+            'registerSuccess',
+            'registerFailure',
         );
-    }
-    
-    loginAttempt () {
-        return true;
-    }
-    
-    loginFailure (error){
-        return error;
-    }
-    
-    loginSuccess (action){
-        return action;
     }
     
     async attemptLogIn(userData) {
         
         this.loginAttempt();
+        
+        console.log('Login attempt');
 
-        // contact login API
         await fetch(
-          // where to contact
           '/auth/login',
-          // what to send
           {
             method: 'POST',
             body: JSON.stringify(userData),
@@ -59,6 +54,67 @@ class AuthActions {
         });
   }
     
+    async attemptLogOut() {
+
+        await fetch(
+          '/auth/logout',
+          {
+            method: 'GET',
+            credentials: 'same-origin',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+            return this.logoutSuccess();
+              return true;
+          }
+          return this.logoutFailure('Error: ${response.status}');
+            return true;
+        })
+        .catch((error) => {
+          this.logoutFailure(error);
+            return true;
+        });
+
+    }
+    
+    facebookLogin(user){
+        return(user);
+    }
+    
+    async attemptRegister(registerData) {
+        
+        this.registerAttempt();
+        
+        console.log('Register attempt');
+
+        await fetch(
+          '/auth/signup',
+          {
+            method: 'POST',
+            body: JSON.stringify(registerData),
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        ).then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+          if (json) {
+            this.registerSuccess(json);
+          } else {
+            this.registerFailure(new Error('Registration Failed'));
+          }
+        })
+        .catch((error) => {
+          this.registerFailure(new Error(error));
+        });
+  }
+    
     async checkSession() {
         // contact the API
         await fetch(
@@ -75,14 +131,17 @@ class AuthActions {
           return null;
         })
         .then((json) => {
-          if (json.local.username) {
+          if (json._id) {
             this.sessionCheckSuccess(json);
+              return true;
           } else {
             this.sessionCheckFailure(error);
+              return true;
           }
         })
         .catch((error) => {
           this.sessionCheckFailure(error);
+            return true;
         });
       }
     
@@ -109,9 +168,11 @@ class AuthActions {
         })
         .then((json) => {
             this.addToMyListSuccess(json);
+            return true;
         })
         .catch((error) => {
           this.addToMyListFailure(error);
+            return true;
         });
     }
 

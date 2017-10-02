@@ -5,16 +5,25 @@ import {IndexLink, Link} from 'react-router';
 export default class IndexPage extends React.Component {
 
     render() {
-        
-        return ( 
-            <div className = "admin">
+        let adminRender = this.props.user.isLoggedIn ?
+            <div>
                 <header>
-                    <h2>Admin page</h2>
+                    <h2>Account page</h2>
                     <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
                     <Link to={'/account/newlisting'} activeClassName="active">New Listing</Link>
                     <Link to={'/account/edit'} activeClassName="active">Edit Listing</Link>
                 </header>
                 <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
+            </div>
+            :
+            <div>
+                <p>Please login to have access to your account</p>
+                <Link to={'/login'} activeClassName="active">Login</Link>
+            </div>
+        
+        return ( 
+            <div className = "admin">
+              {adminRender}
             </div>
         );
     }

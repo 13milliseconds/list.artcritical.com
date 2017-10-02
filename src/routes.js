@@ -8,7 +8,7 @@ import EventsPage from './components/EventsPage';
 //Signin Components
 import SignUpPage from './components/login/SignUpPage';
 import LogInPage from './components/login/LogInPage';
-import MyListPage from './components/myList';
+import MyListPage from './components/myListPage';
 //Admin Components
 import AdminPage from './components/admin/AdminPage';
 import NewListing from './components/admin/NewListing';

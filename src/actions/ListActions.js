@@ -17,66 +17,83 @@ class ListActions {
     }
 
     getCurrent() {
-        $.ajax({
-                url: '/list/currentlistings'
-            })
-            .done((data) => {
-                this.getCurrentSuccess(data)
-            })
-            .fail((jqXhr) => {
-                this.getCurrentFail(jqXhr)
-            });
+        return dispatch => {
+            dispatch();
+            $.ajax({
+                    url: '/list/currentlistings'
+                })
+                .done((data) => {
+                    this.getCurrentSuccess(data)
+                })
+                .fail((jqXhr) => {
+                    this.getCurrentFail(jqXhr)
+                });
+        };
     }
 
     getAll() {
-        $.ajax({
-                url: '/list/alllistings'
-            })
-            .done((data) => {
-                this.getAllSuccess(data)
-            })
-            .fail((jqXhr) => {
-                this.getAllFail(jqXhr)
-            });
+        return dispatch => {
+            dispatch();
+            $.ajax({
+                    url: '/list/alllistings'
+                })
+                .done((data) => {
+                    this.getAllSuccess(data)
+                })
+                .fail((jqXhr) => {
+                    this.getAllFail(jqXhr)
+                });
+        };
     }
 
     getEvents() {
-        $.ajax({
-                url: '/list/eventslistings'
-            })
-            .done((data) => {
-                this.getEventsSuccess(data)
-            })
-            .fail((jqXhr) => {
-                this.getEventsFail(jqXhr)
-            });
+        return dispatch => {
+            dispatch();
+            $.ajax({
+                    url: '/list/eventslistings'
+                })
+                .done((data) => {
+                    this.getEventsSuccess(data)
+                })
+                .fail((jqXhr) => {
+                    this.getEventsFail(jqXhr)
+                });
+        };
     }
 
     getGlance() {
-        $.ajax({
-                url: '/list/glancelistings'
-            })
-            .done((data) => {
-                this.getGlanceSuccess(data)
-            })
-            .fail((jqXhr) => {
-                this.getGlanceFail(jqXhr)
-            });
+        return dispatch => {
+            dispatch();
+            $.ajax({
+                    url: '/list/glancelistings'
+                })
+                .done((data) => {
+                    this.getGlanceSuccess(data)
+                })
+                .fail((jqXhr) => {
+                    this.getGlanceFail(jqXhr)
+                });
+        };
     }
-    
+
     getMylist() {
         console.log('Getting mylist');
-        $.ajax({
-                url: '/auth/getmylist'
-            })
-            .done((data) => {
-                console.log('Got mylist');
-                this.getMylistSuccess(data)
-            })
-            .fail((jqXhr) => {
-                console.log('Failed to get mylist');
-                this.getMylistFailure(jqXhr)
-            });
+        return dispatch => {
+            dispatch();
+            $.ajax({
+                    url: '/auth/getmylist'
+                })
+                .done((data) => {
+                    console.log('Got mylist');
+                    this.getMylistSuccess(data)
+                    return true;
+                })
+                .fail((jqXhr) => {
+                    console.log('Failed to get mylist');
+                    this.getMylistFailure(jqXhr)
+                    return true;
+                });
+        };
     }
 }
 

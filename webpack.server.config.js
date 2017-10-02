@@ -9,6 +9,9 @@ module.exports = {
       path: path.join(__dirname, 'src/'),
       filename: 'server.bundle.js'
   },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+    },
 
   target: 'node',
 
@@ -27,7 +30,7 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },
         { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }, 
       { test: /\.css$/, loader: 'style-loader!css-loader' }
     ]

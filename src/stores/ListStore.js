@@ -74,9 +74,49 @@ class ListStore {
         this.user.id = action._id;
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;
-        this.user.email = action.local.username;
-        //Redirect to index
-        this.loginRedirect = true;
+        this.user.email = action.local.email;
+    }
+    
+    // REGISTER ATTEMPT
+    onRegisterAttempt(){
+        this.isRegistering = true;
+    }
+    onRegisterFailure(error){
+        console.log(error);
+        this.user.name = '';
+        this.user.id = '';
+        this.user.email = '';
+        this.isRegistering = false;
+    }
+    onRegisterSuccess(action){
+        this.user.name = action.local.name;
+        this.user.id = action._id;
+        this.user.email = action.local.email;
+        this.isRegistering = false;
+        this.user.isLoggedIn = true;
+    }
+    
+    //Facebook Login
+    onFacebookLogin(user){
+        console.log("Logged in via Facebook");
+        this.user.name = user.facebook.name;
+        this.user.id = user._id;
+        this.user.isLoggedIn = true;
+    }
+    
+    // LOGOUT ATTEMPT
+    onLogoutFailure(error){
+        console.log("Failed to log out");
+        console.log(error);
+    }
+    onLogoutSuccess(action){
+        console.log("Logged out");
+        this.user.name = '';
+        this.user.id = '';
+        this.user.isLoggedIn = false;
+        this.user.isLoggingIn = false;
+        this.user.email = '';
+        this.mylist = [];
     }
     
     // CHECK SESSION
@@ -88,11 +128,15 @@ class ListStore {
         this.user.email = '';
     }
     onSessionCheckSuccess(action){
-        this.user.name = action.local.name;
         this.user.id = action._id;
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;
-        this.user.email = action.local.email;
+        if (action.local){
+            this.user.name = action.local.name;
+        }
+        if (action.facebook){
+            this.user.name = action.facebook.name;
+        }
     }
     
     // ADD TO MYLIST

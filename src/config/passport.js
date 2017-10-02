@@ -3,6 +3,7 @@
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy   = require('passport-facebook').Strategy;
+import AuthActions from '../actions/AuthActions';
 
 
 // load up the user model
@@ -19,12 +20,10 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        console.log('serializeUser called.');
       done(null, user._id);
     });
 
     passport.deserializeUser(function(id, done) {
-        console.log('deserializeUser called.');
       User.findById(id, function(err, user) {
         done(err, user);
       });
@@ -37,12 +36,9 @@ module.exports = function(passport) {
     // by default, if there was no name, it would just be called 'local'
 
      passport.use('local-signup', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
-        passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, done) {
+    function(req, username, password, done) {
          console.log('Passport Signup Initialization')
         // asynchronous
         // User.findOne wont fire unless data is sent back
@@ -50,7 +46,7 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.email' :  email }, function(err, user) {
+        User.findOne({ 'local.username' :  username }, function(err, user) {
             // if there are any errors, return the error
             if (err)
                 return done(err);
@@ -62,13 +58,13 @@ module.exports = function(passport) {
                 return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
             } else {
                 console.log("New User..");
-                // if there is no user with that email
                 // create the user
-                var newUser            = new User();
+                var newUser             = new User();
 
                 // set the user's local credentials
-                newUser.local.email    = email;
-                newUser.local.password = newUser.generateHash(password);
+                newUser.local.name      = req.body.name;
+                newUser.local.username  = req.body.username;
+                newUser.local.password  = newUser.generateHash(password);
 
                 // save the user
                 newUser.save(function(err) {
@@ -97,7 +93,6 @@ module.exports = function(passport) {
 
    passport.use('local-login', new LocalStrategy(
       function(username, password, done) {
-          console.log('Signing In ' + username);
         User.findOne({ 'local.username': username }, function(err, user) {
           if (err) { 
               console.log('Incorrect Something');
@@ -111,7 +106,7 @@ module.exports = function(passport) {
               console.log('Incorrect Password');
             return done(null, false, { message: 'Incorrect password.' });
           }
-            console.log('Signed In');
+            console.log('local-login: Signed In');
           return done(null, user);
         });
       }
@@ -120,13 +115,42 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy({
         clientID: "1154923567943109",
         clientSecret: "9ab1f837eabcc53aafadc9657eb65f19",
-        callbackURL: "http://localhost:3000/auth/facebook/callback"
+        callbackURL: "http://localhost:5000/auth/facebook/callback"
       },
-      function(accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-          return cb(err, user);
+      function(accessToken, refreshToken, profile, done) {
+        //check user table for anyone with a facebook ID of profile.id
+        console.log("Finding Facebook user");
+        
+        User.findOne({
+            'facebook.id': profile.id 
+        }, function(err, user) {
+            if (err) {
+                console.log("Error", err);
+                return done(err);
+            }
+            //No user was found
+            if (!user) {
+                console.log("No found user");
+                console.log(profile);
+                user = new User({
+                    name: profile.displayName,
+                    provider: 'facebook',
+                    facebook: profile._json
+                });
+                console.log("New user", user);
+                user.save(function(err) {
+                    if (err) console.log(err);
+                    AuthActions.facebookLogin(user);
+                    return done(err, user);
+                });
+            } else {
+                console.log("Found user");
+                //found user. Return
+                AuthActions.facebookLogin(user);
+                return done(err, user);
+            }
         });
-      }
+    }
     ));
 
 

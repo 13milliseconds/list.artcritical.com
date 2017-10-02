@@ -3,24 +3,50 @@ var router = express.Router();
 var passport = require('passport');
 
 
-/*router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook', passport.authenticate('facebook'));
 
 router.get('/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
-  });*/
+  });
 
-router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/admin',
-    failureRedirect: '/signup',
-    failureFlash: true
-}));
+router.post('/signup', async(req, res) => {
+    passport.authenticate('local-signup')(req, res, () => {
+        console.log('Registering');
+        // If logged in, we should have user info to send back
+        if (req.user) {
+            passport.authenticate('local-login')(req, res, () => {
+                console.log('auth/signup: Signed in');
+                
+                // If logged in, we should have user info to send back
+                if (req.user) {
+                    return res.send(JSON.stringify(req.user));
+                }
 
+                // Otherwise return an error
+                return res.send(JSON.stringify({
+                    error: 'There was an error logging in'
+                }));
+            });
+        } else {
+            // Otherwise return an error
+            return res.send(JSON.stringify({
+                error: 'There was an error logging in'
+            }));
+        }
+
+    });
+});
+
+//###################################
 // LOGIN
+//###################################
+
 router.post('/login', async(req, res) => {
     passport.authenticate('local-login')(req, res, () => {
+        console.log('Logged in');
         // If logged in, we should have user info to send back
         if (req.user) {
             return res.send(JSON.stringify(req.user));
@@ -33,9 +59,24 @@ router.post('/login', async(req, res) => {
     });
 });
 
-/*
+
+//###################################
+// LOGOUT
+//###################################
+
+router.get('/logout', (req, res) => {
+    req.logout();
+    req.session.destroy(function (err) {
+        return res.send(JSON.stringify(req.user));
+    });
+
+});
+
+
+/*//###################################
  * UPDATE the user's list
- */
+ *///###################################
+
 router.post('/addtolist', function (req, res) {
     var Userlist = req.userlist;
     var List = req.list;
@@ -81,7 +122,11 @@ router.post('/addtolist', function (req, res) {
     };
 });
 
+
+//###################################
 // GET all listings from my list
+//###################################
+
 router.get('/getmylist', (req, res) => {
     var List = req.list;
     var Venue = req.venue;
@@ -99,8 +144,8 @@ router.get('/getmylist', (req, res) => {
             res.json(docs);
         });
     } else {
-        console.log('No user in the req');
-        return null;
+        var docs = [];
+        res.json(docs);
     }
 });
 
@@ -113,11 +158,6 @@ router.get('/checksession', (req, res) => {
     return res.send(JSON.stringify({}));
 });
 
-// GET to /logout
-router.get('/logout', (req, res) => {
-    req.logout();
-    return res.send(JSON.stringify(req.user));
-});
 
 /*
  * GET Current User Info ===================

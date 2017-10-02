@@ -108,52 +108,64 @@ var ListActions = function () {
         value: function getCurrent() {
             var _this = this;
 
-            $.ajax({
-                url: '/list/currentlistings'
-            }).done(function (data) {
-                _this.getCurrentSuccess(data);
-            }).fail(function (jqXhr) {
-                _this.getCurrentFail(jqXhr);
-            });
+            return function (dispatch) {
+                dispatch();
+                $.ajax({
+                    url: '/list/currentlistings'
+                }).done(function (data) {
+                    _this.getCurrentSuccess(data);
+                }).fail(function (jqXhr) {
+                    _this.getCurrentFail(jqXhr);
+                });
+            };
         }
     }, {
         key: 'getAll',
         value: function getAll() {
             var _this2 = this;
 
-            $.ajax({
-                url: '/list/alllistings'
-            }).done(function (data) {
-                _this2.getAllSuccess(data);
-            }).fail(function (jqXhr) {
-                _this2.getAllFail(jqXhr);
-            });
+            return function (dispatch) {
+                dispatch();
+                $.ajax({
+                    url: '/list/alllistings'
+                }).done(function (data) {
+                    _this2.getAllSuccess(data);
+                }).fail(function (jqXhr) {
+                    _this2.getAllFail(jqXhr);
+                });
+            };
         }
     }, {
         key: 'getEvents',
         value: function getEvents() {
             var _this3 = this;
 
-            $.ajax({
-                url: '/list/eventslistings'
-            }).done(function (data) {
-                _this3.getEventsSuccess(data);
-            }).fail(function (jqXhr) {
-                _this3.getEventsFail(jqXhr);
-            });
+            return function (dispatch) {
+                dispatch();
+                $.ajax({
+                    url: '/list/eventslistings'
+                }).done(function (data) {
+                    _this3.getEventsSuccess(data);
+                }).fail(function (jqXhr) {
+                    _this3.getEventsFail(jqXhr);
+                });
+            };
         }
     }, {
         key: 'getGlance',
         value: function getGlance() {
             var _this4 = this;
 
-            $.ajax({
-                url: '/list/glancelistings'
-            }).done(function (data) {
-                _this4.getGlanceSuccess(data);
-            }).fail(function (jqXhr) {
-                _this4.getGlanceFail(jqXhr);
-            });
+            return function (dispatch) {
+                dispatch();
+                $.ajax({
+                    url: '/list/glancelistings'
+                }).done(function (data) {
+                    _this4.getGlanceSuccess(data);
+                }).fail(function (jqXhr) {
+                    _this4.getGlanceFail(jqXhr);
+                });
+            };
         }
     }, {
         key: 'getMylist',
@@ -161,15 +173,20 @@ var ListActions = function () {
             var _this5 = this;
 
             console.log('Getting mylist');
-            $.ajax({
-                url: '/auth/getmylist'
-            }).done(function (data) {
-                console.log('Got mylist');
-                _this5.getMylistSuccess(data);
-            }).fail(function (jqXhr) {
-                console.log('Failed to get mylist');
-                _this5.getMylistFailure(jqXhr);
-            });
+            return function (dispatch) {
+                dispatch();
+                $.ajax({
+                    url: '/auth/getmylist'
+                }).done(function (data) {
+                    console.log('Got mylist');
+                    _this5.getMylistSuccess(data);
+                    return true;
+                }).fail(function (jqXhr) {
+                    console.log('Failed to get mylist');
+                    _this5.getMylistFailure(jqXhr);
+                    return true;
+                });
+            };
         }
     }]);
 
@@ -186,6 +203,188 @@ exports.default = _alt2.default.createActions(ListActions);
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _alt = __webpack_require__(10);
+
+var _alt2 = _interopRequireDefault(_alt);
+
+__webpack_require__(32);
+
+var _ListActions = __webpack_require__(2);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var AuthActions = function () {
+  function AuthActions() {
+    _classCallCheck(this, AuthActions);
+
+    this.generateActions('sessionCheckFailure', 'sessionCheckSuccess', 'addToMyListSuccess', 'addToMyListFailure', 'loginAttempt', 'loginFailure', 'loginSuccess', 'logoutSuccess', 'logoutFailure', 'registerAttempt', 'registerSuccess', 'registerFailure');
+  }
+
+  _createClass(AuthActions, [{
+    key: 'attemptLogIn',
+    value: async function attemptLogIn(userData) {
+      var _this = this;
+
+      this.loginAttempt();
+
+      console.log('Login attempt');
+
+      await fetch('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+      }).then(function (response) {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      }).then(function (json) {
+        if (json) {
+          _this.loginSuccess(json);
+        } else {
+          _this.loginFailure(new Error('Authentication Failed'));
+        }
+      }).catch(function (error) {
+        _this.loginFailure(new Error(error));
+      });
+    }
+  }, {
+    key: 'attemptLogOut',
+    value: async function attemptLogOut() {
+      var _this2 = this;
+
+      await fetch('/auth/logout', {
+        method: 'GET',
+        credentials: 'same-origin'
+      }).then(function (response) {
+        if (response.status === 200) {
+          return _this2.logoutSuccess();
+          return true;
+        }
+        return _this2.logoutFailure('Error: ${response.status}');
+        return true;
+      }).catch(function (error) {
+        _this2.logoutFailure(error);
+        return true;
+      });
+    }
+  }, {
+    key: 'facebookLogin',
+    value: function facebookLogin(user) {
+      return user;
+    }
+  }, {
+    key: 'attemptRegister',
+    value: async function attemptRegister(registerData) {
+      var _this3 = this;
+
+      this.registerAttempt();
+
+      console.log('Register attempt');
+
+      await fetch('/auth/signup', {
+        method: 'POST',
+        body: JSON.stringify(registerData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function (response) {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      }).then(function (json) {
+        if (json) {
+          _this3.registerSuccess(json);
+        } else {
+          _this3.registerFailure(new Error('Registration Failed'));
+        }
+      }).catch(function (error) {
+        _this3.registerFailure(new Error(error));
+      });
+    }
+  }, {
+    key: 'checkSession',
+    value: async function checkSession() {
+      var _this4 = this;
+
+      // contact the API
+      await fetch('/auth/checksession', {
+        method: 'GET',
+        credentials: 'same-origin'
+      }).then(function (response) {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      }).then(function (json) {
+        if (json._id) {
+          _this4.sessionCheckSuccess(json);
+          return true;
+        } else {
+          _this4.sessionCheckFailure(error);
+          return true;
+        }
+      }).catch(function (error) {
+        _this4.sessionCheckFailure(error);
+        return true;
+      });
+    }
+  }, {
+    key: 'addToUserList',
+    value: async function addToUserList(listing) {
+      var _this5 = this;
+
+      var listData = { listingID: listing._id };
+
+      //Upload the ID to the user profile
+      await fetch('/auth/addtolist', {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: JSON.stringify(listData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function (response) {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      }).then(function (json) {
+        _this5.addToMyListSuccess(json);
+        return true;
+      }).catch(function (error) {
+        _this5.addToMyListFailure(error);
+        return true;
+      });
+    }
+  }]);
+
+  return AuthActions;
+}();
+
+exports.default = _alt2.default.createActions(AuthActions);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -195,13 +394,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _AuthActions = __webpack_require__(3);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
+
 var _date = __webpack_require__(14);
 
 var _date2 = _interopRequireDefault(_date);
-
-var _AuthActions = __webpack_require__(5);
-
-var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -210,6 +409,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
 
 var Listing = function (_React$Component) {
     _inherits(Listing, _React$Component);
@@ -345,150 +546,10 @@ var Listing = function (_React$Component) {
 exports.default = Listing;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _alt = __webpack_require__(10);
-
-var _alt2 = _interopRequireDefault(_alt);
-
-__webpack_require__(40);
-
-var _ListActions = __webpack_require__(2);
-
-var _ListActions2 = _interopRequireDefault(_ListActions);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var AuthActions = function () {
-  function AuthActions() {
-    _classCallCheck(this, AuthActions);
-
-    this.generateActions('sessionCheckFailure', 'sessionCheckSuccess', 'addToMyListSuccess', 'addToMyListFailure');
-  }
-
-  _createClass(AuthActions, [{
-    key: 'loginAttempt',
-    value: function loginAttempt() {
-      return true;
-    }
-  }, {
-    key: 'loginFailure',
-    value: function loginFailure(error) {
-      return error;
-    }
-  }, {
-    key: 'loginSuccess',
-    value: function loginSuccess(action) {
-      return action;
-    }
-  }, {
-    key: 'attemptLogIn',
-    value: async function attemptLogIn(userData) {
-      var _this = this;
-
-      this.loginAttempt();
-
-      // contact login API
-      await fetch(
-      // where to contact
-      '/auth/login',
-      // what to send
-      {
-        method: 'POST',
-        body: JSON.stringify(userData),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'same-origin'
-      }).then(function (response) {
-        if (response.status === 200) {
-          return response.json();
-        }
-        return null;
-      }).then(function (json) {
-        if (json) {
-          _this.loginSuccess(json);
-        } else {
-          _this.loginFailure(new Error('Authentication Failed'));
-        }
-      }).catch(function (error) {
-        _this.loginFailure(new Error(error));
-      });
-    }
-  }, {
-    key: 'checkSession',
-    value: async function checkSession() {
-      var _this2 = this;
-
-      // contact the API
-      await fetch('/auth/checksession', {
-        method: 'GET',
-        credentials: 'same-origin'
-      }).then(function (response) {
-        if (response.status === 200) {
-          return response.json();
-        }
-        return null;
-      }).then(function (json) {
-        if (json.local.username) {
-          _this2.sessionCheckSuccess(json);
-        } else {
-          _this2.sessionCheckFailure(error);
-        }
-      }).catch(function (error) {
-        _this2.sessionCheckFailure(error);
-      });
-    }
-  }, {
-    key: 'addToUserList',
-    value: async function addToUserList(listing) {
-      var _this3 = this;
-
-      var listData = { listingID: listing._id };
-
-      //Upload the ID to the user profile
-      await fetch('/auth/addtolist', {
-        method: 'POST',
-        credentials: 'same-origin',
-        body: JSON.stringify(listData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(function (response) {
-        if (response.status === 200) {
-          return response.json();
-        }
-        return null;
-      }).then(function (json) {
-        _this3.addToMyListSuccess(json);
-      }).catch(function (error) {
-        _this3.addToMyListFailure(error);
-      });
-    }
-  }]);
-
-  return AuthActions;
-}();
-
-exports.default = _alt2.default.createActions(AuthActions);
 
 /***/ }),
 /* 6 */
@@ -671,7 +732,7 @@ var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _AuthActions = __webpack_require__(5);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -774,9 +835,64 @@ var ListStore = function () {
             this.user.id = action._id;
             this.user.isLoggedIn = true;
             this.user.isLoggingIn = false;
-            this.user.email = action.local.username;
-            //Redirect to index
-            this.loginRedirect = true;
+            this.user.email = action.local.email;
+        }
+
+        // REGISTER ATTEMPT
+
+    }, {
+        key: 'onRegisterAttempt',
+        value: function onRegisterAttempt() {
+            this.isRegistering = true;
+        }
+    }, {
+        key: 'onRegisterFailure',
+        value: function onRegisterFailure(error) {
+            console.log(error);
+            this.user.name = '';
+            this.user.id = '';
+            this.user.email = '';
+            this.isRegistering = false;
+        }
+    }, {
+        key: 'onRegisterSuccess',
+        value: function onRegisterSuccess(action) {
+            this.user.name = action.local.name;
+            this.user.id = action._id;
+            this.user.email = action.local.email;
+            this.isRegistering = false;
+            this.user.isLoggedIn = true;
+        }
+
+        //Facebook Login
+
+    }, {
+        key: 'onFacebookLogin',
+        value: function onFacebookLogin(user) {
+            console.log("Logged in via Facebook");
+            this.user.name = user.facebook.name;
+            this.user.id = user._id;
+            this.user.isLoggedIn = true;
+        }
+
+        // LOGOUT ATTEMPT
+
+    }, {
+        key: 'onLogoutFailure',
+        value: function onLogoutFailure(error) {
+            console.log("Failed to log out");
+            console.log(error);
+        }
+    }, {
+        key: 'onLogoutSuccess',
+        value: function onLogoutSuccess(action) {
+            console.log("Logged out");
+            this.user.name = '';
+            this.user.id = '';
+            this.user.isLoggedIn = false;
+            this.user.isLoggingIn = false;
+            this.user.email = '';
+            this.mylist = [];
         }
 
         // CHECK SESSION
@@ -793,11 +909,15 @@ var ListStore = function () {
     }, {
         key: 'onSessionCheckSuccess',
         value: function onSessionCheckSuccess(action) {
-            this.user.name = action.local.name;
             this.user.id = action._id;
             this.user.isLoggedIn = true;
             this.user.isLoggingIn = false;
-            this.user.email = action.local.email;
+            if (action.local) {
+                this.user.name = action.local.name;
+            }
+            if (action.facebook) {
+                this.user.name = action.facebook.name;
+            }
         }
 
         // ADD TO MYLIST
@@ -850,7 +970,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _alt = __webpack_require__(39);
+var _alt = __webpack_require__(31);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -1085,7 +1205,7 @@ exports.default = ErrorPage;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var express = __webpack_require__(4);
+var express = __webpack_require__(5);
 var path = __webpack_require__(20);
 var favicon = __webpack_require__(21);
 var logger = __webpack_require__(22);
@@ -1124,8 +1244,8 @@ db.once('open', function () {
 });
 
 // Import the Mongoose models
-var List = __webpack_require__(33);
-var Venue = __webpack_require__(34);
+var List = __webpack_require__(35);
+var Venue = __webpack_require__(36);
 var User = __webpack_require__(13);
 
 // view engine setup
@@ -1165,7 +1285,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-var index = __webpack_require__(35);
+var index = __webpack_require__(37);
 var venues = __webpack_require__(68);
 var listings = __webpack_require__(69);
 var auth = __webpack_require__(70);
@@ -1340,11 +1460,18 @@ module.exports = require("express-session");
 "use strict";
 
 
+var _AuthActions = __webpack_require__(3);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // config/passport.js
 
 // load all the things we need
-var LocalStrategy = __webpack_require__(31).Strategy;
-var FacebookStrategy = __webpack_require__(32).Strategy;
+var LocalStrategy = __webpack_require__(33).Strategy;
+var FacebookStrategy = __webpack_require__(34).Strategy;
+
 
 // load up the user model
 var User = __webpack_require__(13);
@@ -1360,12 +1487,10 @@ module.exports = function (passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function (user, done) {
-        console.log('serializeUser called.');
         done(null, user._id);
     });
 
     passport.deserializeUser(function (id, done) {
-        console.log('deserializeUser called.');
         User.findById(id, function (err, user) {
             done(err, user);
         });
@@ -1378,11 +1503,8 @@ module.exports = function (passport) {
     // by default, if there was no name, it would just be called 'local'
 
     passport.use('local-signup', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
-        usernameField: 'email',
-        passwordField: 'password',
         passReqToCallback: true // allows us to pass back the entire request to the callback
-    }, function (req, email, password, done) {
+    }, function (req, username, password, done) {
         console.log('Passport Signup Initialization');
         // asynchronous
         // User.findOne wont fire unless data is sent back
@@ -1390,7 +1512,7 @@ module.exports = function (passport) {
 
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            User.findOne({ 'local.email': email }, function (err, user) {
+            User.findOne({ 'local.username': username }, function (err, user) {
                 // if there are any errors, return the error
                 if (err) return done(err);
                 console.log('Error: ' + err);
@@ -1401,12 +1523,12 @@ module.exports = function (passport) {
                     return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                 } else {
                     console.log("New User..");
-                    // if there is no user with that email
                     // create the user
                     var newUser = new User();
 
                     // set the user's local credentials
-                    newUser.local.email = email;
+                    newUser.local.name = req.body.name;
+                    newUser.local.username = req.body.username;
                     newUser.local.password = newUser.generateHash(password);
 
                     // save the user
@@ -1431,7 +1553,6 @@ module.exports = function (passport) {
     // by default, if there was no name, it would just be called 'local'
 
     passport.use('local-login', new LocalStrategy(function (username, password, done) {
-        console.log('Signing In ' + username);
         User.findOne({ 'local.username': username }, function (err, user) {
             if (err) {
                 console.log('Incorrect Something');
@@ -1445,7 +1566,7 @@ module.exports = function (passport) {
                 console.log('Incorrect Password');
                 return done(null, false, { message: 'Incorrect password.' });
             }
-            console.log('Signed In');
+            console.log('local-login: Signed In');
             return done(null, user);
         });
     }));
@@ -1453,10 +1574,39 @@ module.exports = function (passport) {
     passport.use(new FacebookStrategy({
         clientID: "1154923567943109",
         clientSecret: "9ab1f837eabcc53aafadc9657eb65f19",
-        callbackURL: "http://localhost:3000/auth/facebook/callback"
-    }, function (accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-            return cb(err, user);
+        callbackURL: "http://localhost:5000/auth/facebook/callback"
+    }, function (accessToken, refreshToken, profile, done) {
+        //check user table for anyone with a facebook ID of profile.id
+        console.log("Finding Facebook user");
+
+        User.findOne({
+            'facebook.id': profile.id
+        }, function (err, user) {
+            if (err) {
+                console.log("Error", err);
+                return done(err);
+            }
+            //No user was found
+            if (!user) {
+                console.log("No found user");
+                console.log(profile);
+                user = new User({
+                    name: profile.displayName,
+                    provider: 'facebook',
+                    facebook: profile._json
+                });
+                console.log("New user", user);
+                user.save(function (err) {
+                    if (err) console.log(err);
+                    _AuthActions2.default.facebookLogin(user);
+                    return done(err, user);
+                });
+            } else {
+                console.log("Found user");
+                //found user. Return
+                _AuthActions2.default.facebookLogin(user);
+                return done(err, user);
+            }
         });
     }));
 };
@@ -1465,16 +1615,28 @@ module.exports = function (passport) {
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("alt");
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-facebook");
+module.exports = require("isomorphic-fetch");
 
 /***/ }),
 /* 33 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-local");
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-facebook");
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1503,7 +1665,7 @@ var listingSchema = mongoose.Schema({
 module.exports = mongoose.model('List', listingSchema);
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1524,7 +1686,7 @@ var venueSchema = mongoose.Schema({
 module.exports = mongoose.model('Venue', venueSchema);
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1534,11 +1696,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(36);
+var _server = __webpack_require__(38);
 
 var _reactRouter = __webpack_require__(1);
 
-var _routes = __webpack_require__(37);
+var _routes = __webpack_require__(39);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -1548,7 +1710,7 @@ var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var express = __webpack_require__(4);
+var express = __webpack_require__(5);
 var router = express.Router();
 var JSX = __webpack_require__(66).install();
 var passport = __webpack_require__(9);
@@ -1592,13 +1754,13 @@ router.get('*', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1614,7 +1776,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _layout = __webpack_require__(38);
+var _layout = __webpack_require__(40);
 
 var _layout2 = _interopRequireDefault(_layout);
 
@@ -1638,13 +1800,13 @@ var _SignUpPage = __webpack_require__(48);
 
 var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
-var _LogInPage = __webpack_require__(52);
+var _LogInPage = __webpack_require__(51);
 
 var _LogInPage2 = _interopRequireDefault(_LogInPage);
 
-var _myList = __webpack_require__(56);
+var _myListPage = __webpack_require__(55);
 
-var _myList2 = _interopRequireDefault(_myList);
+var _myListPage2 = _interopRequireDefault(_myListPage);
 
 var _AdminPage = __webpack_require__(57);
 
@@ -1677,7 +1839,7 @@ var routes = _react2.default.createElement(
   _react2.default.createElement(_reactRouter.Route, { path: 'ataglance', component: _GlancePage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'events', component: _EventsPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _SignUpPage2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'mylist', component: _myList2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'mylist', component: _myListPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LogInPage2.default }),
   _react2.default.createElement(
     _reactRouter.Route,
@@ -1694,7 +1856,7 @@ var routes = _react2.default.createElement(
 exports.default = routes;
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1716,7 +1878,7 @@ var _ListStore = __webpack_require__(8);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _AuthActions = __webpack_require__(5);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -1773,6 +1935,7 @@ var Layout = function (_React$Component) {
         value: function render() {
             var user = this.state.user;
 
+            var name = user.name;
             var renderLogin = function renderLogin() {
                 return _react2.default.createElement(
                     _reactRouter.Link,
@@ -1787,13 +1950,19 @@ var Layout = function (_React$Component) {
                     _react2.default.createElement(
                         _reactRouter.Link,
                         { to: '/account', activeClassName: 'active' },
-                        'Admin'
+                        'Account'
                     ),
                     _react2.default.createElement(
                         'span',
                         null,
                         'Welcome, ',
-                        user.name
+                        name,
+                        ' | ',
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: _AuthActions2.default.attemptLogOut },
+                            'Log Out'
+                        )
                     )
                 );
             };
@@ -1874,18 +2043,6 @@ var Layout = function (_React$Component) {
 exports.default = Layout;
 
 /***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-module.exports = require("alt");
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-module.exports = require("isomorphic-fetch");
-
-/***/ }),
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1906,21 +2063,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _listing = __webpack_require__(3);
-
-var _listing2 = _interopRequireDefault(_listing);
-
 var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _AuthActions = __webpack_require__(5);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 var _displayActions = __webpack_require__(6);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
+
+var _listing = __webpack_require__(4);
+
+var _listing2 = _interopRequireDefault(_listing);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1929,6 +2086,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//ACTIONS
+
+//COMPONENTS
+
 
 var IndexPage = function (_React$Component) {
     _inherits(IndexPage, _React$Component);
@@ -1960,7 +2121,7 @@ var IndexPage = function (_React$Component) {
                         newNh = _displayActions2.default.displayCity(nh);
                         return _react2.default.createElement(
                             'div',
-                            null,
+                            { key: listing._id },
                             _react2.default.createElement(
                                 'h2',
                                 null,
@@ -1975,6 +2136,7 @@ var IndexPage = function (_React$Component) {
                         );
                     } else {
                         return _react2.default.createElement(_listing2.default, _extends({}, listing, {
+                            key: listing._id,
                             mylist: mylist
                         }));
                     }
@@ -2028,10 +2190,6 @@ var _ListStore = __webpack_require__(8);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _listing = __webpack_require__(3);
-
-var _listing2 = _interopRequireDefault(_listing);
-
 var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
@@ -2040,6 +2198,10 @@ var _displayActions = __webpack_require__(6);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
+var _listing = __webpack_require__(4);
+
+var _listing2 = _interopRequireDefault(_listing);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2047,6 +2209,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
 
 var CurrentPage = function (_React$Component) {
     _inherits(CurrentPage, _React$Component);
@@ -2090,7 +2254,7 @@ var CurrentPage = function (_React$Component) {
                     newNh = _displayActions2.default.displayCity(nh);
                     return _react2.default.createElement(
                         'div',
-                        null,
+                        { key: listing._id },
                         _react2.default.createElement(
                             'h2',
                             null,
@@ -2099,7 +2263,7 @@ var CurrentPage = function (_React$Component) {
                         _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }))
                     );
                 } else {
-                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }));
+                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, mylist: _this2.props.mylist }));
                 }
             });
 
@@ -2167,6 +2331,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
 
 var GlancePage = function (_React$Component) {
     _inherits(GlancePage, _React$Component);
@@ -2211,7 +2377,7 @@ var GlancePage = function (_React$Component) {
                 var d = new Date();
                 d.setHours(0, 0, 0, 0);
                 d.setDate(today.getDate() + i);
-                days.push(_react2.default.createElement(_daypage2.default, { glanceListings: thelist, mylist: this.props.mylist, label: d }));
+                days.push(_react2.default.createElement(_daypage2.default, { key: d, glanceListings: thelist, mylist: this.props.mylist, label: d }));
             }
 
             return _react2.default.createElement(
@@ -2255,11 +2421,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _listing = __webpack_require__(3);
+var _reactIntl = __webpack_require__(11);
+
+var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
-
-var _reactIntl = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2268,6 +2434,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
 
 var DayPage = function (_React$Component) {
     _inherits(DayPage, _React$Component);
@@ -2295,18 +2463,18 @@ var DayPage = function (_React$Component) {
                     // it IS an event
 
                     if (listing.start == date) {
-                        events.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist })));
+                        events.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, mylist: _this2.props.mylist })));
                     }
                 } else {
                     //not an event
 
                     //Check if it starts on this day
                     if (listing.start == date) {
-                        openings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist })));
+                        openings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, mylist: _this2.props.mylist })));
                     }
                     //Check if it ends on this day
                     if (listing.end == date) {
-                        closings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist })));
+                        closings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, mylist: _this2.props.mylist })));
                     }
                 }
             });
@@ -2511,13 +2679,13 @@ var _ListStore = __webpack_require__(8);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _listing = __webpack_require__(3);
-
-var _listing2 = _interopRequireDefault(_listing);
-
 var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _listing = __webpack_require__(4);
+
+var _listing2 = _interopRequireDefault(_listing);
 
 var _date = __webpack_require__(14);
 
@@ -2530,6 +2698,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
 
 var EventsPage = function (_React$Component) {
     _inherits(EventsPage, _React$Component);
@@ -2572,7 +2742,7 @@ var EventsPage = function (_React$Component) {
                     oldDate = newDate;
                     return _react2.default.createElement(
                         'div',
-                        null,
+                        { key: listing._id },
                         _react2.default.createElement(
                             'h2',
                             null,
@@ -2581,7 +2751,7 @@ var EventsPage = function (_React$Component) {
                         _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }))
                     );
                 } else {
-                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }));
+                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, mylist: _this2.props.mylist }));
                 }
             });
 
@@ -2663,7 +2833,7 @@ var LogInPage = function (_React$Component) {
                         'Sign Up'
                     )
                 ),
-                _react2.default.createElement(_SignUpForm2.default, null),
+                _react2.default.createElement(_SignUpForm2.default, this.props),
                 'Already signed up? ',
                 _react2.default.createElement(
                     _reactRouter.Link,
@@ -2708,11 +2878,9 @@ var _validator = __webpack_require__(50);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _axios = __webpack_require__(51);
+var _AuthActions = __webpack_require__(3);
 
-var _axios2 = _interopRequireDefault(_axios);
-
-var _reactRouter = __webpack_require__(1);
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2751,6 +2919,7 @@ var SignUpForm = function (_React$Component) {
       }
     };
 
+    // Function Binding
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleSaveClick = _this.handleSaveClick.bind(_this);
     return _this;
@@ -2857,38 +3026,6 @@ var SignUpForm = function (_React$Component) {
       });
     }
   }, {
-    key: '_updateUser',
-    value: function _updateUser() {
-      var _state = this.state,
-          name = _state.name,
-          email = _state.email,
-          password1 = _state.password1,
-          password2 = _state.password2;
-
-
-      var updatedUser = {
-        name: name,
-        email: email,
-        password: password1
-
-        // in a real app, you'd send this user obj to an action handler to update store
-      };console.log('updated user:', updatedUser);
-
-      _axios2.default.post('/auth/signup', {
-        name: name,
-        email: email,
-        password: password1
-      }).then(function (response, error) {
-        console.log('Response');
-        if (!error) {
-          _reactRouter.browserHistory.push('/admin');
-          console.log('New user connected');
-        } else {
-          console.log(error);
-        }
-      }).catch(function (error) {});
-    }
-  }, {
     key: '_areValid',
     value: function _areValid(name, email, password1, password2) {
       var result = false;
@@ -2910,22 +3047,37 @@ var SignUpForm = function (_React$Component) {
 
       event.preventDefault();
 
-      var _state2 = this.state,
-          name = _state2.name,
-          email = _state2.email,
-          password1 = _state2.password1,
-          password2 = _state2.password2;
+      var _state = this.state,
+          name = _state.name,
+          email = _state.email,
+          password1 = _state.password1,
+          password2 = _state.password2;
 
 
       this._validate(name, email, password1, password2);
 
       if (this._areValid(name, email, password1, password2)) {
-        this._updateUser();
+        var newUser = {
+          name: name,
+          username: email,
+          password: password1
+        };
+        _AuthActions2.default.attemptRegister(newUser);
       }
     }
   }, {
     key: 'render',
     value: function render() {
+
+      var loggedIn = this.props.user.isLoggedIn;
+      var Router = this.context.router;
+
+      if (loggedIn) {
+        setTimeout(function () {
+          Router.push('/');
+        }, 0);
+      }
+
       return _react2.default.createElement(
         'form',
         null,
@@ -3007,6 +3159,10 @@ var SignUpForm = function (_React$Component) {
 
 ;
 
+SignUpForm.contextTypes = {
+  router: _react2.default.PropTypes.object.isRequired
+};
+
 exports.default = SignUpForm;
 
 /***/ }),
@@ -3017,12 +3173,6 @@ module.exports = require("validator");
 
 /***/ }),
 /* 51 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3040,11 +3190,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _LogInForm = __webpack_require__(53);
-
-var _LogInForm2 = _interopRequireDefault(_LogInForm);
-
-var _AuthActions = __webpack_require__(5);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -3052,7 +3198,11 @@ var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactRouterDom = __webpack_require__(55);
+var _reactRouterDom = __webpack_require__(52);
+
+var _LogInForm = __webpack_require__(53);
+
+var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3061,6 +3211,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
 
 var LogInPage = function (_React$Component) {
     _inherits(LogInPage, _React$Component);
@@ -3075,10 +3227,14 @@ var LogInPage = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            var redirect = this.props.loginRedirect;
+            var loggedIn = this.props.user.isLoggedIn;
+            var Router = this.context.router;
 
-            if (redirect) {
-                _reactRouter.browserHistory.push('/');
+            if (loggedIn) {
+                setTimeout(function () {
+                    _ListActions2.default.getMylist();
+                    Router.push('/');
+                }, 0);
             }
 
             return _react2.default.createElement(
@@ -3096,7 +3252,12 @@ var LogInPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'admin-content' },
-                    _react2.default.createElement(_LogInForm2.default, { loginFunction: _AuthActions2.default.attemptLogIn })
+                    _react2.default.createElement(_LogInForm2.default, { loginFunction: _AuthActions2.default.attemptLogIn }),
+                    _react2.default.createElement(
+                        'a',
+                        { href: '/auth/facebook' },
+                        'Login with Facebook'
+                    )
                 ),
                 'Need to sign up? ',
                 _react2.default.createElement(
@@ -3112,6 +3273,17 @@ var LogInPage = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = LogInPage;
+
+
+LogInPage.contextTypes = {
+    router: _react2.default.PropTypes.object.isRequired
+};
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
 
 /***/ }),
 /* 53 */
@@ -3245,9 +3417,78 @@ module.exports = require("reactstrap");
 
 /***/ }),
 /* 55 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("react-router-dom");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _myList = __webpack_require__(56);
+
+var _myList2 = _interopRequireDefault(_myList);
+
+var _reactRouter = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MyListPage = function (_React$Component) {
+    _inherits(MyListPage, _React$Component);
+
+    function MyListPage(props) {
+        _classCallCheck(this, MyListPage);
+
+        return _possibleConstructorReturn(this, (MyListPage.__proto__ || Object.getPrototypeOf(MyListPage)).call(this, props));
+    }
+
+    _createClass(MyListPage, [{
+        key: 'render',
+        value: function render() {
+            var myListRender = this.props.user.isLoggedIn ? _react2.default.createElement(_myList2.default, this.props) : _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Please register to create your own list'
+                ),
+                _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/signup', activeClassName: 'active' },
+                    'Register'
+                )
+            );
+            return _react2.default.createElement(
+                'div',
+                { className: 'myListwrap' },
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    'my list'
+                ),
+                myListRender
+            );
+        }
+    }]);
+
+    return MyListPage;
+}(_react2.default.Component);
+
+exports.default = MyListPage;
 
 /***/ }),
 /* 56 */
@@ -3268,7 +3509,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _listing = __webpack_require__(3);
+var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
@@ -3298,11 +3539,6 @@ var MyList = function (_React$Component) {
                 'div',
                 { className: 'myList' },
                 _react2.default.createElement(
-                    'h2',
-                    null,
-                    'my list'
-                ),
-                _react2.default.createElement(
                     'p',
                     null,
                     'Items in your list: ',
@@ -3313,7 +3549,7 @@ var MyList = function (_React$Component) {
                     )
                 ),
                 this.props.mylist.map(function (listing) {
-                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }));
+                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, mylist: _this2.props.mylist }));
                 })
             );
         }
@@ -3363,17 +3599,16 @@ var IndexPage = function (_React$Component) {
     _createClass(IndexPage, [{
         key: 'render',
         value: function render() {
-
-            return _react2.default.createElement(
+            var adminRender = this.props.user.isLoggedIn ? _react2.default.createElement(
                 'div',
-                { className: 'admin' },
+                null,
                 _react2.default.createElement(
                     'header',
                     null,
                     _react2.default.createElement(
                         'h2',
                         null,
-                        'Admin page'
+                        'Account page'
                     ),
                     _react2.default.createElement(
                         _reactRouter.IndexLink,
@@ -3396,6 +3631,25 @@ var IndexPage = function (_React$Component) {
                     { className: 'admin-content' },
                     _react2.default.cloneElement(this.props.children, this.props)
                 )
+            ) : _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Please login to have access to your account'
+                ),
+                _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/login', activeClassName: 'active' },
+                    'Login'
+                )
+            );
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'admin' },
+                adminRender
             );
         }
     }]);
@@ -3477,7 +3731,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _listing = __webpack_require__(3);
+var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
@@ -3958,7 +4212,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _listing = __webpack_require__(3);
+var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
@@ -4152,7 +4406,7 @@ module.exports = require("history");
 "use strict";
 
 
-var express = __webpack_require__(4);
+var express = __webpack_require__(5);
 var router = express.Router();
 
 /* GET All Venues */
@@ -4226,7 +4480,7 @@ module.exports = router;
 "use strict";
 
 
-var express = __webpack_require__(4);
+var express = __webpack_require__(5);
 var router = express.Router();
 
 /*
@@ -4399,28 +4653,51 @@ module.exports = router;
 "use strict";
 
 
-var express = __webpack_require__(4);
+var express = __webpack_require__(5);
 var router = express.Router();
 var passport = __webpack_require__(9);
 
-/*router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook', passport.authenticate('facebook'));
 
-router.get('/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
+router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
-  });*/
+});
 
-router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/admin',
-    failureRedirect: '/signup',
-    failureFlash: true
-}));
+router.post('/signup', async function (req, res) {
+    passport.authenticate('local-signup')(req, res, function () {
+        console.log('Registering');
+        // If logged in, we should have user info to send back
+        if (req.user) {
+            passport.authenticate('local-login')(req, res, function () {
+                console.log('auth/signup: Signed in');
 
+                // If logged in, we should have user info to send back
+                if (req.user) {
+                    return res.send(JSON.stringify(req.user));
+                }
+
+                // Otherwise return an error
+                return res.send(JSON.stringify({
+                    error: 'There was an error logging in'
+                }));
+            });
+        } else {
+            // Otherwise return an error
+            return res.send(JSON.stringify({
+                error: 'There was an error logging in'
+            }));
+        }
+    });
+});
+
+//###################################
 // LOGIN
+//###################################
+
 router.post('/login', async function (req, res) {
     passport.authenticate('local-login')(req, res, function () {
+        console.log('Logged in');
         // If logged in, we should have user info to send back
         if (req.user) {
             return res.send(JSON.stringify(req.user));
@@ -4433,9 +4710,21 @@ router.post('/login', async function (req, res) {
     });
 });
 
-/*
+//###################################
+// LOGOUT
+//###################################
+
+router.get('/logout', function (req, res) {
+    req.logout();
+    req.session.destroy(function (err) {
+        return res.send(JSON.stringify(req.user));
+    });
+});
+
+/*//###################################
  * UPDATE the user's list
- */
+ */ //###################################
+
 router.post('/addtolist', function (req, res) {
     var Userlist = req.userlist;
     var List = req.list;
@@ -4476,7 +4765,10 @@ router.post('/addtolist', function (req, res) {
     };
 });
 
+//###################################
 // GET all listings from my list
+//###################################
+
 router.get('/getmylist', function (req, res) {
     var List = req.list;
     var Venue = req.venue;
@@ -4491,8 +4783,8 @@ router.get('/getmylist', function (req, res) {
             res.json(docs);
         });
     } else {
-        console.log('No user in the req');
-        return null;
+        var docs = [];
+        res.json(docs);
     }
 });
 
@@ -4503,12 +4795,6 @@ router.get('/checksession', function (req, res) {
         return res.send(JSON.stringify(req.user));
     }
     return res.send(JSON.stringify({}));
-});
-
-// GET to /logout
-router.get('/logout', function (req, res) {
-    req.logout();
-    return res.send(JSON.stringify(req.user));
 });
 
 /*
