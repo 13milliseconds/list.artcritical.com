@@ -19,9 +19,8 @@ import ErrorPage from './components/ErrorPage';
 
 const routes = (
       <Route path="/" component={Layout}>
-        <IndexRoute component={IndexPage}/>
+        <IndexRoute component={GlancePage}/>
         <Route path="current" component={CurrentPage}/>
-        <Route path="ataglance" component={GlancePage}/>
         <Route path="events" component={EventsPage}/>
         <Route path="signup" component={SignUpPage}/>
         <Route path="mylist" component={MyListPage}/>

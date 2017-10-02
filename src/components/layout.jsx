@@ -42,9 +42,8 @@ export default class Layout extends React.Component {
       <div className="app-container">
         <header>
             <h1>Welcome to the List</h1>
-            <IndexLink to={'/'} activeClassName="active">All</IndexLink>
+            <IndexLink to={'/'} activeClassName="active">At a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
-            <Link to={'/ataglance'} activeClassName="active">At a Glance</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
             <Link to={'/mylist'} activeClassName="active">my list ({this.state.mylist.length})</Link>
             { user.isLoggedIn ? renderGreeting(name) : renderLogin() }

@@ -1834,9 +1834,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var routes = _react2.default.createElement(
   _reactRouter.Route,
   { path: '/', component: _layout2.default },
-  _react2.default.createElement(_reactRouter.IndexRoute, { component: _IndexPage2.default }),
+  _react2.default.createElement(_reactRouter.IndexRoute, { component: _GlancePage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'current', component: _CurrentPage2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'ataglance', component: _GlancePage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'events', component: _EventsPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _SignUpPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'mylist', component: _myListPage2.default }),
@@ -1981,17 +1980,12 @@ var Layout = function (_React$Component) {
                     _react2.default.createElement(
                         _reactRouter.IndexLink,
                         { to: '/', activeClassName: 'active' },
-                        'All'
+                        'At a Glance'
                     ),
                     _react2.default.createElement(
                         _reactRouter.Link,
                         { to: '/current', activeClassName: 'active' },
                         'Current'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/ataglance', activeClassName: 'active' },
-                        'At a Glance'
                     ),
                     _react2.default.createElement(
                         _reactRouter.Link,
