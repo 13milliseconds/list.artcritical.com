@@ -5,6 +5,7 @@ import ListActions from '../../actions/ListActions';
 import { Redirect } from 'react-router-dom';
 //COMPONENTS
 import LogInForm from './LogInForm.jsx';
+import FacebookButton from '../buttons/FacebookButton.jsx';
 
 export default class LogInPage extends React.Component {
     
@@ -31,7 +32,7 @@ export default class LogInPage extends React.Component {
                 </header>
                 <div className="admin-content">
                 <LogInForm loginFunction={AuthActions.attemptLogIn} />
-                <a href="/auth/facebook">Login with Facebook</a>
+                <FacebookButton />
             </div>
                 Need to sign up? <Link to={'/signup'} activeClassName="active">Sign Up</Link>
             </div>

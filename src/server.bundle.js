@@ -1110,7 +1110,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(62);
+var _reactSelect = __webpack_require__(63);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1286,9 +1286,9 @@ app.use(function (req, res, next) {
 });
 
 var index = __webpack_require__(37);
-var venues = __webpack_require__(68);
-var listings = __webpack_require__(69);
-var auth = __webpack_require__(70);
+var venues = __webpack_require__(72);
+var listings = __webpack_require__(73);
+var auth = __webpack_require__(74);
 
 app.use('/venues', venues);
 app.use('/list', listings);
@@ -1712,13 +1712,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(5);
 var router = express.Router();
-var JSX = __webpack_require__(66).install();
+var JSX = __webpack_require__(70).install();
 var passport = __webpack_require__(9);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var history = __webpack_require__(67);
+var history = __webpack_require__(71);
 var historyObj = history.createMemoryHistory();
 
 // Check if user is connected
@@ -1804,23 +1804,23 @@ var _LogInPage = __webpack_require__(51);
 
 var _LogInPage2 = _interopRequireDefault(_LogInPage);
 
-var _myListPage = __webpack_require__(55);
+var _myListPage = __webpack_require__(56);
 
 var _myListPage2 = _interopRequireDefault(_myListPage);
 
-var _AdminPage = __webpack_require__(57);
+var _AdminPage = __webpack_require__(58);
 
 var _AdminPage2 = _interopRequireDefault(_AdminPage);
 
-var _NewListing = __webpack_require__(58);
+var _NewListing = __webpack_require__(59);
 
 var _NewListing2 = _interopRequireDefault(_NewListing);
 
-var _EditListings = __webpack_require__(63);
+var _EditListings = __webpack_require__(64);
 
 var _EditListings2 = _interopRequireDefault(_EditListings);
 
-var _Account = __webpack_require__(65);
+var _Account = __webpack_require__(66);
 
 var _Account2 = _interopRequireDefault(_Account);
 
@@ -3198,6 +3198,10 @@ var _LogInForm = __webpack_require__(53);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
+var _FacebookButton = __webpack_require__(55);
+
+var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3247,11 +3251,7 @@ var LogInPage = function (_React$Component) {
                     'div',
                     { className: 'admin-content' },
                     _react2.default.createElement(_LogInForm2.default, { loginFunction: _AuthActions2.default.attemptLogIn }),
-                    _react2.default.createElement(
-                        'a',
-                        { href: '/auth/facebook' },
-                        'Login with Facebook'
-                    )
+                    _react2.default.createElement(_FacebookButton2.default, null)
                 ),
                 'Need to sign up? ',
                 _react2.default.createElement(
@@ -3426,7 +3426,59 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _myList = __webpack_require__(56);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FacebookButton = function (_React$Component) {
+    _inherits(FacebookButton, _React$Component);
+
+    function FacebookButton() {
+        _classCallCheck(this, FacebookButton);
+
+        return _possibleConstructorReturn(this, (FacebookButton.__proto__ || Object.getPrototypeOf(FacebookButton)).apply(this, arguments));
+    }
+
+    _createClass(FacebookButton, [{
+        key: "render",
+        value: function render() {
+
+            return _react2.default.createElement(
+                "a",
+                { className: "facebookbutton", href: "/auth/facebook" },
+                _react2.default.createElement("i", { className: "fa fa-facebook", "aria-hidden": "true" }),
+                "Login with Facebook"
+            );
+        }
+    }]);
+
+    return FacebookButton;
+}(_react2.default.Component);
+
+exports.default = FacebookButton;
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _myList = __webpack_require__(57);
 
 var _myList2 = _interopRequireDefault(_myList);
 
@@ -3485,7 +3537,7 @@ var MyListPage = function (_React$Component) {
 exports.default = MyListPage;
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3555,7 +3607,7 @@ var MyList = function (_React$Component) {
 exports.default = MyList;
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3654,7 +3706,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3670,7 +3722,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListingForm = __webpack_require__(59);
+var _ListingForm = __webpack_require__(60);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -3709,7 +3761,7 @@ var NewListing = function (_React$Component) {
 exports.default = NewListing;
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3729,11 +3781,11 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formDateRange = __webpack_require__(60);
+var _formDateRange = __webpack_require__(61);
 
 var _formDateRange2 = _interopRequireDefault(_formDateRange);
 
-var _formDateSingle = __webpack_require__(61);
+var _formDateSingle = __webpack_require__(62);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
@@ -3985,7 +4037,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4055,7 +4107,7 @@ var DateRange = function (_React$Component) {
 exports.default = DateRange;
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4124,13 +4176,13 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-select");
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4146,7 +4198,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListingEdit = __webpack_require__(64);
+var _ListingEdit = __webpack_require__(65);
 
 var _ListingEdit2 = _interopRequireDefault(_ListingEdit);
 
@@ -4190,7 +4242,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4315,7 +4367,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4330,6 +4382,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _imageUpload = __webpack_require__(67);
+
+var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4349,29 +4405,30 @@ var IndexPage = function (_React$Component) {
     }
 
     _createClass(IndexPage, [{
-        key: "render",
+        key: 'render',
         value: function render() {
 
             return _react2.default.createElement(
-                "div",
-                { className: "account" },
+                'div',
+                { className: 'account' },
                 _react2.default.createElement(
-                    "h3",
+                    'h3',
                     null,
-                    "Your Account"
+                    'Your Account'
                 ),
                 _react2.default.createElement(
-                    "p",
+                    'p',
                     null,
-                    "Name: ",
+                    'Name: ',
                     this.props.user.name
                 ),
                 _react2.default.createElement(
-                    "p",
+                    'p',
                     null,
-                    "Email: ",
+                    'Email: ',
                     this.props.user.username
-                )
+                ),
+                _react2.default.createElement(_imageUpload2.default, null)
             );
         }
     }]);
@@ -4382,19 +4439,157 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 66 */
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDropzone = __webpack_require__(68);
+
+var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+
+var _superagent = __webpack_require__(69);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CLOUDINARY_UPLOAD_PRESET = 'fdzteigx';
+var CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/artcritical/image/upload';
+
+var ImageUpload = function (_React$Component) {
+    _inherits(ImageUpload, _React$Component);
+
+    function ImageUpload(props) {
+        _classCallCheck(this, ImageUpload);
+
+        var _this = _possibleConstructorReturn(this, (ImageUpload.__proto__ || Object.getPrototypeOf(ImageUpload)).call(this, props));
+
+        _this.state = {
+            uploadedFileCloudinaryUrl: '',
+            uploadedFile: {},
+            isUploading: false,
+            isUploaded: false
+        };
+
+        _this.onImageDrop = _this.onImageDrop.bind(_this);
+        _this.handleImageUpload = _this.handleImageUpload.bind(_this);
+        return _this;
+    }
+
+    _createClass(ImageUpload, [{
+        key: 'onImageDrop',
+        value: function onImageDrop(file) {
+            this.setState({
+                uploadedFile: file[0],
+                isUploading: true
+            });
+
+            console.log(file);
+
+            this.handleImageUpload(file[0]);
+        }
+    }, {
+        key: 'handleImageUpload',
+        value: function handleImageUpload(file) {
+            var _this2 = this;
+
+            var upload = _superagent2.default.post(CLOUDINARY_UPLOAD_URL).field('upload_preset', CLOUDINARY_UPLOAD_PRESET).field('file', file);
+
+            upload.end(function (err, response) {
+                if (err) {
+                    console.error(err);
+                }
+
+                if (response.body.secure_url !== '') {
+                    console.log(response.body.secure_url);
+                    _this2.setState({
+                        uploadedFileCloudinaryUrl: response.body.secure_url,
+                        isUploaded: true
+                    });
+                }
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var isUploading = this.state.isUploading;
+            var isUploaded = this.state.isUploaded;
+
+            var uploadRender = !isUploading ? _react2.default.createElement(
+                _reactDropzone2.default,
+                {
+                    multiple: false,
+                    accept: 'image/*',
+                    onDrop: this.onImageDrop },
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Drop an image or click to select a file to upload.'
+                )
+            ) : _react2.default.createElement(
+                'div',
+                { className: isUploaded ? 'loaded' : 'loading' },
+                'GIF',
+                _react2.default.createElement('img', { src: isUploaded ? this.state.uploadedFileCloudinaryUrl : this.state.uploadedFile.preview })
+            );
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                uploadRender
+            );
+        }
+    }]);
+
+    return ImageUpload;
+}(_react2.default.Component);
+
+exports.default = ImageUpload;
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dropzone");
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports) {
+
+module.exports = require("superagent");
+
+/***/ }),
+/* 70 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 67 */
+/* 71 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 68 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4468,7 +4663,7 @@ router.post('/add', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 69 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4641,7 +4836,7 @@ router.post('/delete/:listing_id', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 70 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

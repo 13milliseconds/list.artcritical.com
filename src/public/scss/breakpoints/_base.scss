@@ -47,6 +47,23 @@ footer{
 }
 
 /*********************
+BUTTONS
+*********************/
+
+a.facebookbutton{
+    background: #3b5998;
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    letter-spacing: .03em;
+    margin: 20px 0;
+    i{
+        margin-right: 10px;
+    }
+}
+
+/*********************
 INDEX PAGE
 *********************/
 .home, .glance, .current{
