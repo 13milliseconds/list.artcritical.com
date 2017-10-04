@@ -8,7 +8,7 @@ export default class NewListing extends React.Component {
         
         return ( 
             <div className = "new">
-                <ListingForm />
+                <ListingForm {...this.props.listingEdit} />
             </div>
         );
     }

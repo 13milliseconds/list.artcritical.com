@@ -1268,11 +1268,11 @@ LISTING ELEMENTS
 }
 /* line 96, ../scss/breakpoints/_base.scss */
 .listing .listingAdd .addButton {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: azure;
   border: 1px solid grey;
+  overflow: hidden;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   transition: 0.3s;
@@ -1281,7 +1281,12 @@ LISTING ELEMENTS
 .listing .listingAdd .addButton:hover {
   background-color: aquamarine;
 }
-/* line 108, ../scss/breakpoints/_base.scss */
+/* line 106, ../scss/breakpoints/_base.scss */
+.listing .listingAdd .addButton img {
+  max-width: 100%;
+  max-height: 100%;
+}
+/* line 112, ../scss/breakpoints/_base.scss */
 .listing .listingContent {
   float: left;
   display: block;
@@ -1292,7 +1297,7 @@ LISTING ELEMENTS
 .listing .listingContent:last-child {
   margin-right: 0;
 }
-/* line 111, ../scss/breakpoints/_base.scss */
+/* line 115, ../scss/breakpoints/_base.scss */
 .listing .listingClose {
   float: left;
   display: block;
@@ -1305,41 +1310,41 @@ LISTING ELEMENTS
 .listing .listingClose:last-child {
   margin-right: 0;
 }
-/* line 115, ../scss/breakpoints/_base.scss */
+/* line 119, ../scss/breakpoints/_base.scss */
 .listing .listingClose .fa-minus-square-o {
   display: none;
 }
-/* line 119, ../scss/breakpoints/_base.scss */
+/* line 123, ../scss/breakpoints/_base.scss */
 .listing .moreInfo {
   display: none;
 }
-/* line 122, ../scss/breakpoints/_base.scss */
+/* line 126, ../scss/breakpoints/_base.scss */
 .listing.active {
   background-color: antiquewhite;
 }
-/* line 124, ../scss/breakpoints/_base.scss */
+/* line 128, ../scss/breakpoints/_base.scss */
 .listing.active .moreInfo {
   display: block;
 }
-/* line 128, ../scss/breakpoints/_base.scss */
+/* line 132, ../scss/breakpoints/_base.scss */
 .listing.active .listingClose .fa-plus-square-o {
   display: none;
 }
-/* line 131, ../scss/breakpoints/_base.scss */
+/* line 135, ../scss/breakpoints/_base.scss */
 .listing.active .listingClose .fa-minus-square-o {
   display: inline-block;
 }
-/* line 136, ../scss/breakpoints/_base.scss */
+/* line 140, ../scss/breakpoints/_base.scss */
 .listing.selected {
   background-color: beige;
 }
-/* line 139, ../scss/breakpoints/_base.scss */
+/* line 143, ../scss/breakpoints/_base.scss */
 .listing p {
   margin: 5px 0;
   white-space: pre-wrap;
 }
 
-/* line 144, ../scss/breakpoints/_base.scss */
+/* line 148, ../scss/breakpoints/_base.scss */
 .venueName {
   font-weight: bold;
 }
@@ -1347,11 +1352,11 @@ LISTING ELEMENTS
 /*********************
 HEADER
 *********************/
-/* line 152, ../scss/breakpoints/_base.scss */
+/* line 156, ../scss/breakpoints/_base.scss */
 header {
   padding: 50px 50px 0;
 }
-/* line 154, ../scss/breakpoints/_base.scss */
+/* line 158, ../scss/breakpoints/_base.scss */
 header a {
   padding: 5px 10px;
   background-color: lightgrey;
@@ -1360,15 +1365,15 @@ header a {
   color: black;
   text-decoration: none;
 }
-/* line 161, ../scss/breakpoints/_base.scss */
+/* line 165, ../scss/breakpoints/_base.scss */
 header a:hover {
   background-color: antiquewhite;
 }
-/* line 164, ../scss/breakpoints/_base.scss */
+/* line 168, ../scss/breakpoints/_base.scss */
 header a.active {
   background-color: antiquewhite;
 }
-/* line 168, ../scss/breakpoints/_base.scss */
+/* line 172, ../scss/breakpoints/_base.scss */
 header div {
   display: inline-block;
 }
@@ -1376,40 +1381,68 @@ header div {
 /*********************
 AT A GLANCE
 *********************/
-/* line 178, ../scss/breakpoints/_base.scss */
+/* line 182, ../scss/breakpoints/_base.scss */
 .glance ul {
   padding: 0;
 }
-/* line 181, ../scss/breakpoints/_base.scss */
+/* line 185, ../scss/breakpoints/_base.scss */
 .glance li {
   display: inline-block;
   padding-right: 20px;
 }
-/* line 184, ../scss/breakpoints/_base.scss */
+/* line 188, ../scss/breakpoints/_base.scss */
 .glance li a {
   text-decoration: none;
   color: black;
 }
-/* line 187, ../scss/breakpoints/_base.scss */
+/* line 191, ../scss/breakpoints/_base.scss */
 .glance li a.active {
   border-bottom: 2px solid red;
 }
 
 /*********************
+ACCOUNT
+*********************/
+/* line 202, ../scss/breakpoints/_base.scss */
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+/* line 207, ../scss/breakpoints/_base.scss */
+.avatar img {
+  width: 100%;
+  min-height: 100%;
+  opacity: .5;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  transition: 0.5s;
+}
+/* line 214, ../scss/breakpoints/_base.scss */
+.avatar.loading img {
+  filter: blur(3px);
+}
+/* line 219, ../scss/breakpoints/_base.scss */
+.avatar.loaded img {
+  opacity: 1;
+}
+
+/*********************
 ADMIN
 *********************/
-/* line 198, ../scss/breakpoints/_base.scss */
+/* line 230, ../scss/breakpoints/_base.scss */
 .admin header {
   padding-left: 0;
 }
 
-/* line 203, ../scss/breakpoints/_base.scss */
+/* line 235, ../scss/breakpoints/_base.scss */
 #newlistingForm, #newlistingDemo {
   float: left;
   width: 50%;
 }
 
-/* line 208, ../scss/breakpoints/_base.scss */
+/* line 240, ../scss/breakpoints/_base.scss */
 label {
   display: block !important;
   float: left;
@@ -1422,7 +1455,7 @@ label:last-child {
   margin-right: 0;
 }
 
-/* line 212, ../scss/breakpoints/_base.scss */
+/* line 244, ../scss/breakpoints/_base.scss */
 .formSection {
   float: left;
   display: block;
@@ -1435,17 +1468,17 @@ label:last-child {
 .formSection:last-child {
   margin-right: 0;
 }
-/* line 216, ../scss/breakpoints/_base.scss */
+/* line 248, ../scss/breakpoints/_base.scss */
 .formSection textarea, .formSection input {
   width: 100%;
 }
 
-/* line 220, ../scss/breakpoints/_base.scss */
+/* line 252, ../scss/breakpoints/_base.scss */
 input.invalid {
   border: 2px solid red !important;
 }
 
-/* line 225, ../scss/breakpoints/_base.scss */
+/* line 257, ../scss/breakpoints/_base.scss */
 #newlistingForm {
   padding-right: 50px;
   display: block;
@@ -1457,24 +1490,24 @@ input.invalid {
   display: block;
 }
 
-/* line 231, ../scss/breakpoints/_base.scss */
+/* line 263, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing {
   width: 100%;
   border: 1px solid grey;
   padding-top: 20px;
 }
-/* line 235, ../scss/breakpoints/_base.scss */
+/* line 267, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing .moreInfo {
   display: block;
 }
 
-/* line 241, ../scss/breakpoints/_base.scss */
+/* line 273, ../scss/breakpoints/_base.scss */
 #ListingList, #ListingInfo {
   width: 50%;
   float: left;
 }
 
-/* line 245, ../scss/breakpoints/_base.scss */
+/* line 277, ../scss/breakpoints/_base.scss */
 #ListingList {
   padding-right: 50px;
 }

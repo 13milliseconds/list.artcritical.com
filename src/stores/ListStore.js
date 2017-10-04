@@ -1,11 +1,13 @@
 import alt from '../alt';
 import ListActions from '../actions/ListActions';
 import AuthActions from '../actions/AuthActions';
+import ImagesActions from '../actions/ImagesActions';
 
 class ListStore {
     constructor() {
         this.bindActions(ListActions);
         this.bindActions(AuthActions);
+        this.bindActions(ImagesActions);
         //List states
         this.currentListings = [];
         this.allListings = [];
@@ -19,6 +21,12 @@ class ListStore {
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
         this.user.email = '';
+        this.user.avatar = '';
+        // Image State
+        this.isUploaded = false;
+        this.uploadedFileCloudinaryUrl = '';
+        this.listingEdit = {},
+        this.listingEdit.image = ''
     }
     
     //List Reducers
@@ -70,11 +78,13 @@ class ListStore {
         this.user.email = '';
     }
     onLoginSuccess(action){
+        console.log('User conneced: ', action);
+        this.user.email = action.local.username;
         this.user.name = action.local.name;
         this.user.id = action._id;
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;
-        this.user.email = action.local.email;
+        this.user.avatar = action.avatar;
     }
     
     // REGISTER ATTEMPT
@@ -91,7 +101,8 @@ class ListStore {
     onRegisterSuccess(action){
         this.user.name = action.local.name;
         this.user.id = action._id;
-        this.user.email = action.local.email;
+        this.user.email = action.local.username;
+        this.user.avatar = action.avatar;
         this.isRegistering = false;
         this.user.isLoggedIn = true;
     }
@@ -131,8 +142,10 @@ class ListStore {
         this.user.id = action._id;
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;
+        this.user.avatar = action.avatar;
         if (action.local){
             this.user.name = action.local.name;
+            this.user.email = action.local.username;
         }
         if (action.facebook){
             this.user.name = action.facebook.name;
@@ -154,6 +167,39 @@ class ListStore {
     onGetMylistFailure(jqXhr) {
         // Handle multiple response formats, fallback to HTTP status code number.
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+    }
+    
+    // INFO CHANGE ON ACCOUNT PAGE
+    onUserInfoChange (event){
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        this.user[name] = value;
+    }
+    // UPDATE USER INFO
+    onUpdateUserSuccess () {
+        console.log('Update Success');
+    }
+    onUpdateUserFailure () {
+        console.log('Update Failure');
+    }
+    
+    // UPLOAD AN AVATAR
+    onImageUploadSuccess(image){
+        this.isUploaded = true;
+        this.user.avatar = image.public_id;
+    }
+    onImageUploadFailure(err){
+        console.log('Error: ', err);
+    }
+    // UPLOAD A THUMBNAIL
+    onThumbnailUploadSuccess(image){
+        this.isUploaded = true;
+        console.log(image);
+        this.listingEdit.image = image.public_id;
+    }
+    onThumbnailUploadFailure(err){
+        console.log('Error: ', err);
     }
 }
 

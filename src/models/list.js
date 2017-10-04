@@ -13,7 +13,9 @@ var listingSchema = mongoose.Schema({
         ref: 'Venue',
         type: String
       },
-    event: Boolean
+    event: Boolean,
+    image: String,
+    thumb: String
 });
 
 //compile the model

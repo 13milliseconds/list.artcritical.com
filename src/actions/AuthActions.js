@@ -1,6 +1,5 @@
 import alt from '../alt';
 import "isomorphic-fetch"
-import ListActions from './ListActions';
 
 class AuthActions {
     constructor() {
@@ -17,6 +16,8 @@ class AuthActions {
             'registerAttempt',
             'registerSuccess',
             'registerFailure',
+            'updateUserSuccess',
+            'updateUserFailure'
         );
     }
     
@@ -174,6 +175,40 @@ class AuthActions {
           this.addToMyListFailure(error);
             return true;
         });
+    }
+    
+    async updateUser(newUserInfo) {
+
+        await fetch(
+          '/auth/updateuser',
+          {
+            body: JSON.stringify(newUserInfo),
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+             
+              return true;
+          }
+           
+            return true;
+        })
+        .catch((error) => {
+          
+            return true;
+        });
+
+    }
+    
+    // When a user type new info in the account page
+    userInfoChange(event){
+        console.log(event);
+        return event;
     }
 
 }

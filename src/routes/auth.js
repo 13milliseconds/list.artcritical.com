@@ -3,14 +3,9 @@ var router = express.Router();
 var passport = require('passport');
 
 
-router.get('/facebook', passport.authenticate('facebook'));
-
-router.get('/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
+//###################################
+// SIGNUP
+//###################################
 
 router.post('/signup', async(req, res) => {
     passport.authenticate('local-signup')(req, res, () => {
@@ -58,6 +53,19 @@ router.post('/login', async(req, res) => {
         }));
     });
 });
+
+//###################################
+// FACEBOOK LOGIN
+//###################################
+
+router.get('/facebook', passport.authenticate('facebook'));
+
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 
 
 //###################################
@@ -159,13 +167,44 @@ router.get('/checksession', (req, res) => {
 });
 
 
-/*
- * GET Current User Info ===================
- */
+//###################################
+// GET USER INFO 
+ //###################################
 router.get('/user', function (req, res) {
     var User = req.user;
 
     console.log(User);
+
+});
+
+
+//###################################
+// UPDATE USER INFO 
+ //###################################
+router.post('/updateuser', function (req, res) {
+    var Userlist = req.userlist;
+    var User = req.user;
+    
+    var newInfo = {
+        'avatar': req.body.avatar,
+        'local.username': req.body.email,
+        'local.name': req.body.name
+        }
+    
+    console.log('New user info: ', newInfo);
+    var update = { $set: newInfo};
+
+    
+    Userlist.update({ _id: User._id }, update, {upsert:true}, function (err, updatedUser) {
+        console.log('Updated User: ', updatedUser)
+        res.send(
+            (err === null) ? {
+                newuser: updatedUser
+            } : {
+                msg: err
+            }
+        );
+    });
 
 });
 

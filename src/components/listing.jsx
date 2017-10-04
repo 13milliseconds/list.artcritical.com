@@ -37,7 +37,7 @@ export default class Listing extends React.Component {
     render() {
         
     var end
-    if (this.props.event !== true && this.props.end !== '') {
+    if (this.props.event !== true && this.props.end) {
         end = <span>to <Date date={this.props.end} /></span>;
     }
         const id = this.props._id;
@@ -48,17 +48,22 @@ export default class Listing extends React.Component {
                 return v._id === id;
             }).length;   
         }
+        
+        const image = this.props.image? "http://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'http://www.qygjxz.com/data/out/193/3874945-random-picture.gif'
+        const fullURL = 
       
       
     return (
       <div className = {mylistIndex > 0 ? 'listing selected' : 'listing notselected' } id={this.props._id}>
         <div className="listingAdd">
-            <div className="addButton" onClick={(e) => this.addToList(e, this.props)}></div>
+            <div className="addButton" onClick={(e) => this.addToList(e, this.props)}>
+                <img src={image}/>
+            </div>
         </div>
         <div className = "listingContent">
             <div className="header">
                 <p>{this.props.name} {this.props.venue._id !== '' && ' at ' }<span className="venueName">{this.props.venue.name}</span></p>
-                <p>{this.props.start !== '' && <Date date={this.props.start} /> } {end} </p>
+                <p>{this.props.start && <Date date={this.props.start} /> } {end} </p>
             </div>
             <div className="moreInfo">
                 <p>{this.props.venue.address}{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</p>

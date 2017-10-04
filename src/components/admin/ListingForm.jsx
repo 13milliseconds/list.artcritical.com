@@ -1,10 +1,12 @@
 import React from 'react';
+import ToggleButton from 'react-toggle-button';
+//Components
 import Listing from '../listing';
 import DateRange from './formDateRange';
 import DateSingle from './formDateSingle';
 import Select from './formSelect';
+import ThumbnailInput from './ThumbnailInput';
 import Display from '../../actions/displayActions';
-import ToggleButton from 'react-toggle-button';
 
 
 
@@ -14,8 +16,8 @@ export default class ListingForm extends React.Component {
         super(props);
         this.state = {
             name: '',
-            startDate: '',
-            endDate: '',
+            startDate: null,
+            endDate: null,
             venue: { label: '', value: '' },
             description: '',
             venueInfo : {address: ''},
@@ -82,7 +84,8 @@ export default class ListingForm extends React.Component {
             end: this.state.endDate,
             description: this.state.description,
             neighborhood: this.state.venueInfo.neighborhood,
-            venue: this.state.venue.value
+            venue: this.state.venue.value,
+            image: this.props.image
         }
         Display.saveListing(newEvent)
         this.resetListState()
@@ -118,7 +121,8 @@ export default class ListingForm extends React.Component {
             },
             description: this.state.description,
             neighborhood: this.state.venueInfo.neighborhood,
-            event: this.state.event
+            event: this.state.event,
+            image: this.props.image
         }
 
         
@@ -164,6 +168,9 @@ export default class ListingForm extends React.Component {
                  <div className="formSection">
                   <textarea name="description" type="text" value={this.state.description} onChange={this.handleChange} />
                 </div>
+                
+                <label>Thumbnail</label>
+                <ThumbnailInput {...this.props} />
                 
                 <input type="submit" value="Submit" />
                 
