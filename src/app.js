@@ -22,15 +22,9 @@ var app = express();
 
 // MongoDB
 var mongoose = require("mongoose");
-
 var url = process.env.MONGOLAB_URI;
-
 mongoose.connect(url, { useMongoClient: true });
-
-console.log('Connecting to database...');
-
 var db = mongoose.connection;
-
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
@@ -41,6 +35,7 @@ db.once('open', function () {
 var List = require('./models/list.js');
 var Venue = require('./models/venue.js');
 var User = require('./models/user.js');
+var Feature = require('./models/feature.js');
 
 
 // view engine setup
@@ -59,7 +54,12 @@ app.use(cookieParser());
 
 //Create sessions
 var maxAge = 7 * 24 * 3600 * 1000;
-app.use(session({ secret: 'woot', cookie:{maxAge: maxAge}}));
+app.use(session({ 
+    secret: 'woot', 
+    cookie:{maxAge: maxAge},
+    resave: false,
+    saveUninitialized: true
+}));
 
 //start authentitification
 app.use(passport.initialize());
@@ -79,6 +79,7 @@ app.use(function(req,res,next){
     req.list = List;
     req.venue = Venue;
     req.userlist = User;
+    req.feature = Feature;
     next();
 });
 

@@ -2,6 +2,7 @@ import alt from '../alt';
 import ListActions from '../actions/ListActions';
 import AuthActions from '../actions/AuthActions';
 import ImagesActions from '../actions/ImagesActions';
+import toastr from 'toastr';
 
 class ListStore {
     constructor() {
@@ -22,17 +23,49 @@ class ListStore {
         this.user.isLoggingIn = false;
         this.user.email = '';
         this.user.avatar = '';
+        this.user.facebook = {};
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
         this.listingEdit = {},
         this.listingEdit.image = ''
+        //New listing states
+        this.listingEdit = {};
+        this.listingEdit._id = '';
+        this.listingEdit.name = '';
+        this.listingEdit.description = '';
+        this.listingEdit.text = '';
+        this.listingEdit.event = false;
+        this.listingEdit.venue = {};
+        this.listingEdit.venue._id = '';
+        this.listingEdit.venue.address = '';
+        // Featured listings
+        this.feature = {};
+        this.feature.text = '';
+        this.feature.list = {};
+        this.feature.venue = {};
+        //Loadings
+        this.loading = {};
+        this.loading.login = false;
+        this.loading.register = false;
+        this.loading.updateuser = false;
+        this.loading.current = false;
+        //Error Messages
+        this.error = {};
+        this.error.feature = '';
+        this.error.updateuser = '';
+        //Success
+        this.success = {};
+        this.success.updateuser = '';
     }
     
     //List Reducers
-
+    onGetCurrentAttempt(){
+        this.loading.current = true;
+    }
     onGetCurrentSuccess(data) {
-        this.currentListings = data;
+        this.loading.current = false;
+        this.currentListings = this.currentListings.concat(data);
     }
     onGetAllSuccess(data) {
         this.allListings = data;
@@ -46,6 +79,7 @@ class ListStore {
 
 
     onGetCurrentFail(jqXhr) {
+        this.loading.current = false;
         // Handle multiple response formats, fallback to HTTP status code number.
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
@@ -62,6 +96,128 @@ class ListStore {
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
     
+    // Reset listing edit
+    onListingEditReset(){
+        this.listingEdit = {
+            image: '',
+            name: '',
+            _id: '',
+            description: '',
+            text: '',
+            venue: {},
+            end: null,
+            start: null
+        };
+    }
+    
+    // Get listing info
+    onGetListingInfoSuccess(data){
+        this.listingEdit = data;
+        this.feature.list = data;
+    }
+    onGetListingInfoFailure(jqXhr){
+        toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+    }
+    
+    // Get venue info
+    onGetVenueInfoSuccess(data){
+        this.listingEdit.venue = data[0];
+    }
+    onGetVenueInfoFailure(jqXhr){
+        toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+    }
+    //Reset the venue in the form
+    onResetVenue() {
+        this.listingEdit.venue = {
+            _id: '',
+            address: '',
+        }
+    }
+    
+    //Save a new listing
+    onSaveListingSuccess(data){
+        console.log('Saved: ', data);        
+    }
+    onSaveListingFailure(err){
+        console.log('Error: ', err);
+    }
+    
+    //Update a listing
+    onUpdateListingSuccess(data){
+        console.log('Updated: ', data);        
+    }
+    onUpdateListingFailure(err){
+        console.log('Error: ', err);
+    }
+    
+    //Update a listing
+    onDeleteListingSuccess(data){
+        console.log('Deleted: ', data);        
+    }
+    onDeleteListingFailure(err){
+        console.log('Error: ', err);
+    }
+    
+    //Update info on listing page
+    onListingInfoChange (info){
+        if (info.target) {
+            const value = info.target.value;
+            const name = info.target.name;   
+            this.listingEdit[name] = value;
+        } else if (info.startDate) {
+            this.listingEdit.start = info.startDate;
+            if (info.endDate){
+                this.listingEdit.end = info.endDate;
+            }
+       } else {
+           this.listingEdit.event = !info.event;  
+            console.log(this.listingEdit.event);
+        }
+    }
+    
+    //Update info on listing page
+    onFeatureInfoChange (info){
+            const value = info.target.value;
+            const name = info.target.name;   
+            this.feature[name] = value;
+    }
+    
+    //FEATURED
+    onupdateFeatureSuccess(data){
+        console.log(data);
+    }
+    onupdateFeatureFailure(error){
+        console.log(error);
+    }
+    onFeatureReset(){
+        this.feature= {};
+        this.feature.text = '';
+        this.feature.list = {};
+        this.feature.venue = {};
+    }
+    onFeatureLoadSuccess(data) {
+        console.log('Feature: ', data);
+        if (data){
+            this.feature = data;
+            this.listingEdit._id = data.list._id;
+            this.listingEdit.name = data.list.name;
+            this.listingEdit.text = data.text;
+            this.listingEdit.image = data.list.image;
+            this.listingEdit.venue._id = data.venue._id;
+            this.error.feature = "";
+            console.log(this.feature);
+        } else {
+            this.error.feature = "No Feature selected today";
+        }
+    }
+    onFeatureLoadFailure(error) {
+        console.log("Feature load error: ", error);
+        this.feature= {};
+        this.feature.text = '';
+        this.feature.list = {};
+        this.feature.venue = {};
+    }
+    
     // Auth Reducers
     
     // LOGIN ATTEMPT
@@ -70,7 +226,7 @@ class ListStore {
         this.loginRedirect = false;
     }
     onLoginFailure(error){
-        console.log(error);
+        console.log('Login error: ', error);
         this.user.name = '';
         this.user.id = '';
         this.user.isLoggedIn = false;
@@ -110,9 +266,30 @@ class ListStore {
     //Facebook Login
     onFacebookLogin(user){
         console.log("Logged in via Facebook");
-        this.user.name = user.facebook.name;
+        this.user.name = user.name;
         this.user.id = user._id;
+        this.user.facebook = {
+            id: user.facebook.id,
+            token: user.facebook.token
+        };
         this.user.isLoggedIn = true;
+    }
+    
+    //UPDATE USER
+    onUpdateUserAttempt(){
+        this.loading.updateuser = true;
+        this.success.updateuser = '';
+        this.error.updateuser = '';
+    }
+    onUpdateUserSuccess(data){
+        console.log('Success!');
+        this.loading.updateuser = false;
+        this.success.updateuser = 'Saved!';
+    }
+    onUpdateUserFailure(error){
+        console.log('Error!');
+        this.loading.updateuser = false;
+        this.error.updateuser = 'Error Saving';
     }
     
     // LOGOUT ATTEMPT
@@ -143,12 +320,15 @@ class ListStore {
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;
         this.user.avatar = action.avatar;
+        this.user.name = action.name;
         if (action.local){
-            this.user.name = action.local.name;
             this.user.email = action.local.username;
         }
         if (action.facebook){
-            this.user.name = action.facebook.name;
+            this.user.facebook = {
+                id: action.facebook.id,
+                token: action.facebook.token
+            };
         }
     }
     
@@ -176,13 +356,6 @@ class ListStore {
         const name = target.name;
         this.user[name] = value;
     }
-    // UPDATE USER INFO
-    onUpdateUserSuccess () {
-        console.log('Update Success');
-    }
-    onUpdateUserFailure () {
-        console.log('Update Failure');
-    }
     
     // UPLOAD AN AVATAR
     onImageUploadSuccess(image){
@@ -195,8 +368,8 @@ class ListStore {
     // UPLOAD A THUMBNAIL
     onThumbnailUploadSuccess(image){
         this.isUploaded = true;
-        console.log(image);
         this.listingEdit.image = image.public_id;
+        this.feature.list.image = image.public_id;
     }
     onThumbnailUploadFailure(err){
         console.log('Error: ', err);

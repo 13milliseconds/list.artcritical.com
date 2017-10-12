@@ -9,7 +9,6 @@ var passport = require('passport');
 
 router.post('/signup', async(req, res) => {
     passport.authenticate('local-signup')(req, res, () => {
-        console.log('Registering');
         // If logged in, we should have user info to send back
         if (req.user) {
             passport.authenticate('local-login')(req, res, () => {
@@ -60,12 +59,35 @@ router.post('/login', async(req, res) => {
 
 router.get('/facebook', passport.authenticate('facebook'));
 
-router.get('/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
+router.get('/facebook/callback', function(req, res){
+    
+    console.log("In route: ", req.body);
+           
+    passport.authenticate('facebook', {failureRedirect: '/login'}, 
+                          
+        function (err, user, info) {
+        if (err) {
+            return err;
+        }
+        // Successful authentication, redirect home.
+        if (!user) {
+            var message = "Invalid credentials";
+            // response.redirect('/login');
+            return res.render('login', {
+                message: info.message,
+                userLoggedIn: null
+            });
+        }
+        req.logIn(user, function (err) {
+            if (err) {
+                return err;
+            }
+            req.session.user = user;
+            res.redirect('/');
+        });
+    })(req, res)
+});
+
 
 
 //###################################
@@ -159,11 +181,13 @@ router.get('/getmylist', (req, res) => {
 
 // GET to check session
 router.get('/checksession', (req, res) => {
-
-    if (req.user) {
-        return res.send(JSON.stringify(req.user));
+    var User = req.user;
+    
+    if (User) {
+        res.send(JSON.stringify(User));
+    } else {
+        res.send({error:'No user connected'});   
     }
-    return res.send(JSON.stringify({}));
 });
 
 
@@ -196,7 +220,6 @@ router.post('/updateuser', function (req, res) {
 
     
     Userlist.update({ _id: User._id }, update, {upsert:true}, function (err, updatedUser) {
-        console.log('Updated User: ', updatedUser)
         res.send(
             (err === null) ? {
                 newuser: updatedUser

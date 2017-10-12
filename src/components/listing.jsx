@@ -49,8 +49,7 @@ export default class Listing extends React.Component {
             }).length;   
         }
         
-        const image = this.props.image? "http://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'http://www.qygjxz.com/data/out/193/3874945-random-picture.gif'
-        const fullURL = 
+        const image = this.props.image? "http://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
       
       
     return (

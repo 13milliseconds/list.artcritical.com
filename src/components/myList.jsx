@@ -1,5 +1,7 @@
 import React from 'react';
-import Listing from './listing.jsx';
+// Components
+import Listing from './listing';
+import MyMap from './mylist/myMap';
 
 export default class MyList extends React.Component {
     constructor(props) {
@@ -10,12 +12,16 @@ export default class MyList extends React.Component {
         
         return ( 
                 <div className="myList">
-                    <p>Items in your list: <strong>{this.props.mylist.length}</strong></p>
+                    <div className="mymap-wrap">
+                        <MyMap items={this.props.mylist} />
+                    </div>
+                    <div className="listing-wrap">
                     {
                         this.props.mylist.map((listing) => (
                             <Listing {...listing} key={listing._id} mylist={this.props.mylist}/>
                         ))
                     }
+                    </div>
                 </div>
         );
     }

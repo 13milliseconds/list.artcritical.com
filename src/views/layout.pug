@@ -1,9 +1,8 @@
 doctype html
 html
   head
-    base(href="/")
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='http://localhost:5000/stylesheets/style.css')
     script(src="https://code.jquery.com/jquery-3.2.1.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js")
     //React
@@ -11,9 +10,13 @@ html
     script(src="https://fb.me/react-dom-15.0.0.js")
     //FontAwesome
     script(src="https://use.fontawesome.com/dc7b4c448b.js")
+    //Typekit
+    script(src="https://use.typekit.net/csp0cwt.js")
+    script. 
+        try{Typekit.load({ async: true });}catch(e){}
   body
     block content
     
-    script(src='javascripts/bundle.js')
-    script(src='javascripts/global.js')
+    script(src='http://localhost:5000/javascripts/bundle.js')
+    script(src='http://localhost:5000/javascripts/global.js')
     

@@ -1,8 +1,11 @@
 import alt from '../alt';
 
+let offset = 0;
+
 class ListActions {
     constructor() {
         this.generateActions(
+            'getCurrentAttempt',
             'getCurrentSuccess',
             'getCurrentFail',
             'getAllSuccess',
@@ -12,30 +15,58 @@ class ListActions {
             'getGlanceSuccess',
             'getGlanceFail',
             'getMylistSuccess',
-            'getMylistFailure'
+            'getMylistFailure',
+            'getListingInfoSuccess',
+            'getListingInfoFailure',
+            'getVenueInfoSuccess',
+            'getVenueInfoFailure',
+            'saveListingSuccess',
+            'saveListingFailure',
+            'updateListingSuccess',
+            'updateListingFailure',
+            'updateFeatureSuccess',
+            'updateFeatureFailure',
+            'featureLoadSuccess',
+            'featureLoadFailure',
+            'deleteListingSuccess',
+            'deleteListingFailure'
         );
     }
-
-    getCurrent() {
-        return dispatch => {
-            dispatch();
-            $.ajax({
-                    url: '/list/currentlistings'
-                })
-                .done((data) => {
-                    this.getCurrentSuccess(data)
-                })
-                .fail((jqXhr) => {
-                    this.getCurrentFail(jqXhr)
-                });
-        };
+    
+    
+    async getCurrent () {
+        
+        this.getCurrentAttempt();
+        
+        await fetch(
+          process.env.BASE_URI + '/list/currentlistings/' + offset,
+          {
+            method: 'GET',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((data) => {
+            this.getCurrentSuccess(data)
+            if (data[0]){
+                offset = offset + 1
+                this.getCurrent()
+            }
+        })
+        .catch((jqXhr) => {
+            this.getCurrentFail(jqXhr)
+        });
     }
 
     getAll() {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: '/list/alllistings'
+                    url: process.env.BASE_URI + '/list/alllistings'
                 })
                 .done((data) => {
                     this.getAllSuccess(data)
@@ -50,7 +81,7 @@ class ListActions {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: '/list/eventslistings'
+                    url: process.env.BASE_URI + '/list/eventslistings'
                 })
                 .done((data) => {
                     this.getEventsSuccess(data)
@@ -63,9 +94,8 @@ class ListActions {
 
     getGlance() {
         return dispatch => {
-            dispatch();
             $.ajax({
-                    url: '/list/glancelistings'
+                    url: process.env.BASE_URI + '/list/glancelistings'
                 })
                 .done((data) => {
                     this.getGlanceSuccess(data)
@@ -75,21 +105,206 @@ class ListActions {
                 });
         };
     }
+    
+    listingEditReset() {
+        return true;
+    }
+    
+    // When new listing info is entered
+    listingInfoChange(event){
+        return event;
+    }
+    // When new feature info is entered
+    featureInfoChange(event){
+        return event;
+    }
+    
+    async saveListing(newListing) {
+        
+        console.log('saveListing: ', newListing);
 
-    getMylist() {
-        console.log('Getting mylist');
+        await fetch(
+          process.env.BASE_URI + '/list/add',
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify(newListing),
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.saveListingSuccess(json);
+            return true;
+        })
+        .catch((error) => {
+            this.saveListingFailure(error);
+        });
+        
+    }
+    
+    async deleteListing(oldListing) {
+
+        await fetch(
+          process.env.BASE_URI + '/list/delete/' + oldListing
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.deleteListingSuccess(json);
+            return true;
+        })
+        .catch((error) => {
+            this.deleteListingFailure(error);
+        });
+        
+    }
+    
+    async updateListing(newInfo) {
+
+        await fetch(
+          process.env.BASE_URI + '/list/update',
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify(newInfo),
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.updateListingSuccess(json);
+            return true;
+        })
+        .catch((error) => {
+            this.updateListingFailure(error);
+        });
+        
+    }
+    
+    getListingInfo(id){
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: '/auth/getmylist'
+                    url: process.env.BASE_URI + '/list/getinfo/' + id
                 })
                 .done((data) => {
-                    console.log('Got mylist');
+                    this.getListingInfoSuccess(data)
+                })
+                .fail((jqXhr) => {
+                    this.getListingInfoFailure(jqXhr)
+                });
+        };
+    }
+    
+    // Update or save a featured article
+    async updateFeature (data) {
+        await fetch(
+          process.env.BASE_URI + '/list/feature',
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.updateFeatureSuccess(json);
+            return true;
+        })
+        .catch((error) => {
+            this.updateFeatureFailure(error);
+        });
+    }
+    
+    featureReset(){
+        return true;
+    }
+    
+    async featureLoad(data){
+        
+        await fetch(
+          process.env.BASE_URI + '/list/findfeature',
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.featureLoadSuccess(json[0]);
+            return true;
+        })
+        .catch((error) => {
+            this.featureLoadFailure(error);
+        });
+    }
+    
+    getVenueInfo(id){
+        return dispatch => {
+            dispatch();
+            $.ajax({
+                    url: process.env.BASE_URI + '/venues/getinfo/' + id
+                })
+                .done((data) => {
+                    this.getVenueInfoSuccess(data)
+                })
+                .fail((jqXhr) => {
+                    this.getVenueInfoFailure(jqXhr)
+                });
+        };
+    }
+    
+    resetVenue(){
+        return true;
+    }
+
+    getMylist() {
+        return dispatch => {
+            dispatch();
+            $.ajax({
+                    url: process.env.BASE_URI + '/auth/getmylist'
+                })
+                .done((data) => {
                     this.getMylistSuccess(data)
                     return true;
                 })
                 .fail((jqXhr) => {
-                    console.log('Failed to get mylist');
                     this.getMylistFailure(jqXhr)
                     return true;
                 });

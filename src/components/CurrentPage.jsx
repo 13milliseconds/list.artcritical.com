@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router';
-import ListStore from '../stores/ListStore';
 import ListActions from '../actions/ListActions';
 import Display from '../actions/displayActions';
 //COMPONENTS
@@ -10,36 +9,49 @@ import Listing from './listing.jsx';
 export default class CurrentPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = ListStore.getState();
-        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
-        ListStore.listen(this.onChange);
         ListActions.getCurrent();
     }
 
-    componentWillUnmount() {
-        ListStore.unlisten(this.onChange);
-    }
-
-    onChange(state) {
-        this.setState(state);
-    }
-
     render() {
-        let nh = ''
-        let thelist = this.state.currentListings.map((listing) => {
-            let newNh = listing.venue.neighborhood;
-            if ( newNh !== nh) {
-                nh = newNh
-                newNh = Display.displayCity(nh)
-                return (
-                    <div key={listing._id}>
-                        <h2>{newNh}</h2>
-                        <Listing {...listing} mylist = {this.props.mylist}/>
-                    </div>
-                )
+        let mainNH = ''
+        let secondaryNH = ''
+        let newMainNH = ''
+        let newSecondaryNH = ''
+        
+        let city = (name) => (<h1>{name}</h1>)
+        let neighborhood = (name) => (<h2>{name}</h2>)
+        
+        let thelistRender = currentListings => currentListings.map((listing) => {
+            
+            newSecondaryNH = listing.venue.neighborhood;
+            
+            if ( newSecondaryNH !== secondaryNH) {
+                // Update neighborhood
+                secondaryNH = newSecondaryNH
+                newSecondaryNH = Display.displayNeighborhood(secondaryNH)
+                newMainNH = Display.displayCity(secondaryNH)
+                if (newMainNH !== mainNH) {
+                    mainNH = newMainNH
+                    // Removed the city(blah), to be replaced with an anchor
+                    return (
+                        <div key={listing._id}>
+                            {neighborhood(newSecondaryNH)}
+                            <Listing {...listing} mylist = {this.props.mylist}/>
+                        </div>
+                    )    
+                } else{
+                    return (
+                        <div key={listing._id}>
+                            {neighborhood(newSecondaryNH)}
+                            <Listing {...listing} mylist = {this.props.mylist}/>
+                        </div>
+                    ) 
+                }
+                
+                
             } else {
                 return (
                   <Listing {...listing} key={listing._id} mylist = {this.props.mylist}/>
@@ -51,7 +63,8 @@ export default class CurrentPage extends React.Component {
             <div className = "home">
                 <h2>Current</h2>
                 <div className = "listingsWrap">
-                    {thelist}
+                    {thelistRender(this.props.currentListings)}
+                    {this.props.loading.current? 'Loading...': ''}
                 </div>
             </div>
         );

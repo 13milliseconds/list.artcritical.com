@@ -17,15 +17,14 @@ class AuthActions {
             'registerSuccess',
             'registerFailure',
             'updateUserSuccess',
-            'updateUserFailure'
+            'updateUserFailure',
+            'updateUserAttempt'
         );
     }
     
     async attemptLogIn(userData) {
         
         this.loginAttempt();
-        
-        console.log('Login attempt');
 
         await fetch(
           '/auth/login',
@@ -117,9 +116,8 @@ class AuthActions {
   }
     
     async checkSession() {
-        // contact the API
         await fetch(
-          '/auth/checksession',
+          'http://localhost:5000/auth/checksession',
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -132,13 +130,12 @@ class AuthActions {
           return null;
         })
         .then((json) => {
-          if (json._id) {
+            if (json._id) {
             this.sessionCheckSuccess(json);
               return true;
-          } else {
-            this.sessionCheckFailure(error);
-              return true;
-          }
+            } 
+            this.sessionCheckFailure(json.error);
+            return true;
         })
         .catch((error) => {
           this.sessionCheckFailure(error);
@@ -179,6 +176,8 @@ class AuthActions {
     
     async updateUser(newUserInfo) {
 
+        this.updateUserAttempt();
+        
         await fetch(
           '/auth/updateuser',
           {
@@ -192,14 +191,16 @@ class AuthActions {
         )
         .then((response) => {
           if (response.status === 200) {
-             
-              return true;
+              return response.json();
           }
-           
+            return null;
+        })
+        .then((json) => {
+            this.updateUserSuccess(json);
             return true;
         })
         .catch((error) => {
-          
+            this.updateUserFailure(error);
             return true;
         });
 
@@ -207,7 +208,6 @@ class AuthActions {
     
     // When a user type new info in the account page
     userInfoChange(event){
-        console.log(event);
         return event;
     }
 

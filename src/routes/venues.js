@@ -45,7 +45,7 @@ router.get('/getinfo/:venue_id', function (req, res, next) {
                 res.send(err);
         
             res.json(venue);
-        });
+        }); 
 
 });
 

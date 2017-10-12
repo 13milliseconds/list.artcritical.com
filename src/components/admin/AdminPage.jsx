@@ -6,12 +6,13 @@ export default class IndexPage extends React.Component {
 
     render() {
         let adminRender = this.props.user.isLoggedIn ?
-            <div>
+            <div className = "admin cf">
                 <header>
                     <h2>Account page</h2>
                     <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
                     <Link to={'/account/newlisting'} activeClassName="active">New Listing</Link>
                     <Link to={'/account/edit'} activeClassName="active">Edit Listing</Link>
+                    <Link to={'/account/featured'} activeClassName="active">Featured Listings</Link>
                 </header>
                 <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
             </div>
@@ -22,7 +23,7 @@ export default class IndexPage extends React.Component {
             </div>
         
         return ( 
-            <div className = "admin">
+            <div>
               {adminRender}
             </div>
         );

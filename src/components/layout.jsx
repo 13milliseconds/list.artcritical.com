@@ -40,8 +40,8 @@ export default class Layout extends React.Component {
       
     return (
       <div className="app-container">
-        <header>
-            <h1>Welcome to the List</h1>
+        <header className="mainHeader">
+            <h1>artcritical</h1>
             <IndexLink to={'/'} activeClassName="active">At a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>

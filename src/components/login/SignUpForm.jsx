@@ -2,6 +2,7 @@ import React from 'react';
 import Display from '../../actions/displayActions';
 import ToggleButton from 'react-toggle-button';
 import validator from 'validator';
+import PropTypes from 'prop-types';
 import AuthActions from '../../actions/AuthActions';
 
 
@@ -150,7 +151,7 @@ class SignUpForm extends React.Component {
       
     var {name, email, password1, password2} = this.state;
     
-    this._validate(name, email, password1, password2);
+    this._validate(name, email, password1, password2); 
     
     if (this._areValid(name, email, password1, password2)) {
         var newUser = {
@@ -227,7 +228,7 @@ class SignUpForm extends React.Component {
 };
 
 SignUpForm.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 };
 
 export default SignUpForm

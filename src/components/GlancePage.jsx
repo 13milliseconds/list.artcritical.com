@@ -10,26 +10,16 @@ import Tabs from './tabs.jsx';
 export default class GlancePage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = ListStore.getState();
-        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
-        ListStore.listen(this.onChange);
         ListActions.getGlance();
     }
 
-    componentWillUnmount() {
-        ListStore.unlisten(this.onChange);
-    }
-
-    onChange(state) {
-        this.setState(state);
-    }
 
     render() {
         
-        let thelist = this.state.glanceListings
+        let thelist = this.props.glanceListings
         
         let days = [];
         let today = new Date();
@@ -39,7 +29,7 @@ export default class GlancePage extends React.Component {
             let d = new Date();
             d.setHours(0,0,0,0);
             d.setDate(today.getDate() + i );
-            days.push(<DayPage key={d} glanceListings={thelist} mylist={this.props.mylist} label={d} />);
+            days.push(<DayPage key={d} feature={this.props.feature} glanceListings={thelist} mylist={this.props.mylist} label={d} />);
         }
         
         return ( 

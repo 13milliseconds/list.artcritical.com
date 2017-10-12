@@ -13,6 +13,7 @@ import MyListPage from './components/myListPage';
 import AdminPage from './components/admin/AdminPage';
 import NewListing from './components/admin/NewListing';
 import EditListings from './components/admin/EditListings';
+import FeaturedListings from './components/admin/featuredPage';
 import Account from './components/admin/Account';
 // Error Components
 import ErrorPage from './components/ErrorPage';
@@ -29,6 +30,7 @@ const routes = (
             <IndexRoute component={Account}/>
             <Route path="edit" component={EditListings}/>
             <Route path="newlisting" component={NewListing}/>
+            <Route path="featured" component={FeaturedListings}/>
         </Route>
         <Route path="*" component={ErrorPage}/>
       </Route>

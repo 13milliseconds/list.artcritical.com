@@ -112,15 +112,19 @@ module.exports = function(passport) {
       }
     ));
     
+    // =========================================================================
+    // FACEBOOK LOGIN =============================================================
+    // =========================================================================
+    
     passport.use(new FacebookStrategy({
         clientID: "1154923567943109",
         clientSecret: "9ab1f837eabcc53aafadc9657eb65f19",
-        callbackURL: "http://localhost:5000/auth/facebook/callback"
+        callbackURL: process.env.BASE_URI + "/auth/facebook/callback",
+        profileFields: ['id', 'displayName', 'email']
       },
       function(accessToken, refreshToken, profile, done) {
-        //check user table for anyone with a facebook ID of profile.id
-        console.log("Finding Facebook user");
         
+        //check user table for anyone with a facebook ID of profile.id
         User.findOne({
             'facebook.id': profile.id 
         }, function(err, user) {
@@ -130,12 +134,12 @@ module.exports = function(passport) {
             }
             //No user was found
             if (!user) {
-                console.log("No found user");
-                console.log(profile);
                 user = new User({
-                    name: profile.displayName,
-                    provider: 'facebook',
-                    facebook: profile._json
+                    name: profile.displayName,  
+                    facebook: {
+                        id: profile.id,
+                        token: accessToken
+                    }
                 });
                 console.log("New user", user);
                 user.save(function(err) {
@@ -144,9 +148,9 @@ module.exports = function(passport) {
                     return done(err, user);
                 });
             } else {
-                console.log("Found user");
-                //found user. Return
+                //found user
                 AuthActions.facebookLogin(user);
+                console.log("in passport: ", user._id);
                 return done(err, user);
             }
         });

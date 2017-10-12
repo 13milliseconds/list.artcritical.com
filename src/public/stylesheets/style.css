@@ -1155,14 +1155,16 @@ a {
 #thelist {
   min-height: 100%;
   position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-/* line 39, ../scss/breakpoints/_base.scss */
+/* line 41, ../scss/breakpoints/_base.scss */
 .app-content {
-  padding: 0 50px 100px;
+  padding: 100px 50px 100px;
 }
 
-/* line 43, ../scss/breakpoints/_base.scss */
+/* line 45, ../scss/breakpoints/_base.scss */
 footer {
   padding: 0 50px 50px;
   position: absolute;
@@ -1170,9 +1172,60 @@ footer {
 }
 
 /*********************
+COLUMNS
+*********************/
+/* line 55, ../scss/breakpoints/_base.scss */
+.column-1of4 {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.column-1of4:last-child {
+  margin-right: 0;
+}
+
+/* line 58, ../scss/breakpoints/_base.scss */
+.column-3of4 {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.column-3of4:last-child {
+  margin-right: 0;
+}
+
+/* line 61, ../scss/breakpoints/_base.scss */
+.column-1of3 {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.column-1of3:last-child {
+  margin-right: 0;
+}
+
+/* line 64, ../scss/breakpoints/_base.scss */
+.column-2of3 {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.column-2of3:last-child {
+  margin-right: 0;
+}
+
+/*********************
 BUTTONS
 *********************/
-/* line 53, ../scss/breakpoints/_base.scss */
+/* line 72, ../scss/breakpoints/_base.scss */
 a.facebookbutton {
   background: #3b5998;
   display: inline-block;
@@ -1182,7 +1235,7 @@ a.facebookbutton {
   letter-spacing: .03em;
   margin: 20px 0;
 }
-/* line 61, ../scss/breakpoints/_base.scss */
+/* line 80, ../scss/breakpoints/_base.scss */
 a.facebookbutton i {
   margin-right: 10px;
 }
@@ -1190,7 +1243,7 @@ a.facebookbutton i {
 /*********************
 INDEX PAGE
 *********************/
-/* line 69, ../scss/breakpoints/_base.scss */
+/* line 88, ../scss/breakpoints/_base.scss */
 .home, .glance, .current {
   display: block;
 }
@@ -1201,7 +1254,7 @@ INDEX PAGE
   display: block;
 }
 
-/* line 73, ../scss/breakpoints/_base.scss */
+/* line 92, ../scss/breakpoints/_base.scss */
 .listingsWrap {
   float: left;
   display: block;
@@ -1213,19 +1266,7 @@ INDEX PAGE
   margin-right: 0;
 }
 
-/* line 77, ../scss/breakpoints/_base.scss */
-.myList {
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 48.8211739883%;
-}
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.myList:last-child {
-  margin-right: 0;
-}
-
-/* line 81, ../scss/breakpoints/_base.scss */
+/* line 98, ../scss/breakpoints/_base.scss */
 .featuredSection {
   float: left;
   display: block;
@@ -1240,7 +1281,7 @@ INDEX PAGE
 /*********************
 LISTING ELEMENTS
 *********************/
-/* line 89, ../scss/breakpoints/_base.scss */
+/* line 106, ../scss/breakpoints/_base.scss */
 .listing {
   padding: 0px 10px 20px;
   border-radius: 5px;
@@ -1255,18 +1296,18 @@ LISTING ELEMENTS
   content: "";
   display: block;
 }
-/* line 94, ../scss/breakpoints/_base.scss */
+/* line 111, ../scss/breakpoints/_base.scss */
 .listing .listingAdd {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
-  width: 6.1721523119%;
+  width: 14.7019566472%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .listing .listingAdd:last-child {
   margin-right: 0;
 }
-/* line 96, ../scss/breakpoints/_base.scss */
+/* line 113, ../scss/breakpoints/_base.scss */
 .listing .listingAdd .addButton {
   width: 50px;
   height: 50px;
@@ -1277,27 +1318,27 @@ LISTING ELEMENTS
   -moz-transition: 0.3s;
   transition: 0.3s;
 }
-/* line 103, ../scss/breakpoints/_base.scss */
+/* line 120, ../scss/breakpoints/_base.scss */
 .listing .listingAdd .addButton:hover {
   background-color: aquamarine;
 }
-/* line 106, ../scss/breakpoints/_base.scss */
+/* line 123, ../scss/breakpoints/_base.scss */
 .listing .listingAdd .addButton img {
-  max-width: 100%;
+  min-width: 100%;
   max-height: 100%;
 }
-/* line 112, ../scss/breakpoints/_base.scss */
+/* line 129, ../scss/breakpoints/_base.scss */
 .listing .listingContent {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
-  width: 82.9403913294%;
+  width: 74.4105869942%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .listing .listingContent:last-child {
   margin-right: 0;
 }
-/* line 115, ../scss/breakpoints/_base.scss */
+/* line 132, ../scss/breakpoints/_base.scss */
 .listing .listingClose {
   float: left;
   display: block;
@@ -1310,41 +1351,41 @@ LISTING ELEMENTS
 .listing .listingClose:last-child {
   margin-right: 0;
 }
-/* line 119, ../scss/breakpoints/_base.scss */
+/* line 136, ../scss/breakpoints/_base.scss */
 .listing .listingClose .fa-minus-square-o {
   display: none;
 }
-/* line 123, ../scss/breakpoints/_base.scss */
+/* line 140, ../scss/breakpoints/_base.scss */
 .listing .moreInfo {
   display: none;
 }
-/* line 126, ../scss/breakpoints/_base.scss */
+/* line 143, ../scss/breakpoints/_base.scss */
 .listing.active {
   background-color: antiquewhite;
 }
-/* line 128, ../scss/breakpoints/_base.scss */
+/* line 145, ../scss/breakpoints/_base.scss */
 .listing.active .moreInfo {
   display: block;
 }
-/* line 132, ../scss/breakpoints/_base.scss */
+/* line 149, ../scss/breakpoints/_base.scss */
 .listing.active .listingClose .fa-plus-square-o {
   display: none;
 }
-/* line 135, ../scss/breakpoints/_base.scss */
+/* line 152, ../scss/breakpoints/_base.scss */
 .listing.active .listingClose .fa-minus-square-o {
   display: inline-block;
 }
-/* line 140, ../scss/breakpoints/_base.scss */
+/* line 157, ../scss/breakpoints/_base.scss */
 .listing.selected {
   background-color: beige;
 }
-/* line 143, ../scss/breakpoints/_base.scss */
+/* line 160, ../scss/breakpoints/_base.scss */
 .listing p {
   margin: 5px 0;
   white-space: pre-wrap;
 }
 
-/* line 148, ../scss/breakpoints/_base.scss */
+/* line 165, ../scss/breakpoints/_base.scss */
 .venueName {
   font-weight: bold;
 }
@@ -1352,11 +1393,11 @@ LISTING ELEMENTS
 /*********************
 HEADER
 *********************/
-/* line 156, ../scss/breakpoints/_base.scss */
-header {
-  padding: 50px 50px 0;
+/* line 174, ../scss/breakpoints/_base.scss */
+header h1 {
+  color: #d70b00;
 }
-/* line 158, ../scss/breakpoints/_base.scss */
+/* line 177, ../scss/breakpoints/_base.scss */
 header a {
   padding: 5px 10px;
   background-color: lightgrey;
@@ -1365,52 +1406,72 @@ header a {
   color: black;
   text-decoration: none;
 }
-/* line 165, ../scss/breakpoints/_base.scss */
+/* line 184, ../scss/breakpoints/_base.scss */
 header a:hover {
   background-color: antiquewhite;
 }
-/* line 168, ../scss/breakpoints/_base.scss */
+/* line 187, ../scss/breakpoints/_base.scss */
 header a.active {
   background-color: antiquewhite;
 }
-/* line 172, ../scss/breakpoints/_base.scss */
+/* line 191, ../scss/breakpoints/_base.scss */
 header div {
   display: inline-block;
+}
+
+/* line 195, ../scss/breakpoints/_base.scss */
+.mainHeader {
+  padding: 0px 50px 20px;
+  position: fixed;
+  background: white;
+  top: 0;
+  width: 100%;
 }
 
 /*********************
 AT A GLANCE
 *********************/
-/* line 182, ../scss/breakpoints/_base.scss */
+/* line 209, ../scss/breakpoints/_base.scss */
 .glance ul {
   padding: 0;
 }
-/* line 185, ../scss/breakpoints/_base.scss */
+/* line 212, ../scss/breakpoints/_base.scss */
 .glance li {
   display: inline-block;
   padding-right: 20px;
 }
-/* line 188, ../scss/breakpoints/_base.scss */
+/* line 215, ../scss/breakpoints/_base.scss */
 .glance li a {
   text-decoration: none;
   color: black;
 }
-/* line 191, ../scss/breakpoints/_base.scss */
+/* line 218, ../scss/breakpoints/_base.scss */
 .glance li a.active {
   border-bottom: 2px solid red;
+}
+
+/* line 224, ../scss/breakpoints/_base.scss */
+.feature-wrap {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+}
+/* line 228, ../scss/breakpoints/_base.scss */
+.feature-wrap img {
+  width: 100%;
 }
 
 /*********************
 ACCOUNT
 *********************/
-/* line 202, ../scss/breakpoints/_base.scss */
+/* line 237, ../scss/breakpoints/_base.scss */
 .avatar {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   overflow: hidden;
 }
-/* line 207, ../scss/breakpoints/_base.scss */
+/* line 242, ../scss/breakpoints/_base.scss */
 .avatar img {
   width: 100%;
   min-height: 100%;
@@ -1419,30 +1480,85 @@ ACCOUNT
   -moz-transition: 0.5s;
   transition: 0.5s;
 }
-/* line 214, ../scss/breakpoints/_base.scss */
+/* line 249, ../scss/breakpoints/_base.scss */
 .avatar.loading img {
   filter: blur(3px);
 }
-/* line 219, ../scss/breakpoints/_base.scss */
+/* line 254, ../scss/breakpoints/_base.scss */
 .avatar.loaded img {
   opacity: 1;
 }
 
 /*********************
+My List
+*********************/
+/* line 265, ../scss/breakpoints/_base.scss */
+.myList {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.myList::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 267, ../scss/breakpoints/_base.scss */
+.myList .listing-wrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  margin-left: 51.1788260117%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.myList .listing-wrap:last-child {
+  margin-right: 0;
+}
+/* line 270, ../scss/breakpoints/_base.scss */
+.myList .listing-wrap .listing.selected {
+  background-color: transparent;
+}
+/* line 274, ../scss/breakpoints/_base.scss */
+.myList .mymap-wrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+  height: 500px;
+  margin-bottom: 20px;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.myList .mymap-wrap:last-child {
+  margin-right: 0;
+}
+
+/* line 280, ../scss/breakpoints/_base.scss */
+.marker {
+  background-color: beige;
+  color: black;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  padding: .3em;
+}
+
+/*********************
 ADMIN
 *********************/
-/* line 230, ../scss/breakpoints/_base.scss */
+/* line 295, ../scss/breakpoints/_base.scss */
 .admin header {
   padding-left: 0;
 }
 
-/* line 235, ../scss/breakpoints/_base.scss */
-#newlistingForm, #newlistingDemo {
+/* line 300, ../scss/breakpoints/_base.scss */
+#listingForm, #newlistingDemo {
   float: left;
   width: 50%;
 }
 
-/* line 240, ../scss/breakpoints/_base.scss */
+/* line 305, ../scss/breakpoints/_base.scss */
 label {
   display: block !important;
   float: left;
@@ -1455,7 +1571,7 @@ label:last-child {
   margin-right: 0;
 }
 
-/* line 244, ../scss/breakpoints/_base.scss */
+/* line 309, ../scss/breakpoints/_base.scss */
 .formSection {
   float: left;
   display: block;
@@ -1468,46 +1584,46 @@ label:last-child {
 .formSection:last-child {
   margin-right: 0;
 }
-/* line 248, ../scss/breakpoints/_base.scss */
+/* line 313, ../scss/breakpoints/_base.scss */
 .formSection textarea, .formSection input {
   width: 100%;
 }
 
-/* line 252, ../scss/breakpoints/_base.scss */
+/* line 317, ../scss/breakpoints/_base.scss */
 input.invalid {
   border: 2px solid red !important;
 }
 
-/* line 257, ../scss/breakpoints/_base.scss */
-#newlistingForm {
+/* line 322, ../scss/breakpoints/_base.scss */
+#listingForm {
   padding-right: 50px;
   display: block;
 }
 /* line 20, ../scss/neat/mixins/_clearfix.scss */
-#newlistingForm::after {
+#listingForm::after {
   clear: both;
   content: "";
   display: block;
 }
 
-/* line 263, ../scss/breakpoints/_base.scss */
+/* line 328, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing {
   width: 100%;
   border: 1px solid grey;
   padding-top: 20px;
 }
-/* line 267, ../scss/breakpoints/_base.scss */
+/* line 332, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing .moreInfo {
   display: block;
 }
 
-/* line 273, ../scss/breakpoints/_base.scss */
+/* line 338, ../scss/breakpoints/_base.scss */
 #ListingList, #ListingInfo {
   width: 50%;
   float: left;
 }
 
-/* line 277, ../scss/breakpoints/_base.scss */
+/* line 342, ../scss/breakpoints/_base.scss */
 #ListingList {
   padding-right: 50px;
 }

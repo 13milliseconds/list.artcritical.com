@@ -14,6 +14,8 @@ export default class IndexPage extends React.Component {
             updating: false
         }
         
+        console.log(this.props.user);
+        
         //Function Binding
         this.handleChange = this.handleChange.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
@@ -21,14 +23,11 @@ export default class IndexPage extends React.Component {
     
     
     componentWillReceiveProps(nextProps){
-        console.log(nextProps.user);
-        console.log(this.props.user);
         
         if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)){
             console.log(nextProps.user);
         }
     }
-
     
     //Update values of inputs
     handleChange (event) {
@@ -41,15 +40,31 @@ export default class IndexPage extends React.Component {
 
     render() {
         
+        const theAvatar = this.props.user.avatar || this.props.user.facebook.id;
+        
         return ( 
             <div className = "account">
                 <h3>Your Account</h3>
-                <label>Name</label>
-                <input name="name" placeholder="Your Name" type="text" value={this.props.user.name} onChange={this.handleChange} />
                 
-                <p>Email: {this.props.user.email}</p>
-                <Avatar image={this.props.user.avatar}/>
+                <label>Name</label>
+                <div className="formSection">
+                    <input name="name" placeholder="Your Name" type="text" value={this.props.user.name} onChange={this.handleChange} />
+                </div>
+                
+                <label>Email</label>
+                <div className="formSection">
+                    <input name="email" placeholder="Your Email" type="text" value={this.props.user.email} onChange={this.handleChange} />
+                </div>
+                
+                <label>Profile Picture</label>
+                <div className="formSection">
+                    <Avatar {...this.props.user}/>
+                </div>
+                
                 <button onClick={this.saveChanges}>Save</button>
+                {this.props.loading.updateuser? 'saving...' : ''}
+                {this.props.success.updateuser || ''}
+                {this.props.error.updateuser || ''}
             </div>
         );
     }

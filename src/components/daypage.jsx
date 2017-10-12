@@ -1,13 +1,20 @@
 import React from 'react';
 import {IntlProvider, FormattedDate} from 'react-intl';
+import ListActions from '../actions/ListActions';
 //COMPONENTS
-import Listing from './listing.jsx';
+import Listing from './listing';
+import FeatureBlock from './blocks/featureBlock';
 
 
 export default class DayPage extends React.Component {
     
     constructor(props) {
         super(props);
+    }
+    
+    componentWillMount(){
+        ListActions.featureReset();
+        ListActions.featureLoad({date: this.props.label});
     }
 
     render() {
@@ -45,7 +52,7 @@ export default class DayPage extends React.Component {
         return ( 
             <div className = "day">
             <div className="featuredSection">
-                <h2>Featured item</h2>
+                <FeatureBlock feature={this.props.feature}/>
             </div>
             <div className = "listingsWrap">
                     { openings.length > 0 && <h3>Openings</h3>}

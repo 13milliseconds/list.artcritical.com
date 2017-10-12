@@ -21,7 +21,7 @@ html{
 }
 
 body {
-    height: 100%;
+    height: 100%; 
     margin: 0;
     padding: 0;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -34,16 +34,35 @@ a {
 #thelist{
     min-height: 100%;
     position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
 }
 
 .app-content{
-    padding: 0 50px 100px;
+    padding: 100px 50px 100px;
 }
 
 footer{
     padding: 0 50px 50px;
     position: absolute;
     bottom: 0;
+}
+
+/*********************
+COLUMNS
+*********************/
+
+.column-1of4{
+    @include span-columns(3);
+}
+.column-3of4{
+    @include span-columns(9);
+}
+.column-1of3{
+    @include span-columns(4);
+}
+.column-2of3{
+    @include span-columns(8);
 }
 
 /*********************
@@ -74,9 +93,7 @@ INDEX PAGE
     @include span-columns(6);
 }
 
-.myList{
-    @include span-columns(6);
-}
+
 
 .featuredSection{
     @include span-columns(3);
@@ -92,7 +109,7 @@ LISTING ELEMENTS
     @include row();
     @include transition(background-color .5s);
     .listingAdd{
-        @include span-columns(1);
+        @include span-columns(2);
         .addButton{
             width: 50px;
             height: 50px;
@@ -104,13 +121,13 @@ LISTING ELEMENTS
                 background-color: aquamarine;
             }
             img{
-                max-width:100%;
+                min-width:100%;
                 max-height:100%;
             }
         }
     }
     .listingContent{
-        @include span-columns(10);
+        @include span-columns(9);
     }
     .listingClose{
         @include span-columns(1);
@@ -154,7 +171,9 @@ HEADER
 *********************/
 
 header{
-    padding: 50px 50px 0;
+    h1{
+        color: $red;
+    }
     a{
         padding: 5px 10px;
         background-color: lightgrey;
@@ -173,6 +192,14 @@ header{
         display: inline-block;
     }
 } 
+.mainHeader{
+        padding: 0px 50px 20px;
+        position: fixed;
+        background: white;
+        top: 0;
+        width: 100%;
+    }
+
 
 /*********************
 AT A GLANCE
@@ -193,7 +220,15 @@ AT A GLANCE
             }
         }
     }
-} 
+}
+.feature-wrap{
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 20px;
+    img{
+        width: 100%;
+    }   
+}
 
 /*********************
 ACCOUNT
@@ -224,6 +259,36 @@ ACCOUNT
 }
 
 /*********************
+My List
+*********************/
+
+.myList{
+    @include row();
+    .listing-wrap{
+        @include span-columns(6);
+        @include shift(6);
+        .listing.selected{
+            background-color: transparent;
+        }
+    }   
+    .mymap-wrap{
+        @include span-columns(12);
+        height: 500px;
+        margin-bottom: 20px;
+    }
+}
+.marker{
+    background-color: beige;
+    color: black;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 2em;
+    height: 2em;
+    padding: .3em;
+}
+
+/*********************
 ADMIN
 *********************/
 .admin{
@@ -232,7 +297,7 @@ ADMIN
     }
 }
 
-#newlistingForm, #newlistingDemo{
+#listingForm, #newlistingDemo{
     float: left;
     width: 50%;
 }
@@ -254,7 +319,7 @@ input.invalid{
 }
 
 
-#newlistingForm{
+#listingForm{
     padding-right: 50px;
     @include row();
 }

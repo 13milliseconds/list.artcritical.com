@@ -1,6 +1,7 @@
 import React from 'react';
-import ImageUpload from '../forms/imageUpload';
 import ImagesActions from '../../actions/ImagesActions';
+//COMPONENTS
+import ImageUpload from '../forms/imageUpload';
 
 export default class Avatar extends React.Component {
     
@@ -8,29 +9,47 @@ export default class Avatar extends React.Component {
         super(props);
 
         this.state = {
-            isUploading: false
+            isUploading: false,
+            isUploaded: false,
+            resetAvatar: false
         };
         
         this.onImageDrop = this.onImageDrop.bind(this);
+        this.changeAvatar = this.changeAvatar.bind(this);
         
     }
     
     onImageDrop(file) {
         this.setState({
             uploadedFile: file[0],
-            isUploading: true
+            isUploading: true,
+            resetAvatar: false
         });
         
         ImagesActions.handleAvatarUpload(file[0]);
     }
     
+    changeAvatar () {
+        this.setState({
+                resetAvatar: true
+            })
+    }
+    
         
     render() {
-        const isUploaded = this.props.image.length > 0
-        const fullURL = "http://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg"
+        let fullURL = ''
+        let isUploaded = false
         
-        let avatarRender = isUploaded || this.state.isUploading ? 
-            <div className={isUploaded? 'avatar loaded' : 'avatar loading'}>
+        if (this.props.avatar) {
+            isUploaded = true
+            fullURL = "http://res.cloudinary.com/artcritical/image/upload/" + this.props.avatar + ".jpg";
+        } else if (this.props.facebook.id){
+            isUploaded = true
+            fullURL = "http://graph.facebook.com/" + this.props.facebook.id + "/picture?type=large";
+        }
+        
+        let avatarRender = (isUploaded || this.state.isUploading) && !this.state.resetAvatar ? 
+            <div className={isUploaded? 'avatar loaded' : 'avatar loading'} onClick={this.changeAvatar}>
                 <img src={isUploaded? fullURL : this.state.uploadedFile.preview}/>
             </div>
             :
@@ -39,7 +58,7 @@ export default class Avatar extends React.Component {
       
     return (
         <div>
-            {avatarRender}
+            {avatarRender} 
         </div>
     );
   }

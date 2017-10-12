@@ -8,7 +8,7 @@ class ImagesActions {
             'avatarUploadFailure', 
             'avatarUploadSuccess',
             'thumbnailUploadSuccess',
-            'thumbnailUploadFailure'
+            'thumbnailUploadFailure',
         );
     }
     
@@ -24,12 +24,12 @@ class ImagesActions {
         upload.end((err, response) => {
           if (err) {
               console.log('Error uploading');
-            this.imageUploadFailure(err);
+            this.avatarUploadFailure(err);
           }
 
           if (response.body.secure_url !== '') {
               console.log('Image Uploaded');
-              this.imageUploadSuccess(response.body);
+              this.avatarUploadSuccess(response.body);
           }
         });
     }

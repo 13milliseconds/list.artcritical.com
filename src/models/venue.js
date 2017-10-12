@@ -4,8 +4,15 @@ var mongoose = require('mongoose');
 
 var venueSchema = mongoose.Schema({
     name: String,
+    blurb: String,
     website: String,
+    address: String,
+    city: String,
     neighborhood: Number,
+    coordinates: {
+        lat: Number,
+        long: Number
+    }
 });
 
 //compile the model

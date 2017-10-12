@@ -8,9 +8,16 @@ export default class ImageUpload extends React.Component {
     }
     
     render() {
-      
+        const inlineStyles = {
+            width: '100%', 
+            height: '50px',
+            border: '2px dotted blue',
+            borderRadius: '10px'
+        }
     return (
         <Dropzone
+            activeClassName='formSection'
+            style={inlineStyles}
               multiple={false}
               accept="image/*"
               onDrop={this.props.onImageDrop}>
