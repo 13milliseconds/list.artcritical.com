@@ -115,7 +115,7 @@ class AuthActions {
     
     async checkSession() {
         await fetch(
-          process.env.BASE_URI + '/checksession',
+          process.env.BASE_URI + '/auth/checksession',
           {
             method: 'GET',
             credentials: 'same-origin',

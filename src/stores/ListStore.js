@@ -196,7 +196,6 @@ class ListStore {
         this.feature.venue = {};
     }
     onFeatureLoadSuccess(data) {
-        console.log('Feature: ', data);
         if (data){
             this.feature = data;
             this.listingEdit._id = data.list._id;
@@ -205,7 +204,6 @@ class ListStore {
             this.listingEdit.image = data.list.image;
             this.listingEdit.venue._id = data.venue._id;
             this.error.feature = "";
-            console.log(this.feature);
         } else {
             this.error.feature = "No Feature selected today";
         }
@@ -234,9 +232,8 @@ class ListStore {
         this.user.email = '';
     }
     onLoginSuccess(action){
-        console.log('User conneced: ', action);
         this.user.email = action.local.username;
-        this.user.name = action.local.name;
+        this.user.name = action.name;
         this.user.id = action._id;
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;

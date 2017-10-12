@@ -8276,7 +8276,7 @@ var AuthActions = function () {
 
       this.loginAttempt();
 
-      await fetch('/auth/login', {
+      await fetch("http://localhost:5000" + '/auth/login', {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -8303,7 +8303,7 @@ var AuthActions = function () {
     value: async function attemptLogOut() {
       var _this2 = this;
 
-      await fetch('/auth/logout', {
+      await fetch("http://localhost:5000" + '/auth/logout', {
         method: 'GET',
         credentials: 'same-origin'
       }).then(function (response) {
@@ -8330,9 +8330,7 @@ var AuthActions = function () {
 
       this.registerAttempt();
 
-      console.log('Register attempt');
-
-      await fetch('/auth/signup', {
+      await fetch("http://localhost:5000" + '/auth/signup', {
         method: 'POST',
         body: JSON.stringify(registerData),
         headers: {
@@ -8358,7 +8356,7 @@ var AuthActions = function () {
     value: async function checkSession() {
       var _this4 = this;
 
-      await fetch('http://localhost:5000/auth/checksession', {
+      await fetch("http://localhost:5000" + '/auth/checksession', {
         method: 'GET',
         credentials: 'same-origin'
       }).then(function (response) {
@@ -8386,7 +8384,7 @@ var AuthActions = function () {
       var listData = { listingID: listing._id };
 
       //Upload the ID to the user profile
-      await fetch('/auth/addtolist', {
+      await fetch("http://localhost:5000" + '/auth/addtolist', {
         method: 'POST',
         credentials: 'same-origin',
         body: JSON.stringify(listData),
@@ -8413,7 +8411,7 @@ var AuthActions = function () {
 
       this.updateUserAttempt();
 
-      await fetch('/auth/updateuser', {
+      await fetch("http://localhost:5000" + '/auth/updateuser', {
         body: JSON.stringify(newUserInfo),
         method: 'POST',
         credentials: 'same-origin',
@@ -8542,7 +8540,7 @@ var Listing = function (_React$Component) {
                 }).length;
             }
 
-            var image = this.props.image ? "http://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
+            var image = this.props.image ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
 
             return _react2.default.createElement(
                 'div',
@@ -18420,7 +18418,6 @@ var ListStore = function () {
     }, {
         key: 'onFeatureLoadSuccess',
         value: function onFeatureLoadSuccess(data) {
-            console.log('Feature: ', data);
             if (data) {
                 this.feature = data;
                 this.listingEdit._id = data.list._id;
@@ -18429,7 +18426,6 @@ var ListStore = function () {
                 this.listingEdit.image = data.list.image;
                 this.listingEdit.venue._id = data.venue._id;
                 this.error.feature = "";
-                console.log(this.feature);
             } else {
                 this.error.feature = "No Feature selected today";
             }
@@ -18467,9 +18463,8 @@ var ListStore = function () {
     }, {
         key: 'onLoginSuccess',
         value: function onLoginSuccess(action) {
-            console.log('User conneced: ', action);
             this.user.email = action.local.username;
-            this.user.name = action.local.name;
+            this.user.name = action.name;
             this.user.id = action._id;
             this.user.isLoggedIn = true;
             this.user.isLoggingIn = false;
@@ -82730,7 +82725,7 @@ var imageBlock = function (_React$Component) {
     _createClass(imageBlock, [{
         key: "render",
         value: function render() {
-            var fullURL = "http://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg";
+            var fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg";
 
             return _react2.default.createElement("img", { src: fullURL, className: this.props.classes });
         }
