@@ -27,7 +27,7 @@ class AuthActions {
         this.loginAttempt();
 
         await fetch(
-          '/auth/login',
+          process.env.BASE_URI + '/auth/login',
           {
             method: 'POST',
             body: JSON.stringify(userData),
@@ -57,7 +57,7 @@ class AuthActions {
     async attemptLogOut() {
 
         await fetch(
-          '/auth/logout',
+          process.env.BASE_URI + '/auth/logout',
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -85,11 +85,9 @@ class AuthActions {
     async attemptRegister(registerData) {
         
         this.registerAttempt();
-        
-        console.log('Register attempt');
 
         await fetch(
-          '/auth/signup',
+          process.env.BASE_URI + '/auth/signup',
           {
             method: 'POST',
             body: JSON.stringify(registerData),
@@ -117,7 +115,7 @@ class AuthActions {
     
     async checkSession() {
         await fetch(
-          'http://localhost:5000/auth/checksession',
+          process.env.BASE_URI + '/checksession',
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -149,7 +147,7 @@ class AuthActions {
         
         //Upload the ID to the user profile
         await fetch(
-          '/auth/addtolist',
+          process.env.BASE_URI + '/auth/addtolist',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -179,7 +177,7 @@ class AuthActions {
         this.updateUserAttempt();
         
         await fetch(
-          '/auth/updateuser',
+          process.env.BASE_URI + '/auth/updateuser',
           {
             body: JSON.stringify(newUserInfo),
             method: 'POST',
