@@ -47,12 +47,16 @@ export default class ListingForm extends React.Component {
         
         //how ot get option for select element
         const getOptions = (input) => {
-          return fetch('/venues/find/' + input)
-            .then((response) => {
-              return response.json();
-            }).then((json) => {
-              return { options: json };
-            });
+            if (input){
+                return fetch('/venues/find/' + input)
+                .then((response) => {
+                  return response.json();
+                }).then((json) => {
+                  return { options: json };
+                });   
+            } else {
+                return Promise.resolve({ options: [] });
+            }
         }
         
         let venueData = { value: this.props.venue._id, label: this.props.venue.name}

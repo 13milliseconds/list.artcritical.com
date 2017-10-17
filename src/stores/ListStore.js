@@ -44,6 +44,11 @@ class ListStore {
         this.feature.text = '';
         this.feature.list = {};
         this.feature.venue = {};
+        //Venues
+        this.venue = {};
+        this.venue.currentListings = [];
+        this.venue.upcomingListings = [];
+        this.venue.pastListings = [];
         //Loadings
         this.loading = {};
         this.loading.login = false;
@@ -121,10 +126,34 @@ class ListStore {
     
     // Get venue info
     onGetVenueInfoSuccess(data){
-        this.listingEdit.venue = data[0];
+        this.listingEdit.venue = data.venue;
+        this.venue = data.venue;
+        this.venue.currentListings = data.currentListings;
+        this.venue.upcomingListings = data.upcomingListings;
+        this.venue.pastListings = data.pastListings;
+        console.log(data);
+        
+        /*const today = new Date();
+        
+        this.venue.listings.map(function(listing){
+            if (listing.start > today){
+                console.log('upcoming');
+            } else if (listing.end < today){
+                console.log('past');
+            } else {
+                console.log('present');
+            }
+        });*/
+        
     }
     onGetVenueInfoFailure(jqXhr){
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+    }
+    onGetVenueListingsSuccess(data){
+        this.venue.listings = data;
+    }
+    onGetVenueListingsFailure(error){
+        console.log(error);
     }
     //Reset the venue in the form
     onResetVenue() {

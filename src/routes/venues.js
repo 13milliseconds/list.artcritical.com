@@ -38,15 +38,52 @@ router.get('/find/:venue_id', function (req, res, next) {
 /* GET info for one venue */
 router.get('/getinfo/:venue_id', function (req, res, next) {
     var Venue = req.venue;
+    var List = req.list;
     
+    //Find today's date
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
     
     Venue.find({ _id: req.params.venue_id}, function(err, venue) {
             if (err)
                 res.send(err);
         
-            res.json(venue);
+            List.find({ venue: venue[0]._id}).
+            where('start').lte(today).
+            where('end').gte(today).
+            exec(function (e, current) {
+                
+                List.find({ venue: venue[0]._id}).
+                where('start').gte(today).
+                limit(4).
+                exec(function (e, upcoming) {
+                    
+                    List.find({ venue: venue[0]._id}).
+                    where('end').lte(today).
+                    sort('-end').
+                    limit(4).
+                    exec(function (e, past) {
+                        var data = {
+                            venue: venue[0],
+                            currentListings: current,
+                            upcomingListings: upcoming,
+                            pastListings: past,
+                        };
+                        res.json(data);
+                    });
+                });
+            });
         }); 
+});
 
+/* GET current listings for one venue */
+router.get('/getlistings/:venue_id', function (req, res, next) {
+    var List = req.list;
+    
+    List.find({ venue: req.params.venue_id}).
+    exec(function (e, docs) {
+        res.json(docs);
+    });
 });
 
 /*
@@ -72,6 +109,19 @@ router.post('/add', function (req, res) {
             }
         );
     });
+
+});
+
+/* GET info for one venue */
+router.get('/:venue_id', function (req, res, next) {
+    var Venue = req.venue;
+    
+    Venue.find({ _id: req.params.venue_id}, function(err, venue) {
+            if (err)
+                res.send(err);
+        
+            res.json(venue);
+        }); 
 
 });
 

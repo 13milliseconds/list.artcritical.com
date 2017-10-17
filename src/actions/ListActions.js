@@ -29,7 +29,9 @@ class ListActions {
             'featureLoadSuccess',
             'featureLoadFailure',
             'deleteListingSuccess',
-            'deleteListingFailure'
+            'deleteListingFailure',
+            'getVenueListingsSuccess',
+            'getVenueListingsFailure'
         );
     }
     
@@ -275,19 +277,50 @@ class ListActions {
         });
     }
     
-    getVenueInfo(id){
-        return dispatch => {
-            dispatch();
-            $.ajax({
-                    url: process.env.BASE_URI + '/venues/getinfo/' + id
-                })
-                .done((data) => {
-                    this.getVenueInfoSuccess(data)
-                })
-                .fail((jqXhr) => {
-                    this.getVenueInfoFailure(jqXhr)
-                });
-        };
+    async getVenueInfo(id){
+        await fetch(
+          process.env.BASE_URI + '/venues/getinfo/' + id,
+          {
+            method: 'GET',
+            credentials: 'same-origin',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.getVenueInfoSuccess(json)
+            return true;
+        })
+        .catch((error) => {
+            this.getVenueInfoFailure(error)
+        });
+    }
+    
+    async getVenueListings(id){
+        await fetch(
+          process.env.BASE_URI + '/venues/getlistings/' + id,
+          {
+            method: 'GET',
+            credentials: 'same-origin',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.getVenueListingsSuccess(json)
+            return true;
+        })
+        .catch((error) => {
+            this.getVenueListingsFailure(error)
+        });
     }
     
     resetVenue(){

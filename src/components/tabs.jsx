@@ -1,5 +1,4 @@
 import React from 'react';
-import {IntlProvider, FormattedDate} from 'react-intl';
 import PropTypes from 'prop-types';
 
 export default class Tabs extends React.Component {
@@ -27,7 +26,7 @@ export default class Tabs extends React.Component {
                   <a href="#" 
                     className={activeClass}
                     onClick={this.handleClick.bind(this, index)}>
-                      <IntlProvider locale="en"><FormattedDate value={child.props.label} weekday="long" day="numeric" month="short" /></IntlProvider>
+                      {child.props.label}
                   </a>
                 </li>
             );

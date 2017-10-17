@@ -23,13 +23,15 @@ export default class MyMap extends React.Component {
       })
       
     return (
-      <GoogleMapReact
-        bootstrapURLKeys={{key: "AIzaSyD1qPeqE6djJy-KU0hj2JJfKJ77JAkXmNg"}}
-        defaultCenter={this.props.center}
-        defaultZoom={this.props.zoom}
-      >
-        {markers}
-      </GoogleMapReact>
+        <div className="mapWrap">
+          <GoogleMapReact
+            bootstrapURLKeys={{key: "AIzaSyD1qPeqE6djJy-KU0hj2JJfKJ77JAkXmNg"}}
+            defaultCenter={this.props.center}
+            defaultZoom={this.props.zoom}
+          >
+            {markers}
+          </GoogleMapReact>
+        </div>
     );
   }
 }

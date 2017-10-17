@@ -14,11 +14,11 @@ export default class DayPage extends React.Component {
     
     componentWillMount(){
         ListActions.featureReset();
-        ListActions.featureLoad({date: this.props.label});
+        ListActions.featureLoad({date: this.props.date});
     }
 
     render() {
-        let date = this.props.label.toISOString()
+        let date = this.props.date.toISOString()
         
         let openings = []
         let events = []

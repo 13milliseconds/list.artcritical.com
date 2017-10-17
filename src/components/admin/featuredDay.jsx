@@ -17,7 +17,7 @@ export default class ListingEdit extends React.Component {
       }
     
     componentWillMount(){
-        ListActions.featureLoad({date: this.props.label});
+        ListActions.featureLoad({date: this.props.date});
     }
     
     componentWillUnmount(){
@@ -30,7 +30,7 @@ export default class ListingEdit extends React.Component {
         const id = this.props.feature._id ? this.props.feature._id : null
         let newFeature = {
             _id:    id,
-            date:   this.props.label,
+            date:   this.props.date,
             text:   this.props.feature.text,
             list:   this.props.feature.list._id,
             venue:  this.props.feature.list.venue._id

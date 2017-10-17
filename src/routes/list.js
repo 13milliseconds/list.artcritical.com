@@ -81,6 +81,9 @@ router.get('/glancelistings', function (req, res) {
     sort('neighborhood').
     populate('venue').
     exec(function (e, docs) {
+        if (e)
+            res.send(e);
+        
         res.json(docs);
     });
 });
@@ -123,20 +126,22 @@ router.get('/find/:listing_id', function (req, res, next) {
     var List = req.list;
 
     var regexp = new RegExp("^" + req.params.listing_id, "i");
-    List.find({
-        name: regexp
-    }, function (err, listing) {
-        if (err)
-            res.send(err);
-        var results = [];
-        listing.map(function (thelisting) {
-            results.push({
-                value: thelisting._id,
-                label: thelisting.name
-            });
-        })
+    
+    List
+    .find({name: regexp})
+    .exec(function (err, listings) {
+    if (err)
+        res.send(err);
+        
+    var results = [];
+    listings.map(function (thelisting) {
+        results.push({
+            value: thelisting._id,
+            label: thelisting.name
+        });
+    })
 
-        res.json(results);
+    res.json(results);
     });
 
 });

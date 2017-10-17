@@ -12,9 +12,7 @@ export default class MyList extends React.Component {
         
         return ( 
                 <div className="myList">
-                    <div className="mymap-wrap">
-                        <MyMap items={this.props.mylist} />
-                    </div>
+                    <MyMap items={this.props.mylist} />
                     <div className="listing-wrap">
                     {
                         this.props.mylist.map((listing) => (

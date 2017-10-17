@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import ListActions from '../../actions/ListActions';
 //COMPONENTS
+import {IntlProvider, FormattedDate} from 'react-intl';
 import FeaturedDay from './featuredDay';
 import Tabs from '../tabs';
 
@@ -27,7 +28,8 @@ export default class GlancePage extends React.Component {
             let d = new Date();
             d.setHours(0,0,0,0);
             d.setDate(today.getDate() + i );
-            days.push(<FeaturedDay key={d} feature={this.props.feature} error={this.props.error.feature} label={d} />);
+            let label = <IntlProvider locale="en"><FormattedDate value={d} weekday="long" day="numeric" month="short" /></IntlProvider>
+            days.push(<FeaturedDay key={d} date={d} feature={this.props.feature} error={this.props.error.feature} label={label} />);
         }
         
         return ( 

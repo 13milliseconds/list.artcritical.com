@@ -11,24 +11,15 @@ export default class ListingEdit extends React.Component {
 
     constructor(props) {
         super(props);
-        
-        this.state = {
-            listing: "",
-            listingInfo: {
-                _id: '',
-                venue: {}
-            }
-        };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
       }
     
-    componentWillUnmount(){
+    componentDidUnmount(){
         ListActions.listingEditReset();
     }
-    
     
     // Add the listing to the database
     handleSubmit() {
@@ -65,12 +56,16 @@ export default class ListingEdit extends React.Component {
         
         //how ot get option for select element
         const getOptions = (input) => {
-          return fetch('/list/find/' + input)
-            .then((response) => {
-              return response.json();
-            }).then((json) => {
-              return { options: json };
-            });
+            if (input) {
+                return fetch('/list/find/' + input)
+                .then((response) => {
+                  return response.json();
+                }).then((json) => {
+                  return { options: json };
+                });   
+            } else {
+                return Promise.resolve({ options: [] });
+            }
         }
         
         return ( 

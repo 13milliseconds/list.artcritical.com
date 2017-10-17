@@ -24,7 +24,8 @@ body {
     height: 100%; 
     margin: 0;
     padding: 0;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: "Futura", Helvetica, Arial, sans-serif;
+    font-size: 16px;
 }
 
 a {
@@ -34,12 +35,12 @@ a {
 #thelist{
     min-height: 100%;
     position: relative;
-    max-width: 1280px;
+    max-width: 1080px;
     margin: 0 auto;
 }
 
 .app-content{
-    padding: 100px 50px 100px;
+    padding: 130px 50px 100px;
 }
 
 footer{
@@ -271,12 +272,19 @@ My List
             background-color: transparent;
         }
     }   
-    .mymap-wrap{
-        @include span-columns(12);
-        height: 500px;
-        margin-bottom: 20px;
-    }
 }
+
+
+/*********************
+Google Map
+*********************/
+
+.mapWrap{
+    @include span-columns(12);
+    height: 500px;
+    margin-bottom: 20px;
+}
+
 .marker{
     background-color: beige;
     color: black;
@@ -286,6 +294,30 @@ My List
     width: 2em;
     height: 2em;
     padding: .3em;
+}
+
+/*********************
+Venue Page
+*********************/
+
+.venuePage{
+    @include row();
+    .infoWrap{
+        @include span-columns(6);
+        h2{
+            margin-top: 0;
+        }
+    }
+    .mapWrap{
+        @include span-columns(6);
+        @include omega();
+    }
+    .listingsWrap{
+        @include span-columns(12);
+        border-top: 1px solid $black;
+        margin-top: 20px;
+        padding-top: 20px;
+    }
 }
 
 /*********************

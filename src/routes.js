@@ -5,6 +5,7 @@ import IndexPage from './components/IndexPage';
 import CurrentPage from './components/CurrentPage';
 import GlancePage from './components/GlancePage';
 import EventsPage from './components/EventsPage';
+import VenuePage from './components/venues/VenuePage';
 //Signin Components
 import SignUpPage from './components/login/SignUpPage';
 import LogInPage from './components/login/LogInPage';
@@ -26,6 +27,7 @@ const routes = (
         <Route path="signup" component={SignUpPage}/>
         <Route path="mylist" component={MyListPage}/>
         <Route path="login" component={LogInPage}/>
+        <Route path="venue/:id" component={VenuePage}/>
         <Route path="account" component={AdminPage}>
             <IndexRoute component={Account}/>
             <Route path="edit" component={EditListings}/>
