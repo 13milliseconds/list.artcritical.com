@@ -9,6 +9,8 @@ class ListStore {
         this.bindActions(ListActions);
         this.bindActions(AuthActions);
         this.bindActions(ImagesActions);
+        //Display settings
+        this.view = 'medium';
         //List states
         this.currentListings = [];
         this.allListings = [];
@@ -45,6 +47,7 @@ class ListStore {
         this.feature.list = {};
         this.feature.venue = {};
         //Venues
+        this.allVenues = [];
         this.venue = {};
         this.venue.currentListings = [];
         this.venue.upcomingListings = [];
@@ -55,6 +58,7 @@ class ListStore {
         this.loading.register = false;
         this.loading.updateuser = false;
         this.loading.current = false;
+        this.loading.allVenues = false;
         //Error Messages
         this.error = {};
         this.error.feature = '';
@@ -99,6 +103,11 @@ class ListStore {
     onGetGlanceFail(jqXhr) {
         // Handle multiple response formats, fallback to HTTP status code number.
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+    }
+    
+    //Listing size change
+    onSizeChange(size){
+        this.view = size;
     }
     
     // Reset listing edit
@@ -155,6 +164,17 @@ class ListStore {
     onGetVenueListingsFailure(error){
         console.log(error);
     }
+    onGetVenuesAdminAttempt(){
+        this.loading.allVenues = true;
+    }
+    onGetVenuesAdminSuccess(data){
+        this.loading.allVenues = false;
+        this.allVenues = this.allVenues.concat(data);
+    }
+    onGetVenuesAdminFailure(error){
+        console.log(error);
+    }
+    
     //Reset the venue in the form
     onResetVenue() {
         this.listingEdit.venue = {
@@ -261,12 +281,9 @@ class ListStore {
         this.user.email = '';
     }
     onLoginSuccess(action){
-        this.user.email = action.local.username;
-        this.user.name = action.name;
-        this.user.id = action._id;
+        this.user = action;
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;
-        this.user.avatar = action.avatar;
     }
     
     // REGISTER ATTEMPT

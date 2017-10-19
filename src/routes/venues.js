@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Promise = require("bluebird");
 
 /* GET All Venues */
 router.get('/', function (req, res, next) {
@@ -10,6 +11,34 @@ router.get('/', function (req, res, next) {
     exec(function (e, docs) {
         res.json(docs);
     });
+});
+
+/* GET info for one venue */
+router.get('/getadmin/:offset_ratio', function (req, res, next) {
+    var Venue = req.venue;
+    var List = req.list;
+    
+    var offset_ratio = parseInt(req.params.offset_ratio) * 30;
+    
+    Venue.find().sort('neighborhood').skip(offset_ratio).limit(30).exec()
+        .then(function(venues){
+        return Promise.map(venues, function(venue) {
+            // Promise.map awaits for returned promises as well.
+            return List.find({ venue: venue._id}).
+            exec().then(function (current) {
+                let newvenue = {
+                    _id: venue._id,
+                    name: venue.name,
+                    neighborhood: venue.neighborhood,
+                    listings: current,   
+                }
+                return newvenue;
+            });
+            
+        })  
+    }).then(function(result) {
+            res.json(result);
+        });
 });
 
 /* GET  a set of venue */
@@ -92,12 +121,8 @@ router.get('/getlistings/:venue_id', function (req, res, next) {
 router.post('/add', function (req, res) {
     var Venue = req.venue;
 
-
     // define a new entry
     var newvenue = new Venue(req.body);
-
-
-    //newvenue.markModified('coordinates');
 
     //Save this new entry
     newvenue.save(function (err, newvenue) {
@@ -124,6 +149,8 @@ router.get('/:venue_id', function (req, res, next) {
         }); 
 
 });
+
+
 
 
 

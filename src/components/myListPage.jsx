@@ -1,5 +1,6 @@
 import React from 'react';
 import MyList from './myList.jsx';
+//COMPONENTS
 import { Link } from 'react-router';
 
 export default class MyListPage extends React.Component {

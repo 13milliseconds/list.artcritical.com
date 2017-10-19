@@ -15,6 +15,7 @@ import AdminPage from './components/admin/AdminPage';
 import NewListing from './components/admin/NewListing';
 import EditListings from './components/admin/EditListings';
 import FeaturedListings from './components/admin/featuredPage';
+import VenuesPage from './components/admin/VenuesPage';
 import Account from './components/admin/Account';
 // Error Components
 import ErrorPage from './components/ErrorPage';
@@ -28,6 +29,7 @@ const routes = (
         <Route path="mylist" component={MyListPage}/>
         <Route path="login" component={LogInPage}/>
         <Route path="venue/:id" component={VenuePage}/>
+        <Route path="venuesadmin" component={VenuesPage}/>
         <Route path="account" component={AdminPage}>
             <IndexRoute component={Account}/>
             <Route path="edit" component={EditListings}/>

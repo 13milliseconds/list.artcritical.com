@@ -53,7 +53,7 @@ export default class IndexPage extends React.Component {
                 
                 <label>Email</label>
                 <div className="formSection">
-                    <input name="email" placeholder="Your Email" type="text" value={this.props.user.email} onChange={this.handleChange} />
+                    <input name="email" placeholder="Your Email" type="text" value={this.props.user.local.username} onChange={this.handleChange} />
                 </div>
                 
                 <label>Profile Picture</label>

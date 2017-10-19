@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthActions from '../actions/AuthActions';
 //COMPONENTS
-import Date from './date.jsx';
+import Date from './blocks/DateBlock.jsx';
 
 export default class Listing extends React.Component {
     
@@ -50,18 +50,18 @@ export default class Listing extends React.Component {
         }
         
         const image = this.props.image? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
+        const style = {backgroundImage: 'url(' + image + ')'}
       
       
     return (
       <div className = {mylistIndex > 0 ? 'listing selected' : 'listing notselected' } id={this.props._id}>
         <div className="listingAdd">
-            <div className="addButton" onClick={(e) => this.addToList(e, this.props)}>
-                <img src={image}/>
+            <div className="addButton" onClick={(e) => this.addToList(e, this.props)} style={style}>
             </div>
         </div>
         <div className = "listingContent">
             <div className="header">
-                <p>{this.props.name} {this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue._id}>{this.props.venue.name}</a></p>
+                <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue._id}>{this.props.venue.name}</a></p>
                 <p>{this.props.start && <Date date={this.props.start} /> } {end} </p>
             </div>
             <div className="moreInfo">

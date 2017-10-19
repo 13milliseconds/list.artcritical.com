@@ -18,8 +18,6 @@ export default class Layout extends React.Component {
     
     componentDidMount() {
         ListStore.listen(this.onChange);
-        // Get my list
-        ListActions.getMylist();
     }
 
     componentWillUnmount() {
@@ -45,7 +43,7 @@ export default class Layout extends React.Component {
             <IndexLink to={'/'} activeClassName="active">At a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
-            <Link to={'/mylist'} activeClassName="active">my list ({this.state.mylist.length})</Link>
+            <Link to={'/mylist'} activeClassName="active">my list {user.mylist && '('+user.mylist.length+')'}</Link>
             { user.isLoggedIn ? renderGreeting(name) : renderLogin() }
         </header>
         <div className="app-content">

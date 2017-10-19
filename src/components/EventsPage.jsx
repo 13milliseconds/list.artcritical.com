@@ -4,32 +4,22 @@ import ListStore from '../stores/ListStore';
 import ListActions from '../actions/ListActions';
 //COMPONENTS
 import Listing from './listing.jsx';
-import Date from './date.jsx';
+import Date from './blocks/DateBlock.jsx';
+import SizeSelector from './blocks/sizeSelector';
 
 
 export default class EventsPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = ListStore.getState();
-        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
-        ListStore.listen(this.onChange);
         ListActions.getEvents();
-    }
-
-    componentWillUnmount() {
-        ListStore.unlisten(this.onChange);
-    }
-
-    onChange(state) {
-        this.setState(state);
     }
 
     render() {
         let oldDate
-        let thelist = this.state.eventsListings.map((listing) => {
+        let thelist = this.props.eventsListings.map((listing) => {
           let newDate = listing.start;
             if ( newDate !== oldDate) {
                 oldDate = newDate
@@ -49,7 +39,8 @@ export default class EventsPage extends React.Component {
         return ( 
             <div className = "home">
                 <h2>Events</h2>
-            <div className = "listingsWrap">
+            <SizeSelector view={this.props.view} />
+            <div className={this.props.view + " listingsWrap"}>
                 {thelist}
             </div>
             </div>

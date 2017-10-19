@@ -91,7 +91,10 @@ INDEX PAGE
 }
 
 .listingsWrap{
-    @include span-columns(6);
+    @include span-columns(9);
+    .neighborhood{
+        @include row();
+    }
 }
 
 
@@ -105,30 +108,14 @@ INDEX PAGE
 LISTING ELEMENTS
 *********************/
 .listing{
-    padding: 0px 10px 20px;
-    border-radius: 5px;
-    @include row();
-    @include transition(background-color .5s);
+    @include transition(.3s);
     .listingAdd{
-        @include span-columns(2);
         .addButton{
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 1px solid grey;
             overflow: hidden;
             @include transition(.3s);
-            &:hover{
-                background-color: aquamarine;
-            }
-            img{
-                min-width:100%;
-                max-height:100%;
-            }
+            background-size: cover;
+            border: 1px solid grey;
         }
-    }
-    .listingContent{
-        @include span-columns(9);
     }
     .listingClose{
         @include span-columns(1);
@@ -141,7 +128,7 @@ LISTING ELEMENTS
     .moreInfo{
         display: none;
     }
-    &.active{ 
+    &.active{
         background-color: antiquewhite;
         .moreInfo{
         display: block;
@@ -158,13 +145,115 @@ LISTING ELEMENTS
     &.selected{
         background-color: beige;
     }
+    a{
+        font-weight: 400;
+        text-decoration: none;
+    }
     p{
         margin: 5px 0;
-        white-space: pre-wrap;//Preserves line-breaks
+        font-size: 16px;
+        white-space: pre-wrap;
     }
+}
+.small{
+    .listing{
+        padding: 0px 10px 10px;
+        @include row();
+    }
+    .listingAdd{
+        @include span-columns(1);
+            .addButton{
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+            }
+    }
+    .listingContent{
+        @include span-columns(10);
+    }
+}
+.medium{
+    .listing{
+        padding: 0px 10px 20px;
+        @include row();
+        .listingAdd{
+            @include span-columns(2);
+            .addButton{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+        }
+        .listingContent{
+            @include span-columns(9);
+        }
+    }
+}
+.large{
+    h2{
+        @include span-columns(12);
+    }
+    .listing{
+        padding: 0px 10px 20px;
+        @include span-columns(4);
+        @include omega(3n);
+        .listingAdd{
+            @include span-columns(12);
+            .addButton{
+                width: 100%;
+                height: 100px;
+            }
+        }
+        .listingContent{
+            @include span-columns(12);
+        }
+        .listingClose{
+            @include span-columns(12);
+            text-align: center;
+        }
+    }
+}
+.selectorBlock{
+    float: right;
+    i{
+        color: $gray;
+        padding-right: 5px;
+        &.active{
+            color: $green;
+        }
+    } 
 }
 .venueName{
     font-weight: bold
+}
+
+/*********************
+VENUE ELEMENTS
+*********************/
+
+.venue{
+    &.expired{
+        a{
+            color: $red;   
+        }
+        &.old{
+            a{
+                color: $gray;
+            }
+        }
+        &.upcoming{
+            a{
+                color: orange;
+            }
+        }
+    }
+    a{
+        color: green;
+        text-decoration: none;
+    }
+    div{
+        margin-left: 50px;
+    }
 }
 
 /*********************

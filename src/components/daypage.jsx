@@ -4,6 +4,7 @@ import ListActions from '../actions/ListActions';
 //COMPONENTS
 import Listing from './listing';
 import FeatureBlock from './blocks/featureBlock';
+import SizeSelector from './blocks/sizeSelector';
 
 
 export default class DayPage extends React.Component {
@@ -54,7 +55,8 @@ export default class DayPage extends React.Component {
             <div className="featuredSection">
                 <FeatureBlock feature={this.props.feature}/>
             </div>
-            <div className = "listingsWrap">
+            <SizeSelector view={this.props.view} />
+            <div className={this.props.view + " listingsWrap"}>
                     { openings.length > 0 && <h3>Openings</h3>}
                         {openings}
                     { events.length > 0 && <h3>Events</h3> }

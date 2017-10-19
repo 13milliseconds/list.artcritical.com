@@ -1,5 +1,6 @@
 import alt from '../alt';
 import "isomorphic-fetch"
+import Promise from 'bluebird';
 
 class AuthActions {
     constructor() {
@@ -18,7 +19,9 @@ class AuthActions {
             'registerFailure',
             'updateUserSuccess',
             'updateUserFailure',
-            'updateUserAttempt'
+            'updateUserAttempt',
+            'getMylistSuccess',
+            'getMylistFailure'
         );
     }
     
@@ -113,7 +116,37 @@ class AuthActions {
         });
   }
     
+    async getMylist() {
+        console.log('Get MyList');
+        await fetch(
+          process.env.BASE_URI + '/auth/getmylist',
+          {
+            method: 'GET',
+            credentials: 'same-origin',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((data) => {
+            if (data) {
+            this.getMylistSuccess(data)
+              return true;
+            } 
+            this.getMylistFailure(data.error);
+            return true;
+        })
+        .catch((error) => {
+            this.getMylistFailure(error)
+            return true;
+        });
+    }
+    
     async checkSession() {
+        console.log('Check Session');
         await fetch(
           process.env.BASE_URI + '/auth/checksession',
           {

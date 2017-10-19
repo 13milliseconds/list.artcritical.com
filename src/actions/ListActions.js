@@ -1,4 +1,5 @@
 import alt from '../alt';
+import Promise from 'bluebird';
 
 let offset = 0;
 
@@ -14,8 +15,6 @@ class ListActions {
             'getEventsFail',
             'getGlanceSuccess',
             'getGlanceFail',
-            'getMylistSuccess',
-            'getMylistFailure',
             'getListingInfoSuccess',
             'getListingInfoFailure',
             'getVenueInfoSuccess',
@@ -31,7 +30,10 @@ class ListActions {
             'deleteListingSuccess',
             'deleteListingFailure',
             'getVenueListingsSuccess',
-            'getVenueListingsFailure'
+            'getVenueListingsFailure',
+            'getVenuesAdminSuccess',
+            'getVenuesAdminFailure',
+            'getVenuesAdminAttempt'
         );
     }
     
@@ -326,20 +328,30 @@ class ListActions {
     resetVenue(){
         return true;
     }
-
-    getMylist() {
+    
+    sizeChange(size){
+        return size;
+    }
+    
+    getVenuesAdmin() {
+        this.getVenuesAdminAttempt();
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: process.env.BASE_URI + '/auth/getmylist'
+                    url: process.env.BASE_URI + '/venues/getadmin/'+ offset
                 })
                 .done((data) => {
-                    this.getMylistSuccess(data)
-                    return true;
+                    if (data.length > 0){
+                        offset = offset + 1
+                        this.getVenuesAdminSuccess(data)
+                        this.getVenuesAdmin()
+                    } else {
+                        offset = 0
+                    }
+                    
                 })
                 .fail((jqXhr) => {
-                    this.getMylistFailure(jqXhr)
-                    return true;
+                    this.getVenuesAdminFailure(jqXhr)
                 });
         };
     }

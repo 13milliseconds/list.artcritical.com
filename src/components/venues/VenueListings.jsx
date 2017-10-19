@@ -1,6 +1,7 @@
 import React from 'react';
 // Components
 import Listing from '../listing';
+import SizeSelector from '../blocks/sizeSelector';
 
 export default class VenueListings extends React.Component {
     constructor(props) {
@@ -17,7 +18,10 @@ export default class VenueListings extends React.Component {
         
         return ( 
                 <div className="venueListings">
+                    <SizeSelector view={this.props.view} />
+                    <div className={this.props.view + " listingsWrap"}>
                     {this.props.listings ? listingsRender(this.props.listings) : 'No Listings'}
+                    </div>
                 </div>
         );
     }

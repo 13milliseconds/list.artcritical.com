@@ -14,6 +14,7 @@ var listingSchema = mongoose.Schema({
         type: String
       },
     event: Boolean,
+    events: [],
     image: String,
     thumb: String
 });

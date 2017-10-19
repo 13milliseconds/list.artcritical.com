@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
 import AuthActions from '../../actions/AuthActions';
-import ListActions from '../../actions/ListActions';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 //COMPONENTS
@@ -21,7 +20,6 @@ export default class LogInPage extends React.Component {
 
         if (loggedIn) {
             setTimeout(function() {
-                ListActions.getMylist();
                 Router.push('/');
             }, 0);
         }

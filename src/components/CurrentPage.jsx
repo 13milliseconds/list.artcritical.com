@@ -4,6 +4,7 @@ import ListActions from '../actions/ListActions';
 import Display from '../actions/displayActions';
 //COMPONENTS
 import Listing from './listing.jsx';
+import SizeSelector from './blocks/sizeSelector';
 
 
 export default class CurrentPage extends React.Component {
@@ -16,55 +17,53 @@ export default class CurrentPage extends React.Component {
     }
 
     render() {
-        let mainNH = ''
         let secondaryNH = ''
-        let newMainNH = ''
         let newSecondaryNH = ''
+        let renderExport = []
+        let title = ''
+        let num = this.props.currentListings.length - 1
         
-        let city = (name) => (<h1>{name}</h1>)
         let neighborhood = (name) => (<h2>{name}</h2>)
         
-        let thelistRender = currentListings => currentListings.map((listing) => {
+        let thelistRender = currentListings => currentListings.map((listing, index) => {
             
+            let result = <Listing key={listing._id} {...listing} mylist = {this.props.mylist}/>
+                
             newSecondaryNH = listing.venue.neighborhood;
             
             if ( newSecondaryNH !== secondaryNH) {
+                
+                //Add the result to the next export and reset the render
+                var contentRender = <div key={index} className="neighborhood">{renderExport}</div>
+                var newExport = [title, contentRender]
+                renderExport = [];
+                
                 // Update neighborhood
                 secondaryNH = newSecondaryNH
                 newSecondaryNH = Display.displayNeighborhood(secondaryNH)
-                newMainNH = Display.displayCity(secondaryNH)
-                if (newMainNH !== mainNH) {
-                    mainNH = newMainNH
-                    // Removed the city(blah), to be replaced with an anchor
-                    return (
-                        <div key={listing._id}>
-                            {neighborhood(newSecondaryNH)}
-                            <Listing {...listing} mylist = {this.props.mylist}/>
-                        </div>
-                    )    
-                } else{
-                    return (
-                        <div key={listing._id}>
-                            {neighborhood(newSecondaryNH)}
-                            <Listing {...listing} mylist = {this.props.mylist}/>
-                        </div>
-                    ) 
-                }
+                title = neighborhood(newSecondaryNH)
+                renderExport.push(result)
                 
-                
-            } else {
-                return (
-                  <Listing {...listing} key={listing._id} mylist = {this.props.mylist}/>
-              )   
+                // Export the last neighborhood
+                return newExport
+            } 
+            
+            renderExport.push(result)
+            if (num == index){
+                var contentRender = <div key={index} className="neighborhood">{renderExport}</div>
+                var newExport = [title, contentRender]
+                return newExport
             }
+            return true;
         });
         
         return ( 
             <div className = "home">
                 <h2>Current</h2>
-                <div className = "listingsWrap">
+                <SizeSelector view={this.props.view} />
+                <div className={this.props.view + " listingsWrap"}>
                     {thelistRender(this.props.currentListings)}
-                    {this.props.loading.current? 'Loading...': ''}
+                    {this.props.loading.current && <div className="loading">Loading...</div>}
                 </div>
             </div>
         );
