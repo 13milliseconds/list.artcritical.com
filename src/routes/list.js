@@ -49,6 +49,33 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     });
 });
 
+//#######################
+// GET future list to display.
+//#######################
+
+router.get('/futurelistings/:offset_ratio', function (req, res) {
+    var List = req.list,
+        Venue = req.venue;
+
+    //Find today's date
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    //Count how many times we've fetched listings
+    var offset_ratio = parseInt(req.params.offset_ratio) * 30; 
+
+    List.find().
+    where('start').gte(today).
+    where('event').ne(true).
+    sort('neighborhood').
+    skip(offset_ratio).
+    limit(30).
+    populate('venue').
+    exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
 
 //#######################
 // GET GLANCE list to display.

@@ -9,6 +9,9 @@ class ListActions {
             'getCurrentAttempt',
             'getCurrentSuccess',
             'getCurrentFail',
+            'getFutureAttempt',
+            'getFutureSuccess',
+            'getFutureFail',
             'getAllSuccess',
             'getAllFail',
             'getEventsSuccess',
@@ -63,6 +66,36 @@ class ListActions {
         })
         .catch((jqXhr) => {
             this.getCurrentFail(jqXhr)
+        });
+    }
+    
+    async getFuture () {
+        
+        this.getFutureAttempt();
+        
+        await fetch(
+          process.env.BASE_URI + '/list/futurelistings/' + offset,
+          {
+            method: 'GET',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((data) => {
+            this.getFutureSuccess(data)
+            if (data[0]){
+                offset = offset + 1
+                this.getFuture()
+            } else {
+                offset = 0
+            }
+        })
+        .catch((jqXhr) => {
+            this.getFutureFail(jqXhr)
         });
     }
 

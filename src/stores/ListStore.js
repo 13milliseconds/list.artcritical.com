@@ -13,6 +13,7 @@ class ListStore {
         this.view = 'medium';
         //List states
         this.currentListings = [];
+        this.futureListings = [];
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
@@ -58,6 +59,7 @@ class ListStore {
         this.loading.register = false;
         this.loading.updateuser = false;
         this.loading.current = false;
+        this.loading.future = false;
         this.loading.allVenues = false;
         //Error Messages
         this.error = {};
@@ -76,6 +78,13 @@ class ListStore {
         this.loading.current = false;
         this.currentListings = this.currentListings.concat(data);
     }
+    onGetFutureAttempt(){
+        this.loading.future = true;
+    }
+    onGetFutureSuccess(data) {
+        this.loading.future = false;
+        this.futureListings = this.futureListings.concat(data);
+    }
     onGetAllSuccess(data) {
         this.allListings = data;
     }
@@ -89,6 +98,11 @@ class ListStore {
 
     onGetCurrentFail(jqXhr) {
         this.loading.current = false;
+        // Handle multiple response formats, fallback to HTTP status code number.
+        toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+    }
+    onGetFutureFail(jqXhr) {
+        this.loading.future = false;
         // Handle multiple response formats, fallback to HTTP status code number.
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }

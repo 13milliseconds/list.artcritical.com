@@ -3,6 +3,7 @@ import {Router, Route, IndexRoute } from 'react-router'
 import Layout from './components/layout';
 import IndexPage from './components/IndexPage';
 import CurrentPage from './components/CurrentPage';
+import FuturePage from './components/FuturePage';
 import GlancePage from './components/GlancePage';
 import EventsPage from './components/EventsPage';
 import VenuePage from './components/venues/VenuePage';
@@ -24,6 +25,7 @@ const routes = (
       <Route path="/" component={Layout}>
         <IndexRoute component={GlancePage}/>
         <Route path="current" component={CurrentPage}/>
+        <Route path="future" component={FuturePage}/>
         <Route path="events" component={EventsPage}/>
         <Route path="signup" component={SignUpPage}/>
         <Route path="mylist" component={MyListPage}/>

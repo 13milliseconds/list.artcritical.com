@@ -44,6 +44,7 @@ export default class Layout extends React.Component {
             <h1>artcritical</h1>
             <IndexLink to={'/'} activeClassName="active">At a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
+            <Link to={'/future'} activeClassName="active">Future</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
             <Link to={'/mylist'} activeClassName="active">my list { mylistNum > 0 && '('+mylistNum+')'}</Link>
             { user.isLoggedIn ? renderGreeting(name) : renderLogin() }
