@@ -124,8 +124,6 @@ class ListActions {
     }
     
     async saveListing(newListing) {
-        
-        console.log('saveListing: ', newListing);
 
         await fetch(
           process.env.BASE_URI + '/list/add',

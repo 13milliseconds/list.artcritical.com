@@ -18,13 +18,13 @@ export default class MyList extends React.Component {
         
         return ( 
                 <div className="myList">
-                    <MyMap items={this.props.mylist} />
+                    <MyMap items={this.props.user.mylist} />
                     <SizeSelector view={this.props.view} />
                     <div className={this.props.view + " listingsWrap"}>
 
                     {
-                        this.props.mylist.map((listing) => (
-                            <Listing {...listing} key={listing._id} mylist={this.props.mylist}/>
+                        this.props.user.mylist.map((listing) => (
+                            <Listing {...listing} key={listing._id} mylist={this.props.user.mylist}/>
                         ))
                     }
                     </div>

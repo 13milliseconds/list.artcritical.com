@@ -5457,8 +5457,6 @@ var ListActions = function () {
         value: async function saveListing(newListing) {
             var _this5 = this;
 
-            console.log('saveListing: ', newListing);
-
             await fetch("http://localhost:5000" + '/list/add', {
                 method: 'POST',
                 credentials: 'same-origin',
@@ -18347,7 +18345,6 @@ var ListStore = function () {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
-        this.mylist = [];
         // Auth states
         this.user = {};
         this.user.name = '';
@@ -18357,6 +18354,7 @@ var ListStore = function () {
         this.user.email = '';
         this.user.avatar = '';
         this.user.facebook = {};
+        this.user.mylist = [];
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
@@ -18784,7 +18782,7 @@ var ListStore = function () {
             this.user.isLoggedIn = false;
             this.user.isLoggingIn = false;
             this.user.email = '';
-            this.mylist = [];
+            this.user.mylist = [];
         }
 
         // CHECK SESSION
@@ -18801,20 +18799,9 @@ var ListStore = function () {
     }, {
         key: 'onSessionCheckSuccess',
         value: function onSessionCheckSuccess(action) {
-            this.user.id = action._id;
+            this.user = action;
             this.user.isLoggedIn = true;
             this.user.isLoggingIn = false;
-            this.user.avatar = action.avatar;
-            this.user.name = action.name;
-            if (action.local) {
-                this.user.email = action.local.username;
-            }
-            if (action.facebook) {
-                this.user.facebook = {
-                    id: action.facebook.id,
-                    token: action.facebook.token
-                };
-            }
         }
 
         // ADD TO MYLIST
@@ -18822,7 +18809,7 @@ var ListStore = function () {
     }, {
         key: 'onAddToMyListSuccess',
         value: function onAddToMyListSuccess(response) {
-            this.mylist = response;
+            this.user.mylist = response;
         }
     }, {
         key: 'onAddToMyListFailure',
@@ -18835,7 +18822,7 @@ var ListStore = function () {
     }, {
         key: 'onGetMylistSuccess',
         value: function onGetMylistSuccess(data) {
-            this.mylist = data;
+            this.user.mylist = data;
         }
     }, {
         key: 'onGetMylistFailure',
@@ -70149,6 +70136,8 @@ var Layout = function (_React$Component) {
             var user = this.state.user;
 
             var name = user.name;
+            var mylistNum = user.mylist.length;
+
             var renderLogin = function renderLogin() {
                 return _react2.default.createElement(
                     _reactRouter.Link,
@@ -70210,7 +70199,7 @@ var Layout = function (_React$Component) {
                         _reactRouter.Link,
                         { to: '/mylist', activeClassName: 'active' },
                         'my list ',
-                        user.mylist && '(' + user.mylist.length + ')'
+                        mylistNum > 0 && '(' + mylistNum + ')'
                     ),
                     user.isLoggedIn ? renderGreeting(name) : renderLogin()
                 ),
@@ -104614,13 +104603,13 @@ var MyList = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'myList' },
-                _react2.default.createElement(_myMap2.default, { items: this.props.mylist }),
+                _react2.default.createElement(_myMap2.default, { items: this.props.user.mylist }),
                 _react2.default.createElement(_sizeSelector2.default, { view: this.props.view }),
                 _react2.default.createElement(
                     'div',
                     { className: this.props.view + " listingsWrap" },
-                    this.props.mylist.map(function (listing) {
-                        return _react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, mylist: _this2.props.mylist }));
+                    this.props.user.mylist.map(function (listing) {
+                        return _react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, mylist: _this2.props.user.mylist }));
                     })
                 )
             );

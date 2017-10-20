@@ -33,6 +33,8 @@ export default class Layout extends React.Component {
       
       const { user } = this.state;
       const name = user.name;
+      const mylistNum = user.mylist.length;
+      
       const renderLogin = () => <Link to={'/login'} activeClassName="active">Login</Link>;
       const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><span>Welcome, {name} | <button onClick={AuthActions.attemptLogOut}>Log Out</button></span></div>;
       
@@ -43,7 +45,7 @@ export default class Layout extends React.Component {
             <IndexLink to={'/'} activeClassName="active">At a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
-            <Link to={'/mylist'} activeClassName="active">my list {user.mylist && '('+user.mylist.length+')'}</Link>
+            <Link to={'/mylist'} activeClassName="active">my list { mylistNum > 0 && '('+mylistNum+')'}</Link>
             { user.isLoggedIn ? renderGreeting(name) : renderLogin() }
         </header>
         <div className="app-content">

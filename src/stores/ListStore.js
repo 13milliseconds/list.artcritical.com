@@ -16,7 +16,6 @@ class ListStore {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
-        this.mylist = [];
         // Auth states
         this.user = {};
         this.user.name = '';
@@ -26,6 +25,7 @@ class ListStore {
         this.user.email = '';
         this.user.avatar = '';
         this.user.facebook = {};
+        this.user.mylist = [];
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
@@ -347,7 +347,7 @@ class ListStore {
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
         this.user.email = '';
-        this.mylist = [];
+        this.user.mylist = [];
     }
     
     // CHECK SESSION
@@ -359,25 +359,14 @@ class ListStore {
         this.user.email = '';
     }
     onSessionCheckSuccess(action){
-        this.user.id = action._id;
+        this.user = action;
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;
-        this.user.avatar = action.avatar;
-        this.user.name = action.name;
-        if (action.local){
-            this.user.email = action.local.username;
-        }
-        if (action.facebook){
-            this.user.facebook = {
-                id: action.facebook.id,
-                token: action.facebook.token
-            };
-        }
     }
     
     // ADD TO MYLIST
     onAddToMyListSuccess(response){
-        this.mylist = response;
+        this.user.mylist = response;
     }
     onAddToMyListFailure(error){
         console.log(error);
@@ -385,7 +374,7 @@ class ListStore {
     
     // GET MYLIST
     onGetMylistSuccess(data) {
-        this.mylist = data;
+        this.user.mylist = data;
     }
     onGetMylistFailure(jqXhr) {
         // Handle multiple response formats, fallback to HTTP status code number.
