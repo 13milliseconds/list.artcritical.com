@@ -154,7 +154,6 @@ class ListStore {
         this.venue.currentListings = data.currentListings;
         this.venue.upcomingListings = data.upcomingListings;
         this.venue.pastListings = data.pastListings;
-        console.log(data);
         
         /*const today = new Date();
         

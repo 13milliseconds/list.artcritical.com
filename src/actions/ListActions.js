@@ -62,6 +62,8 @@ class ListActions {
             if (data[0]){
                 offset = offset + 1
                 this.getCurrent()
+            } else {
+                offset = 0
             }
         })
         .catch((jqXhr) => {

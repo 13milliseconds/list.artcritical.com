@@ -27,11 +27,11 @@ module.exports = {
     },
             {
                 test: /\.less$/,
-                loader: 'style-loader!css-loader!less-loader'
+                loaders: ["style-loader", "css-loader", "less-loader"]
             }, // use ! to chain loaders
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader'
+                loaders: ["style-loader", "css-loader"]
             }
     ]
     },
