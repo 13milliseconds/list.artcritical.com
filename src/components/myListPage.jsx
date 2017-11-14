@@ -1,5 +1,7 @@
 import React from 'react';
-import MyList from './myList.jsx';
+import MyList from './mylist/myList';
+import LogInForm from './login/LogInForm';
+import AuthActions from '../actions/AuthActions';
 //COMPONENTS
 import { Link } from 'react-router';
 
@@ -12,10 +14,7 @@ export default class MyListPage extends React.Component {
         let myListRender = this.props.user.isLoggedIn ?
                             <MyList {...this.props} />
                             :
-                            <div>
-                                <p>Please register to create your own list</p>
-                                <Link to={'/signup'} activeClassName="active">Register</Link>
-                            </div>
+                            <LogInForm loginFunction={AuthActions.attemptLogIn} loading={this.props.isLoggingIn} />
         return ( 
                 <div className="myListwrap">
                     <h2>my list</h2>

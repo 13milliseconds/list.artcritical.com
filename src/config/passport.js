@@ -8,6 +8,7 @@ import AuthActions from '../actions/AuthActions';
 
 // load up the user model
 var User            = require('../models/user');
+var Venue            = require('../models/venue');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -24,9 +25,19 @@ module.exports = function(passport) {
     });
 
     passport.deserializeUser(function(id, done) {
-      User.findById(id, function(err, user) {
-        done(err, user);
-      });
+      User.findById(id)
+          .populate('mylist')
+          .exec(function(err, user) {
+                //Populate the mylist venues
+                User.populate(user, {
+                    path: 'mylist.venue',
+                    model: Venue
+                  }, function(err, fullUser) {
+
+                //found user
+                return done(null, fullUser);
+                });
+            });
     });
 
     // =========================================================================
@@ -46,7 +57,7 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.username' :  username }, function(err, user) {
+        User.findOne({ 'local.username' :  username }).exec(function(err, user) {
             // if there are any errors, return the error
             if (err)
                 return done(err);
@@ -93,7 +104,9 @@ module.exports = function(passport) {
 
    passport.use('local-login', new LocalStrategy(
       function(username, password, done) {
-        User.findOne({ 'local.username': username }, function(err, user) {
+        User.findOne({ 'local.username': username })
+            .populate('mylist')
+            .exec(function(err, user) {
           if (err) { 
               console.log('Incorrect Something');
               return done(err); 
@@ -106,8 +119,15 @@ module.exports = function(passport) {
               console.log('Incorrect Password');
             return done(null, false, { message: 'Incorrect password.' });
           }
-            console.log('local-login: Signed In');
-          return done(null, user);
+             //Populate the mylist venues
+                User.populate(user, {
+                    path: 'mylist.venue',
+                    model: Venue
+                  }, function(err, fullUser) {
+                    //found user
+                    return done(null, fullUser);
+                });
+          
         });
       }
     ));
@@ -125,9 +145,9 @@ module.exports = function(passport) {
       function(accessToken, refreshToken, profile, done) {
         
         //check user table for anyone with a facebook ID of profile.id
-        User.findOne({
-            'facebook.id': profile.id 
-        }, function(err, user) {
+        User.findOne({'facebook.id': profile.id })
+            .populate('mylist')
+            .exec(function(err, user) {
             if (err) {
                 console.log("Error", err);
                 return done(err);
@@ -148,10 +168,17 @@ module.exports = function(passport) {
                     return done(err, user);
                 });
             } else {
-                //found user
-                AuthActions.facebookLogin(user);
-                console.log("in passport: ", user._id);
-                return done(err, user);
+                
+                //Populate the mylist venues
+                User.populate(user, {
+                    path: 'mylist.venue',
+                    model: Venue
+                  }, function(err, fullUser) {
+                    
+                    //found user
+                    AuthActions.facebookLogin(fullUser);
+                    return done(err, fullUser);
+                    });
             }
         });
     }

@@ -109,6 +109,9 @@ export default class ListingForm extends React.Component {
                 <ThumbnailInput {...this.props} /> 
                 
                 <button onClick={this.props.handleSubmit}>Submit</button>
+                {this.props.loading && <div className='loading'>loading</div>}
+                {this.props.success && <div className='success'>Saved!</div>}
+                {this.props.error.general && <div className='error'>{this.props.error.general}</div>}
                 {deleteButton}
                 
             </div>

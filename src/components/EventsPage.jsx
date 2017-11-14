@@ -31,7 +31,7 @@ export default class EventsPage extends React.Component {
                 )
             } else {
                 return (
-                  <Listing {...listing} key={listing._id} mylist = {this.props.mylist}/>
+                  <Listing {...listing} key={listing._id} mylist={this.props.user.mylist}/>
               )   
             }
         });

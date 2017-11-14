@@ -13,6 +13,10 @@ export default class NewListing extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
+    componentWillUnmount(){
+        ListActions.listingEditReset();
+    }
+    
     // Add the listing to the database
     handleSubmit(event) {
         var listingId = this.props.listingEdit._id || null;
@@ -28,7 +32,6 @@ export default class NewListing extends React.Component {
             image: this.props.listingEdit.image
         }
         ListActions.saveListing(newListing)
-        ListActions.listingEditReset();
       }
 
     render() {
@@ -38,11 +41,18 @@ export default class NewListing extends React.Component {
                 <div>
                     <h2>New Event</h2>
                     
-                    <ListingForm {...this.props.listingEdit} handleSubmit={this.handleSubmit} />
+                    <ListingForm 
+                        {...this.props.listingEdit} 
+                        handleSubmit={this.handleSubmit} 
+                        error={this.props.error.savelisting} 
+                        loading={this.props.loading.savelisting} 
+                        success={this.props.success.savelisting} />
                     
                     <div id="newlistingDemo">
                         <h2>Listing Preview</h2>
-                        <Listing {...this.props.listingEdit} />
+                        <div className="medium listingsWrap">
+                            <Listing {...this.props.listingEdit} />
+                        </div>
                     </div>
                 </div>
             </div>

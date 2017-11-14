@@ -30,7 +30,7 @@ export default class GlancePage extends React.Component {
             d.setHours(0,0,0,0);
             d.setDate(today.getDate() + i );
             let label = <IntlProvider locale="en"><FormattedDate value={d} weekday="long" day="numeric" month="short" /></IntlProvider>
-            days.push(<DayPage key={d} feature={this.props.feature} glanceListings={thelist} mylist={this.props.mylist} label={label} date={d} view={this.props.view} />);
+            days.push(<DayPage key={d} feature={this.props.feature} glanceListings={thelist} mylist={this.props.user.mylist} label={label} date={d} view={this.props.view} />);
         }
         
         return ( 

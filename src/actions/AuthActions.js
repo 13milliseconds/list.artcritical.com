@@ -21,7 +21,9 @@ class AuthActions {
             'updateUserFailure',
             'updateUserAttempt',
             'getMylistSuccess',
-            'getMylistFailure'
+            'getMylistFailure',
+            'reorderMyListSuccess',
+            'reorderMyListFailure',
         );
     }
     
@@ -133,8 +135,8 @@ class AuthActions {
         })
         .then((data) => {
             if (data) {
-            this.getMylistSuccess(data)
-              return true;
+                this.getMylistSuccess(data)
+                return true;
             } 
             this.getMylistFailure(data.error);
             return true;
@@ -176,15 +178,13 @@ class AuthActions {
     
     async addToUserList(listing) {
         
-        const listData = { listingID: listing._id };
-        
         //Upload the ID to the user profile
         await fetch(
           process.env.BASE_URI + '/auth/addtolist',
           {
             method: 'POST',
             credentials: 'same-origin',
-            body: JSON.stringify(listData),
+            body: JSON.stringify(listing),
             headers: {
               'Content-Type': 'application/json',
             }
@@ -203,6 +203,40 @@ class AuthActions {
           this.addToMyListFailure(error);
             return true;
         });
+    }
+    
+    async reorderMyList(newList) {
+        
+        this.reorderMyListAttempt(newList);
+        
+        await fetch(
+          process.env.BASE_URI + '/auth/updatemylist',
+          {
+            body: JSON.stringify(newList),
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+            return null;
+        })
+        .then((json) => {
+            this.reorderMyListSuccess(json);
+            return true;
+        })
+        .catch((error) => {
+            this.reorderMyListFailure(error);
+            return true;
+        });
+    }
+    reorderMyListAttempt(newList){
+        return newList;
     }
     
     async updateUser(newUserInfo) {

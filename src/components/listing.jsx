@@ -40,11 +40,13 @@ export default class Listing extends React.Component {
     if (this.props.event !== true && this.props.end) {
         end = <span>to <Date date={this.props.end} /></span>;
     }
+        console.log(this.props.mylist);
         const id = this.props._id;
         // Check if the listing is in mylist
         let mylistIndex = 0;
         if (this.props.mylist) {
             mylistIndex = this.props.mylist.filter(function(v) {
+                console.log(v);
                 return v._id === id;
             }).length;   
         }

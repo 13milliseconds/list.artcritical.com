@@ -27,7 +27,7 @@ export default class CurrentPage extends React.Component {
         
         let thelistRender = currentListings => currentListings.map((listing, index) => {
             
-            let result = <Listing key={listing._id} {...listing} mylist = {this.props.mylist}/>
+            let result = <Listing key={listing._id} {...listing} mylist = {this.props.user.mylist}/>
                 
             newSecondaryNH = listing.venue.neighborhood;
             

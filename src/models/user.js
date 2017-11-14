@@ -15,7 +15,7 @@ var userSchema = mongoose.Schema({
         username     : String
     },
     avatar: String,
-    mylist: [String],
+    mylist: [{type: String, ref: 'List'}],
 });
 
 userSchema.methods.generateHash = function(password) {  

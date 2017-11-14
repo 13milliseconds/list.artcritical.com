@@ -1,14 +1,17 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
+import ListActions from '../../actions/ListActions';
 //COMPONENT
 import SingleMarker from './singleMarker'
-let ReactMapboxGl, Layer, Feature, Map, Marker
+let ReactMapboxGl, Map, Layer, Feature, Marker
 
 export default class MapBlock extends React.Component {
     
     constructor(props) {
         super(props);    
     }
+    
+    
     
     componentDidMount() {
         ReactMapboxGl = require("react-mapbox-gl");
@@ -31,7 +34,7 @@ export default class MapBlock extends React.Component {
       
     return (
         <div className="mapWrap">
-            { Map ? 
+            { (Map && this.props.coordinates) ? 
                 <Map
                     style="mapbox://styles/mapbox/streets-v9"
                     containerStyle={{height: "500px", width: "100%"}}

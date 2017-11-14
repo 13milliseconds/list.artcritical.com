@@ -58,6 +58,7 @@ class ListStore {
         this.loading.login = false;
         this.loading.register = false;
         this.loading.updateuser = false;
+        this.loading.updatelisting = false;
         this.loading.current = false;
         this.loading.future = false;
         this.loading.allVenues = false;
@@ -65,9 +66,13 @@ class ListStore {
         this.error = {};
         this.error.feature = '';
         this.error.updateuser = '';
+        this.error.updatelisting = {};
+        this.error.savelisting = {};
         //Success
         this.success = {};
-        this.success.updateuser = '';
+        this.success.updateuser = false;
+        this.success.updatelisting = false;
+        this.success.savelisting = false;
     }
     
     //List Reducers
@@ -171,6 +176,22 @@ class ListStore {
     onGetVenueInfoFailure(jqXhr){
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
+    onUpdateVenue(info){
+        this.venue.coordinates = {
+            lat: info[1],
+            long: info[0]
+        }
+    }
+    onUpdateVenueAttempt(){
+        console.log('Updating Venue');
+    }
+    onUpdateVenueSuccess(data){
+        console.log('Updating Venue', data);
+    }
+    onUpdateVenueFailure(){
+        console.log('Error Updating Venue');
+    }
+    
     onGetVenueListingsSuccess(data){
         this.venue.listings = data;
     }
@@ -197,18 +218,36 @@ class ListStore {
     }
     
     //Save a new listing
+    onSaveListingAttempt(){
+        this.loading.savelisting = true;       
+    }
     onSaveListingSuccess(data){
-        console.log('Saved: ', data);        
+        console.log('Saved: ', data);   
+        this.loading.savelisting = false; 
+        this.success.savelisting = true; 
     }
     onSaveListingFailure(err){
         console.log('Error: ', err);
+        this.loading.savelisting = false; 
+        this.error.savelisting.general = 'Error while saving changes'; 
     }
     
+    
     //Update a listing
+    onUpdateListingAttempt(){
+        this.loading.updatelisting = true;
+    }
     onUpdateListingSuccess(data){
-        console.log('Updated: ', data);        
+        this.loading.updatelisting = false; 
+        this.success.updatelisting = true; 
+        var that = this;
+        setTimeout(() => {
+            that.success.updatelisting = false;
+        }, 1000);
     }
     onUpdateListingFailure(err){
+        this.loading.updatelisting = false; 
+        this.error.updatelisting.general = 'Error while saving changes'; 
         console.log('Error: ', err);
     }
     
@@ -392,6 +431,17 @@ class ListStore {
     onGetMylistFailure(jqXhr) {
         // Handle multiple response formats, fallback to HTTP status code number.
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+    }
+    // REORDER MYLIST
+    onReorderMyListAttempt(data){
+        this.user.mylist = data;
+    }
+    onReorderMyListSuccess(data){
+        console.log('saved!');  
+        console.log(data)
+    }
+    onReorderMyListFailure(){
+        console.log('problem!');
     }
     
     // INFO CHANGE ON ACCOUNT PAGE

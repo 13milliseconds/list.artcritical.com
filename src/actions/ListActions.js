@@ -24,8 +24,13 @@ class ListActions {
             'getVenueInfoFailure',
             'saveListingSuccess',
             'saveListingFailure',
+            'saveListingAttempt',
             'updateListingSuccess',
             'updateListingFailure',
+            'updateListingAttempt',
+            'updateVenueAttempt',
+            'updateVenueSuccess',
+            'updateVenueFailure',
             'updateFeatureSuccess',
             'updateFeatureFailure',
             'featureLoadSuccess',
@@ -36,7 +41,9 @@ class ListActions {
             'getVenueListingsFailure',
             'getVenuesAdminSuccess',
             'getVenuesAdminFailure',
-            'getVenuesAdminAttempt'
+            'getVenuesAdminAttempt',
+            'getCoordFailure',
+            'getCoordSuccess'
         );
     }
     
@@ -159,6 +166,8 @@ class ListActions {
     }
     
     async saveListing(newListing) {
+        
+        this.saveListingAttempt();
 
         await fetch(
           process.env.BASE_URI + '/list/add',
@@ -179,6 +188,7 @@ class ListActions {
         })
         .then((json) => {
             this.saveListingSuccess(json);
+            this.listingEditReset();
             return true;
         })
         .catch((error) => {
@@ -209,6 +219,8 @@ class ListActions {
     }
     
     async updateListing(newInfo) {
+        
+        this.updateListingAttempt();
 
         await fetch(
           process.env.BASE_URI + '/list/update',
@@ -229,6 +241,7 @@ class ListActions {
         })
         .then((json) => {
             this.updateListingSuccess(json);
+            this.listingEditReset();
             return true;
         })
         .catch((error) => {
@@ -388,6 +401,39 @@ class ListActions {
                 });
         };
     }
+    
+    async updateVenue(info){
+        console.log('updating: ', info)
+        
+        this.updateVenueAttempt();
+
+        await fetch(
+          process.env.BASE_URI + '/venues/update',
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify(info),
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.updateVenueSuccess(json);
+            this.listingEditReset();
+            return true;
+        })
+        .catch((error) => {
+            this.updateVenueFailure(error);
+        });
+    }
+    
 }
 
 export default alt.createActions(ListActions);

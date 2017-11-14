@@ -131,7 +131,7 @@ export default class LogInForm extends React.Component {
                 </FormGroup>
 
                 <Button onClick={this.handleSubmit}>Log In</Button>
-                {this.props.loading? 'Loading' : ''}
+                {this.props.loading && <div className='loading'>Loading</div>}
                 
             </form>
         );

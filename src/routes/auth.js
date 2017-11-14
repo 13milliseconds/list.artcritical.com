@@ -116,18 +116,17 @@ router.post('/addtolist', function (req, res) {
 
         // define variables
         var userID = req.user._id;
-        var listingID = req.body.listingID;
 
         Userlist.findById(userID, function (err, user) {
 
             if (err) return handleError(err);
 
             // Check if listing is already in the list
-            var IndexOfListing = user.mylist.indexOf(listingID);
+            var IndexOfListing = user.mylist.indexOf(req.body._id);
             if (IndexOfListing == -1) {
                 
                 //add listing to mylist
-                user.mylist.push(listingID);
+                user.mylist.push(req.body);
                 
             } else {
                 
@@ -152,6 +151,41 @@ router.post('/addtolist', function (req, res) {
     };
 });
 
+/*//###################################
+ * REORDER the user's list
+ *///###################################
+
+router.post('/updatemylist', function (req, res) {
+    var Userlist = req.userlist;
+    var List = req.list;
+
+    //CHECK IF USER IS CONNECTED
+    if (req.user) {
+
+        // define variables
+        var userID = req.user._id;
+        var newListings = req.body;
+        
+        Userlist.findById(userID, function (err, user) {
+
+            if (err) return handleError(err);
+                
+            //Replace listings in mylist
+            user.mylist = req.body;
+            console.log(user.mylist);
+                
+            // Save user with new listing
+            user.save(function (err, updatedUser) {
+                if (err) return handleError(err);
+                
+                return res.send(JSON.stringify(updatedUser));
+                
+            });
+        });
+
+    };
+});
+
 
 //###################################
 // GET all listings from my list
@@ -168,7 +202,6 @@ router.get('/getmylist', (req, res) => {
         List.find({
             '_id': { $in: theirList}
         }).
-        sort('neighborhood').
         populate('venue').
         exec(function (e, docs) {
             res.json(docs);
@@ -179,7 +212,11 @@ router.get('/getmylist', (req, res) => {
     }
 });
 
+
+//###################################
 // GET to check session
+//###################################
+
 router.get('/checksession', (req, res) => {
     var User = req.user;
     

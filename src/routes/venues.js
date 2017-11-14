@@ -137,7 +137,34 @@ router.post('/add', function (req, res) {
 
 });
 
+
+//########################
+// UPDATE a new venue.
+//########################
+
+router.post('/update', function (req, res) {
+    var Venue = req.venue;
+
+    // define a new entry
+    var thevenue = new Venue(req.body);
+
+    Venue.update({
+        _id: thevenue._id
+    }, {
+        $set: thevenue
+    }, function (err, newvenue) {
+        if (err)
+            res.send(err);
+        res.json(newvenue);
+    });
+
+});
+
+
+//########################
 /* GET info for one venue */
+//########################
+
 router.get('/:venue_id', function (req, res, next) {
     var Venue = req.venue;
     

@@ -109,6 +109,7 @@ LISTING ELEMENTS
 *********************/
 .listing{
     @include transition(.3s);
+    background: #fff;
     .listingAdd{
         .addButton{
             overflow: hidden;
@@ -213,6 +214,9 @@ LISTING ELEMENTS
         }
     }
 }
+.placeholder{
+    opacity: 0;
+}
 .selectorBlock{
     float: right;
     i{
@@ -288,6 +292,7 @@ header{
         background: white;
         top: 0;
         width: 100%;
+        z-index: 99;
     }
 
 

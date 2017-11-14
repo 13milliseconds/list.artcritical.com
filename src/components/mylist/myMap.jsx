@@ -1,36 +1,75 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
 //COMPONENT
-import Marker from './marker';
+import MyMarker from './myMarker';
+let ReactMapboxGl
+let Map, Marker
+let num = 0
+
 
 export default class MyMap extends React.Component {
+    
     constructor(props) {
         super(props);
         
+        this.mapMarkers = this.mapMarkers.bind(this)
+    }
+    
+    componentDidMount() {
+        ReactMapboxGl = require("react-mapbox-gl");
+        Marker = ReactMapboxGl.Marker;
+        this.forceUpdate();
+    }
+    
+    
+      
+    mapMarkers(allListings){
+        num = 0
+        
+        if (allListings){
+        return allListings.map((listing, done) => {
+          
+          num = num + 1
+          const thisNum = num
+
+        if (listing.venue){
+            const coord = {
+                lat: listing.venue.coordinates.lat,
+                lng: listing.venue.coordinates.long
+            }
+            const newMarker = <Marker key={listing._id}
+                        coordinates={coord}
+                        anchor="bottom"
+                        className={listing._id}
+                                  >
+                        <MyMarker
+                            listing={listing}
+                            num={thisNum} />
+                </Marker>
+
+            return newMarker
+          }
+        })
+        }
     }
 
   render() {
-      let num = 0;
-      let markers = this.props.items.map(function(listing){
-            num = num + 1
-            return <Marker
-                key="listing._id"
-                lat={listing.venue.coordinates.lat || this.props.center.lat}
-                lng={listing.venue.coordinates.long || this.props.center.long}
-                listing={listing}
-                num={num}
-        />
-      })
+      
+      Map = ReactMapboxGl && ReactMapboxGl.Map({
+          accessToken: "pk.eyJ1IjoiYXJ0Y3JpdGljYWwiLCJhIjoiY2o5ZWUzdGlrMmIydjJ3bnJpeWxsN2I1YSJ9.HKlVu4oYspR74CeCdVouRg"
+        })
+      
       
     return (
         <div className="mapWrap">
-          <GoogleMapReact
-            bootstrapURLKeys={{key: "AIzaSyD1qPeqE6djJy-KU0hj2JJfKJ77JAkXmNg"}}
-            defaultCenter={this.props.center}
-            defaultZoom={this.props.zoom}
-          >
-            {markers}
-          </GoogleMapReact>
+            { (Map) ? 
+            <Map style="mapbox://styles/mapbox/streets-v9"
+                 containerStyle={{height: "500px", width: "100%"}}
+                 center={this.props.center} >
+                {this.mapMarkers(this.props.markers)}
+            </Map>
+            :
+                null
+            }
         </div>
     );
   }

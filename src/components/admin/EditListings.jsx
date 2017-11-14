@@ -17,7 +17,7 @@ export default class ListingEdit extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
       }
     
-    componentDidUnmount(){
+    componentWillUnmount(){
         ListActions.listingEditReset();
     }
     
@@ -35,7 +35,6 @@ export default class ListingEdit extends React.Component {
             image: this.props.listingEdit.image
         }
         ListActions.updateListing(newListing)
-        ListActions.listingEditReset();
       }
     
     //Delete the listing
@@ -77,10 +76,17 @@ export default class ListingEdit extends React.Component {
                     </form>
                 </div>
                 <div id="ListingInfo">
-                    <Listing {...this.props.listingEdit}/>
+                    <div className="medium listingsWrap">
+                        <Listing {...this.props.listingEdit}/>
+                    </div>
                 </div>
                 <div className="listingForm">
-                    <ListingForm {...this.props.listingEdit} handleSubmit={this.handleSubmit} handleDelete={this.handleDelete} />
+                    <ListingForm {...this.props.listingEdit} 
+                        handleSubmit={this.handleSubmit}  
+                        handleDelete={this.handleDelete} 
+                        error={this.props.error.updatelisting} 
+                        loading={this.props.loading.updatelisting}
+                        success={this.props.success.updatelisting}/>
                 </div>
             </div>
         );
