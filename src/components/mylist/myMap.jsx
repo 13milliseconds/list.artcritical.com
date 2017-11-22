@@ -1,8 +1,7 @@
 import React from 'react';
 //COMPONENT
 import MyMarker from './myMarker';
-let ReactMapboxGl
-let Map, Marker
+import ReactMapGL, {NavigationControl, Marker} from 'react-map-gl';
 let num = 0
 
 
@@ -14,36 +13,29 @@ export default class MyMap extends React.Component {
         this.mapMarkers = this.mapMarkers.bind(this)
     }
     
-    componentDidMount() {
-        ReactMapboxGl = require("react-mapbox-gl");
-        Marker = ReactMapboxGl.Marker;
-        this.forceUpdate();
-    }
-    
     
       
     mapMarkers(allListings){
-        num = 0
         
         if (allListings){
-        return allListings.map((listing, done) => {
+        return allListings.map((listing, index, done) => {
           
           num = num + 1
           const thisNum = num
 
         if (listing.venue){
-            const coord = {
-                lat: listing.venue.coordinates.lat,
-                lng: listing.venue.coordinates.long
-            }
             const newMarker = <Marker key={listing._id}
-                        coordinates={coord}
+                        latitude={listing.venue.coordinates.lat}
+                        longitude={listing.venue.coordinates.long}
                         anchor="bottom"
-                        className={listing._id}
+                        onMouseEnter={this.props.onHover.bind(this, listing)}
+                        onMouseLeave={this.props.onLeave.bind(this, listing)}
+                        className={listing._id == this.props.listingHover? 'active' : ''}
                                   >
                         <MyMarker
+                            className={listing._id}
                             listing={listing}
-                            num={thisNum} />
+                            num={index + 1} />
                 </Marker>
 
             return newMarker
@@ -53,29 +45,16 @@ export default class MyMap extends React.Component {
     }
 
   render() {
-      
-      Map = ReactMapboxGl && ReactMapboxGl.Map({
-          accessToken: "pk.eyJ1IjoiYXJ0Y3JpdGljYWwiLCJhIjoiY2o5ZWUzdGlrMmIydjJ3bnJpeWxsN2I1YSJ9.HKlVu4oYspR74CeCdVouRg"
-        })
-      
-      
+    const {viewport, updateViewport} = this.props;
     return (
         <div className="mapWrap">
-            { (Map) ? 
-            <Map style="mapbox://styles/mapbox/streets-v9"
-                 containerStyle={{height: "500px", width: "100%"}}
-                 center={this.props.center} >
+            <ReactMapGL
+                {...viewport}
+                onViewportChange={updateViewport}
+              >
                 {this.mapMarkers(this.props.markers)}
-            </Map>
-            :
-                null
-            }
+            </ReactMapGL>
         </div>
     );
   }
 }
-
-MyMap.defaultProps = {
-    center: {lat: 40.7238556, lng: -73.9221523},
-    zoom: 11
-};

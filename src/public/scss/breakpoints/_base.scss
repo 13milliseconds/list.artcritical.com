@@ -113,9 +113,33 @@ LISTING ELEMENTS
     .listingAdd{
         .addButton{
             overflow: hidden;
-            @include transition(.3s);
             background-size: cover;
             border: 1px solid grey;
+            position: relative;
+            &.active{
+                cursor: pointer;   
+            }
+            font-size: 30px;
+            color: $black;
+            i{
+                opacity: 0;
+                top: 50%;
+                left: 50%;
+                position: absolute;
+                @include transform(translate(-50%, -50%));
+                @include transition(.3s);
+            }
+            span{
+                top: 50%;
+                left: 50%;
+                position: absolute;
+                @include transform(translate(-50%, -50%));
+            }
+            &:hover{
+                i{
+                    opacity: 1;
+                }
+            }
         }
     }
     .listingClose{
@@ -166,7 +190,8 @@ LISTING ELEMENTS
             .addButton{
                 width: 20px;
                 height: 20px;
-                border-radius: 50%;
+                border: 0;
+                background-size: 0;
             }
     }
     .listingContent{
@@ -375,19 +400,27 @@ Google Map
 
 .mapWrap{
     @include span-columns(12);
-    height: 500px;
     margin-bottom: 20px;
 }
 
-.marker{
-    background-color: beige;
-    color: black;
-    text-align: center;
-    border-radius: 50%;
-    border: 1px solid black;
-    width: 2em;
-    height: 2em;
-    padding: .3em;
+.mapboxgl-marker{
+    .marker{
+        background-color: beige;
+        color: black;
+        text-align: center;
+        border-radius: 50%;
+        border: 1px solid black;
+        width: 2em;
+        height: 2em;
+        padding: .3em;
+        @include transition(.2s);
+    }
+    &.active{
+        .marker{
+            background-color: $red;
+            color: $white;
+        }
+    }
 }
 
 /*********************

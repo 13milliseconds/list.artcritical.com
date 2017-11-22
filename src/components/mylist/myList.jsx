@@ -1,51 +1,90 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import AuthActions from '../../actions/AuthActions';
 import ListActions from '../../actions/ListActions';
+import {experimental} from 'react-map-gl';
 var async = require('async');
-var MapboxClient = require('mapbox');
-var client = new MapboxClient('pk.eyJ1IjoiYXJ0Y3JpdGljYWwiLCJhIjoiY2o5ZWUzdGlrMmIydjJ3bnJpeWxsN2I1YSJ9.HKlVu4oYspR74CeCdVouRg');
 // Components
 import MyListings from './myListings';
 import MyMap from './myMap';
 import SizeSelector from '../blocks/sizeSelector';
 import {reorder} from 'react-reorder';
 
-let markers
-
 export default class MyList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             listingHover: '',
+            markers: [],
+            viewport: {
+                latitude: this.props.center.lat,
+                longitude: this.props.center.lng,
+                zoom: this.props.zoom,
+                mapboxApiAccessToken: this.props.token,
+                bearing: 0,
+                pitch: 0,
+                width: window.innerWidth,
+                height: 500
+              }
         }
         
         this.onReorder = this.onReorder.bind(this);
         this.onHover = this.onHover.bind(this);
+        this.onLeave = this.onLeave.bind(this);
+        this._goToViewport = this._goToViewport.bind(this);
         this.findCoord = this.findCoord.bind(this);
+        this.updateViewport = this.updateViewport.bind(this);
+        this.componentWillMount = this.componentWillMount.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
     }
     
     componentWillMount(){
         async.map(this.props.user.mylist, this.findCoord, function(err, results){
           // results is now an array
-          markers = results;
-        });
+          this.setState({
+              markers: results
+          })
+        }.bind(this));
     }
     
-    onHover(_id){
-        //Find the right marker
-        console.log('Hovering', _id)
+    componentDidMount(){
+        // Create variable to change property
+        let newViewport = this.state.viewport
+        newViewport.width = ReactDOM.findDOMNode(this).offsetWidth
+        //Update state
         this.setState({
-            listingHover: _id
+              viewport: newViewport
+          })
+    }
+    
+    onHover(listing){
+        this._goToViewport(listing.venue.coordinates.lat, listing.venue.coordinates.long)
+        //Find the right marker
+        this.setState({
+            listingHover: listing._id
         })
     }
     
     onLeave(){
-        
+        console.log('we left')
+        // Create variable to change property
+        let newViewport = this.state.viewport
+        newViewport.lat = this.props.center.lat
+        newViewport.lng = this.props.center.lng
+        newViewport.zoom = this.props.zoom
+        //Reset markers
+        this.setState({
+            listingHover: '',
+            viewport: newViewport
+        })
     }
     
     onReorder (event, fromIndex, toIndex, fromId, toId) {
         let newOrder = reorder(this.props.user.mylist, fromIndex, toIndex)
         AuthActions.reorderMyList(newOrder)
+        this.setState({
+              markers: newOrder
+          })
     }
     
     findCoord(listing, done) {
@@ -74,23 +113,53 @@ export default class MyList extends React.Component {
             }
         }
     }
+    
+     _goToViewport(latitude, longitude){
+        this.updateViewport({
+          longitude: longitude,
+          latitude: latitude,
+          zoom: 14,
+            width: this.state.viewport.width,
+            height: this.state.viewport.height,
+          transitionInterpolator: experimental.viewportFlyToInterpolator,
+          transitionDuration: 3000
+        });
+    }
+    
+    updateViewport(v) {
+        this.setState({
+            viewport: v
+        })
+    }
 
     render() {
         
         return ( 
                 <div className="myList">
-                    <MyMap markers={markers} 
-                        listingHover={this.state.listingHover} />
+                    <MyMap 
+                        markers={this.state.markers} 
+                        viewport ={this.state.viewport}
+                        updateViewport ={this.updateViewport}
+                        listingHover={this.state.listingHover} 
+                        onHover={this.onHover}
+                        onLeave={this.onLeave}
+                        />
                     <SizeSelector view={this.props.view} />
-                            {this.props.user.mylist? <MyListings 
-                                                   list={this.props.user.mylist}
-                                                    view={this.props.view}
-                                                   onHover={this.onHover}
-                                                   onLeave={this.onLeave}
-                                                   onReorder={this.onReorder}
-                                                    listingHover={this.state.listingHover}
-                                                   /> : null }
+                    {this.props.user.mylist? <MyListings 
+                                           user={this.props.user}
+                                            view={this.props.view}
+                                           onHover={this.onHover}
+                                           onLeave={this.onLeave}
+                                           onReorder={this.onReorder}
+                                            listingHover={this.state.listingHover}
+                                           /> : null }
                 </div>
         );
     }
 }
+
+MyList.defaultProps = {
+    center: {lat: 40.7238556, lng: -73.9221523},
+    zoom: 11,
+    token: process.env.MapboxAccessToken
+};

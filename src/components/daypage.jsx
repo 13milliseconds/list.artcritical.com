@@ -31,7 +31,7 @@ export default class DayPage extends React.Component {
                 // it IS an event
                 
                 if ( listing.start == date) {
-                    events.push(<Listing {...listing} key={listing._id} mylist = {this.props.mylist}/>) 
+                    events.push(<Listing {...listing} key={listing._id} user={this.props.user}/>) 
                 }
                 
             } else {
@@ -39,11 +39,11 @@ export default class DayPage extends React.Component {
                 
                 //Check if it starts on this day
                 if ( listing.start == date) {
-                    openings.push(<Listing {...listing} key={listing._id} mylist = {this.props.mylist}/>) 
+                    openings.push(<Listing {...listing} key={listing._id} user={this.props.user} dateView="current"/>) 
                 } 
                 //Check if it ends on this day
                 if ( listing.end == date) {
-                    closings.push(<Listing {...listing} key={listing._id} mylist = {this.props.mylist}/>)  
+                    closings.push(<Listing {...listing} key={listing._id} user={this.props.user}/>)  
                 } 
             }
                   

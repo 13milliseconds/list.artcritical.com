@@ -27,7 +27,7 @@ export default class FuturePage extends React.Component {
         
         let thelistRender = futureListings => futureListings.map((listing, index) => {
             
-            let result = <Listing key={listing._id} {...listing} mylist={this.props.user.mylist}/>
+            let result = <Listing key={listing._id} {...listing} user={this.props.user}/>
                 
             newSecondaryNH = listing.venue.neighborhood;
             

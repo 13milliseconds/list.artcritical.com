@@ -40,6 +40,7 @@ module.exports = {
             'process.env' : {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
                 'BASE_URI': JSON.stringify(process.env.BASE_URI),
+                'MapboxAccessToken': JSON.stringify(process.env.MapboxAccessToken),
             }
         }),
     new webpack.optimize.OccurrenceOrderPlugin(),

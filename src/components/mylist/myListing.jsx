@@ -14,7 +14,6 @@ export default class Listing extends React.Component {
     
     //Function to add a listing to the personal list
     addToList(e, listing){
-        
         //Select this listing
         var thislisting = $(e.target).closest('.listing');
         
@@ -49,16 +48,17 @@ export default class Listing extends React.Component {
       <div  className = 'listing notselected' 
             id={this.props._id} key={this.props._id}>
         <div className="listingAdd">
-            <div className="addButton" onClick={(e) => this.addToList(e, this.props)} style={style}>
+            <div className="addButton" style={style}>
+               <span>{this.props.number}</span>
             </div>
         </div>
         <div className = "listingContent">
             <div className="header">
                 <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue._id}>{this.props.venue.name}</a></p>
-                <p>{this.props.start && <Date date={this.props.start} /> } {end} </p>
+                <p>{this.props.start && <Date date={this.props.start} /> } {end}  - {this.props.venue.address}{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</p>
+                <a onClick={(e) => this.addToList(e, this.props)}>Delete this listing</a>
             </div>
             <div className="moreInfo">
-                <p>{this.props.venue.address}{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</p>
                 <p>{this.props.description}</p>
                 <p>{this.props.receptionnotes}</p>
             </div>

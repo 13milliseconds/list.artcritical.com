@@ -31,7 +31,7 @@ export default class IndexPage extends React.Component {
                         <h2>{newNh}</h2>
                         <Listing 
                             {...listing} 
-                            mylist = {mylist}
+                            user={this.props.user}
                             addToList={(e) => this.addToList(e, listing)}
                             />
                     </div>

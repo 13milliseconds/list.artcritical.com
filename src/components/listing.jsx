@@ -14,39 +14,48 @@ export default class Listing extends React.Component {
     
     //Function to add a listing to the personal list
     addToList(e, listing){
-        
-        //Select this listing
-        var thislisting = $(e.target).closest('.listing');
-        
-        //Add or remove the listing to the user's list
-        AuthActions.addToUserList(listing);
-        
-        if (thislisting.hasClass('selected')){
-            
-            //Close the currently open tab
-            $(thislisting).removeClass('selected');
-            
-        } else {
-            
-            //Open this listing
-            $(thislisting).addClass('selected');
-            
+        if (this.props.user._id){
+            //Select this listing
+            var thislisting = $(e.target).closest('.listing');
+
+            //Add or remove the listing to the user's list
+            AuthActions.addToUserList(listing);
+
+            if (thislisting.hasClass('selected')){
+
+                //Close the currently open tab
+                $(thislisting).removeClass('selected');
+
+            } else {
+
+                //Open this listing
+                $(thislisting).addClass('selected');
+
+            }
         }
     }
         
     render() {
         
-    var end
-    if (this.props.event !== true && this.props.end) {
-        end = <span>to <Date date={this.props.end} /></span>;
+    //Display date according to type of listing and view
+    var dateDisplay
+    let address = <span>{this.props.venue.address}{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</span>
+        
+    if (this.props.event == true) {
+        dateDisplay = <p>{this.props.start && <Date date={this.props.start} /> } {end} - {address}</p>
+    } else {
+        if (this.props.dateView == "current") {
+            dateDisplay = <p>Until <Date date={this.props.end}/> - {address}</p>
+        } else {
+            dateDisplay = <p>{this.props.dateView}{this.props.start && <Date date={this.props.start} /> } to <Date date={this.props.end} /> - {address}</p>
+        }
     }
-        console.log(this.props.mylist);
+        
         const id = this.props._id;
         // Check if the listing is in mylist
         let mylistIndex = 0;
-        if (this.props.mylist) {
-            mylistIndex = this.props.mylist.filter(function(v) {
-                console.log(v);
+        if (this.props.user.mylist) {
+            mylistIndex = this.props.user.mylist.filter(function(v) {
                 return v._id === id;
             }).length;   
         }
@@ -58,16 +67,17 @@ export default class Listing extends React.Component {
     return (
       <div className = {mylistIndex > 0 ? 'listing selected' : 'listing notselected' } id={this.props._id}>
         <div className="listingAdd">
-            <div className="addButton" onClick={(e) => this.addToList(e, this.props)} style={style}>
+            <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, this.props)} style={style}>
+                {this.props.user._id && <i className = {mylistIndex > 0 ? 'fa fa-minus' : 'fa fa-plus' } aria-hidden="true"></i>}
             </div>
         </div>
         <div className = "listingContent">
             <div className="header">
                 <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue._id}>{this.props.venue.name}</a></p>
-                <p>{this.props.start && <Date date={this.props.start} /> } {end} </p>
+                {dateDisplay}
+                
             </div>
             <div className="moreInfo">
-                <p>{this.props.venue.address}{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</p>
                 <p>{this.props.description}</p>
                 <p>{this.props.receptionnotes}</p>
             </div>
