@@ -16,7 +16,10 @@ export default class GlancePage extends React.Component {
     componentDidMount() {
         ListActions.getGlance();
     }
-
+    
+    componentWillUnmount(){
+        ListActions.listingEditReset();
+    }
 
     render() {
         

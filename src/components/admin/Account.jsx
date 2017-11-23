@@ -14,8 +14,6 @@ export default class IndexPage extends React.Component {
             updating: false
         }
         
-        console.log(this.props.user);
-        
         //Function Binding
         this.handleChange = this.handleChange.bind(this);
         this.saveChanges = this.saveChanges.bind(this);

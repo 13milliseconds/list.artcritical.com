@@ -1,7 +1,9 @@
 import React from 'react';
 import validator from 'validator';
+import AuthActions from '../../actions/AuthActions';
 //COMPONENTS
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import FacebookButton from '../buttons/FacebookButton.jsx';
 
 
 export default class LogInForm extends React.Component {
@@ -84,7 +86,6 @@ export default class LogInForm extends React.Component {
     
     // Add the listing to the database
     handleSubmit() {
-        const { loginFunction } = this.props;
         
         let {username, password} = this.state;
         this._validate(username, password);
@@ -96,7 +97,7 @@ export default class LogInForm extends React.Component {
                 password: this.state.password
                          };
         
-            loginFunction(formData);   
+            AuthActions.attemptLogIn(formData);   
         }
       }
     
@@ -104,36 +105,40 @@ export default class LogInForm extends React.Component {
     render() {
         
         return ( 
-            <form>
-                <FormGroup>
-                <Label>Email</Label>
-                  <Input 
-                      name="username" 
-                      placeholder="Email" 
-                      type="text" 
-                      value={this.state.username} 
-                      onChange={this.handleChange} 
-                      />
-                    <div className="alert alert-danger">
-                      {this.state.errorMessage.email}
-                    </div>
-                </FormGroup>
-                <FormGroup>
-                    <Label>Password</Label>
-                    <Input 
-                        name="password" 
-                        placeholder="Password" 
-                        type="password" 
-                        value={this.state.password} 
-                        onChange={this.handleChange} 
-                        />
-                    {this.state.errorMessage.password}
-                </FormGroup>
+            <div>
+                <form>
+                    <FormGroup>
+                    <Label>Email</Label>
+                      <Input 
+                          name="username" 
+                          placeholder="Email" 
+                          type="text" 
+                          value={this.state.username} 
+                          onChange={this.handleChange} 
+                          />
+                        <div className="alert alert-danger">
+                          {this.state.errorMessage.email}
+                        </div>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label>Password</Label>
+                        <Input 
+                            name="password" 
+                            placeholder="Password" 
+                            type="password" 
+                            value={this.state.password} 
+                            onChange={this.handleChange} 
+                            />
+                        {this.state.errorMessage.password}
+                    </FormGroup>
 
-                <Button onClick={this.handleSubmit}>Log In</Button>
-                {this.props.loading && <div className='loading'>Loading</div>}
+                    <Button onClick={this.handleSubmit}>Log In</Button>
+                    {this.props.loading && <div className='loading'>Loading</div>}
+
+                </form>
                 
-            </form>
+                <FacebookButton />
+            </div>
         );
     }
 }

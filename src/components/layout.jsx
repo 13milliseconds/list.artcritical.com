@@ -36,7 +36,7 @@ export default class Layout extends React.Component {
       const mylistNum = user.mylist.length;
       
       const renderLogin = () => <Link to={'/login'} activeClassName="active">Login</Link>;
-      const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><span>Welcome, {name} | <button onClick={AuthActions.attemptLogOut}>Log Out</button></span></div>;
+      const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><span>Welcome, {name} <button onClick={AuthActions.attemptLogOut}>Log Out</button></span></div>;
       
     return (
       <div className="app-container">

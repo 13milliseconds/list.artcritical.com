@@ -146,13 +146,13 @@ router.get('/eventslistings', function (req, res) {
 
 
 //#######################
-/* GET ONE listing */
+/* FIND listings based on text */
 //#######################
 
-router.get('/find/:listing_id', function (req, res, next) {
+router.get('/find/:regex_input', function (req, res, next) {
     var List = req.list;
 
-    var regexp = new RegExp("^" + req.params.listing_id, "i");
+    var regexp = new RegExp("^" + req.params.regex_input, "i");
     
     List
     .find({name: regexp})

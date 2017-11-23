@@ -47,7 +47,7 @@ export default class Listing extends React.Component {
         if (this.props.dateView == "current") {
             dateDisplay = <p>Until <Date date={this.props.end}/> - {address}</p>
         } else {
-            dateDisplay = <p>{this.props.dateView}{this.props.start && <Date date={this.props.start} /> } to <Date date={this.props.end} /> - {address}</p>
+            dateDisplay = <p>{this.props.start && <Date date={this.props.start} /> }{this.props.end && <span> to <Date date={this.props.end} /></span>} - {address}</p>
         }
     }
         
@@ -82,10 +82,14 @@ export default class Listing extends React.Component {
                 <p>{this.props.receptionnotes}</p>
             </div>
         </div>
+        {this.props.description || this.props.receptionnotes ? 
         <div className="listingClose">
             <i className="fa fa-plus-square-o" aria-hidden="true"></i>
             <i className="fa fa-minus-square-o" aria-hidden="true"></i>
         </div>
+                :
+            <div className="listingClose"></div>
+        }
       </div>
     );
   }

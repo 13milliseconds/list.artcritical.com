@@ -22,6 +22,8 @@ class ListActions {
             'getListingInfoFailure',
             'getVenueInfoSuccess',
             'getVenueInfoFailure',
+            'getVenueFullInfoSuccess',
+            'getVenueFullInfoFailure',
             'saveListingSuccess',
             'saveListingFailure',
             'saveListingAttempt',
@@ -155,6 +157,9 @@ class ListActions {
     listingEditReset() {
         return true;
     }
+    venueEditReset() {
+        return true;
+    }
     
     // When new listing info is entered
     listingInfoChange(event){
@@ -162,6 +167,10 @@ class ListActions {
     }
     // When new feature info is entered
     featureInfoChange(event){
+        return event;
+    }
+    // When new feature info is entered
+    venueInfoChange(event){
         return event;
     }
     
@@ -345,6 +354,29 @@ class ListActions {
         })
         .catch((error) => {
             this.getVenueInfoFailure(error)
+        });
+    }
+    
+    async getVenueFullInfo(id){
+        await fetch(
+          process.env.BASE_URI + '/venues/getfullinfo/' + id,
+          {
+            method: 'GET',
+            credentials: 'same-origin',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.getVenueFullInfoSuccess(json)
+            return true;
+        })
+        .catch((error) => {
+            this.getVenueFullInfoFailure(error)
         });
     }
     

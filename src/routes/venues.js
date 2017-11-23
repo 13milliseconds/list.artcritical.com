@@ -41,7 +41,11 @@ router.get('/getadmin/:offset_ratio', function (req, res, next) {
         });
 });
 
-/* GET  a set of venue */
+
+/////////////////////////////
+/*  GET  a set of venues  */
+////////////////////////////
+
 router.get('/find/:venue_id', function (req, res, next) {
     var Venue = req.venue;
     
@@ -64,8 +68,30 @@ router.get('/find/:venue_id', function (req, res, next) {
 
 });
 
-/* GET info for one venue */
+//#######################
+// GET ONE venue simple info 
+//#######################
 router.get('/getinfo/:venue_id', function (req, res, next) {
+    var Venue = req.venue;
+
+    Venue.findOne({
+        _id: req.params.venue_id
+    }).
+    exec(function (e, docs) {
+        if (e)
+            res.send(e);
+
+        res.json(docs);
+    });
+
+});
+
+
+//#######################
+/* GET the full info for one venue */
+//#######################
+
+router.get('/getfullinfo/:venue_id', function (req, res, next) {
     var Venue = req.venue;
     var List = req.list;
     
@@ -80,17 +106,20 @@ router.get('/getinfo/:venue_id', function (req, res, next) {
             List.find({ venue: venue[0]._id}).
             where('start').lte(today).
             where('end').gte(today).
+            populate('venue').
             exec(function (e, current) {
                 
                 List.find({ venue: venue[0]._id}).
                 where('start').gte(today).
                 limit(4).
+                populate('venue').
                 exec(function (e, upcoming) {
                     
                     List.find({ venue: venue[0]._id}).
                     where('end').lte(today).
                     sort('-end').
                     limit(4).
+                    populate('venue').
                     exec(function (e, past) {
                         var data = {
                             venue: venue[0],

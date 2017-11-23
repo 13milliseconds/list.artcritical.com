@@ -51,7 +51,7 @@ export default class NewListing extends React.Component {
                     <div id="newlistingDemo">
                         <h2>Listing Preview</h2>
                         <div className="medium listingsWrap">
-                            <Listing {...this.props.listingEdit} />
+                            <Listing {...this.props.listingEdit} user="" />
                         </div>
                     </div>
                 </div>

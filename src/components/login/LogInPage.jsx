@@ -1,11 +1,9 @@
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
-import AuthActions from '../../actions/AuthActions';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 //COMPONENTS
 import LogInForm from './LogInForm.jsx';
-import FacebookButton from '../buttons/FacebookButton.jsx';
 
 export default class LogInPage extends React.Component {
     
@@ -30,8 +28,7 @@ export default class LogInPage extends React.Component {
                     <h2>Login</h2>
                 </header>
                 <div className="admin-content">
-                <LogInForm loginFunction={AuthActions.attemptLogIn} loading={this.props.isLoggingIn} />
-                <FacebookButton />
+                <LogInForm loading={this.props.isLoggingIn} />
             </div>
                 Need to sign up? <Link to={'/signup'} activeClassName="active">Sign Up</Link>
             </div>

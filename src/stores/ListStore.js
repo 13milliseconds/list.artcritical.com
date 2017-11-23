@@ -42,6 +42,10 @@ class ListStore {
         this.listingEdit.venue = {};
         this.listingEdit.venue._id = '';
         this.listingEdit.venue.address = '';
+        //New venue states
+        this.venueEdit = {};
+        this.venueEdit._id = '';
+        this.venueEdit.name = '';
         // Featured listings
         this.feature = {};
         this.feature.text = '';
@@ -142,6 +146,14 @@ class ListStore {
             start: null
         };
     }
+    onVenueEditReset(){
+        this.venueEdit = {
+            _id: '',
+            name: '',
+            address: '',
+            website: '',
+        };
+    }
     
     // Get listing info
     onGetListingInfoSuccess(data){
@@ -153,7 +165,7 @@ class ListStore {
     }
     
     // Get venue info
-    onGetVenueInfoSuccess(data){
+    onGetVenueFullInfoSuccess(data){
         this.listingEdit.venue = data.venue;
         this.venue = data.venue;
         this.venue.currentListings = data.currentListings;
@@ -172,6 +184,13 @@ class ListStore {
             }
         });*/
         
+    }
+    // Get venue info
+    onGetVenueInfoSuccess(data){
+        this.venueEdit = data;
+    }
+    onGetVenueFullInfoFailure(jqXhr){
+        toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
     onGetVenueInfoFailure(jqXhr){
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
@@ -276,11 +295,18 @@ class ListStore {
         }
     }
     
-    //Update info on listing page
+    //Update info on feature page
     onFeatureInfoChange (info){
             const value = info.target.value;
             const name = info.target.name;   
             this.feature[name] = value;
+    }
+    
+    //Update info on venue page
+    onVenueInfoChange (info){
+            const value = info.target.value;
+            const name = info.target.name;   
+            this.venueEdit[name] = value;
     }
     
     //FEATURED

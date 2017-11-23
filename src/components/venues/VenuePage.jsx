@@ -17,7 +17,7 @@ export default class VenuePage extends React.Component {
     }
     
     componentWillMount(){
-        ListActions.getVenueInfo(this.props.params.id);
+        ListActions.getVenueFullInfo(this.props.params.id);
     }
 
     render() {
@@ -41,9 +41,9 @@ export default class VenuePage extends React.Component {
                 {this.props.venue.coordinates && <MapBlock {...this.props.venue} />}
                 <div className="listingsWrap">
                     <Tabs>
-                        <VenueListings view={this.props.view} listings={this.props.venue.currentListings} mylist={this.props.mylist} label="Current Shows" />
-                        <VenueListings view={this.props.view} listings={this.props.venue.upcomingListings} mylist={this.props.mylist} label="Upcoming Shows" />
-                        <VenueListings view={this.props.view} listings={this.props.venue.pastListings} mylist={this.props.mylist} label="Past Shows" />
+                        <VenueListings view={this.props.view} listings={this.props.venue.currentListings} user={this.props.user} label="Current Shows" />
+                        <VenueListings view={this.props.view} listings={this.props.venue.upcomingListings} user={this.props.user} label="Upcoming Shows" />
+                        <VenueListings view={this.props.view} listings={this.props.venue.pastListings} user={this.props.user} label="Past Shows" />
                     </Tabs>
                 </div>
             </div>
