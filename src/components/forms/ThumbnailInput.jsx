@@ -21,7 +21,7 @@ export default class Thumbnail extends React.Component {
             isUploading: true
         });
         
-        ImagesActions.handleThumbnailUpload(file[0]);
+        ImagesActions.handleThumbnailUpload(file[0], this.props.number);
     }
     
         

@@ -4,10 +4,12 @@ var mongoose = require('mongoose');
 
 var venueSchema = mongoose.Schema({
     name: String,
-    blurb: String,
+    slug: String,
     website: String,
     address: String,
     city: String,
+	state: String,
+	zipcode: Number,
     neighborhood: Number,
     coordinates: {
         lat: Number,
@@ -16,5 +18,4 @@ var venueSchema = mongoose.Schema({
 });
 
 //compile the model
-
 module.exports = mongoose.model('Venue', venueSchema);

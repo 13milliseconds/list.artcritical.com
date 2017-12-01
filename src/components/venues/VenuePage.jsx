@@ -1,7 +1,5 @@
 import React from 'react';
 import ListActions from '../../actions/ListActions';
-var MapboxClient = require('mapbox');
-var client = new MapboxClient('pk.eyJ1IjoiYXJ0Y3JpdGljYWwiLCJhIjoiY2o5ZWUzdGlrMmIydjJ3bnJpeWxsN2I1YSJ9.HKlVu4oYspR74CeCdVouRg');
 //COMPONENTS
 import MapBlock from '../blocks/mapBlock';
 import VenueListings from './VenueListings';
@@ -17,7 +15,7 @@ export default class VenuePage extends React.Component {
     }
     
     componentWillMount(){
-        ListActions.getVenueFullInfo(this.props.params.id);
+        ListActions.getVenueFullInfo(this.props.params.slug);
     }
 
     render() {
@@ -33,7 +31,7 @@ export default class VenuePage extends React.Component {
                 const newCoords = data.features[0].center;
                 ListActions.updateVenue(newCoords, venueId);
             })
-        }
+        } 
         
         return ( 
             <div className="venuePage">

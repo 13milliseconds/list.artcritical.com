@@ -7,8 +7,8 @@ export default class FeatureBlock extends React.Component {
     
     render() {
         const feature = this.props.feature
-        const venue = this.props.feature.venue
-        const listing = this.props.feature.list
+        const venue = this.props.feature.venue ? this.props.feature.venue : {}
+        const listing = this.props.feature.list ? this.props.feature.list : {}
         
         let start = listing.start?
                     <IntlProvider locale="en">

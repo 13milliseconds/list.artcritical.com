@@ -64,7 +64,7 @@ export default class VenueItem extends React.Component {
         
         let classNames = ['venue']
         this.state.old && classNames.push('old')
-        this.state.expired && classNames.push('expired')
+        this.state.expired && classNames.push('expired') 
         this.state.upcoming && classNames.push('upcoming')
         
         let currentListings = (listings) => listings.map((listing, index) =>
@@ -74,7 +74,7 @@ export default class VenueItem extends React.Component {
           
     return (
       <div className={classNames.join(' ')} id={this.props._id}>
-        <Link to={"/venue/" + this.props._id}>{this.props.name}</Link>
+        <Link to={"/venue/" + this.props.slug}>{this.props.name}</Link>
             {currentListings(this.state.currentListings)}
             {this.state.nextDate && <div>Upcoming show: <DateBlock date={this.state.nextDate}/></div>}
       </div>

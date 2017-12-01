@@ -33,7 +33,7 @@ export default class ListingEdit extends React.Component {
       }
     
     handleSelectChange (data) {
-        if (data.value){
+        if (data){
             //Fetch all the venue info
             ListActions.getListingInfo(data.value);
         }

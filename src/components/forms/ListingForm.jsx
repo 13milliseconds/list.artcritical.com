@@ -1,11 +1,12 @@
-import React from 'react';
-import ToggleButton from 'react-toggle-button';
-import ListActions from '../../actions/ListActions';
+import React from 'react'
+import ToggleButton from 'react-toggle-button'
+import ListActions from '../../actions/ListActions'
+import {browserHistory} from 'react-router';
 //Components
-import DateRange from './formDateRange';
-import DateSingle from './formDateSingle';
-import Select from './formSelect';
-import ThumbnailInput from './ThumbnailInput';
+import DateRange from './formDateRange'
+import DateSingle from './formDateSingle'
+import Select from './formSelect'
+import ThumbnailInput from './ThumbnailInput'
 
 
 
@@ -15,7 +16,7 @@ export default class ListingForm extends React.Component {
         super(props);
         
         this.state = {
-            event: this.props.event
+            event: this.props.event,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -32,15 +33,18 @@ export default class ListingForm extends React.Component {
         if (data) {
             if (data.label == data.value) {
                 // Create a new venue
-
+				ListActions.venueInfoChange({
+					name: 'name', 
+					value: data.value
+				})
+				browserHistory.push('/account/editvenue');
             } else {
                 //Fetch all the venue info
                 ListActions.getVenueInfo(data.value);
             }    
         } else {
             ListActions.resetVenue();
-        }
-        
+        }   
     }
     
     render() {
@@ -109,9 +113,15 @@ export default class ListingForm extends React.Component {
                 <ThumbnailInput {...this.props} /> 
                 
                 <button onClick={this.props.handleSubmit}>Submit</button>
-                {this.props.loading && <div className='loading'>loading</div>}
-                {this.props.success && <div className='success'>Saved!</div>}
-                {this.props.error.general && <div className='error'>{this.props.error.general}</div>}
+                {this.props.loading && 
+                    <div className='loading'>loading</div>
+                }
+                {this.props.success && 
+                    <div className='success'>Saved!</div>
+                }
+                {this.props.error.general && 
+                    <div className='error'>{this.props.error.savelisting.general}</div>
+                }
                 {deleteButton}
                 
             </div>

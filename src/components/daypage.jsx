@@ -1,6 +1,7 @@
 import React from 'react';
 import {IntlProvider, FormattedDate} from 'react-intl';
 import ListActions from '../actions/ListActions';
+import moment from 'moment';
 //COMPONENTS
 import Listing from './listing';
 import FeatureBlock from './blocks/featureBlock';
@@ -11,44 +12,58 @@ export default class DayPage extends React.Component {
     
     constructor(props) {
         super(props);
+		
+		this.state={
+			date: moment(this.props.date).format().slice(0,10),
+			openings: [],
+			events: [],
+        	closings: [],
+		}
     }
     
     componentWillMount(){
         ListActions.featureReset();
         ListActions.featureLoad({date: this.props.date});
     }
-
-    render() {
-        let date = this.props.date.toISOString()
-        
-        let openings = []
-        let events = []
-        let closings = []
-        
-        let thelist = this.props.glanceListings.map((listing) => {
+	
+	componentWillReceiveProps(nextProps){
+		
+		let events = []
+		let openings = []
+		let closings = []
+		
+		this.props.glanceListings.map((listing) => {
             // Check if it is an event
             if ( listing.event == true) {
                 // it IS an event
                 
-                if ( listing.start == date) {
+                if ( moment(listing.start).format().slice(0,10) == this.state.date) {
                     events.push(<Listing {...listing} key={listing._id} user={this.props.user}/>) 
                 }
                 
             } else {
                 //not an event
-                
                 //Check if it starts on this day
-                if ( listing.start == date) {
+                if (moment(listing.start).format().slice(0,10) == this.state.date) {
                     openings.push(<Listing {...listing} key={listing._id} user={this.props.user} dateView="current"/>) 
                 } 
                 //Check if it ends on this day
-                if ( listing.end == date) {
+                if (moment(listing.end).format().slice(0,10) == this.state.date) {
                     closings.push(<Listing {...listing} key={listing._id} user={this.props.user}/>)  
                 } 
             }
+			
+			this.setState({
+				openings: openings,
+				events: events,
+				closings: closings,
+			})
                   
         });
-        
+		
+	}
+
+    render() {
         
         return ( 
             <div className = "day">
@@ -57,14 +72,15 @@ export default class DayPage extends React.Component {
             </div>
             <SizeSelector view={this.props.view} />
             <div className={this.props.view + " listingsWrap"}>
-                    { openings.length > 0 && <h3>Openings</h3>}
-                        {openings}
-                    { events.length > 0 && <h3>Events</h3> }
-                        {events}
-                    { closings.length > 0 && <h3>Closing</h3> }
-                        {closings}
+                    { this.state.openings.length > 0 && <h3>Openings</h3>}
+                        {this.state.openings}
+                    { this.state.events.length > 0 && <h3>Events</h3> }
+                        {this.state.events}
+                    { this.state.closings.length > 0 && <h3>Closing</h3> }
+                        {this.state.closings}
                         
-                    { (closings.length + events.length + openings.length) == 0 && <h3>Nothing happening today!</h3> }
+                    { (this.state.closings.length + this.state.events.length + this.state.openings.length) == 0 
+					 && <h3>Nothing happening today!</h3> }
             </div>
             </div>
         );

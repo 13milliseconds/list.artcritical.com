@@ -7,52 +7,59 @@ import FeaturedForm from '../forms/featuredForm';
 import FeatureBlock from '../blocks/featureBlock';
 
 
-export default class ListingEdit extends React.Component {
+export default class FeaturedDay extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+		this.handleChange = this.handleChange.bind(this)
       }
-    
-    componentWillMount(){
-        ListActions.featureLoad({date: this.props.date});
-    }
     
     componentWillUnmount(){
         ListActions.featureReset();
     }
+	
+	componentWillReceiveProps(nextProps){
+		
+	}
     
     
     // Add the listing to the database
     handleSubmit(event) {
-        const id = this.props.feature._id ? this.props.feature._id : null
+        const id = this.props.feature._id || null
         let newFeature = {
             _id:    id,
             date:   this.props.date,
             text:   this.props.feature.text,
             list:   this.props.feature.list._id,
-            venue:  this.props.feature.list.venue._id
+			venue:  this.props.feature.list.venue._id
         }
         let newThumbnail = {
             _id:    this.props.feature.list._id,
             image:  this.props.feature.list.image
         }
         ListActions.updateFeature(newFeature)
-        ListActions.updateListing(newThumbnail)
+        ListActions.updateListing(newThumbnail, this.props.dayNumber)
       }
+	
+	handleChange (event) {
+        ListActions.featureInfoChange(event, this.props.dayNumber);
+    }
     
     handleSelectChange (data) {
         if (data.value){
             //Fetch all the listing info
-            ListActions.getListingInfo(data.value);
+            ListActions.getListingInfo(data.value, this.props.dayNumber);
         }
     }
     
     render() {
+		
+		let list = this.props.feature.list ? this.props.feature.list : {name: '', _id:''}
         
-        //how ot get option for select element
+        //how to get option for select element
         const getOptions = (input) => {
           return fetch('/list/find/' + input)
             .then((response) => {
@@ -65,11 +72,11 @@ export default class ListingEdit extends React.Component {
         return ( 
             <div>
                 <div className="column-2of3">
-                    <Select value={{label: this.props.feature.list.name, value: this.props.feature.list._id}} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
-                    <FeaturedForm {...this.props.feature}  handleSubmit={this.handleSubmit} />
+                    <Select value={{label: list.name, value: list._id}} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
+                    <FeaturedForm {...this.props.feature} number={this.props.dayNumber} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
                 </div>
                 <div className="column-1of3">
-                    {this.props.error ? this.props.error : <FeatureBlock feature={this.props.feature}/>}
+                    {this.props.feature.list ? <FeatureBlock feature={this.props.feature}/> : this.props.error }
                 </div>
             </div>
         );

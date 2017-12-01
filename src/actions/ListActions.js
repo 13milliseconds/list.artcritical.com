@@ -27,6 +27,9 @@ class ListActions {
             'saveListingSuccess',
             'saveListingFailure',
             'saveListingAttempt',
+			'saveVenueSuccess',
+            'saveVenueFailure',
+            'saveVenueAttempt',
             'updateListingSuccess',
             'updateListingFailure',
             'updateListingAttempt',
@@ -39,6 +42,8 @@ class ListActions {
             'featureLoadFailure',
             'deleteListingSuccess',
             'deleteListingFailure',
+			'deleteVenueSuccess',
+            'deleteVenueFailure',
             'getVenueListingsSuccess',
             'getVenueListingsFailure',
             'getVenuesAdminSuccess',
@@ -166,12 +171,16 @@ class ListActions {
         return event;
     }
     // When new feature info is entered
-    featureInfoChange(event){
-        return event;
+    featureInfoChange(event, i){
+        return {event, i};
     }
     // When new feature info is entered
-    venueInfoChange(event){
-        return event;
+    venueInfoChange(info){
+        return info;
+    }
+    // When new coordinates are fetched automatically
+    coordinatesChange(coord){
+        return coord;
     }
     
     async saveListing(newListing) {
@@ -209,7 +218,14 @@ class ListActions {
     async deleteListing(oldListing) {
 
         await fetch(
-          process.env.BASE_URI + '/list/delete/' + oldListing
+          process.env.BASE_URI + '/list/delete/' + oldListing,
+			{
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
         )
         .then((response) => {
           if (response.status === 200) {
@@ -219,6 +235,7 @@ class ListActions {
         })
         .then((json) => {
             this.deleteListingSuccess(json);
+			this.listingEditReset();
             return true;
         })
         .catch((error) => {
@@ -259,14 +276,15 @@ class ListActions {
         
     }
     
-    getListingInfo(id){
+    getListingInfo(id, i){
+		console.log('Getting the info');
         return dispatch => {
             dispatch();
             $.ajax({
                     url: process.env.BASE_URI + '/list/getinfo/' + id
                 })
                 .done((data) => {
-                    this.getListingInfoSuccess(data)
+                    this.getListingInfoSuccess({data, i})
                 })
                 .fail((jqXhr) => {
                     this.getListingInfoFailure(jqXhr)
@@ -294,6 +312,7 @@ class ListActions {
           return null;
         })
         .then((json) => {
+			console.log(json);
             this.updateFeatureSuccess(json);
             return true;
         })
@@ -306,14 +325,13 @@ class ListActions {
         return true;
     }
     
-    async featureLoad(data){
+    async featureLoad(){
         
         await fetch(
           process.env.BASE_URI + '/list/findfeature',
           {
             method: 'POST',
             credentials: 'same-origin',
-            body: JSON.stringify(data),
             headers: {
               'Content-Type': 'application/json',
             }
@@ -326,7 +344,7 @@ class ListActions {
           return null;
         })
         .then((json) => {
-            this.featureLoadSuccess(json[0]);
+            this.featureLoadSuccess(json);
             return true;
         })
         .catch((error) => {
@@ -372,6 +390,7 @@ class ListActions {
           return null;
         })
         .then((json) => {
+			console.log(json)
             this.getVenueFullInfoSuccess(json)
             return true;
         })
@@ -435,7 +454,6 @@ class ListActions {
     }
     
     async updateVenue(info){
-        console.log('updating: ', info)
         
         this.updateVenueAttempt();
 
@@ -458,12 +476,72 @@ class ListActions {
         })
         .then((json) => {
             this.updateVenueSuccess(json);
-            this.listingEditReset();
+            this.venueEditReset();
             return true;
         })
         .catch((error) => {
             this.updateVenueFailure(error);
         });
+    }
+	
+	async saveVenue(newVenue){
+		
+		this.saveVenueAttempt();
+
+        await fetch(
+          process.env.BASE_URI + '/venues/add',
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify(newVenue),
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+			this.venueEditReset();
+            this.saveVenueSuccess(json);
+            return true;
+        })
+        .catch((error) => {
+            this.saveVenueFailure(error);
+        });
+		
+	}
+	
+	async deleteVenue(oldVenue) {
+
+        await fetch(
+          process.env.BASE_URI + '/venues/delete/' + oldVenue ,
+			{
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.deleteVenueSuccess(json);
+            return true;
+        })
+        .catch((error) => {
+            this.deleteVenueFailure(error);
+        });
+        
     }
     
 }

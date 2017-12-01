@@ -9,10 +9,10 @@ var featureSchema = mongoose.Schema({
         ref: 'List',
         type: String
       },
-    venue: {
+	venue: {
         ref: 'Venue',
         type: String
-      },
+      }
 });
 
 //compile the model

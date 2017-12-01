@@ -68,6 +68,7 @@
         "react-addons-shallow-compare": "^15.6.0",
         "react-addons-transition-group": "^15.6.2",
         "react-beautiful-dnd": "^2.5.0",
+        "react-confirm-alert": "^1.0.8",
         "react-dates": "^12.3.0",
         "react-dom": "^15.4.0",
         "react-dropzone": "^4.1.3",

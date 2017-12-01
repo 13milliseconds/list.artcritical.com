@@ -34,7 +34,7 @@ class ImagesActions {
         });
     }
     
-    handleThumbnailUpload(file){
+    handleThumbnailUpload(file, i){
         console.log('Image Uploading');
         const CLOUDINARY_UPLOAD_PRESET = 'Listing';
         const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/artcritical/image/upload';
@@ -50,8 +50,8 @@ class ImagesActions {
           }
 
           if (response.body.secure_url !== '') {
-              console.log('Image Uploaded');
-              this.thumbnailUploadSuccess(response.body);
+			  let image = response.body
+              this.thumbnailUploadSuccess({image, i});
           }
         });
     }

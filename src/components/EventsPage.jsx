@@ -26,12 +26,12 @@ export default class EventsPage extends React.Component {
                 return (
                     <div key={listing._id}>
                         <h2><Date date={newDate} /></h2>
-                        <Listing {...listing} mylist = {this.props.mylist}/>
+                        <Listing {...listing} user={this.props.user}/>
                     </div>
                 )
             } else {
                 return (
-                  <Listing {...listing} key={listing._id} mylist={this.props.user.mylist}/>
+                  <Listing {...listing} key={listing._id} user={this.props.user}/>
               )   
             }
         });

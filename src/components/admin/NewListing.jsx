@@ -19,10 +19,9 @@ export default class NewListing extends React.Component {
     
     // Add the listing to the database
     handleSubmit(event) {
-        var listingId = this.props.listingEdit._id || null;
         let newListing = {
-            _id: listingId,
             name: this.props.listingEdit.name,
+			event: this.props.listingEdit.event,
             start: this.props.listingEdit.start,
             end: this.props.listingEdit.end,
             venue: this.props.listingEdit.venue._id,

@@ -21,7 +21,7 @@ export default class MyMap extends React.Component {
         return allListings.map((listing, index, done) => {
           
           num = num + 1
-          const thisNum = num
+          const thisNum = num 
 
         if (listing.venue){
             const newMarker = <Marker key={listing._id}

@@ -121,8 +121,7 @@ router.get('/glancelistings', function (req, res) {
 //#######################
 
 router.get('/eventslistings', function (req, res) {
-    var List = req.list,
-        Venue = req.venue;
+    var List = req.list;
 
     //Find today's date
     var today = new Date();
@@ -140,6 +139,7 @@ router.get('/eventslistings', function (req, res) {
     sort('start').
     populate('venue').
     exec(function (e, docs) {
+		console.log(e, docs);
         res.json(docs);
     });
 });
@@ -152,7 +152,7 @@ router.get('/eventslistings', function (req, res) {
 router.get('/find/:regex_input', function (req, res, next) {
     var List = req.list;
 
-    var regexp = new RegExp("^" + req.params.regex_input, "i");
+    var regexp = new RegExp(req.params.regex_input, "i");
     
     List
     .find({name: regexp})
@@ -258,12 +258,9 @@ router.post('/update', function (req, res) {
 router.post('/feature', function (req, res) {
     var Feature = req.feature;
 
-    console.log("Update one feature");
-
     if (req.body._id) {
 
         //Update feature
-        console.log('Update feature');
 
         var theFeature = new Feature(req.body);
 
@@ -272,14 +269,12 @@ router.post('/feature', function (req, res) {
         }, {
             $set: theFeature
         }, function (err, newFeature) {
-            console.log('Updated feature: ', newFeature)
             res.send((err === null) ? { msg: '' } : { msg: err });
         });
 
 
     } else {
         // New feature
-        console.log('New feature');
 
         var theFeature = new Feature(req.body);
 
@@ -298,10 +293,20 @@ router.post('/feature', function (req, res) {
 router.post('/findfeature', function (req, res) {
     var Feature = req.feature;
 
-    console.log("Find one feature");
+    console.log("Find all features");
+	
+	//Find today's date
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var inaWeek = new Date();
+    inaWeek.setDate(inaWeek.getDate() + 7);
+    inaWeek.setHours(0, 0, 0, 0);
     
     Feature.find({
-        date: req.body.date
+        date: {
+                $gte: today,
+                $lt: inaWeek
+            }
     }).
     populate('list').
     populate('venue').

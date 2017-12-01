@@ -1,5 +1,5 @@
 import React from 'react'
-import {Router, Route, IndexRoute } from 'react-router'
+import {Router, Route, IndexRoute, browserHistory } from 'react-router'
 import Layout from './components/layout';
 import IndexPage from './components/IndexPage';
 import CurrentPage from './components/CurrentPage';
@@ -23,7 +23,7 @@ import Account from './components/admin/Account';
 import ErrorPage from './components/ErrorPage';
 
 const routes = (
-      <Route path="/" component={Layout}>
+      <Route path="/" component={Layout} history={browserHistory}>
         <IndexRoute component={GlancePage}/>
         <Route path="current" component={CurrentPage}/>
         <Route path="future" component={FuturePage}/>
@@ -31,14 +31,14 @@ const routes = (
         <Route path="signup" component={SignUpPage}/>
         <Route path="mylist" component={MyListPage}/>
         <Route path="login" component={LogInPage}/>
-        <Route path="venue/:id" component={VenuePage}/>
-        <Route path="venuesadmin" component={VenuesPage}/>
+        <Route path="venue/:slug" component={VenuePage}/>
         <Route path="account" component={AdminPage}>
             <IndexRoute component={Account}/>
             <Route path="editlisting" component={EditListing}/>
             <Route path="newlisting" component={NewListing}/>
             <Route path="editvenue" component={EditVenue}/>
             <Route path="featured" component={FeaturedListings}/>
+			<Route path="venuesadmin" component={VenuesPage}/>
         </Route>
         <Route path="*" component={ErrorPage}/>
       </Route>

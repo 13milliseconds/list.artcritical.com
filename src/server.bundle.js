@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 34);
+/******/ 	return __webpack_require__(__webpack_require__.s = 37);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -100,7 +100,7 @@ var ListActions = function () {
     function ListActions() {
         _classCallCheck(this, ListActions);
 
-        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsSuccess', 'getEventsFail', 'getGlanceSuccess', 'getGlanceFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadSuccess', 'featureLoadFailure', 'deleteListingSuccess', 'deleteListingFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess');
+        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsSuccess', 'getEventsFail', 'getGlanceSuccess', 'getGlanceFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'saveVenueSuccess', 'saveVenueFailure', 'saveVenueAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadSuccess', 'featureLoadFailure', 'deleteListingSuccess', 'deleteListingFailure', 'deleteVenueSuccess', 'deleteVenueFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess');
     }
 
     _createClass(ListActions, [{
@@ -224,15 +224,22 @@ var ListActions = function () {
 
     }, {
         key: 'featureInfoChange',
-        value: function featureInfoChange(event) {
-            return event;
+        value: function featureInfoChange(event, i) {
+            return { event: event, i: i };
         }
         // When new feature info is entered
 
     }, {
         key: 'venueInfoChange',
-        value: function venueInfoChange(event) {
-            return event;
+        value: function venueInfoChange(info) {
+            return info;
+        }
+        // When new coordinates are fetched automatically
+
+    }, {
+        key: 'coordinatesChange',
+        value: function coordinatesChange(coord) {
+            return coord;
         }
     }, {
         key: 'saveListing',
@@ -266,13 +273,20 @@ var ListActions = function () {
         value: async function deleteListing(oldListing) {
             var _this7 = this;
 
-            await fetch(process.env.BASE_URI + '/list/delete/' + oldListing).then(function (response) {
+            await fetch(process.env.BASE_URI + '/list/delete/' + oldListing, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
                 if (response.status === 200) {
                     return response.json();
                 }
                 return null;
             }).then(function (json) {
                 _this7.deleteListingSuccess(json);
+                _this7.listingEditReset();
                 return true;
             }).catch(function (error) {
                 _this7.deleteListingFailure(error);
@@ -307,15 +321,16 @@ var ListActions = function () {
         }
     }, {
         key: 'getListingInfo',
-        value: function getListingInfo(id) {
+        value: function getListingInfo(id, i) {
             var _this9 = this;
 
+            console.log('Getting the info');
             return function (dispatch) {
                 dispatch();
                 $.ajax({
                     url: process.env.BASE_URI + '/list/getinfo/' + id
                 }).done(function (data) {
-                    _this9.getListingInfoSuccess(data);
+                    _this9.getListingInfoSuccess({ data: data, i: i });
                 }).fail(function (jqXhr) {
                     _this9.getListingInfoFailure(jqXhr);
                 });
@@ -342,6 +357,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
+                console.log(json);
                 _this10.updateFeatureSuccess(json);
                 return true;
             }).catch(function (error) {
@@ -355,13 +371,12 @@ var ListActions = function () {
         }
     }, {
         key: 'featureLoad',
-        value: async function featureLoad(data) {
+        value: async function featureLoad() {
             var _this11 = this;
 
             await fetch(process.env.BASE_URI + '/list/findfeature', {
                 method: 'POST',
                 credentials: 'same-origin',
-                body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -371,7 +386,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this11.featureLoadSuccess(json[0]);
+                _this11.featureLoadSuccess(json);
                 return true;
             }).catch(function (error) {
                 _this11.featureLoadFailure(error);
@@ -411,6 +426,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
+                console.log(json);
                 _this13.getVenueFullInfoSuccess(json);
                 return true;
             }).catch(function (error) {
@@ -475,8 +491,6 @@ var ListActions = function () {
         value: async function updateVenue(info) {
             var _this16 = this;
 
-            console.log('updating: ', info);
-
             this.updateVenueAttempt();
 
             await fetch(process.env.BASE_URI + '/venues/update', {
@@ -493,10 +507,60 @@ var ListActions = function () {
                 return null;
             }).then(function (json) {
                 _this16.updateVenueSuccess(json);
-                _this16.listingEditReset();
+                _this16.venueEditReset();
                 return true;
             }).catch(function (error) {
                 _this16.updateVenueFailure(error);
+            });
+        }
+    }, {
+        key: 'saveVenue',
+        value: async function saveVenue(newVenue) {
+            var _this17 = this;
+
+            this.saveVenueAttempt();
+
+            await fetch(process.env.BASE_URI + '/venues/add', {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: JSON.stringify(newVenue),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                return null;
+            }).then(function (json) {
+                _this17.venueEditReset();
+                _this17.saveVenueSuccess(json);
+                return true;
+            }).catch(function (error) {
+                _this17.saveVenueFailure(error);
+            });
+        }
+    }, {
+        key: 'deleteVenue',
+        value: async function deleteVenue(oldVenue) {
+            var _this18 = this;
+
+            await fetch(process.env.BASE_URI + '/venues/delete/' + oldVenue, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                return null;
+            }).then(function (json) {
+                _this18.deleteVenueSuccess(json);
+                return true;
+            }).catch(function (error) {
+                _this18.deleteVenueFailure(error);
             });
         }
     }]);
@@ -529,7 +593,7 @@ var _alt = __webpack_require__(10);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(22);
+__webpack_require__(24);
 
 var _bluebird = __webpack_require__(15);
 
@@ -872,8 +936,6 @@ var Listing = function (_React$Component) {
                     'p',
                     null,
                     this.props.start && _react2.default.createElement(_DateBlock2.default, { date: this.props.start }),
-                    ' ',
-                    end,
                     ' - ',
                     address
                 );
@@ -943,7 +1005,7 @@ var Listing = function (_React$Component) {
                             this.props.venue._id !== '' && ' at ',
                             _react2.default.createElement(
                                 'a',
-                                { className: 'venueName', href: "/venue/" + this.props.venue._id },
+                                { className: 'venueName', href: "/venue/" + this.props.venue.slug },
                                 this.props.venue.name
                             )
                         ),
@@ -1218,7 +1280,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _alt = __webpack_require__(46);
+var _alt = __webpack_require__(49);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -1302,7 +1364,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(91);
+var _reactSelect = __webpack_require__(89);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1380,7 +1442,7 @@ var _ImagesActions = __webpack_require__(17);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _toastr = __webpack_require__(56);
+var _toastr = __webpack_require__(59);
 
 var _toastr2 = _interopRequireDefault(_toastr);
 
@@ -1428,14 +1490,11 @@ var ListStore = function () {
         this.listingEdit.venue._id = '';
         this.listingEdit.venue.address = '';
         //New venue states
-        this.venueEdit = {};
-        this.venueEdit._id = '';
-        this.venueEdit.name = '';
+        this.venueEdit = {
+            coordinates: {}
+        };
         // Featured listings
-        this.feature = {};
-        this.feature.text = '';
-        this.feature.list = {};
-        this.feature.venue = {};
+        this.features = [];
         //Venues
         this.allVenues = [];
         this.venue = {};
@@ -1448,6 +1507,9 @@ var ListStore = function () {
         this.loading.register = false;
         this.loading.updateuser = false;
         this.loading.updatelisting = false;
+        this.loading.updatevenue = false;
+        this.loading.savelisting = false;
+        this.loading.savevenue = false;
         this.loading.current = false;
         this.loading.future = false;
         this.loading.allVenues = false;
@@ -1456,12 +1518,16 @@ var ListStore = function () {
         this.error.feature = '';
         this.error.updateuser = '';
         this.error.updatelisting = {};
+        this.error.updatevenue = {};
         this.error.savelisting = {};
+        this.error.savevenue = {};
         //Success
         this.success = {};
         this.success.updateuser = false;
         this.success.updatelisting = false;
+        this.success.updatevenue = false;
         this.success.savelisting = false;
+        this.success.savevenue = false;
     }
 
     //List Reducers
@@ -1565,10 +1631,12 @@ var ListStore = function () {
         key: 'onVenueEditReset',
         value: function onVenueEditReset() {
             this.venueEdit = {
-                _id: '',
-                name: '',
-                address: '',
-                website: ''
+                coordinates: {}
+                // Reset messages
+            };this.success.updatevenue = false;
+            this.loading.updatevenue = false;
+            this.error.updatevenue = {
+                general: ''
             };
         }
 
@@ -1576,9 +1644,13 @@ var ListStore = function () {
 
     }, {
         key: 'onGetListingInfoSuccess',
-        value: function onGetListingInfoSuccess(data) {
-            this.listingEdit = data;
-            this.feature.list = data;
+        value: function onGetListingInfoSuccess(info) {
+            console.log('Got some info', info);
+            this.listingEdit = info.data;
+            if (info.i) {
+                this.features[info.i].list = info.data;
+                console.log(info.data);
+            }
         }
     }, {
         key: 'onGetListingInfoFailure',
@@ -1596,25 +1668,18 @@ var ListStore = function () {
             this.venue.currentListings = data.currentListings;
             this.venue.upcomingListings = data.upcomingListings;
             this.venue.pastListings = data.pastListings;
-
-            /*const today = new Date();
-            
-            this.venue.listings.map(function(listing){
-                if (listing.start > today){
-                    console.log('upcoming');
-                } else if (listing.end < today){
-                    console.log('past');
-                } else {
-                    console.log('present');
-                }
-            });*/
         }
         // Get venue info
 
     }, {
         key: 'onGetVenueInfoSuccess',
         value: function onGetVenueInfoSuccess(data) {
+            this.listingEdit.venue = data;
             this.venueEdit = data;
+            //Create a slug automatically if there is none
+            if (!data.slug) {
+                this.venueEdit.slug = data.name.replace(/\s+/g, '-').toLowerCase();
+            }
         }
     }, {
         key: 'onGetVenueFullInfoFailure',
@@ -1626,6 +1691,28 @@ var ListStore = function () {
         value: function onGetVenueInfoFailure(jqXhr) {
             _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
         }
+        //Add a venue
+
+    }, {
+        key: 'onSaveVenueAttempt',
+        value: function onSaveVenueAttempt() {
+            this.loading.updatevenue = true;
+        }
+    }, {
+        key: 'onSaveVenueSuccess',
+        value: function onSaveVenueSuccess(data) {
+            this.loading.updatevenue = false;
+            this.success.updatevenue = true;
+        }
+    }, {
+        key: 'onSaveVenueFailure',
+        value: function onSaveVenueFailure(err) {
+            console.log('Error: ', err);
+            this.loading.updatevenue = false;
+            this.error.updatevenue.general = 'Error while saving changes';
+        }
+        // Update a venue
+
     }, {
         key: 'onUpdateVenue',
         value: function onUpdateVenue(info) {
@@ -1637,17 +1724,31 @@ var ListStore = function () {
     }, {
         key: 'onUpdateVenueAttempt',
         value: function onUpdateVenueAttempt() {
-            console.log('Updating Venue');
+            this.loading.updatevenue = true;
         }
     }, {
         key: 'onUpdateVenueSuccess',
         value: function onUpdateVenueSuccess(data) {
-            console.log('Updating Venue', data);
+            this.loading.updatevenue = false;
+            this.success.updatevenue = true;
         }
     }, {
         key: 'onUpdateVenueFailure',
-        value: function onUpdateVenueFailure() {
-            console.log('Error Updating Venue');
+        value: function onUpdateVenueFailure(error) {
+            this.loading.updatevenue = false;
+            this.error.updatevenue.general = error;
+        }
+        //Delete a Venue
+
+    }, {
+        key: 'onDeleteVenueSuccess',
+        value: function onDeleteVenueSuccess(data) {
+            console.log('Deleted');
+        }
+    }, {
+        key: 'onDeleteVenueFailure',
+        value: function onDeleteVenueFailure(err) {
+            console.log('Error: ', err);
         }
     }, {
         key: 'onGetVenueListingsSuccess',
@@ -1739,7 +1840,7 @@ var ListStore = function () {
     }, {
         key: 'onDeleteListingSuccess',
         value: function onDeleteListingSuccess(data) {
-            console.log('Deleted: ', data);
+            console.log('Deleted');
         }
     }, {
         key: 'onDeleteListingFailure',
@@ -1761,9 +1862,10 @@ var ListStore = function () {
                 if (info.endDate) {
                     this.listingEdit.end = info.endDate;
                 }
+            } else if (info.date) {
+                this.listingEdit.start = info.date;
             } else {
                 this.listingEdit.event = !info.event;
-                console.log(this.listingEdit.event);
             }
         }
 
@@ -1771,10 +1873,10 @@ var ListStore = function () {
 
     }, {
         key: 'onFeatureInfoChange',
-        value: function onFeatureInfoChange(info) {
-            var value = info.target.value;
-            var name = info.target.name;
-            this.feature[name] = value;
+        value: function onFeatureInfoChange(data) {
+            var value = data.event.target.value;
+            var name = data.event.target.name;
+            this.features[data.i][name] = value;
         }
 
         //Update info on venue page
@@ -1782,9 +1884,27 @@ var ListStore = function () {
     }, {
         key: 'onVenueInfoChange',
         value: function onVenueInfoChange(info) {
-            var value = info.target.value;
-            var name = info.target.name;
-            this.venueEdit[name] = value;
+            var value = info.value;
+            var name = info.name;
+            if (name === 'lat') {
+                this.venueEdit.coordinates.lat = parseFloat(value);
+            } else if (name === 'long') {
+                this.venueEdit.coordinates.long = parseFloat(value);
+            } else {
+                this.venueEdit[name] = value;
+            }
+            //Keep the slug synced with the name
+            this.venueEdit.slug = this.venueEdit.name.replace(/\s+/g, '-').toLowerCase();
+        }
+        //Update coordinates on venue page
+
+    }, {
+        key: 'onCoordinatesChange',
+        value: function onCoordinatesChange(coord) {
+            this.venueEdit.coordinates = {
+                lat: coord[1],
+                long: coord[0]
+            };
         }
 
         //FEATURED
@@ -1803,33 +1923,63 @@ var ListStore = function () {
         key: 'onFeatureReset',
         value: function onFeatureReset() {
             this.feature = {};
-            this.feature.text = '';
-            this.feature.list = {};
-            this.feature.venue = {};
         }
     }, {
         key: 'onFeatureLoadSuccess',
-        value: function onFeatureLoadSuccess(data) {
-            if (data) {
-                this.feature = data;
-                this.listingEdit._id = data.list._id;
-                this.listingEdit.name = data.list.name;
-                this.listingEdit.text = data.text;
-                this.listingEdit.image = data.list.image;
-                this.listingEdit.venue._id = data.venue._id;
-                this.error.feature = "";
+        value: function onFeatureLoadSuccess(allFeatures) {
+            var _this = this;
+
+            if (allFeatures) {
+                var i;
+                var i;
+
+                (function () {
+                    // Match all features with a day of the next week
+                    var features = [];
+                    var dates = [];
+                    for (i = 0; i < 7; i++) {
+                        var d = new Date();
+                        d.setHours(0, 0, 0, 0);
+                        d.setDate(d.getDate() + i);
+                        dates.push(d);
+                    }
+                    //Find element in features whose date == d
+                    //For each day of the week
+                    for (i = 0; i < 7; i++) {
+                        var tempFeature = null;
+                        // Go through all the features
+                        allFeatures.map(function (feature) {
+                            // Format the feature's date
+                            var tempDate = new Date(feature.date);
+                            tempDate.setHours(0, 0, 0, 0);
+                            // Check if it matches
+                            if (tempDate.getTime() == dates[i].getTime()) {
+                                tempFeature = feature;
+                            }
+                        });
+                        if (tempFeature) {
+                            features.push(tempFeature);
+                            tempFeature = null;
+                        } else {
+                            features.push({});
+                        }
+                    }
+                    _this.features = features;
+                })();
             } else {
-                this.error.feature = "No Feature selected today";
+                this.error.feature = "No Features";
             }
         }
     }, {
         key: 'onFeatureLoadFailure',
         value: function onFeatureLoadFailure(error) {
             console.log("Feature load error: ", error);
-            this.feature = {};
-            this.feature.text = '';
-            this.feature.list = {};
-            this.feature.venue = {};
+            this.features = [];
+        }
+    }, {
+        key: 'onFeatureEdit',
+        value: function onFeatureEdit(featureEdit) {
+            this.feature = featureEdit;
         }
 
         // Auth Reducers
@@ -2038,10 +2188,12 @@ var ListStore = function () {
 
     }, {
         key: 'onThumbnailUploadSuccess',
-        value: function onThumbnailUploadSuccess(image) {
+        value: function onThumbnailUploadSuccess(data) {
             this.isUploaded = true;
-            this.listingEdit.image = image.public_id;
-            this.feature.list.image = image.public_id;
+            this.listingEdit.image = data.image.public_id;
+            if (data.i) {
+                this.features[data.i].list.image = data.image.public_id;
+            }
         }
     }, {
         key: 'onThumbnailUploadFailure',
@@ -2072,9 +2224,9 @@ var _alt = __webpack_require__(10);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(22);
+__webpack_require__(24);
 
-var _superagent = __webpack_require__(55);
+var _superagent = __webpack_require__(58);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -2114,7 +2266,7 @@ var ImagesActions = function () {
         }
     }, {
         key: 'handleThumbnailUpload',
-        value: function handleThumbnailUpload(file) {
+        value: function handleThumbnailUpload(file, i) {
             var _this2 = this;
 
             console.log('Image Uploading');
@@ -2130,8 +2282,8 @@ var ImagesActions = function () {
                 }
 
                 if (response.body.secure_url !== '') {
-                    console.log('Image Uploaded');
-                    _this2.thumbnailUploadSuccess(response.body);
+                    var image = response.body;
+                    _this2.thumbnailUploadSuccess({ image: image, i: i });
                 }
             });
         }
@@ -2144,6 +2296,12 @@ exports.default = _alt2.default.createActions(ImagesActions);
 
 /***/ }),
 /* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("moment");
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2159,7 +2317,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(19);
+var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -2258,13 +2416,19 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 20 */
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-map-gl");
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2280,7 +2444,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(26);
+var _validator = __webpack_require__(30);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -2489,26 +2653,26 @@ var LogInForm = function (_React$Component) {
 exports.default = LogInForm;
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var mongoose = __webpack_require__(8);
-var bcrypt = __webpack_require__(21); // encripts password
+var bcrypt = __webpack_require__(23); // encripts password
 
 // Create the Listings table ==================================
 
@@ -2539,7 +2703,7 @@ userSchema.methods.validPassword = function (password) {
 module.exports = mongoose.model('User', userSchema);
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2551,10 +2715,12 @@ var mongoose = __webpack_require__(8);
 
 var venueSchema = mongoose.Schema({
     name: String,
-    blurb: String,
+    slug: String,
     website: String,
     address: String,
     city: String,
+    state: String,
+    zipcode: Number,
     neighborhood: Number,
     coordinates: {
         lat: Number,
@@ -2563,11 +2729,10 @@ var venueSchema = mongoose.Schema({
 });
 
 //compile the model
-
 module.exports = mongoose.model('Venue', venueSchema);
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2585,7 +2750,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactIntl = __webpack_require__(9);
 
-var _imageBlock = __webpack_require__(62);
+var _imageBlock = __webpack_require__(65);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -2612,8 +2777,8 @@ var FeatureBlock = function (_React$Component) {
         key: 'render',
         value: function render() {
             var feature = this.props.feature;
-            var venue = this.props.feature.venue;
-            var listing = this.props.feature.list;
+            var venue = this.props.feature.venue ? this.props.feature.venue : {};
+            var listing = this.props.feature.list ? this.props.feature.list : {};
 
             var start = listing.start ? _react2.default.createElement(
                 _reactIntl.IntlProvider,
@@ -2660,25 +2825,148 @@ var FeatureBlock = function (_React$Component) {
 exports.default = FeatureBlock;
 
 /***/ }),
-/* 26 */
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(29);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _googleMapReact = __webpack_require__(68);
+
+var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
+
+var _ListActions = __webpack_require__(1);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _singleMarker = __webpack_require__(69);
+
+var _singleMarker2 = _interopRequireDefault(_singleMarker);
+
+var _reactMapGl = __webpack_require__(21);
+
+var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENT
+
+
+var MapBlock = function (_React$Component) {
+    _inherits(MapBlock, _React$Component);
+
+    function MapBlock(props) {
+        _classCallCheck(this, MapBlock);
+
+        var _this = _possibleConstructorReturn(this, (MapBlock.__proto__ || Object.getPrototypeOf(MapBlock)).call(this, props));
+
+        _this.state = {
+            viewport: {
+                zoom: 12,
+                mapboxApiAccessToken: process.env.MapboxAccessToken,
+                bearing: 0,
+                pitch: 0,
+                width: 500,
+                height: 500
+            }
+        };
+
+        _this.updateViewport = _this.updateViewport.bind(_this);
+        _this.componentDidMount = _this.componentDidMount.bind(_this);
+        return _this;
+    }
+
+    _createClass(MapBlock, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            // Create variable to change property
+            var newViewport = this.state.viewport;
+            newViewport.width = _reactDom2.default.findDOMNode(this).offsetWidth;
+            //Update state
+            this.setState({
+                viewport: newViewport
+            });
+        }
+    }, {
+        key: 'updateViewport',
+        value: function updateViewport(v) {
+            this.setState({
+                viewport: v
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'mapWrap' },
+                this.props.coordinates && _react2.default.createElement(
+                    _reactMapGl2.default,
+                    _extends({}, this.state.viewport, {
+                        latitude: this.props.coordinates.lat ? this.props.coordinates.lat : 40.7263098,
+                        longitude: this.props.coordinates.long ? this.props.coordinates.long : -73.9940454,
+                        onViewportChange: this.updateViewport
+                    }),
+                    this.props.coordinates.lat && _react2.default.createElement(
+                        _reactMapGl.Marker,
+                        {
+                            latitude: this.props.coordinates.lat,
+                            longitude: this.props.coordinates.long,
+                            anchor: 'bottom'
+                        },
+                        _react2.default.createElement(_singleMarker2.default, null)
+                    )
+                )
+            );
+        }
+    }]);
+
+    return MapBlock;
+}(_react2.default.Component);
+
+exports.default = MapBlock;
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom");
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
 
 /***/ }),
-/* 27 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-map-gl");
-
-/***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-reorder");
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2702,11 +2990,13 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formDateRange = __webpack_require__(88);
+var _reactRouter = __webpack_require__(2);
+
+var _formDateRange = __webpack_require__(87);
 
 var _formDateRange2 = _interopRequireDefault(_formDateRange);
 
-var _formDateSingle = __webpack_require__(90);
+var _formDateSingle = __webpack_require__(88);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
@@ -2714,7 +3004,7 @@ var _formSelect = __webpack_require__(13);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ThumbnailInput = __webpack_require__(31);
+var _ThumbnailInput = __webpack_require__(34);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
@@ -2760,7 +3050,11 @@ var ListingForm = function (_React$Component) {
             if (data) {
                 if (data.label == data.value) {
                     // Create a new venue
-
+                    _ListActions2.default.venueInfoChange({
+                        name: 'name',
+                        value: data.value
+                    });
+                    _reactRouter.browserHistory.push('/account/editvenue');
                 } else {
                     //Fetch all the venue info
                     _ListActions2.default.getVenueInfo(data.value);
@@ -2878,7 +3172,7 @@ var ListingForm = function (_React$Component) {
                 this.props.error.general && _react2.default.createElement(
                     'div',
                     { className: 'error' },
-                    this.props.error.general
+                    this.props.error.savelisting.general
                 ),
                 deleteButton
             );
@@ -2891,13 +3185,13 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dates");
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2913,7 +3207,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _imageUpload = __webpack_require__(32);
+var _imageUpload = __webpack_require__(35);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
@@ -2954,7 +3248,7 @@ var Thumbnail = function (_React$Component) {
                 isUploading: true
             });
 
-            _ImagesActions2.default.handleThumbnailUpload(file[0]);
+            _ImagesActions2.default.handleThumbnailUpload(file[0], this.props.number);
         }
     }, {
         key: 'render',
@@ -2985,7 +3279,7 @@ var Thumbnail = function (_React$Component) {
 exports.default = Thumbnail;
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3001,7 +3295,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDropzone = __webpack_require__(92);
+var _reactDropzone = __webpack_require__(90);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
@@ -3054,7 +3348,7 @@ var ImageUpload = function (_React$Component) {
 exports.default = ImageUpload;
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3105,31 +3399,31 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
 var express = __webpack_require__(7);
-var path = __webpack_require__(35);
-var favicon = __webpack_require__(36);
-var logger = __webpack_require__(37);
-var cookieParser = __webpack_require__(38);
-var bodyParser = __webpack_require__(39);
-var http = __webpack_require__(40);
-var debug = __webpack_require__(41)('artcritical-list:server');
+var path = __webpack_require__(38);
+var favicon = __webpack_require__(39);
+var logger = __webpack_require__(40);
+var cookieParser = __webpack_require__(41);
+var bodyParser = __webpack_require__(42);
+var http = __webpack_require__(43);
+var debug = __webpack_require__(44)('artcritical-list:server');
 
-var expressValidator = __webpack_require__(42);
+var expressValidator = __webpack_require__(45);
 
 //Authentification
 var passport = __webpack_require__(14);
-var flash = __webpack_require__(43);
-var session = __webpack_require__(44);
-var bcrypt = __webpack_require__(21); // encripts password
+var flash = __webpack_require__(46);
+var session = __webpack_require__(47);
+var bcrypt = __webpack_require__(23); // encripts password
 
 // Get the User model
-__webpack_require__(45)(passport);
+__webpack_require__(48)(passport);
 
 var app = express();
 
@@ -3145,10 +3439,10 @@ db.once('open', function () {
 });
 
 // Import the Mongoose models
-var List = __webpack_require__(49);
-var Venue = __webpack_require__(24);
-var User = __webpack_require__(23);
-var Feature = __webpack_require__(50);
+var List = __webpack_require__(52);
+var Venue = __webpack_require__(26);
+var User = __webpack_require__(25);
+var Feature = __webpack_require__(53);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -3193,7 +3487,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-var index = __webpack_require__(51);
+var index = __webpack_require__(54);
 var venues = __webpack_require__(105);
 var listings = __webpack_require__(106);
 var auth = __webpack_require__(107);
@@ -3302,67 +3596,67 @@ function onListening() {
 /* WEBPACK VAR INJECTION */}.call(exports, "src"))
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 41 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("debug");
 
 /***/ }),
-/* 42 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-validator");
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = require("connect-flash");
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-session");
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3377,13 +3671,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // config/passport.js
 
 // load all the things we need
-var LocalStrategy = __webpack_require__(47).Strategy;
-var FacebookStrategy = __webpack_require__(48).Strategy;
+var LocalStrategy = __webpack_require__(50).Strategy;
+var FacebookStrategy = __webpack_require__(51).Strategy;
 
 
 // load up the user model
-var User = __webpack_require__(23);
-var Venue = __webpack_require__(24);
+var User = __webpack_require__(25);
+var Venue = __webpack_require__(26);
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -3544,25 +3838,25 @@ module.exports = function (passport) {
 };
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = require("alt");
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 48 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-facebook");
 
 /***/ }),
-/* 49 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3594,7 +3888,7 @@ var listingSchema = mongoose.Schema({
 module.exports = mongoose.model('List', listingSchema);
 
 /***/ }),
-/* 50 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3622,7 +3916,7 @@ var featureSchema = mongoose.Schema({
 module.exports = mongoose.model('Feature', featureSchema);
 
 /***/ }),
-/* 51 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3632,15 +3926,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(52);
+var _server = __webpack_require__(55);
 
 var _reactRouter = __webpack_require__(2);
 
-var _routes = __webpack_require__(53);
+var _routes = __webpack_require__(56);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _ErrorPage = __webpack_require__(33);
+var _ErrorPage = __webpack_require__(36);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -3690,13 +3984,13 @@ router.get('*', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 52 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 53 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3712,31 +4006,31 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _layout = __webpack_require__(54);
+var _layout = __webpack_require__(57);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _IndexPage = __webpack_require__(57);
+var _IndexPage = __webpack_require__(60);
 
 var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
-var _CurrentPage = __webpack_require__(58);
+var _CurrentPage = __webpack_require__(61);
 
 var _CurrentPage2 = _interopRequireDefault(_CurrentPage);
 
-var _FuturePage = __webpack_require__(59);
+var _FuturePage = __webpack_require__(62);
 
 var _FuturePage2 = _interopRequireDefault(_FuturePage);
 
-var _GlancePage = __webpack_require__(60);
+var _GlancePage = __webpack_require__(63);
 
 var _GlancePage2 = _interopRequireDefault(_GlancePage);
 
-var _EventsPage = __webpack_require__(63);
+var _EventsPage = __webpack_require__(66);
 
 var _EventsPage2 = _interopRequireDefault(_EventsPage);
 
-var _VenuePage = __webpack_require__(64);
+var _VenuePage = __webpack_require__(67);
 
 var _VenuePage2 = _interopRequireDefault(_VenuePage);
 
@@ -3752,19 +4046,19 @@ var _myListPage = __webpack_require__(78);
 
 var _myListPage2 = _interopRequireDefault(_myListPage);
 
-var _AdminPage = __webpack_require__(86);
+var _AdminPage = __webpack_require__(85);
 
 var _AdminPage2 = _interopRequireDefault(_AdminPage);
 
-var _NewListing = __webpack_require__(87);
+var _NewListing = __webpack_require__(86);
 
 var _NewListing2 = _interopRequireDefault(_NewListing);
 
-var _EditListing = __webpack_require__(93);
+var _EditListing = __webpack_require__(91);
 
 var _EditListing2 = _interopRequireDefault(_EditListing);
 
-var _EditVenue = __webpack_require__(94);
+var _EditVenue = __webpack_require__(92);
 
 var _EditVenue2 = _interopRequireDefault(_EditVenue);
 
@@ -3780,7 +4074,7 @@ var _Account = __webpack_require__(101);
 
 var _Account2 = _interopRequireDefault(_Account);
 
-var _ErrorPage = __webpack_require__(33);
+var _ErrorPage = __webpack_require__(36);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -3789,7 +4083,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //Admin Components
 var routes = _react2.default.createElement(
   _reactRouter.Route,
-  { path: '/', component: _layout2.default },
+  { path: '/', component: _layout2.default, history: _reactRouter.browserHistory },
   _react2.default.createElement(_reactRouter.IndexRoute, { component: _GlancePage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'current', component: _CurrentPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'future', component: _FuturePage2.default }),
@@ -3797,8 +4091,7 @@ var routes = _react2.default.createElement(
   _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _SignUpPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'mylist', component: _myListPage2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LogInPage2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'venue/:id', component: _VenuePage2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'venuesadmin', component: _VenuesPage2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'venue/:slug', component: _VenuePage2.default }),
   _react2.default.createElement(
     _reactRouter.Route,
     { path: 'account', component: _AdminPage2.default },
@@ -3806,7 +4099,8 @@ var routes = _react2.default.createElement(
     _react2.default.createElement(_reactRouter.Route, { path: 'editlisting', component: _EditListing2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'newlisting', component: _NewListing2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'editvenue', component: _EditVenue2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'featured', component: _featuredPage2.default })
+    _react2.default.createElement(_reactRouter.Route, { path: 'featured', component: _featuredPage2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'venuesadmin', component: _VenuesPage2.default })
   ),
   _react2.default.createElement(_reactRouter.Route, { path: '*', component: _ErrorPage2.default })
 );
@@ -3816,7 +4110,7 @@ var routes = _react2.default.createElement(
 exports.default = routes;
 
 /***/ }),
-/* 54 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4002,19 +4296,19 @@ var Layout = function (_React$Component) {
 exports.default = Layout;
 
 /***/ }),
-/* 55 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = require("superagent");
 
 /***/ }),
-/* 56 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = require("toastr");
 
 /***/ }),
-/* 57 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4137,7 +4431,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 58 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4287,7 +4581,7 @@ var CurrentPage = function (_React$Component) {
 exports.default = CurrentPage;
 
 /***/ }),
-/* 59 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4437,7 +4731,7 @@ var FuturePage = function (_React$Component) {
 exports.default = FuturePage;
 
 /***/ }),
-/* 60 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4465,11 +4759,11 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactIntl = __webpack_require__(9);
 
-var _daypage = __webpack_require__(61);
+var _daypage = __webpack_require__(64);
 
 var _daypage2 = _interopRequireDefault(_daypage);
 
-var _tabs = __webpack_require__(18);
+var _tabs = __webpack_require__(19);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -4489,10 +4783,29 @@ var GlancePage = function (_React$Component) {
     function GlancePage(props) {
         _classCallCheck(this, GlancePage);
 
-        return _possibleConstructorReturn(this, (GlancePage.__proto__ || Object.getPrototypeOf(GlancePage)).call(this, props));
+        //Get the next 7 dates
+        var _this = _possibleConstructorReturn(this, (GlancePage.__proto__ || Object.getPrototypeOf(GlancePage)).call(this, props));
+
+        var dates = [];
+        for (var i = 0; i < 7; i++) {
+            var d = new Date();
+            d.setHours(0, 0, 0, 0);
+            d.setDate(d.getDate() + i);
+            dates.push(d);
+        }
+
+        _this.state = {
+            dates: dates
+        };
+        return _this;
     }
 
     _createClass(GlancePage, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            _ListActions2.default.featureLoad();
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             _ListActions2.default.getGlance();
@@ -4504,19 +4817,21 @@ var GlancePage = function (_React$Component) {
             var thelist = this.props.glanceListings;
 
             var days = [];
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
 
             for (var i = 0; i < 7; i++) {
-                var d = new Date();
-                d.setHours(0, 0, 0, 0);
-                d.setDate(today.getDate() + i);
                 var label = _react2.default.createElement(
                     _reactIntl.IntlProvider,
                     { locale: 'en' },
-                    _react2.default.createElement(_reactIntl.FormattedDate, { value: d, weekday: 'long', day: 'numeric', month: 'short' })
+                    _react2.default.createElement(_reactIntl.FormattedDate, { value: this.state.dates[i], weekday: 'long', day: 'numeric', month: 'short' })
                 );
-                days.push(_react2.default.createElement(_daypage2.default, { key: d, feature: this.props.feature, glanceListings: thelist, mylist: this.props.user.mylist, label: label, date: d, view: this.props.view }));
+                days.push(_react2.default.createElement(_daypage2.default, {
+                    key: i,
+                    feature: this.props.features[i] ? this.props.features[i] : {},
+                    glanceListings: thelist,
+                    user: this.props.user,
+                    label: label,
+                    date: this.state.dates[i],
+                    view: this.props.view }));
             }
 
             return _react2.default.createElement(
@@ -4542,7 +4857,7 @@ var GlancePage = function (_React$Component) {
 exports.default = GlancePage;
 
 /***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4566,11 +4881,15 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
+var _moment = __webpack_require__(18);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _featureBlock = __webpack_require__(25);
+var _featureBlock = __webpack_require__(27);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -4594,7 +4913,15 @@ var DayPage = function (_React$Component) {
     function DayPage(props) {
         _classCallCheck(this, DayPage);
 
-        return _possibleConstructorReturn(this, (DayPage.__proto__ || Object.getPrototypeOf(DayPage)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (DayPage.__proto__ || Object.getPrototypeOf(DayPage)).call(this, props));
+
+        _this.state = {
+            date: (0, _moment2.default)(_this.props.date).format().slice(0, 10),
+            openings: [],
+            events: [],
+            closings: []
+        };
+        return _this;
     }
 
     _createClass(DayPage, [{
@@ -4604,37 +4931,44 @@ var DayPage = function (_React$Component) {
             _ListActions2.default.featureLoad({ date: this.props.date });
         }
     }, {
-        key: 'render',
-        value: function render() {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
             var _this2 = this;
 
-            var date = this.props.date.toISOString();
-
-            var openings = [];
             var events = [];
+            var openings = [];
             var closings = [];
 
-            var thelist = this.props.glanceListings.map(function (listing) {
+            this.props.glanceListings.map(function (listing) {
                 // Check if it is an event
                 if (listing.event == true) {
                     // it IS an event
 
-                    if (listing.start == date) {
+                    if ((0, _moment2.default)(listing.start).format().slice(0, 10) == _this2.state.date) {
                         events.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, user: _this2.props.user })));
                     }
                 } else {
                     //not an event
-
                     //Check if it starts on this day
-                    if (listing.start == date) {
+                    if ((0, _moment2.default)(listing.start).format().slice(0, 10) == _this2.state.date) {
                         openings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, user: _this2.props.user, dateView: 'current' })));
                     }
                     //Check if it ends on this day
-                    if (listing.end == date) {
+                    if ((0, _moment2.default)(listing.end).format().slice(0, 10) == _this2.state.date) {
                         closings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, user: _this2.props.user })));
                     }
                 }
+
+                _this2.setState({
+                    openings: openings,
+                    events: events,
+                    closings: closings
+                });
             });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
 
             return _react2.default.createElement(
                 'div',
@@ -4648,25 +4982,25 @@ var DayPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: this.props.view + " listingsWrap" },
-                    openings.length > 0 && _react2.default.createElement(
+                    this.state.openings.length > 0 && _react2.default.createElement(
                         'h3',
                         null,
                         'Openings'
                     ),
-                    openings,
-                    events.length > 0 && _react2.default.createElement(
+                    this.state.openings,
+                    this.state.events.length > 0 && _react2.default.createElement(
                         'h3',
                         null,
                         'Events'
                     ),
-                    events,
-                    closings.length > 0 && _react2.default.createElement(
+                    this.state.events,
+                    this.state.closings.length > 0 && _react2.default.createElement(
                         'h3',
                         null,
                         'Closing'
                     ),
-                    closings,
-                    closings.length + events.length + openings.length == 0 && _react2.default.createElement(
+                    this.state.closings,
+                    this.state.closings.length + this.state.events.length + this.state.openings.length == 0 && _react2.default.createElement(
                         'h3',
                         null,
                         'Nothing happening today!'
@@ -4682,7 +5016,7 @@ var DayPage = function (_React$Component) {
 exports.default = DayPage;
 
 /***/ }),
-/* 62 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4730,7 +5064,7 @@ var imageBlock = function (_React$Component) {
 exports.default = imageBlock;
 
 /***/ }),
-/* 63 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4812,10 +5146,10 @@ var EventsPage = function (_React$Component) {
                             null,
                             _react2.default.createElement(_DateBlock2.default, { date: newDate })
                         ),
-                        _react2.default.createElement(_listing2.default, _extends({}, listing, { mylist: _this2.props.mylist }))
+                        _react2.default.createElement(_listing2.default, _extends({}, listing, { user: _this2.props.user }))
                     );
                 } else {
-                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, mylist: _this2.props.user.mylist }));
+                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, user: _this2.props.user }));
                 }
             });
 
@@ -4843,7 +5177,7 @@ var EventsPage = function (_React$Component) {
 exports.default = EventsPage;
 
 /***/ }),
-/* 64 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4863,19 +5197,19 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _mapBlock = __webpack_require__(65);
+var _mapBlock = __webpack_require__(28);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
-var _VenueListings = __webpack_require__(69);
+var _VenueListings = __webpack_require__(70);
 
 var _VenueListings2 = _interopRequireDefault(_VenueListings);
 
-var _VenueContent = __webpack_require__(70);
+var _VenueContent = __webpack_require__(71);
 
 var _VenueContent2 = _interopRequireDefault(_VenueContent);
 
-var _tabs = __webpack_require__(18);
+var _tabs = __webpack_require__(19);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -4886,10 +5220,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MapboxClient = __webpack_require__(71);
-var client = new MapboxClient('pk.eyJ1IjoiYXJ0Y3JpdGljYWwiLCJhIjoiY2o5ZWUzdGlrMmIydjJ3bnJpeWxsN2I1YSJ9.HKlVu4oYspR74CeCdVouRg');
 //COMPONENTS
+
 
 var VenuePage = function (_React$Component) {
     _inherits(VenuePage, _React$Component);
@@ -4906,7 +5238,7 @@ var VenuePage = function (_React$Component) {
     _createClass(VenuePage, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-            _ListActions2.default.getVenueFullInfo(this.props.params.id);
+            _ListActions2.default.getVenueFullInfo(this.props.params.slug);
         }
     }, {
         key: 'render',
@@ -4949,112 +5281,13 @@ var VenuePage = function (_React$Component) {
 exports.default = VenuePage;
 
 /***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _googleMapReact = __webpack_require__(66);
-
-var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
-
-var _ListActions = __webpack_require__(1);
-
-var _ListActions2 = _interopRequireDefault(_ListActions);
-
-var _singleMarker = __webpack_require__(67);
-
-var _singleMarker2 = _interopRequireDefault(_singleMarker);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//COMPONENT
-
-
-var ReactMapboxGl = void 0,
-    Map = void 0,
-    Layer = void 0,
-    Feature = void 0,
-    Marker = void 0;
-
-var MapBlock = function (_React$Component) {
-    _inherits(MapBlock, _React$Component);
-
-    function MapBlock(props) {
-        _classCallCheck(this, MapBlock);
-
-        return _possibleConstructorReturn(this, (MapBlock.__proto__ || Object.getPrototypeOf(MapBlock)).call(this, props));
-    }
-
-    _createClass(MapBlock, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            ReactMapboxGl = __webpack_require__(68);
-            Layer = ReactMapboxGl.Layer;
-            Feature = ReactMapboxGl.Feature;
-            Marker = ReactMapboxGl.Marker;
-            this.forceUpdate();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-
-            var coord = { lat: this.props.coordinates.lat, lng: this.props.coordinates.long };
-
-            Map = ReactMapboxGl && ReactMapboxGl.Map({
-                accessToken: "pk.eyJ1IjoiYXJ0Y3JpdGljYWwiLCJhIjoiY2o5ZWUzdGlrMmIydjJ3bnJpeWxsN2I1YSJ9.HKlVu4oYspR74CeCdVouRg"
-            });
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'mapWrap' },
-                Map && this.props.coordinates ? _react2.default.createElement(
-                    Map,
-                    {
-                        style: 'mapbox://styles/mapbox/streets-v9',
-                        containerStyle: { height: "500px", width: "100%" },
-                        center: coord
-                    },
-                    _react2.default.createElement(
-                        Marker,
-                        { coordinates: coord,
-                            anchor: 'bottom' },
-                        _react2.default.createElement(_singleMarker2.default, null)
-                    )
-                ) : null
-            );
-        }
-    }]);
-
-    return MapBlock;
-}(_react2.default.Component);
-
-exports.default = MapBlock;
-
-/***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = require("google-map-react");
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5100,13 +5333,7 @@ var SingleMarker = function (_React$Component) {
 exports.default = SingleMarker;
 
 /***/ }),
-/* 68 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-mapbox-gl");
-
-/***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5181,7 +5408,7 @@ var VenueListings = function (_React$Component) {
 exports.default = VenueListings;
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5245,7 +5472,7 @@ var VenuePage = function (_React$Component) {
                     ),
                     venue.website && _react2.default.createElement(
                         "a",
-                        { className: "website", href: venue.website },
+                        { className: "website", target: "_blank", href: venue.website },
                         venue.website
                     )
                 ),
@@ -5268,12 +5495,6 @@ var VenuePage = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = VenuePage;
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports) {
-
-module.exports = require("mapbox");
 
 /***/ }),
 /* 72 */
@@ -5372,11 +5593,11 @@ var _reactToggleButton = __webpack_require__(12);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
-var _validator = __webpack_require__(26);
+var _validator = __webpack_require__(30);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _propTypes = __webpack_require__(19);
+var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -5688,11 +5909,11 @@ var _reactRouter = __webpack_require__(2);
 
 var _reactRouterDom = __webpack_require__(75);
 
-var _propTypes = __webpack_require__(19);
+var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _LogInForm = __webpack_require__(20);
+var _LogInForm = __webpack_require__(22);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -5850,7 +6071,7 @@ var _myList = __webpack_require__(79);
 
 var _myList2 = _interopRequireDefault(_myList);
 
-var _LogInForm = __webpack_require__(20);
+var _LogInForm = __webpack_require__(22);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -5920,7 +6141,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(80);
+var _reactDom = __webpack_require__(29);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -5932,13 +6153,13 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(27);
+var _reactMapGl = __webpack_require__(21);
 
-var _myListings = __webpack_require__(81);
+var _myListings = __webpack_require__(80);
 
 var _myListings2 = _interopRequireDefault(_myListings);
 
-var _myMap = __webpack_require__(83);
+var _myMap = __webpack_require__(82);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
@@ -5946,7 +6167,7 @@ var _sizeSelector = __webpack_require__(6);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
-var _reactReorder = __webpack_require__(28);
+var _reactReorder = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5956,7 +6177,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var async = __webpack_require__(85);
+var async = __webpack_require__(84);
 // Components
 
 var MyList = function (_React$Component) {
@@ -6137,12 +6358,6 @@ MyList.defaultProps = {
 
 /***/ }),
 /* 80 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom");
-
-/***/ }),
-/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6160,11 +6375,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _myListing = __webpack_require__(82);
+var _myListing = __webpack_require__(81);
 
 var _myListing2 = _interopRequireDefault(_myListing);
 
-var _reactReorder = __webpack_require__(28);
+var _reactReorder = __webpack_require__(31);
 
 var _reactReorder2 = _interopRequireDefault(_reactReorder);
 
@@ -6229,7 +6444,7 @@ var MyListings = function (_React$Component) {
 exports.default = MyListings;
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6400,7 +6615,7 @@ var Listing = function (_React$Component) {
 exports.default = Listing;
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6418,11 +6633,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _myMarker = __webpack_require__(84);
+var _myMarker = __webpack_require__(83);
 
 var _myMarker2 = _interopRequireDefault(_myMarker);
 
-var _reactMapGl = __webpack_require__(27);
+var _reactMapGl = __webpack_require__(21);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -6510,7 +6725,7 @@ var MyMap = function (_React$Component) {
 exports.default = MyMap;
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6560,13 +6775,13 @@ var Marker = function (_React$Component) {
 exports.default = Marker;
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports) {
 
 module.exports = require("async");
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6584,7 +6799,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _LogInForm = __webpack_require__(20);
+var _LogInForm = __webpack_require__(22);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -6643,6 +6858,11 @@ var IndexPage = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactRouter.Link,
+                        { to: '/account/venuesadmin', activeClassName: 'active' },
+                        'All Venues'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouter.Link,
                         { to: '/account/featured', activeClassName: 'active' },
                         'Featured Listings'
                     )
@@ -6656,9 +6876,18 @@ var IndexPage = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement(
-                    'p',
+                    'header',
                     null,
-                    'Please login to have access to your account'
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Admin'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Please login to have access to your account'
+                    )
                 ),
                 _react2.default.createElement(_LogInForm2.default, { loading: this.props.isLoggingIn })
             );
@@ -6677,7 +6906,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6699,7 +6928,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _ListingForm = __webpack_require__(29);
+var _ListingForm = __webpack_require__(32);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -6740,10 +6969,9 @@ var NewListing = function (_React$Component) {
     }, {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
-            var listingId = this.props.listingEdit._id || null;
             var newListing = {
-                _id: listingId,
                 name: this.props.listingEdit.name,
+                event: this.props.listingEdit.event,
                 start: this.props.listingEdit.start,
                 end: this.props.listingEdit.end,
                 venue: this.props.listingEdit.venue._id,
@@ -6799,7 +7027,7 @@ var NewListing = function (_React$Component) {
 exports.default = NewListing;
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6815,9 +7043,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(30);
+var _reactDates = __webpack_require__(33);
 
-var _moment = __webpack_require__(89);
+var _moment = __webpack_require__(18);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -6873,13 +7101,7 @@ var DateRange = function (_React$Component) {
 exports.default = DateRange;
 
 /***/ }),
-/* 89 */
-/***/ (function(module, exports) {
-
-module.exports = require("moment");
-
-/***/ }),
-/* 90 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6895,7 +7117,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(30);
+var _reactDates = __webpack_require__(33);
+
+var _moment = __webpack_require__(18);
+
+var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6929,9 +7155,9 @@ var DateSingle = function (_React$Component) {
                 isOutsideRange: function isOutsideRange() {
                     return false;
                 },
-                date: this.props.startDate,
-                onDateChange: function onDateChange(startDate) {
-                    return _this2.props.onDatesChange(startDate);
+                date: this.props.startDate ? (0, _moment2.default)(this.props.startDate) : null,
+                onDateChange: function onDateChange(date) {
+                    return _this2.props.onDatesChange({ date: date });
                 } // PropTypes.func.isRequired
                 , focused: this.state.focused // PropTypes.bool
                 , onFocusChange: function onFocusChange(_ref) {
@@ -6948,19 +7174,19 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 91 */
+/* 89 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-select");
 
 /***/ }),
-/* 92 */
+/* 90 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 93 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6994,7 +7220,7 @@ var _formSelect = __webpack_require__(13);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ListingForm = __webpack_require__(29);
+var _ListingForm = __webpack_require__(32);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -7047,7 +7273,7 @@ var ListingEdit = function (_React$Component) {
     }, {
         key: 'handleSelectChange',
         value: function handleSelectChange(data) {
-            if (data.value) {
+            if (data) {
                 //Fetch all the venue info
                 _ListActions2.default.getListingInfo(data.value);
             }
@@ -7115,7 +7341,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 94 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7149,9 +7375,13 @@ var _formSelect = __webpack_require__(13);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _VenueForm = __webpack_require__(95);
+var _VenueForm = __webpack_require__(93);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
+
+var _mapBlock = __webpack_require__(28);
+
+var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7171,6 +7401,10 @@ var VenueEdit = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (VenueEdit.__proto__ || Object.getPrototypeOf(VenueEdit)).call(this, props));
 
+        _this.state = {
+            formDisplay: false
+        };
+
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleSelectChange = _this.handleSelectChange.bind(_this);
         _this.handleDelete = _this.handleDelete.bind(_this);
@@ -7188,7 +7422,16 @@ var VenueEdit = function (_React$Component) {
     }, {
         key: 'handleSubmit',
         value: function handleSubmit() {
-            _ListActions2.default.updateVenue(this.props.venueEdit);
+            if (this.props.venueEdit._id) {
+                _ListActions2.default.updateVenue(this.props.venueEdit);
+            } else {
+                var newVenue = this.props.venueEdit;
+                delete newVenue._id;
+                _ListActions2.default.saveVenue(newVenue);
+            }
+            this.setState({
+                formDisplay: false
+            });
         }
 
         //Delete the listing
@@ -7197,13 +7440,30 @@ var VenueEdit = function (_React$Component) {
         key: 'handleDelete',
         value: function handleDelete() {
             _ListActions2.default.deleteVenue(this.props.venueEdit._id);
-            _ListActions2.default.listingEditReset();
         }
     }, {
         key: 'handleSelectChange',
         value: function handleSelectChange(data) {
-            if (data.value) {
-                _ListActions2.default.getVenueInfo(data.value);
+            if (data) {
+                this.setState({
+                    formDisplay: true
+                });
+                if (data.label == data.value) {
+                    //New Venue
+                    _ListActions2.default.venueInfoChange({
+                        name: 'name',
+                        value: data.value
+                    });
+                } else {
+                    //Update venue
+                    _ListActions2.default.getVenueInfo(data.value);
+                }
+            } else {
+                // If the reset form button is pressed
+                _ListActions2.default.venueEditReset();
+                this.setState({
+                    formDisplay: false
+                });
             }
         }
     }, {
@@ -7225,7 +7485,7 @@ var VenueEdit = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'editVenue cf' },
                 _react2.default.createElement(
                     'h3',
                     null,
@@ -7233,22 +7493,32 @@ var VenueEdit = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { id: 'ListingList' },
+                    { className: 'd-1of2' },
                     _react2.default.createElement(
-                        'form',
-                        { onSubmit: this.handleSubmit },
-                        _react2.default.createElement(_formSelect2.default, { value: { value: this.props.venueEdit._id, label: this.props.venueEdit.name }, handleSelectChange: this.handleSelectChange, getOptions: getOptions })
+                        'div',
+                        { className: 'venueList' },
+                        _react2.default.createElement(
+                            'form',
+                            { onSubmit: this.handleSubmit },
+                            _react2.default.createElement(_formSelect2.default, { value: { value: this.props.venueEdit._id, label: this.props.venueEdit.name }, handleSelectChange: this.handleSelectChange, getOptions: getOptions })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'listingForm' },
+                        this.state.formDisplay && _react2.default.createElement(_VenueForm2.default, _extends({}, this.props.venueEdit, {
+                            handleSubmit: this.handleSubmit,
+                            handleDelete: this.handleDelete,
+                            newVenue: this.props._id == '' || this.props._id == null && this.props.name !== '',
+                            error: this.props.error.updatevenue,
+                            loading: this.props.loading.updatevenue,
+                            success: this.props.success.updatevenue }))
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'listingForm' },
-                    _react2.default.createElement(_VenueForm2.default, _extends({}, this.props.venueEdit, {
-                        handleSubmit: this.handleSubmit,
-                        handleDelete: this.handleDelete,
-                        error: this.props.error.updatelisting,
-                        loading: this.props.loading.updatelisting,
-                        success: this.props.success.updatelisting }))
+                    { className: 'd-1of2' },
+                    _react2.default.createElement(_mapBlock2.default, this.props.venueEdit)
                 )
             );
         }
@@ -7260,14 +7530,14 @@ var VenueEdit = function (_React$Component) {
 exports.default = VenueEdit;
 
 /***/ }),
-/* 95 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -7284,6 +7554,230 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
+var _NeighborhoodSelect = __webpack_require__(94);
+
+var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//Components
+
+
+var MapboxClient = __webpack_require__(95);
+var client = new MapboxClient(process.env.MapboxAccessToken);
+
+var VenueForm = function (_React$Component) {
+  _inherits(VenueForm, _React$Component);
+
+  function VenueForm(props) {
+    _classCallCheck(this, VenueForm);
+
+    var _this = _possibleConstructorReturn(this, (VenueForm.__proto__ || Object.getPrototypeOf(VenueForm)).call(this, props));
+
+    _this.state = {
+      fullAdress: null
+    };
+
+    _this.handleChange = _this.handleChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(VenueForm, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
+      //Update values of inputs
+      _ListActions2.default.venueInfoChange(event.target);
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      //Define the full address
+      this.props.address ? this.setState({
+        fullAdress: this.props.address + ' ' + this.props.city + ', ' + this.props.state + ' ' + this.props.zipcode
+      }) : null;
+    }
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps, nextState) {
+      var nextFullAdress = nextProps.address ? nextProps.address + ' ' + nextProps.city + ', ' + nextProps.state + ' ' + nextProps.zipcode : null;
+      if (nextFullAdress !== this.state.fullAdress && nextFullAdress !== null) {
+
+        this.setState({
+          fullAdress: nextFullAdress
+        });
+        this.calculateCoords(nextFullAdress);
+      }
+    }
+  }, {
+    key: 'calculateCoords',
+    value: function calculateCoords(fullAdress) {
+      client.geocodeForward(fullAdress, function (err, data, res) {
+        if (data.features[0]) {
+          var newCoords = data.features[0].center;
+          _ListActions2.default.coordinatesChange(newCoords);
+        }
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+
+      var coordinates = this.props.coordinates || {};
+
+      if (this.state.fullAdress && !coordinates) {
+        this.calculateCoords(this.state.fullAdress);
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { id: 'venueForm' },
+        _react2.default.createElement(
+          'label',
+          null,
+          'Name'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'formSection' },
+          _react2.default.createElement('input', { name: 'name', placeholder: 'Name', type: 'text', value: this.props.name, onChange: this.handleChange })
+        ),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Slug'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'formSection' },
+          _react2.default.createElement('input', { disabled: true, name: 'slug', type: 'text', value: this.props.slug, onChange: this.handleChange })
+        ),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Address'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'formSection' },
+          _react2.default.createElement('input', { name: 'address', placeholder: 'Address', type: 'text', value: this.props.address, onChange: this.handleChange })
+        ),
+        _react2.default.createElement(
+          'label',
+          null,
+          'City'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'formSection' },
+          _react2.default.createElement('input', { name: 'city', placeholder: 'City', type: 'text', value: this.props.city, onChange: this.handleChange })
+        ),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Neighborhood'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'formSection' },
+          _react2.default.createElement(_NeighborhoodSelect2.default, { selected: this.props.neighborhood, onChange: this.handleChange })
+        ),
+        _react2.default.createElement(
+          'label',
+          null,
+          'State'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'formSection' },
+          _react2.default.createElement('input', { name: 'state', placeholder: 'State', type: 'text', value: this.props.state, onChange: this.handleChange })
+        ),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Zipcode'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'formSection' },
+          _react2.default.createElement('input', { name: 'zipcode', placeholder: 'Zipcode', type: 'number', value: this.props.zipcode, onChange: this.handleChange })
+        ),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Coordinates'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'formSection' },
+          _react2.default.createElement('input', { name: 'lat', type: 'text', value: coordinates.lat, onChange: this.handleChange }),
+          _react2.default.createElement('input', { name: 'long', type: 'text', value: coordinates.long, onChange: this.handleChange })
+        ),
+        _react2.default.createElement(
+          'label',
+          null,
+          'Website'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'formSection' },
+          _react2.default.createElement('input', { name: 'website', placeholder: 'Website', type: 'text', value: this.props.website, onChange: this.handleChange })
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.props.handleSubmit },
+          this.props._id ? 'Update' : 'Save'
+        ),
+        this.props.loading && _react2.default.createElement(
+          'div',
+          { className: 'loading' },
+          'loading'
+        ),
+        this.props.success && _react2.default.createElement(
+          'div',
+          { className: 'success' },
+          'Saved!'
+        ),
+        this.props.error.general && _react2.default.createElement(
+          'div',
+          { className: 'error' },
+          this.props.error.general
+        ),
+        this.props.handleDelete && this.props._id ? _react2.default.createElement(
+          'button',
+          { className: 'delete', onClick: this.props.handleDelete },
+          'Delete'
+        ) : null
+      );
+    }
+  }]);
+
+  return VenueForm;
+}(_react2.default.Component);
+
+exports.default = VenueForm;
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7292,98 +7786,237 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-//Components
+var NeighborhoodSelect = function (_React$Component) {
+    _inherits(NeighborhoodSelect, _React$Component);
 
+    function NeighborhoodSelect(props) {
+        _classCallCheck(this, NeighborhoodSelect);
 
-var VenueForm = function (_React$Component) {
-    _inherits(VenueForm, _React$Component);
-
-    function VenueForm(props) {
-        _classCallCheck(this, VenueForm);
-
-        var _this = _possibleConstructorReturn(this, (VenueForm.__proto__ || Object.getPrototypeOf(VenueForm)).call(this, props));
-
-        _this.handleChange = _this.handleChange.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (NeighborhoodSelect.__proto__ || Object.getPrototypeOf(NeighborhoodSelect)).call(this, props));
     }
 
-    _createClass(VenueForm, [{
-        key: 'handleChange',
-        value: function handleChange(event) {
-            //Update values of inputs
-            _ListActions2.default.venueInfoChange(event);
-        }
-    }, {
-        key: 'render',
+    _createClass(NeighborhoodSelect, [{
+        key: "render",
         value: function render() {
-            var deleteButton = this.props.handleDelete ? _react2.default.createElement(
-                'button',
-                { className: 'delete', onClick: this.props.handleDelete },
-                'Delete'
-            ) : null;
-
             return _react2.default.createElement(
-                'div',
-                { id: 'listingForm' },
+                "select",
+                { name: "neighborhood",
+                    value: this.props.selected ? this.props.selected : "no-value",
+                    onChange: this.props.onChange },
                 _react2.default.createElement(
-                    'label',
-                    null,
-                    'Name'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'name', placeholder: 'Event name', type: 'text', value: this.props.name, onChange: this.handleChange })
+                    "option",
+                    { value: "no-value", disabled: true },
+                    "Neighborhood"
                 ),
                 _react2.default.createElement(
-                    'label',
-                    null,
-                    'Name'
+                    "option",
+                    { value: "10" },
+                    "Tribeca and below"
                 ),
                 _react2.default.createElement(
-                    'div',
-                    { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'address', placeholder: 'address', type: 'text', value: this.props.address, onChange: this.handleChange })
+                    "option",
+                    { value: "20" },
+                    "Lower East Side"
                 ),
                 _react2.default.createElement(
-                    'label',
-                    null,
-                    'Website'
+                    "option",
+                    { value: "30" },
+                    "Soho"
                 ),
                 _react2.default.createElement(
-                    'div',
-                    { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'website', placeholder: 'Website', type: 'text', value: this.props.website, onChange: this.handleChange })
+                    "option",
+                    { value: "40" },
+                    "Noho/East Village"
                 ),
                 _react2.default.createElement(
-                    'button',
-                    { onClick: this.props.handleSubmit },
-                    'Submit'
+                    "option",
+                    { value: "60" },
+                    "West Village"
                 ),
-                this.props.loading && _react2.default.createElement(
-                    'div',
-                    { className: 'loading' },
-                    'loading'
+                _react2.default.createElement(
+                    "option",
+                    { value: "70" },
+                    "19th St and below"
                 ),
-                this.props.success && _react2.default.createElement(
-                    'div',
-                    { className: 'success' },
-                    'Saved!'
+                _react2.default.createElement(
+                    "option",
+                    { value: "80" },
+                    "20th St and nearby"
                 ),
-                this.props.error.general && _react2.default.createElement(
-                    'div',
-                    { className: 'error' },
-                    this.props.error.general
+                _react2.default.createElement(
+                    "option",
+                    { value: "90" },
+                    "21st St and nearby"
                 ),
-                deleteButton
+                _react2.default.createElement(
+                    "option",
+                    { value: "100" },
+                    "22nd St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "110" },
+                    "23rd St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "120" },
+                    "24th St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "130" },
+                    "25th St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "140" },
+                    "26th St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "150" },
+                    "27th St and above"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "160" },
+                    "Flatiron/Gramercy Park"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "170" },
+                    "Midtown"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "180" },
+                    "57th Street and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "190" },
+                    "Upper East Side"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "200" },
+                    "Upper West Side"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "210" },
+                    "Harlem"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "220" },
+                    "Brooklyn South"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "230" },
+                    "Dumbo/Downtown"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "235" },
+                    "Fort Greene"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "240" },
+                    "Bushwick/Bed-stuy"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "250" },
+                    "Williamsburg / Greenpoint"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "260" },
+                    "Brooklyn (Other)"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "270" },
+                    "Ridgewood"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "272" },
+                    "Long Island City/Astoria"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "274" },
+                    "Queens (Other)"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "280" },
+                    "The Bronx"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "290" },
+                    "Staten Island"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "300" },
+                    "Long Island"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "310" },
+                    "Upstate New York"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "320" },
+                    "New Jersey"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "330" },
+                    "Philadelphia"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "340" },
+                    "Old City"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "350" },
+                    "West Philadelphia"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "360" },
+                    "North Philadelphia"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "370" },
+                    "Other"
+                )
             );
         }
     }]);
 
-    return VenueForm;
+    return NeighborhoodSelect;
 }(_react2.default.Component);
 
-exports.default = VenueForm;
+exports.default = NeighborhoodSelect;
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports) {
+
+module.exports = require("mapbox");
 
 /***/ }),
 /* 96 */
@@ -7414,7 +8047,7 @@ var _featuredDay = __webpack_require__(97);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
-var _tabs = __webpack_require__(18);
+var _tabs = __webpack_require__(19);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -7428,43 +8061,47 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //COMPONENTS
 
 
-var GlancePage = function (_React$Component) {
-    _inherits(GlancePage, _React$Component);
+var FeaturePage = function (_React$Component) {
+    _inherits(FeaturePage, _React$Component);
 
-    function GlancePage(props) {
-        _classCallCheck(this, GlancePage);
+    function FeaturePage(props) {
+        _classCallCheck(this, FeaturePage);
 
-        return _possibleConstructorReturn(this, (GlancePage.__proto__ || Object.getPrototypeOf(GlancePage)).call(this, props));
+        //Get the next 7 dates
+        var _this = _possibleConstructorReturn(this, (FeaturePage.__proto__ || Object.getPrototypeOf(FeaturePage)).call(this, props));
+
+        var dates = [];
+        for (var i = 0; i < 7; i++) {
+            var d = new Date();
+            d.setHours(0, 0, 0, 0);
+            d.setDate(d.getDate() + i);
+            dates.push(d);
+        }
+
+        _this.state = {
+            dates: dates
+        };
+        return _this;
     }
 
-    _createClass(GlancePage, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            _ListActions2.default.getGlance();
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            _ListActions2.default.listingEditReset();
+    _createClass(FeaturePage, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            _ListActions2.default.featureLoad();
         }
     }, {
         key: 'render',
         value: function render() {
 
             var days = [];
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
 
             for (var i = 0; i < 7; i++) {
-                var d = new Date();
-                d.setHours(0, 0, 0, 0);
-                d.setDate(today.getDate() + i);
                 var label = _react2.default.createElement(
                     _reactIntl.IntlProvider,
                     { locale: 'en' },
-                    _react2.default.createElement(_reactIntl.FormattedDate, { value: d, weekday: 'long', day: 'numeric', month: 'short' })
+                    _react2.default.createElement(_reactIntl.FormattedDate, { value: this.state.dates[i], weekday: 'long', day: 'numeric', month: 'short' })
                 );
-                days.push(_react2.default.createElement(_featuredDay2.default, { key: d, date: d, feature: this.props.feature, error: this.props.error.feature, label: label }));
+                days.push(_react2.default.createElement(_featuredDay2.default, { key: i, dayNumber: i, date: this.state.dates[i], feature: this.props.features[i] || {}, error: this.props.error.feature, label: label }));
             }
 
             return _react2.default.createElement(
@@ -7484,10 +8121,10 @@ var GlancePage = function (_React$Component) {
         }
     }]);
 
-    return GlancePage;
+    return FeaturePage;
 }(_react2.default.Component);
 
-exports.default = GlancePage;
+exports.default = FeaturePage;
 
 /***/ }),
 /* 97 */
@@ -7524,7 +8161,7 @@ var _featuredForm = __webpack_require__(98);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
-var _featureBlock = __webpack_require__(25);
+var _featureBlock = __webpack_require__(27);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -7538,36 +8175,35 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //Components
 
 
-var ListingEdit = function (_React$Component) {
-    _inherits(ListingEdit, _React$Component);
+var FeaturedDay = function (_React$Component) {
+    _inherits(FeaturedDay, _React$Component);
 
-    function ListingEdit(props) {
-        _classCallCheck(this, ListingEdit);
+    function FeaturedDay(props) {
+        _classCallCheck(this, FeaturedDay);
 
-        var _this = _possibleConstructorReturn(this, (ListingEdit.__proto__ || Object.getPrototypeOf(ListingEdit)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (FeaturedDay.__proto__ || Object.getPrototypeOf(FeaturedDay)).call(this, props));
 
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleSelectChange = _this.handleSelectChange.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
         return _this;
     }
 
-    _createClass(ListingEdit, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            _ListActions2.default.featureLoad({ date: this.props.date });
-        }
-    }, {
+    _createClass(FeaturedDay, [{
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             _ListActions2.default.featureReset();
         }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {}
 
         // Add the listing to the database
 
     }, {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
-            var id = this.props.feature._id ? this.props.feature._id : null;
+            var id = this.props.feature._id || null;
             var newFeature = {
                 _id: id,
                 date: this.props.date,
@@ -7580,22 +8216,29 @@ var ListingEdit = function (_React$Component) {
                 image: this.props.feature.list.image
             };
             _ListActions2.default.updateFeature(newFeature);
-            _ListActions2.default.updateListing(newThumbnail);
+            _ListActions2.default.updateListing(newThumbnail, this.props.dayNumber);
+        }
+    }, {
+        key: 'handleChange',
+        value: function handleChange(event) {
+            _ListActions2.default.featureInfoChange(event, this.props.dayNumber);
         }
     }, {
         key: 'handleSelectChange',
         value: function handleSelectChange(data) {
             if (data.value) {
                 //Fetch all the listing info
-                _ListActions2.default.getListingInfo(data.value);
+                _ListActions2.default.getListingInfo(data.value, this.props.dayNumber);
             }
         }
     }, {
         key: 'render',
         value: function render() {
 
-            //how ot get option for select element
-            var getOptions = function getOptions(input) {
+            var list = this.props.feature.list ? this.props.feature.list : { name: '', _id: ''
+
+                //how to get option for select element
+            };var getOptions = function getOptions(input) {
                 return fetch('/list/find/' + input).then(function (response) {
                     return response.json();
                 }).then(function (json) {
@@ -7609,22 +8252,22 @@ var ListingEdit = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'column-2of3' },
-                    _react2.default.createElement(_formSelect2.default, { value: { label: this.props.feature.list.name, value: this.props.feature.list._id }, handleSelectChange: this.handleSelectChange, getOptions: getOptions }),
-                    _react2.default.createElement(_featuredForm2.default, _extends({}, this.props.feature, { handleSubmit: this.handleSubmit }))
+                    _react2.default.createElement(_formSelect2.default, { value: { label: list.name, value: list._id }, handleSelectChange: this.handleSelectChange, getOptions: getOptions }),
+                    _react2.default.createElement(_featuredForm2.default, _extends({}, this.props.feature, { number: this.props.dayNumber, handleChange: this.handleChange, handleSubmit: this.handleSubmit }))
                 ),
                 _react2.default.createElement(
                     'div',
                     { className: 'column-1of3' },
-                    this.props.error ? this.props.error : _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature })
+                    this.props.feature.list ? _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature }) : this.props.error
                 )
             );
         }
     }]);
 
-    return ListingEdit;
+    return FeaturedDay;
 }(_react2.default.Component);
 
-exports.default = ListingEdit;
+exports.default = FeaturedDay;
 
 /***/ }),
 /* 98 */
@@ -7651,7 +8294,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _ThumbnailInput = __webpack_require__(31);
+var _ThumbnailInput = __webpack_require__(34);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
@@ -7671,18 +8314,10 @@ var ListingForm = function (_React$Component) {
     function ListingForm(props) {
         _classCallCheck(this, ListingForm);
 
-        var _this = _possibleConstructorReturn(this, (ListingForm.__proto__ || Object.getPrototypeOf(ListingForm)).call(this, props));
-
-        _this.handleChange = _this.handleChange.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (ListingForm.__proto__ || Object.getPrototypeOf(ListingForm)).call(this, props));
     }
 
     _createClass(ListingForm, [{
-        key: 'handleChange',
-        value: function handleChange(event) {
-            _ListActions2.default.featureInfoChange(event);
-        }
-    }, {
         key: 'render',
         value: function render() {
 
@@ -7694,7 +8329,7 @@ var ListingForm = function (_React$Component) {
                     null,
                     'Thumbnail'
                 ),
-                _react2.default.createElement(_ThumbnailInput2.default, { image: this.props.list.image }),
+                _react2.default.createElement(_ThumbnailInput2.default, { image: this.props.list && this.props.list.image, number: this.props.number }),
                 _react2.default.createElement(
                     'label',
                     null,
@@ -7703,7 +8338,7 @@ var ListingForm = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'formSection' },
-                    _react2.default.createElement('textarea', { name: 'text', type: 'text', value: this.props.text, onChange: this.handleChange })
+                    _react2.default.createElement('textarea', { name: 'text', type: 'text', value: this.props.text, onChange: this.props.handleChange })
                 ),
                 _react2.default.createElement(
                     'button',
@@ -7968,7 +8603,7 @@ var VenueItem = function (_React$Component) {
                 { className: classNames.join(' '), id: this.props._id },
                 _react2.default.createElement(
                     _reactRouter.Link,
-                    { to: "/venue/" + this.props._id },
+                    { to: "/venue/" + this.props.slug },
                     this.props.name
                 ),
                 currentListings(this.state.currentListings),
@@ -8143,7 +8778,7 @@ var _ImagesActions = __webpack_require__(17);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _imageUpload = __webpack_require__(32);
+var _imageUpload = __webpack_require__(35);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
@@ -8292,9 +8927,7 @@ router.get('/getadmin/:offset_ratio', function (req, res, next) {
 router.get('/find/:venue_id', function (req, res, next) {
     var Venue = req.venue;
 
-    console.log('Looking for venue ' + req.params.venue_id);
-
-    var regexp = new RegExp("^" + req.params.venue_id, "i");
+    var regexp = new RegExp(req.params.venue_id, "i");
     Venue.find({ name: regexp }, function (err, venue) {
         if (err) res.send(err);
         var venues = [];
@@ -8328,7 +8961,7 @@ router.get('/getinfo/:venue_id', function (req, res, next) {
 /* GET the full info for one venue */
 //#######################
 
-router.get('/getfullinfo/:venue_id', function (req, res, next) {
+router.get('/getfullinfo/:venue_slug', function (req, res, next) {
     var Venue = req.venue;
     var List = req.list;
 
@@ -8336,7 +8969,7 @@ router.get('/getfullinfo/:venue_id', function (req, res, next) {
     var today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    Venue.find({ _id: req.params.venue_id }, function (err, venue) {
+    Venue.find({ slug: req.params.venue_slug }, function (err, venue) {
         if (err) res.send(err);
 
         List.find({ venue: venue[0]._id }).where('start').lte(today).where('end').gte(today).populate('venue').exec(function (e, current) {
@@ -8377,10 +9010,29 @@ router.post('/add', function (req, res) {
 
     //Save this new entry
     newvenue.save(function (err, newvenue) {
-        res.send(err === null ? {
-            msg: ''
-        } : {
+        res.send(err !== null && {
             msg: err
+        });
+    });
+});
+
+//#######################
+// DELETE a venue.
+//#######################
+
+router.post('/delete/:venue_id', function (req, res) {
+    var Venue = req.venue;
+
+    console.log("Deleting one venue", req.params.venue_id);
+
+    var venueToDelete = req.params.venue_id;
+    console.log(venueToDelete);
+
+    Venue.remove({
+        '_id': venueToDelete
+    }, function (err) {
+        res.send(err !== null && {
+            msg: 'error: ' + err
         });
     });
 });
@@ -8525,8 +9177,7 @@ router.get('/glancelistings', function (req, res) {
 //#######################
 
 router.get('/eventslistings', function (req, res) {
-    var List = req.list,
-        Venue = req.venue;
+    var List = req.list;
 
     //Find today's date
     var today = new Date();
@@ -8541,6 +9192,7 @@ router.get('/eventslistings', function (req, res) {
             event: true
         }]
     }, {}).sort('start').populate('venue').exec(function (e, docs) {
+        console.log(e, docs);
         res.json(docs);
     });
 });
@@ -8552,7 +9204,7 @@ router.get('/eventslistings', function (req, res) {
 router.get('/find/:regex_input', function (req, res, next) {
     var List = req.list;
 
-    var regexp = new RegExp("^" + req.params.regex_input, "i");
+    var regexp = new RegExp(req.params.regex_input, "i");
 
     List.find({ name: regexp }).exec(function (err, listings) {
         if (err) res.send(err);
@@ -8640,12 +9292,9 @@ router.post('/update', function (req, res) {
 router.post('/feature', function (req, res) {
     var Feature = req.feature;
 
-    console.log("Update one feature");
-
     if (req.body._id) {
 
         //Update feature
-        console.log('Update feature');
 
         var theFeature = new Feature(req.body);
 
@@ -8654,12 +9303,10 @@ router.post('/feature', function (req, res) {
         }, {
             $set: theFeature
         }, function (err, newFeature) {
-            console.log('Updated feature: ', newFeature);
             res.send(err === null ? { msg: '' } : { msg: err });
         });
     } else {
         // New feature
-        console.log('New feature');
 
         var theFeature = new Feature(req.body);
 
@@ -8677,10 +9324,20 @@ router.post('/feature', function (req, res) {
 router.post('/findfeature', function (req, res) {
     var Feature = req.feature;
 
-    console.log("Find one feature");
+    console.log("Find all features");
+
+    //Find today's date
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var inaWeek = new Date();
+    inaWeek.setDate(inaWeek.getDate() + 7);
+    inaWeek.setHours(0, 0, 0, 0);
 
     Feature.find({
-        date: req.body.date
+        date: {
+            $gte: today,
+            $lt: inaWeek
+        }
     }).populate('list').populate('venue').exec(function (e, docs) {
         res.json(docs);
     });

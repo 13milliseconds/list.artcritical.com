@@ -1,5 +1,6 @@
 import React from 'react';
 import { SingleDatePicker } from 'react-dates';
+import moment from 'moment';
 
 export default class DateSingle extends React.Component {
     
@@ -17,8 +18,8 @@ export default class DateSingle extends React.Component {
            <SingleDatePicker
                id="startDate"
                isOutsideRange={() => false}
-              date={this.props.startDate} 
-              onDateChange={startDate => this.props.onDatesChange(startDate)} // PropTypes.func.isRequired
+              date={this.props.startDate ? moment(this.props.startDate) : null}  
+              onDateChange={date => this.props.onDatesChange({date})} // PropTypes.func.isRequired
               focused={this.state.focused} // PropTypes.bool
               onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
             />

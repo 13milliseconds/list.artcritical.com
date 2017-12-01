@@ -1,53 +1,68 @@
-import React from 'react';
-import GoogleMapReact from 'google-map-react';
-import ListActions from '../../actions/ListActions';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import GoogleMapReact from 'google-map-react'
+import ListActions from '../../actions/ListActions'
 //COMPONENT
 import SingleMarker from './singleMarker'
-let ReactMapboxGl, Map, Layer, Feature, Marker
+import ReactMapGL, {Marker} from 'react-map-gl'
 
 export default class MapBlock extends React.Component {
     
     constructor(props) {
-        super(props);    
+        super(props);   
+        
+        this.state = {
+            viewport: {
+                zoom: 12,
+                mapboxApiAccessToken: process.env.MapboxAccessToken,
+                bearing: 0,
+                pitch: 0,
+                width: 500,
+                height: 500
+              }
+        }
+        
+        this.updateViewport = this.updateViewport.bind(this)
+        this.componentDidMount = this.componentDidMount.bind(this)
     }
     
+    componentDidMount(){
+        // Create variable to change property
+        let newViewport = this.state.viewport
+        newViewport.width = ReactDOM.findDOMNode(this).offsetWidth
+        //Update state
+        this.setState({
+              viewport: newViewport
+          })
+    }
     
-    
-    componentDidMount() {
-        ReactMapboxGl = require("react-mapbox-gl");
-        Layer = ReactMapboxGl.Layer;
-        Feature = ReactMapboxGl.Feature;
-        Marker = ReactMapboxGl.Marker;
-        this.forceUpdate();
+    updateViewport(v) {
+        this.setState({
+            viewport: v
+        })
     }
 
   render() {
-       
-      
-      const coord = {lat: this.props.coordinates.lat, lng: this.props.coordinates.long}
-      
-      
-        Map = ReactMapboxGl && ReactMapboxGl.Map({
-          accessToken: "pk.eyJ1IjoiYXJ0Y3JpdGljYWwiLCJhIjoiY2o5ZWUzdGlrMmIydjJ3bnJpeWxsN2I1YSJ9.HKlVu4oYspR74CeCdVouRg"
-        })
-
-      
     return (
         <div className="mapWrap">
-            { (Map && this.props.coordinates) ? 
-                <Map
-                    style="mapbox://styles/mapbox/streets-v9"
-                    containerStyle={{height: "500px", width: "100%"}}
-                    center={coord}
-                >
-                    <Marker coordinates={coord}
-                        anchor="bottom">
+			{this.props.coordinates &&
+            <ReactMapGL
+                {...this.state.viewport}
+				latitude={this.props.coordinates.lat ? this.props.coordinates.lat : 40.7263098}
+                longitude={this.props.coordinates.long ? this.props.coordinates.long : -73.9940454}
+                onViewportChange={this.updateViewport}
+              >
+				{this.props.coordinates.lat &&
+                <Marker 
+                        latitude={this.props.coordinates.lat}
+                        longitude={this.props.coordinates.long}
+                        anchor="bottom"
+                                  >
                         <SingleMarker />
-                    </Marker>
-                </Map>
-            :
-                null
-             }
+                </Marker>
+				}
+            </ReactMapGL>
+				}
         </div>
             
     );

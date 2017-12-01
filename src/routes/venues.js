@@ -49,9 +49,7 @@ router.get('/getadmin/:offset_ratio', function (req, res, next) {
 router.get('/find/:venue_id', function (req, res, next) {
     var Venue = req.venue;
     
-    console.log('Looking for venue ' + req.params.venue_id);
-    
-    var regexp = new RegExp("^"+ req.params.venue_id, "i");
+    var regexp = new RegExp(req.params.venue_id, "i");
     Venue.find({ name: regexp}, function(err, venue) {
             if (err)
                 res.send(err);
@@ -91,7 +89,7 @@ router.get('/getinfo/:venue_id', function (req, res, next) {
 /* GET the full info for one venue */
 //#######################
 
-router.get('/getfullinfo/:venue_id', function (req, res, next) {
+router.get('/getfullinfo/:venue_slug', function (req, res, next) {
     var Venue = req.venue;
     var List = req.list;
     
@@ -99,7 +97,7 @@ router.get('/getfullinfo/:venue_id', function (req, res, next) {
     var today = new Date();
     today.setHours(0, 0, 0, 0);
     
-    Venue.find({ _id: req.params.venue_id}, function(err, venue) {
+    Venue.find({ slug: req.params.venue_slug}, function(err, venue) {
             if (err)
                 res.send(err);
         
@@ -156,12 +154,32 @@ router.post('/add', function (req, res) {
     //Save this new entry
     newvenue.save(function (err, newvenue) {
         res.send(
-            (err === null) ? {
-                msg: ''
-            } : {
+            (err !== null) && {
                 msg: err
             }
         );
+    });
+
+});
+
+//#######################
+// DELETE a venue.
+//#######################
+
+router.post('/delete/:venue_id', function (req, res) {
+    var Venue = req.venue;
+
+    console.log("Deleting one venue", req.params.venue_id);
+
+    var venueToDelete = req.params.venue_id;
+	console.log(venueToDelete);
+	
+    Venue.remove({
+        '_id': venueToDelete
+    }, function (err) {
+        res.send((err !== null) && {
+            msg: 'error: ' + err
+        });
     });
 
 });

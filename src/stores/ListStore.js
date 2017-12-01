@@ -43,14 +43,11 @@ class ListStore {
         this.listingEdit.venue._id = '';
         this.listingEdit.venue.address = '';
         //New venue states
-        this.venueEdit = {};
-        this.venueEdit._id = '';
-        this.venueEdit.name = '';
+        this.venueEdit = {
+			coordinates: {}
+		};
         // Featured listings
-        this.feature = {};
-        this.feature.text = '';
-        this.feature.list = {};
-        this.feature.venue = {};
+		this.features = [];
         //Venues
         this.allVenues = [];
         this.venue = {};
@@ -63,6 +60,9 @@ class ListStore {
         this.loading.register = false;
         this.loading.updateuser = false;
         this.loading.updatelisting = false;
+        this.loading.updatevenue = false;
+        this.loading.savelisting = false;
+        this.loading.savevenue = false;
         this.loading.current = false;
         this.loading.future = false;
         this.loading.allVenues = false;
@@ -71,12 +71,16 @@ class ListStore {
         this.error.feature = '';
         this.error.updateuser = '';
         this.error.updatelisting = {};
+        this.error.updatevenue = {};
         this.error.savelisting = {};
+        this.error.savevenue = {};
         //Success
         this.success = {};
         this.success.updateuser = false;
         this.success.updatelisting = false;
+        this.success.updatevenue = false;
         this.success.savelisting = false;
+        this.success.savevenue = false;
     }
     
     //List Reducers
@@ -148,17 +152,25 @@ class ListStore {
     }
     onVenueEditReset(){
         this.venueEdit = {
-            _id: '',
-            name: '',
-            address: '',
-            website: '',
-        };
+            coordinates: {}
+        }
+		// Reset messages
+		this.success.updatevenue = false;
+		this.loading.updatevenue = false;
+		this.error.updatevenue = {
+			general: ''
+		};
+		
     }
     
     // Get listing info
-    onGetListingInfoSuccess(data){
-        this.listingEdit = data;
-        this.feature.list = data;
+    onGetListingInfoSuccess(info){
+		console.log('Got some info', info)
+        this.listingEdit = info.data;
+		if (info.i){
+			this.features[info.i].list = info.data;
+			console.log(info.data);
+		}
     }
     onGetListingInfoFailure(jqXhr){
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
@@ -170,24 +182,16 @@ class ListStore {
         this.venue = data.venue;
         this.venue.currentListings = data.currentListings;
         this.venue.upcomingListings = data.upcomingListings;
-        this.venue.pastListings = data.pastListings;
-        
-        /*const today = new Date();
-        
-        this.venue.listings.map(function(listing){
-            if (listing.start > today){
-                console.log('upcoming');
-            } else if (listing.end < today){
-                console.log('past');
-            } else {
-                console.log('present');
-            }
-        });*/
-        
+        this.venue.pastListings = data.pastListings; 
     }
     // Get venue info
     onGetVenueInfoSuccess(data){
-        this.venueEdit = data;
+		this.listingEdit.venue = data;
+		this.venueEdit = data;
+		//Create a slug automatically if there is none
+		if(!data.slug){
+            this.venueEdit.slug = data.name.replace(/\s+/g, '-').toLowerCase();
+                      }
     }
     onGetVenueFullInfoFailure(jqXhr){
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
@@ -195,6 +199,20 @@ class ListStore {
     onGetVenueInfoFailure(jqXhr){
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
+	//Add a venue
+    onSaveVenueAttempt(){
+        this.loading.updatevenue = true;       
+    }
+    onSaveVenueSuccess(data){
+        this.loading.updatevenue = false; 
+        this.success.updatevenue = true;
+    }
+    onSaveVenueFailure(err){
+        console.log('Error: ', err);
+        this.loading.updatevenue = false; 
+        this.error.updatevenue.general = 'Error while saving changes'; 
+    }
+	// Update a venue
     onUpdateVenue(info){
         this.venue.coordinates = {
             lat: info[1],
@@ -202,13 +220,22 @@ class ListStore {
         }
     }
     onUpdateVenueAttempt(){
-        console.log('Updating Venue');
+        this.loading.updatevenue = true;
     }
     onUpdateVenueSuccess(data){
-        console.log('Updating Venue', data);
+        this.loading.updatevenue = false;
+        this.success.updatevenue = true;
     }
-    onUpdateVenueFailure(){
-        console.log('Error Updating Venue');
+    onUpdateVenueFailure(error){
+        this.loading.updatevenue = false;
+        this.error.updatevenue.general = error;
+    }
+	//Delete a Venue
+    onDeleteVenueSuccess(data){
+        console.log('Deleted');
+    }
+    onDeleteVenueFailure(err){
+        console.log('Error: ', err);
     }
     
     onGetVenueListingsSuccess(data){
@@ -272,7 +299,7 @@ class ListStore {
     
     //Update a listing
     onDeleteListingSuccess(data){
-        console.log('Deleted: ', data);        
+        console.log('Deleted');        
     }
     onDeleteListingFailure(err){
         console.log('Error: ', err);
@@ -289,24 +316,40 @@ class ListStore {
             if (info.endDate){
                 this.listingEdit.end = info.endDate;
             }
+		} else if (info.date) {
+            this.listingEdit.start = info.date;
        } else {
            this.listingEdit.event = !info.event;  
-            console.log(this.listingEdit.event);
         }
     }
     
     //Update info on feature page
-    onFeatureInfoChange (info){
-            const value = info.target.value;
-            const name = info.target.name;   
-            this.feature[name] = value;
+    onFeatureInfoChange (data){
+            const value = data.event.target.value;
+            const name = data.event.target.name;   
+            this.features[data.i][name] = value;
     }
     
     //Update info on venue page
     onVenueInfoChange (info){
-            const value = info.target.value;
-            const name = info.target.name;   
+            const value = info.value;
+            const name = info.name;  
+        if (name === 'lat'){
+            this.venueEdit.coordinates.lat = parseFloat(value);       
+        } else if (name === 'long'){
+            this.venueEdit.coordinates.long = parseFloat(value);       
+        } else {
             this.venueEdit[name] = value;
+        }
+		//Keep the slug synced with the name
+		this.venueEdit.slug = this.venueEdit.name.replace(/\s+/g, '-').toLowerCase();
+    }
+    //Update coordinates on venue page
+    onCoordinatesChange (coord){
+            this.venueEdit.coordinates = {
+                lat: coord[1],
+                long: coord[0]
+            };
     }
     
     //FEATURED
@@ -318,30 +361,51 @@ class ListStore {
     }
     onFeatureReset(){
         this.feature= {};
-        this.feature.text = '';
-        this.feature.list = {};
-        this.feature.venue = {};
     }
-    onFeatureLoadSuccess(data) {
-        if (data){
-            this.feature = data;
-            this.listingEdit._id = data.list._id;
-            this.listingEdit.name = data.list.name;
-            this.listingEdit.text = data.text;
-            this.listingEdit.image = data.list.image;
-            this.listingEdit.venue._id = data.venue._id;
-            this.error.feature = "";
+    onFeatureLoadSuccess(allFeatures) {
+        if (allFeatures){
+			// Match all features with a day of the next week
+			let features = []
+			let dates = []
+			for (var i=0; i < 7; i++) {
+				let d = new Date();
+				d.setHours(0,0,0,0)
+				d.setDate(d.getDate() + i );
+				dates.push(d)
+			}
+			//Find element in features whose date == d
+				//For each day of the week
+				for (var i=0; i < 7; i++) { 
+					let tempFeature = null
+					// Go through all the features
+					allFeatures.map(feature => { 
+						// Format the feature's date
+						let tempDate = new Date(feature.date);
+						tempDate.setHours(0,0,0,0)
+						// Check if it matches
+						if (tempDate.getTime() == dates[i].getTime()){
+							tempFeature = feature
+						}
+					})
+					if (tempFeature){
+						features.push(tempFeature)
+						tempFeature = null
+					} else {
+						features.push({})
+					}
+				}
+            this.features = features;
         } else {
-            this.error.feature = "No Feature selected today";
+            this.error.feature = "No Features";
         }
     }
     onFeatureLoadFailure(error) {
         console.log("Feature load error: ", error);
-        this.feature= {};
-        this.feature.text = '';
-        this.feature.list = {};
-        this.feature.venue = {};
+        this.features= [];
     }
+	onFeatureEdit(featureEdit){
+		this.feature = featureEdit;
+	}
     
     // Auth Reducers
     
@@ -487,10 +551,12 @@ class ListStore {
         console.log('Error: ', err);
     }
     // UPLOAD A THUMBNAIL
-    onThumbnailUploadSuccess(image){
+    onThumbnailUploadSuccess(data){
         this.isUploaded = true;
-        this.listingEdit.image = image.public_id;
-        this.feature.list.image = image.public_id;
+        this.listingEdit.image = data.image.public_id;
+		if (data.i){
+			this.features[data.i].list.image = data.image.public_id;	
+		}
     }
     onThumbnailUploadFailure(err){
         console.log('Error: ', err);

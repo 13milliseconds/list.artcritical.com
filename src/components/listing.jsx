@@ -42,7 +42,7 @@ export default class Listing extends React.Component {
     let address = <span>{this.props.venue.address}{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</span>
         
     if (this.props.event == true) {
-        dateDisplay = <p>{this.props.start && <Date date={this.props.start} /> } {end} - {address}</p>
+        dateDisplay = <p>{this.props.start && <Date date={this.props.start} /> } - {address}</p>
     } else {
         if (this.props.dateView == "current") {
             dateDisplay = <p>Until <Date date={this.props.end}/> - {address}</p>
@@ -73,7 +73,7 @@ export default class Listing extends React.Component {
         </div>
         <div className = "listingContent">
             <div className="header">
-                <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue._id}>{this.props.venue.name}</a></p>
+                <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue.slug}>{this.props.venue.name}</a></p>
                 {dateDisplay}
                 
             </div>

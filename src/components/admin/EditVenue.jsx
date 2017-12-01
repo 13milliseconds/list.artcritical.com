@@ -5,12 +5,16 @@ import ListActions from '../../actions/ListActions';
 import Listing from '../listing';
 import Select from '../forms/formSelect';
 import VenueForm from '../forms/VenueForm';
+import MapBlock from '../blocks/mapBlock';
 
 
 export default class VenueEdit extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            formDisplay: false
+        }
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -23,18 +27,44 @@ export default class VenueEdit extends React.Component {
     
     // Add the listing to the database
     handleSubmit() {
-        ListActions.updateVenue(this.props.venueEdit)
+		if (this.props.venueEdit._id){
+			ListActions.updateVenue(this.props.venueEdit)
+		} else {	
+			let newVenue = this.props.venueEdit
+			delete newVenue._id
+			ListActions.saveVenue(newVenue)
+		}
+		this.setState({
+			formDisplay: false,
+		})
       }
     
     //Delete the listing
     handleDelete() {
         ListActions.deleteVenue(this.props.venueEdit._id)
-        ListActions.listingEditReset();
       }
     
     handleSelectChange (data) {
-        if (data.value){
-            ListActions.getVenueInfo(data.value);
+        if (data){
+			this.setState({
+                    formDisplay: true
+                })
+            if (data.label == data.value) {
+				//New Venue
+				ListActions.venueInfoChange({
+					name: 'name',
+					value: data.value
+				})
+			} else {
+				//Update venue
+                ListActions.getVenueInfo(data.value);
+            }
+        } else {
+			// If the reset form button is pressed
+            ListActions.venueEditReset();
+			this.setState({
+                    formDisplay: false
+                })
         }
     }
     
@@ -55,20 +85,28 @@ export default class VenueEdit extends React.Component {
         }
         
         return ( 
-            <div>
+            <div className="editVenue cf">
                 <h3>Edit Venue</h3>
-                <div id="ListingList">
+                <div className="d-1of2">
+                <div className="venueList">
                     <form onSubmit={this.handleSubmit}>
                         <Select value={{value: this.props.venueEdit._id, label: this.props.venueEdit.name}} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
                     </form>
                 </div>
-                <div className="listingForm">
-                    <VenueForm {...this.props.venueEdit} 
-                        handleSubmit={this.handleSubmit}  
-                        handleDelete={this.handleDelete} 
-                        error={this.props.error.updatelisting} 
-                        loading={this.props.loading.updatelisting}
-                        success={this.props.success.updatelisting}/>
+					<div className="listingForm">
+					{this.state.formDisplay && 
+                        <VenueForm {...this.props.venueEdit} 
+                            handleSubmit={this.handleSubmit}  
+                            handleDelete={this.handleDelete} 
+							newVenue={(this.props._id == '' || this.props._id == null && this.props.name !== '')}
+                            error={this.props.error.updatevenue} 
+                            loading={this.props.loading.updatevenue}
+                            success={this.props.success.updatevenue}/>
+						}
+					</div>
+                </div>
+                <div className="d-1of2">
+						<MapBlock {...this.props.venueEdit} />
                 </div>
             </div>
         );
