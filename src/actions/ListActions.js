@@ -325,10 +325,10 @@ class ListActions {
         return true;
     }
     
-    async featureLoad(){
+    async featureLoad(days){
         
         await fetch(
-          process.env.BASE_URI + '/list/findfeature',
+          process.env.BASE_URI + '/list/findfeatures/' + days,
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -344,7 +344,7 @@ class ListActions {
           return null;
         })
         .then((json) => {
-            this.featureLoadSuccess(json);
+            this.featureLoadSuccess({json, days});
             return true;
         })
         .catch((error) => {
