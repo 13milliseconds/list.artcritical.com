@@ -1663,6 +1663,7 @@ var ListStore = function () {
         key: 'onGetListingInfoSuccess',
         value: function onGetListingInfoSuccess(info) {
             console.log('Got some info', info);
+            console.log('Day number', i);
             this.listingEdit = info.data;
             if (info.i) {
                 this.features[info.i].list = info.data;
