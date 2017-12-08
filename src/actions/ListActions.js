@@ -430,22 +430,15 @@ class ListActions {
         return size;
     }
     
-    getVenuesAdmin() {
+    getVenuesAdmin(neighborhood) {
         this.getVenuesAdminAttempt();
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: process.env.BASE_URI + '/venues/getadmin/'+ offset
+                    url: process.env.BASE_URI + '/venues/getadmin/'+ neighborhood
                 })
                 .done((data) => {
-                    if (data.length > 0){
-                        offset = offset + 1
                         this.getVenuesAdminSuccess(data)
-                        this.getVenuesAdmin()
-                    } else {
-                        offset = 0
-                    }
-                    
                 })
                 .fail((jqXhr) => {
                     this.getVenuesAdminFailure(jqXhr)
@@ -543,6 +536,10 @@ class ListActions {
         });
         
     }
+	
+	adminReset(){
+		return;
+	}
     
 }
 

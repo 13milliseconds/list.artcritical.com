@@ -14,13 +14,11 @@ router.get('/', function (req, res, next) {
 });
 
 /* GET info for one venue */
-router.get('/getadmin/:offset_ratio', function (req, res, next) {
+router.get('/getadmin/:neighborhood', function (req, res, next) {
     var Venue = req.venue;
     var List = req.list;
     
-    var offset_ratio = parseInt(req.params.offset_ratio) * 30;
-    
-    Venue.find().sort('neighborhood').skip(offset_ratio).limit(30).exec()
+    Venue.find({ neighborhood: req.params.neighborhood}).sort('name').exec()
         .then(function(venues){
         return Promise.map(venues, function(venue) {
             // Promise.map awaits for returned promises as well.

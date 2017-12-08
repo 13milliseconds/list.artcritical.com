@@ -150,6 +150,24 @@ class ListStore {
             start: null
         };
     }
+	
+	onAdminReset(){
+		//Reset the Venue Admin
+		this.allVenues = [];
+		//Reset the Listing Edit
+		this.listingEdit = {
+            image: '',
+            name: '',
+            _id: '',
+            description: '',
+            text: '',
+            venue: {},
+            end: null,
+            start: null
+        };
+		//Reset the Venue Edit
+	}
+	
     onVenueEditReset(){
         this.venueEdit = {
             coordinates: {}
@@ -230,6 +248,7 @@ class ListStore {
         this.loading.updatevenue = false;
         this.error.updatevenue.general = error;
     }
+	
 	//Delete a Venue
     onDeleteVenueSuccess(data){
         console.log('Deleted');
@@ -245,11 +264,13 @@ class ListStore {
         console.log(error);
     }
     onGetVenuesAdminAttempt(){
+		this.allVenues = [];
         this.loading.allVenues = true;
     }
     onGetVenuesAdminSuccess(data){
         this.loading.allVenues = false;
-        this.allVenues = this.allVenues.concat(data);
+        //this.allVenues = this.allVenues.concat(data);
+		this.allVenues = data;
     }
     onGetVenuesAdminFailure(error){
         console.log(error);

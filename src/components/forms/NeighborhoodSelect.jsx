@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class NeighborhoodSelect extends React.Component {
+export default class NeighborhoodSelect extends React.Component { 
 
     constructor(props) {
         super(props);

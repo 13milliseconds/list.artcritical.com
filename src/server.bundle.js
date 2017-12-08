@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -465,22 +465,16 @@ var ListActions = function () {
         }
     }, {
         key: 'getVenuesAdmin',
-        value: function getVenuesAdmin() {
+        value: function getVenuesAdmin(neighborhood) {
             var _this15 = this;
 
             this.getVenuesAdminAttempt();
             return function (dispatch) {
                 dispatch();
                 $.ajax({
-                    url: process.env.BASE_URI + '/venues/getadmin/' + offset
+                    url: process.env.BASE_URI + '/venues/getadmin/' + neighborhood
                 }).done(function (data) {
-                    if (data.length > 0) {
-                        offset = offset + 1;
-                        _this15.getVenuesAdminSuccess(data);
-                        _this15.getVenuesAdmin();
-                    } else {
-                        offset = 0;
-                    }
+                    _this15.getVenuesAdminSuccess(data);
                 }).fail(function (jqXhr) {
                     _this15.getVenuesAdminFailure(jqXhr);
                 });
@@ -562,6 +556,11 @@ var ListActions = function () {
             }).catch(function (error) {
                 _this18.deleteVenueFailure(error);
             });
+        }
+    }, {
+        key: 'adminReset',
+        value: function adminReset() {
+            return;
         }
     }]);
 
@@ -1280,7 +1279,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _alt = __webpack_require__(49);
+var _alt = __webpack_require__(50);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -1364,7 +1363,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(89);
+var _reactSelect = __webpack_require__(90);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1442,7 +1441,7 @@ var _ImagesActions = __webpack_require__(17);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _toastr = __webpack_require__(59);
+var _toastr = __webpack_require__(60);
 
 var _toastr2 = _interopRequireDefault(_toastr);
 
@@ -1628,6 +1627,24 @@ var ListStore = function () {
             };
         }
     }, {
+        key: 'onAdminReset',
+        value: function onAdminReset() {
+            //Reset the Venue Admin
+            this.allVenues = [];
+            //Reset the Listing Edit
+            this.listingEdit = {
+                image: '',
+                name: '',
+                _id: '',
+                description: '',
+                text: '',
+                venue: {},
+                end: null,
+                start: null
+            };
+            //Reset the Venue Edit
+        }
+    }, {
         key: 'onVenueEditReset',
         value: function onVenueEditReset() {
             this.venueEdit = {
@@ -1738,6 +1755,7 @@ var ListStore = function () {
             this.loading.updatevenue = false;
             this.error.updatevenue.general = error;
         }
+
         //Delete a Venue
 
     }, {
@@ -1763,13 +1781,15 @@ var ListStore = function () {
     }, {
         key: 'onGetVenuesAdminAttempt',
         value: function onGetVenuesAdminAttempt() {
+            this.allVenues = [];
             this.loading.allVenues = true;
         }
     }, {
         key: 'onGetVenuesAdminSuccess',
         value: function onGetVenuesAdminSuccess(data) {
             this.loading.allVenues = false;
-            this.allVenues = this.allVenues.concat(data);
+            //this.allVenues = this.allVenues.concat(data);
+            this.allVenues = data;
         }
     }, {
         key: 'onGetVenuesAdminFailure',
@@ -2226,7 +2246,7 @@ var _alt2 = _interopRequireDefault(_alt);
 
 __webpack_require__(24);
 
-var _superagent = __webpack_require__(58);
+var _superagent = __webpack_require__(59);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -2452,9 +2472,9 @@ var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactstrap = __webpack_require__(76);
+var _reactstrap = __webpack_require__(77);
 
-var _FacebookButton = __webpack_require__(77);
+var _FacebookButton = __webpack_require__(78);
 
 var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 
@@ -2750,7 +2770,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactIntl = __webpack_require__(9);
 
-var _imageBlock = __webpack_require__(65);
+var _imageBlock = __webpack_require__(66);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -2847,7 +2867,7 @@ var _reactDom = __webpack_require__(29);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _googleMapReact = __webpack_require__(68);
+var _googleMapReact = __webpack_require__(69);
 
 var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
 
@@ -2855,7 +2875,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _singleMarker = __webpack_require__(69);
+var _singleMarker = __webpack_require__(70);
 
 var _singleMarker2 = _interopRequireDefault(_singleMarker);
 
@@ -2992,11 +3012,11 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactRouter = __webpack_require__(2);
 
-var _formDateRange = __webpack_require__(87);
+var _formDateRange = __webpack_require__(88);
 
 var _formDateRange2 = _interopRequireDefault(_formDateRange);
 
-var _formDateSingle = __webpack_require__(88);
+var _formDateSingle = __webpack_require__(89);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
@@ -3295,7 +3315,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDropzone = __webpack_require__(90);
+var _reactDropzone = __webpack_require__(91);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
@@ -3372,6 +3392,257 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var NeighborhoodSelect = function (_React$Component) {
+    _inherits(NeighborhoodSelect, _React$Component);
+
+    function NeighborhoodSelect(props) {
+        _classCallCheck(this, NeighborhoodSelect);
+
+        return _possibleConstructorReturn(this, (NeighborhoodSelect.__proto__ || Object.getPrototypeOf(NeighborhoodSelect)).call(this, props));
+    }
+
+    _createClass(NeighborhoodSelect, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "select",
+                { name: "neighborhood",
+                    value: this.props.selected ? this.props.selected : "no-value",
+                    onChange: this.props.onChange },
+                _react2.default.createElement(
+                    "option",
+                    { value: "no-value", disabled: true },
+                    "Neighborhood"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "10" },
+                    "Tribeca and below"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "20" },
+                    "Lower East Side"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "30" },
+                    "Soho"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "40" },
+                    "Noho/East Village"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "60" },
+                    "West Village"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "70" },
+                    "19th St and below"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "80" },
+                    "20th St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "90" },
+                    "21st St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "100" },
+                    "22nd St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "110" },
+                    "23rd St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "120" },
+                    "24th St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "130" },
+                    "25th St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "140" },
+                    "26th St and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "150" },
+                    "27th St and above"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "160" },
+                    "Flatiron/Gramercy Park"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "170" },
+                    "Midtown"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "180" },
+                    "57th Street and nearby"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "190" },
+                    "Upper East Side"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "200" },
+                    "Upper West Side"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "210" },
+                    "Harlem"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "220" },
+                    "Brooklyn South"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "230" },
+                    "Dumbo/Downtown"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "235" },
+                    "Fort Greene"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "240" },
+                    "Bushwick/Bed-stuy"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "250" },
+                    "Williamsburg / Greenpoint"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "260" },
+                    "Brooklyn (Other)"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "270" },
+                    "Ridgewood"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "272" },
+                    "Long Island City/Astoria"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "274" },
+                    "Queens (Other)"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "280" },
+                    "The Bronx"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "290" },
+                    "Staten Island"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "300" },
+                    "Long Island"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "310" },
+                    "Upstate New York"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "320" },
+                    "New Jersey"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "330" },
+                    "Philadelphia"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "340" },
+                    "Old City"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "350" },
+                    "West Philadelphia"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "360" },
+                    "North Philadelphia"
+                ),
+                _react2.default.createElement(
+                    "option",
+                    { value: "370" },
+                    "Other"
+                )
+            );
+        }
+    }]);
+
+    return NeighborhoodSelect;
+}(_react2.default.Component);
+
+exports.default = NeighborhoodSelect;
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var ErrorPage = function (_React$Component) {
     _inherits(ErrorPage, _React$Component);
 
@@ -3399,31 +3670,31 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
 var express = __webpack_require__(7);
-var path = __webpack_require__(38);
-var favicon = __webpack_require__(39);
-var logger = __webpack_require__(40);
-var cookieParser = __webpack_require__(41);
-var bodyParser = __webpack_require__(42);
-var http = __webpack_require__(43);
-var debug = __webpack_require__(44)('artcritical-list:server');
+var path = __webpack_require__(39);
+var favicon = __webpack_require__(40);
+var logger = __webpack_require__(41);
+var cookieParser = __webpack_require__(42);
+var bodyParser = __webpack_require__(43);
+var http = __webpack_require__(44);
+var debug = __webpack_require__(45)('artcritical-list:server');
 
-var expressValidator = __webpack_require__(45);
+var expressValidator = __webpack_require__(46);
 
 //Authentification
 var passport = __webpack_require__(14);
-var flash = __webpack_require__(46);
-var session = __webpack_require__(47);
+var flash = __webpack_require__(47);
+var session = __webpack_require__(48);
 var bcrypt = __webpack_require__(23); // encripts password
 
 // Get the User model
-__webpack_require__(48)(passport);
+__webpack_require__(49)(passport);
 
 var app = express();
 
@@ -3439,10 +3710,10 @@ db.once('open', function () {
 });
 
 // Import the Mongoose models
-var List = __webpack_require__(52);
+var List = __webpack_require__(53);
 var Venue = __webpack_require__(26);
 var User = __webpack_require__(25);
-var Feature = __webpack_require__(53);
+var Feature = __webpack_require__(54);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -3487,10 +3758,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-var index = __webpack_require__(54);
-var venues = __webpack_require__(105);
-var listings = __webpack_require__(106);
-var auth = __webpack_require__(107);
+var index = __webpack_require__(55);
+var venues = __webpack_require__(106);
+var listings = __webpack_require__(107);
+var auth = __webpack_require__(108);
 
 app.use('/venues', venues);
 app.use('/list', listings);
@@ -3596,67 +3867,67 @@ function onListening() {
 /* WEBPACK VAR INJECTION */}.call(exports, "src"))
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = require("debug");
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-validator");
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = require("connect-flash");
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-session");
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3671,8 +3942,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // config/passport.js
 
 // load all the things we need
-var LocalStrategy = __webpack_require__(50).Strategy;
-var FacebookStrategy = __webpack_require__(51).Strategy;
+var LocalStrategy = __webpack_require__(51).Strategy;
+var FacebookStrategy = __webpack_require__(52).Strategy;
 
 
 // load up the user model
@@ -3838,25 +4109,25 @@ module.exports = function (passport) {
 };
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = require("alt");
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-facebook");
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3888,7 +4159,7 @@ var listingSchema = mongoose.Schema({
 module.exports = mongoose.model('List', listingSchema);
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3916,7 +4187,7 @@ var featureSchema = mongoose.Schema({
 module.exports = mongoose.model('Feature', featureSchema);
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3926,15 +4197,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(55);
+var _server = __webpack_require__(56);
 
 var _reactRouter = __webpack_require__(2);
 
-var _routes = __webpack_require__(56);
+var _routes = __webpack_require__(57);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _ErrorPage = __webpack_require__(36);
+var _ErrorPage = __webpack_require__(37);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -3942,13 +4213,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(7);
 var router = express.Router();
-var JSX = __webpack_require__(103).install();
+var JSX = __webpack_require__(104).install();
 var passport = __webpack_require__(14);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var history = __webpack_require__(104);
+var history = __webpack_require__(105);
 var historyObj = history.createMemoryHistory();
 
 // Check if user is connected
@@ -3984,13 +4255,13 @@ router.get('*', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4006,59 +4277,59 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _layout = __webpack_require__(57);
+var _layout = __webpack_require__(58);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _IndexPage = __webpack_require__(60);
+var _IndexPage = __webpack_require__(61);
 
 var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
-var _CurrentPage = __webpack_require__(61);
+var _CurrentPage = __webpack_require__(62);
 
 var _CurrentPage2 = _interopRequireDefault(_CurrentPage);
 
-var _FuturePage = __webpack_require__(62);
+var _FuturePage = __webpack_require__(63);
 
 var _FuturePage2 = _interopRequireDefault(_FuturePage);
 
-var _GlancePage = __webpack_require__(63);
+var _GlancePage = __webpack_require__(64);
 
 var _GlancePage2 = _interopRequireDefault(_GlancePage);
 
-var _EventsPage = __webpack_require__(66);
+var _EventsPage = __webpack_require__(67);
 
 var _EventsPage2 = _interopRequireDefault(_EventsPage);
 
-var _VenuePage = __webpack_require__(67);
+var _VenuePage = __webpack_require__(68);
 
 var _VenuePage2 = _interopRequireDefault(_VenuePage);
 
-var _SignUpPage = __webpack_require__(72);
+var _SignUpPage = __webpack_require__(73);
 
 var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
-var _LogInPage = __webpack_require__(74);
+var _LogInPage = __webpack_require__(75);
 
 var _LogInPage2 = _interopRequireDefault(_LogInPage);
 
-var _myListPage = __webpack_require__(78);
+var _myListPage = __webpack_require__(79);
 
 var _myListPage2 = _interopRequireDefault(_myListPage);
 
-var _AdminPage = __webpack_require__(85);
+var _AdminPage = __webpack_require__(86);
 
 var _AdminPage2 = _interopRequireDefault(_AdminPage);
 
-var _NewListing = __webpack_require__(86);
+var _NewListing = __webpack_require__(87);
 
 var _NewListing2 = _interopRequireDefault(_NewListing);
 
-var _EditListing = __webpack_require__(91);
+var _EditListing = __webpack_require__(92);
 
 var _EditListing2 = _interopRequireDefault(_EditListing);
 
-var _EditVenue = __webpack_require__(92);
+var _EditVenue = __webpack_require__(93);
 
 var _EditVenue2 = _interopRequireDefault(_EditVenue);
 
@@ -4070,11 +4341,11 @@ var _VenuesPage = __webpack_require__(99);
 
 var _VenuesPage2 = _interopRequireDefault(_VenuesPage);
 
-var _Account = __webpack_require__(101);
+var _Account = __webpack_require__(102);
 
 var _Account2 = _interopRequireDefault(_Account);
 
-var _ErrorPage = __webpack_require__(36);
+var _ErrorPage = __webpack_require__(37);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -4110,7 +4381,7 @@ var routes = _react2.default.createElement(
 exports.default = routes;
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4296,19 +4567,19 @@ var Layout = function (_React$Component) {
 exports.default = Layout;
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = require("superagent");
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = require("toastr");
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4431,7 +4702,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4581,7 +4852,7 @@ var CurrentPage = function (_React$Component) {
 exports.default = CurrentPage;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4731,7 +5002,7 @@ var FuturePage = function (_React$Component) {
 exports.default = FuturePage;
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4759,7 +5030,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactIntl = __webpack_require__(9);
 
-var _daypage = __webpack_require__(64);
+var _daypage = __webpack_require__(65);
 
 var _daypage2 = _interopRequireDefault(_daypage);
 
@@ -4857,7 +5128,7 @@ var GlancePage = function (_React$Component) {
 exports.default = GlancePage;
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5016,7 +5287,7 @@ var DayPage = function (_React$Component) {
 exports.default = DayPage;
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5064,7 +5335,7 @@ var imageBlock = function (_React$Component) {
 exports.default = imageBlock;
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5177,7 +5448,7 @@ var EventsPage = function (_React$Component) {
 exports.default = EventsPage;
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5201,11 +5472,11 @@ var _mapBlock = __webpack_require__(28);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
-var _VenueListings = __webpack_require__(70);
+var _VenueListings = __webpack_require__(71);
 
 var _VenueListings2 = _interopRequireDefault(_VenueListings);
 
-var _VenueContent = __webpack_require__(71);
+var _VenueContent = __webpack_require__(72);
 
 var _VenueContent2 = _interopRequireDefault(_VenueContent);
 
@@ -5281,13 +5552,13 @@ var VenuePage = function (_React$Component) {
 exports.default = VenuePage;
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports) {
 
 module.exports = require("google-map-react");
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5333,7 +5604,7 @@ var SingleMarker = function (_React$Component) {
 exports.default = SingleMarker;
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5408,7 +5679,7 @@ var VenueListings = function (_React$Component) {
 exports.default = VenueListings;
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5497,7 +5768,7 @@ var VenuePage = function (_React$Component) {
 exports.default = VenuePage;
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5515,7 +5786,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _SignUpForm = __webpack_require__(73);
+var _SignUpForm = __webpack_require__(74);
 
 var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
 
@@ -5569,7 +5840,7 @@ var LogInPage = function (_React$Component) {
 exports.default = LogInPage;
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5889,7 +6160,7 @@ SignUpForm.contextTypes = {
 exports.default = SignUpForm;
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5907,7 +6178,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _reactRouterDom = __webpack_require__(75);
+var _reactRouterDom = __webpack_require__(76);
 
 var _propTypes = __webpack_require__(20);
 
@@ -5987,19 +6258,19 @@ LogInPage.contextTypes = {
 };
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = require("reactstrap");
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6051,7 +6322,7 @@ var FacebookButton = function (_React$Component) {
 exports.default = FacebookButton;
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6067,7 +6338,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _myList = __webpack_require__(79);
+var _myList = __webpack_require__(80);
 
 var _myList2 = _interopRequireDefault(_myList);
 
@@ -6123,7 +6394,7 @@ var MyListPage = function (_React$Component) {
 exports.default = MyListPage;
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6155,11 +6426,11 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactMapGl = __webpack_require__(21);
 
-var _myListings = __webpack_require__(80);
+var _myListings = __webpack_require__(81);
 
 var _myListings2 = _interopRequireDefault(_myListings);
 
-var _myMap = __webpack_require__(82);
+var _myMap = __webpack_require__(83);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
@@ -6177,7 +6448,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var async = __webpack_require__(84);
+var async = __webpack_require__(85);
 // Components
 
 var MyList = function (_React$Component) {
@@ -6357,7 +6628,7 @@ MyList.defaultProps = {
 };
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6375,7 +6646,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _myListing = __webpack_require__(81);
+var _myListing = __webpack_require__(82);
 
 var _myListing2 = _interopRequireDefault(_myListing);
 
@@ -6444,7 +6715,7 @@ var MyListings = function (_React$Component) {
 exports.default = MyListings;
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6615,7 +6886,7 @@ var Listing = function (_React$Component) {
 exports.default = Listing;
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6633,7 +6904,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _myMarker = __webpack_require__(83);
+var _myMarker = __webpack_require__(84);
 
 var _myMarker2 = _interopRequireDefault(_myMarker);
 
@@ -6725,7 +6996,7 @@ var MyMap = function (_React$Component) {
 exports.default = MyMap;
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6775,13 +7046,13 @@ var Marker = function (_React$Component) {
 exports.default = Marker;
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports) {
 
 module.exports = require("async");
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6906,7 +7177,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7027,7 +7298,7 @@ var NewListing = function (_React$Component) {
 exports.default = NewListing;
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7101,7 +7372,7 @@ var DateRange = function (_React$Component) {
 exports.default = DateRange;
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7174,19 +7445,19 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-select");
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7341,7 +7612,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7375,7 +7646,7 @@ var _formSelect = __webpack_require__(13);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _VenueForm = __webpack_require__(93);
+var _VenueForm = __webpack_require__(94);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
 
@@ -7530,7 +7801,7 @@ var VenueEdit = function (_React$Component) {
 exports.default = VenueEdit;
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7554,7 +7825,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _NeighborhoodSelect = __webpack_require__(94);
+var _NeighborhoodSelect = __webpack_require__(36);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
@@ -7760,257 +8031,6 @@ var VenueForm = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = VenueForm;
-
-/***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var NeighborhoodSelect = function (_React$Component) {
-    _inherits(NeighborhoodSelect, _React$Component);
-
-    function NeighborhoodSelect(props) {
-        _classCallCheck(this, NeighborhoodSelect);
-
-        return _possibleConstructorReturn(this, (NeighborhoodSelect.__proto__ || Object.getPrototypeOf(NeighborhoodSelect)).call(this, props));
-    }
-
-    _createClass(NeighborhoodSelect, [{
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement(
-                "select",
-                { name: "neighborhood",
-                    value: this.props.selected ? this.props.selected : "no-value",
-                    onChange: this.props.onChange },
-                _react2.default.createElement(
-                    "option",
-                    { value: "no-value", disabled: true },
-                    "Neighborhood"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "10" },
-                    "Tribeca and below"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "20" },
-                    "Lower East Side"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "30" },
-                    "Soho"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "40" },
-                    "Noho/East Village"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "60" },
-                    "West Village"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "70" },
-                    "19th St and below"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "80" },
-                    "20th St and nearby"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "90" },
-                    "21st St and nearby"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "100" },
-                    "22nd St and nearby"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "110" },
-                    "23rd St and nearby"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "120" },
-                    "24th St and nearby"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "130" },
-                    "25th St and nearby"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "140" },
-                    "26th St and nearby"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "150" },
-                    "27th St and above"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "160" },
-                    "Flatiron/Gramercy Park"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "170" },
-                    "Midtown"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "180" },
-                    "57th Street and nearby"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "190" },
-                    "Upper East Side"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "200" },
-                    "Upper West Side"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "210" },
-                    "Harlem"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "220" },
-                    "Brooklyn South"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "230" },
-                    "Dumbo/Downtown"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "235" },
-                    "Fort Greene"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "240" },
-                    "Bushwick/Bed-stuy"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "250" },
-                    "Williamsburg / Greenpoint"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "260" },
-                    "Brooklyn (Other)"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "270" },
-                    "Ridgewood"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "272" },
-                    "Long Island City/Astoria"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "274" },
-                    "Queens (Other)"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "280" },
-                    "The Bronx"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "290" },
-                    "Staten Island"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "300" },
-                    "Long Island"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "310" },
-                    "Upstate New York"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "320" },
-                    "New Jersey"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "330" },
-                    "Philadelphia"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "340" },
-                    "Old City"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "350" },
-                    "West Philadelphia"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "360" },
-                    "North Philadelphia"
-                ),
-                _react2.default.createElement(
-                    "option",
-                    { value: "370" },
-                    "Other"
-                )
-            );
-        }
-    }]);
-
-    return NeighborhoodSelect;
-}(_react2.default.Component);
-
-exports.default = NeighborhoodSelect;
 
 /***/ }),
 /* 95 */
@@ -8385,6 +8405,14 @@ var _VenueItem = __webpack_require__(100);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
+var _NeighborhoodSelect = __webpack_require__(36);
+
+var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
+
+var _loading = __webpack_require__(101);
+
+var _loading2 = _interopRequireDefault(_loading);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8392,6 +8420,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// Components
+
 
 var VenuesPage = function (_React$Component) {
     _inherits(VenuesPage, _React$Component);
@@ -8399,13 +8429,29 @@ var VenuesPage = function (_React$Component) {
     function VenuesPage(props) {
         _classCallCheck(this, VenuesPage);
 
-        return _possibleConstructorReturn(this, (VenuesPage.__proto__ || Object.getPrototypeOf(VenuesPage)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (VenuesPage.__proto__ || Object.getPrototypeOf(VenuesPage)).call(this, props));
+
+        _this.state = {
+            venueAdminNeighborhood: ''
+        };
+
+        _this.onSelectChange = _this.onSelectChange.bind(_this);
+        return _this;
     }
 
     _createClass(VenuesPage, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            _ListActions2.default.getVenuesAdmin();
+        key: 'componentDidUnmount',
+        value: function componentDidUnmount() {
+            _ListActions2.default.adminReset();
+        }
+    }, {
+        key: 'onSelectChange',
+        value: function onSelectChange(event) {
+            this.setState({
+                venueAdminNeighborhood: event.target.value
+            });
+
+            _ListActions2.default.getVenuesAdmin(event.target.value);
         }
     }, {
         key: 'render',
@@ -8474,7 +8520,16 @@ var VenuesPage = function (_React$Component) {
                     null,
                     'Venues'
                 ),
-                theVenuesRender(this.props.allVenues)
+                _react2.default.createElement(_NeighborhoodSelect2.default, {
+                    selected: this.state.venueAdminNeighborhood,
+                    onChange: this.onSelectChange
+                }),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'allVenues' },
+                    this.props.loading.allVenues && _react2.default.createElement(_loading2.default, null),
+                    theVenuesRender(this.props.allVenues)
+                )
             );
         }
     }]);
@@ -8630,6 +8685,56 @@ exports.default = VenueItem;
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Loading = function (_React$Component) {
+  _inherits(Loading, _React$Component);
+
+  function Loading() {
+    _classCallCheck(this, Loading);
+
+    return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).apply(this, arguments));
+  }
+
+  _createClass(Loading, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "loading" },
+        "Loading..."
+      );
+    }
+  }]);
+
+  return Loading;
+}(_react2.default.Component);
+
+exports.default = Loading;
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -8639,7 +8744,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _avatar = __webpack_require__(102);
+var _avatar = __webpack_require__(103);
 
 var _avatar2 = _interopRequireDefault(_avatar);
 
@@ -8758,7 +8863,7 @@ var IndexPage = function (_React$Component) {
 exports.default = IndexPage;
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8864,19 +8969,19 @@ var Avatar = function (_React$Component) {
 exports.default = Avatar;
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8896,13 +9001,11 @@ router.get('/', function (req, res, next) {
 });
 
 /* GET info for one venue */
-router.get('/getadmin/:offset_ratio', function (req, res, next) {
+router.get('/getadmin/:neighborhood', function (req, res, next) {
     var Venue = req.venue;
     var List = req.list;
 
-    var offset_ratio = parseInt(req.params.offset_ratio) * 30;
-
-    Venue.find().sort('neighborhood').skip(offset_ratio).limit(30).exec().then(function (venues) {
+    Venue.find({ neighborhood: req.params.neighborhood }).sort('name').exec().then(function (venues) {
         return Promise.map(venues, function (venue) {
             // Promise.map awaits for returned promises as well.
             return List.find({ venue: venue._id }).exec().then(function (current) {
@@ -9074,7 +9177,7 @@ router.get('/:venue_id', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9367,7 +9470,7 @@ router.post('/delete/:listing_id', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
