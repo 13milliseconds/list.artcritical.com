@@ -290,7 +290,7 @@ router.post('/feature', function (req, res) {
 // FIND a featured article
 //#######################
 
-router.post('/findfeature', function (req, res) {
+router.post('/findfeatures/:days', function (req, res) {
     var Feature = req.feature;
 
     console.log("Find all features");
@@ -299,7 +299,7 @@ router.post('/findfeature', function (req, res) {
     var today = new Date();
     today.setHours(0, 0, 0, 0);
     var inaWeek = new Date();
-    inaWeek.setDate(inaWeek.getDate() + 7);
+    inaWeek.setDate(inaWeek.getDate() + req.params.days);
     inaWeek.setHours(0, 0, 0, 0);
     
     Feature.find({

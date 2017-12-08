@@ -184,6 +184,7 @@ class ListStore {
     // Get listing info
     onGetListingInfoSuccess(info){
 		console.log('Got some info', info)
+        console.log('A Day Number', info.i)
         this.listingEdit = info.data;
 		if (info.i){
 			this.features[info.i].list = info.data;
@@ -383,12 +384,12 @@ class ListStore {
     onFeatureReset(){
         this.feature= {};
     }
-    onFeatureLoadSuccess(allFeatures) {
-        if (allFeatures){
+    onFeatureLoadSuccess(data) {
+        if (data.json){
 			// Match all features with a day of the next week
 			let features = []
 			let dates = []
-			for (var i=0; i < 7; i++) {
+			for (var i=0; i < data.days; i++) {
 				let d = new Date();
 				d.setHours(0,0,0,0)
 				d.setDate(d.getDate() + i );
@@ -396,10 +397,10 @@ class ListStore {
 			}
 			//Find element in features whose date == d
 				//For each day of the week
-				for (var i=0; i < 7; i++) { 
+				for (var i=0; i < data.days; i++) { 
 					let tempFeature = null
 					// Go through all the features
-					allFeatures.map(feature => { 
+					data.json.map(feature => { 
 						// Format the feature's date
 						let tempDate = new Date(feature.date);
 						tempDate.setHours(0,0,0,0)

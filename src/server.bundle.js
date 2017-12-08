@@ -371,10 +371,10 @@ var ListActions = function () {
         }
     }, {
         key: 'featureLoad',
-        value: async function featureLoad() {
+        value: async function featureLoad(days) {
             var _this11 = this;
 
-            await fetch(process.env.BASE_URI + '/list/findfeature', {
+            await fetch(process.env.BASE_URI + '/list/findfeatures/' + days, {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
@@ -386,7 +386,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this11.featureLoadSuccess(json);
+                _this11.featureLoadSuccess({ json: json, days: days });
                 return true;
             }).catch(function (error) {
                 _this11.featureLoadFailure(error);
@@ -1663,7 +1663,11 @@ var ListStore = function () {
         key: 'onGetListingInfoSuccess',
         value: function onGetListingInfoSuccess(info) {
             console.log('Got some info', info);
+<<<<<<< HEAD
             console.log('Day number', i);
+=======
+            console.log('A Day Number', info.i);
+>>>>>>> 95eacc1c6d1f6777437e0ab60a5ad73e9371c0a0
             this.listingEdit = info.data;
             if (info.i) {
                 this.features[info.i].list = info.data;
@@ -1947,10 +1951,10 @@ var ListStore = function () {
         }
     }, {
         key: 'onFeatureLoadSuccess',
-        value: function onFeatureLoadSuccess(allFeatures) {
+        value: function onFeatureLoadSuccess(data) {
             var _this = this;
 
-            if (allFeatures) {
+            if (data.json) {
                 var i;
                 var i;
 
@@ -1958,7 +1962,7 @@ var ListStore = function () {
                     // Match all features with a day of the next week
                     var features = [];
                     var dates = [];
-                    for (i = 0; i < 7; i++) {
+                    for (i = 0; i < data.days; i++) {
                         var d = new Date();
                         d.setHours(0, 0, 0, 0);
                         d.setDate(d.getDate() + i);
@@ -1966,10 +1970,10 @@ var ListStore = function () {
                     }
                     //Find element in features whose date == d
                     //For each day of the week
-                    for (i = 0; i < 7; i++) {
+                    for (i = 0; i < data.days; i++) {
                         var tempFeature = null;
                         // Go through all the features
-                        allFeatures.map(function (feature) {
+                        data.json.map(function (feature) {
                             // Format the feature's date
                             var tempDate = new Date(feature.date);
                             tempDate.setHours(0, 0, 0, 0);
@@ -5078,7 +5082,7 @@ var GlancePage = function (_React$Component) {
     _createClass(GlancePage, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-            _ListActions2.default.featureLoad();
+            _ListActions2.default.featureLoad(7);
         }
     }, {
         key: 'componentDidMount',
@@ -8091,11 +8095,11 @@ var FeaturePage = function (_React$Component) {
     function FeaturePage(props) {
         _classCallCheck(this, FeaturePage);
 
-        //Get the next 7 dates
+        //Get the next 14 dates
         var _this = _possibleConstructorReturn(this, (FeaturePage.__proto__ || Object.getPrototypeOf(FeaturePage)).call(this, props));
 
         var dates = [];
-        for (var i = 0; i < 7; i++) {
+        for (var i = 0; i < 14; i++) {
             var d = new Date();
             d.setHours(0, 0, 0, 0);
             d.setDate(d.getDate() + i);
@@ -8111,7 +8115,7 @@ var FeaturePage = function (_React$Component) {
     _createClass(FeaturePage, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-            _ListActions2.default.featureLoad();
+            _ListActions2.default.featureLoad(14);
         }
     }, {
         key: 'render',
@@ -8119,7 +8123,7 @@ var FeaturePage = function (_React$Component) {
 
             var days = [];
 
-            for (var i = 0; i < 7; i++) {
+            for (var i = 0; i < 14; i++) {
                 var label = _react2.default.createElement(
                     _reactIntl.IntlProvider,
                     { locale: 'en' },
@@ -9426,7 +9430,7 @@ router.post('/feature', function (req, res) {
 // FIND a featured article
 //#######################
 
-router.post('/findfeature', function (req, res) {
+router.post('/findfeatures/:days', function (req, res) {
     var Feature = req.feature;
 
     console.log("Find all features");
@@ -9435,7 +9439,7 @@ router.post('/findfeature', function (req, res) {
     var today = new Date();
     today.setHours(0, 0, 0, 0);
     var inaWeek = new Date();
-    inaWeek.setDate(inaWeek.getDate() + 7);
+    inaWeek.setDate(inaWeek.getDate() + req.params.days);
     inaWeek.setHours(0, 0, 0, 0);
 
     Feature.find({

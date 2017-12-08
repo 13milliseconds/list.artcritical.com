@@ -11,9 +11,9 @@ export default class FeaturePage extends React.Component {
     constructor(props) {
         super(props);
 		
-		//Get the next 7 dates
+		//Get the next 14 dates
 		let dates = []
-		for (var i=0; i < 7; i++) {
+		for (var i=0; i < 14; i++) {
 			let d = new Date();
 			d.setHours(0,0,0,0)
             d.setDate(d.getDate() + i );
@@ -26,14 +26,14 @@ export default class FeaturePage extends React.Component {
     }
 
     componentWillMount() {
-		ListActions.featureLoad();
+		ListActions.featureLoad(14);
     }
 
     render() {
         
         let days = []
         
-        for (var i=0; i < 7; i++) {
+        for (var i=0; i < 14; i++) {
             let label = <IntlProvider locale="en"><FormattedDate value={this.state.dates[i]} weekday="long" day="numeric" month="short" /></IntlProvider>
             days.push(<FeaturedDay key={i} dayNumber={i} date={this.state.dates[i]} feature={this.props.features[i] || {}} error={this.props.error.feature} label={label} />);
         }

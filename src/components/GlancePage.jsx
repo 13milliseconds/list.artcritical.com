@@ -27,7 +27,7 @@ export default class GlancePage extends React.Component {
     }
 	
 	componentWillMount() {
-		ListActions.featureLoad();
+		ListActions.featureLoad(7);
 	}
 
     componentDidMount() {
