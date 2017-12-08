@@ -2587,7 +2587,10 @@ var LogInForm = function (_React$Component) {
 
     }, {
         key: 'handleSubmit',
-        value: function handleSubmit() {
+        value: function handleSubmit(event) {
+
+            event.preventDefault();
+
             var _state = this.state,
                 username = _state.username,
                 password = _state.password;
@@ -2612,11 +2615,11 @@ var LogInForm = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement(
-                    'form',
-                    null,
+                    _reactstrap.Form,
+                    { onSubmit: this.handleSubmit },
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        null,
+                        { check: true },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
@@ -2637,7 +2640,7 @@ var LogInForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        null,
+                        { check: true },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
@@ -2654,7 +2657,7 @@ var LogInForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactstrap.Button,
-                        { onClick: this.handleSubmit },
+                        null,
                         'Log In'
                     ),
                     this.props.loading && _react2.default.createElement(
