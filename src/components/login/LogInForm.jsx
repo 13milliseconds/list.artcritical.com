@@ -85,7 +85,9 @@ export default class LogInForm extends React.Component {
     
     
     // Add the listing to the database
-    handleSubmit() {
+    handleSubmit(event) {
+		
+		event.preventDefault()
         
         let {username, password} = this.state;
         this._validate(username, password);
@@ -106,8 +108,8 @@ export default class LogInForm extends React.Component {
         
         return ( 
             <div>
-                <form>
-                    <FormGroup>
+                <Form onSubmit={this.handleSubmit}>
+                    <FormGroup check>
                     <Label>Email</Label>
                       <Input 
                           name="username" 
@@ -120,7 +122,7 @@ export default class LogInForm extends React.Component {
                           {this.state.errorMessage.email}
                         </div>
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup check>
                         <Label>Password</Label>
                         <Input 
                             name="password" 
@@ -132,10 +134,10 @@ export default class LogInForm extends React.Component {
                         {this.state.errorMessage.password}
                     </FormGroup>
 
-                    <Button onClick={this.handleSubmit}>Log In</Button>
+                    <Button>Log In</Button>
                     {this.props.loading && <div className='loading'>Loading</div>}
 
-                </form>
+                </Form>
                 
                 <FacebookButton />
             </div>
