@@ -8805,8 +8805,6 @@ var IndexPage = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            var theAvatar = this.props.user.avatar || this.props.user.facebook.id;
-
             return _react2.default.createElement(
                 'div',
                 { className: 'account' },
@@ -8944,7 +8942,7 @@ var Avatar = function (_React$Component) {
             if (this.props.avatar) {
                 isUploaded = true;
                 fullURL = "http://res.cloudinary.com/artcritical/image/upload/" + this.props.avatar + ".jpg";
-            } else if (this.props.facebook.id) {
+            } else if (this.props.facebook) {
                 isUploaded = true;
                 fullURL = "http://graph.facebook.com/" + this.props.facebook.id + "/picture?type=large";
             }

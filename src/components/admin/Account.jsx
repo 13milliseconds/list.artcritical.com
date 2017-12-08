@@ -38,8 +38,6 @@ export default class IndexPage extends React.Component {
 
     render() {
         
-        const theAvatar = this.props.user.avatar || this.props.user.facebook.id;
-        
         return ( 
             <div className = "account">
                 <h3>Your Account</h3>
