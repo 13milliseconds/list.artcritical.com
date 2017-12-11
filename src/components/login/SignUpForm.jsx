@@ -5,6 +5,8 @@ import validator from 'validator';
 import PropTypes from 'prop-types';
 import AuthActions from '../../actions/AuthActions';
 
+import { Button, Label, Input } from 'reactstrap';
+
 
 class SignUpForm extends React.Component {
 
@@ -179,17 +181,17 @@ class SignUpForm extends React.Component {
       <form>
 
         <div>
-          <input type='text'
+          <Input type='text'
                  name='name'
                  value={this.state.name}
                  className={this._getInputStyleName(this.state.isValid.name)}
-                 placeholder='Name'
+                 placeholder='A Name'
                  onChange={this.handleChange}
                  />
                  <span>{this.state.errorMessage.name}</span>
         </div>
         <div>
-          <input type='text'
+          <Input type='text'
                  name='email'
                  value={this.state.email}
                  className={this._getInputStyleName(this.state.isValid.email)}
@@ -199,7 +201,7 @@ class SignUpForm extends React.Component {
                  <span>{this.state.errorMessage.email}</span>
         </div>
         <div>
-          <input type='password'
+          <Input type='password'
                  name='password1'
                  value={this.state.password1}
                  className={this._getInputStyleName(this.state.isValid.password1)}
@@ -209,7 +211,7 @@ class SignUpForm extends React.Component {
                  <span>{this.state.errorMessage.password1}</span>
         </div>
         <div>
-          <input type='password'
+          <Input type='password'
                  name='password2'
                  value={this.state.password2}
                  className={this._getInputStyleName(this.state.isValid.password2)}
@@ -220,7 +222,7 @@ class SignUpForm extends React.Component {
         </div>
 
         <div className='button-container'>
-             <input type="submit" value="Submit" onClick={this.handleSaveClick} />
+              <Input type="submit" value="Submit" onClick={this.handleSaveClick} />
         </div>
       </form>
     );
