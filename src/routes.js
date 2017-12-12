@@ -1,7 +1,6 @@
 import React from 'react'
 import {Router, Route, IndexRoute, browserHistory } from 'react-router'
 import Layout from './components/layout';
-import IndexPage from './components/IndexPage';
 import CurrentPage from './components/CurrentPage';
 import FuturePage from './components/FuturePage';
 import GlancePage from './components/GlancePage';

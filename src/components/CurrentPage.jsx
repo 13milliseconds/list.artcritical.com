@@ -4,7 +4,7 @@ import ListActions from '../actions/ListActions';
 import Display from '../actions/displayActions';
 //COMPONENTS
 import Listing from './listing.jsx';
-import SizeSelector from './blocks/sizeSelector';
+import NeighborhoodNav from './blocks/neighborhoodNav'
 
 
 export default class CurrentPage extends React.Component {
@@ -23,7 +23,7 @@ export default class CurrentPage extends React.Component {
         let title = ''
         let num = this.props.currentListings.length - 1
         
-        let neighborhood = (name) => (<h2>{name}</h2>)
+        let neighborhood = (name,num) => (<h2 id={num}>{name}</h2>)
         
         let thelistRender = currentListings => currentListings.map((listing, index) => {
             
@@ -41,7 +41,7 @@ export default class CurrentPage extends React.Component {
                 // Update neighborhood
                 secondaryNH = newSecondaryNH
                 newSecondaryNH = Display.displayNeighborhood(secondaryNH)
-                title = neighborhood(newSecondaryNH)
+                title = neighborhood(newSecondaryNH, listing.venue.neighborhood)
                 renderExport.push(result)
                 
                 // Export the last neighborhood
@@ -56,15 +56,19 @@ export default class CurrentPage extends React.Component {
             }
             return true;
         });
-        
+
         return ( 
-            <div className = "home">
-                <h2>Current</h2>
-                <SizeSelector view={this.props.view} />
-                <div className={this.props.view + " listingsWrap"}>
+            <div className="current mainList">
+				<div className="left-col">
+				<NeighborhoodNav />
+				</div>
+                <div className={this.props.view + " listingsWrap main-col"}>
                     {thelistRender(this.props.currentListings)}
                     {this.props.loading.current && <div className="loading">Loading...</div>}
                 </div>
+				<div className="right-col">
+				Ads
+				</div>
             </div>
         );
     }
