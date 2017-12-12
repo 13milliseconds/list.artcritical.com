@@ -58,13 +58,17 @@ export default class FuturePage extends React.Component {
         });
         
         return ( 
-            <div className = "home">
-                <h2>Future</h2>
-                <SizeSelector view={this.props.view} />
-                <div className={this.props.view + " listingsWrap"}>
+            <div className = "future mainList">
+                <div className="left-col">
+				Navigation
+				</div>
+                <div className={this.props.view + " listingsWrap main-col"}>
                     {thelistRender(this.props.futureListings)}
                     {this.props.loading.future && <div className="loading">Loading...</div>}
                 </div>
+				<div className="right-col">
+				Ads
+				</div>
             </div>
         );
     }

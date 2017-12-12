@@ -34,15 +34,19 @@ export default class EventsPage extends React.Component {
                   <Listing {...listing} key={listing._id} user={this.props.user}/>
               )   
             }
-        });
+        })
         
         return ( 
-            <div className = "home">
-                <h2>Events</h2>
-            <SizeSelector view={this.props.view} />
-            <div className={this.props.view + " listingsWrap"}>
-                {thelist}
+            <div className="events mainList">
+            <div className="left-col">
+				Calendar
+			</div>
+            <div className={this.props.view + " listingsWrap main-col"}>
+                {this.props.eventsListings.length ? thelist : "No Future Events"}
             </div>
+			<div className="right-col">
+				Ads
+			</div>
             </div>
         );
     }

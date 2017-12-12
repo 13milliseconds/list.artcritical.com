@@ -1,8 +1,11 @@
 import React from 'react';
-import { IndexLink, Link } from 'react-router';
 import ListStore from '../stores/ListStore';
 import AuthActions from '../actions/AuthActions';
 import ListActions from '../actions/ListActions';
+// Components
+import { IndexLink, Link } from 'react-router';
+import SizeSelector from './blocks/sizeSelector';
+
 
 export default class Layout extends React.Component {
     constructor(props) {
@@ -36,18 +39,21 @@ export default class Layout extends React.Component {
       const mylistNum = user.mylist.length;
       
       const renderLogin = () => <Link to={'/login'} activeClassName="active">Login</Link>;
-      const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><span>Welcome, {name} <button onClick={AuthActions.attemptLogOut}>Log Out</button></span></div>;
+      const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><button onClick={AuthActions.attemptLogOut}>Log Out</button></div>;
       
     return (
       <div className="app-container">
         <header className="mainHeader">
-            <h1>artcritical</h1>
+            <h1>Everything happening in the art world in New York City and its surroundings.</h1>
+			<nav>
             <IndexLink to={'/'} activeClassName="active">At a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
             <Link to={'/future'} activeClassName="active">Future</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
             <Link to={'/mylist'} activeClassName="active">my list { mylistNum > 0 && '('+mylistNum+')'}</Link>
-            { user.isLoggedIn ? renderGreeting(name) : renderLogin() }
+			{ user.isLoggedIn ? renderGreeting(name) : renderLogin() }
+			</nav>
+			<SizeSelector view={this.state.view} />
         </header>
         <div className="app-content">
             {React.cloneElement(this.props.children, this.state)}

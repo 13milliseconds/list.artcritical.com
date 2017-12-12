@@ -5,7 +5,6 @@ import moment from 'moment';
 //COMPONENTS
 import Listing from './listing';
 import FeatureBlock from './blocks/featureBlock';
-import SizeSelector from './blocks/sizeSelector';
 
 
 export default class DayPage extends React.Component {
@@ -67,10 +66,6 @@ export default class DayPage extends React.Component {
         
         return ( 
             <div className = "day">
-            <div className="featuredSection">
-                <FeatureBlock feature={this.props.feature}/>
-            </div>
-            <SizeSelector view={this.props.view} />
             <div className={this.props.view + " listingsWrap"}>
                     { this.state.openings.length > 0 && <h3>Openings</h3>}
                         {this.state.openings}
@@ -81,6 +76,9 @@ export default class DayPage extends React.Component {
                         
                     { (this.state.closings.length + this.state.events.length + this.state.openings.length) == 0 
 					 && <h3>Nothing happening today!</h3> }
+            </div>
+			<div className="featuredSection">
+                <FeatureBlock feature={this.props.feature}/>
             </div>
             </div>
         );
