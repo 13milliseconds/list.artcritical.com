@@ -49,7 +49,7 @@ export default class ListingForm extends React.Component {
     
     render() {
         
-        //how ot get option for select element
+        //how to get option for select element
         const getOptions = (input) => {
             if (input){
                 return fetch('/venues/find/' + input)
