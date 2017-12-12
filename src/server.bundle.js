@@ -1663,11 +1663,7 @@ var ListStore = function () {
         key: 'onGetListingInfoSuccess',
         value: function onGetListingInfoSuccess(info) {
             console.log('Got some info', info);
-<<<<<<< HEAD
-            console.log('Day number', i);
-=======
             console.log('A Day Number', info.i);
->>>>>>> 95eacc1c6d1f6777437e0ab60a5ad73e9371c0a0
             this.listingEdit = info.data;
             if (info.i) {
                 this.features[info.i].list = info.data;
