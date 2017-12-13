@@ -5,8 +5,7 @@ import validator from 'validator';
 import PropTypes from 'prop-types';
 import AuthActions from '../../actions/AuthActions';
 
-import { Button, Label, Input } from 'reactstrap';
-
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class SignUpForm extends React.Component {
 
@@ -178,53 +177,50 @@ class SignUpForm extends React.Component {
         }
       
     return (
-      <form>
-
-        <div>
+      <Form>
+          <FormGroup check>
+          <Label>Name</Label>
           <Input type='text'
                  name='name'
                  value={this.state.name}
                  className={this._getInputStyleName(this.state.isValid.name)}
-                 placeholder='A Name'
                  onChange={this.handleChange}
                  />
                  <span>{this.state.errorMessage.name}</span>
-        </div>
-        <div>
+        </FormGroup>
+        <FormGroup check>
+          <Label>Email</Label>
           <Input type='text'
                  name='email'
                  value={this.state.email}
                  className={this._getInputStyleName(this.state.isValid.email)}
-                 placeholder='Email'
                  onChange={this.handleChange}
                  />
                  <span>{this.state.errorMessage.email}</span>
-        </div>
-        <div>
+        </FormGroup>
+        <FormGroup check>
+          <Label>Enter Password</Label>
           <Input type='password'
                  name='password1'
                  value={this.state.password1}
                  className={this._getInputStyleName(this.state.isValid.password1)}
-                 placeholder='Password'
                  onChange={this.handleChange}
                  />
                  <span>{this.state.errorMessage.password1}</span>
-        </div>
-        <div>
+        </FormGroup>
+        <FormGroup check>
+          <Label>Confirm Password</Label>
           <Input type='password'
                  name='password2'
                  value={this.state.password2}
                  className={this._getInputStyleName(this.state.isValid.password2)}
-                 placeholder='Confirm Password'
                  onChange={this.handleChange}
                  />
                  <span>{this.state.errorMessage.password2}</span>
-        </div>
+        </FormGroup>
 
-        <div className='button-container'>
-              <Input type="submit" value="Submit" onClick={this.handleSaveClick} />
-        </div>
-      </form>
+        <Button type="submit" value="Submit" onClick={this.handleSaveClick}>Submit</Button>
+    </Form>
     );
   }
 };
