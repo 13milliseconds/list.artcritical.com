@@ -246,11 +246,7 @@ router.post('/updateuser', function (req, res) {
     var Userlist = req.userlist;
     var User = req.user;
     
-    var newInfo = {
-        'avatar': req.body.avatar,
-        'local.username': req.body.email,
-        'local.name': req.body.name
-        }
+    var newInfo = req.body;
     
     console.log('New user info: ', newInfo);
     var update = { $set: newInfo};

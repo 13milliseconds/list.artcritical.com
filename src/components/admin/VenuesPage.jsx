@@ -17,7 +17,7 @@ export default class VenuesPage extends React.Component {
 		this.onSelectChange = this.onSelectChange.bind(this)
     }
 	
-	componentDidUnmount(){
+	componentWillUnmount(){
 		ListActions.adminReset()
 	}
     

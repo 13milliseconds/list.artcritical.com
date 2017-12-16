@@ -1162,7 +1162,7 @@ a {
 
 /* line 42, ../scss/breakpoints/_base.scss */
 .app-content {
-  padding: 0px 50px 100px;
+  padding-bottom: 100px;
 }
 
 /* line 46, ../scss/breakpoints/_base.scss */
@@ -1508,7 +1508,7 @@ LISTING ELEMENTS
 
 /* line 245, ../scss/breakpoints/_base.scss */
 .medium .listing {
-  padding: 0px 10px 20px;
+  margin-bottom: 20px;
   display: block;
 }
 /* line 20, ../scss/neat/mixins/_clearfix.scss */
@@ -1716,7 +1716,7 @@ AT A GLANCE
   float: left;
   display: block;
   margin-right: 2.3576520234%;
-  width: 23.2317609825%;
+  width: 14.7019566472%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance ul.tabs__labels:last-child {
@@ -1729,20 +1729,21 @@ AT A GLANCE
 }
 /* line 380, ../scss/breakpoints/_base.scss */
 .glance ul.tabs__labels li a.active {
-  border-bottom: 2px solid red;
+  font-weight: bold;
+  color: #019476;
 }
-/* line 386, ../scss/breakpoints/_base.scss */
+/* line 387, ../scss/breakpoints/_base.scss */
 .glance div.tabs__content {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
-  width: 74.4105869942%;
+  width: 82.9403913294%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance div.tabs__content:last-child {
   margin-right: 0;
 }
-/* line 388, ../scss/breakpoints/_base.scss */
+/* line 389, ../scss/breakpoints/_base.scss */
 .glance div.tabs__content .listingsWrap {
   float: left;
   display: block;
@@ -1753,7 +1754,7 @@ AT A GLANCE
 .glance div.tabs__content .listingsWrap:last-child {
   margin-right: 0;
 }
-/* line 391, ../scss/breakpoints/_base.scss */
+/* line 392, ../scss/breakpoints/_base.scss */
 .glance div.tabs__content .featuredSection {
   float: left;
   display: block;
@@ -1765,7 +1766,7 @@ AT A GLANCE
   margin-right: 0;
 }
 
-/* line 397, ../scss/breakpoints/_base.scss */
+/* line 398, ../scss/breakpoints/_base.scss */
 .feature-wrap img {
   width: 100%;
 }
@@ -1773,14 +1774,14 @@ AT A GLANCE
 /*********************
 ACCOUNT
 *********************/
-/* line 406, ../scss/breakpoints/_base.scss */
+/* line 407, ../scss/breakpoints/_base.scss */
 .avatar {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   overflow: hidden;
 }
-/* line 411, ../scss/breakpoints/_base.scss */
+/* line 412, ../scss/breakpoints/_base.scss */
 .avatar img {
   width: 100%;
   min-height: 100%;
@@ -1789,11 +1790,11 @@ ACCOUNT
   -moz-transition: 0.5s;
   transition: 0.5s;
 }
-/* line 418, ../scss/breakpoints/_base.scss */
+/* line 419, ../scss/breakpoints/_base.scss */
 .avatar.loading img {
   filter: blur(3px);
 }
-/* line 423, ../scss/breakpoints/_base.scss */
+/* line 424, ../scss/breakpoints/_base.scss */
 .avatar.loaded img {
   opacity: 1;
 }
@@ -1801,7 +1802,7 @@ ACCOUNT
 /*********************
 My List
 *********************/
-/* line 434, ../scss/breakpoints/_base.scss */
+/* line 435, ../scss/breakpoints/_base.scss */
 .myList {
   display: block;
 }
@@ -1811,7 +1812,7 @@ My List
   content: "";
   display: block;
 }
-/* line 436, ../scss/breakpoints/_base.scss */
+/* line 437, ../scss/breakpoints/_base.scss */
 .myList .listing-wrap {
   float: left;
   display: block;
@@ -1823,7 +1824,7 @@ My List
 .myList .listing-wrap:last-child {
   margin-right: 0;
 }
-/* line 439, ../scss/breakpoints/_base.scss */
+/* line 440, ../scss/breakpoints/_base.scss */
 .myList .listing-wrap .listing.selected {
   background-color: transparent;
 }
@@ -1831,7 +1832,7 @@ My List
 /*********************
 Google Map
 *********************/
-/* line 450, ../scss/breakpoints/_base.scss */
+/* line 451, ../scss/breakpoints/_base.scss */
 .mapWrap {
   float: left;
   display: block;
@@ -1844,7 +1845,7 @@ Google Map
   margin-right: 0;
 }
 
-/* line 456, ../scss/breakpoints/_base.scss */
+/* line 457, ../scss/breakpoints/_base.scss */
 .mapboxgl-marker .marker {
   background-color: beige;
   color: black;
@@ -1858,7 +1859,7 @@ Google Map
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 468, ../scss/breakpoints/_base.scss */
+/* line 469, ../scss/breakpoints/_base.scss */
 .mapboxgl-marker.active .marker {
   background-color: #770600;
   color: #fff;
@@ -1867,7 +1868,7 @@ Google Map
 /*********************
 Venue Page
 *********************/
-/* line 479, ../scss/breakpoints/_base.scss */
+/* line 480, ../scss/breakpoints/_base.scss */
 .venuePage {
   display: block;
 }
@@ -1877,7 +1878,7 @@ Venue Page
   content: "";
   display: block;
 }
-/* line 481, ../scss/breakpoints/_base.scss */
+/* line 482, ../scss/breakpoints/_base.scss */
 .venuePage .infoWrap {
   float: left;
   display: block;
@@ -1888,11 +1889,11 @@ Venue Page
 .venuePage .infoWrap:last-child {
   margin-right: 0;
 }
-/* line 483, ../scss/breakpoints/_base.scss */
+/* line 484, ../scss/breakpoints/_base.scss */
 .venuePage .infoWrap h2 {
   margin-top: 0;
 }
-/* line 487, ../scss/breakpoints/_base.scss */
+/* line 488, ../scss/breakpoints/_base.scss */
 .venuePage .mapWrap {
   float: left;
   display: block;
@@ -1904,7 +1905,7 @@ Venue Page
 .venuePage .mapWrap:last-child {
   margin-right: 0;
 }
-/* line 491, ../scss/breakpoints/_base.scss */
+/* line 492, ../scss/breakpoints/_base.scss */
 .venuePage .listingsWrap {
   float: left;
   display: block;
@@ -1918,18 +1919,18 @@ Venue Page
 .venuePage .listingsWrap:last-child {
   margin-right: 0;
 }
-/* line 496, ../scss/breakpoints/_base.scss */
+/* line 497, ../scss/breakpoints/_base.scss */
 .venuePage .listingsWrap li {
   display: inline-block;
   float: left;
   padding-right: 20px;
 }
-/* line 500, ../scss/breakpoints/_base.scss */
+/* line 501, ../scss/breakpoints/_base.scss */
 .venuePage .listingsWrap li a {
   color: #323944;
   text-decoration: none;
 }
-/* line 503, ../scss/breakpoints/_base.scss */
+/* line 504, ../scss/breakpoints/_base.scss */
 .venuePage .listingsWrap li a.active, .venuePage .listingsWrap li a:hover {
   color: #770600;
 }
@@ -1937,18 +1938,29 @@ Venue Page
 /*********************
 ADMIN
 *********************/
-/* line 515, ../scss/breakpoints/_base.scss */
+/* line 516, ../scss/breakpoints/_base.scss */
 .admin header {
   padding-left: 0;
 }
+/* line 518, ../scss/breakpoints/_base.scss */
+.admin header a {
+  text-decoration: none;
+  padding-right: 20px;
+  color: #323944;
+}
+/* line 522, ../scss/breakpoints/_base.scss */
+.admin header a.active {
+  color: #019476;
+  font-weight: bold;
+}
 
-/* line 520, ../scss/breakpoints/_base.scss */
+/* line 530, ../scss/breakpoints/_base.scss */
 #listingForm, #newlistingDemo {
   float: left;
   width: 50%;
 }
 
-/* line 525, ../scss/breakpoints/_base.scss */
+/* line 535, ../scss/breakpoints/_base.scss */
 label {
   display: block !important;
   float: left;
@@ -1961,7 +1973,7 @@ label:last-child {
   margin-right: 0;
 }
 
-/* line 529, ../scss/breakpoints/_base.scss */
+/* line 539, ../scss/breakpoints/_base.scss */
 .formSection {
   float: left;
   display: block;
@@ -1974,17 +1986,17 @@ label:last-child {
 .formSection:last-child {
   margin-right: 0;
 }
-/* line 533, ../scss/breakpoints/_base.scss */
+/* line 543, ../scss/breakpoints/_base.scss */
 .formSection textarea, .formSection input {
   width: 100%;
 }
 
-/* line 537, ../scss/breakpoints/_base.scss */
+/* line 547, ../scss/breakpoints/_base.scss */
 input.invalid {
   border: 2px solid red !important;
 }
 
-/* line 542, ../scss/breakpoints/_base.scss */
+/* line 552, ../scss/breakpoints/_base.scss */
 #listingForm {
   padding-right: 50px;
   display: block;
@@ -1996,34 +2008,34 @@ input.invalid {
   display: block;
 }
 
-/* line 548, ../scss/breakpoints/_base.scss */
+/* line 558, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing {
   width: 100%;
   border: 1px solid grey;
   padding-top: 20px;
 }
-/* line 552, ../scss/breakpoints/_base.scss */
+/* line 562, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing .moreInfo {
   display: block;
 }
 
-/* line 558, ../scss/breakpoints/_base.scss */
+/* line 568, ../scss/breakpoints/_base.scss */
 #ListingList, #ListingInfo {
   width: 50%;
   float: left;
 }
 
-/* line 562, ../scss/breakpoints/_base.scss */
+/* line 572, ../scss/breakpoints/_base.scss */
 #ListingList {
   padding-right: 50px;
 }
 
-/* line 567, ../scss/breakpoints/_base.scss */
+/* line 577, ../scss/breakpoints/_base.scss */
 .editVenue .venueList {
   padding-bottom: 20px;
 }
 
-/* line 573, ../scss/breakpoints/_base.scss */
+/* line 583, ../scss/breakpoints/_base.scss */
 input::-webkit-input-placeholder,
 option {
   color: #C9C9C9;
@@ -2032,7 +2044,7 @@ option {
 /*********************
 GRID
 *********************/
-/* line 582, ../scss/breakpoints/_base.scss */
+/* line 592, ../scss/breakpoints/_base.scss */
 .d-1of2 {
   float: left;
   width: 50%;

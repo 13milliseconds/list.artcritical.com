@@ -56,7 +56,8 @@ export default class Layout extends React.Component {
 			<SizeSelector view={this.state.view} />
         </header>
         <div className="app-content">
-            {React.cloneElement(this.props.children, this.state)}
+            { //Give the current state as props to the children elements
+				React.cloneElement(this.props.children, this.state)}
         </div>
         <footer>
           <p>

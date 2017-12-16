@@ -23,6 +23,7 @@ var app = express();
 // MongoDB
 var mongoose = require("mongoose");
 var url = process.env.MONGOLAB_URI;
+mongoose.Promise = global.Promise;
 mongoose.connect(url, { useMongoClient: true });
 var db = mongoose.connection;
 

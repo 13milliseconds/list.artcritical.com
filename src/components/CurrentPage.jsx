@@ -27,7 +27,7 @@ export default class CurrentPage extends React.Component {
         
         let thelistRender = currentListings => currentListings.map((listing, index) => {
             
-            let result = <Listing key={listing._id} {...listing} user={this.props.user} dateView="current"/>
+            let result = <Listing key={index} {...listing} user={this.props.user} dateView="current"/>
                 
             newSecondaryNH = listing.venue.neighborhood;
             
@@ -36,7 +36,7 @@ export default class CurrentPage extends React.Component {
                 //Add the result to the next export and reset the render
                 var contentRender = <div key={index} className="neighborhood">{renderExport}</div>
                 var newExport = [title, contentRender]
-                renderExport = [];
+                renderExport = []; 
                 
                 // Update neighborhood
                 secondaryNH = newSecondaryNH

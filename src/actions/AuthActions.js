@@ -1,6 +1,5 @@
 import alt from '../alt';
 import "isomorphic-fetch"
-import Promise from 'bluebird';
 
 class AuthActions {
     constructor() {
@@ -240,6 +239,8 @@ class AuthActions {
     }
     
     async updateUser(newUserInfo) {
+		
+		console.log(newUserInfo);
 
         this.updateUserAttempt();
         

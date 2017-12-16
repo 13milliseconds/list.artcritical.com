@@ -31,11 +31,10 @@ export default class DayPage extends React.Component {
 		let openings = []
 		let closings = []
 		
-		this.props.glanceListings.map((listing) => {
+		nextProps.glanceListings.map((listing) => {
             // Check if it is an event
             if ( listing.event == true) {
                 // it IS an event
-                
                 if ( moment(listing.start).format().slice(0,10) == this.state.date) {
                     events.push(<Listing {...listing} key={listing._id} user={this.props.user}/>) 
                 }

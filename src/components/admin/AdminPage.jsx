@@ -7,6 +7,7 @@ import LogInForm from '../login/LogInForm.jsx';
 export default class IndexPage extends React.Component {
 
     render() {
+		console.log(this.props.user)
         let adminRender = this.props.user.isLoggedIn ?
             <div className = "admin cf">
                 <header>

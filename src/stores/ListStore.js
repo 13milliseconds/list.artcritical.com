@@ -561,7 +561,11 @@ class ListStore {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        this.user[name] = value;
+		if (name == "email"){
+			this.user.local.username = value;
+		} else {
+			this.user[name] = value;	
+		}
     }
     
     // UPLOAD AN AVATAR

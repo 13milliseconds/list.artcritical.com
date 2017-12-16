@@ -24,12 +24,8 @@ router.get('/getadmin/:neighborhood', function (req, res, next) {
             // Promise.map awaits for returned promises as well.
             return List.find({ venue: venue._id}).
             exec().then(function (current) {
-                let newvenue = {
-                    _id: venue._id,
-                    name: venue.name,
-                    neighborhood: venue.neighborhood,
-                    listings: current,   
-                }
+                let newvenue = venue;
+                    newvenue.listings= current;
                 return newvenue;
             });
             

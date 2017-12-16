@@ -86,7 +86,7 @@ var _alt = __webpack_require__(10);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-var _bluebird = __webpack_require__(15);
+var _bluebird = __webpack_require__(26);
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
@@ -592,11 +592,7 @@ var _alt = __webpack_require__(10);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(24);
-
-var _bluebird = __webpack_require__(15);
-
-var _bluebird2 = _interopRequireDefault(_bluebird);
+__webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -806,6 +802,8 @@ var AuthActions = function () {
     value: async function updateUser(newUserInfo) {
       var _this8 = this;
 
+      console.log(newUserInfo);
+
       this.updateUserAttempt();
 
       await fetch(process.env.BASE_URI + '/auth/updateuser', {
@@ -925,8 +923,10 @@ var Listing = function (_React$Component) {
             var address = _react2.default.createElement(
                 'span',
                 null,
-                this.props.venue.address,
-                this.props.venue.address !== '' && this.props.venue.city !== '' && ', ',
+                this.props.venue.address1,
+                ' ',
+                this.props.venue.address1,
+                this.props.venue.address1 !== '' && this.props.venue.city !== '' && ', ',
                 this.props.venue.city
             );
 
@@ -1174,13 +1174,13 @@ module.exports = {
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("mongoose");
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("express");
 
 /***/ }),
 /* 8 */
@@ -1408,12 +1408,6 @@ module.exports = require("passport");
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("bluebird");
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1437,7 +1431,7 @@ var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _ImagesActions = __webpack_require__(17);
+var _ImagesActions = __webpack_require__(16);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -2189,7 +2183,11 @@ var ListStore = function () {
             var target = event.target;
             var value = target.value;
             var name = target.name;
-            this.user[name] = value;
+            if (name == "email") {
+                this.user.local.username = value;
+            } else {
+                this.user[name] = value;
+            }
         }
 
         // UPLOAD AN AVATAR
@@ -2229,7 +2227,7 @@ var ListStore = function () {
 exports.default = _alt2.default.createStore(ListStore);
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2245,7 +2243,7 @@ var _alt = __webpack_require__(10);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(24);
+__webpack_require__(23);
 
 var _superagent = __webpack_require__(60);
 
@@ -2316,13 +2314,13 @@ var ImagesActions = function () {
 exports.default = _alt2.default.createActions(ImagesActions);
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("moment");
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2338,7 +2336,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(20);
+var _propTypes = __webpack_require__(19);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -2437,19 +2435,19 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-map-gl");
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2677,26 +2675,26 @@ var LogInForm = function (_React$Component) {
 exports.default = LogInForm;
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(7);
-var bcrypt = __webpack_require__(23); // encripts password
+var mongoose = __webpack_require__(6);
+var bcrypt = __webpack_require__(22); // encripts password
 
 // Create the Listings table ==================================
 
@@ -2727,33 +2725,41 @@ userSchema.methods.validPassword = function (password) {
 module.exports = mongoose.model('User', userSchema);
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(6);
 
 // Create the Listings table ==================================
 
 var venueSchema = mongoose.Schema({
-    name: String,
-    slug: String,
-    website: String,
-    address: String,
-    city: String,
-    state: String,
-    zipcode: Number,
-    neighborhood: Number,
-    coordinates: {
-        lat: Number,
-        long: Number
-    }
+   name: String,
+   slug: String,
+   website: String,
+   phone: String,
+   address1: String,
+   address2: String,
+   city: String,
+   state: String,
+   zipcode: Number,
+   neighborhood: Number,
+   coordinates: {
+      lat: Number,
+      long: Number
+   }
 });
 
 //compile the model
 module.exports = mongoose.model('Venue', venueSchema);
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("bluebird");
 
 /***/ }),
 /* 27 */
@@ -2883,7 +2889,7 @@ var _singleMarker = __webpack_require__(71);
 
 var _singleMarker2 = _interopRequireDefault(_singleMarker);
 
-var _reactMapGl = __webpack_require__(21);
+var _reactMapGl = __webpack_require__(20);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -3241,7 +3247,7 @@ var _imageUpload = __webpack_require__(36);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
-var _ImagesActions = __webpack_require__(17);
+var _ImagesActions = __webpack_require__(16);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -3686,16 +3692,6 @@ exports.default = ErrorPage;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-<<<<<<< HEAD
-var express = __webpack_require__(6);
-var path = __webpack_require__(39);
-var favicon = __webpack_require__(40);
-var logger = __webpack_require__(41);
-var cookieParser = __webpack_require__(42);
-var bodyParser = __webpack_require__(43);
-var http = __webpack_require__(44);
-var debug = __webpack_require__(45)('artcritical-list:server');
-=======
 var express = __webpack_require__(7);
 var path = __webpack_require__(40);
 var favicon = __webpack_require__(41);
@@ -3704,7 +3700,6 @@ var cookieParser = __webpack_require__(43);
 var bodyParser = __webpack_require__(44);
 var http = __webpack_require__(45);
 var debug = __webpack_require__(46)('artcritical-list:server');
->>>>>>> f56db105a2b54366957e3ae4ee40dce9591f16ea
 
 var expressValidator = __webpack_require__(47);
 
@@ -3712,7 +3707,7 @@ var expressValidator = __webpack_require__(47);
 var passport = __webpack_require__(14);
 var flash = __webpack_require__(48);
 var session = __webpack_require__(49);
-var bcrypt = __webpack_require__(23); // encripts password
+var bcrypt = __webpack_require__(22); // encripts password
 
 // Get the User model
 __webpack_require__(50)(passport);
@@ -3720,8 +3715,9 @@ __webpack_require__(50)(passport);
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(6);
 var url = process.env.MONGOLAB_URI;
+mongoose.Promise = global.Promise;
 mongoose.connect(url, { useMongoClient: true });
 var db = mongoose.connection;
 
@@ -3732,8 +3728,8 @@ db.once('open', function () {
 
 // Import the Mongoose models
 var List = __webpack_require__(54);
-var Venue = __webpack_require__(26);
-var User = __webpack_require__(25);
+var Venue = __webpack_require__(25);
+var User = __webpack_require__(24);
 var Feature = __webpack_require__(55);
 
 // view engine setup
@@ -3968,8 +3964,8 @@ var FacebookStrategy = __webpack_require__(53).Strategy;
 
 
 // load up the user model
-var User = __webpack_require__(25);
-var Venue = __webpack_require__(26);
+var User = __webpack_require__(24);
+var Venue = __webpack_require__(25);
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -4154,20 +4150,19 @@ module.exports = require("passport-facebook");
 "use strict";
 
 
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(6),
+    Schema = mongoose.Schema;
 
 // Create the Listings table ==================================
 
 var listingSchema = mongoose.Schema({
     name: String,
-    //type: String,
     start: Date,
     end: Date,
     description: String,
-    neighborhood: Number,
     venue: {
-        ref: 'Venue',
-        type: String
+        type: String,
+        ref: 'Venue'
     },
     event: Boolean,
     events: [],
@@ -4186,7 +4181,7 @@ module.exports = mongoose.model('List', listingSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(6);
 
 // Create the Listings table ==================================
 
@@ -4232,7 +4227,7 @@ var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var express = __webpack_require__(6);
+var express = __webpack_require__(7);
 var router = express.Router();
 var JSX = __webpack_require__(104).install();
 var passport = __webpack_require__(14);
@@ -4302,15 +4297,7 @@ var _layout = __webpack_require__(59);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-<<<<<<< HEAD
-var _CurrentPage = __webpack_require__(61);
-=======
-var _IndexPage = __webpack_require__(62);
-
-var _IndexPage2 = _interopRequireDefault(_IndexPage);
-
-var _CurrentPage = __webpack_require__(63);
->>>>>>> f56db105a2b54366957e3ae4ee40dce9591f16ea
+var _CurrentPage = __webpack_require__(62);
 
 var _CurrentPage2 = _interopRequireDefault(_CurrentPage);
 
@@ -4422,7 +4409,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListStore = __webpack_require__(16);
+var _ListStore = __webpack_require__(15);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -4563,6 +4550,7 @@ var Layout = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'app-content' },
+                    //Give the current state as props to the children elements
                     _react2.default.cloneElement(this.props.children, this.state)
                 ),
                 _react2.default.createElement(
@@ -4640,116 +4628,9 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _neighborhoodNav = __webpack_require__(62);
+var _neighborhoodNav = __webpack_require__(63);
 
-<<<<<<< HEAD
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
-=======
-        return _possibleConstructorReturn(this, (IndexPage.__proto__ || Object.getPrototypeOf(IndexPage)).call(this, props));
-    }
-
-    _createClass(IndexPage, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            // Get all listings
-            _ListActions2.default.getAll();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var nh = '';
-            var thelist = function thelist(mylist) {
-                return _this2.props.allListings.map(function (listing) {
-                    var newNh = listing.neighborhood;
-
-                    if (newNh !== nh) {
-                        nh = newNh;
-                        newNh = _displayActions2.default.displayCity(nh);
-                        return _react2.default.createElement(
-                            'div',
-                            { key: listing._id },
-                            _react2.default.createElement(
-                                'h2',
-                                null,
-                                newNh
-                            ),
-                            _react2.default.createElement(_listing2.default, _extends({}, listing, {
-                                user: _this2.props.user,
-                                addToList: function addToList(e) {
-                                    return _this2.addToList(e, listing);
-                                }
-                            }))
-                        );
-                    } else {
-                        return _react2.default.createElement(_listing2.default, _extends({}, listing, {
-                            key: listing._id,
-                            mylist: mylist
-                        }));
-                    }
-                });
-            };
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'home' },
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    'Landing page'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'listingsWrap' },
-                    thelist(this.props.mylist)
-                )
-            );
-        }
-    }]);
-
-    return IndexPage;
-}(_react2.default.Component);
-
-exports.default = IndexPage;
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = __webpack_require__(2);
-
-var _ListActions = __webpack_require__(1);
-
-var _ListActions2 = _interopRequireDefault(_ListActions);
-
-var _displayActions = __webpack_require__(5);
-
-var _displayActions2 = _interopRequireDefault(_displayActions);
-
-var _listing = __webpack_require__(4);
-
-var _listing2 = _interopRequireDefault(_listing);
-
-var _sizeSelector = __webpack_require__(6);
-
-var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
->>>>>>> f56db105a2b54366957e3ae4ee40dce9591f16ea
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4797,7 +4678,7 @@ var CurrentPage = function (_React$Component) {
             var thelistRender = function thelistRender(currentListings) {
                 return currentListings.map(function (listing, index) {
 
-                    var result = _react2.default.createElement(_listing2.default, _extends({ key: listing._id }, listing, { user: _this2.props.user, dateView: 'current' }));
+                    var result = _react2.default.createElement(_listing2.default, _extends({ key: index }, listing, { user: _this2.props.user, dateView: 'current' }));
 
                     newSecondaryNH = listing.venue.neighborhood;
 
@@ -4869,8 +4750,7 @@ var CurrentPage = function (_React$Component) {
 exports.default = CurrentPage;
 
 /***/ }),
-<<<<<<< HEAD
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5009,10 +4889,7 @@ var HoodNav = function (_React$Component) {
 exports.default = HoodNav;
 
 /***/ }),
-/* 63 */
-=======
 /* 64 */
->>>>>>> f56db105a2b54366957e3ae4ee40dce9591f16ea
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5184,7 +5061,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _ListStore = __webpack_require__(16);
+var _ListStore = __webpack_require__(15);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -5198,7 +5075,7 @@ var _daypage = __webpack_require__(66);
 
 var _daypage2 = _interopRequireDefault(_daypage);
 
-var _tabs = __webpack_require__(19);
+var _tabs = __webpack_require__(18);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -5311,7 +5188,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _moment = __webpack_require__(18);
+var _moment = __webpack_require__(17);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -5365,11 +5242,10 @@ var DayPage = function (_React$Component) {
             var openings = [];
             var closings = [];
 
-            this.props.glanceListings.map(function (listing) {
+            nextProps.glanceListings.map(function (listing) {
                 // Check if it is an event
                 if (listing.event == true) {
                     // it IS an event
-
                     if ((0, _moment2.default)(listing.start).format().slice(0, 10) == _this2.state.date) {
                         events.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, user: _this2.props.user })));
                     }
@@ -5509,7 +5385,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _ListStore = __webpack_require__(16);
+var _ListStore = __webpack_require__(15);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -5638,7 +5514,7 @@ var _VenueContent = __webpack_require__(73);
 
 var _VenueContent2 = _interopRequireDefault(_VenueContent);
 
-var _tabs = __webpack_require__(19);
+var _tabs = __webpack_require__(18);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -6026,7 +5902,7 @@ var _validator = __webpack_require__(30);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _propTypes = __webpack_require__(20);
+var _propTypes = __webpack_require__(19);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -6340,11 +6216,11 @@ var _reactRouter = __webpack_require__(2);
 
 var _reactRouterDom = __webpack_require__(77);
 
-var _propTypes = __webpack_require__(20);
+var _propTypes = __webpack_require__(19);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _LogInForm = __webpack_require__(22);
+var _LogInForm = __webpack_require__(21);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -6496,7 +6372,7 @@ var _myList = __webpack_require__(80);
 
 var _myList2 = _interopRequireDefault(_myList);
 
-var _LogInForm = __webpack_require__(22);
+var _LogInForm = __webpack_require__(21);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -6578,7 +6454,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(21);
+var _reactMapGl = __webpack_require__(20);
 
 var _myListings = __webpack_require__(81);
 
@@ -7062,7 +6938,7 @@ var _myMarker = __webpack_require__(84);
 
 var _myMarker2 = _interopRequireDefault(_myMarker);
 
-var _reactMapGl = __webpack_require__(21);
+var _reactMapGl = __webpack_require__(20);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -7224,7 +7100,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _LogInForm = __webpack_require__(22);
+var _LogInForm = __webpack_require__(21);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -7250,6 +7126,7 @@ var IndexPage = function (_React$Component) {
     _createClass(IndexPage, [{
         key: 'render',
         value: function render() {
+            console.log(this.props.user);
             var adminRender = this.props.user.isLoggedIn ? _react2.default.createElement(
                 'div',
                 { className: 'admin cf' },
@@ -7470,7 +7347,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDates = __webpack_require__(34);
 
-var _moment = __webpack_require__(18);
+var _moment = __webpack_require__(17);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -7544,7 +7421,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDates = __webpack_require__(34);
 
-var _moment = __webpack_require__(18);
+var _moment = __webpack_require__(17);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -8221,7 +8098,7 @@ var _featuredDay = __webpack_require__(97);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
-var _tabs = __webpack_require__(19);
+var _tabs = __webpack_require__(18);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -8594,8 +8471,8 @@ var VenuesPage = function (_React$Component) {
     }
 
     _createClass(VenuesPage, [{
-        key: 'componentDidUnmount',
-        value: function componentDidUnmount() {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
             _ListActions2.default.adminReset();
         }
     }, {
@@ -9031,7 +8908,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(17);
+var _ImagesActions = __webpack_require__(16);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -9139,9 +9016,9 @@ module.exports = require("history");
 "use strict";
 
 
-var express = __webpack_require__(6);
+var express = __webpack_require__(7);
 var router = express.Router();
-var Promise = __webpack_require__(15);
+var Promise = __webpack_require__(26);
 
 /* GET All Venues */
 router.get('/', function (req, res, next) {
@@ -9161,12 +9038,8 @@ router.get('/getadmin/:neighborhood', function (req, res, next) {
         return Promise.map(venues, function (venue) {
             // Promise.map awaits for returned promises as well.
             return List.find({ venue: venue._id }).exec().then(function (current) {
-                var newvenue = {
-                    _id: venue._id,
-                    name: venue.name,
-                    neighborhood: venue.neighborhood,
-                    listings: current
-                };
+                var newvenue = venue;
+                newvenue.listings = current;
                 return newvenue;
             });
         });
@@ -9335,8 +9208,9 @@ module.exports = router;
 "use strict";
 
 
-var express = __webpack_require__(6);
+var express = __webpack_require__(7);
 var router = express.Router();
+var mongoose = __webpack_require__(6);
 
 //#######################
 // GET ALL listings ===================
@@ -9366,9 +9240,22 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     today.setHours(0, 0, 0, 0);
 
     //Count how many times we've fetched listings
-    var offset_ratio = parseInt(req.params.offset_ratio) * 30;
+    var offset_ratio = parseInt(req.params.offset_ratio) * 100;
 
-    List.find().where('start').lte(today).where('end').gte(today).sort('neighborhood').skip(offset_ratio).limit(30).populate('venue').exec(function (e, docs) {
+    List.find().where('start').lte(today).where('end').gte(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(100).populate('venue').exec(function (e, docs) {
+        docs.map(function (listing) {
+            Venue.findOne({ name: listing.venue }).exec().then(function (venue) {
+                //console.log('listing: ', listing.name);
+                //console.log('venue: ', listing.venue);
+                if (venue) {
+                    //console.log('venue real: ', venue.name);
+                    //List.update({_id: listing._id}, {venue: venue._id}, function (err, newlisting){console.log(newlisting)});
+                } else {
+                        //console.log('venue NOT real');
+                        //List.update({_id: listing._id}, {venue: ""}, function (err, newlisting) {console.log(newlisting)});
+                    }
+            });
+        });
         res.json(docs);
     });
 });
@@ -9388,7 +9275,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 30;
 
-    List.find().where('start').gte(today).where('event').ne(true).sort('neighborhood').skip(offset_ratio).limit(30).populate('venue').exec(function (e, docs) {
+    List.find().where('start').gte(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(30).populate('venue').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -9420,7 +9307,7 @@ router.get('/glancelistings', function (req, res) {
                 $lt: inaWeek
             }
         }]
-    }, {}).sort('neighborhood').populate('venue').exec(function (e, docs) {
+    }, {}).where('venue').ne('').sort('neighborhood').populate('venue').exec(function (e, docs) {
         if (e) res.send(e);
 
         res.json(docs);
@@ -9438,16 +9325,7 @@ router.get('/eventslistings', function (req, res) {
     var today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    List.find({
-        $and: [{
-            start: {
-                $gte: today
-            }
-        }, {
-            event: true
-        }]
-    }, {}).sort('start').populate('venue').exec(function (e, docs) {
-        console.log(e, docs);
+    List.find().where('start').gte(today).where('event').equals(true).where('venue').ne('').sort('start').populate('venue').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -9628,7 +9506,7 @@ module.exports = router;
 "use strict";
 
 
-var express = __webpack_require__(6);
+var express = __webpack_require__(7);
 var router = express.Router();
 var passport = __webpack_require__(14);
 
@@ -9854,11 +9732,7 @@ router.post('/updateuser', function (req, res) {
     var Userlist = req.userlist;
     var User = req.user;
 
-    var newInfo = {
-        'avatar': req.body.avatar,
-        'local.username': req.body.email,
-        'local.name': req.body.name
-    };
+    var newInfo = req.body;
 
     console.log('New user info: ', newInfo);
     var update = { $set: newInfo };

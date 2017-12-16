@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 
 
 //#######################
@@ -35,16 +36,31 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     today.setHours(0, 0, 0, 0);
     
     //Count how many times we've fetched listings
-    var offset_ratio = parseInt(req.params.offset_ratio) * 30; 
+    var offset_ratio = parseInt(req.params.offset_ratio) * 100; 
 
     List.find().
     where('start').lte(today).
     where('end').gte(today).
+	where('event').ne(true).
+	where('venue').ne('').
     sort('neighborhood').
     skip(offset_ratio).
-    limit(30).
+    limit(100).
     populate('venue').
     exec(function (e, docs) {
+		docs.map(listing => {
+		Venue.findOne({name: listing.venue}).exec().then(function(venue){
+			//console.log('listing: ', listing.name);
+			//console.log('venue: ', listing.venue);
+			if (venue) {
+				//console.log('venue real: ', venue.name);
+				//List.update({_id: listing._id}, {venue: venue._id}, function (err, newlisting){console.log(newlisting)});
+			} else {
+				//console.log('venue NOT real');
+				//List.update({_id: listing._id}, {venue: ""}, function (err, newlisting) {console.log(newlisting)});
+			}
+		});	
+		});
         res.json(docs);
     });
 });
@@ -67,6 +83,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     List.find().
     where('start').gte(today).
     where('event').ne(true).
+	where('venue').ne('').
     sort('neighborhood').
     skip(offset_ratio).
     limit(30).
@@ -105,6 +122,7 @@ router.get('/glancelistings', function (req, res) {
             }
         }]
     }, {}).
+	where('venue').ne('').
     sort('neighborhood').
     populate('venue').
     exec(function (e, docs) {
@@ -127,19 +145,13 @@ router.get('/eventslistings', function (req, res) {
     var today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    List.find({
-        $and: [{
-            start: {
-                $gte: today
-            }
-        }, {
-            event: true
-        }]
-    }, {}).
+    List.find().
+	where('start').gte(today).
+    where('event').equals(true).
+	where('venue').ne('').
     sort('start').
     populate('venue').
     exec(function (e, docs) {
-		console.log(e, docs);
         res.json(docs);
     });
 });

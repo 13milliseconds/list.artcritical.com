@@ -39,7 +39,7 @@ export default class Listing extends React.Component {
         
     //Display date according to type of listing and view
     var dateDisplay
-    let address = <span>{this.props.venue.address}{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</span>
+    let address = <span>{this.props.venue.address1} {this.props.venue.address1}{(this.props.venue.address1 !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</span>
         
     if (this.props.event == true) {
         dateDisplay = <p>{this.props.start && <Date date={this.props.start} /> } - {address}</p>

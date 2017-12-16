@@ -1,17 +1,16 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
+	, Schema = mongoose.Schema;
 
 // Create the Listings table ==================================
 
 var listingSchema = mongoose.Schema({
     name: String,
-    //type: String,
     start: Date,
     end: Date,
     description: String,
-    neighborhood: Number,
     venue: {
-        ref: 'Venue',
-        type: String
+        type: String,
+		ref: 'Venue'
       },
     event: Boolean,
     events: [],
