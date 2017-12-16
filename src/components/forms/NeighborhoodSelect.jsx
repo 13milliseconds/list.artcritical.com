@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Input } from 'reactstrap';
+
 export default class NeighborhoodSelect extends React.Component { 
 
     constructor(props) {
@@ -9,7 +11,7 @@ export default class NeighborhoodSelect extends React.Component {
     
     render() { 
         return (  
-        <select name="neighborhood" 
+        <Input type="select" name="neighborhood"
             value={this.props.selected? this.props.selected : "no-value"} 
             onChange={this.props.onChange}>
 			<option value= "no-value" disabled>Neighborhood</option>
@@ -51,9 +53,8 @@ export default class NeighborhoodSelect extends React.Component {
             <option value="340">Old City</option>
             <option value="350">West Philadelphia</option>
             <option value="360">North Philadelphia</option>
-            <option value="370">Other</option>
-        </select>
-            
+            <option value="370">Other</option>   
+            </Input>
         );
     }
 }

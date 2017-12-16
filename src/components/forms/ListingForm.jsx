@@ -2,6 +2,8 @@ import React from 'react'
 import ToggleButton from 'react-toggle-button'
 import ListActions from '../../actions/ListActions'
 import {browserHistory} from 'react-router';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
 //Components
 import DateRange from './formDateRange'
 import DateSingle from './formDateSingle'
@@ -73,57 +75,64 @@ export default class ListingForm extends React.Component {
         
         return ( 
             <div id="listingForm">
-               
-                <label>Name</label>
-                 <div className="formSection">
-                  <input name="name" placeholder="Event name" type="text" value={this.props.name} onChange={this.handleChange} />
-                    </div>
-                
-                <label>Venue</label>
-                 <div className="formSection">
-                  <Select value={venueData} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
-                    </div>
-                
-                
-                <label>Event</label>
-                <div className="formSection">
-                <ToggleButton
-                  value={this.props.event}
-                  onToggle={(value) => {
-                    this.handleChange({'event': value})
-                  }} />
-                </div>
-                  
-                <label> Dates </label>
-                <div className="formSection">
-                   {this.props.event ? //If an event
-                        <DateSingle startDate={this.props.start} onDatesChange={this.handleChange}/>
-                        : // If not an event
-                        <DateRange startDate={this.props.start} endDate={this.props.end} onDatesChange={this.handleChange}/>
-                   }
-                </div>  
-                
-                
-                <label>Description</label>
-                 <div className="formSection">
-                  <textarea name="description" type="text" value={this.props.description} onChange={this.handleChange} />
-                </div>
-                
-                <label>Thumbnail</label>
-                <ThumbnailInput {...this.props} /> 
-                
-                <button onClick={this.props.handleSubmit}>Submit</button>
-                {this.props.loading && 
-                    <div className='loading'>loading</div>
-                }
-                {this.props.success && 
-                    <div className='success'>Saved!</div>
-                }
-                {this.props.error.general && 
-                    <div className='error'>{this.props.error.savelisting.general}</div>
-                }
-                {deleteButton}
-                
+
+                <Form>
+                    <FormGroup check>
+                        <Label>Name</Label>
+                        <div className="formSection">
+                            <Input name="name" placeholder="Event name" type="text" value={this.props.name} onChange={this.handleChange} />
+                        </div>
+                    </FormGroup>
+                    <FormGroup check>
+                        <Label>Venue</Label>
+                         <div className="formSection">
+                          <Select value={venueData} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
+                        </div>
+                    </FormGroup>
+                    <FormGroup check>
+                        <Label>Event</Label>
+                        <div className="formSection">
+                            <ToggleButton
+                              value={this.props.event}
+                              onToggle={(value) => {
+                                this.handleChange({'event': value})
+                              }} />
+                        </div>
+                    </FormGroup>
+                    <FormGroup check>
+                        <Label> Dates </Label>
+                        <div className="formSection">
+                           {this.props.event ? //If an event
+                                <DateSingle startDate={this.props.start} onDatesChange={this.handleChange}/>
+                                : // If not an event
+                                <DateRange startDate={this.props.start} endDate={this.props.end} onDatesChange={this.handleChange}/>
+                           }
+                        </div>  
+                    </FormGroup>
+                     <FormGroup check>
+                        <Label>Description</Label>
+                        <div className="formSection">
+                            <Input type="textarea" name="description" value={this.props.description} onChange={this.handleChange} />
+                        </div>
+                    </FormGroup>
+                     <FormGroup check>
+                           <Label>Thumbnail</Label>
+                            <ThumbnailInput {...this.props} /> 
+                            
+                            <button onClick={this.props.handleSubmit}>Submit</button>
+                            {this.props.loading && 
+                                <div className='loading'>loading</div>
+                            }
+                            {this.props.success && 
+                                <div className='success'>Saved!</div>
+                            }
+                            {this.props.error.general && 
+                                <div className='error'>{this.props.error.savelisting.general}</div>
+                            }
+                            {deleteButton}
+                    </FormGroup>
+
+                </Form>                
             </div>
         );
     }
