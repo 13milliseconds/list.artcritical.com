@@ -183,12 +183,12 @@ class ListStore {
     
     // Get listing info
     onGetListingInfoSuccess(info){
-		console.log('Got some info', info)
-        console.log('A Day Number', info.i)
+		console.log('Listing info loaded', info);
         this.listingEdit = info.data;
-		if (info.i){
+		if (info.i !== null){
+			console.log('Feature listing');
 			this.features[info.i].list = info.data;
-			console.log(info.data);
+			console.log(this.features[info.i].list);
 		}
     }
     onGetListingInfoFailure(jqXhr){
@@ -550,7 +550,6 @@ class ListStore {
     }
     onReorderMyListSuccess(data){
         console.log('saved!');  
-        console.log(data)
     }
     onReorderMyListFailure(){
         console.log('problem!');

@@ -28,9 +28,11 @@ export default class VenueItem extends React.Component {
     
     componentDidMount(){
         //Check if it has been used recently
-        this.props.listings.length == 0 && this.setState({ old: true})
+        this.props.listings 
+			? this.props.listings.length == 0 && this.setState({ old: true})
+			: this.setState({ old: true})
         //Check if it has a current listing
-        if (!this.state.old) {
+        if (!this.state.old && this.props.listings) {
             this.props.listings.map(function (listing) {
                 
             let listingStart = new Date(listing.start)

@@ -60,14 +60,15 @@ export default class CurrentPage extends React.Component {
         return ( 
             <div className="current mainList">
 				<div className="left-col">
-				<NeighborhoodNav />
+					<NeighborhoodNav />
+					<p>See all future listings: <Link to={'/future'} activeClassName="active">Future</Link></p>
 				</div>
                 <div className={this.props.view + " listingsWrap main-col"}>
                     {thelistRender(this.props.currentListings)}
                     {this.props.loading.current && <div className="loading">Loading...</div>}
                 </div>
 				<div className="right-col">
-				Ads
+					<img src="/images/ad-long.jpg" />
 				</div>
             </div>
         );

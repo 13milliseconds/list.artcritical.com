@@ -38,20 +38,21 @@ export default class Layout extends React.Component {
       const name = user.name;
       const mylistNum = user.mylist.length;
       
-      const renderLogin = () => <Link to={'/login'} activeClassName="active">Login</Link>;
-      const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><button onClick={AuthActions.attemptLogOut}>Log Out</button></div>;
-      
     return (
       <div className="app-container">
         <header className="mainHeader">
             <h1>Everything happening in the art world in New York City and its surroundings.</h1>
 			<nav>
-            <IndexLink to={'/'} activeClassName="active">At a Glance</IndexLink>
+            <IndexLink to={'/'} activeClassName="active">Week at a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
-            <Link to={'/future'} activeClassName="active">Future</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
-            <Link to={'/mylist'} activeClassName="active">my list { mylistNum > 0 && '('+mylistNum+')'}</Link>
-			{ user.isLoggedIn ? renderGreeting(name) : renderLogin() }
+			<div className="accountOptions">
+            <Link to={'/mylist'} activeClassName="active">My List { mylistNum > 0 && '('+mylistNum+')'}</Link>
+			{ user.isLoggedIn && <Link to={'/account'} activeClassName="active">Account</Link>}
+			{ user.isLoggedIn 	? <a onClick={AuthActions.attemptLogOut}>Log Out</a> 
+								: <Link to={'/login'} activeClassName="active">Login</Link>}
+			</div>
+			{ user.isLoggedIn && <Link to={'/admin'} activeClassName="active">Admin</Link>}
 			</nav>
 			<SizeSelector view={this.state.view} />
         </header>

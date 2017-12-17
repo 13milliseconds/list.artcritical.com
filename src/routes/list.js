@@ -11,8 +11,6 @@ router.get('/alllistings', function (req, res) {
     var List = req.list;
     var Venue = req.venue;
 
-    console.log("Getting all listings");
-
     List.find().
     sort('neighborhood').
     limit(50).
@@ -48,7 +46,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     limit(100).
     populate('venue').
     exec(function (e, docs) {
-		docs.map(listing => {
+		/*docs.map(listing => {
 		Venue.findOne({name: listing.venue}).exec().then(function(venue){
 			//console.log('listing: ', listing.name);
 			//console.log('venue: ', listing.venue);
@@ -60,7 +58,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
 				//List.update({_id: listing._id}, {venue: ""}, function (err, newlisting) {console.log(newlisting)});
 			}
 		});	
-		});
+		});*/
         res.json(docs);
     });
 });
@@ -168,6 +166,7 @@ router.get('/find/:regex_input', function (req, res, next) {
     
     List
     .find({name: regexp})
+	.where('venue').ne('')
     .exec(function (err, listings) {
     if (err)
         res.send(err);
@@ -194,10 +193,13 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     List.findOne({
         _id: req.params.listing_id
     }).
+	where('venue').ne('').
     populate('venue').
     exec(function (e, docs) {
         if (e)
             res.send(e);
+		
+		console.log(docs);
 
         res.json(docs);
     });

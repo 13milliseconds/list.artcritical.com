@@ -19,7 +19,7 @@ export default class ListingForm extends React.Component {
 
         
         return ( 
-            <div id="listingForm">
+            <div className="featuredForm">
                 <Form>
                     <FormGroup check>
                     <Label>Thumbnail</Label>

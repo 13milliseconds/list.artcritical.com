@@ -18,19 +18,24 @@ router.get('/getadmin/:neighborhood', function (req, res, next) {
     var Venue = req.venue;
     var List = req.list;
     
-    Venue.find({ neighborhood: req.params.neighborhood}).sort('name').exec()
+    Venue.find({ neighborhood: req.params.neighborhood})
+		.sort('name')
+		.exec()
         .then(function(venues){
         return Promise.map(venues, function(venue) {
             // Promise.map awaits for returned promises as well.
-            return List.find({ venue: venue._id}).
-            exec().then(function (current) {
-                let newvenue = venue;
-                    newvenue.listings= current;
+            return List.find({ venue: venue._id})
+				.exec()
+				.then(function (current) {
+					let newvenue = {};
+					newvenue = venue.toObject();
+                    newvenue['listings']= current;
                 return newvenue;
             });
             
         })  
     }).then(function(result) {
+			console.log('Result');
             res.json(result);
         });
 });

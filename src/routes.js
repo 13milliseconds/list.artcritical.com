@@ -31,7 +31,8 @@ const routes = (
         <Route path="mylist" component={MyListPage}/>
         <Route path="login" component={LogInPage}/>
         <Route path="venue/:slug" component={VenuePage}/>
-        <Route path="account" component={AdminPage}>
+		<Route path="account" component={Account}/>
+        <Route path="admin" component={AdminPage}>
             <IndexRoute component={Account}/>
             <Route path="editlisting" component={EditListing}/>
             <Route path="newlisting" component={NewListing}/>

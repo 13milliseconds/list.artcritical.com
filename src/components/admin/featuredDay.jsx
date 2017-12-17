@@ -51,7 +51,7 @@ export default class FeaturedDay extends React.Component {
     handleSelectChange (data) {
         if (data.value){
             //Fetch all the listing info
-            ListActions.getListingInfo(data.value, this.props.dayNumber);
+            ListActions.getListingInfo(data.value, this.props.dayNumber); 
         }
     }
     

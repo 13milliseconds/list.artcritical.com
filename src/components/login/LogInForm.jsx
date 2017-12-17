@@ -3,6 +3,7 @@ import validator from 'validator';
 import AuthActions from '../../actions/AuthActions';
 //COMPONENTS
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {Link } from 'react-router';
 import FacebookButton from '../buttons/FacebookButton.jsx';
 
 
@@ -107,10 +108,10 @@ export default class LogInForm extends React.Component {
     render() {
         
         return ( 
-            <div>
+            <div className="loginForm">
+				<h2>Sign-In</h2>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup check>
-                    <Label>Email</Label>
                       <Input 
                           name="username" 
                           placeholder="Email" 
@@ -123,7 +124,6 @@ export default class LogInForm extends React.Component {
                         </div>
                     </FormGroup>
                     <FormGroup check>
-                        <Label>Password</Label>
                         <Input 
                             name="password" 
                             placeholder="Password" 
@@ -136,6 +136,7 @@ export default class LogInForm extends React.Component {
 
                     <Button>Log In</Button>
                     {this.props.loading && <div className='loading'>Loading</div>}
+					<p>Don't have an account? <Link to={'/signup'} activeClassName="active">Register</Link></p>
 
                 </Form>
                 

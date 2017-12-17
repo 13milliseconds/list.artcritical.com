@@ -5,7 +5,7 @@ import Display from '../actions/displayActions';
 //COMPONENTS
 import Listing from './listing.jsx';
 import SizeSelector from './blocks/sizeSelector';
-
+import NeighborhoodNav from './blocks/neighborhoodNav'
 
 export default class FuturePage extends React.Component {
     constructor(props) {
@@ -23,7 +23,7 @@ export default class FuturePage extends React.Component {
         let title = ''
         let num = this.props.futureListings.length - 1
         
-        let neighborhood = (name) => (<h2>{name}</h2>)
+        let neighborhood = (name) => (<h2 id={num}>{name}</h2>)
         
         let thelistRender = futureListings => futureListings.map((listing, index) => {
             
@@ -60,14 +60,15 @@ export default class FuturePage extends React.Component {
         return ( 
             <div className = "future mainList">
                 <div className="left-col">
-				Navigation
+					<NeighborhoodNav />
+					<p>See all future listings: <Link to={'/future'} activeClassName="active">Future</Link></p>
 				</div>
                 <div className={this.props.view + " listingsWrap main-col"}>
                     {thelistRender(this.props.futureListings)}
                     {this.props.loading.future && <div className="loading">Loading...</div>}
                 </div>
 				<div className="right-col">
-				Ads
+				<img src="/images/ad-long.jpg" />
 				</div>
             </div>
         );

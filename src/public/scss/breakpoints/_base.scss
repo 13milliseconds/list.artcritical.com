@@ -12,6 +12,17 @@ and will be used across all viewports.
 ******************************************************************/
 
 
+@mixin leftNavStyle() {
+	a {
+		text-decoration: none;
+		color: black;
+		&.active {
+			font-weight: bold;
+			color: $green;
+		}
+	}
+}
+
 /*********************
 GENERAL STYLES
 *********************/
@@ -35,8 +46,9 @@ a {
 #thelist{
     min-height: 100%;
     position: relative;
-    max-width: 1080px;
+    max-width: 1400px;
     margin: 0 auto;
+	padding: 50px 50px 0;
 }
 
 .app-content{
@@ -87,10 +99,18 @@ a.facebookbutton{
 HEADER
 ********************/
 #topMenu{
-	max-width: 1080px;
-	margin: 0 auto;
+	max-width: 1400px;
+	border-bottom: 1px solid $gray;
+	padding: 0 20px 10px;
+    background: white;
+    z-index: 99;
+    position: fixed;
+    width: 100%;
+    left: 50%;
+	@include transform(translateX(-50%));
 	img{
-		max-height: 50px;
+		max-height: 30px;
+    	margin-top: 10px;
 	}
 	a{
 		color: black;
@@ -112,6 +132,14 @@ HEADER
 	}
 }
 
+.loginForm {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #F6F6f6;
+    padding: 20px 50px;
+    border-radius: 5px;
+}
+
 /*********************
 Main PAGES
 *********************/
@@ -123,6 +151,10 @@ Main PAGES
 	@include row();
 	.left-col, .right-col{
 		@include span-columns(2);
+		    min-height: 1px;
+		img{
+			max-width: 100%;
+		}
 	}
 	.main-col{
 		@include span-columns(8);
@@ -193,7 +225,7 @@ LISTING ELEMENTS
         display: none;
     }
     &.active{
-        background-color: antiquewhite;
+        background-color: #F6F6F6;
         .moreInfo{
         display: block;
         }
@@ -289,8 +321,10 @@ LISTING ELEMENTS
     i{
         color: $gray;
         padding-right: 5px;
+		cursor: pointer;
         &.active{
             color: $green;
+			cursor: default;
         }
     } 
 }
@@ -342,6 +376,7 @@ header.mainHeader{
 		min-width: 500px;
 		width: 70%;
 		margin: 30px auto;
+		max-width: 600px;
     }
     a{
         padding: 5px 10px;
@@ -362,6 +397,33 @@ header.mainHeader{
     div{
         display: inline-block;
     }
+	.accountOptions{
+		width: 90px;
+		position: relative;
+		margin-right: 10px;
+		a{
+			padding: 5px 0px;
+			margin-right: 0;
+			display: none;
+			position: absolute;
+			width: 90px;
+			&:first-child{
+				display: block;
+				position: relative;
+			}
+			&:nth-child(2){
+				top: 100%;
+			}
+			&:nth-child(3){
+				top: 200%;
+			}
+		}
+		&:hover{
+			a{
+				display: block;
+			}
+		}
+	}
 } 
 
 
@@ -374,14 +436,7 @@ AT A GLANCE
         padding: 0;
 		@include span-columns(2);
 		li{
-			a{
-				text-decoration: none;
-				color: black;
-				&.active{
-					font-weight: bold;
-    				color: $green;
-				}
-			}
+			@include leftNavStyle();
 		}
     }
 	div.tabs__content{
@@ -399,6 +454,19 @@ AT A GLANCE
         width: 100%;
     }   
 }
+
+
+/*********************
+CURRENT & FUTURE
+*********************/
+
+	.hoodNav{
+		@include leftNavStyle();
+		&.fixed{
+			position: fixed;
+			top: 100px;
+		}
+	}
 
 /*********************
 ACCOUNT
