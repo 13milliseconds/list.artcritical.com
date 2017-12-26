@@ -15,7 +15,7 @@ export default class IndexPage extends React.Component {
         const subscriber = 0
 
 
-        let adminRender = this.props.user.isLoggedIn && this.props.userAccess === 3 ?
+        let adminRender = this.props.user.isLoggedIn && this.props.userAccess === superAdmin ?
             <div className = "admin cf">
                 <header>
                     <h2>Account page</h2>
@@ -28,7 +28,7 @@ export default class IndexPage extends React.Component {
                 </header>
                 <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
             </div>
-            : this.props.user.isLoggedIn && userAccess === 2 ? 
+            : this.props.user.isLoggedIn && userAccess === admin ? 
                 <div className = "admin cf">
                     <header>
                         <h2>Account page</h2>
@@ -41,7 +41,7 @@ export default class IndexPage extends React.Component {
                     </header>
                     <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
                 </div>
-            : this.props.user.isLoggedIn && userAccess === 1 ? 
+            : this.props.user.isLoggedIn && userAccess === editor ? 
                 <header>
                          <h2>Account page</h2>
                         <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
@@ -50,7 +50,7 @@ export default class IndexPage extends React.Component {
                         <Link to={'/account/editvenue'} activeClassName="active">Edit Venue</Link>
                         <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
                 </header>
-            : this.props.user.isLoggedIn && userAccess === 0 ? 
+            : this.props.user.isLoggedIn && userAccess === subscriber ? 
                 <header>
                     <h2>Account page</h2>
                     <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
