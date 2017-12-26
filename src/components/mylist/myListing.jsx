@@ -31,6 +31,8 @@ export default class Listing extends React.Component {
             $(thislisting).addClass('selected');
             
         }
+
+        
     }
         
     render() {

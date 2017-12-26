@@ -27,6 +27,7 @@ class ListStore {
         this.user.avatar = '';
         this.user.facebook = {};
         this.user.mylist = [];
+        this.user.userAccess = 3;
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
@@ -51,6 +52,7 @@ class ListStore {
         //Venues
         this.allVenues = [];
         this.venue = {};
+        this.venue.likeList = 0;
         this.venue.currentListings = [];
         this.venue.upcomingListings = [];
         this.venue.pastListings = [];
@@ -435,6 +437,7 @@ class ListStore {
     onLoginAttempt(){
         this.isLoggingIn = true;
         this.loginRedirect = false;
+        this.userAccess = 3;
     }
     onLoginFailure(error){
         console.log('Login error: ', error);
@@ -444,8 +447,8 @@ class ListStore {
         this.user.isLoggingIn = false;
         this.user.email = '';
     }
-    onLoginSuccess(action){
-        this.user = action;
+    onLoginSuccess(json){
+        this.user = json;
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;
     }

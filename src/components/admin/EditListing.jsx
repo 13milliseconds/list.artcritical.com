@@ -60,7 +60,13 @@ export default class ListingEdit extends React.Component {
                 <h3>Edit Listing</h3>
                 <div id="ListingList">
                     <form onSubmit={this.handleSubmit}>
-                        <Select value={{value: this.props.listingEdit._id, label: this.props.listingEdit.name}} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
+                        <Select value={{
+                            value: this.props.listingEdit._id, 
+                            label: this.props.listingEdit.name}
+                        } 
+                        handleSelectChange={this.handleSelectChange} 
+                        getOptions={getOptions} 
+                        />
                     </form>
                 </div>
                 <div id="ListingInfo">

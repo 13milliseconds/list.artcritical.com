@@ -14,8 +14,23 @@ var venueSchema = mongoose.Schema({
     coordinates: {
         lat: Number,
         long: Number
+    },
+    userList: Number,
+    created_at: {
+        type: Date
+    },
+    updated_at: {
+        type: Date
     }
 });
+
+venueSchema.pre('save', (next) => {
+    now = Date.now();
+    this.updated_at = now;
+    if (!this.created_at) {
+        this.created_at = now;
+    }
+})
 
 //compile the model
 module.exports = mongoose.model('Venue', venueSchema);
