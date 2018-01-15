@@ -16,6 +16,7 @@ var userSchema = mongoose.Schema({
         token        : String,
         username     : String
     },
+    userAccess: Number,
     avatar: String,
     mylist: [{type: String, ref: 'List'}],
 });

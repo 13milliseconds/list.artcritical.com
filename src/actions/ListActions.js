@@ -390,7 +390,6 @@ class ListActions {
           return null;
         })
         .then((json) => {
-			console.log(json)
             this.getVenueFullInfoSuccess(json)
             return true;
         })
@@ -499,7 +498,7 @@ class ListActions {
           return null;
         })
         .then((json) => {
-			this.venueEditReset();
+			      this.venueEditReset();
             this.saveVenueSuccess(json);
             return true;
         })

@@ -32,6 +32,7 @@ class AuthActions {
         
         this.loginAttempt();
 
+
         await fetch(
           process.env.BASE_URI + '/auth/login',
           {

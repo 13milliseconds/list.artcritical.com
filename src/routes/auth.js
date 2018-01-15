@@ -42,6 +42,7 @@ router.post('/login', async(req, res) => {
     passport.authenticate('local-login')(req, res, () => {
         console.log('Logged in');
         // If logged in, we should have user info to send back
+
         if (req.user) {
             return res.send(JSON.stringify(req.user));
         }
@@ -257,8 +258,6 @@ router.get('/checksession', (req, res) => {
  //###################################
 router.get('/user', function (req, res) {
     var User = req.user;
-
-    console.log(User);
 
 });
 
