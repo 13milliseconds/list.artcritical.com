@@ -27,11 +27,8 @@ class ListStore {
         this.user.avatar = '';
         this.user.facebook = {};
         this.user.mylist = [];
-<<<<<<< HEAD
 		this.currentUser = {};
-=======
         this.user.userAccess = 3;
->>>>>>> 6f9e841fd7bf0e4ead35899b86a8e9ef726afbd4
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';

@@ -73,7 +73,8 @@ module.exports = function(passport) {
                 var newUser             = new User();
 
                 // set the user's local credentials
-                newUser.local.name      = req.body.name;
+                newUser.name      = req.body.name;
+				newUser.slug      = req.body.name.replace(/\s+/g, '').toLowerCase();
                 newUser.local.username  = req.body.username;
                 newUser.local.password  = newUser.generateHash(password);
 
@@ -155,7 +156,8 @@ module.exports = function(passport) {
             //No user was found
             if (!user) {
                 user = new User({
-                    name: profile.displayName,  
+                    name: profile.displayName,
+					slug: profile.displayName.replace(/\s+/g, '').toLowerCase(),
                     facebook: {
                         id: profile.id,
                         token: accessToken

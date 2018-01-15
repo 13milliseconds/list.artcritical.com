@@ -9,24 +9,7 @@ import UserPage from '../user/UserPage';
 export default class IndexPage extends React.Component {
 
     render() {
-<<<<<<< HEAD
-		console.log(this.props.user)
-        let adminRender = this.props.user.isLoggedIn ?
-            <div className = "admin cf">
-                <header>
-                    <h2>Admin</h2>
-                    <IndexLink to={'/admin'} activeClassName="active">Account</IndexLink>
-                    <Link to={'/admin/newlisting'} activeClassName="active">New Listing</Link>
-                    <Link to={'/admin/editlisting'} activeClassName="active">Edit Listing</Link>
-                    <Link to={'/admin/editvenue'} activeClassName="active">Edit Venue</Link>
-					<Link to={'/admin/venuesadmin'} activeClassName="active">All Venues</Link>
-                    <Link to={'/admin/featured'} activeClassName="active">Featured Listings</Link>
-                </header>
-                <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
-            </div>
-            :
-            <div>
-=======
+		
         const superAdmin = 3
         const admin = 2
         const editor = 1
@@ -79,7 +62,6 @@ export default class IndexPage extends React.Component {
                     <h2>Admin</h2>
                     <p>Please login to have access to your account.</p>
                 </header>
->>>>>>> 6f9e841fd7bf0e4ead35899b86a8e9ef726afbd4
                 <LogInForm loading={this.props.isLoggingIn} />
             </div>
         

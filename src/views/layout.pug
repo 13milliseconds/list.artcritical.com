@@ -17,8 +17,11 @@ html
     script. 
         try{Typekit.load({ async: true });}catch(e){}
   body
-    block content
+  div#fb-root
+  script
+    include facebookSDK.js
+  block content
     
-    script(src='/javascripts/bundle.js')
-    script(src='/javascripts/global.js')
+  script(src='/javascripts/bundle.js')
+  script(src='/javascripts/global.js')
     

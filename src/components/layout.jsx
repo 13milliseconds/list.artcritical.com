@@ -37,11 +37,8 @@ export default class Layout extends React.Component {
       const name = user.name;
       const mylistNum = user.mylist.length;
       
-<<<<<<< HEAD
-=======
       const renderLogin = () => <Link to={'/login'} activeClassName="active">Login</Link>;
       const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><button onClick={AuthActions.attemptLogOut}>Log Out</button></div>;
->>>>>>> 6f9e841fd7bf0e4ead35899b86a8e9ef726afbd4
     return (
       <div className="app-container">
         <header className="mainHeader">

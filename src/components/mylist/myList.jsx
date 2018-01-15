@@ -8,6 +8,7 @@ var async = require('async');
 import MyListings from './myListings';
 import MyMap from './myMap';
 import SizeSelector from '../blocks/sizeSelector';
+import FacebookShare from '../blocks/facebookShare';
 import {reorder} from 'react-reorder';
 
 export default class MyList extends React.Component {
@@ -136,6 +137,7 @@ export default class MyList extends React.Component {
         return ( 
                 <div className="myList">
 				<h2>{this.props.user.name}'s List</h2>
+				<FacebookShare url="http://google.com" />
                     <MyMap 
                         markers={this.state.markers} 
                         viewport ={this.state.viewport}
