@@ -66,7 +66,6 @@ export default class MyList extends React.Component {
     }
     
     onLeave(){
-        console.log('we left')
         // Create variable to change property
         let newViewport = this.state.viewport
         newViewport.lat = this.props.center.lat
@@ -136,6 +135,7 @@ export default class MyList extends React.Component {
         
         return ( 
                 <div className="myList">
+				<h2>{this.props.user.name}'s List</h2>
                     <MyMap 
                         markers={this.state.markers} 
                         viewport ={this.state.viewport}

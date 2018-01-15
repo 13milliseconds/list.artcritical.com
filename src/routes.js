@@ -10,6 +10,7 @@ import VenuePage from './components/venues/VenuePage';
 import SignUpPage from './components/login/SignUpPage';
 import LogInPage from './components/login/LogInPage';
 import MyListPage from './components/myListPage';
+import MyListPublicPage from './components/myListPublicPage';
 //Admin Components
 import AdminPage from './components/admin/AdminPage';
 import NewListing from './components/admin/NewListing';
@@ -29,6 +30,7 @@ const routes = (
         <Route path="events" component={EventsPage}/>
         <Route path="signup" component={SignUpPage}/>
         <Route path="mylist" component={MyListPage}/>
+		<Route path="mylist/:slug" component={MyListPublicPage}/>
         <Route path="login" component={LogInPage}/>
         <Route path="venue/:slug" component={VenuePage}/>
 		<Route path="account" component={Account}/>

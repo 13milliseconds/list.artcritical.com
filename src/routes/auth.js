@@ -212,6 +212,30 @@ router.get('/getmylist', (req, res) => {
     }
 });
 
+//###################################
+// GET all listings from a list
+//###################################
+
+router.get('/getusermylist/:user_slug', (req, res) => {
+	var Userlist = req.userlist;
+    var Venue = req.venue;
+	
+    Userlist
+		.findOne({'slug': req.params.user_slug})
+		.populate('mylist')
+		.exec(function (e, user) {
+			//Populate the mylist venues
+			Userlist.populate(user, {
+				path: 'mylist.venue',
+				model: Venue
+			  }, function(err, fullUser) {
+			//found user
+			res.json(fullUser);
+			});
+        });
+    
+});
+
 
 //###################################
 // GET to check session

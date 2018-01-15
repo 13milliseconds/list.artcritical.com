@@ -27,6 +27,7 @@ class ListStore {
         this.user.avatar = '';
         this.user.facebook = {};
         this.user.mylist = [];
+		this.currentUser = {};
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
@@ -541,6 +542,14 @@ class ListStore {
         this.user.mylist = data;
     }
     onGetMylistFailure(jqXhr) {
+        // Handle multiple response formats, fallback to HTTP status code number.
+        toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+    }
+	//Get a user's list
+	onGetUserMylistSuccess(data) {
+        this.currentUser = data;
+    }
+    onGetUserMylistFailure(jqXhr) {
         // Handle multiple response formats, fallback to HTTP status code number.
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }

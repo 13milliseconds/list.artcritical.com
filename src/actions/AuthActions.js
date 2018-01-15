@@ -23,6 +23,8 @@ class AuthActions {
             'getMylistFailure',
             'reorderMyListSuccess',
             'reorderMyListFailure',
+			'getUserMylistSuccess',
+			'getUserMylistFailure'
         );
     }
     
@@ -142,6 +144,34 @@ class AuthActions {
         })
         .catch((error) => {
             this.getMylistFailure(error)
+            return true;
+        });
+    }
+	
+	async getUserMylist(user_slug) {
+        await fetch(
+          process.env.BASE_URI + '/auth/getusermylist/' + user_slug,
+          {
+            method: 'GET',
+            credentials: 'same-origin',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((data) => {
+            if (data) {
+                this.getUserMylistSuccess(data)
+                return true;
+            } 
+            this.getUserMylistFailure(data.error);
+            return true;
+        })
+        .catch((error) => {
+            this.getUserMylistFailure(error)
             return true;
         });
     }

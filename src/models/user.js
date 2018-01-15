@@ -1,10 +1,12 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+	Schema = mongoose.Schema;
 var bcrypt = require('bcrypt'); // encripts password
 
 // Create the Listings table ==================================
 
 var userSchema = mongoose.Schema({
     name             : String,
+	slug             : String,
     local            : {
         username     : String,
         password     : String,
