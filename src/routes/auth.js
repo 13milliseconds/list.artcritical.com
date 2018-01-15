@@ -128,11 +128,29 @@ router.post('/addtolist', function (req, res) {
                 
                 //add listing to mylist
                 user.mylist.push(req.body);
+				//add a popularity point to the listing
+				List.findById(req.body, function (err, listing) {
+					listing.popularity = listing.popularity 
+											? listing.popularity + 1 
+											: 1;
+					listing.save(function (err, updatedListing) {
+						console.log('Saved the popularity!', updatedListing.popularity);
+					});
+				});
                 
             } else {
                 
                 // Remove from the list
                 user.mylist.splice(IndexOfListing, 1);
+				//subsctract a popularity point to the listing
+				List.findById(req.body, function (err, listing) {
+					listing.popularity = listing.popularity 
+											? listing.popularity - 1 
+											: 0;
+					listing.save(function (err, updatedListing) {
+						console.log('Saved the popularity!', updatedListing.popularity);
+					});
+				});
             }
             
 

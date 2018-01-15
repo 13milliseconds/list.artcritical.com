@@ -1032,6 +1032,11 @@ var Listing = function (_React$Component) {
                                 this.props.venue.name
                             )
                         ),
+                        this.props.popularity >= 5 && _react2.default.createElement(
+                            'div',
+                            { className: 'popular' },
+                            'Popular'
+                        ),
                         dateDisplay
                     ),
                     _react2.default.createElement(
@@ -4507,7 +4512,8 @@ module.exports = function (passport) {
                     var newUser = new User();
 
                     // set the user's local credentials
-                    newUser.local.name = req.body.name;
+                    newUser.name = req.body.name;
+                    newUser.slug = req.body.name.replace(/\s+/g, '').toLowerCase();
                     newUser.local.username = req.body.username;
                     newUser.local.password = newUser.generateHash(password);
 
@@ -4578,6 +4584,7 @@ module.exports = function (passport) {
             if (!user) {
                 user = new User({
                     name: profile.displayName,
+                    slug: profile.displayName.replace(/\s+/g, '').toLowerCase(),
                     facebook: {
                         id: profile.id,
                         token: accessToken
@@ -4648,7 +4655,8 @@ var listingSchema = mongoose.Schema({
     event: Boolean,
     events: [],
     image: String,
-    thumb: String
+    thumb: String,
+    popularity: Number
 });
 
 //compile the model
@@ -10184,10 +10192,24 @@ router.post('/addtolist', function (req, res) {
 
                 //add listing to mylist
                 user.mylist.push(req.body);
+                //add a popularity point to the listing
+                List.findById(req.body, function (err, listing) {
+                    listing.popularity = listing.popularity ? listing.popularity + 1 : 1;
+                    listing.save(function (err, updatedListing) {
+                        console.log('Saved the popularity!', updatedListing.popularity);
+                    });
+                });
             } else {
 
                 // Remove from the list
                 user.mylist.splice(IndexOfListing, 1);
+                //subsctract a popularity point to the listing
+                List.findById(req.body, function (err, listing) {
+                    listing.popularity = listing.popularity ? listing.popularity - 1 : 0;
+                    listing.save(function (err, updatedListing) {
+                        console.log('Saved the popularity!', updatedListing.popularity);
+                    });
+                });
             }
 
             // Save user with new listing

@@ -213,6 +213,12 @@ LISTING ELEMENTS
             }
         }
     }
+	.popular{
+		background-color: antiquewhite;
+		padding: 3px 5px;
+		border-radius: 3px;
+		display: inline-block;
+	}
     .listingClose{
         @include span-columns(1);
         padding-top: 5px;

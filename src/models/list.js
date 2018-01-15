@@ -15,7 +15,8 @@ var listingSchema = mongoose.Schema({
     event: Boolean,
     events: [],
     image: String,
-    thumb: String
+    thumb: String,
+	popularity: Number
 });
 
 //compile the model

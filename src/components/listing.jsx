@@ -74,6 +74,7 @@ export default class Listing extends React.Component {
         <div className = "listingContent">
             <div className="header">
                 <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue.slug}>{this.props.venue.name}</a></p>
+				{this.props.popularity >= 5 && <div className="popular">Popular</div>}
                 {dateDisplay}
                 
             </div>
