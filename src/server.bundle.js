@@ -1739,7 +1739,7 @@ var ListStore = function () {
         this.user.facebook = {};
         this.user.mylist = [];
         this.currentUser = {};
-        this.user.userAccess = 3;
+        this.user.userAccess = 0;
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
@@ -2279,7 +2279,6 @@ var ListStore = function () {
         value: function onLoginAttempt() {
             this.isLoggingIn = true;
             this.loginRedirect = false;
-            this.userAccess = 3;
         }
     }, {
         key: 'onLoginFailure',
@@ -2296,6 +2295,7 @@ var ListStore = function () {
         value: function onLoginSuccess(json) {
             this.user = json;
             this.user.isLoggedIn = true;
+            this.user.userAccess = 3;
             this.user.isLoggingIn = false;
         }
 
@@ -7452,7 +7452,9 @@ var IndexPage = function (_React$Component) {
             var editor = 1;
             var subscriber = 0;
 
-            var adminRender = this.props.user.isLoggedIn && this.props.userAccess === superAdmin ? _react2.default.createElement(
+            console.log(this.props);
+
+            var adminRender = this.props.user.isLoggedIn && this.props.user.userAccess === superAdmin ? _react2.default.createElement(
                 'div',
                 { className: 'admin cf' },
                 _react2.default.createElement(
@@ -7499,7 +7501,7 @@ var IndexPage = function (_React$Component) {
                     { className: 'admin-content' },
                     _react2.default.cloneElement(this.props.children, this.props)
                 )
-            ) : this.props.user.isLoggedIn && userAccess === admin ? _react2.default.createElement(
+            ) : this.props.user.isLoggedIn && this.props.user.userAccess === admin ? _react2.default.createElement(
                 'div',
                 { className: 'admin cf' },
                 _react2.default.createElement(
@@ -7546,7 +7548,7 @@ var IndexPage = function (_React$Component) {
                     { className: 'admin-content' },
                     _react2.default.cloneElement(this.props.children, this.props)
                 )
-            ) : this.props.user.isLoggedIn && userAccess === editor ? _react2.default.createElement(
+            ) : this.props.user.isLoggedIn && this.props.user.userAccess === editor ? _react2.default.createElement(
                 'header',
                 null,
                 _react2.default.createElement(
@@ -7579,7 +7581,7 @@ var IndexPage = function (_React$Component) {
                     { className: 'admin-content' },
                     _react2.default.cloneElement(this.props.children, this.props)
                 )
-            ) : this.props.user.isLoggedIn && userAccess === subscriber ? _react2.default.createElement(
+            ) : this.props.user.isLoggedIn && this.props.user.userAccess === subscriber ? _react2.default.createElement(
                 'header',
                 null,
                 _react2.default.createElement(

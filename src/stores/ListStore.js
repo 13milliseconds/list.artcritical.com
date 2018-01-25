@@ -28,7 +28,7 @@ class ListStore {
         this.user.facebook = {};
         this.user.mylist = [];
 		this.currentUser = {};
-        this.user.userAccess = 3;
+        this.user.userAccess = 0;
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
@@ -438,7 +438,6 @@ class ListStore {
     onLoginAttempt(){
         this.isLoggingIn = true;
         this.loginRedirect = false;
-        this.userAccess = 3;
     }
     onLoginFailure(error){
         console.log('Login error: ', error);
@@ -451,6 +450,7 @@ class ListStore {
     onLoginSuccess(json){
         this.user = json;
         this.user.isLoggedIn = true;
+        this.user.userAccess = 3;
         this.user.isLoggingIn = false;
     }
     

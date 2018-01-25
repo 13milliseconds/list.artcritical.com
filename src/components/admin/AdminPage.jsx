@@ -15,8 +15,10 @@ export default class IndexPage extends React.Component {
         const editor = 1
         const subscriber = 0
 
+        console.log(this.props)
 
-        let adminRender = this.props.user.isLoggedIn && this.props.userAccess === superAdmin ?
+
+        let adminRender = this.props.user.isLoggedIn && this.props.user.userAccess === superAdmin ?
             <div className = "admin cf">
                 <header>
                     <h2>Account page</h2>
@@ -29,7 +31,7 @@ export default class IndexPage extends React.Component {
                 </header>
                 <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
             </div>
-            : this.props.user.isLoggedIn && userAccess === admin ? 
+            : this.props.user.isLoggedIn && this.props.user.userAccess === admin ? 
                 <div className = "admin cf">
                     <header>
                         <h2>Account page</h2>
@@ -42,7 +44,7 @@ export default class IndexPage extends React.Component {
                     </header>
                     <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
                 </div>
-            : this.props.user.isLoggedIn && userAccess === editor ? 
+            : this.props.user.isLoggedIn && this.props.user.userAccess === editor ? 
                 <header>
                          <h2>Account page</h2>
                         <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
@@ -51,7 +53,7 @@ export default class IndexPage extends React.Component {
                         <Link to={'/account/editvenue'} activeClassName="active">Edit Venue</Link>
                         <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
                 </header>
-            : this.props.user.isLoggedIn && userAccess === subscriber ? 
+            : this.props.user.isLoggedIn && this.props.user.userAccess === subscriber ? 
                 <header>
                     <h2>Account page</h2>
                     <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
