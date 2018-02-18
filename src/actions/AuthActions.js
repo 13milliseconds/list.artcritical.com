@@ -100,7 +100,8 @@ class AuthActions {
             body: JSON.stringify(registerData),
             headers: {
               'Content-Type': 'application/json',
-            }
+            },
+			 credentials: 'same-origin',
           },
         ).then((response) => {
           if (response.status === 200) {

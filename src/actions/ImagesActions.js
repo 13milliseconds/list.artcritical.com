@@ -29,6 +29,7 @@ class ImagesActions {
 
           if (response.body.secure_url !== '') {
               console.log('Image Uploaded');
+			  console.log(response.body);
               this.avatarUploadSuccess(response.body);
           }
         });

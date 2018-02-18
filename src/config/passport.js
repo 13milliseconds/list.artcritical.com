@@ -66,7 +66,7 @@ module.exports = function(passport) {
             // check to see if theres already a user with that email
             if (user) {
                 console.log('That email is already taken.')
-                return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                return done(null, false, { message: 'That email is already taken.'});
             } else {
                 console.log("New User..");
                 // create the user
@@ -77,13 +77,31 @@ module.exports = function(passport) {
 				newUser.slug      = req.body.name.replace(/\s+/g, '').toLowerCase();
                 newUser.local.username  = req.body.username;
                 newUser.local.password  = newUser.generateHash(password);
-
-                // save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
-                });
+				
+				//Check if slug already exist
+				var count = 0;
+				var ogSlug = newUser.slug;
+				function checkSlug() {
+					console.log('Start checking');
+					User.findOne({ 'slug' :  newUser.slug }).exec(function(err, user) {
+						if (user){
+							console.log('Slug already exist');
+							count = count + 1;
+							newUser.slug = ogSlug + count;
+							console.log(newUser.slug);
+							checkSlug();
+						} else {
+							console.log('Slug is unique');
+							// save the user
+							newUser.save(function(err) {
+								if (err)
+									throw err;
+								return done(null, newUser);
+							});
+						}
+					});	
+				};
+				checkSlug();
             }
 
         });    
@@ -155,20 +173,42 @@ module.exports = function(passport) {
             }
             //No user was found
             if (!user) {
-                user = new User({
-                    name: profile.displayName,
-					slug: profile.displayName.replace(/\s+/g, '').toLowerCase(),
-                    facebook: {
-                        id: profile.id,
-                        token: accessToken
-                    }
-                });
-                console.log("New user", user);
-                user.save(function(err) {
-                    if (err) console.log(err);
-                    AuthActions.facebookLogin(user);
-                    return done(err, user);
-                });
+				
+				console.log("New user", user);
+				// create the user
+                var newUser             = new User();
+
+                // set the user's local credentials
+                newUser.name      = profile.displayName;
+				newUser.slug      = profile.displayName.replace(/\s+/g, '').toLowerCase();
+                newUser.facebook.id  = profile.id;
+                newUser.facebook.token  = accessToken;
+				
+				//Check if slug already exist
+				var count = 0;
+				var ogSlug = newUser.slug;
+				function checkSlug() {
+					console.log('Start checking');
+					User.findOne({ 'slug' :  newUser.slug }).exec(function(err, user) {
+						if (user){
+							console.log('Slug already exist');
+							count = count + 1;
+							newUser.slug = ogSlug + count;
+							console.log(newUser.slug);
+							checkSlug();
+						} else {
+							console.log('Slug is unique');
+							// save the user
+							user.save(function(err) {
+								if (err) console.log(err);
+								AuthActions.facebookLogin(user);
+								return done(err, user);
+							});
+						}
+					});	
+				};
+				checkSlug();
+
             } else {
                 
                 //Populate the mylist venues

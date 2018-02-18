@@ -15,23 +15,14 @@ export default class Listing extends React.Component {
     //Function to add a listing to the personal list
     addToList(e, listing){
         if (this.props.user._id){
+			console.log('Adding to list of ', this.props.user.name);
             //Select this listing
             var thislisting = $(e.target).closest('.listing');
 
             //Add or remove the listing to the user's list
             AuthActions.addToUserList(listing);
 
-            if (thislisting.hasClass('selected')){
-
-                //Close the currently open tab
-                $(thislisting).removeClass('selected');
-
-            } else {
-
-                //Open this listing
-                $(thislisting).addClass('selected');
-
-            }
+            thislisting.toggleClass('selected');
         }
     }
         

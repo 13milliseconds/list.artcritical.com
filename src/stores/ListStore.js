@@ -20,12 +20,12 @@ class ListStore {
         // Auth states
         this.user = {};
         this.user.name = '';
-        this.user.id = '';
+        this.user._id = '';
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
-        this.user.email = '';
         this.user.avatar = '';
         this.user.facebook = {};
+		this.user.local = {};
         this.user.mylist = [];
 		this.currentUser = {};
         this.user.userAccess = 0;
@@ -442,12 +442,13 @@ class ListStore {
     onLoginFailure(error){
         console.log('Login error: ', error);
         this.user.name = '';
-        this.user.id = '';
+        this.user._id = '';
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
-        this.user.email = '';
+        this.user.local = {};
     }
     onLoginSuccess(json){
+		console.log('Logged in: ', json);
         this.user = json;
         this.user.isLoggedIn = true;
         this.user.userAccess = 3;
@@ -461,15 +462,16 @@ class ListStore {
     onRegisterFailure(error){
         console.log(error);
         this.user.name = '';
-        this.user.id = '';
-        this.user.email = '';
+        this.user._id = '';
+        this.user.local.username = '';
         this.isRegistering = false;
     }
-    onRegisterSuccess(action){
-        this.user.name = action.local.name;
-        this.user.id = action._id;
-        this.user.email = action.local.username;
-        this.user.avatar = action.avatar;
+    onRegisterSuccess(user){
+		console.log('Logged in: ', user);
+        this.user.name = user.name;
+        this.user._id = user._id;
+        this.user.local.username = user.local.username;
+        this.user.avatar = user.avatar;
         this.isRegistering = false;
         this.user.isLoggedIn = true;
     }
@@ -478,7 +480,7 @@ class ListStore {
     onFacebookLogin(user){
         console.log("Logged in via Facebook");
         this.user.name = user.name;
-        this.user.id = user._id;
+        this.user._id = user._id;
         this.user.facebook = {
             id: user.facebook.id,
             token: user.facebook.token
@@ -511,20 +513,20 @@ class ListStore {
     onLogoutSuccess(action){
         console.log("Logged out");
         this.user.name = '';
-        this.user.id = '';
+        this.user._id = '';
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
-        this.user.email = '';
+        this.user.local.username = '';
         this.user.mylist = [];
     }
     
     // CHECK SESSION
     onSessionCheckFailure() {
         this.user.name = '';
-        this.user.id = '';
+        this.user._id = '';
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
-        this.user.email = '';
+        this.user.local.username = '';
     }
     onSessionCheckSuccess(action){
         this.user = action;
@@ -533,16 +535,27 @@ class ListStore {
     }
     
     // ADD TO MYLIST
-    onAddToMyListSuccess(response){
-        this.user.mylist = response;
+    onAddToMyListSuccess(data){
+		console.log('Added to the list');
+		if (data) {
+			this.user.mylist = data;	
+		} else {
+			this.user.mylist = [];
+		}
     }
     onAddToMyListFailure(error){
+		console.log('Error adding to the list', this.user);
         console.log(error);
     }
     
     // GET MYLIST
     onGetMylistSuccess(data) {
-        this.user.mylist = data;
+		console.log('onGetMylistSuccess');
+		if (data) {
+			this.user.mylist = data;	
+		} else {
+			this.user.mylist = [];
+		}
     }
     onGetMylistFailure(jqXhr) {
         // Handle multiple response formats, fallback to HTTP status code number.
@@ -550,6 +563,7 @@ class ListStore {
     }
 	//Get a user's list
 	onGetUserMylistSuccess(data) {
+		console.log('onGetUserMylistSuccess');
         this.currentUser = data;
     }
     onGetUserMylistFailure(jqXhr) {

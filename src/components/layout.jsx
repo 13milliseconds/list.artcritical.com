@@ -42,7 +42,6 @@ export default class Layout extends React.Component {
     return (
       <div className="app-container">
         <header className="mainHeader">
-            <h1>Everything happening in the art world in New York City and its surroundings.</h1>
 			<nav>
             <IndexLink to={'/'} activeClassName="active">Week at a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>

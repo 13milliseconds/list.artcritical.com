@@ -12,18 +12,18 @@ router.post('/signup', async(req, res) => {
         // If logged in, we should have user info to send back
         if (req.user) {
             passport.authenticate('local-login')(req, res, () => {
-                console.log('auth/signup: Signed in');
-                
-                // If logged in, we should have user info to send back
-                if (req.user) {
-                    return res.send(JSON.stringify(req.user));
-                }
+				console.log('Logged in.');
+				// If logged in, we should have user info to send back
 
-                // Otherwise return an error
-                return res.send(JSON.stringify({
-                    error: 'There was an error logging in'
-                }));
-            });
+				if (req.user) {
+					return res.send(JSON.stringify(req.user));
+				}
+
+				// Otherwise return an error
+				return res.send(JSON.stringify({
+					error: 'There was an error logging in'
+				}));
+			});
         } else {
             // Otherwise return an error
             return res.send(JSON.stringify({
@@ -42,7 +42,6 @@ router.post('/login', async(req, res) => {
     passport.authenticate('local-login')(req, res, () => {
         console.log('Logged in');
         // If logged in, we should have user info to send back
-
         if (req.user) {
             return res.send(JSON.stringify(req.user));
         }
@@ -112,6 +111,8 @@ router.post('/addtolist', function (req, res) {
     var Userlist = req.userlist;
     var List = req.list;
 
+	console.log('Adding to ', req);
+	
     //CHECK IF USER IS CONNECTED
     if (req.user) {
 
@@ -167,7 +168,9 @@ router.post('/addtolist', function (req, res) {
                 });
             });
         });
-    };
+    } else {
+		return handleError('No defined user');
+	};
 });
 
 /*//###################################

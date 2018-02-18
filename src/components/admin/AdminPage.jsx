@@ -6,7 +6,7 @@ import UserPage from '../user/UserPage';
 // import UserPanel from '../'
 
 
-export default class IndexPage extends React.Component {
+export default class AdminPage extends React.Component {
 
     render() {
 		
