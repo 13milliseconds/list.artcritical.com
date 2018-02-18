@@ -594,11 +594,11 @@ class ListStore {
     }
     
     // UPLOAD AN AVATAR
-    onImageUploadSuccess(image){
+    onAvatarUploadSuccess(image){
         this.isUploaded = true;
         this.user.avatar = image.public_id;
     }
-    onImageUploadFailure(err){
+    onAvatarUploadFailure(err){
         console.log('Error: ', err);
     }
     // UPLOAD A THUMBNAIL

@@ -1542,7 +1542,7 @@ LISTING ELEMENTS
 
 /* line 283, ../scss/breakpoints/_base.scss */
 .medium .listing {
-  margin-bottom: 20px;
+  padding-bottom: 20px;
   display: block;
 }
 /* line 20, ../scss/neat/mixins/_clearfix.scss */
@@ -1892,6 +1892,7 @@ My List
 /* line 509, ../scss/breakpoints/_base.scss */
 .myList {
   display: block;
+  position: relative;
 }
 /* line 20, ../scss/neat/mixins/_clearfix.scss */
 .myList::after {
@@ -1899,32 +1900,45 @@ My List
   content: "";
   display: block;
 }
-/* line 511, ../scss/breakpoints/_base.scss */
-.myList .listing-wrap {
+/* line 512, ../scss/breakpoints/_base.scss */
+.myList .fb-share-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+/* line 517, ../scss/breakpoints/_base.scss */
+.myList .listingsWrap {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
   width: 48.8211739883%;
-  margin-left: 51.1788260117%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
-.myList .listing-wrap:last-child {
+.myList .listingsWrap:last-child {
   margin-right: 0;
 }
-/* line 514, ../scss/breakpoints/_base.scss */
-.myList .listing-wrap .listing.selected {
-  background-color: transparent;
+/* line 520, ../scss/breakpoints/_base.scss */
+.myList .listingsWrap .listing .delete {
+  cursor: pointer;
+  color: #770600;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  transition: 0.2s;
+}
+/* line 524, ../scss/breakpoints/_base.scss */
+.myList .listingsWrap .listing .delete:hover {
+  color: red;
 }
 
 /*********************
 Google Map
 *********************/
-/* line 525, ../scss/breakpoints/_base.scss */
+/* line 537, ../scss/breakpoints/_base.scss */
 .mapWrap {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
-  width: 100%;
+  width: 48.8211739883%;
   margin-bottom: 20px;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
@@ -1932,7 +1946,7 @@ Google Map
   margin-right: 0;
 }
 
-/* line 531, ../scss/breakpoints/_base.scss */
+/* line 543, ../scss/breakpoints/_base.scss */
 .mapboxgl-marker .marker {
   background-color: beige;
   color: black;
@@ -1946,7 +1960,7 @@ Google Map
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 543, ../scss/breakpoints/_base.scss */
+/* line 555, ../scss/breakpoints/_base.scss */
 .mapboxgl-marker.active .marker {
   background-color: #770600;
   color: #fff;
@@ -1955,7 +1969,7 @@ Google Map
 /*********************
 Venue Page
 *********************/
-/* line 554, ../scss/breakpoints/_base.scss */
+/* line 566, ../scss/breakpoints/_base.scss */
 .venuePage {
   display: block;
 }
@@ -1965,7 +1979,7 @@ Venue Page
   content: "";
   display: block;
 }
-/* line 556, ../scss/breakpoints/_base.scss */
+/* line 568, ../scss/breakpoints/_base.scss */
 .venuePage .infoWrap {
   float: left;
   display: block;
@@ -1976,11 +1990,11 @@ Venue Page
 .venuePage .infoWrap:last-child {
   margin-right: 0;
 }
-/* line 558, ../scss/breakpoints/_base.scss */
+/* line 570, ../scss/breakpoints/_base.scss */
 .venuePage .infoWrap h2 {
   margin-top: 0;
 }
-/* line 562, ../scss/breakpoints/_base.scss */
+/* line 574, ../scss/breakpoints/_base.scss */
 .venuePage .mapWrap {
   float: left;
   display: block;
@@ -1992,7 +2006,7 @@ Venue Page
 .venuePage .mapWrap:last-child {
   margin-right: 0;
 }
-/* line 566, ../scss/breakpoints/_base.scss */
+/* line 578, ../scss/breakpoints/_base.scss */
 .venuePage .listingsWrap {
   float: left;
   display: block;
@@ -2006,18 +2020,18 @@ Venue Page
 .venuePage .listingsWrap:last-child {
   margin-right: 0;
 }
-/* line 571, ../scss/breakpoints/_base.scss */
+/* line 583, ../scss/breakpoints/_base.scss */
 .venuePage .listingsWrap li {
   display: inline-block;
   float: left;
   padding-right: 20px;
 }
-/* line 575, ../scss/breakpoints/_base.scss */
+/* line 587, ../scss/breakpoints/_base.scss */
 .venuePage .listingsWrap li a {
   color: #323944;
   text-decoration: none;
 }
-/* line 578, ../scss/breakpoints/_base.scss */
+/* line 590, ../scss/breakpoints/_base.scss */
 .venuePage .listingsWrap li a.active, .venuePage .listingsWrap li a:hover {
   color: #770600;
 }
@@ -2025,29 +2039,29 @@ Venue Page
 /*********************
 ADMIN
 *********************/
-/* line 590, ../scss/breakpoints/_base.scss */
+/* line 602, ../scss/breakpoints/_base.scss */
 .admin header {
   padding-left: 0;
 }
-/* line 592, ../scss/breakpoints/_base.scss */
+/* line 604, ../scss/breakpoints/_base.scss */
 .admin header a {
   text-decoration: none;
   padding-right: 20px;
   color: #323944;
 }
-/* line 596, ../scss/breakpoints/_base.scss */
+/* line 608, ../scss/breakpoints/_base.scss */
 .admin header a.active {
   color: #019476;
   font-weight: bold;
 }
 
-/* line 604, ../scss/breakpoints/_base.scss */
+/* line 616, ../scss/breakpoints/_base.scss */
 #listingForm, #newlistingDemo {
   float: left;
   width: 50%;
 }
 
-/* line 609, ../scss/breakpoints/_base.scss */
+/* line 621, ../scss/breakpoints/_base.scss */
 label {
   display: block !important;
   float: left;
@@ -2060,7 +2074,7 @@ label:last-child {
   margin-right: 0;
 }
 
-/* line 613, ../scss/breakpoints/_base.scss */
+/* line 625, ../scss/breakpoints/_base.scss */
 .formSection {
   float: left;
   display: block;
@@ -2073,17 +2087,17 @@ label:last-child {
 .formSection:last-child {
   margin-right: 0;
 }
-/* line 617, ../scss/breakpoints/_base.scss */
+/* line 629, ../scss/breakpoints/_base.scss */
 .formSection textarea, .formSection input {
   width: 100%;
 }
 
-/* line 621, ../scss/breakpoints/_base.scss */
+/* line 633, ../scss/breakpoints/_base.scss */
 input.invalid {
   border: 2px solid red !important;
 }
 
-/* line 626, ../scss/breakpoints/_base.scss */
+/* line 638, ../scss/breakpoints/_base.scss */
 #listingForm {
   padding-right: 50px;
   display: block;
@@ -2095,34 +2109,34 @@ input.invalid {
   display: block;
 }
 
-/* line 632, ../scss/breakpoints/_base.scss */
+/* line 644, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing {
   width: 100%;
   border: 1px solid grey;
   padding-top: 20px;
 }
-/* line 636, ../scss/breakpoints/_base.scss */
+/* line 648, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing .moreInfo {
   display: block;
 }
 
-/* line 642, ../scss/breakpoints/_base.scss */
+/* line 654, ../scss/breakpoints/_base.scss */
 #ListingList, #ListingInfo {
   width: 50%;
   float: left;
 }
 
-/* line 646, ../scss/breakpoints/_base.scss */
+/* line 658, ../scss/breakpoints/_base.scss */
 #ListingList {
   padding-right: 50px;
 }
 
-/* line 651, ../scss/breakpoints/_base.scss */
+/* line 663, ../scss/breakpoints/_base.scss */
 .editVenue .venueList {
   padding-bottom: 20px;
 }
 
-/* line 657, ../scss/breakpoints/_base.scss */
+/* line 669, ../scss/breakpoints/_base.scss */
 input::-webkit-input-placeholder,
 option {
   color: #C9C9C9;
@@ -2131,7 +2145,7 @@ option {
 /*********************
 GRID
 *********************/
-/* line 666, ../scss/breakpoints/_base.scss */
+/* line 678, ../scss/breakpoints/_base.scss */
 .d-1of2 {
   float: left;
   width: 50%;

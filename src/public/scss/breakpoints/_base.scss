@@ -281,7 +281,7 @@ LISTING ELEMENTS
 }
 .medium{
     .listing{
-		margin-bottom: 20px;
+		padding-bottom: 20px;
         @include row();
         .listingAdd{
             @include span-columns(2);
@@ -508,11 +508,23 @@ My List
 
 .myList{
     @include row();
-    .listing-wrap{
+	position: relative;
+	.fb-share-button{
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+    .listingsWrap{
         @include span-columns(6);
-        @include shift(6);
-        .listing.selected{
-            background-color: transparent;
+        .listing{
+			.delete{
+				cursor: pointer;
+				color: $red;
+				@include transition(.2s);
+				&:hover{
+					color: red;
+				}
+			}
         }
     }   
 }
@@ -523,7 +535,7 @@ Google Map
 *********************/
 
 .mapWrap{
-    @include span-columns(12);
+    @include span-columns(6);
     margin-bottom: 20px;
 }
 

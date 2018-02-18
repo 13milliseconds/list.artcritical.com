@@ -7,7 +7,6 @@ var async = require('async');
 // Components
 import MyListings from './myListings';
 import MyMap from './myMap';
-import SizeSelector from '../blocks/sizeSelector';
 import FacebookShare from '../blocks/facebookShare';
 import {reorder} from 'react-reorder';
 
@@ -24,7 +23,7 @@ export default class MyList extends React.Component {
                 mapboxApiAccessToken: this.props.token,
                 bearing: 0,
                 pitch: 0,
-                width: window.innerWidth,
+                width: 0,
                 height: 500
               }
         }
@@ -51,7 +50,7 @@ export default class MyList extends React.Component {
     componentDidMount(){
         // Create variable to change property
         let newViewport = this.state.viewport
-        newViewport.width = ReactDOM.findDOMNode(this).offsetWidth
+        newViewport.width = ReactDOM.findDOMNode(this).offsetWidth /2
         //Update state
         this.setState({
               viewport: newViewport
@@ -137,7 +136,8 @@ export default class MyList extends React.Component {
         return ( 
                 <div className="myList">
 				<h2>{this.props.user.name}'s List</h2>
-				<FacebookShare url="http://google.com" />
+				<a target="_blank" href={window.location.href + '/' + this.props.user.slug}>Public page</a>
+				<FacebookShare url={window.location.href} />
                     <MyMap 
                         markers={this.state.markers} 
                         viewport ={this.state.viewport}
@@ -146,7 +146,6 @@ export default class MyList extends React.Component {
                         onHover={this.onHover}
                         onLeave={this.onLeave}
                         />
-                    <SizeSelector view={this.props.view} />
                     {this.props.user.mylist? <MyListings 
                                            user={this.props.user}
                                             view={this.props.view}

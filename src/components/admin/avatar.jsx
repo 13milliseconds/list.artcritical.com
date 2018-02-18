@@ -31,7 +31,8 @@ export default class Avatar extends React.Component {
     
     changeAvatar () {
         this.setState({
-                resetAvatar: true
+                resetAvatar: true,
+				isUploaded: false
             })
     }
     
@@ -50,6 +51,7 @@ export default class Avatar extends React.Component {
         
         let avatarRender = (isUploaded || this.state.isUploading) && !this.state.resetAvatar ? 
             <div className={isUploaded? 'avatar loaded' : 'avatar loading'} onClick={this.changeAvatar}>
+				<div className="delete">Delete</div>
                 <img src={isUploaded? fullURL : this.state.uploadedFile.preview}/>
             </div>
             :

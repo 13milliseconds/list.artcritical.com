@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthActions from '../actions/AuthActions';
 //COMPONENTS
-import MyList from './mylist/myList';
+import UserList from './mylist/userList';
 import LogInForm from './login/LogInForm';
 
 export default class MyListPage extends React.Component {
@@ -15,7 +15,7 @@ export default class MyListPage extends React.Component {
 
     render() {
         let myListRender = this.props.currentUser.mylist ?
-                            <MyList {...this.props} user={this.props.currentUser}/>
+                            <UserList {...this.props} user={this.props.currentUser}/>
                             :
                             <div>No such user.</div>
         return ( 
