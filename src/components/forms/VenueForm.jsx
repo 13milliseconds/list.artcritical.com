@@ -1,9 +1,8 @@
 import React from 'react';
-import ToggleButton from 'react-toggle-button';
 import ListActions from '../../actions/ListActions';
+//COMPONENTS
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-
-//Components
+import Date from '../blocks/DateBlock.jsx';
 import NeighborhoodSelect from './NeighborhoodSelect'
 
 var MapboxClient = require('mapbox');
@@ -131,14 +130,26 @@ export default class VenueForm extends React.Component {
                           <Input name="website" placeholder="Website" type="text" value={this.props.website} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
+				   
+				   {this.props.updated_by
+				   		?(this.props.created_at === this.props.updated_at) 
+							? 
+					   		<p> Created on <Date date = {this.props.updated_at}/> by {this.props.updated_by.name}.</p>
+							:
+					   		<p> Updated on <Date date = {this.props.updated_at}/> by {this.props.updated_by.name}.</p>
+				   		: ''
+				   	}
 
                     <FormGroup>
-                        <Button onClick={this.props.handleSubmit}>{this.props._id ? 'Update' : 'Save'}</Button>
+                        <Button onClick={this.props.handleSubmit}>{this.props._id ? 'Update' : 'Create'}</Button>
                             {this.props.loading && 
                                 <div className='loading'>loading</div>
                             }
-                            {this.props.success && 
+                            {this.props.success.updatevenue && 
                                 <div className='success'>Saved!</div>
+                            }
+							{this.props.success.deleted && 
+                                <div className='deleted'>Deleted!</div>
                             }
                             {this.props.error.general && 
                                 <div className='error'>{this.props.error.general}</div>

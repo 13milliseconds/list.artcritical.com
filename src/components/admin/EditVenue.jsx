@@ -42,15 +42,20 @@ export default class VenueEdit extends React.Component {
     //Delete the listing
     handleDelete() {
         ListActions.deleteVenue(this.props.venueEdit._id)
+		//Reset the form
+		ListActions.venueEditReset();
+		this.setState({
+			formDisplay: false
+		})
       }
     
     handleSelectChange (data) {
-		console.log(data);
         if (data){
 			this.setState({
                     formDisplay: true
                 })
             if (data.label == data.value) {
+				console.log('New Venue');
 				//New Venue
 				ListActions.venueInfoChange({
 					name: 'name',
@@ -91,7 +96,10 @@ export default class VenueEdit extends React.Component {
                 <div className="d-1of2">
                 <div className="venueList">
                     <form onSubmit={this.handleSubmit}>
-                        <Select value={{value: this.props.venueEdit._id, label: this.props.venueEdit.name}} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
+                        <Select 
+							value={{value: this.props.venueEdit._id, label: this.props.venueEdit.name}} 
+							handleSelectChange={this.handleSelectChange} 
+							getOptions={getOptions} />
                     </form>
                 </div>
 					<div className="listingForm">
@@ -101,8 +109,8 @@ export default class VenueEdit extends React.Component {
                             handleDelete={this.handleDelete} 
 							newVenue={(this.props._id == '' || this.props._id == null && this.props.name !== '')}
                             error={this.props.error.updatevenue} 
-                            loading={this.props.loading.updatevenue}
-                            success={this.props.success.updatevenue}/>
+                            loading={(this.props.loading.updatevenue || this.props.loading.deletevenue)}
+                            success={this.props.success}/>
 						}
 					</div>
                 </div>

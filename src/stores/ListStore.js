@@ -63,7 +63,9 @@ class ListStore {
         this.loading.register = false;
         this.loading.updateuser = false;
         this.loading.updatelisting = false;
+		this.loading.deletelisting = false;
         this.loading.updatevenue = false;
+		this.loading.deletevenue = false;
         this.loading.savelisting = false;
         this.loading.savevenue = false;
         this.loading.current = false;
@@ -82,6 +84,8 @@ class ListStore {
         this.success.updateuser = false;
         this.success.updatelisting = false;
         this.success.updatevenue = false;
+		this.success.deletelisting = false;
+        this.success.deletevenue = false;
         this.success.savelisting = false;
         this.success.savevenue = false;
     }
@@ -188,7 +192,8 @@ class ListStore {
     onGetListingInfoSuccess(info){
 		console.log('Listing info loaded', info);
         this.listingEdit = info.data;
-		if (info.i !== null){
+		// Need to explain this
+		if (info.i){
 			console.log('Feature listing');
 			this.features[info.i].list = info.data;
 			console.log(this.features[info.i].list);
@@ -254,11 +259,18 @@ class ListStore {
     }
 	
 	//Delete a Venue
+	onDeleteVenueAttempt(){
+        this.loading.deletevenue = true;
+		this.success.deletevenue = false;
+    }
     onDeleteVenueSuccess(data){
         console.log('Deleted');
+		this.loading.deletevenue = false;
+        this.success.deletevenue = true;
     }
     onDeleteVenueFailure(err){
-        console.log('Error: ', err);
+        console.log('Error deleting: ', err);
+		this.loading.deletevenue = false;
     }
     
     onGetVenueListingsSuccess(data){

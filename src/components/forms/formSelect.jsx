@@ -1,7 +1,7 @@
 import React from 'react';
-import { Async } from 'react-select';
+import { AsyncCreatable } from 'react-select';
 
-export default class DateSingle extends React.Component {
+export default class formSelect extends React.Component {
     
     constructor(props) {
         super(props);
@@ -10,7 +10,7 @@ export default class DateSingle extends React.Component {
     render() {
 
         return (
-            <Async 
+            <AsyncCreatable 
                 name="venue" 
                 value={this.props.value}  
                 loadOptions={this.props.getOptions} 

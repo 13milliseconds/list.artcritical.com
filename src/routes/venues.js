@@ -70,20 +70,16 @@ router.get('/find/:venue_id', function (req, res, next) {
 //#######################
 router.get('/getinfo/:venue_id', function (req, res, next) {
     var Venue = req.venue;
-
-	console.log('id: ', req.params.venue_id);
 	
-    Venue.findOne({
-        _id: req.params.venue_id
-    }).
-    exec(function (e, docs) {
-        if (e)
-            res.send(e);
+    Venue
+		.findOne({_id: req.params.venue_id})
+		.populate('updated_by')
+    	.exec(function (e, docs) {
+        	if (e)
+            	res.send(e);
 
-		console.log('info: ', docs);
-        res.json(docs);
-    });
-
+			res.json(docs);
+		});
 });
 
 
@@ -139,7 +135,11 @@ router.get('/getfullinfo/:venue_slug', function (req, res, next) {
         }); 
 });
 
+
+//#######################
 /* GET current listings for one venue */
+//#######################
+
 router.get('/getlistings/:venue_id', function (req, res, next) {
     var List = req.list;
     
@@ -149,9 +149,11 @@ router.get('/getlistings/:venue_id', function (req, res, next) {
     });
 });
 
-/*
+
+/*//#######################
  * POST a new venue.
- */
+ *///#######################
+
 router.post('/add', function (req, res) {
     var Venue = req.venue;
 
@@ -162,7 +164,7 @@ router.post('/add', function (req, res) {
 	var now = new Date();
 	newvenue.created_at = now;
 	newvenue.updated_at = now;
-	newvenue.updated_by = req.user;
+	newvenue.updated_by = req.user._id;
 
     // Save this new entry
     newvenue.save(function (err, newvenue) {
@@ -207,6 +209,11 @@ router.post('/update', function (req, res) {
 
     // define a new entry
     var thevenue = new Venue(req.body);
+	
+	// Save when and who created it
+	var now = new Date();
+	thevenue.updated_at = now;
+	thevenue.updated_by = req.user._id;
 
     Venue.update({
         _id: thevenue._id

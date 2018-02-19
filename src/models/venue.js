@@ -30,13 +30,5 @@ var venueSchema = mongoose.Schema({
     }
 });
 
-venueSchema.pre('save', (next) => {
-    now = Date.now();
-    this.updated_at = now;
-    if (!this.created_at) {
-        this.created_at = now;
-    }
-})
-
 //compile the model
 module.exports = mongoose.model('Venue', venueSchema);

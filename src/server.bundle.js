@@ -82,7 +82,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(11);
+var _alt = __webpack_require__(12);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -587,7 +587,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(11);
+var _alt = __webpack_require__(12);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -887,7 +887,7 @@ var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _DateBlock = __webpack_require__(13);
+var _DateBlock = __webpack_require__(9);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -1213,12 +1213,65 @@ module.exports = require("express");
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIntl = __webpack_require__(10);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Date = function (_React$Component) {
+    _inherits(Date, _React$Component);
+
+    function Date() {
+        _classCallCheck(this, Date);
+
+        return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
+    }
+
+    _createClass(Date, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                _reactIntl.IntlProvider,
+                { locale: 'en' },
+                _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.date, month: 'long', day: 'numeric' })
+            );
+        }
+    }]);
+
+    return Date;
+}(_react2.default.Component);
+
+exports.default = Date;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-intl");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1453,7 +1506,7 @@ var LogInForm = function (_React$Component) {
 exports.default = LogInForm;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1472,7 +1525,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = new _alt2.default();
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1552,59 +1605,6 @@ var SelectorBlock = function (_React$Component) {
 exports.default = SelectorBlock;
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactIntl = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Date = function (_React$Component) {
-    _inherits(Date, _React$Component);
-
-    function Date() {
-        _classCallCheck(this, Date);
-
-        return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
-    }
-
-    _createClass(Date, [{
-        key: 'render',
-        value: function render() {
-
-            return _react2.default.createElement(
-                _reactIntl.IntlProvider,
-                { locale: 'en' },
-                _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.date, month: 'long', day: 'numeric' })
-            );
-        }
-    }]);
-
-    return Date;
-}(_react2.default.Component);
-
-exports.default = Date;
-
-/***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
@@ -1612,12 +1612,6 @@ module.exports = require("react-map-gl");
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-toggle-button");
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1643,20 +1637,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var DateSingle = function (_React$Component) {
-    _inherits(DateSingle, _React$Component);
+var formSelect = function (_React$Component) {
+    _inherits(formSelect, _React$Component);
 
-    function DateSingle(props) {
-        _classCallCheck(this, DateSingle);
+    function formSelect(props) {
+        _classCallCheck(this, formSelect);
 
-        return _possibleConstructorReturn(this, (DateSingle.__proto__ || Object.getPrototypeOf(DateSingle)).call(this, props));
+        return _possibleConstructorReturn(this, (formSelect.__proto__ || Object.getPrototypeOf(formSelect)).call(this, props));
     }
 
-    _createClass(DateSingle, [{
+    _createClass(formSelect, [{
         key: 'render',
         value: function render() {
 
-            return _react2.default.createElement(_reactSelect.Async, {
+            return _react2.default.createElement(_reactSelect.AsyncCreatable, {
                 name: 'venue',
                 value: this.props.value,
                 loadOptions: this.props.getOptions,
@@ -1665,19 +1659,19 @@ var DateSingle = function (_React$Component) {
         }
     }]);
 
-    return DateSingle;
+    return formSelect;
 }(_react2.default.Component);
 
-exports.default = DateSingle;
+exports.default = formSelect;
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1689,7 +1683,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(11);
+var _alt = __webpack_require__(12);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -1701,7 +1695,7 @@ var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _ImagesActions = __webpack_require__(19);
+var _ImagesActions = __webpack_require__(18);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -1773,7 +1767,9 @@ var ListStore = function () {
         this.loading.register = false;
         this.loading.updateuser = false;
         this.loading.updatelisting = false;
+        this.loading.deletelisting = false;
         this.loading.updatevenue = false;
+        this.loading.deletevenue = false;
         this.loading.savelisting = false;
         this.loading.savevenue = false;
         this.loading.current = false;
@@ -1792,6 +1788,8 @@ var ListStore = function () {
         this.success.updateuser = false;
         this.success.updatelisting = false;
         this.success.updatevenue = false;
+        this.success.deletelisting = false;
+        this.success.deletevenue = false;
         this.success.savelisting = false;
         this.success.savevenue = false;
     }
@@ -1931,7 +1929,7 @@ var ListStore = function () {
         value: function onGetListingInfoSuccess(info) {
             console.log('Listing info loaded', info);
             this.listingEdit = info.data;
-            if (info.i !== null) {
+            if (info.i) {
                 console.log('Feature listing');
                 this.features[info.i].list = info.data;
                 console.log(this.features[info.i].list);
@@ -2027,14 +2025,23 @@ var ListStore = function () {
         //Delete a Venue
 
     }, {
+        key: 'onDeleteVenueAttempt',
+        value: function onDeleteVenueAttempt() {
+            this.loading.deletevenue = true;
+            this.success.deletevenue = false;
+        }
+    }, {
         key: 'onDeleteVenueSuccess',
         value: function onDeleteVenueSuccess(data) {
             console.log('Deleted');
+            this.loading.deletevenue = false;
+            this.success.deletevenue = true;
         }
     }, {
         key: 'onDeleteVenueFailure',
         value: function onDeleteVenueFailure(err) {
-            console.log('Error: ', err);
+            console.log('Error deleting: ', err);
+            this.loading.deletevenue = false;
         }
     }, {
         key: 'onGetVenueListingsSuccess',
@@ -2527,7 +2534,7 @@ var ListStore = function () {
 exports.default = _alt2.default.createStore(ListStore);
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2539,7 +2546,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(11);
+var _alt = __webpack_require__(12);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -2615,13 +2622,13 @@ var ImagesActions = function () {
 exports.default = _alt2.default.createActions(ImagesActions);
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("moment");
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2637,7 +2644,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(22);
+var _propTypes = __webpack_require__(21);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -2736,16 +2743,22 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom");
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-toggle-button");
 
 /***/ }),
 /* 24 */
@@ -2838,14 +2851,6 @@ var venueSchema = mongoose.Schema({
     updated_by: {
         type: String,
         ref: 'User'
-    }
-});
-
-venueSchema.pre('save', function (next) {
-    now = Date.now();
-    undefined.updated_at = now;
-    if (!undefined.created_at) {
-        undefined.created_at = now;
     }
 });
 
@@ -3018,7 +3023,7 @@ var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactIntl = __webpack_require__(9);
+var _reactIntl = __webpack_require__(10);
 
 var _imageBlock = __webpack_require__(72);
 
@@ -3187,7 +3192,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(23);
+var _reactDom = __webpack_require__(22);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -3318,7 +3323,7 @@ var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _DateBlock = __webpack_require__(13);
+var _DateBlock = __webpack_require__(9);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -3657,7 +3662,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(15);
+var _reactToggleButton = __webpack_require__(23);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -3677,7 +3682,7 @@ var _formDateSingle = __webpack_require__(96);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -3917,7 +3922,7 @@ var _imageUpload = __webpack_require__(41);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
-var _ImagesActions = __webpack_require__(19);
+var _ImagesActions = __webpack_require__(18);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -4408,7 +4413,7 @@ var debug = __webpack_require__(51)('artcritical-list:server');
 var expressValidator = __webpack_require__(52);
 
 //Authentification
-var passport = __webpack_require__(17);
+var passport = __webpack_require__(16);
 var flash = __webpack_require__(53);
 var session = __webpack_require__(54);
 var bcrypt = __webpack_require__(24); // encripts password
@@ -5040,7 +5045,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var express = __webpack_require__(8);
 var router = express.Router();
 var JSX = __webpack_require__(112).install();
-var passport = __webpack_require__(17);
+var passport = __webpack_require__(16);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
@@ -5225,7 +5230,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListStore = __webpack_require__(18);
+var _ListStore = __webpack_require__(17);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -5239,7 +5244,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactRouter = __webpack_require__(2);
 
-var _sizeSelector = __webpack_require__(12);
+var _sizeSelector = __webpack_require__(13);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
@@ -5619,7 +5624,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _sizeSelector = __webpack_require__(12);
+var _sizeSelector = __webpack_require__(13);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
@@ -5773,7 +5778,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _ListStore = __webpack_require__(18);
+var _ListStore = __webpack_require__(17);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -5781,13 +5786,13 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(9);
+var _reactIntl = __webpack_require__(10);
 
 var _daypage = __webpack_require__(71);
 
 var _daypage2 = _interopRequireDefault(_daypage);
 
-var _tabs = __webpack_require__(21);
+var _tabs = __webpack_require__(20);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -5894,13 +5899,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(9);
+var _reactIntl = __webpack_require__(10);
 
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _moment = __webpack_require__(20);
+var _moment = __webpack_require__(19);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -6103,7 +6108,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _ListStore = __webpack_require__(18);
+var _ListStore = __webpack_require__(17);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -6115,11 +6120,11 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _DateBlock = __webpack_require__(13);
+var _DateBlock = __webpack_require__(9);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _sizeSelector = __webpack_require__(12);
+var _sizeSelector = __webpack_require__(13);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
@@ -6232,7 +6237,7 @@ var _VenueContent = __webpack_require__(79);
 
 var _VenueContent2 = _interopRequireDefault(_VenueContent);
 
-var _tabs = __webpack_require__(21);
+var _tabs = __webpack_require__(20);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -6381,7 +6386,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _sizeSelector = __webpack_require__(12);
+var _sizeSelector = __webpack_require__(13);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
@@ -6618,7 +6623,7 @@ var _displayActions = __webpack_require__(6);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(15);
+var _reactToggleButton = __webpack_require__(23);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -6626,7 +6631,7 @@ var _validator = __webpack_require__(32);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _propTypes = __webpack_require__(22);
+var _propTypes = __webpack_require__(21);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -6956,11 +6961,11 @@ var _reactRouter = __webpack_require__(2);
 
 var _reactRouterDom = __webpack_require__(83);
 
-var _propTypes = __webpack_require__(22);
+var _propTypes = __webpack_require__(21);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _LogInForm = __webpack_require__(10);
+var _LogInForm = __webpack_require__(11);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -7106,7 +7111,7 @@ var _myList = __webpack_require__(86);
 
 var _myList2 = _interopRequireDefault(_myList);
 
-var _LogInForm = __webpack_require__(10);
+var _LogInForm = __webpack_require__(11);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -7185,7 +7190,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(23);
+var _reactDom = __webpack_require__(22);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -7574,7 +7579,7 @@ var _userList = __webpack_require__(90);
 
 var _userList2 = _interopRequireDefault(_userList);
 
-var _LogInForm = __webpack_require__(10);
+var _LogInForm = __webpack_require__(11);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -7642,7 +7647,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(23);
+var _reactDom = __webpack_require__(22);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -7972,7 +7977,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _LogInForm = __webpack_require__(10);
+var _LogInForm = __webpack_require__(11);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -8010,8 +8015,6 @@ var AdminPage = function (_React$Component) {
             var admin = 2;
             var editor = 1;
             var subscriber = 0;
-
-            console.log(this.props);
 
             var adminRender = this.props.user.isLoggedIn && this.props.user.userAccess === superAdmin ? _react2.default.createElement(
                 'div',
@@ -8404,7 +8407,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDates = __webpack_require__(39);
 
-var _moment = __webpack_require__(20);
+var _moment = __webpack_require__(19);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -8478,7 +8481,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDates = __webpack_require__(39);
 
-var _moment = __webpack_require__(20);
+var _moment = __webpack_require__(19);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -8575,7 +8578,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -8735,7 +8738,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -8804,16 +8807,21 @@ var VenueEdit = function (_React$Component) {
         key: 'handleDelete',
         value: function handleDelete() {
             _ListActions2.default.deleteVenue(this.props.venueEdit._id);
+            //Reset the form
+            _ListActions2.default.venueEditReset();
+            this.setState({
+                formDisplay: false
+            });
         }
     }, {
         key: 'handleSelectChange',
         value: function handleSelectChange(data) {
-            console.log(data);
             if (data) {
                 this.setState({
                     formDisplay: true
                 });
                 if (data.label == data.value) {
+                    console.log('New Venue');
                     //New Venue
                     _ListActions2.default.venueInfoChange({
                         name: 'name',
@@ -8865,7 +8873,10 @@ var VenueEdit = function (_React$Component) {
                         _react2.default.createElement(
                             'form',
                             { onSubmit: this.handleSubmit },
-                            _react2.default.createElement(_formSelect2.default, { value: { value: this.props.venueEdit._id, label: this.props.venueEdit.name }, handleSelectChange: this.handleSelectChange, getOptions: getOptions })
+                            _react2.default.createElement(_formSelect2.default, {
+                                value: { value: this.props.venueEdit._id, label: this.props.venueEdit.name },
+                                handleSelectChange: this.handleSelectChange,
+                                getOptions: getOptions })
                         )
                     ),
                     _react2.default.createElement(
@@ -8876,8 +8887,8 @@ var VenueEdit = function (_React$Component) {
                             handleDelete: this.handleDelete,
                             newVenue: this.props._id == '' || this.props._id == null && this.props.name !== '',
                             error: this.props.error.updatevenue,
-                            loading: this.props.loading.updatevenue,
-                            success: this.props.success.updatevenue }))
+                            loading: this.props.loading.updatevenue || this.props.loading.deletevenue,
+                            success: this.props.success }))
                     )
                 ),
                 _react2.default.createElement(
@@ -8911,15 +8922,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(15);
-
-var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
-
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactstrap = __webpack_require__(7);
+
+var _DateBlock = __webpack_require__(9);
+
+var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
 var _NeighborhoodSelect = __webpack_require__(42);
 
@@ -8932,8 +8943,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-//Components
+//COMPONENTS
 
 
 var MapboxClient = __webpack_require__(102);
@@ -9134,23 +9144,45 @@ var VenueForm = function (_React$Component) {
                             _react2.default.createElement(_reactstrap.Input, { name: 'website', placeholder: 'Website', type: 'text', value: this.props.website, onChange: this.handleChange })
                         )
                     ),
+                    this.props.updated_by ? this.props.created_at === this.props.updated_at ? _react2.default.createElement(
+                        'p',
+                        null,
+                        ' Created on ',
+                        _react2.default.createElement(_DateBlock2.default, { date: this.props.updated_at }),
+                        ' by ',
+                        this.props.updated_by.name,
+                        '.'
+                    ) : _react2.default.createElement(
+                        'p',
+                        null,
+                        ' Updated on ',
+                        _react2.default.createElement(_DateBlock2.default, { date: this.props.updated_at }),
+                        ' by ',
+                        this.props.updated_by.name,
+                        '.'
+                    ) : '',
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
                         null,
                         _react2.default.createElement(
                             _reactstrap.Button,
                             { onClick: this.props.handleSubmit },
-                            this.props._id ? 'Update' : 'Save'
+                            this.props._id ? 'Update' : 'Create'
                         ),
                         this.props.loading && _react2.default.createElement(
                             'div',
                             { className: 'loading' },
                             'loading'
                         ),
-                        this.props.success && _react2.default.createElement(
+                        this.props.success.updatevenue && _react2.default.createElement(
                             'div',
                             { className: 'success' },
                             'Saved!'
+                        ),
+                        this.props.success.deleted && _react2.default.createElement(
+                            'div',
+                            { className: 'deleted' },
+                            'Deleted!'
                         ),
                         this.props.error.general && _react2.default.createElement(
                             'div',
@@ -9202,13 +9234,13 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(9);
+var _reactIntl = __webpack_require__(10);
 
 var _featuredDay = __webpack_require__(104);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
-var _tabs = __webpack_require__(21);
+var _tabs = __webpack_require__(20);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -9314,7 +9346,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -9447,7 +9479,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(15);
+var _reactToggleButton = __webpack_require__(23);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -9713,7 +9745,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _DateBlock = __webpack_require__(13);
+var _DateBlock = __webpack_require__(9);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -9907,7 +9939,7 @@ var _AccountForm = __webpack_require__(110);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
-var _LogInForm = __webpack_require__(10);
+var _LogInForm = __webpack_require__(11);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -10149,7 +10181,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(19);
+var _ImagesActions = __webpack_require__(18);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -10325,14 +10357,9 @@ router.get('/find/:venue_id', function (req, res, next) {
 router.get('/getinfo/:venue_id', function (req, res, next) {
     var Venue = req.venue;
 
-    console.log('id: ', req.params.venue_id);
-
-    Venue.findOne({
-        _id: req.params.venue_id
-    }).exec(function (e, docs) {
+    Venue.findOne({ _id: req.params.venue_id }).populate('updated_by').exec(function (e, docs) {
         if (e) res.send(e);
 
-        console.log('info: ', docs);
         res.json(docs);
     });
 });
@@ -10374,7 +10401,10 @@ router.get('/getfullinfo/:venue_slug', function (req, res, next) {
     });
 });
 
+//#######################
 /* GET current listings for one venue */
+//#######################
+
 router.get('/getlistings/:venue_id', function (req, res, next) {
     var List = req.list;
 
@@ -10383,9 +10413,10 @@ router.get('/getlistings/:venue_id', function (req, res, next) {
     });
 });
 
-/*
+/*//#######################
  * POST a new venue.
- */
+ */ //#######################
+
 router.post('/add', function (req, res) {
     var Venue = req.venue;
 
@@ -10396,7 +10427,7 @@ router.post('/add', function (req, res) {
     var now = new Date();
     newvenue.created_at = now;
     newvenue.updated_at = now;
-    newvenue.updated_by = req.user;
+    newvenue.updated_by = req.user._id;
 
     // Save this new entry
     newvenue.save(function (err, newvenue) {
@@ -10436,6 +10467,11 @@ router.post('/update', function (req, res) {
 
     // define a new entry
     var thevenue = new Venue(req.body);
+
+    // Save when and who created it
+    var now = new Date();
+    thevenue.updated_at = now;
+    thevenue.updated_by = req.user._id;
 
     Venue.update({
         _id: thevenue._id
@@ -10770,7 +10806,7 @@ module.exports = router;
 
 var express = __webpack_require__(8);
 var router = express.Router();
-var passport = __webpack_require__(17);
+var passport = __webpack_require__(16);
 
 //###################################
 // SIGNUP
