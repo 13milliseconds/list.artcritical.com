@@ -34,6 +34,7 @@ db.once('open', function () {
 
 // Import the Mongoose models
 var List = require('./models/list.js');
+var Archive = require('./models/archive.js');
 var Venue = require('./models/venue.js');
 var User = require('./models/user.js');
 var Feature = require('./models/feature.js');
@@ -78,6 +79,7 @@ app.use(function(req, res, next) {
 // Make our db accessible to our router
 app.use(function(req,res,next){
     req.list = List;
+	req.archive = Archive;
     req.venue = Venue;
     req.userlist = User;
     req.feature = Feature;

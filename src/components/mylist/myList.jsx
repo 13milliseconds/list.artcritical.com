@@ -15,6 +15,7 @@ export default class MyList extends React.Component {
         super(props)
         this.state = {
             listingHover: '',
+			publicUrl: '',
             markers: [],
             viewport: {
                 latitude: this.props.center.lat,
@@ -53,7 +54,8 @@ export default class MyList extends React.Component {
         newViewport.width = ReactDOM.findDOMNode(this).offsetWidth /2
         //Update state
         this.setState({
-              viewport: newViewport
+			viewport: newViewport,
+			publicUrl: window.location.href + '/' + this.props.user.slug
           })
     }
     
@@ -135,9 +137,10 @@ export default class MyList extends React.Component {
         
         return ( 
                 <div className="myList">
-				<h2>{this.props.user.name}'s List</h2>
-				<a target="_blank" href={window.location.href + '/' + this.props.user.slug}>Public page</a>
-				<FacebookShare url={window.location.href} />
+				<div className="listInfo">
+					<a target="_blank" href={window.location.href + '/' + this.props.user.slug}>Public page</a>
+					<FacebookShare url={this.state.publicUrl} />
+				</div>
                     <MyMap 
                         markers={this.state.markers} 
                         viewport ={this.state.viewport}

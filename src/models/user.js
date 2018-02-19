@@ -18,6 +18,8 @@ var userSchema = mongoose.Schema({
     },
     userAccess: Number,
     avatar: String,
+	bio: String,
+	website: String,
     mylist: [{type: String, ref: 'List'}],
 });
 

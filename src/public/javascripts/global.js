@@ -16,10 +16,12 @@ var s,
             s.appContainer.on('click', s.listingOpen, this.revealListing);
             //s.appContainer.on('click', s.listingAdd, this.selectListing);
         },
+		
         init: function init() {
             s = this.settings;
             this.actionBinding();
         },
+		
         revealListing: function (event) {
             //Select this listing
             var thislisting = $(event.target).closest('.listing');
@@ -33,6 +35,7 @@ var s,
                 $(thislisting).addClass('active');
             }
         },
+		
         selectListing: function (event) {
             //Select this listing
             var thislisting = $(event.target).closest('.listing');

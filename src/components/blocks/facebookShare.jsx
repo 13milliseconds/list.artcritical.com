@@ -6,7 +6,7 @@ export default class facebookShare extends React.Component {
         
     return (
         <div 	className="fb-share-button" 
-				data-href={window.location.href}
+				data-href={this.props.url}
 				data-layout="button_count" 
 				data-size="large" >
 		</div>

@@ -14,6 +14,7 @@ export default class UserList extends React.Component {
         super(props)
         this.state = {
             listingHover: '',
+			url: '',
             markers: [],
             viewport: {
                 latitude: this.props.center.lat,
@@ -51,8 +52,9 @@ export default class UserList extends React.Component {
         newViewport.width = ReactDOM.findDOMNode(this).offsetWidth /2
         //Update state
         this.setState({
-              viewport: newViewport
-          })
+			viewport: newViewport,
+			url: window.location.href
+		})
     }
 	
 	onHover(listing){
@@ -136,8 +138,15 @@ export default class UserList extends React.Component {
         
         return ( 
                 <div className="myList">
-				<h2>{this.props.user.name}'s List</h2>
-				{hasAvatar && <img src={fullURL}/>}
+				<div className="listInfo">
+					{hasAvatar && <img className="avatar" src={fullURL}/>}
+					<h2>{this.props.user.name}'s List</h2>
+					<p className="bio">{this.props.user.bio}</p>
+					{this.props.user.website && <a className="button"
+												href={this.props.user.website}
+												target="_blank">Website</a>}
+					<FacebookShare url={this.state.url} />
+				</div>
                     <MyMap 
                         markers={this.state.markers} 
                         viewport ={this.state.viewport}
@@ -150,6 +159,8 @@ export default class UserList extends React.Component {
                                            user={this.props.user}
                                             view={this.props.view}
                                             listingHover={this.state.listingHover}
+											onHover={this.onHover}
+                        					onLeave={this.onLeave}
                                            /> : null }
                 </div>
         );

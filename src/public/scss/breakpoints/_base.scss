@@ -514,6 +514,15 @@ My List
 		top: 0;
 		right: 0;
 	}
+	.listInfo{
+		margin-bottom: 20px;
+		img.avatar{
+			width: 100px;
+			height: 100px;
+			float: left;
+			margin-right: 20px;
+		}
+	}
     .listingsWrap{
         @include span-columns(6);
         .listing{
