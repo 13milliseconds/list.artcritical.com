@@ -45,6 +45,7 @@ export default class VenueEdit extends React.Component {
       }
     
     handleSelectChange (data) {
+		console.log(data);
         if (data){
 			this.setState({
                     formDisplay: true

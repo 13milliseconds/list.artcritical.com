@@ -16,7 +16,17 @@ var listingSchema = mongoose.Schema({
     events: [],
     image: String,
     thumb: String,
-	popularity: Number
+	popularity: Number,
+	created_at: {
+        type: Date
+    },
+    updated_at: {
+        type: Date
+    },
+	updated_by: {
+        type: String,
+		ref: 'User'
+    }
 });
 
 //compile the model

@@ -138,6 +138,21 @@ module.exports = function(passport) {
               console.log('Incorrect Password');
             return done(null, false, { message: 'Incorrect password.' });
           }
+			//Define today's date
+			var today = new Date(),
+				newList= [];
+    		today.setHours(0, 0, 0, 0);
+			
+			//Check that all listings are present
+			user.mylist.forEach(function (listing){
+				if (listing.end >= today){
+					newList.push(listing);	
+				}
+			});
+			
+			//Replace the list with only current ones
+			user.mylist = newList;
+			
              //Populate the mylist venues
                 User.populate(user, {
                     path: 'mylist.venue',

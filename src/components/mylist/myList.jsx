@@ -137,7 +137,7 @@ export default class MyList extends React.Component {
         
         return ( 
                 <div className="myList">
-				<div className="listInfo">
+				<div className="listInfo cf">
 					<a target="_blank" href={window.location.href + '/' + this.props.user.slug}>Public page</a>
 					<FacebookShare url={this.state.publicUrl} />
 				</div>

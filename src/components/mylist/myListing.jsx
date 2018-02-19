@@ -56,8 +56,10 @@ export default class Listing extends React.Component {
         </div>
         <div className = "listingContent">
             <div className="header">
-                <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue._id}>{this.props.venue.name}</a></p>
-                <p>{this.props.start && <Date date={this.props.start} /> } {end}  - {this.props.venue.address}{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</p>
+                <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue.slug}>{this.props.venue.name}</a></p>
+                <p>{this.props.start && <Date date={this.props.start} /> } {end}  - {this.props.venue.address1}
+					{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}
+				</p>
 				{!this.props.public &&
                 	<a onClick={(e) => this.addToList(e, this.props)} className="delete">Remove this listing</a>
 				}

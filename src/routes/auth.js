@@ -211,21 +211,27 @@ router.post('/updatemylist', function (req, res) {
 
 //###################################
 // GET all listings from my list
+// (not used anymore)
 //###################################
 
 router.get('/getmylist', (req, res) => {
     var List = req.list;
     var Venue = req.venue;
+	
+	//Find today's date
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
     
     //CHECK IF USER IS CONNECTED
     if (req.user) {
         const theirList = req.user.mylist;
         
-        List.find({
-            '_id': { $in: theirList}
-        }).
-        populate('venue').
-        exec(function (e, docs) {
+        List
+		.find()
+		.where('_id').in(theirList)
+		.where('end').gte(today)
+        .populate('venue')
+        .exec(function (e, docs) {
             res.json(docs);
         });
     } else {

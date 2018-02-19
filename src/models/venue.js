@@ -23,6 +23,10 @@ var venueSchema = mongoose.Schema({
     },
     updated_at: {
         type: Date
+    },
+	updated_by: {
+        type: String,
+		ref: 'User'
     }
 });
 

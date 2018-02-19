@@ -130,15 +130,15 @@ export default class UserList extends React.Component {
         
         if (this.props.user.avatar) {
             hasAvatar = true
-            fullURL = "http://res.cloudinary.com/artcritical/image/upload/" + this.props.user.avatar + ".jpg";
+            fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + this.props.user.avatar + ".jpg";
         } else if (this.props.user.facebook){
             hasAvatar = true
-            fullURL = "http://graph.facebook.com/" + this.props.user.facebook.id + "/picture?type=large";
+            fullURL = "https://graph.facebook.com/" + this.props.user.facebook.id + "/picture?type=large";
         }
         
         return ( 
                 <div className="myList">
-				<div className="listInfo">
+				<div className="listInfo cf">
 					{hasAvatar && <img className="avatar" src={fullURL}/>}
 					<h2>{this.props.user.name}'s List</h2>
 					<p className="bio">{this.props.user.bio}</p>

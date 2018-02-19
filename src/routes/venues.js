@@ -71,6 +71,8 @@ router.get('/find/:venue_id', function (req, res, next) {
 router.get('/getinfo/:venue_id', function (req, res, next) {
     var Venue = req.venue;
 
+	console.log('id: ', req.params.venue_id);
+	
     Venue.findOne({
         _id: req.params.venue_id
     }).
@@ -78,6 +80,7 @@ router.get('/getinfo/:venue_id', function (req, res, next) {
         if (e)
             res.send(e);
 
+		console.log('info: ', docs);
         res.json(docs);
     });
 
@@ -95,39 +98,44 @@ router.get('/getfullinfo/:venue_slug', function (req, res, next) {
     //Find today's date
     var today = new Date();
     today.setHours(0, 0, 0, 0);
-    
-    Venue.find({ slug: req.params.venue_slug}, function(err, venue) {
+	
+    Venue.findOne({ slug: req.params.venue_slug}, function(err, venue) {
             if (err)
                 res.send(err);
-        
-            List.find({ venue: venue[0]._id}).
-            where('start').lte(today).
-            where('end').gte(today).
-            populate('venue').
-            exec(function (e, current) {
-                
-                List.find({ venue: venue[0]._id}).
-                where('start').gte(today).
-                limit(4).
-                populate('venue').
-                exec(function (e, upcoming) {
-                    
-                    List.find({ venue: venue[0]._id}).
-                    where('end').lte(today).
-                    sort('-end').
-                    limit(4).
-                    populate('venue').
-                    exec(function (e, past) {
-                        var data = {
-                            venue: venue[0],
-                            currentListings: current,
-                            upcomingListings: upcoming,
-                            pastListings: past,
-                        };
-                        res.json(data);
-                    });
-                });
-            });
+		
+        	if (venue){
+				List.find({ venue: venue._id}).
+				where('start').lte(today).
+				where('end').gte(today).
+				populate('venue').
+				exec(function (e, current) {
+
+					List.find({ venue: venue._id}).
+					where('start').gte(today).
+					limit(4).
+					populate('venue').
+					exec(function (e, upcoming) {
+
+						List.find({ venue: venue._id}).
+						where('end').lte(today).
+						sort('-end').
+						limit(4).
+						populate('venue').
+						exec(function (e, past) {
+							var data = {
+								venue: venue,
+								currentListings: current,
+								upcomingListings: upcoming,
+								pastListings: past,
+							};
+							res.json(data);
+						});
+					});
+				});	
+			} else {
+				res.send('No such venue');
+			}
+            
         }); 
 });
 
@@ -147,10 +155,16 @@ router.get('/getlistings/:venue_id', function (req, res, next) {
 router.post('/add', function (req, res) {
     var Venue = req.venue;
 
-    // define a new entry
+    // Define a new entry
     var newvenue = new Venue(req.body);
+	
+	// Save when and who created it
+	var now = new Date();
+	newvenue.created_at = now;
+	newvenue.updated_at = now;
+	newvenue.updated_by = req.user;
 
-    //Save this new entry
+    // Save this new entry
     newvenue.save(function (err, newvenue) {
         res.send(
             (err !== null) && {

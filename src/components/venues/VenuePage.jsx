@@ -15,6 +15,7 @@ export default class VenuePage extends React.Component {
     }
     
     componentWillMount(){
+		console.log('made it to the venue page')
         ListActions.getVenueFullInfo(this.props.params.slug);
     }
 
@@ -24,8 +25,12 @@ export default class VenuePage extends React.Component {
         const fullAdress = this.props.venue.address 
                                 ? this.props.venue.address + ' ' + this.props.venue.city
                                 : null
-        const venueId = this.props.venue._id
+        const venueId = this.props.venue
+							? this.props.venue._id
+							: ''
         
+		console.log(fullAdress)
+		
         if (fullAdress && !this.props.venue.coordinates) {
             client.geocodeForward(fullAdress, function(err, data, res) {
                 const newCoords = data.features[0].center;

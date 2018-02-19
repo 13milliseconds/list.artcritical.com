@@ -15,19 +15,17 @@ export default class AdminPage extends React.Component {
         const editor = 1
         const subscriber = 0
 
-        console.log(this.props)
-
 
         let adminRender = this.props.user.isLoggedIn && this.props.user.userAccess === superAdmin ?
             <div className = "admin cf">
                 <header>
                     <h2>Account page</h2>
-                    <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
-                    <Link to={'/account/newlisting'} activeClassName="active">New Listing</Link>
-                    <Link to={'/account/editlisting'} activeClassName="active">Edit Listing</Link>
-                    <Link to={'/account/editvenue'} activeClassName="active">Edit Venue</Link>
-                    <Link to={'/account/venuesadmin'} activeClassName="active">All Venues</Link>
-                    <Link to={'/account/featured'} activeClassName="active">Featured Listings</Link>
+                    <IndexLink to={'/admin'} activeClassName="active">Account</IndexLink>
+                    <Link to={'/admin/newlisting'} activeClassName="active">New Listing</Link>
+                    <Link to={'/admin/editlisting'} activeClassName="active">Edit Listing</Link>
+                    <Link to={'/admin/editvenue'} activeClassName="active">Edit Venue</Link>
+                    <Link to={'/admin/venuesadmin'} activeClassName="active">All Venues</Link>
+                    <Link to={'/admin/featured'} activeClassName="active">Featured Listings</Link>
                 </header>
                 <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
             </div>

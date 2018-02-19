@@ -61,7 +61,13 @@ export default class AccountForm extends React.Component {
 				
 				<label>Bio</label>
                 <div className="formSection">
-                    <input name="bio" placeholder="Your Bio" type="text" value={this.props.user.bio} onChange={this.handleChange} />
+					<textarea name="bio" 
+						placeholder="Your Bio" 
+						type="text" 
+						value={this.props.user.bio} 
+						onChange={this.handleChange}
+						rows="4" 
+						cols="50"></textarea>
                 </div>
 				
 				<label>Website</label>
