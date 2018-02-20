@@ -35,10 +35,10 @@ const routes = (
         <Route path="venue/:slug" component={VenuePage}/>
 		<Route path="account" component={Account}/>
         <Route path="admin" component={AdminPage}>
-            <IndexRoute component={Account}/>
-            <Route path="editlisting" component={EditListing}/>
-            <Route path="newlisting" component={NewListing}/>
-            <Route path="editvenue" component={EditVenue}/>
+            <IndexRoute component={EditListing}/>
+            //<Route path="listings" component={EditListing}/>
+            //<Route path="newlisting" component={NewListing}/>
+            <Route path="venues" component={EditVenue}/>
             <Route path="featured" component={FeaturedListings}/>
 			<Route path="venuesadmin" component={VenuesPage}/>
         </Route>

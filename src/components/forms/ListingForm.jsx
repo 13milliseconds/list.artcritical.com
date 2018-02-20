@@ -35,11 +35,11 @@ export default class ListingForm extends React.Component {
         if (data) {
             if (data.label == data.value) {
                 // Create a new venue
-				ListActions.venueInfoChange({
+				ListActions.venueInfoChange({ 
 					name: 'name', 
 					value: data.value
 				})
-				browserHistory.push('/account/editvenue');
+				browserHistory.push('/admin/venues');
             } else {
                 //Fetch all the venue info
                 ListActions.getVenueInfo(data.value);
@@ -118,8 +118,10 @@ export default class ListingForm extends React.Component {
                      <FormGroup check>
                            <Label>Thumbnail</Label>
                             <ThumbnailInput {...this.props} /> 
-                            
-                            <button onClick={this.props.handleSubmit}>Submit</button>
+					</FormGroup>
+					
+					<FormGroup>
+						<button onClick={this.props.handleSubmit}>{this.props._id ? 'Update' : 'Create'}</button>
                             {this.props.loading && 
                                 <div className='loading'>loading</div>
                             }

@@ -30,7 +30,7 @@ export default class NewListing extends React.Component {
             neighborhood: this.props.listingEdit.venue.neighborhood,
             image: this.props.listingEdit.image
         }
-        ListActions.saveListing(newListing)
+        ListActions.saveListing(newListing) 
       }
 
     render() {

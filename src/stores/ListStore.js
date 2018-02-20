@@ -147,14 +147,7 @@ class ListStore {
     // Reset listing edit
     onListingEditReset(){
         this.listingEdit = {
-            image: '',
-            name: '',
-            _id: '',
-            description: '',
-            text: '',
             venue: {},
-            end: null,
-            start: null
         };
     }
 	
@@ -336,10 +329,15 @@ class ListStore {
     
     //Update a listing
     onDeleteListingSuccess(data){
-        console.log('Deleted');        
+        console.log('Deleted');  
+		//Reset the listing data
+		this.listingEdit = {
+            venue: {},
+        };
     }
     onDeleteListingFailure(err){
         console.log('Error: ', err);
+		this.error.deletelisting = 'Error deleting listing'; 
     }
     
     //Update info on listing page

@@ -214,10 +214,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 router.post('/add', function (req, res) {
     var List = req.list;
 
-    console.log("Adding one listing");
-
     // define a new entry
-    console.log('Body: ', req.body);
     var newlisting = new List(req.body);
 
     //Save this new entry

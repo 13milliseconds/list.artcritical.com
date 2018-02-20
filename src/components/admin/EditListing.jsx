@@ -9,7 +9,7 @@ import ListingForm from '../forms/ListingForm';
 
 export default class ListingEdit extends React.Component {
 
-    constructor(props) {
+    constructor(props) { 
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,25 +23,45 @@ export default class ListingEdit extends React.Component {
     
     // Add the listing to the database
     handleSubmit() {
-        ListActions.updateListing(this.props.listingEdit)
+		if (this.props.listingEdit._id){
+			//Edit the current listing
+			ListActions.updateListing(this.props.listingEdit)
+		} else {	
+			//Create a new Listing
+			let newListing = this.props.listingEdit
+			delete newListing._id
+			newListing.venue = newListing.venue._id
+			newListing.neighborhood = newListing.venue.neighborhood
+			ListActions.saveListing(newListing)
+		}
       }
     
     //Delete the listing
     handleDelete() {
         ListActions.deleteListing(this.props.listingEdit._id)
-        ListActions.listingEditReset();
       }
     
     handleSelectChange (data) {
         if (data){
-            //Fetch all the venue info
-            ListActions.getListingInfo(data.value);
-        }
+			if (data.label == data.value) {
+				//New Listing
+				ListActions.listingInfoChange({target:{
+					name: 'name',
+					value: data.value
+				}})
+			} else {
+				//Fetch all the venue info
+            	ListActions.getListingInfo(data.value);	
+			}
+        } else {
+			//Reset
+			ListActions.listingEditReset();
+		}
     }
     
     render() {
         
-        //how ot get option for select element
+        //how to get option for select element
         const getOptions = (input) => {
             if (input) {
                 return fetch('/list/find/' + input)

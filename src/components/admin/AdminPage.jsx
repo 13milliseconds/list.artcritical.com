@@ -15,48 +15,27 @@ export default class AdminPage extends React.Component {
         const editor = 1
         const subscriber = 0
 
-
         let adminRender = this.props.user.isLoggedIn && this.props.user.userAccess === superAdmin ?
-            <div className = "admin cf">
-                <header>
-                    <h2>Account page</h2>
-                    <IndexLink to={'/admin'} activeClassName="active">Account</IndexLink>
-                    <Link to={'/admin/newlisting'} activeClassName="active">New Listing</Link>
-                    <Link to={'/admin/editlisting'} activeClassName="active">Edit Listing</Link>
-                    <Link to={'/admin/editvenue'} activeClassName="active">Edit Venue</Link>
-                    <Link to={'/admin/venuesadmin'} activeClassName="active">All Venues</Link>
-                    <Link to={'/admin/featured'} activeClassName="active">Featured Listings</Link>
-                </header>
-                <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
-            </div>
+				<nav>
+                    <IndexLink to={'/admin'} activeClassName="active">Listings</IndexLink>
+                    <Link to={'/admin/venues'} activeClassName="active">Venues</Link>
+                    <Link to={'/admin/venuesadmin'} activeClassName="active">Overview</Link>
+                    <Link to={'/admin/featured'} activeClassName="active">Featured Calendar</Link>
+				</nav>
             : this.props.user.isLoggedIn && this.props.user.userAccess === admin ? 
-                <div className = "admin cf">
-                    <header>
-                        <h2>Account page</h2>
-                        <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
-                        <Link to={'/account/newlisting'} activeClassName="active">New Listing</Link>
-                        <Link to={'/account/editlisting'} activeClassName="active">Edit Listing</Link>
-                        <Link to={'/account/editvenue'} activeClassName="active">Edit Venue</Link>
-                        <Link to={'/account/venuesadmin'} activeClassName="active">All Venues</Link>
-                        <Link to={'/account/featured'} activeClassName="active">Featured Listings</Link>
-                    </header>
-                    <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
-                </div>
+				<nav>
+                    <IndexLink to={'/admin'} activeClassName="active">Listings</IndexLink>
+                    <Link to={'/admin/venues'} activeClassName="active">Venues</Link>
+                    <Link to={'/admin/venuesadmin'} activeClassName="active">Overview</Link>
+                    <Link to={'/admin/featured'} activeClassName="active">Featured Calendar</Link>
+				</nav>
             : this.props.user.isLoggedIn && this.props.user.userAccess === editor ? 
-                <header>
-                         <h2>Account page</h2>
-                        <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
-                        <Link to={'/account/newlisting'} activeClassName="active">New Listing</Link>
-                        <Link to={'/account/editlisting'} activeClassName="active">Edit Listing</Link>
-                        <Link to={'/account/editvenue'} activeClassName="active">Edit Venue</Link>
-                        <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
-                </header>
-            : this.props.user.isLoggedIn && this.props.user.userAccess === subscriber ? 
-                <header>
-                    <h2>Account page</h2>
-                    <IndexLink to={'/account'} activeClassName="active">Account</IndexLink>
-                    <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
-                </header>
+				<nav>
+                    <IndexLink to={'/admin'} activeClassName="active">Listings</IndexLink>
+                    <Link to={'/admin/venues'} activeClassName="active">Venues</Link>
+                    <Link to={'/admin/venuesadmin'} activeClassName="active">Overview</Link>
+                    <Link to={'/admin/featured'} activeClassName="active">Featured Calendar</Link>
+				</nav>
             :  <div>
                 <header>
                     <h2>Admin</h2>
@@ -93,8 +72,14 @@ export default class AdminPage extends React.Component {
      //        </div>
         
         return ( 
-            <div>
+            <div className = "admin cf">
+                <header>
+                    <h2>Account page</h2>
               {adminRender}
+            </header>
+				{this.props.user.isLoggedIn && this.props.user.userAccess > 0 &&
+                <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
+				 }
             </div>
         );
     }

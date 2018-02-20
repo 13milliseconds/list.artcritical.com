@@ -1881,14 +1881,7 @@ var ListStore = function () {
         key: 'onListingEditReset',
         value: function onListingEditReset() {
             this.listingEdit = {
-                image: '',
-                name: '',
-                _id: '',
-                description: '',
-                text: '',
-                venue: {},
-                end: null,
-                start: null
+                venue: {}
             };
         }
     }, {
@@ -1929,6 +1922,7 @@ var ListStore = function () {
         value: function onGetListingInfoSuccess(info) {
             console.log('Listing info loaded', info);
             this.listingEdit = info.data;
+            // Need to explain this
             if (info.i) {
                 console.log('Feature listing');
                 this.features[info.i].list = info.data;
@@ -2136,11 +2130,16 @@ var ListStore = function () {
         key: 'onDeleteListingSuccess',
         value: function onDeleteListingSuccess(data) {
             console.log('Deleted');
+            //Reset the listing data
+            this.listingEdit = {
+                venue: {}
+            };
         }
     }, {
         key: 'onDeleteListingFailure',
         value: function onDeleteListingFailure(err) {
             console.log('Error: ', err);
+            this.error.deletelisting = 'Error deleting listing';
         }
 
         //Update info on listing page
@@ -3737,7 +3736,7 @@ var ListingForm = function (_React$Component) {
                         name: 'name',
                         value: data.value
                     });
-                    _reactRouter.browserHistory.push('/account/editvenue');
+                    _reactRouter.browserHistory.push('/admin/venues');
                 } else {
                     //Fetch all the venue info
                     _ListActions2.default.getVenueInfo(data.value);
@@ -3862,11 +3861,15 @@ var ListingForm = function (_React$Component) {
                             null,
                             'Thumbnail'
                         ),
-                        _react2.default.createElement(_ThumbnailInput2.default, this.props),
+                        _react2.default.createElement(_ThumbnailInput2.default, this.props)
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        null,
                         _react2.default.createElement(
                             'button',
                             { onClick: this.props.handleSubmit },
-                            'Submit'
+                            this.props._id ? 'Update' : 'Create'
                         ),
                         this.props.loading && _react2.default.createElement(
                             'div',
@@ -5201,10 +5204,12 @@ var routes = _react2.default.createElement(
       _react2.default.createElement(
             _reactRouter.Route,
             { path: 'admin', component: _AdminPage2.default },
-            _react2.default.createElement(_reactRouter.IndexRoute, { component: _Account2.default }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'editlisting', component: _EditListing2.default }),
+            _react2.default.createElement(_reactRouter.IndexRoute, { component: _EditListing2.default }),
+            '//',
+            _react2.default.createElement(_reactRouter.Route, { path: 'listings', component: _EditListing2.default }),
+            '//',
             _react2.default.createElement(_reactRouter.Route, { path: 'newlisting', component: _NewListing2.default }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'editvenue', component: _EditVenue2.default }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'venues', component: _EditVenue2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'featured', component: _featuredPage2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'venuesadmin', component: _VenuesPage2.default })
       ),
@@ -8017,149 +8022,73 @@ var AdminPage = function (_React$Component) {
             var subscriber = 0;
 
             var adminRender = this.props.user.isLoggedIn && this.props.user.userAccess === superAdmin ? _react2.default.createElement(
-                'div',
-                { className: 'admin cf' },
+                'nav',
+                null,
                 _react2.default.createElement(
-                    'header',
-                    null,
-                    _react2.default.createElement(
-                        'h2',
-                        null,
-                        'Account page'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.IndexLink,
-                        { to: '/admin', activeClassName: 'active' },
-                        'Account'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/admin/newlisting', activeClassName: 'active' },
-                        'New Listing'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/admin/editlisting', activeClassName: 'active' },
-                        'Edit Listing'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/admin/editvenue', activeClassName: 'active' },
-                        'Edit Venue'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/admin/venuesadmin', activeClassName: 'active' },
-                        'All Venues'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/admin/featured', activeClassName: 'active' },
-                        'Featured Listings'
-                    )
+                    _reactRouter.IndexLink,
+                    { to: '/admin', activeClassName: 'active' },
+                    'Listings'
                 ),
                 _react2.default.createElement(
-                    'div',
-                    { className: 'admin-content' },
-                    _react2.default.cloneElement(this.props.children, this.props)
+                    _reactRouter.Link,
+                    { to: '/admin/venues', activeClassName: 'active' },
+                    'Venues'
+                ),
+                _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/admin/venuesadmin', activeClassName: 'active' },
+                    'Overview'
+                ),
+                _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/admin/featured', activeClassName: 'active' },
+                    'Featured Calendar'
                 )
             ) : this.props.user.isLoggedIn && this.props.user.userAccess === admin ? _react2.default.createElement(
-                'div',
-                { className: 'admin cf' },
+                'nav',
+                null,
                 _react2.default.createElement(
-                    'header',
-                    null,
-                    _react2.default.createElement(
-                        'h2',
-                        null,
-                        'Account page'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.IndexLink,
-                        { to: '/account', activeClassName: 'active' },
-                        'Account'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/account/newlisting', activeClassName: 'active' },
-                        'New Listing'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/account/editlisting', activeClassName: 'active' },
-                        'Edit Listing'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/account/editvenue', activeClassName: 'active' },
-                        'Edit Venue'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/account/venuesadmin', activeClassName: 'active' },
-                        'All Venues'
-                    ),
-                    _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/account/featured', activeClassName: 'active' },
-                        'Featured Listings'
-                    )
+                    _reactRouter.IndexLink,
+                    { to: '/admin', activeClassName: 'active' },
+                    'Listings'
                 ),
                 _react2.default.createElement(
-                    'div',
-                    { className: 'admin-content' },
-                    _react2.default.cloneElement(this.props.children, this.props)
+                    _reactRouter.Link,
+                    { to: '/admin/venues', activeClassName: 'active' },
+                    'Venues'
+                ),
+                _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/admin/venuesadmin', activeClassName: 'active' },
+                    'Overview'
+                ),
+                _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/admin/featured', activeClassName: 'active' },
+                    'Featured Calendar'
                 )
             ) : this.props.user.isLoggedIn && this.props.user.userAccess === editor ? _react2.default.createElement(
-                'header',
+                'nav',
                 null,
                 _react2.default.createElement(
-                    'h2',
-                    null,
-                    'Account page'
-                ),
-                _react2.default.createElement(
                     _reactRouter.IndexLink,
-                    { to: '/account', activeClassName: 'active' },
-                    'Account'
+                    { to: '/admin', activeClassName: 'active' },
+                    'Listings'
                 ),
                 _react2.default.createElement(
                     _reactRouter.Link,
-                    { to: '/account/newlisting', activeClassName: 'active' },
-                    'New Listing'
+                    { to: '/admin/venues', activeClassName: 'active' },
+                    'Venues'
                 ),
                 _react2.default.createElement(
                     _reactRouter.Link,
-                    { to: '/account/editlisting', activeClassName: 'active' },
-                    'Edit Listing'
+                    { to: '/admin/venuesadmin', activeClassName: 'active' },
+                    'Overview'
                 ),
                 _react2.default.createElement(
                     _reactRouter.Link,
-                    { to: '/account/editvenue', activeClassName: 'active' },
-                    'Edit Venue'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'admin-content' },
-                    _react2.default.cloneElement(this.props.children, this.props)
-                )
-            ) : this.props.user.isLoggedIn && this.props.user.userAccess === subscriber ? _react2.default.createElement(
-                'header',
-                null,
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    'Account page'
-                ),
-                _react2.default.createElement(
-                    _reactRouter.IndexLink,
-                    { to: '/account', activeClassName: 'active' },
-                    'Account'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'admin-content' },
-                    _react2.default.cloneElement(this.props.children, this.props)
+                    { to: '/admin/featured', activeClassName: 'active' },
+                    'Featured Calendar'
                 )
             ) : _react2.default.createElement(
                 'div',
@@ -8206,8 +8135,22 @@ var AdminPage = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
-                adminRender
+                { className: 'admin cf' },
+                _react2.default.createElement(
+                    'header',
+                    null,
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Account page'
+                    ),
+                    adminRender
+                ),
+                this.props.user.isLoggedIn && this.props.user.userAccess > 0 && _react2.default.createElement(
+                    'div',
+                    { className: 'admin-content' },
+                    _react2.default.cloneElement(this.props.children, this.props)
+                )
             );
         }
     }]);
@@ -8621,7 +8564,17 @@ var ListingEdit = function (_React$Component) {
     }, {
         key: 'handleSubmit',
         value: function handleSubmit() {
-            _ListActions2.default.updateListing(this.props.listingEdit);
+            if (this.props.listingEdit._id) {
+                //Edit the current listing
+                _ListActions2.default.updateListing(this.props.listingEdit);
+            } else {
+                //Create a new Listing
+                var newListing = this.props.listingEdit;
+                delete newListing._id;
+                newListing.venue = newListing.venue._id;
+                newListing.neighborhood = newListing.venue.neighborhood;
+                _ListActions2.default.saveListing(newListing);
+            }
         }
 
         //Delete the listing
@@ -8630,21 +8583,31 @@ var ListingEdit = function (_React$Component) {
         key: 'handleDelete',
         value: function handleDelete() {
             _ListActions2.default.deleteListing(this.props.listingEdit._id);
-            _ListActions2.default.listingEditReset();
         }
     }, {
         key: 'handleSelectChange',
         value: function handleSelectChange(data) {
             if (data) {
-                //Fetch all the venue info
-                _ListActions2.default.getListingInfo(data.value);
+                if (data.label == data.value) {
+                    //New Listing
+                    _ListActions2.default.listingInfoChange({ target: {
+                            name: 'name',
+                            value: data.value
+                        } });
+                } else {
+                    //Fetch all the venue info
+                    _ListActions2.default.getListingInfo(data.value);
+                }
+            } else {
+                //Reset
+                _ListActions2.default.listingEditReset();
             }
         }
     }, {
         key: 'render',
         value: function render() {
 
-            //how ot get option for select element
+            //how to get option for select element
             var getOptions = function getOptions(input) {
                 if (input) {
                     return fetch('/list/find/' + input).then(function (response) {
@@ -10674,10 +10637,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 router.post('/add', function (req, res) {
     var List = req.list;
 
-    console.log("Adding one listing");
-
     // define a new entry
-    console.log('Body: ', req.body);
     var newlisting = new List(req.body);
 
     //Save this new entry
