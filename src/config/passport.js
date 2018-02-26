@@ -215,8 +215,9 @@ module.exports = function(passport) {
 							// save the user
 							newUser.save(function(err) {
 								if (err) console.log(err);
-								AuthActions.facebookLogin(user);
-								return done(err, user);
+								console.log(newUser);
+								AuthActions.facebookLogin(newUser);
+								return done(err, newUser);
 							});
 						}
 					});	
