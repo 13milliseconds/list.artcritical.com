@@ -202,19 +202,18 @@ module.exports = function(passport) {
 				//Check if slug already exist
 				var count = 0;
 				var ogSlug = newUser.slug;
-				function checkSlug() {
+				var checkSlug = function () {
 					console.log('Start checking');
 					User.findOne({ 'slug' :  newUser.slug }).exec(function(err, user) {
 						if (user){
 							console.log('Slug already exist');
 							count = count + 1;
 							newUser.slug = ogSlug + count;
-							console.log(newUser.slug);
 							checkSlug();
 						} else {
 							console.log('Slug is unique');
 							// save the user
-							user.save(function(err) {
+							newUser.save(function(err) {
 								if (err) console.log(err);
 								AuthActions.facebookLogin(user);
 								return done(err, user);
