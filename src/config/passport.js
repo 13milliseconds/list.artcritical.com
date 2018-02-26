@@ -78,6 +78,7 @@ module.exports = function(passport) {
                 newUser.local.username  = req.body.username;
 				newUser.userAccess 		= 0;
                 newUser.local.password  = newUser.generateHash(password);
+				newUser.facebook  		= {};
 				
 				//Check if slug already exist
 				var count = 0;
@@ -200,6 +201,7 @@ module.exports = function(passport) {
 				newUser.userAccess 		= 0;
                 newUser.facebook.id  	= profile.id;
                 newUser.facebook.token  = accessToken;
+				newUser.local  			= {};
 				
 				//Check if slug already exist
 				var count = 0;

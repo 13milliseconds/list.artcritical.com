@@ -11,6 +11,8 @@ export default class AccountPage extends React.Component {
 
     render() {
 		
+		console.log(this.props)
+		
 		let accountRender = this.props.user.isLoggedIn ?
                             <AccountForm {...this.props} />
                             :

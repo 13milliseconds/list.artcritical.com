@@ -496,7 +496,6 @@ class ListStore {
             token: user.facebook.token
         };
         this.user.isLoggedIn = true;
-		console.log(this.user);
     }
     
     //UPDATE USER
