@@ -201,7 +201,8 @@ module.exports = function(passport) {
 				newUser.userAccess 		= 0;
                 newUser.facebook.id  	= profile.id;
                 newUser.facebook.token  = accessToken;
-				newUser.local  			= {};
+				newUser.local.username	= '';
+				newUser.local.password	= '';
 				
 				//Check if slug already exist
 				var count = 0;

@@ -540,6 +540,12 @@ class ListStore {
     }
     onSessionCheckSuccess(action){
         this.user = action;
+		if (!this.user.local){
+			this.user.local = {};
+		}
+		if (!this.user.facebook){
+			this.user.facebook = {};
+		}
         this.user.isLoggedIn = true;
         this.user.isLoggingIn = false;
     }
