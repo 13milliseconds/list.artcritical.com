@@ -76,7 +76,7 @@ module.exports = function(passport) {
                 newUser.name      		= req.body.name;
 				newUser.slug      		= req.body.name.replace(/\s+/g, '').toLowerCase();
                 newUser.local.username  = req.body.username;
-				newUser.userAccess 		= 0;
+				newUser.userAccess 		= 3;
                 newUser.local.password  = newUser.generateHash(password);
 				newUser.facebook  		= {};
 				
@@ -198,7 +198,7 @@ module.exports = function(passport) {
                 // set the user's local credentials
                 newUser.name      		= profile.displayName;
 				newUser.slug      		= profile.displayName.replace(/\s+/g, '').toLowerCase();
-				newUser.userAccess 		= 0;
+				newUser.userAccess 		= 3;
                 newUser.facebook.id  	= profile.id;
                 newUser.facebook.token  = accessToken;
 				newUser.local.username	= '';
