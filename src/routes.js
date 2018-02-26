@@ -18,6 +18,7 @@ import EditListing from './components/admin/EditListing';
 import EditVenue from './components/admin/EditVenue';
 import FeaturedListings from './components/admin/featuredPage';
 import VenuesPage from './components/admin/VenuesPage';
+import UsersPage from './components/admin/UsersPage';
 import Account from './components/admin/Account';
 // Error Components
 import ErrorPage from './components/ErrorPage';
@@ -41,6 +42,7 @@ const routes = (
             <Route path="venues" component={EditVenue}/>
             <Route path="featured" component={FeaturedListings}/>
 			<Route path="venuesadmin" component={VenuesPage}/>
+			<Route path="users" component={UsersPage}/>
         </Route>
         <Route path="*" component={ErrorPage}/>
       </Route>

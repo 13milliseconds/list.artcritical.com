@@ -110,8 +110,6 @@ router.get('/logout', (req, res) => {
 router.post('/addtolist', function (req, res) {
     var Userlist = req.userlist;
     var List = req.list;
-
-	console.log('Adding to ', req);
 	
     //CHECK IF USER IS CONNECTED
     if (req.user) {
@@ -135,7 +133,7 @@ router.post('/addtolist', function (req, res) {
 											? listing.popularity + 1 
 											: 1;
 					listing.save(function (err, updatedListing) {
-						console.log('Saved the popularity!', updatedListing.popularity);
+						console.log('Saved the popularity: ', updatedListing.popularity);
 					});
 				});
                 
@@ -149,7 +147,7 @@ router.post('/addtolist', function (req, res) {
 											? listing.popularity - 1 
 											: 0;
 					listing.save(function (err, updatedListing) {
-						console.log('Saved the popularity!', updatedListing.popularity);
+						console.log('Saved the popularity: ', updatedListing.popularity);
 					});
 				});
             }

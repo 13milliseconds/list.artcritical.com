@@ -198,8 +198,6 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     exec(function (e, docs) {
         if (e)
             res.send(e);
-		
-		console.log(docs);
 
         res.json(docs);
     });
@@ -249,7 +247,6 @@ router.post('/update', function (req, res) {
     }, {
         $set: thelisting
     }, function (err, newlisting) {
-        console.log(newlisting)
         res.send(
             (err === null) ? {
                 msg: ''

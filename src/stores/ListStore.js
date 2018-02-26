@@ -389,7 +389,7 @@ class ListStore {
     
     //FEATURED
     onupdateFeatureSuccess(data){
-        console.log(data);
+        console.log(onupdateFeatureSuccess, data);
     }
     onupdateFeatureFailure(error){
         console.log(error);
@@ -496,6 +496,7 @@ class ListStore {
             token: user.facebook.token
         };
         this.user.isLoggedIn = true;
+		console.log(this.user);
     }
     
     //UPDATE USER

@@ -312,7 +312,6 @@ class ListActions {
           return null;
         })
         .then((json) => {
-			console.log(json);
             this.updateFeatureSuccess(json);
             return true;
         })
