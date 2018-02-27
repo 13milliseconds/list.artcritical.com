@@ -39,17 +39,38 @@ router.post('/signup', async(req, res) => {
 //###################################
 
 router.post('/login', async(req, res) => {
-    passport.authenticate('local-login')(req, res, () => {
-        console.log('Logged in');
+	passport.authenticate('local-login')(req, res, () => {
+		var Userlist = req.userlist;
         // If logged in, we should have user info to send back
         if (req.user) {
-            return res.send(JSON.stringify(req.user));
-        }
+			
+			console.log('Logged in');
+			
+			var now = new Date();
+			var newInfo = {lastConnection: now};
+			var update = { $set: newInfo};
 
-        // Otherwise return an error
-        return res.send(JSON.stringify({
-            error: 'There was an error logging in'
-        }));
+			console.log(req.user);
+
+			Userlist.update({ _id: req.user._id }, update, {upsert:true}, function (err, updatedUser) {
+				console.log(updatedUser);
+				return res.send(
+					(err === null) ? 
+						JSON.stringify(req.user)
+					 : {
+						error: err
+					}
+				);
+			});
+			
+            //return res.send(JSON.stringify(req.user));
+        } else {
+
+			// Otherwise return an error
+			return res.send(JSON.stringify({
+				error: 'There was an error logging in'
+			}));
+		}
     });
 });
 
@@ -269,9 +290,11 @@ router.get('/getusermylist/:user_slug', (req, res) => {
 
 router.get('/checksession', (req, res) => {
     var User = req.user;
+	var Userlist = req.userlist;
     
     if (User) {
-        res.send(JSON.stringify(User));
+		res.send(JSON.stringify(User));
+		
     } else {
         res.send({error:'No user connected'});   
     }
@@ -310,6 +333,19 @@ router.post('/updateuser', function (req, res) {
         );
     });
 
+});
+
+router.get('/getallusers', function (req, res){
+	var Userlist = req.userlist;
+	
+	console.log('auth/getallusers');
+	Userlist.find().
+    sort('createdOn').
+    limit(50).
+    populate('mylist').
+    exec(function (e, docs) {
+        res.json(docs);
+    });
 });
 
 module.exports = router;

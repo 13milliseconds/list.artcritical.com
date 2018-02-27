@@ -27,8 +27,10 @@ class ListStore {
         this.user.facebook = {};
 		this.user.local = {};
         this.user.mylist = [];
+		this.user.lastConnection = '';
 		this.currentUser = {};
         this.user.userAccess = 0;
+		this.allUsers = [];
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
@@ -510,10 +512,26 @@ class ListStore {
         this.success.updateuser = 'Saved!';
     }
     onUpdateUserFailure(error){
-        console.log('Error!');
+        console.log('Failed Updating User', error);
         this.loading.updateuser = false;
         this.error.updateuser = 'Error Saving';
     }
+	
+	//USERS ADMIN PAGE
+	onGetAllUserAttempt(){
+		console.log('Attempting to get all users');
+		this.loading.allUsers = true;
+	}
+	onGetAllUserFailure(error){
+		console.log('Failed to get all users', error);
+		this.allUsers = [];
+		this.loading.allUsers = false;
+	}
+	onGetAllUserSuccess(users){
+		console.log('Managed to get all users');
+		this.loading.allUsers = false;
+		this.allUsers = users;
+	}
     
     // LOGOUT ATTEMPT
     onLogoutFailure(error){

@@ -2067,12 +2067,74 @@ ADMIN
 }
 
 /* line 625, ../scss/breakpoints/_base.scss */
+.usersWrap {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.usersWrap::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 627, ../scss/breakpoints/_base.scss */
+.usersWrap .allUsers {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.usersWrap .allUsers:last-child {
+  margin-right: 0;
+}
+/* line 629, ../scss/breakpoints/_base.scss */
+.usersWrap .allUsers .user {
+  display: block;
+  border: 1px solid #323944;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.usersWrap .allUsers .user::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 634, ../scss/breakpoints/_base.scss */
+.usersWrap .allUsers .user .image {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 14.7019566472%;
+  line-height: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.usersWrap .allUsers .user .image:last-child {
+  margin-right: 0;
+}
+/* line 637, ../scss/breakpoints/_base.scss */
+.usersWrap .allUsers .user .image img {
+  max-width: 100%;
+}
+/* line 641, ../scss/breakpoints/_base.scss */
+.usersWrap .allUsers .user .info {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 82.9403913294%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.usersWrap .allUsers .user .info:last-child {
+  margin-right: 0;
+}
+
+/* line 648, ../scss/breakpoints/_base.scss */
 #listingForm, #newlistingDemo {
   float: left;
   width: 50%;
 }
 
-/* line 630, ../scss/breakpoints/_base.scss */
+/* line 653, ../scss/breakpoints/_base.scss */
 label {
   display: block !important;
   float: left;
@@ -2085,7 +2147,7 @@ label:last-child {
   margin-right: 0;
 }
 
-/* line 634, ../scss/breakpoints/_base.scss */
+/* line 657, ../scss/breakpoints/_base.scss */
 .formSection {
   float: left;
   display: block;
@@ -2098,17 +2160,17 @@ label:last-child {
 .formSection:last-child {
   margin-right: 0;
 }
-/* line 638, ../scss/breakpoints/_base.scss */
+/* line 661, ../scss/breakpoints/_base.scss */
 .formSection textarea, .formSection input {
   width: 100%;
 }
 
-/* line 642, ../scss/breakpoints/_base.scss */
+/* line 665, ../scss/breakpoints/_base.scss */
 input.invalid {
   border: 2px solid red !important;
 }
 
-/* line 647, ../scss/breakpoints/_base.scss */
+/* line 670, ../scss/breakpoints/_base.scss */
 #listingForm {
   padding-right: 50px;
   display: block;
@@ -2120,34 +2182,34 @@ input.invalid {
   display: block;
 }
 
-/* line 653, ../scss/breakpoints/_base.scss */
+/* line 676, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing {
   width: 100%;
   border: 1px solid grey;
   padding-top: 20px;
 }
-/* line 657, ../scss/breakpoints/_base.scss */
+/* line 680, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing .moreInfo {
   display: block;
 }
 
-/* line 663, ../scss/breakpoints/_base.scss */
+/* line 686, ../scss/breakpoints/_base.scss */
 #ListingList, #ListingInfo {
   width: 50%;
   float: left;
 }
 
-/* line 667, ../scss/breakpoints/_base.scss */
+/* line 690, ../scss/breakpoints/_base.scss */
 #ListingList {
   padding-right: 50px;
 }
 
-/* line 672, ../scss/breakpoints/_base.scss */
+/* line 695, ../scss/breakpoints/_base.scss */
 .editVenue .venueList {
   padding-bottom: 20px;
 }
 
-/* line 678, ../scss/breakpoints/_base.scss */
+/* line 701, ../scss/breakpoints/_base.scss */
 input::-webkit-input-placeholder,
 option {
   color: #C9C9C9;
@@ -2156,7 +2218,7 @@ option {
 /*********************
 GRID
 *********************/
-/* line 687, ../scss/breakpoints/_base.scss */
+/* line 710, ../scss/breakpoints/_base.scss */
 .d-1of2 {
   float: left;
   width: 50%;

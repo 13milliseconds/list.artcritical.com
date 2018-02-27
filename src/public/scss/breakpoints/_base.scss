@@ -622,6 +622,29 @@ ADMIN
     }
 }
 
+.usersWrap{
+	@include row();
+	.allUsers{
+		@include span-columns(6);
+		.user{
+			@include row();
+			border: 1px solid $black;
+			padding: 10px;
+			margin-bottom: 20px;
+			.image{
+				@include span-columns(2);
+				line-height: 0;
+				img{
+					max-width: 100%;
+				}
+			}
+			.info{
+				@include span-columns(10);
+			}
+		}
+	}
+}
+
 #listingForm, #newlistingDemo{
     float: left;
     width: 50%;

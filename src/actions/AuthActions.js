@@ -24,7 +24,10 @@ class AuthActions {
             'reorderMyListSuccess',
             'reorderMyListFailure',
 			'getUserMylistSuccess',
-			'getUserMylistFailure'
+			'getUserMylistFailure',
+			'getAllUserAttempt',
+			'getAllUserSuccess',
+			'getAllUserFailure'
         );
     }
     
@@ -302,6 +305,38 @@ class AuthActions {
             return true;
         });
 
+    }
+	
+	async getAllUsers() {
+		
+		console.log("Getting all Users");
+
+        this.getAllUserAttempt();
+        
+        await fetch(
+          process.env.BASE_URI + '/auth/getallusers',
+          {
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+            return null;
+        })
+        .then((json) => {
+            this.getAllUserSuccess(json);
+            return true;
+        })
+        .catch((error) => {
+            this.getAllUserFailure(error);
+            return true;
+        });
     }
     
     // When a user type new info in the account page

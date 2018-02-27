@@ -20,6 +20,8 @@ var userSchema = mongoose.Schema({
     avatar: String,
 	bio: String,
 	website: String,
+	createdOn: {type: Date},
+	lastConnection: {type: Date},
     mylist: [{type: String, ref: 'List'}],
 });
 
