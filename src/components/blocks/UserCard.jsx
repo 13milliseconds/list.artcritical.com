@@ -4,7 +4,7 @@ import ImageBlock from './imageBlock'
 import DateBlock from './DateBlock'
 
 
-export default class Date extends React.Component {
+export default class UserCard extends React.Component {
         
     render() {
 		
@@ -23,8 +23,8 @@ export default class Date extends React.Component {
 				<ImageBlock image={user.avatar} />
 			</div>
 			<div className="info">
-				<p>{user.name} - <a href={ "mailto:" + user.local.username}>{user.local.username}</a> - {userAccess(user.userAccess)}</p>
-				<p>MyList: {user.mylist.length}{user.createdOn &&  <span> - Created On <DateBlock date={user.createdOn} /></span>}{user.lastConnection &&  <span> - Last Connection: <DateBlock date={user.lastConnection} /></span>}</p>
+				<p>{user.firstname} {user.lastname} - {userAccess(user.userAccess)}</p>
+				<p>MyList: {user.mylist.length}</p>
 			</div>
 		</div>
     );

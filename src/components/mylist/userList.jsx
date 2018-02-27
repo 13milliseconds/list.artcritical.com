@@ -135,12 +135,15 @@ export default class UserList extends React.Component {
             hasAvatar = true
             fullURL = "https://graph.facebook.com/" + this.props.user.facebook.id + "/picture?type=large";
         }
+		
+		let name = this.props.user.firstname + (this.props.user.lastname 
+												&& <span> {this.props.user.lastname}</span>)
         
         return ( 
                 <div className="myList">
 				<div className="listInfo cf">
 					{hasAvatar && <img className="avatar" src={fullURL}/>}
-					<h2>{this.props.user.name}'s List</h2>
+					<h2>{name}'s List</h2>
 					<p className="bio">{this.props.user.bio}</p>
 					{this.props.user.website && <a className="button"
 												href={this.props.user.website}

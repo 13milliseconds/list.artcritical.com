@@ -86,7 +86,7 @@ var _alt = __webpack_require__(12);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-var _bluebird = __webpack_require__(28);
+var _bluebird = __webpack_require__(29);
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
@@ -584,7 +584,7 @@ var _alt = __webpack_require__(12);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(25);
+__webpack_require__(26);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1751,15 +1751,11 @@ var ListStore = function () {
         this.glanceListings = [];
         // Auth states
         this.user = {};
-        this.user.name = '';
-        this.user._id = '';
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
-        this.user.avatar = '';
         this.user.facebook = {};
         this.user.local = {};
         this.user.mylist = [];
-        this.user.lastConnection = '';
         this.currentUser = {};
         this.user.userAccess = 0;
         this.allUsers = [];
@@ -2329,7 +2325,8 @@ var ListStore = function () {
         key: 'onLoginFailure',
         value: function onLoginFailure(error) {
             console.log('Login error: ', error);
-            this.user.name = '';
+            this.user.firstname = '';
+            this.user.lastname = '';
             this.user._id = '';
             this.user.isLoggedIn = false;
             this.user.isLoggingIn = false;
@@ -2350,13 +2347,15 @@ var ListStore = function () {
     }, {
         key: 'onRegisterAttempt',
         value: function onRegisterAttempt() {
+            console.log('onRegisterAttempt');
             this.isRegistering = true;
         }
     }, {
         key: 'onRegisterFailure',
         value: function onRegisterFailure(error) {
             console.log(error);
-            this.user.name = '';
+            this.user.firstname = '';
+            this.user.lastname = '';
             this.user._id = '';
             this.user.local.username = '';
             this.isRegistering = false;
@@ -2365,12 +2364,9 @@ var ListStore = function () {
         key: 'onRegisterSuccess',
         value: function onRegisterSuccess(user) {
             console.log('Logged in: ', user);
-            this.user.name = user.name;
-            this.user._id = user._id;
-            this.user.local.username = user.local.username;
-            this.user.avatar = user.avatar;
-            this.isRegistering = false;
+            this.user = user;
             this.user.isLoggedIn = true;
+            this.isRegistering = false;
         }
 
         //Facebook Login
@@ -2379,12 +2375,8 @@ var ListStore = function () {
         key: 'onFacebookLogin',
         value: function onFacebookLogin(user) {
             console.log("Logged in via Facebook");
-            this.user.name = user.name;
-            this.user._id = user._id;
-            this.user.facebook = {
-                id: user.facebook.id,
-                token: user.facebook.token
-            };
+            this.user = user;
+            this.isRegistering = false;
             this.user.isLoggedIn = true;
         }
 
@@ -2447,12 +2439,12 @@ var ListStore = function () {
         key: 'onLogoutSuccess',
         value: function onLogoutSuccess(action) {
             console.log("Logged out");
-            this.user.name = '';
-            this.user._id = '';
+            this.user = {};
+            this.user.local = {};
+            this.user.facebook = {};
+            this.user.mylist = [];
             this.user.isLoggedIn = false;
             this.user.isLoggingIn = false;
-            this.user.local.username = '';
-            this.user.mylist = [];
         }
 
         // CHECK SESSION
@@ -2460,11 +2452,12 @@ var ListStore = function () {
     }, {
         key: 'onSessionCheckFailure',
         value: function onSessionCheckFailure() {
-            this.user.name = '';
-            this.user._id = '';
+            this.user = {};
+            this.user.local = {};
+            this.user.facebook = {};
+            this.user.mylist = [];
             this.user.isLoggedIn = false;
             this.user.isLoggingIn = false;
-            this.user.local.username = '';
         }
     }, {
         key: 'onSessionCheckSuccess',
@@ -2617,7 +2610,7 @@ var _alt = __webpack_require__(12);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(25);
+__webpack_require__(26);
 
 var _superagent = __webpack_require__(68);
 
@@ -2711,7 +2704,55 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(21);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var imageBlock = function (_React$Component) {
+    _inherits(imageBlock, _React$Component);
+
+    function imageBlock() {
+        _classCallCheck(this, imageBlock);
+
+        return _possibleConstructorReturn(this, (imageBlock.__proto__ || Object.getPrototypeOf(imageBlock)).apply(this, arguments));
+    }
+
+    _createClass(imageBlock, [{
+        key: "render",
+        value: function render() {
+            var fullURL = this.props.image ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : "https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg";
+
+            return _react2.default.createElement("img", { src: fullURL, className: this.props.classes });
+        }
+    }]);
+
+    return imageBlock;
+}(_react2.default.Component);
+
+exports.default = imageBlock;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(22);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -2810,37 +2851,37 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom");
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-toggle-button");
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2848,12 +2889,13 @@ module.exports = require("isomorphic-fetch");
 
 var mongoose = __webpack_require__(5),
     Schema = mongoose.Schema;
-var bcrypt = __webpack_require__(24); // encripts password
+var bcrypt = __webpack_require__(25); // encripts password
 
 // Create the Listings table ==================================
 
 var userSchema = mongoose.Schema({
-    name: String,
+    firstname: String,
+    lastname: String,
     slug: String,
     local: {
         username: String,
@@ -2868,7 +2910,7 @@ var userSchema = mongoose.Schema({
     avatar: String,
     bio: String,
     website: String,
-    createdOn: { type: Date },
+    createdOn: { type: Date, default: Date.now },
     lastConnection: { type: Date },
     mylist: [{ type: String, ref: 'List' }]
 });
@@ -2885,7 +2927,7 @@ userSchema.methods.validPassword = function (password) {
 module.exports = mongoose.model('User', userSchema);
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2927,13 +2969,13 @@ var venueSchema = mongoose.Schema({
 module.exports = mongoose.model('Venue', venueSchema);
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3072,7 +3114,7 @@ var HoodNav = function (_React$Component) {
 exports.default = HoodNav;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3094,7 +3136,7 @@ var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 var _reactIntl = __webpack_require__(10);
 
-var _imageBlock = __webpack_require__(31);
+var _imageBlock = __webpack_require__(20);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -3243,54 +3285,6 @@ var FeatureBlock = function (_React$Component) {
 exports.default = FeatureBlock;
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var imageBlock = function (_React$Component) {
-    _inherits(imageBlock, _React$Component);
-
-    function imageBlock() {
-        _classCallCheck(this, imageBlock);
-
-        return _possibleConstructorReturn(this, (imageBlock.__proto__ || Object.getPrototypeOf(imageBlock)).apply(this, arguments));
-    }
-
-    _createClass(imageBlock, [{
-        key: "render",
-        value: function render() {
-            var fullURL = this.props.image ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : "https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg";
-
-            return _react2.default.createElement("img", { src: fullURL, className: this.props.classes });
-        }
-    }]);
-
-    return imageBlock;
-}(_react2.default.Component);
-
-exports.default = imageBlock;
-
-/***/ }),
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3309,7 +3303,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(22);
+var _reactDom = __webpack_require__(23);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -3779,7 +3773,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(23);
+var _reactToggleButton = __webpack_require__(24);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -4587,7 +4581,7 @@ var expressValidator = __webpack_require__(54);
 var passport = __webpack_require__(16);
 var flash = __webpack_require__(55);
 var session = __webpack_require__(56);
-var bcrypt = __webpack_require__(24); // encripts password
+var bcrypt = __webpack_require__(25); // encripts password
 
 // Get the User model
 __webpack_require__(57)(passport);
@@ -4609,8 +4603,8 @@ db.once('open', function () {
 // Import the Mongoose models
 var List = __webpack_require__(61);
 var Archive = __webpack_require__(62);
-var Venue = __webpack_require__(27);
-var User = __webpack_require__(26);
+var Venue = __webpack_require__(28);
+var User = __webpack_require__(27);
 var Feature = __webpack_require__(63);
 
 // view engine setup
@@ -4658,9 +4652,9 @@ app.use(function (req, res, next) {
 });
 
 var index = __webpack_require__(64);
-var venues = __webpack_require__(116);
-var listings = __webpack_require__(117);
-var auth = __webpack_require__(118);
+var venues = __webpack_require__(117);
+var listings = __webpack_require__(118);
+var auth = __webpack_require__(119);
 
 app.use('/venues', venues);
 app.use('/list', listings);
@@ -4846,8 +4840,8 @@ var FacebookStrategy = __webpack_require__(60).Strategy;
 
 
 // load up the user model
-var User = __webpack_require__(26);
-var Venue = __webpack_require__(27);
+var User = __webpack_require__(27);
+var Venue = __webpack_require__(28);
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -4928,8 +4922,9 @@ module.exports = function (passport) {
           var newUser = new User();
 
           // set the user's local credentials
-          newUser.name = req.body.name;
-          newUser.slug = req.body.name.replace(/\s+/g, '').toLowerCase();
+          newUser.firstname = req.body.firstname;
+          newUser.lastname = req.body.lastname;
+          newUser.slug = req.body.firstname.replace(/\s+/g, '').toLowerCase() + req.body.lastname.replace(/\s+/g, '').toLowerCase();
           newUser.local.username = req.body.username;
           newUser.userAccess = 1;
           newUser.local.password = newUser.generateHash(password);
@@ -5021,7 +5016,8 @@ module.exports = function (passport) {
         var newUser = new User();
 
         // set the user's local credentials
-        newUser.name = profile.displayName;
+        newUser.firstname = profile.givenName;
+        newUser.lastname = profile.familyName;
         newUser.slug = profile.displayName.replace(/\s+/g, '').toLowerCase();
         newUser.userAccess = 1;
         newUser.facebook.id = profile.id;
@@ -5216,13 +5212,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var JSX = __webpack_require__(114).install();
+var JSX = __webpack_require__(115).install();
 var passport = __webpack_require__(16);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var history = __webpack_require__(115);
+var history = __webpack_require__(116);
 var historyObj = history.createMemoryHistory();
 
 // Check if user is connected
@@ -5348,7 +5344,7 @@ var _UsersPage = __webpack_require__(109);
 
 var _UsersPage2 = _interopRequireDefault(_UsersPage);
 
-var _Account = __webpack_require__(111);
+var _Account = __webpack_require__(112);
 
 var _Account2 = _interopRequireDefault(_Account);
 
@@ -5640,7 +5636,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _neighborhoodNav = __webpack_require__(29);
+var _neighborhoodNav = __webpack_require__(30);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
@@ -5808,7 +5804,7 @@ var _sizeSelector = __webpack_require__(13);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
-var _neighborhoodNav = __webpack_require__(29);
+var _neighborhoodNav = __webpack_require__(30);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
@@ -5972,7 +5968,7 @@ var _daypage = __webpack_require__(73);
 
 var _daypage2 = _interopRequireDefault(_daypage);
 
-var _tabs = __webpack_require__(20);
+var _tabs = __webpack_require__(21);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -6093,7 +6089,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _featureBlock = __webpack_require__(30);
+var _featureBlock = __webpack_require__(31);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -6369,7 +6365,7 @@ var _VenueContent = __webpack_require__(80);
 
 var _VenueContent2 = _interopRequireDefault(_VenueContent);
 
-var _tabs = __webpack_require__(20);
+var _tabs = __webpack_require__(21);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -6755,7 +6751,7 @@ var _displayActions = __webpack_require__(6);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(23);
+var _reactToggleButton = __webpack_require__(24);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -6763,7 +6759,7 @@ var _validator = __webpack_require__(33);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _propTypes = __webpack_require__(21);
+var _propTypes = __webpack_require__(22);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -6792,18 +6788,21 @@ var SignUpForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (SignUpForm.__proto__ || Object.getPrototypeOf(SignUpForm)).call(this, props));
 
         _this.state = {
-            name: '',
+            firstname: '',
+            lastname: '',
             email: '',
             password1: '',
             password2: '',
             isValid: {
-                name: true,
+                firstname: true,
+                lastname: true,
                 email: true,
                 password1: true,
                 password2: true
             },
             errorMessage: {
-                name: '',
+                firstname: '',
+                lastname: '',
                 email: '',
                 password1: '',
                 password2: ''
@@ -6852,8 +6851,8 @@ var SignUpForm = function (_React$Component) {
             return valid;
         }
     }, {
-        key: '_validateName',
-        value: function _validateName(value) {
+        key: '_validateFirstName',
+        value: function _validateFirstName(value) {
             var valid = _validator2.default.isLength(value.trim(), 1, 50);
             var errorMessage = this.state.errorMessage;
 
@@ -6861,7 +6860,22 @@ var SignUpForm = function (_React$Component) {
                 errorMessage.name = '';
                 this.setState({ errorMessage: errorMessage });
             } else {
-                errorMessage.name = 'Please enter a name.';
+                errorMessage.name = 'Please enter a first name.';
+                this.setState({ errorMessage: errorMessage });
+            }
+            return valid;
+        }
+    }, {
+        key: '_validateLastName',
+        value: function _validateLastName(value) {
+            var valid = _validator2.default.isLength(value.trim(), 1, 50);
+            var errorMessage = this.state.errorMessage;
+
+            if (valid) {
+                errorMessage.name = '';
+                this.setState({ errorMessage: errorMessage });
+            } else {
+                errorMessage.name = 'Please enter a last name.';
                 this.setState({ errorMessage: errorMessage });
             }
             return valid;
@@ -6906,10 +6920,11 @@ var SignUpForm = function (_React$Component) {
         }
     }, {
         key: '_validate',
-        value: function _validate(name, email, password1, password2) {
+        value: function _validate(firstname, lastname, email, password1, password2) {
             this.setState({
                 isValid: {
-                    name: this._validateName(name),
+                    firstname: this._validateFirstName(firstname),
+                    lastname: this._validateLastName(lastname),
                     email: this._validateEmail(email),
                     password1: this._validatePassword1(password1),
                     password2: this._validatePassword2(password1, password2)
@@ -6918,10 +6933,10 @@ var SignUpForm = function (_React$Component) {
         }
     }, {
         key: '_areValid',
-        value: function _areValid(name, email, password1, password2) {
+        value: function _areValid(firstname, lastname, email, password1, password2) {
             var result = false;
 
-            if (this._validateName(name) && this._validateEmail(email) && this._validatePassword1(password1) && this._validatePassword2(password1, password2)) {
+            if (this._validateFirstName(firstname) && this._validateLastName(lastname) && this._validateEmail(email) && this._validatePassword1(password1) && this._validatePassword2(password1, password2)) {
 
                 result = true;
             }
@@ -6939,17 +6954,19 @@ var SignUpForm = function (_React$Component) {
             event.preventDefault();
 
             var _state = this.state,
-                name = _state.name,
+                firstname = _state.firstname,
+                lastname = _state.lastname,
                 email = _state.email,
                 password1 = _state.password1,
                 password2 = _state.password2;
 
 
-            this._validate(name, email, password1, password2);
+            this._validate(firstname, lastname, email, password1, password2);
 
-            if (this._areValid(name, email, password1, password2)) {
+            if (this._areValid(firstname, lastname, email, password1, password2)) {
                 var newUser = {
-                    name: name,
+                    firstname: firstname,
+                    lastname: lastname,
                     username: email,
                     password: password1
                 };
@@ -6978,18 +6995,38 @@ var SignUpForm = function (_React$Component) {
                     _react2.default.createElement(
                         _reactstrap.Label,
                         null,
-                        'Name'
+                        'First Name'
                     ),
                     _react2.default.createElement(_reactstrap.Input, { type: 'text',
-                        name: 'name',
-                        value: this.state.name,
-                        className: this._getInputStyleName(this.state.isValid.name),
+                        name: 'firstname',
+                        value: this.state.firstname,
+                        className: this._getInputStyleName(this.state.isValid.firstname),
                         onChange: this.handleChange
                     }),
                     _react2.default.createElement(
                         'span',
                         null,
-                        this.state.errorMessage.name
+                        this.state.errorMessage.firstname
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactstrap.FormGroup,
+                    { check: true },
+                    _react2.default.createElement(
+                        _reactstrap.Label,
+                        null,
+                        'Last Name'
+                    ),
+                    _react2.default.createElement(_reactstrap.Input, { type: 'text',
+                        name: 'lastname',
+                        value: this.state.lastname,
+                        className: this._getInputStyleName(this.state.isValid.lastname),
+                        onChange: this.handleChange
+                    }),
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        this.state.errorMessage.lastname
                     )
                 ),
                 _react2.default.createElement(
@@ -7093,7 +7130,7 @@ var _reactRouter = __webpack_require__(3);
 
 var _reactRouterDom = __webpack_require__(84);
 
-var _propTypes = __webpack_require__(21);
+var _propTypes = __webpack_require__(22);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -7322,7 +7359,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(22);
+var _reactDom = __webpack_require__(23);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -7779,7 +7816,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(22);
+var _reactDom = __webpack_require__(23);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -7957,6 +7994,13 @@ var UserList = function (_React$Component) {
                 fullURL = "https://graph.facebook.com/" + this.props.user.facebook.id + "/picture?type=large";
             }
 
+            var name = this.props.user.firstname + (this.props.user.lastname && _react2.default.createElement(
+                'span',
+                null,
+                ' ',
+                this.props.user.lastname
+            ));
+
             return _react2.default.createElement(
                 'div',
                 { className: 'myList' },
@@ -7967,7 +8011,7 @@ var UserList = function (_React$Component) {
                     _react2.default.createElement(
                         'h2',
                         null,
-                        this.props.user.name,
+                        name,
                         '\'s List'
                     ),
                     _react2.default.createElement(
@@ -9288,7 +9332,7 @@ var _featuredDay = __webpack_require__(105);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
-var _tabs = __webpack_require__(20);
+var _tabs = __webpack_require__(21);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -9402,7 +9446,7 @@ var _featuredForm = __webpack_require__(106);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
-var _featureBlock = __webpack_require__(30);
+var _featureBlock = __webpack_require__(31);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -9527,7 +9571,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(23);
+var _reactToggleButton = __webpack_require__(24);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -9941,6 +9985,10 @@ var _UserCard = __webpack_require__(110);
 
 var _UserCard2 = _interopRequireDefault(_UserCard);
 
+var _UserFullInfo = __webpack_require__(111);
+
+var _UserFullInfo2 = _interopRequireDefault(_UserFullInfo);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9975,6 +10023,8 @@ var UsersPage = function (_React$Component) {
                 });
             };
 
+            console.log('Current User: ', this.props.currentUser);
+
             return _react2.default.createElement(
                 'div',
                 { className: 'usersWrap' },
@@ -9988,6 +10038,11 @@ var UsersPage = function (_React$Component) {
                     { className: 'allUsers' },
                     this.props.loading.allUsers && _react2.default.createElement(_loading2.default, null),
                     usersRender(this.props.allUsers)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'allInfo' },
+                    Object.keys(this.props.currentUser).length > 0 && _react2.default.createElement(_UserFullInfo2.default, { user: this.props.currentUser })
                 )
             );
         }
@@ -10015,7 +10070,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _imageBlock = __webpack_require__(31);
+var _imageBlock = __webpack_require__(20);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -10033,16 +10088,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //Components
 
 
-var Date = function (_React$Component) {
-	_inherits(Date, _React$Component);
+var UserCard = function (_React$Component) {
+	_inherits(UserCard, _React$Component);
 
-	function Date() {
-		_classCallCheck(this, Date);
+	function UserCard() {
+		_classCallCheck(this, UserCard);
 
-		return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).apply(this, arguments));
 	}
 
-	_createClass(Date, [{
+	_createClass(UserCard, [{
 		key: 'render',
 		value: function render() {
 
@@ -10071,7 +10126,104 @@ var Date = function (_React$Component) {
 					_react2.default.createElement(
 						'p',
 						null,
-						user.name,
+						user.firstname,
+						' ',
+						user.lastname,
+						' - ',
+						userAccess(user.userAccess)
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'MyList: ',
+						user.mylist.length
+					)
+				)
+			);
+		}
+	}]);
+
+	return UserCard;
+}(_react2.default.Component);
+
+exports.default = UserCard;
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _imageBlock = __webpack_require__(20);
+
+var _imageBlock2 = _interopRequireDefault(_imageBlock);
+
+var _DateBlock = __webpack_require__(7);
+
+var _DateBlock2 = _interopRequireDefault(_DateBlock);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//Components
+
+
+var UserFullInfo = function (_React$Component) {
+	_inherits(UserFullInfo, _React$Component);
+
+	function UserFullInfo() {
+		_classCallCheck(this, UserFullInfo);
+
+		return _possibleConstructorReturn(this, (UserFullInfo.__proto__ || Object.getPrototypeOf(UserFullInfo)).apply(this, arguments));
+	}
+
+	_createClass(UserFullInfo, [{
+		key: 'render',
+		value: function render() {
+
+			var user = this.props.user;
+
+			var userAccess = function userAccess(accessCode) {
+				return {
+					3: 'Super Admin',
+					2: 'Admin',
+					1: 'Editor',
+					0: 'Subscriber'
+				}[accessCode];
+			};
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'infoWrap' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'image' },
+					_react2.default.createElement(_imageBlock2.default, { image: user.avatar })
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'info' },
+					_react2.default.createElement(
+						'p',
+						null,
+						user.firstname,
+						' ',
+						user.lastname,
 						' - ',
 						_react2.default.createElement(
 							'a',
@@ -10086,6 +10238,12 @@ var Date = function (_React$Component) {
 						null,
 						'MyList: ',
 						user.mylist.length,
+						user.createdOn && _react2.default.createElement(
+							'span',
+							null,
+							' - Created On ',
+							_react2.default.createElement(_DateBlock2.default, { date: user.createdOn })
+						),
 						user.lastConnection && _react2.default.createElement(
 							'span',
 							null,
@@ -10098,13 +10256,13 @@ var Date = function (_React$Component) {
 		}
 	}]);
 
-	return Date;
+	return UserFullInfo;
 }(_react2.default.Component);
 
-exports.default = Date;
+exports.default = UserFullInfo;
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10124,7 +10282,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _AccountForm = __webpack_require__(112);
+var _AccountForm = __webpack_require__(113);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
@@ -10189,7 +10347,7 @@ var AccountPage = function (_React$Component) {
 exports.default = AccountPage;
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10209,7 +10367,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _avatar = __webpack_require__(113);
+var _avatar = __webpack_require__(114);
 
 var _avatar2 = _interopRequireDefault(_avatar);
 
@@ -10274,12 +10432,22 @@ var AccountForm = function (_React$Component) {
                 _react2.default.createElement(
                     'label',
                     null,
-                    'Name'
+                    'First Name'
                 ),
                 _react2.default.createElement(
                     'div',
                     { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'name', placeholder: 'Your Name', type: 'text', value: this.props.user.name, onChange: this.handleChange })
+                    _react2.default.createElement('input', { name: 'name', placeholder: 'Your First Name', type: 'text', value: this.props.user.lastname, onChange: this.handleChange })
+                ),
+                _react2.default.createElement(
+                    'label',
+                    null,
+                    'Last Name'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'formSection' },
+                    _react2.default.createElement('input', { name: 'name', placeholder: 'Your Last Name', type: 'text', value: this.props.user.firstname, onChange: this.handleChange })
                 ),
                 _react2.default.createElement(
                     'label',
@@ -10356,7 +10524,7 @@ var AccountForm = function (_React$Component) {
 exports.default = AccountForm;
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10468,19 +10636,19 @@ var Avatar = function (_React$Component) {
 exports.default = Avatar;
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10488,7 +10656,7 @@ module.exports = require("history");
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var Promise = __webpack_require__(28);
+var Promise = __webpack_require__(29);
 
 /* GET All Venues */
 router.get('/', function (req, res, next) {
@@ -10691,7 +10859,7 @@ router.get('/:venue_id', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10983,7 +11151,7 @@ router.post('/delete/:listing_id', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

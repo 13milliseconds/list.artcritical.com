@@ -13,18 +13,21 @@ class SignUpForm extends React.Component {
         super(props);
         
          this.state = {
-              name: '',
+              firstname: '',
+			  lastname: '',
               email: '',
               password1: '',
               password2: '',
              isValid: {
-                name: true,
+                firstname: true,
+				lastname: true,
                 email: true,
                 password1: true,
                 password2: true
               },
              errorMessage: {
-                name: '',
+                firstname: '',
+				lastname: '',
                 email: '',
                 password1: '',
                 password2: ''
@@ -66,7 +69,7 @@ class SignUpForm extends React.Component {
         return valid
       }
 
-      _validateName(value) {
+      _validateFirstName(value) {
         const valid = validator.isLength(value.trim(), 1, 50);
           const errorMessage = this.state.errorMessage
           
@@ -74,7 +77,21 @@ class SignUpForm extends React.Component {
             errorMessage.name = ''
             this.setState({errorMessage: errorMessage})
         } else {
-            errorMessage.name = 'Please enter a name.'
+            errorMessage.name = 'Please enter a first name.'
+            this.setState({errorMessage: errorMessage})
+        }
+        return valid
+      }
+	
+	_validateLastName(value) {
+        const valid = validator.isLength(value.trim(), 1, 50);
+          const errorMessage = this.state.errorMessage
+          
+          if (valid) {
+            errorMessage.name = ''
+            this.setState({errorMessage: errorMessage})
+        } else {
+            errorMessage.name = 'Please enter a last name.'
             this.setState({errorMessage: errorMessage})
         }
         return valid
@@ -118,10 +135,11 @@ class SignUpForm extends React.Component {
       }
 
     
-      _validate(name, email, password1, password2) {
+      _validate(firstname, lastname, email, password1, password2) {
         this.setState({
           isValid: {
-            name: this._validateName(name),
+            firstname: this._validateFirstName(firstname),
+			lastname: this._validateLastName(lastname),
             email: this._validateEmail(email),
             password1: this._validatePassword1(password1),
             password2: this._validatePassword2(password1, password2)
@@ -129,10 +147,11 @@ class SignUpForm extends React.Component {
         });
       }
     
-    _areValid(name, email, password1, password2) {
+    _areValid(firstname, lastname, email, password1, password2) {
     var result = false;
         
-    if (this._validateName(name)
+    if (this._validateFirstName(firstname)
+		&& this._validateLastName(lastname)
       && this._validateEmail(email) 
       && this._validatePassword1(password1) 
       && this._validatePassword2(password1, password2)) {
@@ -150,13 +169,14 @@ class SignUpForm extends React.Component {
       
     event.preventDefault()
       
-    var {name, email, password1, password2} = this.state;
+    var {firstname, lastname, email, password1, password2} = this.state;
     
-    this._validate(name, email, password1, password2); 
+    this._validate(firstname, lastname, email, password1, password2); 
     
-    if (this._areValid(name, email, password1, password2)) {
+    if (this._areValid(firstname, lastname, email, password1, password2)) {
         var newUser = {
-              name: name,
+              firstname: firstname,
+			  lastname: lastname,
               username: email,
               password: password1
             }
@@ -179,15 +199,27 @@ class SignUpForm extends React.Component {
     return (
       <Form>
           <FormGroup check>
-          <Label>Name</Label>
+          <Label>First Name</Label>
           <Input type='text'
-                 name='name'
-                 value={this.state.name}
-                 className={this._getInputStyleName(this.state.isValid.name)}
+                 name='firstname'
+                 value={this.state.firstname}
+                 className={this._getInputStyleName(this.state.isValid.firstname)}
                  onChange={this.handleChange}
                  />
-                 <span>{this.state.errorMessage.name}</span>
+                 <span>{this.state.errorMessage.firstname}</span>
         </FormGroup>
+			
+		<FormGroup check>
+          <Label>Last Name</Label>
+          <Input type='text'
+                 name='lastname'
+                 value={this.state.lastname}
+                 className={this._getInputStyleName(this.state.isValid.lastname)}
+                 onChange={this.handleChange}
+                 />
+                 <span>{this.state.errorMessage.lastname}</span>
+        </FormGroup>
+			
         <FormGroup check>
           <Label>Email</Label>
           <Input type='text'

@@ -5,7 +5,8 @@ var bcrypt = require('bcrypt'); // encripts password
 // Create the Listings table ==================================
 
 var userSchema = mongoose.Schema({
-    name             : String,
+    firstname        : String,
+	lastname         : String,
 	slug             : String,
     local            : {
         username     : String,
@@ -20,7 +21,7 @@ var userSchema = mongoose.Schema({
     avatar: String,
 	bio: String,
 	website: String,
-	createdOn: {type: Date},
+	createdOn: {type: Date, default: Date.now},
 	lastConnection: {type: Date},
     mylist: [{type: String, ref: 'List'}],
 });

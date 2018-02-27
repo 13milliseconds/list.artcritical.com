@@ -19,15 +19,11 @@ class ListStore {
         this.glanceListings = [];
         // Auth states
         this.user = {};
-        this.user.name = '';
-        this.user._id = '';
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
-        this.user.avatar = '';
         this.user.facebook = {};
 		this.user.local = {};
         this.user.mylist = [];
-		this.user.lastConnection = '';
 		this.currentUser = {};
         this.user.userAccess = 0;
 		this.allUsers = [];
@@ -453,7 +449,8 @@ class ListStore {
     }
     onLoginFailure(error){
         console.log('Login error: ', error);
-        this.user.name = '';
+        this.user.firstname = '';
+		this.user.lastname = '';
         this.user._id = '';
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
@@ -469,34 +466,29 @@ class ListStore {
     
     // REGISTER ATTEMPT
     onRegisterAttempt(){
+		console.log('onRegisterAttempt');
         this.isRegistering = true;
     }
     onRegisterFailure(error){
         console.log(error);
-        this.user.name = '';
+        this.user.firstname = '';
+		this.user.lastname = '';
         this.user._id = '';
         this.user.local.username = '';
         this.isRegistering = false;
     }
     onRegisterSuccess(user){
 		console.log('Logged in: ', user);
-        this.user.name = user.name;
-        this.user._id = user._id;
-        this.user.local.username = user.local.username;
-        this.user.avatar = user.avatar;
+        this.user = user;
+		this.user.isLoggedIn = true;
         this.isRegistering = false;
-        this.user.isLoggedIn = true;
     }
     
     //Facebook Login
     onFacebookLogin(user){
         console.log("Logged in via Facebook");
-        this.user.name = user.name;
-        this.user._id = user._id;
-        this.user.facebook = {
-            id: user.facebook.id,
-            token: user.facebook.token
-        };
+        this.user = user;
+		this.isRegistering = false;
         this.user.isLoggedIn = true;
     }
     
@@ -540,21 +532,22 @@ class ListStore {
     }
     onLogoutSuccess(action){
         console.log("Logged out");
-        this.user.name = '';
-        this.user._id = '';
+        this.user = {};
+		this.user.local= {};
+		this.user.facebook= {};
+        this.user.mylist = [];
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
-        this.user.local.username = '';
-        this.user.mylist = [];
     }
     
     // CHECK SESSION
     onSessionCheckFailure() {
-        this.user.name = '';
-        this.user._id = '';
+        this.user = {};
+		this.user.local= {};
+		this.user.facebook= {};
+        this.user.mylist = [];
         this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
-        this.user.local.username = '';
     }
     onSessionCheckSuccess(action){
         this.user = action;
