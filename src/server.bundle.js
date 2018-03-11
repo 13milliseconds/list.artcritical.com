@@ -3832,7 +3832,6 @@ var ListingForm = function (_React$Component) {
         _this.onConfirm = _this.onConfirm.bind(_this);
         _this.onDeleteConfirm = _this.onDeleteConfirm.bind(_this);
         _this.onDismiss = _this.onDismiss.bind(_this);
-        _this.onUpdateSubmit = _this.onUpdateSubmit.bind(_this);
         _this.toggle = _this.toggle.bind(_this);
 
         return _this;
@@ -3871,13 +3870,6 @@ var ListingForm = function (_React$Component) {
             event.preventDefault();
             this.setState({
                 deletevisible: true
-            });
-        }
-    }, {
-        key: 'onUpdateSubmit',
-        value: function onUpdateSubmit(event) {
-            this.setState({
-                updatevisible: false
             });
         }
     }, {
@@ -3971,8 +3963,7 @@ var ListingForm = function (_React$Component) {
                         _reactstrap.Button,
                         { color: 'success', onClick: this.toggle },
                         'Close'
-                    ),
-                    '}'
+                    )
                 )
             ) : null;
 
@@ -4007,7 +3998,6 @@ var ListingForm = function (_React$Component) {
                 'Delete'
             ) : null;
 
-            console.log(this.props);
             return _react2.default.createElement(
                 'div',
                 { id: 'listingForm' },
@@ -4110,11 +4100,6 @@ var ListingForm = function (_React$Component) {
                         ),
                         deleteButton
                     )
-                ),
-                _react2.default.createElement(
-                    _reactstrap.Button,
-                    { color: 'danger', onClick: this.state.updatevisible },
-                    'Boom'
                 ),
                 updateModal,
                 deleteModal
@@ -8796,7 +8781,6 @@ var ListingEdit = function (_React$Component) {
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleSelectChange = _this.handleSelectChange.bind(_this);
         _this.handleDelete = _this.handleDelete.bind(_this);
-        _this.onUpdateSubmit = _this.onUpdateSubmit.bind(_this);
         return _this;
     }
 
@@ -8804,13 +8788,6 @@ var ListingEdit = function (_React$Component) {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             _ListActions2.default.listingEditReset();
-        }
-    }, {
-        key: 'onUpdateSubmit',
-        value: function onUpdateSubmit(event) {
-            this.setState({
-                updatevisible: false
-            });
         }
 
         // Add the listing to the database
@@ -10237,7 +10214,7 @@ var UserCard = function (_React$Component) {
 		key: 'handleChange',
 		value: function handleChange(event) {
 			//Update values of inputs
-			_ListActions2.default.listingInfoChange(event);
+			console.log(event);
 		}
 	}, {
 		key: 'render',

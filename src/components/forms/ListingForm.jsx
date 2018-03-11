@@ -62,6 +62,7 @@ export default class ListingForm extends React.Component {
         });
     }
 
+
     handleChange (event) {
         //Update values of inputs
         ListActions.listingInfoChange(event);

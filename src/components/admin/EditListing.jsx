@@ -16,7 +16,6 @@ export default class ListingEdit extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
-        this.onUpdateSubmit = this.onUpdateSubmit.bind(this);
       }
     
     componentWillUnmount(){
