@@ -22,12 +22,6 @@ export default class ListingEdit extends React.Component {
     componentWillUnmount(){
         ListActions.listingEditReset();
     }
-
-    onUpdateSubmit(event) {
-        this.setState({ 
-            updatevisible: false
-        }); 
-    }
     
     // Add the listing to the database
     handleSubmit(event) {

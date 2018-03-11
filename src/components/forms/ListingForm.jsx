@@ -31,7 +31,6 @@ export default class ListingForm extends React.Component {
         this.onConfirm = this.onConfirm.bind(this);
         this.onDeleteConfirm = this.onDeleteConfirm.bind(this);
         this.onDismiss = this.onDismiss.bind(this);
-        this.onUpdateSubmit = this.onUpdateSubmit.bind(this);
         this.toggle = this.toggle.bind(this);
 
       }
@@ -61,12 +60,6 @@ export default class ListingForm extends React.Component {
         this.setState({ 
             deletevisible: true
         });
-    }
-
-    onUpdateSubmit(event) {
-        this.setState({ 
-            updatevisible: false
-        }); 
     }
 
     handleChange (event) {
@@ -163,7 +156,6 @@ export default class ListingForm extends React.Component {
             :
                 null
 
-        console.log(this.props)
         return ( 
 
             <div id="listingForm">
@@ -217,7 +209,6 @@ export default class ListingForm extends React.Component {
                             {deleteButton}
                     </FormGroup>
                 </Form>   
-                        <Button color="danger" onClick={this.state.updatevisible}>Boom</Button>
                         {updateModal}
                         {deleteModal}
             </div>

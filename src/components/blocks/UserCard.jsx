@@ -17,7 +17,7 @@ export default class UserCard extends React.Component {
     
     handleChange (event) {
         //Update values of inputs
-        ListActions.listingInfoChange(event);
+       console.log(event)
     }
 
     render() {
