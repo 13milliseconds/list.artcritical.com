@@ -3,16 +3,6 @@ import DeckGL, {ScatterplotLayer, WebMercatorViewport} from 'deck.gl';
 import rbush from 'rbush';
 
 export default class DeckGLOverlay extends Component {
-  static get defaultViewport() {
-    return {
-      longitude: -35,
-      latitude: 36.7,
-      zoom: 1.8,
-      maxZoom: 20,
-      pitch: 0,
-      bearing: 0
-    };
-  }
 
   constructor(props) {
     super(props);
@@ -20,10 +10,11 @@ export default class DeckGLOverlay extends Component {
     // build spatial index
     this._tree = rbush(9, ['.x', '.y', '.x', '.y']);
     this.state = {
-      x: 0,
-      y: 0,
-      hoveredItems: null,
-      expanded: false
+		points: [],
+		x: 0,
+		y: 0,
+		hoveredItems: null,
+		expanded: false
     };
 
     this._updateCluster(props);
@@ -41,6 +32,8 @@ export default class DeckGLOverlay extends Component {
       this._updateCluster(nextProps);
     }
   }
+	
+
 
   // Compute icon clusters
   // We use the projected positions instead of longitude and latitude to build
@@ -63,10 +56,12 @@ export default class DeckGLOverlay extends Component {
       const screenCoords = transform.project(coordinates)
       p.x = screenCoords[0];
       p.y = screenCoords[1];
+	  p.position = [p.venue.coordinates.lat, p.venue.coordinates.long]
 	  p.radius = 5
 	  p.color = [255, 140, 0]
       p.zoomLevels = [];
     });
+	  
 
     tree.clear();
     tree.load(data);
@@ -102,12 +97,13 @@ export default class DeckGLOverlay extends Component {
         }
       });
     }
+	  
   }
 
   render() {
-    const {viewport, data, iconAtlas, iconMapping, showCluster} = this.props;
+    const {viewport, data, showCluster} = this.props;
 
-    if (!data || !iconMapping) {
+    if (!data) {
       return null;
     }
 
@@ -115,22 +111,26 @@ export default class DeckGLOverlay extends Component {
     const size = showCluster ? 1 : Math.min(Math.pow(1.5, viewport.zoom - 10), 1);
     const updateTrigger = z * showCluster;
 
-    const layer = new ScatterplotLayer({
+    const layer = [new ScatterplotLayer({
       id: 'icon',
       data,
-	  radiusScale: 100,
-      pickable: this.props.onHover || this.props.onClick,
-      getPosition: d => [d.venue.coordinates.lat, d.venue.coordinates.long],
+      //pickable: this.props.onHover || this.props.onClick,
+	  getPosition: d => [d.venue.coordinates.long, d.venue.coordinates.lat, 0], 
+      //getPosition: d => [d.x, d.y], //Using the projected coordinates
       //getIcon: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].icon : 'marker'),
-      //getSize: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].size : 1),
+      getColor: d => [0, 128, 255],
+    getRadius: d => 10,
+    opacity: 0.5,
+    pickable: true,
+    radiusMaxPixels: 30,//,
       //onHover: this.props.onHover,
       //onClick: this.props.onClick,
       //updateTriggers: {
         //getIcon: updateTrigger,
         //getSize: updateTrigger
       //}
-    });
+    })];
 
-    return <DeckGL {...viewport} layers={[layer]} />;
+    return <DeckGL {...viewport} layers={layer} />;
   }
 }

@@ -6340,7 +6340,7 @@ var CurrentMap = function (_React$Component) {
                     _react2.default.createElement(_MapCluster2.default, {
                         viewport: this.state.viewport,
                         data: this.props.currentListings,
-                        showCluster: true
+                        showCluster: false
                     })
                 )
             );
@@ -6397,20 +6397,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var DeckGLOverlay = function (_Component) {
   _inherits(DeckGLOverlay, _Component);
 
-  _createClass(DeckGLOverlay, null, [{
-    key: 'defaultViewport',
-    get: function get() {
-      return {
-        longitude: -35,
-        latitude: 36.7,
-        zoom: 1.8,
-        maxZoom: 20,
-        pitch: 0,
-        bearing: 0
-      };
-    }
-  }]);
-
   function DeckGLOverlay(props) {
     _classCallCheck(this, DeckGLOverlay);
 
@@ -6419,6 +6405,7 @@ var DeckGLOverlay = function (_Component) {
 
     _this._tree = (0, _rbush2.default)(9, ['.x', '.y', '.x', '.y']);
     _this.state = {
+      points: [],
       x: 0,
       y: 0,
       hoveredItems: null,
@@ -6468,6 +6455,7 @@ var DeckGLOverlay = function (_Component) {
         var screenCoords = transform.project(coordinates);
         p.x = screenCoords[0];
         p.y = screenCoords[1];
+        p.position = [p.venue.coordinates.lat, p.venue.coordinates.long];
         p.radius = 5;
         p.color = [255, 140, 0];
         p.zoomLevels = [];
@@ -6520,12 +6508,10 @@ var DeckGLOverlay = function (_Component) {
       var _props = this.props,
           viewport = _props.viewport,
           data = _props.data,
-          iconAtlas = _props.iconAtlas,
-          iconMapping = _props.iconMapping,
           showCluster = _props.showCluster;
 
 
-      if (!data || !iconMapping) {
+      if (!data) {
         return null;
       }
 
@@ -6533,25 +6519,33 @@ var DeckGLOverlay = function (_Component) {
       var size = showCluster ? 1 : Math.min(Math.pow(1.5, viewport.zoom - 10), 1);
       var updateTrigger = z * showCluster;
 
-      var layer = new _deck.ScatterplotLayer({
+      var layer = [new _deck.ScatterplotLayer({
         id: 'icon',
         data: data,
-        radiusScale: 100,
-        pickable: this.props.onHover || this.props.onClick,
+        //pickable: this.props.onHover || this.props.onClick,
         getPosition: function getPosition(d) {
-          return [d.venue.coordinates.lat, d.venue.coordinates.long];
-        }
+          return [d.venue.coordinates.long, d.venue.coordinates.lat, 0];
+        },
+        //getPosition: d => [d.x, d.y], //Using the projected coordinates
         //getIcon: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].icon : 'marker'),
-        //getSize: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].size : 1),
+        getColor: function getColor(d) {
+          return [0, 128, 255];
+        },
+        getRadius: function getRadius(d) {
+          return 10;
+        },
+        opacity: 0.5,
+        pickable: true,
+        radiusMaxPixels: 30 //,
         //onHover: this.props.onHover,
         //onClick: this.props.onClick,
         //updateTriggers: {
         //getIcon: updateTrigger,
         //getSize: updateTrigger
         //}
-      });
+      })];
 
-      return _react2.default.createElement(_deck2.default, _extends({}, viewport, { layers: [layer] }));
+      return _react2.default.createElement(_deck2.default, _extends({}, viewport, { layers: layer }));
     }
   }]);
 

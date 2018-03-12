@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ListActions from '../actions/ListActions';
 //COMPONENTS
-import ReactMapGL, {NavigationControl, Marker} from 'react-map-gl';
+import MapGL, {NavigationControl, Marker} from 'react-map-gl';
 import DeckGLOverlay from './blocks/MapCluster';
 
 
@@ -45,15 +45,15 @@ export default class CurrentMap extends React.Component {
             <div className="currentMap">
 					{this.props.loading.current && <div className="loading">Loading...</div>}
 					{this.props.currentListings.length}
-                    <ReactMapGL
+                    <MapGL
 						{...this.state.viewport}
 						onViewportChange={(viewport) => this.setState({viewport})} >
 						<DeckGLOverlay
 						  viewport={this.state.viewport}
 						  data={this.props.currentListings}
-						  showCluster={true}
+						  showCluster={false}
 						/>
-					</ReactMapGL>
+					</MapGL>
             </div>
         );
     }
