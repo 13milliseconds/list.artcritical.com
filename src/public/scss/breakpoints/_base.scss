@@ -166,7 +166,10 @@ Main PAGES
     .neighborhood{
         @include row();
     }
-    
+}
+
+.currentMap{
+	@include span-columns(12);
 }
 
 

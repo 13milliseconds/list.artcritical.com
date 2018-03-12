@@ -4,6 +4,7 @@ import Layout from './components/layout';
 import CurrentPage from './components/CurrentPage';
 import FuturePage from './components/FuturePage';
 import GlancePage from './components/GlancePage';
+import CurrentMap from './components/CurrentMap';
 import EventsPage from './components/EventsPage';
 import VenuePage from './components/venues/VenuePage';
 //Signin Components
@@ -29,6 +30,7 @@ const routes = (
         <Route path="current" component={CurrentPage}/>
         <Route path="future" component={FuturePage}/>
         <Route path="events" component={EventsPage}/>
+		<Route path="map" component={CurrentMap}/>
         <Route path="signup" component={SignUpPage}/>
         <Route path="mylist" component={MyListPage}/>
 		<Route path="mylist/:slug" component={MyListPublicPage}/>

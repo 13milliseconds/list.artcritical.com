@@ -1,7 +1,7 @@
 import React from 'react';
 //COMPONENT
-import MyMarker from './myMarker';
-import ReactMapGL, {NavigationControl, Marker} from 'react-map-gl';
+import MarkerDisplay from '../blocks/MarkerDisplay';
+import ReactMapGL, {NavigationControl, Marker} from 'react-map-gl'; 
 let num = 0
 
 
@@ -32,7 +32,7 @@ export default class MyMap extends React.Component {
                         onMouseLeave={this.props.onLeave.bind(this, listing)}
                         className={listing._id == this.props.listingHover? 'active' : ''}
                                   >
-                        <MyMarker
+                        <MarkerDisplay
                             className={listing._id}
                             listing={listing}
                             num={index + 1} />

@@ -46,6 +46,7 @@ export default class Layout extends React.Component {
             <IndexLink to={'/'} activeClassName="active">Week at a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
+			<Link to={'/map'} activeClassName="active">Map</Link>
 			<div className="accountOptions">
             <Link to={'/mylist'} activeClassName="active">My List { mylistNum > 0 && '('+mylistNum+')'}</Link>
 			{ user.isLoggedIn && <Link to={'/account'} activeClassName="active">Account</Link>}
