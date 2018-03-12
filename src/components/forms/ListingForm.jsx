@@ -1,8 +1,10 @@
 import React from 'react'
 import ToggleButton from 'react-toggle-button'
 import ListActions from '../../actions/ListActions'
-import {browserHistory} from 'react-router';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {browserHistory} from 'react-router'; 
+import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
+
 
 //Components
 import DateRange from './formDateRange'
@@ -19,12 +21,48 @@ export default class ListingForm extends React.Component {
         
         this.state = {
             event: this.props.event,
+            updatevisible: false,
+            deletevisible: false,
+            modal: false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.onConfirm = this.onConfirm.bind(this);
+        this.onDeleteConfirm = this.onDeleteConfirm.bind(this);
+        this.onDismiss = this.onDismiss.bind(this);
+        this.toggle = this.toggle.bind(this);
+
       }
-    
+
+     toggle() {
+        this.setState({
+          modal: !this.state.modal,
+          updatevisible: !this.state.updatevisible
+        });
+      }
+
+    onDismiss() {
+        this.setState({ updatevisible: false });
+    }
+
+    //confirm alert
+    onConfirm(event) {
+        event.preventDefault();
+        this.setState({ 
+            updatevisible: true
+        });
+    }
+
+     //confirm alert
+    onDeleteConfirm(event) {
+        event.preventDefault();
+        this.setState({ 
+            deletevisible: true
+        });
+    }
+
+
     handleChange (event) {
         //Update values of inputs
         ListActions.listingInfoChange(event);
@@ -48,6 +86,8 @@ export default class ListingForm extends React.Component {
             ListActions.resetVenue();
         }   
     }
+
+
     
     render() {
         
@@ -66,14 +106,59 @@ export default class ListingForm extends React.Component {
         }
         
         let venueData = { value: this.props.venue._id, label: this.props.venue.name}
-        
-        let deleteButton = this.props.handleDelete?
-                <button className="delete" onClick={this.props.handleDelete}>Delete</button>
+
+        let updateModal = this.state.updatevisible ? 
+                <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
+                              <ModalBody toggle={this.toggle}>
+                                {!this.props.loading && !this.props.success && !this.props.error.general ? "Confirm this update?" : null}
+
+                                {this.props.loading && 
+                                <div className='loading'>loading</div>
+                                }
+                                {this.props.success && 
+                                    <div className='success'>Saved!</div>
+                                }
+                                {this.props.error.general && 
+                                    <div className='error'>{this.props.error.savelisting.general}</div>
+                                }
+                              </ModalBody>
+                              <ModalFooter>
+                                {!this.props.success ? 
+                                    <div>
+                                        <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
+                                        <Button color="primary" onClick={this.toggle}>Cancel</Button>
+                                    </div>
+                                :
+                                    <Button color="success" onClick={this.toggle}>Close</Button>
+                                }
+                                
+                                
+                              </ModalFooter>
+                </Modal> 
+            : 
+                null
+
+        let deleteModal = this.state.deletevisible ?
+                <Modal isOpen={this.state.deletevisible} toggle={this.toggle}>
+                              <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                              <ModalBody>
+                                Confirm this update? 
+                              </ModalBody>
+                              <ModalFooter>
+                                <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>{' '}
+                              </ModalFooter>
+                </Modal> 
             :
                 null
 
         
+        let deleteButton = this.props.handleDelete ?
+                <Button className="delete" color="danger" onClick={this.onDeleteConfirm}>Delete</Button>
+            :
+                null
+
         return ( 
+
             <div id="listingForm">
 
                 <Form>
@@ -121,21 +206,16 @@ export default class ListingForm extends React.Component {
 					</FormGroup>
 					
 					<FormGroup>
-						<button onClick={this.props.handleSubmit}>{this.props._id ? 'Update' : 'Create'}</button>
-                            {this.props.loading && 
-                                <div className='loading'>loading</div>
-                            }
-                            {this.props.success && 
-                                <div className='success'>Saved!</div>
-                            }
-                            {this.props.error.general && 
-                                <div className='error'>{this.props.error.savelisting.general}</div>
-                            }
+						<Button onClick={this.onConfirm}>{this.props._id ? 'Update' : 'Create'}</Button>
                             {deleteButton}
                     </FormGroup>
-
-                </Form>                
+                </Form>   
+                        {updateModal}
+                        {deleteModal}
             </div>
+
+           
+
         );
     }
 }

@@ -7,6 +7,7 @@ import Select from '../forms/formSelect';
 import ListingForm from '../forms/ListingForm';
 
 
+
 export default class ListingEdit extends React.Component {
 
     constructor(props) { 
@@ -22,7 +23,8 @@ export default class ListingEdit extends React.Component {
     }
     
     // Add the listing to the database
-    handleSubmit() {
+    handleSubmit(event) {
+            event.preventDefault();
 		if (this.props.listingEdit._id){
 			//Edit the current listing
 			ListActions.updateListing(this.props.listingEdit)
@@ -34,6 +36,7 @@ export default class ListingEdit extends React.Component {
 			newListing.neighborhood = newListing.venue.neighborhood
 			ListActions.saveListing(newListing)
 		}
+        this.onUpdateSubmit();
       }
     
     //Delete the listing

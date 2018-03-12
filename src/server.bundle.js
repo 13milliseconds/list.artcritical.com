@@ -3821,15 +3821,58 @@ var ListingForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (ListingForm.__proto__ || Object.getPrototypeOf(ListingForm)).call(this, props));
 
         _this.state = {
-            event: _this.props.event
+            event: _this.props.event,
+            updatevisible: false,
+            deletevisible: false,
+            modal: false
         };
 
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSelectChange = _this.handleSelectChange.bind(_this);
+        _this.onConfirm = _this.onConfirm.bind(_this);
+        _this.onDeleteConfirm = _this.onDeleteConfirm.bind(_this);
+        _this.onDismiss = _this.onDismiss.bind(_this);
+        _this.toggle = _this.toggle.bind(_this);
+
         return _this;
     }
 
     _createClass(ListingForm, [{
+        key: 'toggle',
+        value: function toggle() {
+            this.setState({
+                modal: !this.state.modal,
+                updatevisible: !this.state.updatevisible
+            });
+        }
+    }, {
+        key: 'onDismiss',
+        value: function onDismiss() {
+            this.setState({ updatevisible: false });
+        }
+
+        //confirm alert
+
+    }, {
+        key: 'onConfirm',
+        value: function onConfirm(event) {
+            event.preventDefault();
+            this.setState({
+                updatevisible: true
+            });
+        }
+
+        //confirm alert
+
+    }, {
+        key: 'onDeleteConfirm',
+        value: function onDeleteConfirm(event) {
+            event.preventDefault();
+            this.setState({
+                deletevisible: true
+            });
+        }
+    }, {
         key: 'handleChange',
         value: function handleChange(event) {
             //Update values of inputs
@@ -3877,9 +3920,81 @@ var ListingForm = function (_React$Component) {
 
             var venueData = { value: this.props.venue._id, label: this.props.venue.name };
 
+            var updateModal = this.state.updatevisible ? _react2.default.createElement(
+                _reactstrap.Modal,
+                { isOpen: this.state.updatevisible, toggle: this.toggle },
+                _react2.default.createElement(
+                    _reactstrap.ModalBody,
+                    { toggle: this.toggle },
+                    !this.props.loading && !this.props.success && !this.props.error.general ? "Confirm this update?" : null,
+                    this.props.loading && _react2.default.createElement(
+                        'div',
+                        { className: 'loading' },
+                        'loading'
+                    ),
+                    this.props.success && _react2.default.createElement(
+                        'div',
+                        { className: 'success' },
+                        'Saved!'
+                    ),
+                    this.props.error.general && _react2.default.createElement(
+                        'div',
+                        { className: 'error' },
+                        this.props.error.savelisting.general
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalFooter,
+                    null,
+                    !this.props.success ? _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.props.handleSubmit },
+                            'Confirm'
+                        ),
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.toggle },
+                            'Cancel'
+                        )
+                    ) : _react2.default.createElement(
+                        _reactstrap.Button,
+                        { color: 'success', onClick: this.toggle },
+                        'Close'
+                    )
+                )
+            ) : null;
+
+            var deleteModal = this.state.deletevisible ? _react2.default.createElement(
+                _reactstrap.Modal,
+                { isOpen: this.state.deletevisible, toggle: this.toggle },
+                _react2.default.createElement(
+                    _reactstrap.ModalHeader,
+                    { toggle: this.toggle },
+                    'Modal title'
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalBody,
+                    null,
+                    'Confirm this update?'
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalFooter,
+                    null,
+                    _react2.default.createElement(
+                        _reactstrap.Button,
+                        { color: 'primary', onClick: this.props.handleSubmit },
+                        'Confirm'
+                    ),
+                    ' '
+                )
+            ) : null;
+
             var deleteButton = this.props.handleDelete ? _react2.default.createElement(
-                'button',
-                { className: 'delete', onClick: this.props.handleDelete },
+                _reactstrap.Button,
+                { className: 'delete', color: 'danger', onClick: this.onDeleteConfirm },
                 'Delete'
             ) : null;
 
@@ -3979,28 +4094,15 @@ var ListingForm = function (_React$Component) {
                         _reactstrap.FormGroup,
                         null,
                         _react2.default.createElement(
-                            'button',
-                            { onClick: this.props.handleSubmit },
+                            _reactstrap.Button,
+                            { onClick: this.onConfirm },
                             this.props._id ? 'Update' : 'Create'
-                        ),
-                        this.props.loading && _react2.default.createElement(
-                            'div',
-                            { className: 'loading' },
-                            'loading'
-                        ),
-                        this.props.success && _react2.default.createElement(
-                            'div',
-                            { className: 'success' },
-                            'Saved!'
-                        ),
-                        this.props.error.general && _react2.default.createElement(
-                            'div',
-                            { className: 'error' },
-                            this.props.error.savelisting.general
                         ),
                         deleteButton
                     )
-                )
+                ),
+                updateModal,
+                deleteModal
             );
         }
     }]);
@@ -9043,7 +9145,8 @@ var ListingEdit = function (_React$Component) {
 
     }, {
         key: 'handleSubmit',
-        value: function handleSubmit() {
+        value: function handleSubmit(event) {
+            event.preventDefault();
             if (this.props.listingEdit._id) {
                 //Edit the current listing
                 _ListActions2.default.updateListing(this.props.listingEdit);
@@ -9055,6 +9158,7 @@ var ListingEdit = function (_React$Component) {
                 newListing.neighborhood = newListing.venue.neighborhood;
                 _ListActions2.default.saveListing(newListing);
             }
+            this.onUpdateSubmit();
         }
 
         //Delete the listing
@@ -10421,13 +10525,23 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< HEAD
 var _imageBlock = __webpack_require__(21);
+=======
+var _ListActions = __webpack_require__(1);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _imageBlock = __webpack_require__(20);
+>>>>>>> 8f87d16b96364b551fb990b9cb2599b7c7858cd6
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
 var _DateBlock = __webpack_require__(7);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
+
+var _reactstrap = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10442,13 +10556,22 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UserCard = function (_React$Component) {
 	_inherits(UserCard, _React$Component);
 
-	function UserCard() {
+	function UserCard(props) {
 		_classCallCheck(this, UserCard);
 
-		return _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
+
+		_this.handleChange = _this.handleChange.bind(_this);
+		return _this;
 	}
 
 	_createClass(UserCard, [{
+		key: 'handleChange',
+		value: function handleChange(event) {
+			//Update values of inputs
+			console.log(event);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 
@@ -10475,19 +10598,70 @@ var UserCard = function (_React$Component) {
 					'div',
 					{ className: 'info' },
 					_react2.default.createElement(
-						'p',
+						_reactstrap.Form,
 						null,
-						user.firstname,
-						' ',
-						user.lastname,
-						' - ',
-						userAccess(user.userAccess)
-					),
-					_react2.default.createElement(
-						'p',
-						null,
-						'MyList: ',
-						user.mylist.length
+						_react2.default.createElement(
+							_reactstrap.FormGroup,
+							null,
+							_react2.default.createElement(
+								'div',
+								{ className: 'formSection' },
+								_react2.default.createElement(
+									_reactstrap.Label,
+									null,
+									'User Name'
+								),
+								_react2.default.createElement(
+									'p',
+									null,
+									user.firstname,
+									' ',
+									user.lastname,
+									' - ',
+									userAccess(user.userAccess)
+								),
+								_react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'User name', type: 'text', defaultValue: user.firstname, onChange: this.handleChange }),
+								_react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'User name', type: 'text', defaultValue: user.lastname, onChange: this.handleChange })
+							),
+							_react2.default.createElement(
+								_reactstrap.FormGroup,
+								null,
+								_react2.default.createElement(
+									_reactstrap.Label,
+									{ 'for': 'exampleSelect' },
+									'User Role'
+								),
+								_react2.default.createElement(
+									_reactstrap.Input,
+									{ type: 'select', name: 'select', id: 'exampleSelect' },
+									_react2.default.createElement(
+										'option',
+										null,
+										userAccess
+									),
+									_react2.default.createElement(
+										'option',
+										null,
+										'Editor'
+									),
+									_react2.default.createElement(
+										'option',
+										null,
+										'Admin'
+									),
+									_react2.default.createElement(
+										'option',
+										null,
+										'Subscriber'
+									)
+								)
+							)
+						),
+						_react2.default.createElement(
+							_reactstrap.Button,
+							null,
+							'Submit Changes'
+						)
 					)
 				)
 			);
