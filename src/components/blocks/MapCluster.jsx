@@ -1,6 +1,27 @@
 import React, {Component} from 'react';
-import DeckGL, {ScatterplotLayer, WebMercatorViewport} from 'deck.gl';
+import DeckGL, {IconLayer, WebMercatorViewport} from 'deck.gl';
 import rbush from 'rbush';
+
+//Based on https://github.com/uber/deck.gl/blob/5.1-release/examples/icon/deckgl-overlay.js
+
+const ICON_SIZE = 60;
+
+function getIconName(size) {
+  if (size === 0) {
+    return '';
+  }
+  if (size < 10) {
+    return `marker-${size}`;
+  }
+  if (size < 100) {
+    return `marker-${Math.floor(size / 10)}0`;
+  }
+  return 'marker-100';
+}
+
+function getIconSize(size) {
+  return Math.min(100, size) / 100 * 0.5 + 0.5;
+}
 
 export default class DeckGLOverlay extends Component {
 
@@ -14,10 +35,12 @@ export default class DeckGLOverlay extends Component {
 		x: 0,
 		y: 0,
 		hoveredItems: null,
-		expanded: false
+		expanded: false,
+		windowSize: 0
     };
 
     this._updateCluster(props);
+	  this.componentDidMount = this.componentDidMount.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,6 +55,12 @@ export default class DeckGLOverlay extends Component {
       this._updateCluster(nextProps);
     }
   }
+	
+	componentDidMount(){
+		this.setState({
+			windowSize: window.devicePixelRatio
+		})
+	}
 	
 
 
@@ -56,18 +85,14 @@ export default class DeckGLOverlay extends Component {
       const screenCoords = transform.project(coordinates)
       p.x = screenCoords[0];
       p.y = screenCoords[1];
-	  p.position = [p.venue.coordinates.lat, p.venue.coordinates.long]
-	  p.radius = 5
-	  p.color = [255, 140, 0]
       p.zoomLevels = [];
     });
-	  
 
     tree.clear();
     tree.load(data);
 
     for (let z = 0; z <= 20; z++) {
-      const radius = 100 / 2 / Math.pow(2, z);
+      const radius = ICON_SIZE / 2 / Math.pow(2, z);
 
       data.forEach(p => {
         if (p.zoomLevels[z] === undefined) {
@@ -88,6 +113,8 @@ export default class DeckGLOverlay extends Component {
           neighbors.forEach(neighbor => {
             if (neighbor === p) {
               p.zoomLevels[z] = {
+                icon: getIconName(neighbors.length),
+                size: getIconSize(neighbors.length),
                 points: neighbors
               };
             } else {
@@ -97,13 +124,12 @@ export default class DeckGLOverlay extends Component {
         }
       });
     }
-	  
   }
 
   render() {
-    const {viewport, data, showCluster} = this.props;
-
-    if (!data) {
+    const {viewport, data, iconAtlas, iconMapping, showCluster} = this.props;
+	  
+    if (!data || !iconMapping) {
       return null;
     }
 
@@ -111,24 +137,22 @@ export default class DeckGLOverlay extends Component {
     const size = showCluster ? 1 : Math.min(Math.pow(1.5, viewport.zoom - 10), 1);
     const updateTrigger = z * showCluster;
 
-    const layer = [new ScatterplotLayer({
+    const layer = [new IconLayer({
       id: 'icon',
       data,
-      //pickable: this.props.onHover || this.props.onClick,
-	  getPosition: d => [d.venue.coordinates.long, d.venue.coordinates.lat, 0], 
-      //getPosition: d => [d.x, d.y], //Using the projected coordinates
-      //getIcon: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].icon : 'marker'),
-      getColor: d => [0, 128, 255],
-      getRadius: d => 10,
-      opacity: 0.5,
-      pickable: true,
-      radiusMaxPixels: 30,//,
-      //onHover: this.props.onHover,
-      //onClick: this.props.onClick,
-      //updateTriggers: {
-        //getIcon: updateTrigger,
-        //getSize: updateTrigger
-      //}
+      pickable: this.props.onHover || this.props.onClick,
+      iconAtlas,
+      iconMapping,
+      sizeScale: ICON_SIZE * size * this.state.windowSize,
+      getPosition: d => [d.venue.coordinates.long, d.venue.coordinates.lat, 0],
+      getIcon: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].icon : 'marker'),
+      getSize: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].size : 1),
+      onHover: this.props.onHover,
+      onClick: this.props.onClick,
+      updateTriggers: {
+        getIcon: updateTrigger,
+        getSize: updateTrigger
+      }
     })];
 
     return <DeckGL {...viewport} layers={layer} />;

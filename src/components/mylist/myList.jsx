@@ -32,9 +32,8 @@ export default class MyList extends React.Component {
         }
         
         this.onReorder = this.onReorder.bind(this);
-        this.onHover = this.onHover.bind(this);
-        this.onLeave = this.onLeave.bind(this);
-        this._goToViewport = this._goToViewport.bind(this);
+        this._onHover = this._onHover.bind(this);
+        this._onLeave = this._onLeave.bind(this);
         this.findCoord = this.findCoord.bind(this);
         this._updateViewport = this._updateViewport.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
@@ -52,24 +51,35 @@ export default class MyList extends React.Component {
     
     componentDidMount(){
         // Create variable to change property
-        let newViewport = this.state.viewport
-        newViewport.width = ReactDOM.findDOMNode(this).offsetWidth /2
+        const viewport = {
+			...this.state.viewport,
+        	width: ReactDOM.findDOMNode(this).offsetWidth /2
+		}
         //Update state
         this.setState({
-			viewport: newViewport,
+			viewport,
 			publicUrl: window.location.href + '/' + this.props.user.slug
           })
     }
     
-    onHover(listing){
-        this._goToViewport(listing)
+    _onHover(listing){
+        const viewport = {
+            ...this.state.viewport,
+            longitude: listing.venue.coordinates.long,
+          	latitude: listing.venue.coordinates.lat,
+            zoom: 14,
+			transitionDuration: this.props.transitionDuration,
+			transitionInterpolator: this.props.transitionInterpolator,
+			transitionEasing: this.props.transitionEasing
+        }
         //Find the right marker
         this.setState({
+			viewport,
             listingHover: listing._id
         })
     }
     
-    onLeave(){
+    _onLeave(){
         // Create variable to change property
 		const viewport = {
             ...this.state.viewport,
@@ -81,11 +91,10 @@ export default class MyList extends React.Component {
 			transitionEasing: this.props.transitionEasing
         }
 		
-		console.log(viewport)
         //Reset markers
         this.setState({
-            listingHover: '',
-            viewport
+			viewport,
+            listingHover: ''
         })
     }
     
@@ -124,19 +133,6 @@ export default class MyList extends React.Component {
         }
     }
     
-     _goToViewport(listing){
-		 const viewport = {
-            ...this.state.viewport,
-            longitude: listing.venue.coordinates.long,
-          	latitude: listing.venue.coordinates.lat,
-            zoom: 14,
-			transitionDuration: this.props.transitionDuration,
-			transitionInterpolator: this.props.transitionInterpolator,
-			transitionEasing: this.props.transitionEasing
-        }
-        this.setState({viewport})
-    }
-    
     _updateViewport(v) {
         this.setState({
             viewport: v
@@ -156,14 +152,14 @@ export default class MyList extends React.Component {
                         viewport ={this.state.viewport}
                         updateViewport ={this._updateViewport}
                         listingHover={this.state.listingHover} 
-                        onHover={this.onHover}
-                        onLeave={this.onLeave}
+                        onHover={this._onHover}
+                        onLeave={this._onLeave}
                         />
                     {this.props.user.mylist? <MyListings 
                                            user={this.props.user}
                                             view={this.props.view}
-                                           onHover={this.onHover}
-                                           onLeave={this.onLeave}
+                                           onHover={this._onHover}
+                                           onLeave={this._onLeave}
                                            onReorder={this.onReorder}
                                             listingHover={this.state.listingHover}
                                            /> : null }
