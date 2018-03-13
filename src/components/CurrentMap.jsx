@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-var d3 = require('d3-ease');
 import ListActions from '../actions/ListActions';
 //COMPONENTS
 import ReactMapGL, {LinearInterpolator, FlyToInterpolator} from 'react-map-gl';
 import DeckGLOverlay from './blocks/MapCluster';
+
+var d3 = require('d3-ease');
 
 
 export default class CurrentMap extends React.Component {
@@ -20,7 +21,10 @@ export default class CurrentMap extends React.Component {
                 bearing: 0,
                 pitch: 0,
                 width: 0,
-                height: 500
+                height: 500,
+				transitionDuration: 1000,
+            	transitionInterpolator: new FlyToInterpolator(),
+            	transitionEasing: d3.easeCubic
               }
         }
 		
@@ -53,9 +57,6 @@ export default class CurrentMap extends React.Component {
             longitude: this.props.center.lng,
             latitude: this.props.center.lat,
             zoom: this.props.zoom,
-            transitionDuration: 1000,
-            transitionInterpolator: new FlyToInterpolator(),
-            transitionEasing: d3.easeCubic
         }
         this.setState({viewport})
     }
@@ -65,7 +66,7 @@ export default class CurrentMap extends React.Component {
         return ( 
             <div className="currentMap">
 					{this.props.loading.current && <div className="loading">Loading...</div>}
-					{this.props.currentListings.length}
+					<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
                     <ReactMapGL
 						{...this.state.viewport}
 						onViewportChange={this._onViewportChange} >

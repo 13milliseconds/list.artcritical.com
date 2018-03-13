@@ -2,13 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AuthActions from '../../actions/AuthActions';
 import ListActions from '../../actions/ListActions';
-import {experimental} from 'react-map-gl';
+import {FlyToInterpolator} from 'react-map-gl';
 var async = require('async');
 // Components
 import MyListings from './myListings';
 import MyMap from './myMap';
 import FacebookShare from '../blocks/facebookShare';
 import {reorder} from 'react-reorder';
+
+var d3 = require('d3-ease');
 
 export default class MyList extends React.Component {
     constructor(props) {
@@ -25,7 +27,7 @@ export default class MyList extends React.Component {
                 bearing: 0,
                 pitch: 0,
                 width: 0,
-                height: 500
+                height: 500,
               }
         }
         
@@ -34,7 +36,7 @@ export default class MyList extends React.Component {
         this.onLeave = this.onLeave.bind(this);
         this._goToViewport = this._goToViewport.bind(this);
         this.findCoord = this.findCoord.bind(this);
-        this.updateViewport = this.updateViewport.bind(this);
+        this._updateViewport = this._updateViewport.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
     }
@@ -60,7 +62,7 @@ export default class MyList extends React.Component {
     }
     
     onHover(listing){
-        this._goToViewport(listing.venue.coordinates.lat, listing.venue.coordinates.long)
+        this._goToViewport(listing)
         //Find the right marker
         this.setState({
             listingHover: listing._id
@@ -69,14 +71,21 @@ export default class MyList extends React.Component {
     
     onLeave(){
         // Create variable to change property
-        let newViewport = this.state.viewport
-        newViewport.lat = this.props.center.lat
-        newViewport.lng = this.props.center.lng
-        newViewport.zoom = this.props.zoom
+		const viewport = {
+            ...this.state.viewport,
+            longitude: this.props.center.lng,
+          	latitude: this.props.center.lat,
+            zoom: this.props.zoom,
+			transitionDuration: this.props.transitionDuration,
+			transitionInterpolator: this.props.transitionInterpolator,
+			transitionEasing: this.props.transitionEasing
+        }
+		
+		console.log(viewport)
         //Reset markers
         this.setState({
             listingHover: '',
-            viewport: newViewport
+            viewport
         })
     }
     
@@ -115,19 +124,20 @@ export default class MyList extends React.Component {
         }
     }
     
-     _goToViewport(latitude, longitude){
-        this.updateViewport({
-          longitude: longitude,
-          latitude: latitude,
-          zoom: 14,
-            width: this.state.viewport.width,
-            height: this.state.viewport.height,
-          transitionInterpolator: experimental.viewportFlyToInterpolator,
-          transitionDuration: 3000
-        });
+     _goToViewport(listing){
+		 const viewport = {
+            ...this.state.viewport,
+            longitude: listing.venue.coordinates.long,
+          	latitude: listing.venue.coordinates.lat,
+            zoom: 14,
+			transitionDuration: this.props.transitionDuration,
+			transitionInterpolator: this.props.transitionInterpolator,
+			transitionEasing: this.props.transitionEasing
+        }
+        this.setState({viewport})
     }
     
-    updateViewport(v) {
+    _updateViewport(v) {
         this.setState({
             viewport: v
         })
@@ -144,7 +154,7 @@ export default class MyList extends React.Component {
                     <MyMap 
                         markers={this.state.markers} 
                         viewport ={this.state.viewport}
-                        updateViewport ={this.updateViewport}
+                        updateViewport ={this._updateViewport}
                         listingHover={this.state.listingHover} 
                         onHover={this.onHover}
                         onLeave={this.onLeave}
@@ -165,5 +175,8 @@ export default class MyList extends React.Component {
 MyList.defaultProps = {
     center: {lat: 40.7238556, lng: -73.9221523},
     zoom: 11,
-    token: process.env.MapboxAccessToken
+    token: process.env.MapboxAccessToken,
+	transitionDuration: 1000,
+	transitionInterpolator: new FlyToInterpolator(),
+	transitionEasing: d3.easeCubic
 };
