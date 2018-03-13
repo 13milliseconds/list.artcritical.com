@@ -119,10 +119,10 @@ export default class DeckGLOverlay extends Component {
       //getPosition: d => [d.x, d.y], //Using the projected coordinates
       //getIcon: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].icon : 'marker'),
       getColor: d => [0, 128, 255],
-    getRadius: d => 10,
-    opacity: 0.5,
-    pickable: true,
-    radiusMaxPixels: 30,//,
+      getRadius: d => 10,
+      opacity: 0.5,
+      pickable: true,
+      radiusMaxPixels: 30,//,
       //onHover: this.props.onHover,
       //onClick: this.props.onClick,
       //updateTriggers: {

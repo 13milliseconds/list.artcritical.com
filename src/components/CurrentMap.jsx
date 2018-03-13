@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+var d3 = require('d3-ease');
 import ListActions from '../actions/ListActions';
 //COMPONENTS
-import MapGL, {NavigationControl, Marker} from 'react-map-gl';
+import ReactMapGL, {LinearInterpolator, FlyToInterpolator} from 'react-map-gl';
 import DeckGLOverlay from './blocks/MapCluster';
 
 
@@ -23,7 +24,10 @@ export default class CurrentMap extends React.Component {
               }
         }
 		
+		
 		this.componentDidMount = this.componentDidMount.bind(this)
+		this._goToNYC = this._goToNYC.bind(this)
+		this._onViewportChange = this._onViewportChange.bind(this)
     }
 
     componentDidMount() {
@@ -38,6 +42,23 @@ export default class CurrentMap extends React.Component {
 			viewport: newViewport
           })
     }
+	
+	_onViewportChange(viewport) {
+		 this.setState({viewport});
+	}
+	
+	_goToNYC() {
+        const viewport = {
+            ...this.state.viewport,
+            longitude: this.props.center.lng,
+            latitude: this.props.center.lat,
+            zoom: this.props.zoom,
+            transitionDuration: 1000,
+            transitionInterpolator: new FlyToInterpolator(),
+            transitionEasing: d3.easeCubic
+        }
+        this.setState({viewport})
+    }
 
     render() {
 
@@ -45,15 +66,16 @@ export default class CurrentMap extends React.Component {
             <div className="currentMap">
 					{this.props.loading.current && <div className="loading">Loading...</div>}
 					{this.props.currentListings.length}
-                    <MapGL
+                    <ReactMapGL
 						{...this.state.viewport}
-						onViewportChange={(viewport) => this.setState({viewport})} >
+						onViewportChange={this._onViewportChange} >
 						<DeckGLOverlay
 						  viewport={this.state.viewport}
 						  data={this.props.currentListings}
 						  showCluster={false}
 						/>
-					</MapGL>
+					</ReactMapGL>
+				<button onClick={this._goToNYC}>Back to NYC</button>
             </div>
         );
     }

@@ -43,7 +43,7 @@ module.exports = {
                 'MapboxAccessToken': JSON.stringify(process.env.MapboxAccessToken),
             }
         }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin()
   ],
     devtool: '#source-map'
 };
