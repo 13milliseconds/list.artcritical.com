@@ -3833,6 +3833,7 @@ var ListingForm = function (_React$Component) {
         _this.onDeleteConfirm = _this.onDeleteConfirm.bind(_this);
         _this.onDismiss = _this.onDismiss.bind(_this);
         _this.toggle = _this.toggle.bind(_this);
+        _this.toggleDelete = _this.toggleDelete.bind(_this);
 
         return _this;
     }
@@ -3843,6 +3844,14 @@ var ListingForm = function (_React$Component) {
             this.setState({
                 modal: !this.state.modal,
                 updatevisible: !this.state.updatevisible
+            });
+        }
+    }, {
+        key: 'toggleDelete',
+        value: function toggleDelete() {
+            this.setState({
+                modal: !this.state.modal,
+                deletevisible: !this.state.deletevisible
             });
         }
     }, {
@@ -3926,7 +3935,7 @@ var ListingForm = function (_React$Component) {
                 _react2.default.createElement(
                     _reactstrap.ModalBody,
                     { toggle: this.toggle },
-                    !this.props.loading && !this.props.success && !this.props.error.general ? "Confirm this update?" : null,
+                    !this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press cancel to go back" : null,
                     this.props.loading && _react2.default.createElement(
                         'div',
                         { className: 'loading' },
@@ -3969,26 +3978,46 @@ var ListingForm = function (_React$Component) {
 
             var deleteModal = this.state.deletevisible ? _react2.default.createElement(
                 _reactstrap.Modal,
-                { isOpen: this.state.deletevisible, toggle: this.toggle },
+                { isOpen: this.state.deletevisible, toggle: this.toggleDelete },
                 _react2.default.createElement(
                     _reactstrap.ModalHeader,
-                    { toggle: this.toggle },
-                    'Modal title'
+                    { toggle: this.toggleDelete },
+                    'Delete Listing'
                 ),
                 _react2.default.createElement(
                     _reactstrap.ModalBody,
                     null,
-                    'Confirm this update?'
+                    !this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to DELETE this listing. Press cancel to go back" : null,
+                    this.props.loading && _react2.default.createElement(
+                        'div',
+                        { className: 'loading' },
+                        'loading'
+                    ),
+                    this.props.success && _react2.default.createElement(
+                        'div',
+                        { className: 'success' },
+                        'Saved!'
+                    ),
+                    this.props.error.general && _react2.default.createElement(
+                        'div',
+                        { className: 'error' },
+                        this.props.error.savelisting.general
+                    )
                 ),
                 _react2.default.createElement(
                     _reactstrap.ModalFooter,
                     null,
                     _react2.default.createElement(
                         _reactstrap.Button,
-                        { color: 'primary', onClick: this.props.handleSubmit },
-                        'Confirm'
+                        { color: 'primary', onClick: this.props.handleDelete },
+                        'Delete'
                     ),
-                    ' '
+                    ' ',
+                    _react2.default.createElement(
+                        _reactstrap.Button,
+                        { color: 'primary', onClick: this.toggleDelete },
+                        'Cancel'
+                    )
                 )
             ) : null;
 

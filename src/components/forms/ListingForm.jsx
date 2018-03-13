@@ -32,6 +32,7 @@ export default class ListingForm extends React.Component {
         this.onDeleteConfirm = this.onDeleteConfirm.bind(this);
         this.onDismiss = this.onDismiss.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.toggleDelete = this.toggleDelete.bind(this);
 
       }
 
@@ -41,6 +42,14 @@ export default class ListingForm extends React.Component {
           updatevisible: !this.state.updatevisible
         });
       }
+
+    toggleDelete() {
+        this.setState({
+          modal: !this.state.modal,
+          deletevisible: !this.state.deletevisible
+        });
+    }
+
 
     onDismiss() {
         this.setState({ updatevisible: false });
@@ -110,7 +119,7 @@ export default class ListingForm extends React.Component {
         let updateModal = this.state.updatevisible ? 
                 <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
                               <ModalBody toggle={this.toggle}>
-                                {!this.props.loading && !this.props.success && !this.props.error.general ? "Confirm this update?" : null}
+                                {!this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press cancel to go back" : null}
 
                                 {this.props.loading && 
                                 <div className='loading'>loading</div>
@@ -139,13 +148,24 @@ export default class ListingForm extends React.Component {
                 null
 
         let deleteModal = this.state.deletevisible ?
-                <Modal isOpen={this.state.deletevisible} toggle={this.toggle}>
-                              <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                <Modal isOpen={this.state.deletevisible} toggle={this.toggleDelete}>
+                              <ModalHeader toggle={this.toggleDelete}>Delete Listing</ModalHeader>
                               <ModalBody>
-                                Confirm this update? 
+                               {!this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to DELETE this listing. Press cancel to go back" : null}
+
+                                {this.props.loading && 
+                                <div className='loading'>loading</div>
+                                }
+                                {this.props.success && 
+                                    <div className='success'>Saved!</div>
+                                }
+                                {this.props.error.general && 
+                                    <div className='error'>{this.props.error.savelisting.general}</div>
+                                }
                               </ModalBody>
                               <ModalFooter>
-                                <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>{' '}
+                                <Button color="primary" onClick={this.props.handleDelete}>Delete</Button>{' '}
+                                <Button color="primary" onClick={this.toggleDelete}>Cancel</Button>
                               </ModalFooter>
                 </Modal> 
             :
