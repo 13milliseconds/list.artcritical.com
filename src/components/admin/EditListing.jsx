@@ -103,7 +103,9 @@ export default class ListingEdit extends React.Component {
                         handleDelete={this.handleDelete} 
                         error={this.props.error.updatelisting} 
                         loading={this.props.loading.updatelisting}
-                        success={this.props.success.updatelisting}/>
+                        success={this.props.success.updatelisting}
+                        deleteitem={this.props.success.deletelisting}
+                        savelisting={this.props.success.savelisting}/>
                 </div>
             </div>
         );

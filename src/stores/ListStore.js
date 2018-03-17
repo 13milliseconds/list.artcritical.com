@@ -329,6 +329,7 @@ class ListStore {
     onDeleteListingSuccess(data){
         console.log('Deleted');  
 		//Reset the listing data
+        this.success.deletelisting = true;
 		this.listingEdit = {
             venue: {},
         };
