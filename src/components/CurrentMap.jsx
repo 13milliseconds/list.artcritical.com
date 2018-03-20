@@ -22,7 +22,7 @@ export default class CurrentMap extends React.Component {
                 bearing: 0,
                 pitch: 0,
                 width: 0,
-                height: 500,
+                height: 0,
 				transitionDuration: this.props.transitionDuration,
             	transitionInterpolator: this.props.transitionInterpolator,
             	transitionEasing: this.props.transitionEasing
@@ -49,7 +49,8 @@ export default class CurrentMap extends React.Component {
 		// Create variable to change property
         const viewport = {
 			...this.state.viewport,
-			width: ReactDOM.findDOMNode(this).offsetWidth
+			width: window.innerWidth,//ReactDOM.findDOMNode(this).offsetWidth
+			height: window.innerHeight
 		}
         //Update state
         this.setState({

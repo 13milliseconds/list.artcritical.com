@@ -19,7 +19,7 @@ export default class DateSingle extends React.Component {
                id="startDate"
                isOutsideRange={() => false}
               date={this.props.startDate ? moment(this.props.startDate) : null}  
-              onDateChange={date => this.props.onDatesChange({date})} // PropTypes.func.isRequired
+              onDateChange={date => this.props.onDatesChange({date, index: this.props.event})} // PropTypes.func.isRequired
               focused={this.state.focused} // PropTypes.bool
               onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
             />

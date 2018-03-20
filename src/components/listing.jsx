@@ -7,9 +7,14 @@ export default class Listing extends React.Component {
     
     constructor(props) {
         super(props);
+
+        this.state = {
+            fullInfo: false
+        }
         
         // Function binding
-        this.addToList = this.addToList.bind(this);
+        this.revealInfo = this.revealInfo.bind(this)
+        this.addToList = this.addToList.bind(this)
     }
     
     //Function to add a listing to the personal list
@@ -24,6 +29,23 @@ export default class Listing extends React.Component {
 
             thislisting.toggleClass('selected');
         }
+    }
+
+    revealInfo(){
+        console.log('Show me the stuff')
+        const newReveal = !this.state.fullInfo
+        this.setState({
+            fullInfo: newReveal
+        })
+    }
+
+    eventsDisplay(events){
+        return events.map((event, index) => {
+            return <div className="event" key={index}>
+                    <i className="fal fa-glass-martini"></i> {event.name} {this.props.start && <Date date={event.date} /> } {event.description && '- ' + event.description}
+            </div>
+        })
+
     }
         
     render() {
@@ -56,33 +78,36 @@ export default class Listing extends React.Component {
       
       
     return (
-      <div className = {mylistIndex > 0 ? 'listing selected' : 'listing notselected' } id={this.props._id}>
-        <div className="listingAdd">
-            <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, this.props)} style={style}>
-                {this.props.user._id && <i className = {mylistIndex > 0 ? 'fa fa-minus' : 'fa fa-plus' } aria-hidden="true"></i>}
+        <div className = {"listing " + (this.state.fullInfo && 'active ') + (mylistIndex > 0 ? 'selected' : 'notselected') } id={this.props._id}>
+            <div className="listingAdd">
+                <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, this.props)} style={style}>
+                    {this.props.user._id && <i className = {mylistIndex > 0 ? 'fa fa-minus' : 'fa fa-plus' } aria-hidden="true"></i>}
+                </div>
             </div>
-        </div>
-        <div className = "listingContent">
-            <div className="header">
-                <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue.slug}>{this.props.venue.name}</a></p>
-				{this.props.popularity >= 5 && <div className="popular">Popular</div>}
-                {dateDisplay}
-                
+            <div className = "listingContent">
+                <div className="header">
+                    <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue.slug}>{this.props.venue.name}</a></p>
+                    {this.props.popularity >= 5 && <div className="popular">Popular</div>}
+                    {dateDisplay}
+                    {this.props.events && <div className="events">
+                        {this.eventsDisplay(this.props.events)}
+                    </div>}
+                </div>
+                {this.state.fullInfo &&
+                    <div className="moreInfo">
+                        <p>{this.props.description}</p>
+                        <p>{this.props.receptionnotes}</p>
+                    </div>
+                }
             </div>
-            <div className="moreInfo">
-                <p>{this.props.description}</p>
-                <p>{this.props.receptionnotes}</p>
+            {this.props.description || this.props.receptionnotes ? 
+            <div className="listingClose" onClick={this.revealInfo}>
+            {this.state.fullInfo? <div><i  className="fal fa-minus-square"></i></div> : <div><i  className="fal fa-plus-square"></i></div>}
             </div>
+                    :
+                <div className="listingClose"></div>
+            }
         </div>
-        {this.props.description || this.props.receptionnotes ? 
-        <div className="listingClose">
-            <i className="fa fa-plus-square-o" aria-hidden="true"></i>
-            <i className="fa fa-minus-square-o" aria-hidden="true"></i>
-        </div>
-                :
-            <div className="listingClose"></div>
-        }
-      </div>
     );
   }
 }

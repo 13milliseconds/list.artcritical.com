@@ -11,6 +11,7 @@ import DateRange from './formDateRange'
 import DateSingle from './formDateSingle'
 import Select from './formSelect'
 import ThumbnailInput from './ThumbnailInput'
+import EventsForm from './EventsForm'
 
 
 
@@ -89,6 +90,7 @@ export default class ListingForm extends React.Component {
 
 
     handleChange (event) {
+        console.log(event);
         //Update values of inputs
         ListActions.listingInfoChange(event);
     }
@@ -115,8 +117,6 @@ export default class ListingForm extends React.Component {
 
     
     render() {
-
-        console.log(this.props.success)
         
         //how to get option for select element
         const getOptions = (input) => {
@@ -259,7 +259,8 @@ export default class ListingForm extends React.Component {
                     <FormGroup check>
                         <Label> Dates </Label>
                         <div className="formSection">
-                           {this.props.event ? //If an event
+                           {this.props.event 
+                                ? //If an event
                                 <DateSingle startDate={this.props.start} onDatesChange={this.handleChange}/>
                                 : // If not an event
                                 <DateRange startDate={this.props.start} endDate={this.props.end} onDatesChange={this.handleChange}/>
@@ -270,6 +271,12 @@ export default class ListingForm extends React.Component {
                         <Label>Description</Label>
                         <div className="formSection">
                             <Input type="textarea" name="description" value={this.props.description} onChange={this.handleChange} />
+                        </div>
+                    </FormGroup>
+                    <FormGroup check>
+                        <Label>Events</Label>
+                        <div className="formSection">
+                            <EventsForm events={this.props.events? this.props.events : []}/>
                         </div>
                     </FormGroup>
                      <FormGroup check>

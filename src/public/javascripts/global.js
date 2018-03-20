@@ -8,7 +8,6 @@ var s,
     ListWidget = {
         settings: {
             appContainer: $('#thelist'),
-            listingOpen: '.listingClose i',
             listingAdd: '.addButton'
         },
 
@@ -20,20 +19,6 @@ var s,
         init: function init() {
             s = this.settings;
             this.actionBinding();
-        },
-		
-        revealListing: function (event) {
-            //Select this listing
-            var thislisting = $(event.target).closest('.listing');
-            if (thislisting.hasClass('active')){
-                //Close the currently open tab
-                $(thislisting).removeClass('active');
-            } else {
-                //Close the currently open tab
-                $('.listing.active').removeClass('active');
-                //Open this listing
-                $(thislisting).addClass('active');
-            }
         },
 		
         selectListing: function (event) {

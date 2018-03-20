@@ -537,7 +537,19 @@ class ListActions {
 	
 	adminReset(){
 		return;
-	}
+    }
+
+    ////////////////////
+    //EVENTS
+    ////////////////////
+    
+    addEvent(){
+        return true;
+    }
+
+    eventsInfoChange(event){
+        return event;
+    }
     
 }
 

@@ -39,6 +39,7 @@ class ListStore {
         this.listingEdit.description = '';
         this.listingEdit.text = '';
         this.listingEdit.event = false;
+        this.listingEdit.events = [];
         this.listingEdit.venue = {};
         this.listingEdit.venue._id = '';
         this.listingEdit.venue.address = '';
@@ -145,7 +146,9 @@ class ListStore {
     // Reset listing edit
     onListingEditReset(){
         this.listingEdit = {
-            venue: {},
+            name: '',
+            events: [],
+            venue: {}
         };
     }
 	
@@ -159,6 +162,7 @@ class ListStore {
             _id: '',
             description: '',
             text: '',
+            events: [],
             venue: {},
             end: null,
             start: null
@@ -183,6 +187,9 @@ class ListStore {
     onGetListingInfoSuccess(info){
 		console.log('Listing info loaded', info);
         this.listingEdit = info.data;
+        if (!this.listingEdit.events){
+            this.listingEdit.events = [];
+        }
 		// Need to explain this
 		if (info.i){
 			console.log('Feature listing');
@@ -639,6 +646,27 @@ class ListStore {
     }
     onThumbnailUploadFailure(err){
         console.log('Error: ', err);
+    }
+
+    //EVENTS
+    onAddEvent(){
+        console.log("Adding an empty event");
+        this.listingEdit.events.push({
+            name: "",
+            description: "",
+            type: "",
+            date: ""
+        });
+    }
+    onEventsInfoChange(event){
+        if (event.target){
+            const type = event.target.name;
+            const index = event.target.dataset.index;
+            this.listingEdit.events[index][type] = event.target.value;
+        } else if (event.date){
+            this.listingEdit.events[event.index].date = event.date;
+        }
+        
     }
 }
 

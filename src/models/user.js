@@ -23,7 +23,7 @@ var userSchema = mongoose.Schema({
 	website: String,
 	createdOn: {type: Date, default: Date.now},
 	lastConnection: {type: Date},
-    mylist: [{type: String, ref: 'List'}],
+    mylist: [{type: String, ref: 'List'}]
 });
 
 userSchema.methods.generateHash = function(password) {  

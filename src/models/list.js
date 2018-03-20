@@ -3,6 +3,13 @@ var mongoose = require('mongoose')
 
 // Create the Listings table ==================================
 
+var eventSchema = new Schema({ 
+    name: String,
+    type: String,
+    date: {type: Date},
+    description: String 
+});
+
 var listingSchema = mongoose.Schema({
     name: String,
     start: Date,
@@ -13,7 +20,6 @@ var listingSchema = mongoose.Schema({
 		ref: 'Venue'
       },
     event: Boolean,
-    events: [],
     image: String,
     thumb: String,
 	popularity: Number,
@@ -26,7 +32,8 @@ var listingSchema = mongoose.Schema({
 	updated_by: {
         type: String,
 		ref: 'User'
-    }
+    },
+    events: [eventSchema]
 });
 
 //compile the model
