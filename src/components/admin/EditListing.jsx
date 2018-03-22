@@ -24,13 +24,21 @@ export default class ListingEdit extends React.Component {
     
     // Add the listing to the database
     handleSubmit(event) {
-            event.preventDefault();
+        event.preventDefault();
+        let newListing = this.props.listingEdit
+
+        //Check and save only events that have a date
+        let allEvents = []
+        newListing.events.map(event => {
+            if (event.date){allEvents.push(event)}
+        })
+        newListing.events = allEvents
+
 		if (this.props.listingEdit._id){
 			//Edit the current listing
-			ListActions.updateListing(this.props.listingEdit)
+			ListActions.updateListing(newListing)
 		} else {	
 			//Create a new Listing
-			let newListing = this.props.listingEdit
 			delete newListing._id
 			newListing.venue = newListing.venue._id
 			newListing.neighborhood = newListing.venue.neighborhood

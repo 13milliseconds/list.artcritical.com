@@ -160,10 +160,10 @@ export default class ListingForm extends React.Component {
             : 
                 null
 
-        let updateModal = this.state.updatevisible ? 
+        let updateModal = this.state.updatevisible &&
                 <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
                             <ModalHeader toggle={this.toggle}>Update Listing</ModalHeader>
-                              <ModalBody toggle={this.toggle}>
+                              <ModalBody>
                                 {!this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null}
 
                                 {this.props.loading && 
@@ -189,10 +189,8 @@ export default class ListingForm extends React.Component {
                                 
                               </ModalFooter>
                 </Modal> 
-            : 
-                null
 
-        let deleteModal = this.state.deletevisible ?
+        let deleteModal = this.state.deletevisible &&
                 <Modal isOpen={this.state.deletevisible} toggle={this.toggleDelete}>
                               <ModalHeader toggle={this.toggleDelete}>Delete Listing</ModalHeader>
                               <ModalBody>
@@ -217,9 +215,7 @@ export default class ListingForm extends React.Component {
                                 }
                                 
                               </ModalFooter>
-                </Modal> 
-            :
-                null
+                </Modal>
 
         
         let deleteButton = this.props.handleDelete ?

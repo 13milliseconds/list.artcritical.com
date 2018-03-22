@@ -35,10 +35,10 @@ export default class ImageUpload extends React.Component {
     return (
         <Dropzone
             activeClassName='formSection'
-            style={inlineStyles}
-              multiple={false}
-              accept="image/*"
-              onDrop={this.props.onImageDrop}
+            className="imageDrop"
+            multiple={false}
+            accept="image/*"
+            onDrop={(accepted, rejected) => this.props.onImageDrop(accepted, rejected)}
 			onDragEnter={this.onDragEnter.bind(this)}
 			onDragLeave={this.onDragLeave.bind(this)}
 			onClick={this.onAvatarClick}>

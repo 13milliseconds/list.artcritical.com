@@ -8,6 +8,5 @@
 }(document, 'script', 'facebook-jssdk'));
 
  window.fbAsyncInit = function(){  // this gets triggered when FB object gets initialized
-	console.log("FB Object initiated");
 	FB.XFBML.parse(); // now we can safely call parse method
 };

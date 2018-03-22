@@ -650,13 +650,15 @@ class ListStore {
 
     //EVENTS
     onAddEvent(){
-        console.log("Adding an empty event");
         this.listingEdit.events.push({
             name: "",
             description: "",
             type: "",
             date: ""
         });
+    }
+    onRemoveEvent(index){
+        this.listingEdit.events.splice(index, 1);
     }
     onEventsInfoChange(event){
         if (event.target){

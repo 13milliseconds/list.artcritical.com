@@ -2197,6 +2197,28 @@ input.invalid {
 }
 
 /* line 689, ../scss/breakpoints/_base.scss */
+.eventsform .event select {
+  width: auto;
+  padding: 0 30px 0 10px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+/* line 697, ../scss/breakpoints/_base.scss */
+.iconLink {
+  margin-right: 10px;
+  cursor: pointer;
+}
+/* line 700, ../scss/breakpoints/_base.scss */
+.iconLink:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+/* line 706, ../scss/breakpoints/_base.scss */
 #listingForm {
   padding-right: 50px;
   display: block;
@@ -2208,34 +2230,52 @@ input.invalid {
   display: block;
 }
 
-/* line 695, ../scss/breakpoints/_base.scss */
+/* line 712, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing {
   width: 100%;
   border: 1px solid grey;
   padding-top: 20px;
 }
-/* line 699, ../scss/breakpoints/_base.scss */
+/* line 716, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing .moreInfo {
   display: block;
 }
 
-/* line 705, ../scss/breakpoints/_base.scss */
+/* line 722, ../scss/breakpoints/_base.scss */
 #ListingList, #ListingInfo {
   width: 50%;
   float: left;
 }
 
-/* line 709, ../scss/breakpoints/_base.scss */
+/* line 726, ../scss/breakpoints/_base.scss */
 #ListingList {
   padding-right: 50px;
 }
 
-/* line 714, ../scss/breakpoints/_base.scss */
+/* line 731, ../scss/breakpoints/_base.scss */
 .editVenue .venueList {
   padding-bottom: 20px;
 }
 
-/* line 720, ../scss/breakpoints/_base.scss */
+/* line 736, ../scss/breakpoints/_base.scss */
+.imageDrop {
+  width: 100%;
+  height: 70px;
+  border: 2px dotted #323944;
+  background: #eaedf2;
+  border-radius: 20px;
+  padding: 20px;
+}
+/* line 743, ../scss/breakpoints/_base.scss */
+.imageDrop.formSection {
+  border-color: #019476;
+}
+/* line 745, ../scss/breakpoints/_base.scss */
+.imageDrop.formSection p {
+  display: none;
+}
+
+/* line 752, ../scss/breakpoints/_base.scss */
 input::-webkit-input-placeholder,
 option {
   color: #C9C9C9;
@@ -2244,7 +2284,7 @@ option {
 /*********************
 GRID
 *********************/
-/* line 729, ../scss/breakpoints/_base.scss */
+/* line 761, ../scss/breakpoints/_base.scss */
 .d-1of2 {
   float: left;
   width: 50%;

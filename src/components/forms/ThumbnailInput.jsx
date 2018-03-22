@@ -15,13 +15,19 @@ export default class Thumbnail extends React.Component {
         
     }
     
-    onImageDrop(file) {
-        this.setState({
-            uploadedFile: file[0],
-            isUploading: true
-        });
+    onImageDrop(accepted, rejected) {
+        console.log(accepted, rejected)
+        if (accepted.length){
+            this.setState({
+                uploadedFile: accepted[0],
+                isUploading: true
+            });
+            
+            ImagesActions.handleThumbnailUpload(accepted[0], this.props.number);
+        } else {
+            console.log('Wrong file type!')
+        }
         
-        ImagesActions.handleThumbnailUpload(file[0], this.props.number);
     }
     
         

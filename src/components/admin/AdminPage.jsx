@@ -34,6 +34,7 @@ export default class AdminPage extends React.Component {
 					<header>
 						<h2>Admin</h2>
 						<p>You do not have the necessary privileges to access this page.</p>
+                        <LogInForm/>
 					</header>
 				</div>
         

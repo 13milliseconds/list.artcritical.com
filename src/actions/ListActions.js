@@ -547,6 +547,10 @@ class ListActions {
         return true;
     }
 
+    removeEvent(index){
+        return index;
+    }
+
     eventsInfoChange(event){
         return event;
     }

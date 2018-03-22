@@ -17,15 +17,19 @@ export default class EventsForm extends React.Component {
             ListActions.eventsInfoChange(e);
     }
 
-    addEvent(e) {
-        e.preventDefault()
+    addEvent() {
         ListActions.addEvent()
+    }
+
+    removeEvent(index) {
+        ListActions.removeEvent(index)
     }
         
     render() {
 
         let eventsList = events => events.map((event, index) => {
             return <div className="event" key={index}>
+                <div className="eventInfo">
                     <select
                         name="type"
                         value={event.type? event.type : "no-value"}
@@ -35,6 +39,7 @@ export default class EventsForm extends React.Component {
                         <option value="closing">Closing</option>
                         <option value="other">Other</option>
                     </select>
+                    <DateSingle event={index} startDate={event.date} onDatesChange={this.onChange}/>
                     {event.type === "other" &&
                         <input 
                         type="text" 
@@ -43,13 +48,19 @@ export default class EventsForm extends React.Component {
                         value={event.name}
                         onChange={this.onChange} />
                     }
-                    <DateSingle event={index} startDate={event.date} onDatesChange={this.onChange}/>
                     <textarea 
                         name="description" 
                         value={event.description}
                         data-index={index}
                         onChange={this.onChange}>
                     </textarea>
+                    </div>
+                    <div className="moreOrLess">
+                    <a className="iconLink" onClick={e => this.removeEvent(index)}><i className="fal fa-minus-circle"></i></a>
+                    {index === (events.length - 1) && 
+                        <a className="iconLink" onClick={this.addEvent}><i className="fal fa-plus-circle"></i></a>
+                    }
+                    </div>
             </div>
         })
 
@@ -58,10 +69,9 @@ export default class EventsForm extends React.Component {
             <div className="eventsWrap">
             {this.props.events.length > 0
                 ? eventsList(this.props.events)
-                : "No event"
+                : <a className="iconLink" onClick={this.addEvent}><i className="fal fa-plus-circle"></i></a>
             }
             </div>
-            <button onClick={this.addEvent}>Add Event</button>
             </div>
         )
   }

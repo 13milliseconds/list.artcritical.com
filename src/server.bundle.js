@@ -571,6 +571,11 @@ var ListActions = function () {
             return true;
         }
     }, {
+        key: 'removeEvent',
+        value: function removeEvent(index) {
+            return index;
+        }
+    }, {
         key: 'eventsInfoChange',
         value: function eventsInfoChange(event) {
             return event;
@@ -2671,13 +2676,17 @@ var ListStore = function () {
     }, {
         key: 'onAddEvent',
         value: function onAddEvent() {
-            console.log("Adding an empty event");
             this.listingEdit.events.push({
                 name: "",
                 description: "",
                 type: "",
                 date: ""
             });
+        }
+    }, {
+        key: 'onRemoveEvent',
+        value: function onRemoveEvent(index) {
+            this.listingEdit.events.splice(index, 1);
         }
     }, {
         key: 'onEventsInfoChange',
@@ -4101,7 +4110,7 @@ var ListingForm = function (_React$Component) {
                 )
             ) : null;
 
-            var updateModal = this.state.updatevisible ? _react2.default.createElement(
+            var updateModal = this.state.updatevisible && _react2.default.createElement(
                 _reactstrap.Modal,
                 { isOpen: this.state.updatevisible, toggle: this.toggle },
                 _react2.default.createElement(
@@ -4111,7 +4120,7 @@ var ListingForm = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     _reactstrap.ModalBody,
-                    { toggle: this.toggle },
+                    null,
                     !this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null,
                     this.props.loading && _react2.default.createElement(
                         'div',
@@ -4151,9 +4160,9 @@ var ListingForm = function (_React$Component) {
                         'Close'
                     )
                 )
-            ) : null;
+            );
 
-            var deleteModal = this.state.deletevisible ? _react2.default.createElement(
+            var deleteModal = this.state.deletevisible && _react2.default.createElement(
                 _reactstrap.Modal,
                 { isOpen: this.state.deletevisible, toggle: this.toggleDelete },
                 _react2.default.createElement(
@@ -4199,7 +4208,7 @@ var ListingForm = function (_React$Component) {
                         'Close'
                     )
                 )
-            ) : null;
+            );
 
             var deleteButton = this.props.handleDelete ? _react2.default.createElement(
                 _reactstrap.Button,
@@ -4465,13 +4474,18 @@ var Thumbnail = function (_React$Component) {
 
     _createClass(Thumbnail, [{
         key: 'onImageDrop',
-        value: function onImageDrop(file) {
-            this.setState({
-                uploadedFile: file[0],
-                isUploading: true
-            });
+        value: function onImageDrop(accepted, rejected) {
+            console.log(accepted, rejected);
+            if (accepted.length) {
+                this.setState({
+                    uploadedFile: accepted[0],
+                    isUploading: true
+                });
 
-            _ImagesActions2.default.handleThumbnailUpload(file[0], this.props.number);
+                _ImagesActions2.default.handleThumbnailUpload(accepted[0], this.props.number);
+            } else {
+                console.log('Wrong file type!');
+            }
         }
     }, {
         key: 'render',
@@ -4566,6 +4580,8 @@ var ImageUpload = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var inlineStyles = {
                 width: '200px',
                 height: '200px',
@@ -4576,10 +4592,12 @@ var ImageUpload = function (_React$Component) {
                 _reactDropzone2.default,
                 {
                     activeClassName: 'formSection',
-                    style: inlineStyles,
+                    className: 'imageDrop',
                     multiple: false,
                     accept: 'image/*',
-                    onDrop: this.props.onImageDrop,
+                    onDrop: function onDrop(accepted, rejected) {
+                        return _this2.props.onImageDrop(accepted, rejected);
+                    },
                     onDragEnter: this.onDragEnter.bind(this),
                     onDragLeave: this.onDragLeave.bind(this),
                     onClick: this.onAvatarClick },
@@ -9309,7 +9327,8 @@ var AdminPage = function (_React$Component) {
                         'p',
                         null,
                         'You do not have the necessary privileges to access this page.'
-                    )
+                    ),
+                    _react2.default.createElement(_LogInForm2.default, null)
                 )
             );
 
@@ -9454,17 +9473,10 @@ var NewListing = function (_React$Component) {
     }, {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
-            var newListing = {
-                name: this.props.listingEdit.name,
-                event: this.props.listingEdit.event,
-                start: this.props.listingEdit.start,
-                end: this.props.listingEdit.end,
+            var newListing = _extends({}, listingEdit, {
                 venue: this.props.listingEdit.venue._id,
-                website: this.props.listingEdit.website,
-                description: this.props.listingEdit.description,
-                neighborhood: this.props.listingEdit.venue.neighborhood,
-                image: this.props.listingEdit.image
-            };
+                neighborhood: this.props.listingEdit.venue.neighborhood
+            });
             _ListActions2.default.saveListing(newListing);
         }
     }, {
@@ -9653,9 +9665,13 @@ var EventsForm = function (_React$Component) {
         }
     }, {
         key: 'addEvent',
-        value: function addEvent(e) {
-            e.preventDefault();
+        value: function addEvent() {
             _ListActions2.default.addEvent();
+        }
+    }, {
+        key: 'removeEvent',
+        value: function removeEvent(index) {
+            _ListActions2.default.removeEvent(index);
         }
     }, {
         key: 'render',
@@ -9668,40 +9684,60 @@ var EventsForm = function (_React$Component) {
                         'div',
                         { className: 'event', key: index },
                         _react2.default.createElement(
-                            'select',
-                            {
-                                name: 'type',
-                                value: event.type ? event.type : "no-value",
+                            'div',
+                            { className: 'eventInfo' },
+                            _react2.default.createElement(
+                                'select',
+                                {
+                                    name: 'type',
+                                    value: event.type ? event.type : "no-value",
+                                    'data-index': index,
+                                    onChange: _this2.onChange },
+                                _react2.default.createElement(
+                                    'option',
+                                    { value: 'opening' },
+                                    'Opening'
+                                ),
+                                _react2.default.createElement(
+                                    'option',
+                                    { value: 'closing' },
+                                    'Closing'
+                                ),
+                                _react2.default.createElement(
+                                    'option',
+                                    { value: 'other' },
+                                    'Other'
+                                )
+                            ),
+                            _react2.default.createElement(_formDateSingle2.default, { event: index, startDate: event.date, onDatesChange: _this2.onChange }),
+                            event.type === "other" && _react2.default.createElement('input', {
+                                type: 'text',
+                                name: 'name',
                                 'data-index': index,
-                                onChange: _this2.onChange },
-                            _react2.default.createElement(
-                                'option',
-                                { value: 'opening' },
-                                'Opening'
-                            ),
-                            _react2.default.createElement(
-                                'option',
-                                { value: 'closing' },
-                                'Closing'
-                            ),
-                            _react2.default.createElement(
-                                'option',
-                                { value: 'other' },
-                                'Other'
-                            )
+                                value: event.name,
+                                onChange: _this2.onChange }),
+                            _react2.default.createElement('textarea', {
+                                name: 'description',
+                                value: event.description,
+                                'data-index': index,
+                                onChange: _this2.onChange })
                         ),
-                        event.type === "other" && _react2.default.createElement('input', {
-                            type: 'text',
-                            name: 'name',
-                            'data-index': index,
-                            value: event.name,
-                            onChange: _this2.onChange }),
-                        _react2.default.createElement(_formDateSingle2.default, { event: index, startDate: event.date, onDatesChange: _this2.onChange }),
-                        _react2.default.createElement('textarea', {
-                            name: 'description',
-                            value: event.description,
-                            'data-index': index,
-                            onChange: _this2.onChange })
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'moreOrLess' },
+                            _react2.default.createElement(
+                                'a',
+                                { className: 'iconLink', onClick: function onClick(e) {
+                                        return _this2.removeEvent(index);
+                                    } },
+                                _react2.default.createElement('i', { className: 'fal fa-minus-circle' })
+                            ),
+                            index === events.length - 1 && _react2.default.createElement(
+                                'a',
+                                { className: 'iconLink', onClick: _this2.addEvent },
+                                _react2.default.createElement('i', { className: 'fal fa-plus-circle' })
+                            )
+                        )
                     );
                 });
             };
@@ -9712,12 +9748,11 @@ var EventsForm = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'eventsWrap' },
-                    this.props.events.length > 0 ? eventsList(this.props.events) : "No event"
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { onClick: this.addEvent },
-                    'Add Event'
+                    this.props.events.length > 0 ? eventsList(this.props.events) : _react2.default.createElement(
+                        'a',
+                        { className: 'iconLink', onClick: this.addEvent },
+                        _react2.default.createElement('i', { className: 'fal fa-plus-circle' })
+                    )
                 )
             );
         }
@@ -9803,12 +9838,22 @@ var ListingEdit = function (_React$Component) {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
             event.preventDefault();
+            var newListing = this.props.listingEdit;
+
+            //Check and save only events that have a date
+            var allEvents = [];
+            newListing.events.map(function (event) {
+                if (event.date) {
+                    allEvents.push(event);
+                }
+            });
+            newListing.events = allEvents;
+
             if (this.props.listingEdit._id) {
                 //Edit the current listing
-                _ListActions2.default.updateListing(this.props.listingEdit);
+                _ListActions2.default.updateListing(newListing);
             } else {
                 //Create a new Listing
-                var newListing = this.props.listingEdit;
                 delete newListing._id;
                 newListing.venue = newListing.venue._id;
                 newListing.neighborhood = newListing.venue.neighborhood;
