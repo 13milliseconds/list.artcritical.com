@@ -4,6 +4,7 @@ import ListActions from '../actions/ListActions';
 //COMPONENTS
 import ReactMapGL, {LinearInterpolator, FlyToInterpolator} from 'react-map-gl';
 import DeckGLOverlay from './blocks/MapCluster';
+import Listing from './listing'
 import {json as requestJson} from 'd3-request';
 
 var d3 = require('d3-ease');
@@ -40,6 +41,8 @@ export default class CurrentMap extends React.Component {
 		this.componentDidMount = this.componentDidMount.bind(this)
 		this._goToNYC = this._goToNYC.bind(this)
 		this._onViewportChange = this._onViewportChange.bind(this)
+		this._onHover = this._onHover.bind(this)
+		this._onClick = this._onClick.bind(this)
     }
 
     componentDidMount() {
@@ -73,25 +76,54 @@ export default class CurrentMap extends React.Component {
 			transitionEasing: this.props.transitionEasing
         }
         this.setState({viewport})
+	}
+	_goToPhil() {
+        const viewport = {
+            ...this.state.viewport,
+            longitude: 40.0026767,
+            latitude: -75.2581144,
+            zoom: this.props.zoom,
+			transitionDuration: this.props.transitionDuration,
+			transitionInterpolator: this.props.transitionInterpolator,
+			transitionEasing: this.props.transitionEasing
+        }
+        this.setState({viewport})
     }
 	
 	_onHover(el) {
-		console.log('Hover: ', el.object.name)
+		if (el.object) {
+			console.log('Hover: ', el.object.zoomLevels[Math.round(this.state.viewport.zoom)].points)
+		}
 	}
 	
 	_onClick(el) {
-		console.log('Clicked: ', el.object.name)
+		//When clicked, the state gets the list of events
+		this.setState({
+			browseListings: el.object.zoomLevels[Math.round(this.state.viewport.zoom)].points
+		})
 	}
 
     render() {
 
+		let displayListings = (listings) => listings.map((listing, index) => {
+			return <Listing key={index} {...listing} user={this.props.user} dateView="current"/>
+		})
+
         return ( 
             <div className="currentMap">
-					{this.props.loading.current && <div className="loading">Loading...</div>}
-					<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
+					<div className="mapInfo">
+						{this.props.loading.current && <div className="loading">Loading...</div>}
+						<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
+						<div className="cityJump">
+							<button onClick={this._goToNYC}>New York City</button>
+							<button onClick={this._goToPhil}>Philadelphia</button>
+						</div>
+					</div>
+					<div className="mapWrap"> 
                     <ReactMapGL
 						{...this.state.viewport}
-						onViewportChange={this._onViewportChange} >
+						onViewportChange={this._onViewportChange}
+						onClick={console.log('clicked')} >
 						<DeckGLOverlay
 						  viewport={this.state.viewport}
 						  data={this.props.currentListings}
@@ -99,10 +131,19 @@ export default class CurrentMap extends React.Component {
           				  iconMapping={this.state.iconMapping}
 						  showCluster={true}
 						  onHover={this._onHover}
-						  onClick={this._onClick}
 						/>
 					</ReactMapGL>
-				<button onClick={this._goToNYC}>Back to NYC</button>
+					</div> 
+					<div className={this.props.view + " list"}>
+						{this.state.browseListings?
+							displayListings(this.state.browseListings)
+							:
+							<div className="intro">
+							<h2>Welcome to the artcritical map</h2>
+							<p>Click on markers to explore all the shows currently open in New York City and beyond.</p>
+							</div>
+						}
+					</div>
             </div>
         );
     }

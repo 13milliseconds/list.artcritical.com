@@ -75,7 +75,6 @@ export default class ListingForm extends React.Component {
      //confirm alert
     onDeleteConfirm(event) {
         event.preventDefault();
-        console.log(this.props)
         this.setState({ 
             deletevisible: true
         });
@@ -90,7 +89,6 @@ export default class ListingForm extends React.Component {
 
 
     handleChange (event) {
-        console.log(event);
         //Update values of inputs
         ListActions.listingInfoChange(event);
     }

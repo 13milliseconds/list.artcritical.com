@@ -6,6 +6,7 @@ import ListActions from '../actions/ListActions';
 import Listing from './listing.jsx';
 import Date from './blocks/DateBlock.jsx';
 import SizeSelector from './blocks/sizeSelector';
+import DayPicker from './forms/DayPicker';
 
 
 export default class EventsPage extends React.Component {
@@ -39,7 +40,7 @@ export default class EventsPage extends React.Component {
         return ( 
             <div className="events mainList">
             <div className="left-col">
-				Calendar
+				<DayPicker events={this.props.eventsListings} />
 			</div>
             <div className={this.props.view + " listingsWrap main-col"}>
                 {this.props.eventsListings.length ? thelist : "No Future Events"}
