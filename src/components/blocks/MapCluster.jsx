@@ -20,7 +20,7 @@ function getIconName(size) {
 }
 
 function getIconSize(size) {
-  return Math.min(100, size) / 100 * 0.5 + 0.5;
+  return Math.min(100, size) / 100 * 0.5 + 0.8;
 }
 
 export default class DeckGLOverlay extends Component {

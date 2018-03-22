@@ -6711,7 +6711,8 @@ var CurrentMap = function (_React$Component) {
 				transitionDuration: _this.props.transitionDuration,
 				transitionInterpolator: _this.props.transitionInterpolator,
 				transitionEasing: _this.props.transitionEasing
-			}
+			},
+			hoverPosition: [0, 0]
 
 			//Getting the cluster icons
 		};(0, _d3Request.json)('javascripts/location-icon-mapping.json', function (error, response) {
@@ -6722,6 +6723,7 @@ var CurrentMap = function (_React$Component) {
 
 		_this.componentDidMount = _this.componentDidMount.bind(_this);
 		_this._goToNYC = _this._goToNYC.bind(_this);
+		_this._goToPhil = _this._goToPhil.bind(_this);
 		_this._onViewportChange = _this._onViewportChange.bind(_this);
 		_this._onHover = _this._onHover.bind(_this);
 		_this._onClick = _this._onClick.bind(_this);
@@ -6765,8 +6767,8 @@ var CurrentMap = function (_React$Component) {
 		key: '_goToPhil',
 		value: function _goToPhil() {
 			var viewport = _extends({}, this.state.viewport, {
-				longitude: 40.0026767,
-				latitude: -75.2581144,
+				longitude: -75.2581144,
+				latitude: 40.0026767,
 				zoom: this.props.zoom,
 				transitionDuration: this.props.transitionDuration,
 				transitionInterpolator: this.props.transitionInterpolator,
@@ -6777,9 +6779,11 @@ var CurrentMap = function (_React$Component) {
 	}, {
 		key: '_onHover',
 		value: function _onHover(el) {
-			if (el.object) {
-				console.log('Hover: ', el.object.zoomLevels[Math.round(this.state.viewport.zoom)].points);
-			}
+			console.log(el);
+			this.setState({
+				hoverListings: el.object,
+				hoverPosition: el.pixel
+			});
 		}
 	}, {
 		key: '_onClick',
@@ -6800,47 +6804,32 @@ var CurrentMap = function (_React$Component) {
 				});
 			};
 
+			var showLabels = function showLabels(listings) {
+				return listings.map(function (listing, index) {
+					return _react2.default.createElement(
+						'div',
+						{ key: index },
+						listing.name
+					);
+				});
+			};
+
+			var labelStyles = {
+				left: this.state.hoverPosition[0],
+				top: this.state.hoverPosition[1]
+			};
+
 			return _react2.default.createElement(
 				'div',
 				{ className: 'currentMap' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'mapInfo' },
-					this.props.loading.current && _react2.default.createElement(
-						'div',
-						{ className: 'loading' },
-						'Loading...'
-					),
-					_react2.default.createElement(
-						'p',
-						null,
-						'There are currently ',
-						this.props.currentListings.length,
-						' shows open in NYC and around.'
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'cityJump' },
-						_react2.default.createElement(
-							'button',
-							{ onClick: this._goToNYC },
-							'New York City'
-						),
-						_react2.default.createElement(
-							'button',
-							{ onClick: this._goToPhil },
-							'Philadelphia'
-						)
-					)
-				),
 				_react2.default.createElement(
 					'div',
 					{ className: 'mapWrap' },
 					_react2.default.createElement(
 						_reactMapGl2.default,
 						_extends({}, this.state.viewport, {
-							onViewportChange: this._onViewportChange,
-							onClick: console.log('clicked') }),
+							onViewportChange: this._onViewportChange
+						}),
 						_react2.default.createElement(_MapCluster2.default, {
 							viewport: this.state.viewport,
 							data: this.props.currentListings,
@@ -6850,6 +6839,11 @@ var CurrentMap = function (_React$Component) {
 							onHover: this._onHover,
 							onClick: this._onClick
 						})
+					),
+					this.state.hoverListings && _react2.default.createElement(
+						'div',
+						{ className: 'label', style: labelStyles },
+						showLabels(this.state.hoverListings.zoomLevels[Math.round(this.state.viewport.zoom)].points)
 					)
 				),
 				_react2.default.createElement(
@@ -6867,6 +6861,32 @@ var CurrentMap = function (_React$Component) {
 							'p',
 							null,
 							'Click on markers to explore all the shows currently open in New York City and beyond.'
+						),
+						this.props.loading.current && _react2.default.createElement(
+							'div',
+							{ className: 'loading' },
+							'Loading...'
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'There are currently ',
+							this.props.currentListings.length,
+							' shows open in NYC and around.'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'cityJump' },
+							_react2.default.createElement(
+								'button',
+								{ onClick: this._goToNYC },
+								'New York City'
+							),
+							_react2.default.createElement(
+								'button',
+								{ onClick: this._goToPhil },
+								'Philadelphia'
+							)
 						)
 					)
 				)
@@ -6942,7 +6962,7 @@ function getIconName(size) {
 }
 
 function getIconSize(size) {
-  return Math.min(100, size) / 100 * 0.5 + 0.5;
+  return Math.min(100, size) / 100 * 0.5 + 0.8;
 }
 
 var DeckGLOverlay = function (_Component) {

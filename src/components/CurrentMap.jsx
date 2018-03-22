@@ -27,7 +27,8 @@ export default class CurrentMap extends React.Component {
 				transitionDuration: this.props.transitionDuration,
             	transitionInterpolator: this.props.transitionInterpolator,
             	transitionEasing: this.props.transitionEasing
-              }
+			  },
+			hoverPosition: [0,0],
         }
 		
 		//Getting the cluster icons
@@ -40,6 +41,7 @@ export default class CurrentMap extends React.Component {
 		
 		this.componentDidMount = this.componentDidMount.bind(this)
 		this._goToNYC = this._goToNYC.bind(this)
+		this._goToPhil = this._goToPhil.bind(this)
 		this._onViewportChange = this._onViewportChange.bind(this)
 		this._onHover = this._onHover.bind(this)
 		this._onClick = this._onClick.bind(this)
@@ -80,8 +82,8 @@ export default class CurrentMap extends React.Component {
 	_goToPhil() {
         const viewport = {
             ...this.state.viewport,
-            longitude: 40.0026767,
-            latitude: -75.2581144,
+            longitude: -75.2581144,
+            latitude: 40.0026767,
             zoom: this.props.zoom,
 			transitionDuration: this.props.transitionDuration,
 			transitionInterpolator: this.props.transitionInterpolator,
@@ -91,9 +93,11 @@ export default class CurrentMap extends React.Component {
     }
 	
 	_onHover(el) {
-		if (el.object) {
-			console.log('Hover: ', el.object.zoomLevels[Math.round(this.state.viewport.zoom)].points)
-		}
+		console.log(el)
+		this.setState({
+			hoverListings: el.object,
+			hoverPosition: el.pixel
+		})
 	}
 	
 	_onClick(el) {
@@ -109,21 +113,22 @@ export default class CurrentMap extends React.Component {
 			return <Listing key={index} {...listing} user={this.props.user} dateView="current"/>
 		})
 
+		let showLabels = (listings) => listings.map((listing, index) => {
+			return <div key={index}>{listing.name}</div>
+		})
+
+		let labelStyles = {
+			left: this.state.hoverPosition[0],
+			top: this.state.hoverPosition[1]
+		}
+
         return ( 
             <div className="currentMap">
-					<div className="mapInfo">
-						{this.props.loading.current && <div className="loading">Loading...</div>}
-						<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
-						<div className="cityJump">
-							<button onClick={this._goToNYC}>New York City</button>
-							<button onClick={this._goToPhil}>Philadelphia</button>
-						</div>
-					</div>
 					<div className="mapWrap"> 
                     <ReactMapGL
 						{...this.state.viewport}
 						onViewportChange={this._onViewportChange}
-						onClick={console.log('clicked')} >
+						>
 						<DeckGLOverlay
 						  viewport={this.state.viewport}
 						  data={this.props.currentListings}
@@ -131,8 +136,14 @@ export default class CurrentMap extends React.Component {
           				  iconMapping={this.state.iconMapping}
 						  showCluster={true}
 						  onHover={this._onHover}
+						  onClick={this._onClick}
 						/>
 					</ReactMapGL>
+					{this.state.hoverListings && 
+						<div className="label" style={labelStyles}>
+							{showLabels(this.state.hoverListings.zoomLevels[Math.round(this.state.viewport.zoom)].points)}
+						</div>
+					}
 					</div> 
 					<div className={this.props.view + " list"}>
 						{this.state.browseListings?
@@ -141,6 +152,12 @@ export default class CurrentMap extends React.Component {
 							<div className="intro">
 							<h2>Welcome to the artcritical map</h2>
 							<p>Click on markers to explore all the shows currently open in New York City and beyond.</p>
+							{this.props.loading.current && <div className="loading">Loading...</div>}
+							<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
+							<div className="cityJump">
+								<button onClick={this._goToNYC}>New York City</button>
+								<button onClick={this._goToPhil}>Philadelphia</button>
+							</div>
 							</div>
 						}
 					</div>

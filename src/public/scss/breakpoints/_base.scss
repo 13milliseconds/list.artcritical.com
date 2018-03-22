@@ -176,6 +176,15 @@ Main PAGES
         position: fixed;
         top: 0;
         left: 0;
+        @include span-columns(12);
+        .label{
+            position: absolute;
+            background-color: $black;
+            color: $white;
+            font-size: .7em;
+            margin-left: 5px;
+            padding: 5px;
+        }
     }
     .mapInfo{
     }
