@@ -10290,6 +10290,10 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
+var _AuthActions = __webpack_require__(2);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
+
 var _imageBlock = __webpack_require__(20);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
@@ -10318,21 +10322,42 @@ var UserCard = function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
 
+		_this.state = {
+			firstname: _this.props.user.firstname,
+			lastname: _this.props.user.lastname,
+			updating: false
+		};
+
+		_this.saveChanges = _this.saveChanges.bind(_this);
 		_this.handleChange = _this.handleChange.bind(_this);
 		return _this;
 	}
+
+	//  componentWillReceiveProps(nextProps){
+
+	//     if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)){
+	//         console.log(nextProps.user);
+	//     }
+	// }
 
 	_createClass(UserCard, [{
 		key: 'handleChange',
 		value: function handleChange(event) {
 			//Update values of inputs
-			console.log(event);
+			_AuthActions2.default.userInfoChange(event);
+		}
+	}, {
+		key: 'saveChanges',
+		value: function saveChanges() {
+
+			_AuthActions2.default.updateUser(this.props.user);
 		}
 	}, {
 		key: 'render',
 		value: function render() {
 
 			var user = this.props.user;
+			console.log(user);
 
 			var userAccess = function userAccess(accessCode) {
 				return {
@@ -10361,24 +10386,34 @@ var UserCard = function (_React$Component) {
 							_reactstrap.FormGroup,
 							null,
 							_react2.default.createElement(
+								'label',
+								null,
+								'First Name'
+							),
+							_react2.default.createElement(
 								'div',
 								{ className: 'formSection' },
-								_react2.default.createElement(
-									_reactstrap.Label,
-									null,
-									'User Name'
-								),
-								_react2.default.createElement(
-									'p',
-									null,
-									user.firstname,
-									' ',
-									user.lastname,
-									' - ',
-									userAccess(user.userAccess)
-								),
-								_react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'User name', type: 'text', defaultValue: user.firstname, onChange: this.handleChange }),
-								_react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'User name', type: 'text', defaultValue: user.lastname, onChange: this.handleChange })
+								_react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', defaultValue: user.firstname, onChange: this.handleChange })
+							),
+							_react2.default.createElement(
+								'label',
+								null,
+								'Last Name'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'formSection' },
+								_react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', defaultValue: user.lastname, onChange: this.handleChange })
+							),
+							_react2.default.createElement(
+								'label',
+								null,
+								'Email'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'formSection' },
+								_react2.default.createElement('input', { name: 'email', placeholder: 'Your Email', type: 'email', defaultValue: user.local.username, onChange: this.handleChange })
 							),
 							_react2.default.createElement(
 								_reactstrap.FormGroup,
@@ -10394,7 +10429,7 @@ var UserCard = function (_React$Component) {
 									_react2.default.createElement(
 										'option',
 										null,
-										userAccess
+										userAccess([this.props.user.userAccess])
 									),
 									_react2.default.createElement(
 										'option',
@@ -10416,7 +10451,7 @@ var UserCard = function (_React$Component) {
 						),
 						_react2.default.createElement(
 							_reactstrap.Button,
-							null,
+							{ onClick: this.saveChanges },
 							'Submit Changes'
 						)
 					)
@@ -10719,7 +10754,7 @@ var AccountForm = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'name', placeholder: 'Your First Name', type: 'text', value: this.props.user.lastname, onChange: this.handleChange })
+                    _react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', value: this.props.user.firstname, onChange: this.handleChange })
                 ),
                 _react2.default.createElement(
                     'label',
@@ -10729,7 +10764,7 @@ var AccountForm = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'name', placeholder: 'Your Last Name', type: 'text', value: this.props.user.firstname, onChange: this.handleChange })
+                    _react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', value: this.props.user.lastname, onChange: this.handleChange })
                 ),
                 _react2.default.createElement(
                     'label',
@@ -11717,6 +11752,29 @@ router.get('/user', function (req, res) {
 // UPDATE USER INFO 
 //###################################
 router.post('/updateuser', function (req, res) {
+    var Userlist = req.userlist;
+    var User = req.user;
+
+    var newInfo = req.body;
+
+    console.log('New user info: ', newInfo);
+    var update = { $set: newInfo };
+
+    Userlist.update({ _id: User._id }, update, { upsert: true }, function (err, updatedUser) {
+        res.send(err === null ? {
+            newuser: updatedUser
+        } : {
+            msg: err
+        });
+    });
+});
+
+//###################################
+// UPDATE USER ADMIN INFO
+//###################################
+
+
+router.post('/updateuseradmin', function (req, res) {
     var Userlist = req.userlist;
     var User = req.user;
 

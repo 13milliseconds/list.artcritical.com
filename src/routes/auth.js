@@ -335,6 +335,34 @@ router.post('/updateuser', function (req, res) {
 
 });
 
+//###################################
+// UPDATE USER ADMIN INFO
+ //###################################
+
+
+router.post('/updateuseradmin', function (req, res) {
+    var Userlist = req.userlist;
+    var User = req.user;
+    
+    var newInfo = req.body;
+    
+    console.log('New user info: ', newInfo);
+    var update = { $set: newInfo};
+
+    
+    Userlist.update({ _id: User._id }, update, {upsert:true}, function (err, updatedUser) {
+        res.send(
+            (err === null) ? {
+                newuser: updatedUser
+            } : {
+                msg: err
+            }
+        );
+    });
+
+});
+
+
 router.get('/getallusers', function (req, res){
 	var Userlist = req.userlist;
 	
