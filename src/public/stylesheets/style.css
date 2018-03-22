@@ -1447,8 +1447,8 @@ LISTING ELEMENTS
   cursor: pointer;
 }
 /* line 227, ../scss/breakpoints/_base.scss */
-.listing .listingAdd .addButton i {
-  opacity: 0;
+.listing .listingAdd .addButton svg {
+  opacity: 0.2;
   top: 50%;
   left: 50%;
   position: absolute;
@@ -1473,7 +1473,7 @@ LISTING ELEMENTS
   transform: translate(-50%, -50%);
 }
 /* line 242, ../scss/breakpoints/_base.scss */
-.listing .listingAdd .addButton:hover i {
+.listing .listingAdd .addButton:hover svg {
   opacity: 1;
 }
 /* line 248, ../scss/breakpoints/_base.scss */

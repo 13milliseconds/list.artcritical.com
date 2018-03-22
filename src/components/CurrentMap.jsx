@@ -93,7 +93,6 @@ export default class CurrentMap extends React.Component {
     }
 	
 	_onHover(el) {
-		console.log(el)
 		this.setState({
 			hoverListings: el.object,
 			hoverPosition: el.pixel
@@ -110,7 +109,7 @@ export default class CurrentMap extends React.Component {
     render() {
 
 		let displayListings = (listings) => listings.map((listing, index) => {
-			return <Listing key={index} {...listing} user={this.props.user} dateView="current"/>
+			return <Listing key={index} listing={listing} user={this.props.user} dateView="current"/>
 		})
 
 		let showLabels = (listings) => listings.map((listing, index) => {

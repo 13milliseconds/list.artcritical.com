@@ -34,7 +34,7 @@ export default class MyListings extends React.Component {
                             onMouseEnter={this.props.onHover.bind(this, listing)}
                             onMouseLeave={this.props.onLeave.bind(this, listing)}
                             >
-                            <Listing  {...listing} number={index + 1} user={this.props.user}/>
+                            <Listing  listing={listing} number={index + 1} user={this.props.user}/>
                         </div>
                         ))}
                 </Reorder>

@@ -12,7 +12,7 @@ export default class VenueListings extends React.Component {
         
         let listingsRender = listings => listings.map((listing) => {
             return(
-                <Listing {...listing} user={this.props.user} key={listing._id}/>
+                <Listing listing={listing} user={this.props.user} key={listing._id}/>
             )
         })
         

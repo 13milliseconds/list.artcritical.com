@@ -20,11 +20,11 @@ export default class Listing extends React.Component {
     //Function to add a listing to the personal list
     addToList(e, listing){
         if (this.props.user._id){
-			console.log('Adding to list of ', this.props.user.name);
             //Select this listing
             var thislisting = $(e.target).closest('.listing');
 
             //Add or remove the listing to the user's list
+            console.log(listing)
             AuthActions.addToUserList(listing);
 
             thislisting.toggleClass('selected');
@@ -32,7 +32,6 @@ export default class Listing extends React.Component {
     }
 
     revealInfo(){
-        console.log('Show me the stuff')
         const newReveal = !this.state.fullInfo
         this.setState({
             fullInfo: newReveal
@@ -49,22 +48,24 @@ export default class Listing extends React.Component {
     }
         
     render() {
+
+        let listing = this.props.listing
         
     //Display date according to type of listing and view
     var dateDisplay
-    let address = <span>{this.props.venue.address1} {this.props.venue.address1}{(this.props.venue.address1 !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}</span>
+    let address = <span>{listing.venue.address1} {listing.venue.address1}{(listing.venue.address1 !== '' && listing.venue.city !== '') && ', ' }{listing.venue.city}</span>
         
-    if (this.props.event == true) {
-        dateDisplay = <p>{this.props.start && <Date date={this.props.start} /> } - {address}</p>
+    if (listing.event == true) {
+        dateDisplay = <p>{listing.start && <Date date={listing.start} /> } - {address}</p>
     } else {
         if (this.props.dateView == "current") {
-            dateDisplay = <p>Until <Date date={this.props.end}/> - {address}</p>
+            dateDisplay = <p>Until <Date date={listing.end}/> - {address}</p>
         } else {
-            dateDisplay = <p>{this.props.start && <Date date={this.props.start} /> }{this.props.end && <span> to <Date date={this.props.end} /></span>} - {address}</p>
+            dateDisplay = <p>{listing.start && <Date date={listing.start} /> }{listing.end && <span> to <Date date={listing.end} /></span>} - {address}</p>
         }
     }
         
-        const id = this.props._id;
+        const id = listing._id;
         // Check if the listing is in mylist
         let mylistIndex = 0;
         if (this.props.user.mylist) {
@@ -73,34 +74,34 @@ export default class Listing extends React.Component {
             }).length;   
         }
         
-        const image = this.props.image? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
+        const image = listing.image? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
         const style = {backgroundImage: 'url(' + image + ')'}
       
       
     return (
-        <div className = {"listing " + (this.state.fullInfo && 'active ') + (mylistIndex > 0 ? 'selected' : 'notselected') } id={this.props._id}>
+        <div className = {"listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected') } id={id}>
             <div className="listingAdd">
-                <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, this.props)} style={style}>
-                    {this.props.user._id && <i className = {mylistIndex > 0 ? 'fa fa-minus' : 'fa fa-plus' } aria-hidden="true"></i>}
+                <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
+                    {this.props.user._id && <i className = {mylistIndex > 0 ? 'fal fa-minus' : 'fal fa-plus' } aria-hidden="true"></i>}
                 </div>
             </div>
             <div className = "listingContent">
                 <div className="header">
-                    <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue.slug}>{this.props.venue.name}</a></p>
-                    {this.props.popularity >= 5 && <div className="popular">Popular</div>}
+                    <p>{listing.name}{listing.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a></p>
+                    {listing.popularity >= 5 && <div className="popular">Popular</div>}
                     {dateDisplay}
-                    {this.props.events && <div className="events">
-                        {this.eventsDisplay(this.props.events)}
+                    {listing.events && <div className="events">
+                        {this.eventsDisplay(listing.events)}
                     </div>}
                 </div>
                 {this.state.fullInfo &&
                     <div className="moreInfo">
-                        <p>{this.props.description}</p>
-                        <p>{this.props.receptionnotes}</p>
+                        <p>{listing.description}</p>
+                        <p>{listing.receptionnotes}</p>
                     </div>
                 }
             </div>
-            {this.props.description || this.props.receptionnotes ? 
+            {listing.description || listing.receptionnotes ? 
             <div className="listingClose" onClick={this.revealInfo}>
             {this.state.fullInfo? <div><i  className="fal fa-minus-square"></i></div> : <div><i  className="fal fa-plus-square"></i></div>}
             </div>

@@ -224,8 +224,8 @@ LISTING ELEMENTS
             &.active{
                 cursor: pointer;   
             }
-            i{
-                opacity: 0;
+            svg{
+                opacity: 0.2;
                 top: 50%;
                 left: 50%;
                 position: absolute;
@@ -239,7 +239,7 @@ LISTING ELEMENTS
                 @include transform(translate(-50%, -50%));
             }
             &:hover{
-                i{
+                svg{
                     opacity: 1;
                 }
             }

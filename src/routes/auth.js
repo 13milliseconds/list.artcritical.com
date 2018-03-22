@@ -44,13 +44,11 @@ router.post('/login', async(req, res) => {
         // If logged in, we should have user info to send back
         if (req.user) {
 			
-			console.log('Logged in');
+			console.log('Logged in', req.user.slug);
 			
 			var now = new Date();
 			var newInfo = {lastConnection: now};
 			var update = { $set: newInfo};
-
-			console.log(req.user);
 
 			Userlist.update({ _id: req.user._id }, update, {upsert:true}, function (err, updatedUser) {
 				console.log(updatedUser);

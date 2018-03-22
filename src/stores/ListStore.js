@@ -457,12 +457,12 @@ class ListStore {
     }
     onLoginFailure(error){
         console.log('Login error: ', error);
-        this.user.firstname = '';
-		this.user.lastname = '';
-        this.user._id = '';
-        this.user.isLoggedIn = false;
+        //this.user.firstname = '';
+		//this.user.lastname = '';
+        //this.user._id = '';
+        //this.user.isLoggedIn = false;
         this.user.isLoggingIn = false;
-        this.user.local = {};
+        //this.user.local = {};
     }
     onLoginSuccess(json){
 		console.log('Logged in: ', json);

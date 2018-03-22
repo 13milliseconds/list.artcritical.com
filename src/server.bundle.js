@@ -638,6 +638,7 @@ var AuthActions = function () {
         return null;
       }).then(function (json) {
         if (json) {
+          console.log(json);
           _this.loginSuccess(json);
         } else {
           _this.loginFailure(new Error('Authentication Failed'));
@@ -781,6 +782,9 @@ var AuthActions = function () {
     key: 'addToUserList',
     value: async function addToUserList(listing) {
       var _this7 = this;
+
+      var newListing = listing;
+      delete newListing.zoomLevels;
 
       //Upload the ID to the user profile
       await fetch(process.env.BASE_URI + '/auth/addtolist', {
@@ -972,11 +976,11 @@ var Listing = function (_React$Component) {
         key: 'addToList',
         value: function addToList(e, listing) {
             if (this.props.user._id) {
-                console.log('Adding to list of ', this.props.user.name);
                 //Select this listing
                 var thislisting = $(e.target).closest('.listing');
 
                 //Add or remove the listing to the user's list
+                console.log(listing);
                 _AuthActions2.default.addToUserList(listing);
 
                 thislisting.toggleClass('selected');
@@ -985,7 +989,6 @@ var Listing = function (_React$Component) {
     }, {
         key: 'revealInfo',
         value: function revealInfo() {
-            console.log('Show me the stuff');
             var newReveal = !this.state.fullInfo;
             this.setState({
                 fullInfo: newReveal
@@ -1015,23 +1018,25 @@ var Listing = function (_React$Component) {
         value: function render() {
             var _this3 = this;
 
+            var listing = this.props.listing;
+
             //Display date according to type of listing and view
             var dateDisplay;
             var address = _react2.default.createElement(
                 'span',
                 null,
-                this.props.venue.address1,
+                listing.venue.address1,
                 ' ',
-                this.props.venue.address1,
-                this.props.venue.address1 !== '' && this.props.venue.city !== '' && ', ',
-                this.props.venue.city
+                listing.venue.address1,
+                listing.venue.address1 !== '' && listing.venue.city !== '' && ', ',
+                listing.venue.city
             );
 
-            if (this.props.event == true) {
+            if (listing.event == true) {
                 dateDisplay = _react2.default.createElement(
                     'p',
                     null,
-                    this.props.start && _react2.default.createElement(_DateBlock2.default, { date: this.props.start }),
+                    listing.start && _react2.default.createElement(_DateBlock2.default, { date: listing.start }),
                     ' - ',
                     address
                 );
@@ -1041,7 +1046,7 @@ var Listing = function (_React$Component) {
                         'p',
                         null,
                         'Until ',
-                        _react2.default.createElement(_DateBlock2.default, { date: this.props.end }),
+                        _react2.default.createElement(_DateBlock2.default, { date: listing.end }),
                         ' - ',
                         address
                     );
@@ -1049,12 +1054,12 @@ var Listing = function (_React$Component) {
                     dateDisplay = _react2.default.createElement(
                         'p',
                         null,
-                        this.props.start && _react2.default.createElement(_DateBlock2.default, { date: this.props.start }),
-                        this.props.end && _react2.default.createElement(
+                        listing.start && _react2.default.createElement(_DateBlock2.default, { date: listing.start }),
+                        listing.end && _react2.default.createElement(
                             'span',
                             null,
                             ' to ',
-                            _react2.default.createElement(_DateBlock2.default, { date: this.props.end })
+                            _react2.default.createElement(_DateBlock2.default, { date: listing.end })
                         ),
                         ' - ',
                         address
@@ -1062,7 +1067,7 @@ var Listing = function (_React$Component) {
                 }
             }
 
-            var id = this.props._id;
+            var id = listing._id;
             // Check if the listing is in mylist
             var mylistIndex = 0;
             if (this.props.user.mylist) {
@@ -1071,21 +1076,21 @@ var Listing = function (_React$Component) {
                 }).length;
             }
 
-            var image = this.props.image ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
+            var image = listing.image ? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
             var style = { backgroundImage: 'url(' + image + ')' };
 
             return _react2.default.createElement(
                 'div',
-                { className: "listing " + (this.state.fullInfo && 'active ') + (mylistIndex > 0 ? 'selected' : 'notselected'), id: this.props._id },
+                { className: "listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected'), id: id },
                 _react2.default.createElement(
                     'div',
                     { className: 'listingAdd' },
                     _react2.default.createElement(
                         'div',
                         { className: this.props.user._id ? "addButton active" : "addButton", onClick: function onClick(e) {
-                                return _this3.addToList(e, _this3.props);
+                                return _this3.addToList(e, listing);
                             }, style: style },
-                        this.props.user._id && _react2.default.createElement('i', { className: mylistIndex > 0 ? 'fa fa-minus' : 'fa fa-plus', 'aria-hidden': 'true' })
+                        this.props.user._id && _react2.default.createElement('i', { className: mylistIndex > 0 ? 'fal fa-minus' : 'fal fa-plus', 'aria-hidden': 'true' })
                     )
                 ),
                 _react2.default.createElement(
@@ -1097,24 +1102,24 @@ var Listing = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            this.props.name,
-                            this.props.venue._id !== '' && ' at ',
+                            listing.name,
+                            listing.venue._id !== '' && ' at ',
                             _react2.default.createElement(
                                 'a',
-                                { className: 'venueName', href: "/venue/" + this.props.venue.slug },
-                                this.props.venue.name
+                                { className: 'venueName', href: "/venue/" + listing.venue.slug },
+                                listing.venue.name
                             )
                         ),
-                        this.props.popularity >= 5 && _react2.default.createElement(
+                        listing.popularity >= 5 && _react2.default.createElement(
                             'div',
                             { className: 'popular' },
                             'Popular'
                         ),
                         dateDisplay,
-                        this.props.events && _react2.default.createElement(
+                        listing.events && _react2.default.createElement(
                             'div',
                             { className: 'events' },
-                            this.eventsDisplay(this.props.events)
+                            this.eventsDisplay(listing.events)
                         )
                     ),
                     this.state.fullInfo && _react2.default.createElement(
@@ -1123,16 +1128,16 @@ var Listing = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            this.props.description
+                            listing.description
                         ),
                         _react2.default.createElement(
                             'p',
                             null,
-                            this.props.receptionnotes
+                            listing.receptionnotes
                         )
                     )
                 ),
-                this.props.description || this.props.receptionnotes ? _react2.default.createElement(
+                listing.description || listing.receptionnotes ? _react2.default.createElement(
                     'div',
                     { className: 'listingClose', onClick: this.revealInfo },
                     this.state.fullInfo ? _react2.default.createElement(
@@ -2409,12 +2414,12 @@ var ListStore = function () {
         key: 'onLoginFailure',
         value: function onLoginFailure(error) {
             console.log('Login error: ', error);
-            this.user.firstname = '';
-            this.user.lastname = '';
-            this.user._id = '';
-            this.user.isLoggedIn = false;
+            //this.user.firstname = '';
+            //this.user.lastname = '';
+            //this.user._id = '';
+            //this.user.isLoggedIn = false;
             this.user.isLoggingIn = false;
-            this.user.local = {};
+            //this.user.local = {};
         }
     }, {
         key: 'onLoginSuccess',
@@ -3601,23 +3606,25 @@ var Listing = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var mylisting = this.props.listing;
+
             var end;
-            if (this.props.event !== true && this.props.end) {
+            if (mylisting.event !== true && mylisting.end) {
                 end = _react2.default.createElement(
                     'span',
                     null,
                     'to ',
-                    _react2.default.createElement(_DateBlock2.default, { date: this.props.end })
+                    _react2.default.createElement(_DateBlock2.default, { date: mylisting.end })
                 );
             }
 
-            var image = this.props.image ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
+            var image = mylisting.image ? "https://res.cloudinary.com/artcritical/image/upload/" + mylisting.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
             var style = { backgroundImage: 'url(' + image + ')' };
 
             return _react2.default.createElement(
                 'div',
                 { className: 'listing notselected',
-                    id: this.props._id, key: this.props._id },
+                    id: mylisting._id, key: mylisting._id },
                 _react2.default.createElement(
                     'div',
                     { className: 'listingAdd' },
@@ -3640,29 +3647,29 @@ var Listing = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            this.props.name,
-                            this.props.venue._id !== '' && ' at ',
+                            mylisting.name,
+                            mylisting.venue._id !== '' && ' at ',
                             _react2.default.createElement(
                                 'a',
-                                { className: 'venueName', href: "/venue/" + this.props.venue.slug },
-                                this.props.venue.name
+                                { className: 'venueName', href: "/venue/" + mylisting.venue.slug },
+                                mylisting.venue.name
                             )
                         ),
                         _react2.default.createElement(
                             'p',
                             null,
-                            this.props.start && _react2.default.createElement(_DateBlock2.default, { date: this.props.start }),
+                            mylisting.start && _react2.default.createElement(_DateBlock2.default, { date: mylisting.start }),
                             ' ',
                             end,
                             '  - ',
-                            this.props.venue.address1,
-                            this.props.venue.address !== '' && this.props.venue.city !== '' && ', ',
-                            this.props.venue.city
+                            mylisting.venue.address1,
+                            mylisting.venue.address !== '' && mylisting.venue.city !== '' && ', ',
+                            mylisting.venue.city
                         ),
                         !this.props.public && _react2.default.createElement(
                             'a',
                             { onClick: function onClick(e) {
-                                    return _this2.addToList(e, _this2.props);
+                                    return _this2.addToList(e, mylisting);
                                 }, className: 'delete' },
                             'Remove this listing'
                         )
@@ -3673,12 +3680,12 @@ var Listing = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            this.props.description
+                            mylisting.description
                         ),
                         _react2.default.createElement(
                             'p',
                             null,
-                            this.props.receptionnotes
+                            mylisting.receptionnotes
                         )
                     )
                 ),
@@ -6046,8 +6053,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -6119,7 +6124,7 @@ var CurrentPage = function (_React$Component) {
             var thelistRender = function thelistRender(currentListings) {
                 return currentListings.map(function (listing, index) {
 
-                    var result = _react2.default.createElement(_listing2.default, _extends({ key: index }, listing, { user: _this2.props.user, dateView: 'current' }));
+                    var result = _react2.default.createElement(_listing2.default, { key: index, listing: listing, user: _this2.props.user, dateView: 'current' });
 
                     newSecondaryNH = listing.venue.neighborhood;
 
@@ -6218,8 +6223,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -6294,7 +6297,7 @@ var FuturePage = function (_React$Component) {
             var thelistRender = function thelistRender(futureListings) {
                 return futureListings.map(function (listing, index) {
 
-                    var result = _react2.default.createElement(_listing2.default, _extends({ key: listing._id }, listing, { user: _this2.props.user }));
+                    var result = _react2.default.createElement(_listing2.default, { key: listing._id, listing: listing, user: _this2.props.user });
 
                     newSecondaryNH = listing.venue.neighborhood;
 
@@ -6507,8 +6510,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -6580,17 +6581,17 @@ var DayPage = function (_React$Component) {
                 if (listing.event == true) {
                     // it IS an event
                     if ((0, _moment2.default)(listing.start).format().slice(0, 10) == _this2.state.date) {
-                        events.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, user: _this2.props.user })));
+                        events.push(_react2.default.createElement(_listing2.default, { listing: listing, key: listing._id, user: _this2.props.user }));
                     }
                 } else {
                     //not an event
                     //Check if it starts on this day
                     if ((0, _moment2.default)(listing.start).format().slice(0, 10) == _this2.state.date) {
-                        openings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, user: _this2.props.user, dateView: 'current' })));
+                        openings.push(_react2.default.createElement(_listing2.default, { listing: listing, key: listing._id, user: _this2.props.user, dateView: 'current' }));
                     }
                     //Check if it ends on this day
                     if ((0, _moment2.default)(listing.end).format().slice(0, 10) == _this2.state.date) {
-                        closings.push(_react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, user: _this2.props.user })));
+                        closings.push(_react2.default.createElement(_listing2.default, { listing: listing, key: listing._id, user: _this2.props.user }));
                     }
                 }
 
@@ -6797,7 +6798,6 @@ var CurrentMap = function (_React$Component) {
 	}, {
 		key: '_onHover',
 		value: function _onHover(el) {
-			console.log(el);
 			this.setState({
 				hoverListings: el.object,
 				hoverPosition: el.pixel
@@ -6818,7 +6818,7 @@ var CurrentMap = function (_React$Component) {
 
 			var displayListings = function displayListings(listings) {
 				return listings.map(function (listing, index) {
-					return _react2.default.createElement(_listing2.default, _extends({ key: index }, listing, { user: _this2.props.user, dateView: 'current' }));
+					return _react2.default.createElement(_listing2.default, { key: index, listing: listing, user: _this2.props.user, dateView: 'current' });
 				});
 			};
 
@@ -7180,8 +7180,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -7256,10 +7254,10 @@ var EventsPage = function (_React$Component) {
                             null,
                             _react2.default.createElement(_DateBlock2.default, { date: newDate })
                         ),
-                        _react2.default.createElement(_listing2.default, _extends({}, listing, { user: _this2.props.user }))
+                        _react2.default.createElement(_listing2.default, { listing: listing, user: _this2.props.user })
                     );
                 } else {
-                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { key: listing._id, user: _this2.props.user }));
+                    return _react2.default.createElement(_listing2.default, { listing: listing, key: listing._id, user: _this2.props.user });
                 }
             });
 
@@ -7566,8 +7564,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -7608,7 +7604,7 @@ var VenueListings = function (_React$Component) {
 
             var listingsRender = function listingsRender(listings) {
                 return listings.map(function (listing) {
-                    return _react2.default.createElement(_listing2.default, _extends({}, listing, { user: _this2.props.user, key: listing._id }));
+                    return _react2.default.createElement(_listing2.default, { listing: listing, user: _this2.props.user, key: listing._id });
                 });
             };
 
@@ -8664,8 +8660,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -8727,7 +8721,7 @@ var MyListings = function (_React$Component) {
                                 onMouseEnter: _this2.props.onHover.bind(_this2, listing),
                                 onMouseLeave: _this2.props.onLeave.bind(_this2, listing)
                             },
-                            _react2.default.createElement(_myListing2.default, _extends({}, listing, { number: index + 1, user: _this2.props.user }))
+                            _react2.default.createElement(_myListing2.default, { listing: listing, number: index + 1, user: _this2.props.user })
                         );
                     })
                 )
@@ -9139,8 +9133,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -9188,10 +9180,10 @@ var UserListings = function (_React$Component) {
                             onMouseEnter: _this2.props.onHover.bind(_this2, listing),
                             onMouseLeave: _this2.props.onLeave.bind(_this2, listing)
                         },
-                        _react2.default.createElement(_myListing2.default, _extends({}, listing, {
+                        _react2.default.createElement(_myListing2.default, { listing: listing,
                             number: index + 1,
                             user: _this2.props.user,
-                            'public': true }))
+                            'public': true })
                     );
                 })
             );
@@ -9510,7 +9502,7 @@ var NewListing = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'medium listingsWrap' },
-                            _react2.default.createElement(_listing2.default, _extends({}, this.props.listingEdit, { user: '' }))
+                            _react2.default.createElement(_listing2.default, { listing: this.props.listingEdit, user: '' })
                         )
                     )
                 )
@@ -9932,7 +9924,7 @@ var ListingEdit = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'medium listingsWrap' },
-                        _react2.default.createElement(_listing2.default, _extends({}, this.props.listingEdit, { user: '' }))
+                        _react2.default.createElement(_listing2.default, { listing: this.props.listingEdit, user: '' })
                     )
                 ),
                 _react2.default.createElement(
@@ -12424,13 +12416,11 @@ router.post('/login', async function (req, res) {
         // If logged in, we should have user info to send back
         if (req.user) {
 
-            console.log('Logged in');
+            console.log('Logged in', req.user.slug);
 
             var now = new Date();
             var newInfo = { lastConnection: now };
             var update = { $set: newInfo };
-
-            console.log(req.user);
 
             Userlist.update({ _id: req.user._id }, update, { upsert: true }, function (err, updatedUser) {
                 console.log(updatedUser);

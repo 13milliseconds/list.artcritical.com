@@ -36,19 +36,21 @@ export default class Listing extends React.Component {
     }
         
     render() {
+
+        let mylisting = this.props.listing
         
     var end
-    if (this.props.event !== true && this.props.end) {
-        end = <span>to <Date date={this.props.end} /></span>;
+    if (mylisting.event !== true && mylisting.end) {
+        end = <span>to <Date date={mylisting.end} /></span>;
     }
         
-        const image = this.props.image? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
+        const image = mylisting.image? "https://res.cloudinary.com/artcritical/image/upload/" + mylisting.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
         const style = {backgroundImage: 'url(' + image + ')'}
       
       
     return (
       <div  className = 'listing notselected' 
-            id={this.props._id} key={this.props._id}>
+            id={mylisting._id} key={mylisting._id}>
         <div className="listingAdd">
             <div className="addButton" style={style}>
                <span>{this.props.number}</span>
@@ -56,17 +58,17 @@ export default class Listing extends React.Component {
         </div>
         <div className = "listingContent">
             <div className="header">
-                <p>{this.props.name}{this.props.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + this.props.venue.slug}>{this.props.venue.name}</a></p>
-                <p>{this.props.start && <Date date={this.props.start} /> } {end}  - {this.props.venue.address1}
-					{(this.props.venue.address !== '' && this.props.venue.city !== '') && ', ' }{this.props.venue.city}
+                <p>{mylisting.name}{mylisting.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + mylisting.venue.slug}>{mylisting.venue.name}</a></p>
+                <p>{mylisting.start && <Date date={mylisting.start} /> } {end}  - {mylisting.venue.address1}
+					{(mylisting.venue.address !== '' && mylisting.venue.city !== '') && ', ' }{mylisting.venue.city}
 				</p>
 				{!this.props.public &&
-                	<a onClick={(e) => this.addToList(e, this.props)} className="delete">Remove this listing</a>
+                	<a onClick={(e) => this.addToList(e, mylisting)} className="delete">Remove this listing</a>
 				}
             </div>
             <div className="moreInfo">
-                <p>{this.props.description}</p>
-                <p>{this.props.receptionnotes}</p>
+                <p>{mylisting.description}</p>
+                <p>{mylisting.receptionnotes}</p>
             </div>
         </div>
         <div className="listingClose">

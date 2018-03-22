@@ -101,7 +101,7 @@ export default class ListingEdit extends React.Component {
                 </div>
                 <div id="ListingInfo">
                     <div className="medium listingsWrap">
-                        <Listing {...this.props.listingEdit} user=""/>
+                        <Listing listing={this.props.listingEdit} user=""/>
                     </div>
                 </div>
                 <div className="listingForm">

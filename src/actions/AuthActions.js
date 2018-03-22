@@ -54,6 +54,7 @@ class AuthActions {
         })
         .then((json) => {
           if (json) {
+            console.log(json);
             this.loginSuccess(json);
           } else {
             this.loginFailure(new Error('Authentication Failed'));
@@ -211,6 +212,9 @@ class AuthActions {
       }
     
     async addToUserList(listing) {
+
+      let newListing = listing
+      delete newListing.zoomLevels
         
         //Upload the ID to the user profile
         await fetch(
