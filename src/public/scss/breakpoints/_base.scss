@@ -99,36 +99,15 @@ a.facebookbutton{
 HEADER
 ********************/
 #topMenu{
-	max-width: 1400px;
-	border-bottom: 1px solid $gray;
 	padding: 0 20px 10px;
-    background: white;
     z-index: 99;
     position: fixed;
+    background-color: $white;
     width: 100%;
-    left: 50%;
-	@include transform(translateX(-50%));
+    border-bottom: 1px solid $gray;
 	img{
 		max-height: 30px;
     	margin-top: 10px;
-	}
-	a{
-		color: black;
-		margin: 0 15px;
-		font-size: 14px;
-		text-transform: uppercase;
-		padding-bottom: 5px;
-		&:hover{
-			&:nth-of-type(1){
-				border-bottom: 3px $red solid;
-			}
-			&:nth-of-type(2){
-				border-bottom: 3px $green solid;
-			}
-			&:nth-of-type(3){
-				border-bottom: 3px $purple solid;
-			}	
-		}
 	}
 }
 
@@ -181,25 +160,18 @@ Main PAGES
         left: 0;
         @include span-columns(12);
         .label{
-            position: absolute;
-            background-color: $black;
-            color: $white;
-            font-size: .7em;
-            margin-left: 5px;
-            padding: 5px;
+            display: none;
         }
-    }
-    .mapInfo{
     }
     .list{
         position: fixed;
-        top: 0;
+        bottom: 0;
         left: 0;
-        max-height: 100%;
-        width: 30%;
-        background: $white;
+        max-height: 300px;
+        width: 100%;
+        background: #fff;
         z-index: 2;
-        padding: 200px 20px 50px;
+        padding: 20px 20px 20px;
         overflow: auto;
     }
 }
@@ -427,25 +399,44 @@ AT A GLANCE
 .glance{
     ul.tabs__labels{
         padding: 0;
-		@include span-columns(2);
 		li{
 			@include leftNavStyle();
 		}
     }
 	div.tabs__content{
-		@include span-columns(10);
-		.listingsWrap{
-			@include span-columns(8);
-		}
-		.featuredSection{
-			@include span-columns(4);
-		}
+        .day{
+            display: flex;
+            flex-direction: column-reverse;
+            .listingsWrap{
+                margin-top: 20px;
+                @include span-columns(12);
+            }
+            .featuredSection{
+                @include span-columns(12);
+            }
+        }
 	}
 }
 .feature-wrap{
-    img{
-        width: 100%;
-    }   
+    @include row();
+    padding: 20px 0;
+    border-bottom: 1px solid $gray;
+    h4{
+        font-size: 1em;
+        font-style: italic;
+    }
+    .image{
+        @include span-columns(4);
+        img{
+            width: 100%;
+        }  
+    }
+    .info{
+        @include span-columns(8);
+        h3{
+            font-size: 1.2em;
+        }
+    } 
 }
 
 

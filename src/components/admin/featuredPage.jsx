@@ -35,7 +35,7 @@ export default class FeaturePage extends React.Component {
         
         for (var i=0; i < 14; i++) {
             let label = <IntlProvider locale="en"><FormattedDate value={this.state.dates[i]} weekday="long" day="numeric" month="short" /></IntlProvider>
-            days.push(<FeaturedDay key={i} dayNumber={i} date={this.state.dates[i]} feature={this.props.features[i] || {}} error={this.props.error.feature} label={label} />);
+            days.push(<FeaturedDay key={i} dayNumber={i} date={this.state.dates[i]} user={this.props.user} feature={this.props.features[i] || {}} error={this.props.error.feature} label={label} />);
         }
         
         return ( 

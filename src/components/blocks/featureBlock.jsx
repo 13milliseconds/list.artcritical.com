@@ -63,18 +63,22 @@ export default class FeatureBlock extends React.Component {
       
     return (
         <div className="feature-wrap">
-            <h2>Featured item</h2>
-            {listing.image? <ImageBlock image={listing.image} classes="feature" /> : ''}
-            <h3>{listing.name} at <a className="venueName" href={"/venue/" + venue.slug}>{venue.name}</a></h3>
-            <p>{feature.text}</p>
-			<div className="dates">{start}{end? ' to ' : ''}{end}</div>
-			<div className="address">{venue.address1} {venue.address2}, {venue.city}</div>
-			{this.props.user._id
-				?this.state.inList
-					?<a className='button inList' onClick={(e) => this.addToList(e, listing)}>Remove from your list</a>
-					:<a className='button' onClick={(e) => this.addToList(e, listing)}>Add to your list</a>
-				:''
-			}
+            <h4>Featured item</h4>
+            <div className="image">
+                {listing.image? <ImageBlock image={listing.image} classes="feature" /> : ''}
+            </div>
+            <div className="info">
+                <h3>{listing.name} at <a className="venueName" href={"/venue/" + venue.slug}>{venue.name}</a></h3>
+                <p>{feature.text}</p>
+                <div className="dates">{start}{end? ' to ' : ''}{end}</div>
+                <div className="address">{venue.address1} {venue.address2}, {venue.city}</div>
+                {this.props.user._id
+                    ?this.state.inList
+                        ?<a className='button inList' onClick={(e) => this.addToList(e, listing)}>Remove from your list</a>
+                        :<a className='button' onClick={(e) => this.addToList(e, listing)}>Add to your list</a>
+                    :''
+                }
+            </div>
         </div>
     );
   }

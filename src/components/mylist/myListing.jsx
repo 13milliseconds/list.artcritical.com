@@ -72,8 +72,8 @@ export default class Listing extends React.Component {
             </div>
         </div>
         <div className="listingClose">
-            <i className="fa fa-plus-square-o" aria-hidden="true"></i>
-            <i className="fa fa-minus-square-o" aria-hidden="true"></i>
+            <i className="fal fa-plus-circle" aria-hidden="true"></i>
+            <i className="fal fa-minus-circle" aria-hidden="true"></i>
         </div>
       </div>
     );

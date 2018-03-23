@@ -74,7 +74,7 @@ export default class DayPage extends React.Component {
                         {this.state.closings}
                         
                     { (this.state.closings.length + this.state.events.length + this.state.openings.length) == 0 
-					 && <h3>Nothing happening today!</h3> }
+					 && <h4>Nothing happening today!</h4> }
             </div>
 			<div className="featuredSection">
                 <FeatureBlock feature={this.props.feature} user={this.props.user}/>

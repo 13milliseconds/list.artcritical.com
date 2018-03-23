@@ -191,7 +191,7 @@ class ListStore {
             this.listingEdit.events = [];
         }
 		// Need to explain this
-		if (info.i){
+		if (info.i !== null){
 			console.log('Feature listing');
 			this.features[info.i].list = info.data;
 			console.log(this.features[info.i].list);

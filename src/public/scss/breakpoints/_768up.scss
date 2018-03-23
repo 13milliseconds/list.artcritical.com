@@ -45,15 +45,22 @@ h2{
     }
 }
 
+#topMenu{
+    left: 50px;
+    padding: 0 20px 10px;
+    background-color: transparent;
+    width: auto;
+    border-bottom: 0;
+}
+
 header.mainHeader{
 	position: fixed;
-	left: 0;
-	padding: 30px;
+    left: 0;
+    height: 78px;
+    padding: 20px;
 	border-bottom: 1px solid $gray;
-    margin-bottom: 30px;
     width: 100%;
 	text-align: center;
-	z-index: 99;
     background: white;
     h1{
         color: $black;
@@ -62,22 +69,26 @@ header.mainHeader{
 		margin: 30px auto;
 		max-width: 600px;
     }
-    a{
-        padding: 5px 10px;
-        background-color: $white;
-		border: 1px solid $gray;
-        margin-right: 10px;
-        color: black;
-        text-decoration: none;
-        &:hover{
-            background-color: $green;
-			color: $white;
-        }
-        &.active{
-            background-color: $green;
-			color: $white;
-        }
-    }  
+    nav{
+        a{
+            display: inline-block;
+            font-size: 1em;
+            padding: 5px 10px;
+            background-color: $white;
+            border: 1px solid $gray;
+            margin-right: 10px;
+            color: black;
+            text-decoration: none;
+            &:hover{
+                background-color: $green;
+                color: $white;
+            }
+            &.active{
+                background-color: $green;
+                color: $white;
+            }
+        }  
+    }
     div{
         display: inline-block;
     }
@@ -152,9 +163,7 @@ header.mainHeader{
 	padding: 50px 50px 0;
 }
 
-.app-content{
-    padding: 150px 0 100px;
-}
+
 
 .edit-page{
      .container{
@@ -184,6 +193,34 @@ header.mainHeader{
     }
 }
 
+//GLANCE
+.glance{
+    ul.tabs__labels{
+        padding: 0;
+		@include span-columns(2);
+    }
+	div.tabs__content{
+        .day{
+            display: block;
+            @include span-columns(10);
+            .listingsWrap{
+                @include span-columns(8);
+            }
+            .featuredSection{
+                @include span-columns(4);
+            }
+        }
+	}
+}
+.feature-wrap{
+    .image{
+        @include span-columns(12);
+    }
+    .info{
+        @include span-columns(12);
+    } 
+}
+
 
 // CURRENT PAGE
 .mainList{
@@ -193,6 +230,28 @@ header.mainHeader{
 	.main-col{
 		@include span-columns(8);
 	}
+}
+
+//CURRENT MAP
+.currentMap{
+    .mapWrap{
+        .label{
+            display: block;
+            position: absolute;
+            background-color: $black;
+            color: $white;
+            font-size: .7em;
+            margin-left: 5px;
+            padding: 5px;
+        }
+    }
+    .list{
+        top: 0;
+        bottom: auto;
+        max-height: 100%;
+        width: 30%;
+        padding: 200px 20px 50px;
+    }
 }
 
 // MyList

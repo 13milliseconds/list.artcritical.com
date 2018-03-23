@@ -76,7 +76,7 @@ export default class FeaturedDay extends React.Component {
                     <FeaturedForm {...this.props.feature} number={this.props.dayNumber} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
                 </div>
                 <div className="column-1of3">
-                    {this.props.feature.list ? <FeatureBlock feature={this.props.feature}/> : this.props.error }
+                    {this.props.feature.list ? <FeatureBlock feature={this.props.feature} user={this.props.user} /> : this.props.error }
                 </div>
             </div>
         );

@@ -2036,7 +2036,7 @@ var ListStore = function () {
                 this.listingEdit.events = [];
             }
             // Need to explain this
-            if (info.i) {
+            if (info.i !== null) {
                 console.log('Feature listing');
                 this.features[info.i].list = info.data;
                 console.log(this.features[info.i].list);
@@ -3337,56 +3337,64 @@ var FeatureBlock = function (_React$Component) {
                 'div',
                 { className: 'feature-wrap' },
                 _react2.default.createElement(
-                    'h2',
+                    'h4',
                     null,
                     'Featured item'
                 ),
-                listing.image ? _react2.default.createElement(_imageBlock2.default, { image: listing.image, classes: 'feature' }) : '',
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    listing.name,
-                    ' at ',
+                    'div',
+                    { className: 'image' },
+                    listing.image ? _react2.default.createElement(_imageBlock2.default, { image: listing.image, classes: 'feature' }) : ''
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'info' },
                     _react2.default.createElement(
+                        'h3',
+                        null,
+                        listing.name,
+                        ' at ',
+                        _react2.default.createElement(
+                            'a',
+                            { className: 'venueName', href: "/venue/" + venue.slug },
+                            venue.name
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        feature.text
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'dates' },
+                        start,
+                        end ? ' to ' : '',
+                        end
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'address' },
+                        venue.address1,
+                        ' ',
+                        venue.address2,
+                        ', ',
+                        venue.city
+                    ),
+                    this.props.user._id ? this.state.inList ? _react2.default.createElement(
                         'a',
-                        { className: 'venueName', href: "/venue/" + venue.slug },
-                        venue.name
-                    )
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    feature.text
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'dates' },
-                    start,
-                    end ? ' to ' : '',
-                    end
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'address' },
-                    venue.address1,
-                    ' ',
-                    venue.address2,
-                    ', ',
-                    venue.city
-                ),
-                this.props.user._id ? this.state.inList ? _react2.default.createElement(
-                    'a',
-                    { className: 'button inList', onClick: function onClick(e) {
-                            return _this2.addToList(e, listing);
-                        } },
-                    'Remove from your list'
-                ) : _react2.default.createElement(
-                    'a',
-                    { className: 'button', onClick: function onClick(e) {
-                            return _this2.addToList(e, listing);
-                        } },
-                    'Add to your list'
-                ) : ''
+                        { className: 'button inList', onClick: function onClick(e) {
+                                return _this2.addToList(e, listing);
+                            } },
+                        'Remove from your list'
+                    ) : _react2.default.createElement(
+                        'a',
+                        { className: 'button', onClick: function onClick(e) {
+                                return _this2.addToList(e, listing);
+                            } },
+                        'Add to your list'
+                    ) : ''
+                )
             );
         }
     }]);
@@ -3692,8 +3700,8 @@ var Listing = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'listingClose' },
-                    _react2.default.createElement('i', { className: 'fa fa-plus-square-o', 'aria-hidden': 'true' }),
-                    _react2.default.createElement('i', { className: 'fa fa-minus-square-o', 'aria-hidden': 'true' })
+                    _react2.default.createElement('i', { className: 'fal fa-plus-circle', 'aria-hidden': 'true' }),
+                    _react2.default.createElement('i', { className: 'fal fa-minus-circle', 'aria-hidden': 'true' })
                 )
             );
         }
@@ -10550,7 +10558,7 @@ var FeaturePage = function (_React$Component) {
                     { locale: 'en' },
                     _react2.default.createElement(_reactIntl.FormattedDate, { value: this.state.dates[i], weekday: 'long', day: 'numeric', month: 'short' })
                 );
-                days.push(_react2.default.createElement(_featuredDay2.default, { key: i, dayNumber: i, date: this.state.dates[i], feature: this.props.features[i] || {}, error: this.props.error.feature, label: label }));
+                days.push(_react2.default.createElement(_featuredDay2.default, { key: i, dayNumber: i, date: this.state.dates[i], user: this.props.user, feature: this.props.features[i] || {}, error: this.props.error.feature, label: label }));
             }
 
             return _react2.default.createElement(
@@ -10707,7 +10715,7 @@ var FeaturedDay = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'column-1of3' },
-                    this.props.feature.list ? _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature }) : this.props.error
+                    this.props.feature.list ? _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user }) : this.props.error
                 )
             );
         }
