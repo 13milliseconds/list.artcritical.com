@@ -170,34 +170,114 @@ come into play. Have fun!
 GENERAL STYLES
 *********************/
 /* line 22, ../scss/breakpoints/_768up.scss */
+h2 {
+  font-size: 2em;
+}
+
+/* line 26, ../scss/breakpoints/_768up.scss */
 #banner {
   width: auto;
   padding: 20px;
 }
-/* line 25, ../scss/breakpoints/_768up.scss */
+/* line 29, ../scss/breakpoints/_768up.scss */
 #banner a {
   position: relative;
   display: inline-block;
   margin-right: 10px;
 }
-/* line 29, ../scss/breakpoints/_768up.scss */
+/* line 33, ../scss/breakpoints/_768up.scss */
 #banner a:nth-of-type(1) {
   left: auto;
 }
-/* line 32, ../scss/breakpoints/_768up.scss */
+/* line 36, ../scss/breakpoints/_768up.scss */
 #banner a:nth-of-type(4) {
   left: auto;
 }
-/* line 35, ../scss/breakpoints/_768up.scss */
+/* line 39, ../scss/breakpoints/_768up.scss */
 #banner a:nth-of-type(2) {
   right: auto;
 }
-/* line 38, ../scss/breakpoints/_768up.scss */
+/* line 42, ../scss/breakpoints/_768up.scss */
 #banner a:nth-of-type(3) {
   right: auto;
 }
 
-/* line 43, ../scss/breakpoints/_768up.scss */
+/* line 48, ../scss/breakpoints/_768up.scss */
+header.mainHeader {
+  position: fixed;
+  left: 0;
+  padding: 30px;
+  border-bottom: 1px solid #eaedf2;
+  margin-bottom: 30px;
+  width: 100%;
+  text-align: center;
+  z-index: 99;
+  background: white;
+}
+/* line 58, ../scss/breakpoints/_768up.scss */
+header.mainHeader h1 {
+  color: #323944;
+  min-width: 500px;
+  width: 70%;
+  margin: 30px auto;
+  max-width: 600px;
+}
+/* line 65, ../scss/breakpoints/_768up.scss */
+header.mainHeader a {
+  padding: 5px 10px;
+  background-color: #fff;
+  border: 1px solid #eaedf2;
+  margin-right: 10px;
+  color: black;
+  text-decoration: none;
+}
+/* line 72, ../scss/breakpoints/_768up.scss */
+header.mainHeader a:hover {
+  background-color: #019476;
+  color: #fff;
+}
+/* line 76, ../scss/breakpoints/_768up.scss */
+header.mainHeader a.active {
+  background-color: #019476;
+  color: #fff;
+}
+/* line 81, ../scss/breakpoints/_768up.scss */
+header.mainHeader div {
+  display: inline-block;
+}
+/* line 84, ../scss/breakpoints/_768up.scss */
+header.mainHeader .accountOptions {
+  width: 90px;
+  position: relative;
+  margin-right: 10px;
+}
+/* line 88, ../scss/breakpoints/_768up.scss */
+header.mainHeader .accountOptions a {
+  padding: 5px 0px;
+  margin-right: 0;
+  display: none;
+  position: absolute;
+  width: 90px;
+}
+/* line 94, ../scss/breakpoints/_768up.scss */
+header.mainHeader .accountOptions a:first-child {
+  display: block;
+  position: relative;
+}
+/* line 98, ../scss/breakpoints/_768up.scss */
+header.mainHeader .accountOptions a:nth-child(2) {
+  top: 100%;
+}
+/* line 101, ../scss/breakpoints/_768up.scss */
+header.mainHeader .accountOptions a:nth-child(3) {
+  top: 200%;
+}
+/* line 106, ../scss/breakpoints/_768up.scss */
+header.mainHeader .accountOptions:hover a {
+  display: block;
+}
+
+/* line 112, ../scss/breakpoints/_768up.scss */
 #header {
   width: 200px;
   position: fixed;
@@ -206,26 +286,26 @@ GENERAL STYLES
   z-index: 99;
 }
 
-/* line 50, ../scss/breakpoints/_768up.scss */
+/* line 119, ../scss/breakpoints/_768up.scss */
 .menu {
   position: relative;
 }
 
-/* line 54, ../scss/breakpoints/_768up.scss */
+/* line 123, ../scss/breakpoints/_768up.scss */
 #sortPanel {
   width: 200px;
   top: 100px;
 }
-/* line 57, ../scss/breakpoints/_768up.scss */
+/* line 126, ../scss/breakpoints/_768up.scss */
 #sortPanel .wrap {
   width: auto;
 }
-/* line 59, ../scss/breakpoints/_768up.scss */
+/* line 128, ../scss/breakpoints/_768up.scss */
 #sortPanel .wrap a {
   display: table;
 }
 
-/* line 65, ../scss/breakpoints/_768up.scss */
+/* line 134, ../scss/breakpoints/_768up.scss */
 #banner, #introPanel.active, #loginPanel, #sharePanel, #sortPanel {
   overflow: auto;
   position: relative;
@@ -237,17 +317,29 @@ GENERAL STYLES
   transform: translateY(0);
 }
 
-/* line 72, ../scss/breakpoints/_768up.scss */
+/* line 141, ../scss/breakpoints/_768up.scss */
 #introPanel {
   padding: 20px;
 }
 
-/* line 76, ../scss/breakpoints/_768up.scss */
+/* line 145, ../scss/breakpoints/_768up.scss */
 #aboutPanel {
   display: none;
 }
 
-/* line 81, ../scss/breakpoints/_768up.scss */
+/* line 149, ../scss/breakpoints/_768up.scss */
+#thelist {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 50px 0;
+}
+
+/* line 155, ../scss/breakpoints/_768up.scss */
+.app-content {
+  padding: 150px 0 100px;
+}
+
+/* line 160, ../scss/breakpoints/_768up.scss */
 .edit-page .container {
   display: block;
 }
@@ -257,7 +349,7 @@ GENERAL STYLES
   content: "";
   display: block;
 }
-/* line 83, ../scss/breakpoints/_768up.scss */
+/* line 162, ../scss/breakpoints/_768up.scss */
 .edit-page .container .header {
   float: left;
   display: block;
@@ -272,7 +364,7 @@ GENERAL STYLES
 .edit-page .container .header:last-child {
   margin-right: 0;
 }
-/* line 91, ../scss/breakpoints/_768up.scss */
+/* line 170, ../scss/breakpoints/_768up.scss */
 .edit-page .container .content {
   margin-left: 25.5894130058%;
   float: left;
@@ -282,6 +374,57 @@ GENERAL STYLES
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .edit-page .container .content:last-child {
+  margin-right: 0;
+}
+
+/* line 182, ../scss/breakpoints/_768up.scss */
+.listing p {
+  font-size: 16px;
+}
+
+/* line 190, ../scss/breakpoints/_768up.scss */
+.mainList .left-col, .mainList .right-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 14.7019566472%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .left-col:last-child, .mainList .right-col:last-child {
+  margin-right: 0;
+}
+/* line 193, ../scss/breakpoints/_768up.scss */
+.mainList .main-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .main-col:last-child {
+  margin-right: 0;
+}
+
+/* line 200, ../scss/breakpoints/_768up.scss */
+.myList .mapWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.myList .mapWrap:last-child {
+  margin-right: 0;
+}
+/* line 203, ../scss/breakpoints/_768up.scss */
+.myList .listingsWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.myList .listingsWrap:last-child {
   margin-right: 0;
 }
 

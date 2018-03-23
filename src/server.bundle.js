@@ -5877,7 +5877,9 @@ var Layout = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
 
         _this.state = _ListStore2.default.getState();
+
         _this.onChange = _this.onChange.bind(_this);
+        _this.toggleMenu = _this.toggleMenu.bind(_this);
         return _this;
     }
 
@@ -5901,6 +5903,14 @@ var Layout = function (_React$Component) {
         key: 'onChange',
         value: function onChange(state) {
             this.setState(state);
+        }
+    }, {
+        key: 'toggleMenu',
+        value: function toggleMenu() {
+            this.setState({
+                menuActive: !this.state.menuActive,
+                hamburgerActive: !this.state.hamburgerActive
+            });
         }
     }, {
         key: 'render',
@@ -5937,11 +5947,16 @@ var Layout = function (_React$Component) {
                 'div',
                 { className: 'app-container' },
                 _react2.default.createElement(
+                    'div',
+                    { className: 'hamburger', onClick: this.toggleMenu },
+                    _react2.default.createElement('i', { className: "fal " + (this.state.hamburgerActive ? "fa-close" : "fa-bars") })
+                ),
+                _react2.default.createElement(
                     'header',
-                    { className: 'mainHeader' },
+                    { className: "mainHeader" + (this.state.menuActive ? ' active' : '') },
                     _react2.default.createElement(
                         'nav',
-                        null,
+                        { onClick: this.toggleMenu },
                         _react2.default.createElement(
                             _reactRouter.IndexLink,
                             { to: '/', activeClassName: 'active' },
@@ -8512,7 +8527,7 @@ var MyList = function (_React$Component) {
         value: function componentDidMount() {
             // Create variable to change property
             var viewport = _extends({}, this.state.viewport, {
-                width: _reactDom2.default.findDOMNode(this).offsetWidth / 2
+                width: _reactDom2.default.findDOMNode(this).offsetWidth
                 //Update state
             });this.setState({
                 viewport: viewport,

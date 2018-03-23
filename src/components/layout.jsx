@@ -11,7 +11,10 @@ export default class Layout extends React.Component {
     constructor(props) {
         super(props);
         this.state = ListStore.getState();
+
+
         this.onChange = this.onChange.bind(this);
+        this.toggleMenu = this.toggleMenu.bind(this)
     }
     
     componentWillMount() {
@@ -30,6 +33,13 @@ export default class Layout extends React.Component {
     onChange(state) {
         this.setState(state);
     }
+
+    toggleMenu(){
+        this.setState({
+            menuActive: !this.state.menuActive,
+            hamburgerActive: !this.state.hamburgerActive
+        })
+    }
     
 
   render() {
@@ -41,8 +51,9 @@ export default class Layout extends React.Component {
       const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><button onClick={AuthActions.attemptLogOut}>Log Out</button></div>;
     return (
       <div className="app-container">
-        <header className="mainHeader">
-			<nav>
+        <div className="hamburger" onClick={this.toggleMenu}><i className={"fal " + (this.state.hamburgerActive ? "fa-close" : "fa-bars")}></i></div>
+        <header className={"mainHeader" + (this.state.menuActive? ' active' : '')}>
+			<nav onClick={this.toggleMenu}>
             <IndexLink to={'/'} activeClassName="active">Week at a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>

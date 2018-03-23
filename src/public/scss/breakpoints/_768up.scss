@@ -19,6 +19,10 @@ GENERAL STYLES
 
 body {}
 
+h2{
+    font-size: 2em;
+}
+
 #banner{
     width: auto;
     padding: 20px;
@@ -40,6 +44,71 @@ body {}
         }
     }
 }
+
+header.mainHeader{
+	position: fixed;
+	left: 0;
+	padding: 30px;
+	border-bottom: 1px solid $gray;
+    margin-bottom: 30px;
+    width: 100%;
+	text-align: center;
+	z-index: 99;
+    background: white;
+    h1{
+        color: $black;
+		min-width: 500px;
+		width: 70%;
+		margin: 30px auto;
+		max-width: 600px;
+    }
+    a{
+        padding: 5px 10px;
+        background-color: $white;
+		border: 1px solid $gray;
+        margin-right: 10px;
+        color: black;
+        text-decoration: none;
+        &:hover{
+            background-color: $green;
+			color: $white;
+        }
+        &.active{
+            background-color: $green;
+			color: $white;
+        }
+    }  
+    div{
+        display: inline-block;
+    }
+	.accountOptions{
+		width: 90px;
+		position: relative;
+		margin-right: 10px;
+		a{
+			padding: 5px 0px;
+			margin-right: 0;
+			display: none;
+			position: absolute;
+			width: 90px;
+			&:first-child{
+				display: block;
+				position: relative;
+			}
+			&:nth-child(2){
+				top: 100%;
+			}
+			&:nth-child(3){
+				top: 200%;
+			}
+		}
+		&:hover{
+			a{
+				display: block;
+			}
+		}
+	}
+} 
 #header{
     width: 200px;
     position: fixed;
@@ -77,6 +146,16 @@ body {}
     display: none;
 }
 
+#thelist{
+    max-width: 1400px;
+    margin: 0 auto;
+	padding: 50px 50px 0;
+}
+
+.app-content{
+    padding: 150px 0 100px;
+}
+
 .edit-page{
      .container{
          @include row();
@@ -95,4 +174,33 @@ body {}
         }
 
     }   
+}
+
+// LISTINGS
+
+.listing{
+    p{
+        font-size: 16px;
+    }
+}
+
+
+// CURRENT PAGE
+.mainList{
+	.left-col, .right-col{
+		@include span-columns(2);
+	}
+	.main-col{
+		@include span-columns(8);
+	}
+}
+
+// MyList
+.myList{
+    .mapWrap{
+        @include span-columns(6);
+    }
+    .listingsWrap{
+        @include span-columns(6);
+    } 
 }

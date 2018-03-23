@@ -53,7 +53,7 @@ export default class MyList extends React.Component {
         // Create variable to change property
         const viewport = {
 			...this.state.viewport,
-        	width: ReactDOM.findDOMNode(this).offsetWidth /2
+        	width: ReactDOM.findDOMNode(this).offsetWidth
 		}
         //Update state
         this.setState({

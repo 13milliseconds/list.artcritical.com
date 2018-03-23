@@ -46,13 +46,11 @@ a {
 #thelist{
     min-height: 100%;
     position: relative;
-    max-width: 1400px;
-    margin: 0 auto;
-	padding: 50px 50px 0;
+	padding: 0 10px;
 }
 
 .app-content{
-    padding: 150px 0 100px;
+    padding: 60px 0 100px;
 }
 
 footer{
@@ -61,6 +59,7 @@ footer{
     bottom: 10px;
 	font-size: .7em;
 }
+
 
 /*********************
 COLUMNS
@@ -151,14 +150,15 @@ Main PAGES
 .mainList{
 	@include row();
 	.left-col, .right-col{
-		@include span-columns(2);
 		    min-height: 1px;
 		img{
 			max-width: 100%;
 		}
-	}
+    }
+    .right-col{
+    }
 	.main-col{
-		@include span-columns(8);
+        @include span-columns(12);
 	}
 }
 
@@ -166,6 +166,9 @@ Main PAGES
     @include span-columns(9);
     .neighborhood{
         @include row();
+    }
+    h2{
+        font-size: 1.2em;
     }
 }
 
@@ -267,8 +270,8 @@ LISTING ELEMENTS
         text-decoration: none;
     }
     p{
-        margin: 5px 0;
-        font-size: 16px;
+        margin: 0 0 10px;
+        font-size: 14px;
         white-space: pre-wrap;
     }
 }
@@ -386,69 +389,34 @@ VENUE ELEMENTS
 HEADER
 *********************/
 
+.hamburger{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 99;
+    font-size: 20px;
+}
+
 header.mainHeader{
-	position: fixed;
-	left: 0;
-	padding: 30px;
-	border-bottom: 1px solid $gray;
-    margin-bottom: 30px;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    height: 100%;
     width: 100%;
-	text-align: center;
-	z-index: 99;
-    background: white;
-    h1{
-        color: $black;
-		min-width: 500px;
-		width: 70%;
-		margin: 30px auto;
-		max-width: 600px;
+    padding: 50px;
+    z-index: 98;
+    background-color: $white;
+    @include transition(.3s);
+    &.active{
+        left: 0;
     }
-    a{
-        padding: 5px 10px;
-        background-color: $white;
-		border: 1px solid $gray;
-        margin-right: 10px;
-        color: black;
-        text-decoration: none;
-        &:hover{
-            background-color: $green;
-			color: $white;
+    nav{
+        a{
+            color: $black;
+            font-size: 2em;
+            display: block;
         }
-        &.active{
-            background-color: $green;
-			color: $white;
-        }
-    }  
-    div{
-        display: inline-block;
     }
-	.accountOptions{
-		width: 90px;
-		position: relative;
-		margin-right: 10px;
-		a{
-			padding: 5px 0px;
-			margin-right: 0;
-			display: none;
-			position: absolute;
-			width: 90px;
-			&:first-child{
-				display: block;
-				position: relative;
-			}
-			&:nth-child(2){
-				top: 100%;
-			}
-			&:nth-child(3){
-				top: 200%;
-			}
-		}
-		&:hover{
-			a{
-				display: block;
-			}
-		}
-	}
 } 
 
 
@@ -527,12 +495,15 @@ My List
 
 .myList{
     @include row();
-	position: relative;
+    position: relative;
 	.fb-share-button{
 		position: absolute;
 		top: 0;
 		right: 0;
-	}
+    }
+    .mapWrap{
+        margin-bottom: 20px;
+    }
 	.listInfo{
 		margin-bottom: 20px;
 		img.avatar{
@@ -543,7 +514,7 @@ My List
 		}
 	}
     .listingsWrap{
-        @include span-columns(6);
+        @include span-columns(12);
         .listing{
 			.delete{
 				cursor: pointer;
@@ -555,16 +526,6 @@ My List
 			}
         }
     }   
-}
-
-
-/*********************
-Google Map
-*********************/
-
-.mapWrap{
-    @include span-columns(6);
-    margin-bottom: 20px;
 }
 
 .mapboxgl-marker{
