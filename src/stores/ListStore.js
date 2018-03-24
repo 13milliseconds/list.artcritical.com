@@ -610,15 +610,25 @@ class ListStore {
     }
     
     // INFO CHANGE ON ACCOUNT PAGE
-    onUserInfoChange (event){
-        const target = event.target;
+    onUserInfoChange (data){
+        const target = data.event.target;
         const value = target.value;
         const name = target.name;
-		if (name == "email"){
-			this.user.local.username = value;
-		} else {
-			this.user[name] = value;	
-		}
+        if (data.index == null){
+            //Means we're in the account edit page
+            if (name == "email"){
+                this.user.local.username = value;
+            } else {
+                this.user[name] = value;	
+            }
+        } else {
+            //Means we're in the user admin page
+            if (name == "email"){
+                this.allUsers[data.index].username = value;
+            } else {
+                this.allUsers[data.index][name] = value;	
+            }
+        }
     }
     
     // UPLOAD AN AVATAR

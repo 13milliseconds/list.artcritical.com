@@ -13,11 +13,6 @@ export default class UserCard extends React.Component {
 	constructor (props){
         super(props);
 
-        this.state = {
-            name: this.props.name,
-            updating: false
-        }
-
         this.saveChanges = this.saveChanges.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -31,7 +26,7 @@ export default class UserCard extends React.Component {
     
     handleChange(event) {
         //Update values of inputs
-       AuthActions.userInfoChange(event);
+       AuthActions.userInfoChange(event, this.props.index);
     }
 
     saveChanges(event){
@@ -63,25 +58,24 @@ export default class UserCard extends React.Component {
 
 					  <label>First Name</label>
 	                <div className="formSection">
-	                    <input name="firstname" placeholder="Your First Name" type="text" onChange={this.handleChange} defaultValue={user.firstname}  />
+	                    <input name="firstname" placeholder="Your First Name" type="text" onChange={this.handleChange} value={user.firstname}  />
 	                </div>
 					
 					<label>Last Name</label>
 	                <div className="formSection">
-	                    <input name="lastname" placeholder="Your Last Name" type="text" onChange={this.handleChange} defaultValue={user.lastname}  />
+	                    <input name="lastname" placeholder="Your Last Name" type="text" onChange={this.handleChange} value={user.lastname}  />
 	                </div>
 	                
 	                <label>Email</label>
 	                <div className="formSection">
-	                    <input name="email" placeholder="Your Email" type="email" onChange={this.handleChange}  defaultValue={user.local.username} />
+	                    <input name="email" placeholder="Your Email" type="email" onChange={this.handleChange}  value={user.local.username} />
 	                </div>
 
 			          <Label for="exampleSelect">User Role</Label>
-			          <Input type="select" name="select" id="exampleSelect">
-			          	<option>{userAccess([this.props.user.userAccess])}</option>
-			            <option>Editor</option>
-			            <option>Admin</option>
-			            <option>Subscriber</option>
+			          <Input type="select" name="select" id="exampleSelect" onChange={this.handleChange} value={this.props.user.userAccess}>
+							<option value={1} >Editor</option>
+							<option value={2}>Admin</option>
+							<option value={0}>Subscriber</option>
 			          </Input>
 
 

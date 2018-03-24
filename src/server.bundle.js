@@ -877,8 +877,8 @@ var AuthActions = function () {
 
   }, {
     key: 'userInfoChange',
-    value: function userInfoChange(event) {
-      return event;
+    value: function userInfoChange(event, index) {
+      return { event: event, index: index };
     }
   }]);
 
@@ -2481,14 +2481,24 @@ var ListStore = function () {
 
     }, {
         key: 'onUserInfoChange',
-        value: function onUserInfoChange(event) {
-            var target = event.target;
+        value: function onUserInfoChange(data) {
+            var target = data.event.target;
             var value = target.value;
             var name = target.name;
-            if (name == "email") {
-                this.user.local.username = value;
+            if (data.index == null) {
+                //Means we're in the account edit page
+                if (name == "email") {
+                    this.user.local.username = value;
+                } else {
+                    this.user[name] = value;
+                }
             } else {
-                this.user[name] = value;
+                //Means we're in the user admin page
+                if (name == "email") {
+                    this.allUsers[data.index].username = value;
+                } else {
+                    this.allUsers[data.index][name] = value;
+                }
             }
         }
 
@@ -8210,12 +8220,12 @@ var UserList = function (_React$Component) {
                 fullURL = "https://graph.facebook.com/" + this.props.user.facebook.id + "/picture?type=large";
             }
 
-            var name = this.props.user.firstname + (this.props.user.lastname && _react2.default.createElement(
+            var name = this.props.user.firstname + (this.props.user.lastname ? _react2.default.createElement(
                 'span',
                 null,
                 ' ',
                 this.props.user.lastname
-            ));
+            ) : '');
 
             return _react2.default.createElement(
                 'div',
@@ -10244,7 +10254,7 @@ var UsersPage = function (_React$Component) {
 
             var usersRender = function usersRender(users) {
                 return users.map(function (user, index) {
-                    return _react2.default.createElement(_UserCard2.default, { key: user._id, changeid: index, user: user });
+                    return _react2.default.createElement(_UserCard2.default, { key: index, index: index, user: user });
                 });
             };
 
@@ -10331,11 +10341,6 @@ var UserCard = function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
 
-		_this.state = {
-			name: _this.props.name,
-			updating: false
-		};
-
 		_this.saveChanges = _this.saveChanges.bind(_this);
 		_this.handleChange = _this.handleChange.bind(_this);
 		return _this;
@@ -10353,7 +10358,7 @@ var UserCard = function (_React$Component) {
 		key: 'handleChange',
 		value: function handleChange(event) {
 			//Update values of inputs
-			_AuthActions2.default.userInfoChange(event);
+			_AuthActions2.default.userInfoChange(event, this.props.index);
 		}
 	}, {
 		key: 'saveChanges',
@@ -10399,7 +10404,7 @@ var UserCard = function (_React$Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'formSection' },
-							_react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', onChange: this.handleChange, defaultValue: user.firstname })
+							_react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', onChange: this.handleChange, value: user.firstname })
 						),
 						_react2.default.createElement(
 							'label',
@@ -10409,7 +10414,7 @@ var UserCard = function (_React$Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'formSection' },
-							_react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', onChange: this.handleChange, defaultValue: user.lastname })
+							_react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', onChange: this.handleChange, value: user.lastname })
 						),
 						_react2.default.createElement(
 							'label',
@@ -10419,7 +10424,7 @@ var UserCard = function (_React$Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'formSection' },
-							_react2.default.createElement('input', { name: 'email', placeholder: 'Your Email', type: 'email', onChange: this.handleChange, defaultValue: user.local.username })
+							_react2.default.createElement('input', { name: 'email', placeholder: 'Your Email', type: 'email', onChange: this.handleChange, value: user.local.username })
 						),
 						_react2.default.createElement(
 							_reactstrap.Label,
@@ -10428,25 +10433,20 @@ var UserCard = function (_React$Component) {
 						),
 						_react2.default.createElement(
 							_reactstrap.Input,
-							{ type: 'select', name: 'select', id: 'exampleSelect' },
+							{ type: 'select', name: 'select', id: 'exampleSelect', onChange: this.handleChange, value: this.props.user.userAccess },
 							_react2.default.createElement(
 								'option',
-								null,
-								userAccess([this.props.user.userAccess])
-							),
-							_react2.default.createElement(
-								'option',
-								null,
+								{ value: 1 },
 								'Editor'
 							),
 							_react2.default.createElement(
 								'option',
-								null,
+								{ value: 2 },
 								'Admin'
 							),
 							_react2.default.createElement(
 								'option',
-								null,
+								{ value: 0 },
 								'Subscriber'
 							)
 						),
@@ -10838,14 +10838,10 @@ var AccountForm = function (_React$Component) {
     function AccountForm(props) {
         _classCallCheck(this, AccountForm);
 
+        //Function Binding
         var _this = _possibleConstructorReturn(this, (AccountForm.__proto__ || Object.getPrototypeOf(AccountForm)).call(this, props));
 
-        _this.state = {
-            name: _this.props.user.name,
-            updating: false
-
-            //Function Binding
-        };_this.handleChange = _this.handleChange.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
         _this.saveChanges = _this.saveChanges.bind(_this);
         return _this;
     }
