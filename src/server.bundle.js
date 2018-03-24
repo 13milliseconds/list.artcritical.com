@@ -10766,8 +10766,6 @@ var AccountPage = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            console.log(this.props);
-
             var accountRender = this.props.user.isLoggedIn ? _react2.default.createElement(_AccountForm2.default, this.props) : _react2.default.createElement(
                 'div',
                 null,
@@ -11895,12 +11893,12 @@ router.post('/updateuser', function (req, res) {
     var User = req.user;
 
     var newInfo = req.body;
-    console.log('boom', newInfo);
 
     console.log('New user info: ', newInfo);
+
     var update = { $set: newInfo };
 
-    Userlist.update({ _id: update._id }, update, { upsert: true }, function (err, updatedUser) {
+    Userlist.update({ _id: newInfo._id }, update, { upsert: true }, function (err, updatedUser) {
         res.send(err === null ? {
             newuser: updatedUser
         } : {
