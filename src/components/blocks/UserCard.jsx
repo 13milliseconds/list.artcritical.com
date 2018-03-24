@@ -59,8 +59,8 @@ export default class UserCard extends React.Component {
 				<ImageBlock image={user.avatar} />
 			</div>
 			<div className="info">
-			<Form onSubmit={this.saveChanges}>
-				<FormGroup>
+			<form onSubmit={this.saveChanges}>
+
 					  <label>First Name</label>
 	                <div className="formSection">
 	                    <input name="firstname" placeholder="Your First Name" type="text" onChange={this.handleChange} defaultValue={user.firstname}  />
@@ -75,7 +75,7 @@ export default class UserCard extends React.Component {
 	                <div className="formSection">
 	                    <input name="email" placeholder="Your Email" type="email" onChange={this.handleChange}  defaultValue={user.local.username} />
 	                </div>
-                    <FormGroup>
+
 			          <Label for="exampleSelect">User Role</Label>
 			          <Input type="select" name="select" id="exampleSelect">
 			          	<option>{userAccess([this.props.user.userAccess])}</option>
@@ -83,11 +83,11 @@ export default class UserCard extends React.Component {
 			            <option>Admin</option>
 			            <option>Subscriber</option>
 			          </Input>
-			        </FormGroup>
-				</FormGroup>
-				<Button type="submit" >Submit Changes</Button>
 
-			</Form>
+
+				<button type="submit">Submit Changes</button>
+
+			</form>
 				
 				
 			</div>

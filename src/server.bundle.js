@@ -10389,77 +10389,69 @@ var UserCard = function (_React$Component) {
 					'div',
 					{ className: 'info' },
 					_react2.default.createElement(
-						_reactstrap.Form,
+						'form',
 						{ onSubmit: this.saveChanges },
 						_react2.default.createElement(
-							_reactstrap.FormGroup,
+							'label',
 							null,
+							'First Name'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'formSection' },
+							_react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', onChange: this.handleChange, defaultValue: user.firstname })
+						),
+						_react2.default.createElement(
+							'label',
+							null,
+							'Last Name'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'formSection' },
+							_react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', onChange: this.handleChange, defaultValue: user.lastname })
+						),
+						_react2.default.createElement(
+							'label',
+							null,
+							'Email'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'formSection' },
+							_react2.default.createElement('input', { name: 'email', placeholder: 'Your Email', type: 'email', onChange: this.handleChange, defaultValue: user.local.username })
+						),
+						_react2.default.createElement(
+							_reactstrap.Label,
+							{ 'for': 'exampleSelect' },
+							'User Role'
+						),
+						_react2.default.createElement(
+							_reactstrap.Input,
+							{ type: 'select', name: 'select', id: 'exampleSelect' },
 							_react2.default.createElement(
-								'label',
+								'option',
 								null,
-								'First Name'
+								userAccess([this.props.user.userAccess])
 							),
 							_react2.default.createElement(
-								'div',
-								{ className: 'formSection' },
-								_react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', onChange: this.handleChange, value: user.firstname })
-							),
-							_react2.default.createElement(
-								'label',
+								'option',
 								null,
-								'Last Name'
+								'Editor'
 							),
 							_react2.default.createElement(
-								'div',
-								{ className: 'formSection' },
-								_react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', defaultValue: user.lastname, onChange: this.handleChange })
-							),
-							_react2.default.createElement(
-								'label',
+								'option',
 								null,
-								'Email'
+								'Admin'
 							),
 							_react2.default.createElement(
-								'div',
-								{ className: 'formSection' },
-								_react2.default.createElement('input', { name: 'email', placeholder: 'Your Email', type: 'email', onChange: this.handleChange, defaultValue: user.local.username })
-							),
-							_react2.default.createElement(
-								_reactstrap.FormGroup,
+								'option',
 								null,
-								_react2.default.createElement(
-									_reactstrap.Label,
-									{ 'for': 'exampleSelect' },
-									'User Role'
-								),
-								_react2.default.createElement(
-									_reactstrap.Input,
-									{ type: 'select', name: 'select', id: 'exampleSelect' },
-									_react2.default.createElement(
-										'option',
-										null,
-										userAccess([this.props.user.userAccess])
-									),
-									_react2.default.createElement(
-										'option',
-										null,
-										'Editor'
-									),
-									_react2.default.createElement(
-										'option',
-										null,
-										'Admin'
-									),
-									_react2.default.createElement(
-										'option',
-										null,
-										'Subscriber'
-									)
-								)
+								'Subscriber'
 							)
 						),
 						_react2.default.createElement(
-							_reactstrap.Button,
+							'button',
 							{ type: 'submit' },
 							'Submit Changes'
 						)
@@ -10703,7 +10695,7 @@ var ReviewPage = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: this.props.view + " listingsWrap main-col" },
-                        this.props.eventsListings.length ? thelist : "No Future Events"
+                        this.props.eventsListings.length ? thelist : "No Events to Review"
                     ),
                     _react2.default.createElement(
                         'div',
@@ -10878,7 +10870,8 @@ var AccountForm = function (_React$Component) {
         }
     }, {
         key: 'saveChanges',
-        value: function saveChanges() {
+        value: function saveChanges(event) {
+            event.preventDefault();
             _AuthActions2.default.updateUser(this.props.user);
         }
     }, {
@@ -10889,90 +10882,94 @@ var AccountForm = function (_React$Component) {
                 'div',
                 { className: 'accountform' },
                 _react2.default.createElement(
-                    'label',
-                    null,
-                    'First Name'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', value: this.props.user.firstname, onChange: this.handleChange })
-                ),
-                _react2.default.createElement(
-                    'label',
-                    null,
-                    'Last Name'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', value: this.props.user.lastname, onChange: this.handleChange })
-                ),
-                _react2.default.createElement(
-                    'label',
-                    null,
-                    'Email'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'email', placeholder: 'Your Email', type: 'text', value: this.props.user.local.username, onChange: this.handleChange })
-                ),
-                _react2.default.createElement(
-                    'h3',
-                    null,
-                    'This text will appear on your ',
+                    'form',
+                    { onSubmit: this.saveChanges },
                     _react2.default.createElement(
-                        'a',
-                        { href: location.protocol + '//' + location.host + '/mylist/' + this.props.user.slug, target: '_blank' },
-                        'public page'
+                        'label',
+                        null,
+                        'First Name'
                     ),
-                    '.'
-                ),
-                _react2.default.createElement(
-                    'label',
-                    null,
-                    'Profile Picture'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'formSection' },
-                    _react2.default.createElement(_avatar2.default, this.props.user)
-                ),
-                _react2.default.createElement(
-                    'label',
-                    null,
-                    'Bio'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'formSection' },
-                    _react2.default.createElement('textarea', { name: 'bio',
-                        placeholder: 'Your Bio',
-                        type: 'text',
-                        value: this.props.user.bio,
-                        onChange: this.handleChange,
-                        rows: '4',
-                        cols: '50' })
-                ),
-                _react2.default.createElement(
-                    'label',
-                    null,
-                    'Website'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'website', placeholder: 'Your Website', type: 'text', value: this.props.user.website, onChange: this.handleChange })
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { onClick: this.saveChanges },
-                    'Save'
-                ),
-                this.props.loading.updateuser ? 'saving...' : '',
-                this.props.success.updateuser || '',
-                this.props.error.updateuser || ''
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'formSection' },
+                        _react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', value: this.props.user.firstname, onChange: this.handleChange })
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Last Name'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'formSection' },
+                        _react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', value: this.props.user.lastname, onChange: this.handleChange })
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Email'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'formSection' },
+                        _react2.default.createElement('input', { name: 'email', placeholder: 'Your Email', type: 'text', value: this.props.user.local.username, onChange: this.handleChange })
+                    ),
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        'This text will appear on your ',
+                        _react2.default.createElement(
+                            'a',
+                            { href: location.protocol + '//' + location.host + '/mylist/' + this.props.user.slug, target: '_blank' },
+                            'public page'
+                        ),
+                        '.'
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Profile Picture'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'formSection' },
+                        _react2.default.createElement(_avatar2.default, this.props.user)
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Bio'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'formSection' },
+                        _react2.default.createElement('textarea', { name: 'bio',
+                            placeholder: 'Your Bio',
+                            type: 'text',
+                            value: this.props.user.bio,
+                            onChange: this.handleChange,
+                            rows: '4',
+                            cols: '50' })
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Website'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'formSection' },
+                        _react2.default.createElement('input', { name: 'website', placeholder: 'Your Website', type: 'text', value: this.props.user.website, onChange: this.handleChange })
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { type: 'submit' },
+                        'Save'
+                    ),
+                    this.props.loading.updateuser ? 'saving...' : '',
+                    this.props.success.updateuser || '',
+                    this.props.error.updateuser || ''
+                )
             );
         }
     }]);
