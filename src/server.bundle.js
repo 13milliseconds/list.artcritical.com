@@ -914,7 +914,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _DateBlock = __webpack_require__(6);
+var _DateBlock = __webpack_require__(5);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -1092,12 +1092,6 @@ exports.default = Listing;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports) {
-
-module.exports = require("reactstrap");
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1150,13 +1144,13 @@ var Date = function (_React$Component) {
 exports.default = Date;
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongoose");
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1286,6 +1280,12 @@ module.exports = {
 };
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("reactstrap");
+
+/***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
@@ -1402,7 +1402,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactstrap = __webpack_require__(5);
+var _reactstrap = __webpack_require__(8);
 
 var _reactRouter = __webpack_require__(3);
 
@@ -2889,7 +2889,7 @@ module.exports = require("isomorphic-fetch");
 "use strict";
 
 
-var mongoose = __webpack_require__(7),
+var mongoose = __webpack_require__(6),
     Schema = mongoose.Schema;
 var bcrypt = __webpack_require__(25); // encripts password
 
@@ -2935,7 +2935,7 @@ module.exports = mongoose.model('User', userSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(6);
 
 // Create the Listings table ==================================
 
@@ -3436,7 +3436,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _DateBlock = __webpack_require__(6);
+var _DateBlock = __webpack_require__(5);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -3785,7 +3785,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactRouter = __webpack_require__(3);
 
-var _reactstrap = __webpack_require__(5);
+var _reactstrap = __webpack_require__(8);
 
 var _formDateRange = __webpack_require__(96);
 
@@ -4067,9 +4067,9 @@ var ListingForm = function (_React$Component) {
                         deleteButton
                     )
                 ),
-                _react2.default.createElement(UpdateModal, { updateView: this.state.updatevisible }),
-                _react2.default.createElement(DeleteModal, { deleteView: this.state.deletevisible }),
-                _react2.default.createElement(CreateModal, { createView: this.state.createvisible })
+                _react2.default.createElement(_updateModal2.default, { updateView: this.state.updatevisible }),
+                _react2.default.createElement(_deleteModal2.default, { deleteView: this.state.deletevisible }),
+                _react2.default.createElement(_createModal2.default, { createView: this.state.createvisible })
             );
         }
     }]);
@@ -4291,7 +4291,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(5);
+var _reactstrap = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4658,7 +4658,7 @@ __webpack_require__(57)(passport);
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(6);
 var url = process.env.MONGOLAB_URI;
 mongoose.Promise = global.Promise;
 mongoose.connect(url, { useMongoClient: true });
@@ -5157,7 +5157,7 @@ module.exports = require("passport-facebook");
 "use strict";
 
 
-var mongoose = __webpack_require__(7),
+var mongoose = __webpack_require__(6),
     Schema = mongoose.Schema;
 
 // Create the Listings table ==================================
@@ -5199,7 +5199,7 @@ module.exports = mongoose.model('List', listingSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(7),
+var mongoose = __webpack_require__(6),
     Schema = mongoose.Schema;
 
 // Create the Archive table ==================================
@@ -5233,7 +5233,7 @@ module.exports = mongoose.model('Archive', archiveSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(6);
 
 // Create the Listings table ==================================
 
@@ -5701,7 +5701,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(8);
+var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -5865,7 +5865,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(8);
+var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -6321,7 +6321,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _DateBlock = __webpack_require__(6);
+var _DateBlock = __webpack_require__(5);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -6820,7 +6820,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(8);
+var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -6840,7 +6840,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactstrap = __webpack_require__(5);
+var _reactstrap = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8699,286 +8699,21 @@ module.exports = require("react-dropzone");
 
 /***/ }),
 /* 100 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DeleteModal = function (_React$Component) {
-    _inherits(DeleteModal, _React$Component);
-
-    function DeleteModal() {
-        _classCallCheck(this, DeleteModal);
-
-        return _possibleConstructorReturn(this, (DeleteModal.__proto__ || Object.getPrototypeOf(DeleteModal)).apply(this, arguments));
-    }
-
-    _createClass(DeleteModal, [{
-        key: 'render',
-        value: function render() {
-            var deleteModal = this.state.deletevisible ? _react2.default.createElement(
-                Modal,
-                { isOpen: this.state.deletevisible, toggle: this.toggleDelete },
-                _react2.default.createElement(
-                    ModalHeader,
-                    { toggle: this.toggleDelete },
-                    'Delete Listing'
-                ),
-                _react2.default.createElement(
-                    ModalBody,
-                    null,
-                    !this.props.deleteitem && !this.props.error.general ? "Press Confirm to DELETE this listing. Press Cancel to go back" : null,
-                    this.props.deleteitem && _react2.default.createElement(
-                        'div',
-                        { className: 'success' },
-                        'Deleted!'
-                    ),
-                    this.props.error.general && _react2.default.createElement(
-                        'div',
-                        { className: 'error' },
-                        'Sorry, there was an error! Please try again!'
-                    )
-                ),
-                _react2.default.createElement(
-                    ModalFooter,
-                    null,
-                    !this.props.deleteitem ? _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            Button,
-                            { color: 'primary', onClick: this.props.handleDelete },
-                            'Confirm'
-                        ),
-                        ' ',
-                        _react2.default.createElement(
-                            Button,
-                            { color: 'primary', onClick: this.toggleDelete },
-                            'Cancel'
-                        )
-                    ) : _react2.default.createElement(
-                        Button,
-                        { color: 'success', onClick: this.toggleDelete },
-                        'Close'
-                    )
-                )
-            ) : null;
-        }
-    }]);
-
-    return DeleteModal;
-}(_react2.default.Component);
-
-exports.default = DeleteModal;
+throw new Error("Module build failed: SyntaxError: Unexpected token (44:2)\n\n  42 |  \n  43 | return (\n> 44 |   <div>{deleteModal}</div>)\n     |   ^\n  45 | }\n  46 | \n");
 
 /***/ }),
 /* 101 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactstrap = __webpack_require__(5);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CreateModal = function (_React$Component) {
-    _inherits(CreateModal, _React$Component);
-
-    function CreateModal() {
-        _classCallCheck(this, CreateModal);
-
-        return _possibleConstructorReturn(this, (CreateModal.__proto__ || Object.getPrototypeOf(CreateModal)).apply(this, arguments));
-    }
-
-    _createClass(CreateModal, [{
-        key: 'render',
-        value: function render() {
-            var createModal = this.state.createvisible ? _react2.default.createElement(
-                _reactstrap.Modal,
-                { isOpen: this.props.createView, toggle: this.toggleCreate },
-                _react2.default.createElement(
-                    _reactstrap.ModalHeader,
-                    { toggle: this.toggleCreate },
-                    'Create Listing'
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalBody,
-                    { toggle: this.toggleCreate },
-                    !this.props.savelisting && !this.props.error.general ? "Press Confirm to CREATE this Listing. Press Cancel to go back" : null,
-                    this.props.savelisting && _react2.default.createElement(
-                        'div',
-                        { className: 'success' },
-                        'Created!'
-                    ),
-                    this.props.error.general && _react2.default.createElement(
-                        'div',
-                        { className: 'error' },
-                        this.props.error.savelisting.general
-                    )
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalFooter,
-                    null,
-                    !this.props.savelisting ? _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.props.handleSubmit },
-                            'Confirm'
-                        ),
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.toggleCreate },
-                            'Cancel'
-                        )
-                    ) : _react2.default.createElement(
-                        _reactstrap.Button,
-                        { color: 'success', onClick: this.toggleCreate },
-                        'Close'
-                    )
-                )
-            ) : null;
-        }
-    }]);
-
-    return CreateModal;
-}(_react2.default.Component);
-
-exports.default = CreateModal;
+throw new Error("Module build failed: SyntaxError: Unexpected token (44:4)\n\n  42 |  }\n  43 | return (\n> 44 |     <div>{createModal}</div>)\n     |     ^\n  45 | }\n  46 | \n");
 
 /***/ }),
 /* 102 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactstrap = __webpack_require__(5);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var UpdateModal = function (_React$Component) {
-    _inherits(UpdateModal, _React$Component);
-
-    function UpdateModal() {
-        _classCallCheck(this, UpdateModal);
-
-        return _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).apply(this, arguments));
-    }
-
-    _createClass(UpdateModal, [{
-        key: 'render',
-        value: function render() {
-            var updateModal = this.state.updatevisible ? _react2.default.createElement(
-                _reactstrap.Modal,
-                { isOpen: this.state.updatevisible, toggle: this.toggle },
-                _react2.default.createElement(
-                    _reactstrap.ModalHeader,
-                    { toggle: this.toggle },
-                    'Update Listing'
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalBody,
-                    { toggle: this.toggle },
-                    !this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null,
-                    this.props.loading && _react2.default.createElement(
-                        'div',
-                        { className: 'loading' },
-                        'loading'
-                    ),
-                    this.props.success && _react2.default.createElement(
-                        'div',
-                        { className: 'success' },
-                        'Saved!'
-                    ),
-                    this.props.error.general && _react2.default.createElement(
-                        'div',
-                        { className: 'error' },
-                        this.props.error.savelisting.general
-                    )
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalFooter,
-                    null,
-                    !this.props.success ? _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.props.handleSubmit },
-                            'Confirm'
-                        ),
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.toggle },
-                            'Cancel'
-                        )
-                    ) : _react2.default.createElement(
-                        _reactstrap.Button,
-                        { color: 'success', onClick: this.toggle },
-                        'Close'
-                    )
-                )
-            ) : null;
-        }
-    }]);
-
-    return UpdateModal;
-}(_react2.default.Component);
-
-exports.default = UpdateModal;
+throw new Error("Module build failed: SyntaxError: Unexpected token (48:8)\n\n  46 | \n  47 |      return (\n> 48 |         <div>\n     |         ^\n  49 |             {updateModal}\n  50 |         </div>\n  51 |         )\n");
 
 /***/ }),
 /* 103 */
@@ -8999,7 +8734,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(8);
+var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -9183,7 +8918,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(8);
+var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -9383,9 +9118,9 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactstrap = __webpack_require__(5);
+var _reactstrap = __webpack_require__(8);
 
-var _DateBlock = __webpack_require__(6);
+var _DateBlock = __webpack_require__(5);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -9795,7 +9530,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(8);
+var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -9948,7 +9683,7 @@ var _ThumbnailInput = __webpack_require__(41);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
-var _reactstrap = __webpack_require__(5);
+var _reactstrap = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10041,7 +9776,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(8);
+var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -10202,7 +9937,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _DateBlock = __webpack_require__(6);
+var _DateBlock = __webpack_require__(5);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -10448,11 +10183,11 @@ var _imageBlock = __webpack_require__(20);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _DateBlock = __webpack_require__(6);
+var _DateBlock = __webpack_require__(5);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _reactstrap = __webpack_require__(5);
+var _reactstrap = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10624,7 +10359,7 @@ var _imageBlock = __webpack_require__(20);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _DateBlock = __webpack_require__(6);
+var _DateBlock = __webpack_require__(5);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -10745,7 +10480,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _DateBlock = __webpack_require__(6);
+var _DateBlock = __webpack_require__(5);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -11420,7 +11155,7 @@ module.exports = router;
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var mongoose = __webpack_require__(7);
+var mongoose = __webpack_require__(6);
 
 //#######################
 // GET ALL listings ===================

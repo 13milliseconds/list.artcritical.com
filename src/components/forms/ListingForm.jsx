@@ -11,9 +11,9 @@ import DateRange from './formDateRange'
 import DateSingle from './formDateSingle'
 import Select from './formSelect'
 import ThumbnailInput from './ThumbnailInput'
-import deleteModal from './deleteModal';
-import createModal from './createModal';
-import updateModal from './updateModal';
+import DeleteModal from './deleteModal';
+import CreateModal from './createModal';
+import UpdateModal from './updateModal';
 
 export default class ListingForm extends React.Component {
 

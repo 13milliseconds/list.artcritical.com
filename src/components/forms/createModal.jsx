@@ -2,6 +2,15 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 
 export default class CreateModal extends React.Component {
+
+      constructor(props) {
+        super(props);
+
+        this.state = {
+            createvisible: this.props.createView
+        }
+    }
+
  render() {
     let createModal = this.state.createvisible ? 
                 <Modal isOpen={this.props.createView} toggle={this.toggleCreate}>
@@ -31,4 +40,6 @@ export default class CreateModal extends React.Component {
             : 
                 null
  }
+return (
+    <div>{createModal}</div>)
 }

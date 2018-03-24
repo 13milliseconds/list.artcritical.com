@@ -1,6 +1,13 @@
  import React from 'react';
 
 export default class DeleteModal extends React.Component {
+  constructor(props) {
+        super(props);
+
+        this.state = {
+            deletevisible: this.props.deleteView
+        }
+    }
 
   render() {
     let deleteModal = this.state.deletevisible ?
@@ -33,5 +40,6 @@ export default class DeleteModal extends React.Component {
         null
   }
  
-
+return (
+  <div>{deleteModal}</div>)
 }
