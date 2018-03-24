@@ -11901,6 +11901,7 @@ router.post('/updateuser', function (req, res) {
     var update = { $set: newInfo };
 
     Userlist.update({ _id: update._id }, update, { upsert: true }, function (err, updatedUser) {
+        console.log(updatedUser);
         res.send(err === null ? {
             newuser: updatedUser
         } : {
