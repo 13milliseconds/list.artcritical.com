@@ -3811,7 +3811,7 @@ var MyMap = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'mapWrap' },
+                { className: 'mapWrap', ref: 'theMap' },
                 _react2.default.createElement(
                     _reactMapGl2.default,
                     _extends({}, viewport, {
@@ -6769,15 +6769,25 @@ var CurrentMap = function (_React$Component) {
 		_this._onViewportChange = _this._onViewportChange.bind(_this);
 		_this._onHover = _this._onHover.bind(_this);
 		_this._onClick = _this._onClick.bind(_this);
+		_this._resizeMap = _this._resizeMap.bind(_this);
 		return _this;
 	}
 
 	_createClass(CurrentMap, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
+
+			//Resize the map in the background
+			this._resizeMap();
+			window.addEventListener("resize", this._resizeMap);
+
 			//If the current listings are not loaded, load em
 			this.props.currentListings.length === 0 && _ListActions2.default.getCurrent();
-
+		}
+	}, {
+		key: '_resizeMap',
+		value: function _resizeMap() {
+			console.log('window: ', window);
 			// Create variable to change property
 			var viewport = _extends({}, this.state.viewport, {
 				width: window.innerWidth, //ReactDOM.findDOMNode(this).offsetWidth
@@ -8515,6 +8525,7 @@ var MyList = function (_React$Component) {
         _this._onLeave = _this._onLeave.bind(_this);
         _this.findCoord = _this.findCoord.bind(_this);
         _this._updateViewport = _this._updateViewport.bind(_this);
+        _this._updateDimensions = _this._updateDimensions.bind(_this);
         _this.componentWillMount = _this.componentWillMount.bind(_this);
         _this.componentDidMount = _this.componentDidMount.bind(_this);
         return _this;
@@ -8533,13 +8544,22 @@ var MyList = function (_React$Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            // Create variable to change property
-            var viewport = _extends({}, this.state.viewport, {
-                width: _reactDom2.default.findDOMNode(this).offsetWidth
-                //Update state
-            });this.setState({
-                viewport: viewport,
+            //Update state
+            this.setState({
                 publicUrl: window.location.href + '/' + this.props.user.slug
+            });
+            //Resize the map
+            this._updateDimensions;
+            window.addEventListener("resize", this._updateDimensions);
+        }
+    }, {
+        key: '_updateDimensions',
+        value: function _updateDimensions() {
+            var viewport = _extends({}, this.state.viewport, {
+                width: document.getElementsByClassName("mapWrap")[0].offsetWidth
+            });
+            this.setState({
+                viewport: viewport
             });
         }
     }, {

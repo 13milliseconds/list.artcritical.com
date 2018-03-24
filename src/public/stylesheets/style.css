@@ -2609,7 +2609,7 @@ you can add resource intensive styles.
     bottom: auto;
     max-height: 100%;
     width: 30%;
-    padding: 200px 20px 50px;
+    padding: 100px 20px 20px;
   }
 
   /* line 259, ../scss/breakpoints/_768up.scss */

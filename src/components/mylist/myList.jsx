@@ -28,7 +28,7 @@ export default class MyList extends React.Component {
                 pitch: 0,
                 width: 0,
                 height: 500,
-              }
+            }
         }
         
         this.onReorder = this.onReorder.bind(this);
@@ -36,6 +36,7 @@ export default class MyList extends React.Component {
         this._onLeave = this._onLeave.bind(this);
         this.findCoord = this.findCoord.bind(this);
         this._updateViewport = this._updateViewport.bind(this);
+        this._updateDimensions = this._updateDimensions.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
     }
@@ -50,16 +51,23 @@ export default class MyList extends React.Component {
     }
     
     componentDidMount(){
-        // Create variable to change property
-        const viewport = {
-			...this.state.viewport,
-        	width: ReactDOM.findDOMNode(this).offsetWidth
-		}
         //Update state
         this.setState({
-			viewport,
 			publicUrl: window.location.href + '/' + this.props.user.slug
-          })
+        })
+        //Resize the map
+        this._updateDimensions
+        window.addEventListener("resize", this._updateDimensions);
+    }
+
+    _updateDimensions(){
+        const viewport = {
+			...this.state.viewport,
+            width: document.getElementsByClassName("mapWrap")[0].offsetWidth
+        }
+        this.setState({
+            viewport
+        })
     }
     
     _onHover(listing){

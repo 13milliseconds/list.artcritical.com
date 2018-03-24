@@ -45,24 +45,32 @@ export default class CurrentMap extends React.Component {
 		this._onViewportChange = this._onViewportChange.bind(this)
 		this._onHover = this._onHover.bind(this)
 		this._onClick = this._onClick.bind(this)
+		this._resizeMap = this._resizeMap.bind(this)
     }
 
     componentDidMount() {
+
+		//Resize the map in the background
+		this._resizeMap()
+		window.addEventListener("resize", this._resizeMap);
+
 		//If the current listings are not loaded, load em
 		this.props.currentListings.length === 0 && ListActions.getCurrent()
 		
+    }
+	_resizeMap(){
+		console.log('window: ', window)
 		// Create variable to change property
-        const viewport = {
+		const viewport = {
 			...this.state.viewport,
 			width: window.innerWidth,//ReactDOM.findDOMNode(this).offsetWidth
 			height: window.innerHeight
 		}
-        //Update state
-        this.setState({
+		//Update state
+		this.setState({
 			viewport
-          })
-    }
-	
+		})
+	}
 	_onViewportChange(viewport) {
 		 this.setState({viewport});
 	}

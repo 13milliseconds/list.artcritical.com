@@ -19,9 +19,9 @@ export default class MyMap extends React.Component {
         
         if (allListings){
         return allListings.map((listing, index, done) => {
-          
-          num = num + 1
-          const thisNum = num 
+        
+            num = num + 1
+            const thisNum = num 
 
         if (listing.venue){
             const newMarker = <Marker key={listing._id}
@@ -31,7 +31,7 @@ export default class MyMap extends React.Component {
                         onMouseEnter={this.props.onHover.bind(this, listing)}
                         onMouseLeave={this.props.onLeave.bind(this, listing)}
                         className={listing._id == this.props.listingHover? 'active' : ''}
-                                  >
+                        >
                         <MarkerDisplay
                             className={listing._id}
                             listing={listing}
@@ -47,7 +47,7 @@ export default class MyMap extends React.Component {
   render() {
     const {viewport, updateViewport} = this.props;
     return (
-        <div className="mapWrap">
+        <div className="mapWrap" ref="theMap">
             <ReactMapGL
                 {...viewport}
                 onViewportChange={updateViewport}
