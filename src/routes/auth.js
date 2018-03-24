@@ -318,12 +318,14 @@ router.post('/updateuser', function (req, res) {
     var User = req.user;
     
     var newInfo = req.body;
+    console.log('boom', newInfo)
     
     console.log('New user info: ', newInfo);
     var update = { $set: newInfo};
 
+
     
-    Userlist.update({ _id: User._id }, update, {upsert:true}, function (err, updatedUser) {
+    Userlist.update({ _id: update._id }, update, {upsert:true}, function (err, updatedUser) {
         res.send(
             (err === null) ? {
                 newuser: updatedUser

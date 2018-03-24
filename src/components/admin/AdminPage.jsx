@@ -22,6 +22,7 @@ export default class AdminPage extends React.Component {
                     <Link to={'/admin/venuesadmin'} activeClassName="active">Overview</Link>
                     <Link to={'/admin/featured'} activeClassName="active">Featured Calendar</Link>
 					<Link to={'/admin/users'} activeClassName="active">User Admin</Link>
+                    <Link to={'/admin/review'} activeClassName="active">Review Events</Link>
 				</nav>
             : this.props.user.isLoggedIn && this.props.user.userAccess === editor ? 
 				<nav>

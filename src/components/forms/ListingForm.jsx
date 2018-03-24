@@ -135,7 +135,7 @@ export default class ListingForm extends React.Component {
         let venueData = { value: this.props.venue._id, label: this.props.venue.name}
 
             let createModal = this.state.createvisible ? 
-                <Modal isOpen={this.state.createvisible} toggle={this.toggleCreate}>
+                <Modal isOpen={this.state.createvisible} toggle={this.onDismiss}>
                             <ModalHeader toggle={this.toggleCreate}>Create Listing</ModalHeader>
                               <ModalBody toggle={this.toggleCreate}>
                                 {!this.props.savelisting && !this.props.error.general ? "Press Confirm to CREATE this Listing. Press Cancel to go back" : null}
@@ -150,7 +150,7 @@ export default class ListingForm extends React.Component {
                                 {!this.props.savelisting ? 
                                     <div>
                                         <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
-                                        <Button color="primary" onClick={this.toggleCreate}>Cancel</Button>
+                                        <Button color="primary" onClick={this.onDismiss}>Cancel</Button>
                                     </div>
                                 :
                                     <Button color="success" onClick={this.onDismiss}>Close</Button>

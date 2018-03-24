@@ -14,8 +14,7 @@ export default class UserCard extends React.Component {
         super(props);
 
         this.state = {
-            firstname: this.props.user.firstname,
-            lastname: this.props.user.lastname,
+            name: this.props.name,
             updating: false
         }
 
@@ -23,20 +22,20 @@ export default class UserCard extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    //  componentWillReceiveProps(nextProps){
-        
-    //     if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)){
-    //         console.log(nextProps.user);
-    //     }
-    // }
+     componentWillReceiveProps(nextProps){
+
+        if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)){
+           	nextProps.user;
+        }
+    }
     
     handleChange(event) {
         //Update values of inputs
        AuthActions.userInfoChange(event);
     }
 
-    saveChanges(){
-
+    saveChanges(event){
+    	event.preventDefault();
         AuthActions.updateUser(this.props.user)
     }
 
@@ -60,21 +59,21 @@ export default class UserCard extends React.Component {
 				<ImageBlock image={user.avatar} />
 			</div>
 			<div className="info">
-			<Form>
+			<Form onSubmit={this.saveChanges}>
 				<FormGroup>
 					  <label>First Name</label>
 	                <div className="formSection">
-	                    <input name="firstname" placeholder="Your First Name" type="text" defaultValue={user.firstname} onChange={this.handleChange} />
+	                    <input name="firstname" placeholder="Your First Name" type="text" onChange={this.handleChange} defaultValue={user.firstname}  />
 	                </div>
 					
 					<label>Last Name</label>
 	                <div className="formSection">
-	                    <input name="lastname" placeholder="Your Last Name" type="text" defaultValue={user.lastname} onChange={this.handleChange} />
+	                    <input name="lastname" placeholder="Your Last Name" type="text" onChange={this.handleChange} defaultValue={user.lastname}  />
 	                </div>
 	                
 	                <label>Email</label>
 	                <div className="formSection">
-	                    <input name="email" placeholder="Your Email" type="email" defaultValue={user.local.username} onChange={this.handleChange} />
+	                    <input name="email" placeholder="Your Email" type="email" onChange={this.handleChange}  defaultValue={user.local.username} />
 	                </div>
                     <FormGroup>
 			          <Label for="exampleSelect">User Role</Label>
@@ -86,7 +85,7 @@ export default class UserCard extends React.Component {
 			          </Input>
 			        </FormGroup>
 				</FormGroup>
-				<Button onClick={this.saveChanges}>Submit Changes</Button>
+				<Button type="submit" >Submit Changes</Button>
 
 			</Form>
 				
