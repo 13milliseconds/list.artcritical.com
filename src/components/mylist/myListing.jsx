@@ -2,14 +2,27 @@ import React from 'react';
 import AuthActions from '../../actions/AuthActions';
 //COMPONENTS
 import Date from '../blocks/DateBlock.jsx';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 export default class Listing extends React.Component {
     
     constructor(props) {
         super(props);
+
+        this.state = {
+            fullInfo: false
+        }
         
         // Function binding
-        this.addToList = this.addToList.bind(this);
+        this.addToList = this.addToList.bind(this)
+        this._revealInfo = this._revealInfo.bind(this)
+    }
+
+    //Function to reveal the listing's info
+    _revealInfo(){
+        this.setState({
+            fullInfo: !this.state.fullInfo
+        })
     }
     
     //Function to add a listing to the personal list
@@ -38,6 +51,7 @@ export default class Listing extends React.Component {
     render() {
 
         let mylisting = this.props.listing
+        let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
         
     var end
     if (mylisting.event !== true && mylisting.end) {
@@ -66,14 +80,16 @@ export default class Listing extends React.Component {
                 	<a onClick={(e) => this.addToList(e, mylisting)} className="delete">Remove this listing</a>
 				}
             </div>
-            <div className="moreInfo">
-                <p>{mylisting.description}</p>
-                <p>{mylisting.receptionnotes}</p>
-            </div>
+            {this.state.fullInfo &&
+                <div className="moreInfo">
+                    <p>{mylisting.description}</p>
+                </div>
+            }
         </div>
         <div className="listingClose">
-            <i className="fal fa-plus-circle" aria-hidden="true"></i>
-            <i className="fal fa-minus-circle" aria-hidden="true"></i>
+            {(listing.description || listing.events) &&
+                <FontAwesomeIcon icon={closeIcon} onClick={this._revealInfo}/>
+            }
         </div>
       </div>
     );

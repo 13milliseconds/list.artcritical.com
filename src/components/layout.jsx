@@ -1,10 +1,21 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import ListStore from '../stores/ListStore';
 import AuthActions from '../actions/AuthActions';
 import ListActions from '../actions/ListActions';
 // Components
 import { IndexLink, Link } from 'react-router';
 import SizeSelector from './blocks/sizeSelector';
+
+//FontAwesome
+import fontawesome from '@fortawesome/fontawesome'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faPlusCircle from '@fortawesome/fontawesome-pro-light/faPlusCircle'
+import faMinusCircle from '@fortawesome/fontawesome-pro-light/faMinusCircle'
+import faGlassMartini from '@fortawesome/fontawesome-pro-light/faGlassMartini'
+import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
+ 
+fontawesome.library.add(faPlusCircle, faPlusCircle, faGlassMartini, faStar)
 
 
 export default class Layout extends React.Component {

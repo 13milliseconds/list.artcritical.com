@@ -47,7 +47,7 @@ export default class MyList extends React.Component {
           this.setState({
               markers: results
           })
-        }.bind(this));
+        }.bind(this))
     }
     
     componentDidMount(){
@@ -56,8 +56,8 @@ export default class MyList extends React.Component {
 			publicUrl: window.location.href + '/' + this.props.user.slug
         })
         //Resize the map
-        this._updateDimensions
-        window.addEventListener("resize", this._updateDimensions);
+        this._updateDimensions()
+        window.addEventListener("resize", this._updateDimensions)
     }
 
     _updateDimensions(){

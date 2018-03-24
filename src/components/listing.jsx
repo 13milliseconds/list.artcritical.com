@@ -2,6 +2,7 @@ import React from 'react';
 import AuthActions from '../actions/AuthActions';
 //COMPONENTS
 import Date from './blocks/DateBlock.jsx';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 export default class Listing extends React.Component {
     
@@ -13,7 +14,7 @@ export default class Listing extends React.Component {
         }
         
         // Function binding
-        this.revealInfo = this.revealInfo.bind(this)
+        this._revealInfo = this._revealInfo.bind(this)
         this.addToList = this.addToList.bind(this)
     }
     
@@ -31,10 +32,9 @@ export default class Listing extends React.Component {
         }
     }
 
-    revealInfo(){
-        const newReveal = !this.state.fullInfo
+    _revealInfo(){
         this.setState({
-            fullInfo: newReveal
+            fullInfo: !this.state.fullInfo
         })
     }
 
@@ -50,6 +50,9 @@ export default class Listing extends React.Component {
     render() {
 
         let listing = this.props.listing
+
+        let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
+        let eventsPresence = listing.events.length > 0
         
     //Display date according to type of listing and view
     var dateDisplay
@@ -84,30 +87,29 @@ export default class Listing extends React.Component {
                 <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
                     {this.props.user._id && <i className = {mylistIndex > 0 ? 'fal fa-minus' : 'fal fa-plus' } aria-hidden="true"></i>}
                 </div>
+                {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}
+                {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
             </div>
             <div className = "listingContent">
                 <div className="header">
                     <p>{listing.name}{listing.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a></p>
-                    {listing.popularity >= 5 && <div className="popular">Popular</div>}
                     {dateDisplay}
-                    {listing.events && <div className="events">
-                        {this.eventsDisplay(listing.events)}
-                    </div>}
                 </div>
                 {this.state.fullInfo &&
                     <div className="moreInfo">
                         <p>{listing.description}</p>
-                        <p>{listing.receptionnotes}</p>
+                        {listing.events && <div className="events">
+                            {this.eventsDisplay(listing.events)}
+                        </div>}
                     </div>
                 }
             </div>
-            {listing.description || listing.receptionnotes ? 
-            <div className="listingClose" onClick={this.revealInfo}>
-            {this.state.fullInfo? <div><i  className="fal fa-minus-square"></i></div> : <div><i  className="fal fa-plus-square"></i></div>}
-            </div>
-                    :
-                <div className="listingClose"></div>
+
+            <div className="listingClose">
+            {(listing.description || eventsPresence) &&
+                    <FontAwesomeIcon icon={closeIcon} onClick={this._revealInfo}/>
             }
+            </div>
         </div>
     );
   }
