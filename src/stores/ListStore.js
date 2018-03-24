@@ -151,6 +151,11 @@ class ListStore {
             venue: {}
         };
     }
+
+    //Load a specific listing into listing edit
+    onEditListing(listing){
+        this.listingEdit = listing;
+    }
 	
 	onAdminReset(){
 		//Reset the Venue Admin

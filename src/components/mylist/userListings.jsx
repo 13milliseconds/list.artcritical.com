@@ -1,6 +1,6 @@
 import React from 'react';
 // Components
-import Listing from './myListing';
+import Listing from '../listing';
 
 //
 

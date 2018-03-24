@@ -1,6 +1,8 @@
 import React from 'react';
 import AuthActions from '../actions/AuthActions';
+import ListActions from '../actions/ListActions';
 //COMPONENTS
+import {Link } from 'react-router';
 import Date from './blocks/DateBlock.jsx';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
@@ -30,6 +32,12 @@ export default class Listing extends React.Component {
 
             thislisting.toggleClass('selected');
         }
+    }
+
+    _editListing(listing){
+        console.log("let's edit", listing)
+        ListActions.editListing(listing)
+
     }
 
     _revealInfo(){
@@ -84,9 +92,13 @@ export default class Listing extends React.Component {
     return (
         <div className = {"listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected') } id={id}>
             <div className="listingAdd">
-                <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
-                    {this.props.user._id && <i className = {mylistIndex > 0 ? 'fal fa-minus' : 'fal fa-plus' } aria-hidden="true"></i>}
-                </div>
+                {this.props.mylisting ? 
+                    <span>{this.props.number}</span>
+                   :
+                   <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
+                        {this.props.user._id && <i className = {mylistIndex > 0 ? 'fal fa-minus' : 'fal fa-plus' } aria-hidden="true"></i>}
+                    </div>
+                }
                 {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}
                 {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
             </div>
@@ -94,6 +106,12 @@ export default class Listing extends React.Component {
                 <div className="header">
                     <p>{listing.name}{listing.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a></p>
                     {dateDisplay}
+                    {this.props.mylisting && //If you are seeing this on your myList page
+                	<a onClick={(e) => this.addToList(e, listing)} className="delete">Remove</a>
+                    }
+                    {this.props.user.userAccess > 0 && //If you are seeing this as an editor
+                    <Link to={'/admin'} onClick={(e) => this._editListing(listing)}>Edit</Link>
+				    }
                 </div>
                 {this.state.fullInfo &&
                     <div className="moreInfo">

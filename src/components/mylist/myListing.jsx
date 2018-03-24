@@ -76,9 +76,6 @@ export default class Listing extends React.Component {
                 <p>{mylisting.start && <Date date={mylisting.start} /> } {end}  - {mylisting.venue.address1}
 					{(mylisting.venue.address !== '' && mylisting.venue.city !== '') && ', ' }{mylisting.venue.city}
 				</p>
-				{!this.props.public &&
-                	<a onClick={(e) => this.addToList(e, mylisting)} className="delete">Remove this listing</a>
-				}
             </div>
             {this.state.fullInfo &&
                 <div className="moreInfo">

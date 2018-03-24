@@ -509,7 +509,8 @@ My List
         .listing{
 			.delete{
 				cursor: pointer;
-				color: $red;
+                color: $red;
+                margin-right: 10px;
 				@include transition(.2s);
 				&:hover{
 					color: red;

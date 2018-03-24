@@ -1,6 +1,6 @@
 import React from 'react';
 // Components
-import Listing from './myListing';
+import Listing from '../listing';
 import Reorder, {
   reorder,
   reorderImmutable,
@@ -34,7 +34,7 @@ export default class MyListings extends React.Component {
                             onMouseEnter={this.props.onHover.bind(this, listing)}
                             onMouseLeave={this.props.onLeave.bind(this, listing)}
                             >
-                            <Listing  listing={listing} number={index + 1} user={this.props.user}/>
+                            <Listing  listing={listing} number={index + 1} user={this.props.user} mylisting={true}/>
                         </div>
                         ))}
                 </Reorder>

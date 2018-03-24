@@ -275,6 +275,11 @@ class ListActions {
         });
         
     }
+
+    //When you want to edit a specific listing, and are being redirected to the listing Edit page
+    editListing(listing){
+        return listing;
+    }
     
     getListingInfo(id, i){
 		console.log('Getting the info');
