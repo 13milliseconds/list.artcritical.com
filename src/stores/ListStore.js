@@ -17,6 +17,7 @@ class ListStore {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
+        this.reviewListings = [];
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
@@ -499,8 +500,9 @@ class ListStore {
         this.success.updateuser = '';
         this.error.updateuser = '';
     }
+
     onUpdateUserSuccess(data){
-        console.log('Success!');
+        console.log('Success!', 'woo');
         this.loading.updateuser = false;
         this.success.updateuser = 'Saved!';
     }

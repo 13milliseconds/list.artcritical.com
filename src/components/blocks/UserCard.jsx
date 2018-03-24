@@ -22,10 +22,9 @@ export default class UserCard extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-     componentWillReceiveProps(nextProps){
-
+    componentWillReceiveProps(nextProps){
         if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)){
-           	nextProps.user;
+           	console.log(nextProps.user);
         }
     }
     
@@ -41,8 +40,6 @@ export default class UserCard extends React.Component {
 
     render() {
 		
-		let user = this.props.user
-		console.log(user)
 
 		let userAccess = accessCode => ({
 			3: 'Super Admin',
@@ -56,29 +53,29 @@ export default class UserCard extends React.Component {
     return (
         <div className="user">
 			<div className="image">
-				<ImageBlock image={user.avatar} />
+				<ImageBlock image={this.props.userCard.avatar} />
 			</div>
 			<div className="info">
 			<form onSubmit={this.saveChanges}>
 
 					  <label>First Name</label>
 	                <div className="formSection">
-	                    <input name="firstname" placeholder="Your First Name" type="text" onChange={this.handleChange} defaultValue={user.firstname}  />
+                        <input name="firstname" placeholder="Your First Name" type="text" onChange={this.handleChange} defaultValue={this.props.userCard.firstname} />
 	                </div>
 					
 					<label>Last Name</label>
 	                <div className="formSection">
-	                    <input name="lastname" placeholder="Your Last Name" type="text" onChange={this.handleChange} defaultValue={user.lastname}  />
+	                    <input name="lastname" placeholder="Your Last Name" type="text" onChange={this.handleChange} defaultValue={this.props.userCard.lastname}  />
 	                </div>
 	                
 	                <label>Email</label>
 	                <div className="formSection">
-	                    <input name="email" placeholder="Your Email" type="email" onChange={this.handleChange}  defaultValue={user.local.username} />
+	                    <input name="email" placeholder="Your Email" type="email" onChange={this.handleChange}  defaultValue={this.props.userCard.local.username} />
 	                </div>
 
 			          <Label for="exampleSelect">User Role</Label>
 			          <Input type="select" name="select" id="exampleSelect">
-			          	<option>{userAccess([this.props.user.userAccess])}</option>
+			          	<option>{userAccess([this.props.userCard.userAccess])}</option>
 			            <option>Editor</option>
 			            <option>Admin</option>
 			            <option>Subscriber</option>

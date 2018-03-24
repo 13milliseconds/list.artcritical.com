@@ -21,7 +21,8 @@ export default class UsersPage extends React.Component {
     render() {
         
         let usersRender = users => users.map((user, index) => {
-            return <UserCard key={user._id} changeid={index} user={user} />
+            console.log(user)
+            return <UserCard key={user._id} changeid={index} userCard={user} />
         });
 		
 		console.log('Current User: ', this.props.currentUser)
@@ -34,7 +35,7 @@ export default class UsersPage extends React.Component {
                 {usersRender(this.props.allUsers)}
 				</div>
 				<div className="allInfo">
-					{Object.keys(this.props.currentUser).length > 0 && <UserFullInfo user={this.props.currentUser} />}
+					{Object.keys(this.props.currentUser).length > 0 && <UserFullInfo userCard={this.props.user} />}
 				</div>
             </div>
         );

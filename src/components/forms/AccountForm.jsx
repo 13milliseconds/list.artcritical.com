@@ -22,7 +22,6 @@ export default class AccountForm extends React.Component {
     
     
     componentWillReceiveProps(nextProps){
-        
         if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)){
             console.log(nextProps.user);
         }
