@@ -44,12 +44,12 @@ export default class AccountForm extends React.Component {
                 
                 <label>First Name</label>
                 <div className="formSection">
-                    <input name="name" placeholder="Your First Name" type="text" value={this.props.user.lastname} onChange={this.handleChange} />
+                    <input name="firstname" placeholder="Your First Name" type="text" value={this.props.user.firstname} onChange={this.handleChange} />
                 </div>
 				
 				<label>Last Name</label>
                 <div className="formSection">
-                    <input name="name" placeholder="Your Last Name" type="text" value={this.props.user.firstname} onChange={this.handleChange} />
+                    <input name="lastname" placeholder="Your Last Name" type="text" value={this.props.user.lastname} onChange={this.handleChange} />
                 </div>
                 
                 <label>Email</label>

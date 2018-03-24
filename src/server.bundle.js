@@ -6654,7 +6654,7 @@ var DayPage = function (_React$Component) {
                     ),
                     this.state.closings,
                     this.state.closings.length + this.state.events.length + this.state.openings.length == 0 && _react2.default.createElement(
-                        'h3',
+                        'h4',
                         null,
                         'Nothing happening today!'
                     )
@@ -11675,7 +11675,7 @@ var AccountForm = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'name', placeholder: 'Your First Name', type: 'text', value: this.props.user.lastname, onChange: this.handleChange })
+                    _react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', value: this.props.user.firstname, onChange: this.handleChange })
                 ),
                 _react2.default.createElement(
                     'label',
@@ -11685,7 +11685,7 @@ var AccountForm = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'formSection' },
-                    _react2.default.createElement('input', { name: 'name', placeholder: 'Your Last Name', type: 'text', value: this.props.user.firstname, onChange: this.handleChange })
+                    _react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', value: this.props.user.lastname, onChange: this.handleChange })
                 ),
                 _react2.default.createElement(
                     'label',
