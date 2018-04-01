@@ -36,7 +36,6 @@ export default class ListingEdit extends React.Component {
 			newListing.neighborhood = newListing.venue.neighborhood
 			ListActions.saveListing(newListing)
 		}
-        this.onUpdateSubmit();
       }
     
     //Delete the listing

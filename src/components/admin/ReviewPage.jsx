@@ -1,6 +1,8 @@
 import React from 'react';
-import ListActions from '../../actions/ListActions';
 import ListStore from '../../stores/ListStore';
+import ListActions from '../../actions/ListActions';
+import moment from 'moment';
+
 //COMPONENTS
 import Listing from '../listing.jsx';
 import Date from '../blocks/DateBlock.jsx';
@@ -10,10 +12,6 @@ import SizeSelector from '../blocks/sizeSelector';
 export default class ReviewPage extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-        	listings: this.props.futureListings
-        }
     }
 
     componentDidMount() {
@@ -21,6 +19,17 @@ export default class ReviewPage extends React.Component {
     }
 
     render() {
+        let futureListings = this.props.futureListings
+        let thelistings = futureListings.map(listing => {
+            console.log(listing)
+            console.log(moment(listing['start']).format().slice(0,10))
+            return (
+                <div>
+                    <Listing {...listing} user={this.props.user}/>
+                </div>
+            )
+
+        })
 
     	return(
     		<div>
@@ -29,9 +38,9 @@ export default class ReviewPage extends React.Component {
 	    		</div>
 	    		
 	    		<div className="events mainList">
-	            <div>
-
-	            </div>
+    	            <div>
+                        {thelistings}
+    	            </div>
 	            </div>
             </div>
     	)

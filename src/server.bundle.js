@@ -877,8 +877,8 @@ var AuthActions = function () {
 
   }, {
     key: 'userInfoChange',
-    value: function userInfoChange(event) {
-      return event;
+    value: function userInfoChange(event, index) {
+      return { event: event, index: index };
     }
   }]);
 
@@ -1147,10 +1147,16 @@ exports.default = Date;
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("reactstrap");
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1280,12 +1286,6 @@ module.exports = {
 };
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-module.exports = require("reactstrap");
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
@@ -1402,7 +1402,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactstrap = __webpack_require__(8);
+var _reactstrap = __webpack_require__(6);
 
 var _reactRouter = __webpack_require__(3);
 
@@ -1656,7 +1656,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _ImagesActions = __webpack_require__(18);
+var _ImagesActions = __webpack_require__(19);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -1778,6 +1778,7 @@ var ListStore = function () {
         value: function onGetFutureSuccess(data) {
             this.loading.future = false;
             this.futureListings = this.futureListings.concat(data);
+            console.log(data);
         }
     }, {
         key: 'onGetAllSuccess',
@@ -2071,6 +2072,7 @@ var ListStore = function () {
         value: function onUpdateListingSuccess(data) {
             this.loading.updatelisting = false;
             this.success.updatelisting = true;
+            this.reviewListings.push(data);
             var that = this;
             setTimeout(function () {
                 that.success.updatelisting = false;
@@ -2482,14 +2484,24 @@ var ListStore = function () {
 
     }, {
         key: 'onUserInfoChange',
-        value: function onUserInfoChange(event) {
-            var target = event.target;
+        value: function onUserInfoChange(data) {
+            var target = data.event.target;
             var value = target.value;
             var name = target.name;
-            if (name == "email") {
-                this.user.local.username = value;
+            if (data.index == null) {
+                //Means we're in the account edit page
+                if (name == "email") {
+                    this.user.local.username = value;
+                } else {
+                    this.user[name] = value;
+                }
             } else {
-                this.user[name] = value;
+                //Means we're in the user admin page
+                if (name == "email") {
+                    this.allUsers[data.index].username = value;
+                } else {
+                    this.allUsers[data.index][name] = value;
+                }
             }
         }
 
@@ -2533,10 +2545,16 @@ exports.default = _alt2.default.createStore(ListStore);
 /* 15 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-map-gl");
+module.exports = require("moment");
 
 /***/ }),
 /* 16 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-map-gl");
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2590,13 +2608,13 @@ var formSelect = function (_React$Component) {
 exports.default = formSelect;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2682,12 +2700,6 @@ var ImagesActions = function () {
 }();
 
 exports.default = _alt2.default.createActions(ImagesActions);
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-module.exports = require("moment");
 
 /***/ }),
 /* 20 */
@@ -2889,7 +2901,7 @@ module.exports = require("isomorphic-fetch");
 "use strict";
 
 
-var mongoose = __webpack_require__(6),
+var mongoose = __webpack_require__(7),
     Schema = mongoose.Schema;
 var bcrypt = __webpack_require__(25); // encripts password
 
@@ -2935,7 +2947,7 @@ module.exports = mongoose.model('User', userSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
 
@@ -3321,7 +3333,7 @@ var _singleMarker = __webpack_require__(78);
 
 var _singleMarker2 = _interopRequireDefault(_singleMarker);
 
-var _reactMapGl = __webpack_require__(15);
+var _reactMapGl = __webpack_require__(16);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -3615,7 +3627,7 @@ var _myMarker = __webpack_require__(89);
 
 var _myMarker2 = _interopRequireDefault(_myMarker);
 
-var _reactMapGl = __webpack_require__(15);
+var _reactMapGl = __webpack_require__(16);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -3785,7 +3797,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactRouter = __webpack_require__(3);
 
-var _reactstrap = __webpack_require__(8);
+var _reactstrap = __webpack_require__(6);
 
 var _formDateRange = __webpack_require__(96);
 
@@ -3795,7 +3807,7 @@ var _formDateSingle = __webpack_require__(97);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -3803,15 +3815,7 @@ var _ThumbnailInput = __webpack_require__(41);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
-var _deleteModal = __webpack_require__(100);
-
-var _deleteModal2 = _interopRequireDefault(_deleteModal);
-
-var _createModal = __webpack_require__(101);
-
-var _createModal2 = _interopRequireDefault(_createModal);
-
-var _updateModal = __webpack_require__(102);
+var _updateModal = __webpack_require__(100);
 
 var _updateModal2 = _interopRequireDefault(_updateModal);
 
@@ -3873,7 +3877,10 @@ var ListingForm = function (_React$Component) {
     }, {
         key: 'toggleCreate',
         value: function toggleCreate() {
-            this.setState({ createvisible: false });
+            this.setState({
+                modal: !this.state.modal,
+                createvisible: !this.state.createvisible
+            });
         }
 
         //confirm alert
@@ -3893,7 +3900,6 @@ var ListingForm = function (_React$Component) {
         key: 'onDeleteConfirm',
         value: function onDeleteConfirm(event) {
             event.preventDefault();
-            console.log(this.props);
             this.setState({
                 deletevisible: true
             });
@@ -3951,6 +3957,136 @@ var ListingForm = function (_React$Component) {
                     return Promise.resolve({ options: [] });
                 }
             };
+
+            var showUpdateModal = this.state.updatevisible ? _react2.default.createElement(_updateModal2.default, null) : null;
+
+            // let updateModal = this.state.updatevisible ? 
+            //             <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
+            //                         <ModalHeader toggle={this.toggle}>Update Listing</ModalHeader>
+            //                           <ModalBody toggle={this.toggle}>
+            //                             {!this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null}
+
+            //                             {this.props.loading && 
+            //                             <div className='loading'>loading</div>
+            //                             }
+            //                             {this.props.success && 
+            //                                 <div className='success'>Saved!</div>
+            //                             }
+            //                             {this.props.error.general && 
+            //                                 <div className='error'>{this.props.error.savelisting.general}</div>
+            //                             }
+            //                           </ModalBody>
+            //                           <ModalFooter>
+            //                             {!this.props.success ? 
+            //                                 <div>
+            //                                     <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
+            //                                     <Button color="primary" onClick={this.toggle}>Cancel</Button>
+            //                                 </div>
+            //                             :
+            //                                 <Button color="success" onClick={this.toggle}>Close</Button>
+            //                             }
+
+
+            //                           </ModalFooter>
+            //             </Modal> 
+            //         : 
+            //             null
+
+
+            var deleteModal = this.state.deletevisible ? _react2.default.createElement(
+                _reactstrap.Modal,
+                { isOpen: this.state.deletevisible, toggle: this.toggleDelete },
+                _react2.default.createElement(
+                    _reactstrap.ModalHeader,
+                    { toggle: this.toggleDelete },
+                    'Delete Listing'
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalBody,
+                    null,
+                    !this.props.deleteitem && !this.props.error.general ? "Press Confirm to DELETE this listing. Press Cancel to go back" : null,
+                    this.props.deleteitem && _react2.default.createElement(
+                        'div',
+                        { className: 'success' },
+                        'Deleted!'
+                    ),
+                    this.props.error.general && _react2.default.createElement(
+                        'div',
+                        { className: 'error' },
+                        'Sorry, there was an error! Please try again!'
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalFooter,
+                    null,
+                    !this.props.deleteitem ? _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.props.handleDelete },
+                            'Confirm'
+                        ),
+                        ' ',
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.toggleDelete },
+                            'Cancel'
+                        )
+                    ) : _react2.default.createElement(
+                        _reactstrap.Button,
+                        { color: 'success', onClick: this.toggleDelete },
+                        'Close'
+                    )
+                )
+            ) : null;
+
+            var createModal = this.state.createvisible ? _react2.default.createElement(
+                _reactstrap.Modal,
+                { isOpen: this.onCreateConfirm, toggle: this.toggleCreate },
+                _react2.default.createElement(
+                    _reactstrap.ModalHeader,
+                    { toggle: this.toggleCreate },
+                    'Create Listing'
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalBody,
+                    { toggle: this.toggleCreate },
+                    !this.props.savelisting && !this.props.error.general ? "Press Confirm to CREATE this Listing. Press Cancel to go back" : null,
+                    this.props.savelisting && _react2.default.createElement(
+                        'div',
+                        { className: 'success' },
+                        'Created!'
+                    ),
+                    this.props.error.general && _react2.default.createElement(
+                        'div',
+                        { className: 'error' },
+                        this.props.error.savelisting.general
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalFooter,
+                    null,
+                    !this.props.savelisting ? _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.props.handleSubmit },
+                            'Confirm'
+                        ),
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.toggleCreate },
+                            'Cancel'
+                        )
+                    ) : _react2.default.createElement(
+                        _reactstrap.Button,
+                        { color: 'success', onClick: this.toggleCreate },
+                        'Close'
+                    )
+                )
+            ) : null;
 
             var venueData = { value: this.props.venue._id, label: this.props.venue.name };
 
@@ -4067,9 +4203,9 @@ var ListingForm = function (_React$Component) {
                         deleteButton
                     )
                 ),
-                _react2.default.createElement(_updateModal2.default, { updateView: this.state.updatevisible }),
-                _react2.default.createElement(_deleteModal2.default, { deleteView: this.state.deletevisible }),
-                _react2.default.createElement(_createModal2.default, { createView: this.state.createvisible })
+                showUpdateModal,
+                createModal,
+                deleteModal
             );
         }
     }]);
@@ -4106,7 +4242,7 @@ var _imageUpload = __webpack_require__(42);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
-var _ImagesActions = __webpack_require__(18);
+var _ImagesActions = __webpack_require__(19);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -4291,7 +4427,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(8);
+var _reactstrap = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4647,7 +4783,7 @@ var debug = __webpack_require__(53)('artcritical-list:server');
 var expressValidator = __webpack_require__(54);
 
 //Authentification
-var passport = __webpack_require__(17);
+var passport = __webpack_require__(18);
 var flash = __webpack_require__(55);
 var session = __webpack_require__(56);
 var bcrypt = __webpack_require__(25); // encripts password
@@ -4658,7 +4794,7 @@ __webpack_require__(57)(passport);
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 var url = process.env.MONGOLAB_URI;
 mongoose.Promise = global.Promise;
 mongoose.connect(url, { useMongoClient: true });
@@ -4721,9 +4857,9 @@ app.use(function (req, res, next) {
 });
 
 var index = __webpack_require__(64);
-var venues = __webpack_require__(121);
-var listings = __webpack_require__(122);
-var auth = __webpack_require__(123);
+var venues = __webpack_require__(120);
+var listings = __webpack_require__(121);
+var auth = __webpack_require__(122);
 
 app.use('/venues', venues);
 app.use('/list', listings);
@@ -5157,7 +5293,7 @@ module.exports = require("passport-facebook");
 "use strict";
 
 
-var mongoose = __webpack_require__(6),
+var mongoose = __webpack_require__(7),
     Schema = mongoose.Schema;
 
 // Create the Listings table ==================================
@@ -5199,7 +5335,7 @@ module.exports = mongoose.model('List', listingSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(6),
+var mongoose = __webpack_require__(7),
     Schema = mongoose.Schema;
 
 // Create the Archive table ==================================
@@ -5233,7 +5369,7 @@ module.exports = mongoose.model('Archive', archiveSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
 
@@ -5281,13 +5417,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var JSX = __webpack_require__(119).install();
-var passport = __webpack_require__(17);
+var JSX = __webpack_require__(118).install();
+var passport = __webpack_require__(18);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var history = __webpack_require__(120);
+var history = __webpack_require__(119);
 var historyObj = history.createMemoryHistory();
 
 // Check if user is connected
@@ -5393,31 +5529,31 @@ var _NewListing = __webpack_require__(95);
 
 var _NewListing2 = _interopRequireDefault(_NewListing);
 
-var _EditListing = __webpack_require__(103);
+var _EditListing = __webpack_require__(101);
 
 var _EditListing2 = _interopRequireDefault(_EditListing);
 
-var _EditVenue = __webpack_require__(104);
+var _EditVenue = __webpack_require__(102);
 
 var _EditVenue2 = _interopRequireDefault(_EditVenue);
 
-var _featuredPage = __webpack_require__(107);
+var _featuredPage = __webpack_require__(105);
 
 var _featuredPage2 = _interopRequireDefault(_featuredPage);
 
-var _VenuesPage = __webpack_require__(110);
+var _VenuesPage = __webpack_require__(108);
 
 var _VenuesPage2 = _interopRequireDefault(_VenuesPage);
 
-var _UsersPage = __webpack_require__(112);
+var _UsersPage = __webpack_require__(110);
 
 var _UsersPage2 = _interopRequireDefault(_UsersPage);
 
-var _ReviewPage = __webpack_require__(115);
+var _ReviewPage = __webpack_require__(114);
 
 var _ReviewPage2 = _interopRequireDefault(_ReviewPage);
 
-var _Account = __webpack_require__(116);
+var _Account = __webpack_require__(115);
 
 var _Account2 = _interopRequireDefault(_Account);
 
@@ -5701,7 +5837,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -5865,7 +6001,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -6154,7 +6290,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _moment = __webpack_require__(19);
+var _moment = __webpack_require__(15);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -6820,7 +6956,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -6840,7 +6976,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactstrap = __webpack_require__(8);
+var _reactstrap = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7444,7 +7580,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(15);
+var _reactMapGl = __webpack_require__(16);
 
 var _myListings = __webpack_require__(88);
 
@@ -7901,7 +8037,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(15);
+var _reactMapGl = __webpack_require__(16);
 
 var _userListings = __webpack_require__(92);
 
@@ -8067,12 +8203,7 @@ var UserList = function (_React$Component) {
                 fullURL = "https://graph.facebook.com/" + this.props.user.facebook.id + "/picture?type=large";
             }
 
-            var name = this.props.user.firstname + (this.props.user.lastname && _react2.default.createElement(
-                'span',
-                null,
-                ' ',
-                this.props.user.lastname
-            ));
+            var name = this.props.user.lastname ? this.props.user.firstname + " " + this.props.user.lastname : this.props.user.firstname;
 
             return _react2.default.createElement(
                 'div',
@@ -8557,7 +8688,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDates = __webpack_require__(40);
 
-var _moment = __webpack_require__(19);
+var _moment = __webpack_require__(15);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -8631,7 +8762,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDates = __webpack_require__(40);
 
-var _moment = __webpack_require__(19);
+var _moment = __webpack_require__(15);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -8699,24 +8830,109 @@ module.exports = require("react-dropzone");
 
 /***/ }),
 /* 100 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: Unexpected token (44:2)\n\n  42 |  \n  43 | return (\n> 44 |   <div>{deleteModal}</div>)\n     |   ^\n  45 | }\n  46 | \n");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactstrap = __webpack_require__(6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpdateModal = function (_React$Component) {
+    _inherits(UpdateModal, _React$Component);
+
+    function UpdateModal(props) {
+        _classCallCheck(this, UpdateModal);
+
+        var _this = _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).call(this, props));
+
+        _this.state = {
+            updatevisible: _this.props.updatevisible
+        };
+        return _this;
+    }
+
+    _createClass(UpdateModal, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _reactstrap.Modal,
+                { isOpen: this.state.updatevisible, toggle: this.toggle },
+                _react2.default.createElement(
+                    _reactstrap.ModalHeader,
+                    { toggle: this.toggle },
+                    'Update Listing'
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalBody,
+                    { toggle: this.toggle },
+                    !this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null,
+                    this.props.loading && _react2.default.createElement(
+                        'div',
+                        { className: 'loading' },
+                        'loading'
+                    ),
+                    this.props.success && _react2.default.createElement(
+                        'div',
+                        { className: 'success' },
+                        'Saved!'
+                    ),
+                    this.props.error && _react2.default.createElement(
+                        'div',
+                        { className: 'error' },
+                        'Please Try Again'
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalFooter,
+                    null,
+                    !this.props.success ? _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.props.handleSubmit },
+                            'Confirm'
+                        ),
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.toggle },
+                            'Cancel'
+                        )
+                    ) : _react2.default.createElement(
+                        _reactstrap.Button,
+                        { color: 'success', onClick: this.toggle },
+                        'Close'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UpdateModal;
+}(_react2.default.Component);
+
+exports.default = UpdateModal;
 
 /***/ }),
 /* 101 */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: SyntaxError: Unexpected token (44:4)\n\n  42 |  }\n  43 | return (\n> 44 |     <div>{createModal}</div>)\n     |     ^\n  45 | }\n  46 | \n");
-
-/***/ }),
-/* 102 */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: SyntaxError: Unexpected token (48:8)\n\n  46 | \n  47 |      return (\n> 48 |         <div>\n     |         ^\n  49 |             {updateModal}\n  50 |         </div>\n  51 |         )\n");
-
-/***/ }),
-/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8734,7 +8950,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -8746,7 +8962,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -8801,7 +9017,6 @@ var ListingEdit = function (_React$Component) {
                 newListing.neighborhood = newListing.venue.neighborhood;
                 _ListActions2.default.saveListing(newListing);
             }
-            this.onUpdateSubmit();
         }
 
         //Delete the listing
@@ -8900,7 +9115,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 104 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8918,7 +9133,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -8930,11 +9145,11 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _VenueForm = __webpack_require__(105);
+var _VenueForm = __webpack_require__(103);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
 
@@ -9098,7 +9313,7 @@ var VenueEdit = function (_React$Component) {
 exports.default = VenueEdit;
 
 /***/ }),
-/* 105 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9118,7 +9333,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactstrap = __webpack_require__(8);
+var _reactstrap = __webpack_require__(6);
 
 var _DateBlock = __webpack_require__(5);
 
@@ -9138,7 +9353,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //COMPONENTS
 
 
-var MapboxClient = __webpack_require__(106);
+var MapboxClient = __webpack_require__(104);
 var client = new MapboxClient(process.env.MapboxAccessToken);
 
 var VenueForm = function (_React$Component) {
@@ -9398,13 +9613,13 @@ var VenueForm = function (_React$Component) {
 exports.default = VenueForm;
 
 /***/ }),
-/* 106 */
+/* 104 */
 /***/ (function(module, exports) {
 
 module.exports = require("mapbox");
 
 /***/ }),
-/* 107 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9428,7 +9643,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactIntl = __webpack_require__(11);
 
-var _featuredDay = __webpack_require__(108);
+var _featuredDay = __webpack_require__(106);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
@@ -9512,7 +9727,7 @@ var FeaturePage = function (_React$Component) {
 exports.default = FeaturePage;
 
 /***/ }),
-/* 108 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9530,7 +9745,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -9538,11 +9753,11 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _featuredForm = __webpack_require__(109);
+var _featuredForm = __webpack_require__(107);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
@@ -9655,7 +9870,7 @@ var FeaturedDay = function (_React$Component) {
 exports.default = FeaturedDay;
 
 /***/ }),
-/* 109 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9683,7 +9898,7 @@ var _ThumbnailInput = __webpack_require__(41);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
-var _reactstrap = __webpack_require__(8);
+var _reactstrap = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9754,7 +9969,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 110 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9776,11 +9991,11 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _VenueItem = __webpack_require__(111);
+var _VenueItem = __webpack_require__(109);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
@@ -9919,7 +10134,7 @@ var VenuesPage = function (_React$Component) {
 exports.default = VenuesPage;
 
 /***/ }),
-/* 111 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10057,7 +10272,7 @@ var VenueItem = function (_React$Component) {
 exports.default = VenueItem;
 
 /***/ }),
-/* 112 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10081,11 +10296,15 @@ var _loading = __webpack_require__(44);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _UserCard = __webpack_require__(113);
+var _UserCard = __webpack_require__(111);
 
 var _UserCard2 = _interopRequireDefault(_UserCard);
 
-var _UserFullInfo = __webpack_require__(114);
+var _UserEdit = __webpack_require__(112);
+
+var _UserEdit2 = _interopRequireDefault(_UserEdit);
+
+var _UserFullInfo = __webpack_require__(113);
 
 var _UserFullInfo2 = _interopRequireDefault(_UserFullInfo);
 
@@ -10119,8 +10338,7 @@ var UsersPage = function (_React$Component) {
 
             var usersRender = function usersRender(users) {
                 return users.map(function (user, index) {
-                    console.log(user);
-                    return _react2.default.createElement(_UserCard2.default, { key: user._id, changeid: index, userCard: user });
+                    return _react2.default.createElement(_UserCard2.default, { key: index, index: index, user: user });
                 });
             };
 
@@ -10155,7 +10373,7 @@ var UsersPage = function (_React$Component) {
 exports.default = UsersPage;
 
 /***/ }),
-/* 113 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10187,7 +10405,7 @@ var _DateBlock = __webpack_require__(5);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _reactstrap = __webpack_require__(8);
+var _reactstrap = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10207,13 +10425,11 @@ var UserCard = function (_React$Component) {
 
 								var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
 
-								_this.state = {
-												name: _this.props.name,
-												updating: false
-								};
+								_this.state = { collapse: false };
 
 								_this.saveChanges = _this.saveChanges.bind(_this);
 								_this.handleChange = _this.handleChange.bind(_this);
+								_this.toggleForm = _this.toggleForm.bind(_this);
 								return _this;
 				}
 
@@ -10228,7 +10444,7 @@ var UserCard = function (_React$Component) {
 								key: 'handleChange',
 								value: function handleChange(event) {
 												//Update values of inputs
-												_AuthActions2.default.userInfoChange(event);
+												_AuthActions2.default.userInfoChange(event, this.props.index);
 								}
 				}, {
 								key: 'saveChanges',
@@ -10237,9 +10453,15 @@ var UserCard = function (_React$Component) {
 												_AuthActions2.default.updateUser(this.props.user);
 								}
 				}, {
+								key: 'toggleForm',
+								value: function toggleForm() {
+												this.setState({ collapse: !this.state.collapse });
+								}
+				}, {
 								key: 'render',
 								value: function render() {
 
+												var user = this.props.user;
 												var userAccess = function userAccess(accessCode) {
 																return {
 																				3: 'Super Admin',
@@ -10255,77 +10477,105 @@ var UserCard = function (_React$Component) {
 																_react2.default.createElement(
 																				'div',
 																				{ className: 'image' },
-																				_react2.default.createElement(_imageBlock2.default, { image: this.props.userCard.avatar })
+																				_react2.default.createElement(_imageBlock2.default, { image: user.avatar })
+																),
+																_react2.default.createElement(
+																				'div',
+																				null,
+																				_react2.default.createElement(
+																								'p',
+																								null,
+																								user['firstname'] + ' ' + user['lastname']
+																				),
+																				_react2.default.createElement(
+																								'p',
+																								null,
+																								user.local.username
+																				),
+																				_react2.default.createElement(
+																								'p',
+																								null,
+																								userAccess([this.props.user.userAccess])
+																				)
 																),
 																_react2.default.createElement(
 																				'div',
 																				{ className: 'info' },
 																				_react2.default.createElement(
-																								'form',
-																								{ onSubmit: this.saveChanges },
+																								_reactstrap.Button,
+																								{ color: 'primary', onClick: this.toggleForm },
+																								'Edit'
+																				),
+																				_react2.default.createElement(
+																								_reactstrap.Collapse,
+																								{ isOpen: this.state.collapse },
 																								_react2.default.createElement(
-																												'label',
-																												null,
-																												'First Name'
-																								),
-																								_react2.default.createElement(
-																												'div',
-																												{ className: 'formSection' },
-																												_react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', onChange: this.handleChange, defaultValue: this.props.userCard.firstname })
-																								),
-																								_react2.default.createElement(
-																												'label',
-																												null,
-																												'Last Name'
-																								),
-																								_react2.default.createElement(
-																												'div',
-																												{ className: 'formSection' },
-																												_react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', onChange: this.handleChange, defaultValue: this.props.userCard.lastname })
-																								),
-																								_react2.default.createElement(
-																												'label',
-																												null,
-																												'Email'
-																								),
-																								_react2.default.createElement(
-																												'div',
-																												{ className: 'formSection' },
-																												_react2.default.createElement('input', { name: 'email', placeholder: 'Your Email', type: 'email', onChange: this.handleChange, defaultValue: this.props.userCard.local.username })
-																								),
-																								_react2.default.createElement(
-																												_reactstrap.Label,
-																												{ 'for': 'exampleSelect' },
-																												'User Role'
-																								),
-																								_react2.default.createElement(
-																												_reactstrap.Input,
-																												{ type: 'select', name: 'select', id: 'exampleSelect' },
+																												'form',
+																												{ onSubmit: this.saveChanges },
 																												_react2.default.createElement(
-																																'option',
+																																'label',
 																																null,
-																																userAccess([this.props.userCard.userAccess])
+																																'First Name'
 																												),
 																												_react2.default.createElement(
-																																'option',
-																																null,
-																																'Editor'
+																																'div',
+																																{ className: 'formSection' },
+																																_react2.default.createElement('input', { name: 'firstname', placeholder: 'Your First Name', type: 'text', onChange: this.handleChange, value: user.firstname })
 																												),
 																												_react2.default.createElement(
-																																'option',
+																																'label',
 																																null,
-																																'Admin'
+																																'Last Name'
 																												),
 																												_react2.default.createElement(
-																																'option',
+																																'div',
+																																{ className: 'formSection' },
+																																_react2.default.createElement('input', { name: 'lastname', placeholder: 'Your Last Name', type: 'text', onChange: this.handleChange, value: user.lastname })
+																												),
+																												_react2.default.createElement(
+																																'label',
 																																null,
-																																'Subscriber'
+																																'Email'
+																												),
+																												_react2.default.createElement(
+																																'div',
+																																{ className: 'formSection' },
+																																_react2.default.createElement('input', { name: 'email', placeholder: 'Your Email', type: 'email', onChange: this.handleChange, value: user.local.username })
+																												),
+																												_react2.default.createElement(
+																																_reactstrap.Label,
+																																{ 'for': 'exampleSelect' },
+																																'User Role'
+																												),
+																												_react2.default.createElement(
+																																_reactstrap.Input,
+																																{ type: 'select', name: 'userAccess', onChange: this.handleChange },
+																																_react2.default.createElement(
+																																				'option',
+																																				{ value: 3 },
+																																				'SuperAdmin'
+																																),
+																																_react2.default.createElement(
+																																				'option',
+																																				{ value: 1 },
+																																				'Editor'
+																																),
+																																_react2.default.createElement(
+																																				'option',
+																																				{ value: 2 },
+																																				'Admin'
+																																),
+																																_react2.default.createElement(
+																																				'option',
+																																				{ value: 0 },
+																																				'Subscriber'
+																																)
+																												),
+																												_react2.default.createElement(
+																																'button',
+																																{ type: 'submit' },
+																																'Submit Changes'
 																												)
-																								),
-																								_react2.default.createElement(
-																												'button',
-																												{ type: 'submit' },
-																												'Submit Changes'
 																								)
 																				)
 																)
@@ -10339,7 +10589,67 @@ var UserCard = function (_React$Component) {
 exports.default = UserCard;
 
 /***/ }),
-/* 114 */
+/* 112 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ListActions = __webpack_require__(1);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _AuthActions = __webpack_require__(2);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserEdit = function (_React$Component) {
+  _inherits(UserEdit, _React$Component);
+
+  function UserEdit(props) {
+    _classCallCheck(this, UserEdit);
+
+    return _possibleConstructorReturn(this, (UserEdit.__proto__ || Object.getPrototypeOf(UserEdit)).call(this, props));
+  }
+
+  _createClass(UserEdit, [{
+    key: 'render',
+    value: function render() {
+      var user = this.props.user;
+      console.log(user);
+      return _react2.default.createElement(
+        'p',
+        null,
+        user['firstname'] + ' ' + user['lastname']
+      );
+    }
+  }]);
+
+  return UserEdit;
+}(_react2.default.Component);
+
+exports.default = UserEdit;
+
+/***/ }),
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10452,7 +10762,7 @@ var UserFullInfo = function (_React$Component) {
 exports.default = UserFullInfo;
 
 /***/ }),
-/* 115 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10462,19 +10772,25 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _ListStore = __webpack_require__(14);
+
+var _ListStore2 = _interopRequireDefault(_ListStore);
+
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _ListStore = __webpack_require__(14);
+var _moment = __webpack_require__(15);
 
-var _ListStore2 = _interopRequireDefault(_ListStore);
+var _moment2 = _interopRequireDefault(_moment);
 
 var _listing = __webpack_require__(4);
 
@@ -10495,6 +10811,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 //COMPONENTS
 
 
@@ -10504,12 +10821,7 @@ var ReviewPage = function (_React$Component) {
     function ReviewPage(props) {
         _classCallCheck(this, ReviewPage);
 
-        var _this = _possibleConstructorReturn(this, (ReviewPage.__proto__ || Object.getPrototypeOf(ReviewPage)).call(this, props));
-
-        _this.state = {
-            listings: _this.props.futureListings
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (ReviewPage.__proto__ || Object.getPrototypeOf(ReviewPage)).call(this, props));
     }
 
     _createClass(ReviewPage, [{
@@ -10520,6 +10832,18 @@ var ReviewPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            var futureListings = this.props.futureListings;
+            var thelistings = futureListings.map(function (listing) {
+                console.log(listing);
+                console.log((0, _moment2.default)(listing['start']).format().slice(0, 10));
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_listing2.default, _extends({}, listing, { user: _this2.props.user }))
+                );
+            });
 
             return _react2.default.createElement(
                 'div',
@@ -10536,7 +10860,11 @@ var ReviewPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'events mainList' },
-                    _react2.default.createElement('div', null)
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        thelistings
+                    )
                 )
             );
         }
@@ -10548,7 +10876,7 @@ var ReviewPage = function (_React$Component) {
 exports.default = ReviewPage;
 
 /***/ }),
-/* 116 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10568,7 +10896,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _AccountForm = __webpack_require__(117);
+var _AccountForm = __webpack_require__(116);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
@@ -10631,7 +10959,7 @@ var AccountPage = function (_React$Component) {
 exports.default = AccountPage;
 
 /***/ }),
-/* 117 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10651,7 +10979,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _avatar = __webpack_require__(118);
+var _avatar = __webpack_require__(117);
 
 var _avatar2 = _interopRequireDefault(_avatar);
 
@@ -10673,14 +11001,10 @@ var AccountForm = function (_React$Component) {
     function AccountForm(props) {
         _classCallCheck(this, AccountForm);
 
+        //Function Binding
         var _this = _possibleConstructorReturn(this, (AccountForm.__proto__ || Object.getPrototypeOf(AccountForm)).call(this, props));
 
-        _this.state = {
-            name: _this.props.user.name,
-            updating: false
-
-            //Function Binding
-        };_this.handleChange = _this.handleChange.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
         _this.saveChanges = _this.saveChanges.bind(_this);
         return _this;
     }
@@ -10812,7 +11136,7 @@ var AccountForm = function (_React$Component) {
 exports.default = AccountForm;
 
 /***/ }),
-/* 118 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10828,7 +11152,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(18);
+var _ImagesActions = __webpack_require__(19);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -10924,19 +11248,19 @@ var Avatar = function (_React$Component) {
 exports.default = Avatar;
 
 /***/ }),
-/* 119 */
+/* 118 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 120 */
+/* 119 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11147,7 +11471,7 @@ router.get('/:venue_id', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11155,7 +11479,7 @@ module.exports = router;
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 
 //#######################
 // GET ALL listings ===================
@@ -11439,7 +11763,7 @@ router.post('/delete/:listing_id', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11447,7 +11771,7 @@ module.exports = router;
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var passport = __webpack_require__(17);
+var passport = __webpack_require__(18);
 
 //###################################
 // SIGNUP

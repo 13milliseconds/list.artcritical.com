@@ -10,11 +10,6 @@ export default class AccountForm extends React.Component {
     constructor(props){
         super(props);
         
-        this.state = {
-            name: this.props.user.name,
-            updating: false
-        }
-        
         //Function Binding
         this.handleChange = this.handleChange.bind(this);
         this.saveChanges = this.saveChanges.bind(this);

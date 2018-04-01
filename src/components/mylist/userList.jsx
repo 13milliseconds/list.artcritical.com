@@ -136,8 +136,9 @@ export default class UserList extends React.Component {
             fullURL = "https://graph.facebook.com/" + this.props.user.facebook.id + "/picture?type=large";
         }
 		
-		let name = this.props.user.firstname + (this.props.user.lastname 
-												&& <span> {this.props.user.lastname}</span>)
+        let name = this.props.user.lastname 
+                                ? this.props.user.firstname + " " + this.props.user.lastname
+                                : this.props.user.firstname
         
         return ( 
                 <div className="myList">
