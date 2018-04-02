@@ -344,8 +344,8 @@ class AuthActions {
     }
     
     // When a user type new info in the account page
-    userInfoChange(event){
-        return event;
+    userInfoChange(event, index){
+        return {event, index};
     }
 
 }

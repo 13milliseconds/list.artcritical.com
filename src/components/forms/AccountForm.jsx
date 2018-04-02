@@ -10,11 +10,6 @@ export default class AccountForm extends React.Component {
     constructor(props){
         super(props);
         
-        this.state = {
-            name: this.props.user.name,
-            updating: false
-        }
-        
         //Function Binding
         this.handleChange = this.handleChange.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
@@ -22,7 +17,6 @@ export default class AccountForm extends React.Component {
     
     
     componentWillReceiveProps(nextProps){
-        
         if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)){
             console.log(nextProps.user);
         }
@@ -33,7 +27,8 @@ export default class AccountForm extends React.Component {
         AuthActions.userInfoChange(event);
     }
     
-    saveChanges(){
+    saveChanges(event){
+        event.preventDefault();
         AuthActions.updateUser(this.props.user)
     }
 
@@ -41,6 +36,7 @@ export default class AccountForm extends React.Component {
         
         return ( 
             <div className = "accountform">
+<<<<<<< HEAD
                 
                 <label>First Name</label>
                 <div className="formSection">
@@ -84,7 +80,54 @@ export default class AccountForm extends React.Component {
                 {this.props.loading.updateuser? 'saving...' : ''}
                 {this.props.success.updateuser || ''}
                 {this.props.error.updateuser || ''}
+=======
+                <form onSubmit={this.saveChanges}>
+                    <label>First Name</label>
+                    <div className="formSection">
+                        <input name="firstname" placeholder="Your First Name" type="text" value={this.props.user.firstname} onChange={this.handleChange} />
+                    </div>
+    				
+    				<label>Last Name</label>
+                    <div className="formSection">
+                        <input name="lastname" placeholder="Your Last Name" type="text" value={this.props.user.lastname} onChange={this.handleChange} />
+                    </div>
+                    
+                    <label>Email</label>
+                    <div className="formSection">
+                        <input name="email" placeholder="Your Email" type="text" value={this.props.user.local.username} onChange={this.handleChange} />
+                    </div>
+    				
+    				<h3>This text will appear on your <a href={location.protocol + '//' + location.host + '/mylist/' + this.props.user.slug} target="_blank">public page</a>.</h3>
+                    
+                    <label>Profile Picture</label>
+                    <div className="formSection">
+                        <Avatar {...this.props.user}/>
+                    </div>
+    				
+    				<label>Bio</label>
+                    <div className="formSection">
+    					<textarea name="bio" 
+    						placeholder="Your Bio" 
+    						type="text" 
+    						value={this.props.user.bio} 
+    						onChange={this.handleChange}
+    						rows="4" 
+    						cols="50"></textarea>
+                    </div>
+    				
+    				<label>Website</label>
+                    <div className="formSection">
+                        <input name="website" placeholder="Your Website" type="text" value={this.props.user.website} onChange={this.handleChange} />
+                    </div>
+                    
+                    <button type="submit">Save</button>
+                    {this.props.loading.updateuser? 'saving...' : ''}
+                    {this.props.success.updateuser || ''}
+                    {this.props.error.updateuser || ''}
+                 </form>
+>>>>>>> e3bd20685b3d6b48ddd02626b265c6fe2b68e4b8
             </div>
+
         );
     }
 }

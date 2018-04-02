@@ -11,9 +11,13 @@ import DateRange from './formDateRange'
 import DateSingle from './formDateSingle'
 import Select from './formSelect'
 import ThumbnailInput from './ThumbnailInput'
+<<<<<<< HEAD
 import EventsForm from './EventsForm'
 
 
+=======
+import UpdateModal from './updateModal'
+>>>>>>> e3bd20685b3d6b48ddd02626b265c6fe2b68e4b8
 
 export default class ListingForm extends React.Component {
 
@@ -33,7 +37,7 @@ export default class ListingForm extends React.Component {
         this.onConfirm = this.onConfirm.bind(this);
         this.onDeleteConfirm = this.onDeleteConfirm.bind(this);
         this.onCreateConfirm = this.onCreateConfirm.bind(this);
-        this.onDismiss = this.onDismiss.bind(this);
+        this.toggleCreate = this.toggleCreate.bind(this);
         this.toggle = this.toggle.bind(this);
         this.toggleDelete = this.toggleDelete.bind(this);
 
@@ -46,11 +50,6 @@ export default class ListingForm extends React.Component {
         });
     }
 
-    toggleCreate() {
-        this.setState({
-          createvisible: !this.state.createvisible
-        })
-    }
 
     toggleDelete() {
         this.setState({
@@ -60,8 +59,11 @@ export default class ListingForm extends React.Component {
     }
 
 
-    onDismiss() {
-        this.setState({ createvisible: false });
+    toggleCreate() {
+        this.setState({ 
+            modal: !this.state.modal,
+            createvisible: !this.state.createvisible 
+        });
     }
 
     //confirm alert
@@ -129,11 +131,75 @@ export default class ListingForm extends React.Component {
                 return Promise.resolve({ options: [] });
             }
         }
-        
-        let venueData = { value: this.props.venue._id, label: this.props.venue.name}
 
-            let createModal = this.state.createvisible ? 
-                <Modal isOpen={this.state.createvisible} toggle={this.toggleCreate}>
+        let showUpdateModal = this.state.updatevisible ? 
+            <UpdateModal /> 
+                : null
+
+        // let updateModal = this.state.updatevisible ? 
+        //             <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
+        //                         <ModalHeader toggle={this.toggle}>Update Listing</ModalHeader>
+        //                           <ModalBody toggle={this.toggle}>
+        //                             {!this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null}
+
+        //                             {this.props.loading && 
+        //                             <div className='loading'>loading</div>
+        //                             }
+        //                             {this.props.success && 
+        //                                 <div className='success'>Saved!</div>
+        //                             }
+        //                             {this.props.error.general && 
+        //                                 <div className='error'>{this.props.error.savelisting.general}</div>
+        //                             }
+        //                           </ModalBody>
+        //                           <ModalFooter>
+        //                             {!this.props.success ? 
+        //                                 <div>
+        //                                     <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
+        //                                     <Button color="primary" onClick={this.toggle}>Cancel</Button>
+        //                                 </div>
+        //                             :
+        //                                 <Button color="success" onClick={this.toggle}>Close</Button>
+        //                             }
+                                    
+                                    
+        //                           </ModalFooter>
+        //             </Modal> 
+        //         : 
+        //             null
+
+
+            let deleteModal = this.state.deletevisible ?
+        <Modal isOpen={this.state.deletevisible} toggle={this.toggleDelete}>
+                      <ModalHeader toggle={this.toggleDelete}>Delete Listing</ModalHeader>
+                      <ModalBody>
+                       {!this.props.deleteitem && !this.props.error.general ? "Press Confirm to DELETE this listing. Press Cancel to go back" : null}
+
+                        
+                        {this.props.deleteitem && 
+                            <div className='success'>Deleted!</div>
+                        }
+                        {this.props.error.general && 
+                            <div className='error'>Sorry, there was an error! Please try again!</div>
+                        }
+                      </ModalBody>
+                      <ModalFooter>
+                        {!this.props.deleteitem ? 
+                            <div>
+                                <Button color="primary" onClick={this.props.handleDelete}>Confirm</Button>{' '}
+                                <Button color="primary" onClick={this.toggleDelete}>Cancel</Button>
+                            </div>
+                        :
+                            <Button color="success" onClick={this.toggleDelete}>Close</Button>
+                        }
+                        
+                      </ModalFooter>
+        </Modal> 
+    :
+        null
+
+          let createModal = this.state.createvisible ? 
+                <Modal isOpen={this.onCreateConfirm} toggle={this.toggleCreate}>
                             <ModalHeader toggle={this.toggleCreate}>Create Listing</ModalHeader>
                               <ModalBody toggle={this.toggleCreate}>
                                 {!this.props.savelisting && !this.props.error.general ? "Press Confirm to CREATE this Listing. Press Cancel to go back" : null}
@@ -151,7 +217,7 @@ export default class ListingForm extends React.Component {
                                         <Button color="primary" onClick={this.toggleCreate}>Cancel</Button>
                                     </div>
                                 :
-                                    <Button color="success" onClick={this.onDismiss}>Close</Button>
+                                    <Button color="success" onClick={this.toggleCreate}>Close</Button>
                                 }
                                 
                                 
@@ -159,6 +225,7 @@ export default class ListingForm extends React.Component {
                 </Modal> 
             : 
                 null
+<<<<<<< HEAD
 
         let updateModal = this.state.updatevisible &&
                 <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
@@ -217,6 +284,10 @@ export default class ListingForm extends React.Component {
                               </ModalFooter>
                 </Modal>
 
+=======
+        
+        let venueData = { value: this.props.venue._id, label: this.props.venue.name}
+>>>>>>> e3bd20685b3d6b48ddd02626b265c6fe2b68e4b8
         
         let deleteButton = this.props.handleDelete ?
                 <Button className="delete" color="danger" onClick={this.onDeleteConfirm}>Delete</Button>
@@ -283,9 +354,9 @@ export default class ListingForm extends React.Component {
                             {deleteButton}
                     </FormGroup>
                 </Form>   
-                        {updateModal}
-                        {deleteModal}
-                        {createModal}
+                       {showUpdateModal}
+                       {createModal}
+                       {deleteModal}
             </div>
 
            

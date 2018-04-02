@@ -136,7 +136,11 @@ export default class UserList extends React.Component {
             fullURL = "https://graph.facebook.com/" + this.props.user.facebook.id + "/picture?type=large";
         }
 		
+<<<<<<< HEAD
 		let name = this.props.user.lastname 
+=======
+        let name = this.props.user.lastname 
+>>>>>>> e3bd20685b3d6b48ddd02626b265c6fe2b68e4b8
                                 ? this.props.user.firstname + " " + this.props.user.lastname
                                 : this.props.user.firstname
         

@@ -316,12 +316,12 @@ router.post('/updateuser', function (req, res) {
     var User = req.user;
     
     var newInfo = req.body;
-    
+
     console.log('New user info: ', newInfo);
     var update = { $set: newInfo};
 
-    
-    Userlist.update({ _id: User._id }, update, {upsert:true}, function (err, updatedUser) {
+    Userlist.update({ _id: newInfo._id }, update, {upsert:true}, function (err, updatedUser) {
+        console.log('boom', updatedUser, newInfo._id)
         res.send(
             (err === null) ? {
                 newuser: updatedUser
@@ -330,8 +330,9 @@ router.post('/updateuser', function (req, res) {
             }
         );
     });
-
 });
+
+
 
 router.get('/getallusers', function (req, res){
 	var Userlist = req.userlist;

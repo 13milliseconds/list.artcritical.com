@@ -17,6 +17,7 @@ class ListStore {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
+        this.reviewListings = [];
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
@@ -103,6 +104,7 @@ class ListStore {
     onGetFutureSuccess(data) {
         this.loading.future = false;
         this.futureListings = this.futureListings.concat(data);
+        console.log(data)
     }
     onGetAllSuccess(data) {
         this.allListings = data;
@@ -326,6 +328,7 @@ class ListStore {
     onUpdateListingSuccess(data){
         this.loading.updatelisting = false; 
         this.success.updatelisting = true; 
+        this.reviewListings.push(data);
         var that = this;
         setTimeout(() => {
             that.success.updatelisting = false;
@@ -511,8 +514,9 @@ class ListStore {
         this.success.updateuser = '';
         this.error.updateuser = '';
     }
+
     onUpdateUserSuccess(data){
-        console.log('Success!');
+        console.log('Success!', 'woo');
         this.loading.updateuser = false;
         this.success.updateuser = 'Saved!';
     }
@@ -622,15 +626,25 @@ class ListStore {
     }
     
     // INFO CHANGE ON ACCOUNT PAGE
-    onUserInfoChange (event){
-        const target = event.target;
+    onUserInfoChange (data){
+        const target = data.event.target;
         const value = target.value;
         const name = target.name;
-		if (name == "email"){
-			this.user.local.username = value;
-		} else {
-			this.user[name] = value;	
-		}
+        if (data.index == null){
+            //Means we're in the account edit page
+            if (name == "email"){
+                this.user.local.username = value;
+            } else {
+                this.user[name] = value;	
+            }
+        } else {
+            //Means we're in the user admin page
+            if (name == "email"){
+                this.allUsers[data.index].username = value;
+            } else {
+                this.allUsers[data.index][name] = value;	
+            }
+        }
     }
     
     // UPLOAD AN AVATAR
