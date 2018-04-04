@@ -507,6 +507,7 @@ My List
     .listingsWrap{
         @include span-columns(12);
         .listing{
+            background-color: transparent;
 			.delete{
 				cursor: pointer;
                 color: $red;

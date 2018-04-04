@@ -17,7 +17,6 @@ class ListStore {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
-        this.reviewListings = [];
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
@@ -149,8 +148,9 @@ class ListStore {
     onListingEditReset(){
         this.listingEdit = {
             name: '',
-            events: [],
-            venue: {}
+            description: '',
+            venue: {},
+            events: []
         };
     }
 
@@ -198,7 +198,7 @@ class ListStore {
             this.listingEdit.events = [];
         }
 		// Need to explain this
-		if (info.i !== null){
+		if (info.i){
 			console.log('Feature listing');
 			this.features[info.i].list = info.data;
 			console.log(this.features[info.i].list);
@@ -223,7 +223,7 @@ class ListStore {
 		//Create a slug automatically if there is none
 		if(!data.slug){
             this.venueEdit.slug = data.name.replace(/\s+/g, '-').toLowerCase();
-                      }
+        }
     }
     onGetVenueFullInfoFailure(jqXhr){
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
@@ -328,7 +328,6 @@ class ListStore {
     onUpdateListingSuccess(data){
         this.loading.updatelisting = false; 
         this.success.updatelisting = true; 
-        this.reviewListings.push(data);
         var that = this;
         setTimeout(() => {
             that.success.updatelisting = false;

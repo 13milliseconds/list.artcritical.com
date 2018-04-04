@@ -26,6 +26,7 @@ export default class ListingEdit extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         let newListing = this.props.listingEdit
+        console.log(this.props.listingEdit)
 
         //Check and save only events that have a date
         let allEvents = []
@@ -100,7 +101,7 @@ export default class ListingEdit extends React.Component {
                     </form>
                 </div>
                 <div id="ListingInfo">
-                    <div className="medium listingsWrap">
+                    <div className="medium">
                         <Listing listing={this.props.listingEdit} user=""/>
                     </div>
                 </div>

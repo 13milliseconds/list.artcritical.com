@@ -86,7 +86,7 @@ var _alt = __webpack_require__(16);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-var _bluebird = __webpack_require__(31);
+var _bluebird = __webpack_require__(32);
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
@@ -296,6 +296,8 @@ var ListActions = function () {
         key: 'updateListing',
         value: async function updateListing(newInfo) {
             var _this8 = this;
+
+            console.log('updating ', newInfo);
 
             this.updateListingAttempt();
 
@@ -612,7 +614,7 @@ var _alt = __webpack_require__(16);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(28);
+__webpack_require__(29);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -956,7 +958,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _reactFontawesome = __webpack_require__(33);
+var _reactFontawesome = __webpack_require__(22);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -1007,7 +1009,6 @@ var Listing = function (_React$Component) {
     }, {
         key: '_editListing',
         value: function _editListing(listing) {
-            console.log("let's edit", listing);
             _ListActions2.default.editListing(listing);
         }
     }, {
@@ -1026,7 +1027,7 @@ var Listing = function (_React$Component) {
                 return _react2.default.createElement(
                     'div',
                     { className: 'event', key: index },
-                    _react2.default.createElement('i', { className: 'fal fa-glass-martini' }),
+                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'glass-martini'] }),
                     ' ',
                     event.name,
                     ' ',
@@ -1101,6 +1102,7 @@ var Listing = function (_React$Component) {
                     return v._id === id;
                 }).length;
             }
+            var mylistingIcon = mylistIndex > 0 ? ["far", "minus"] : ["far", "plus"];
 
             var image = listing.image ? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
             var style = { backgroundImage: 'url(' + image + ')' };
@@ -1120,7 +1122,7 @@ var Listing = function (_React$Component) {
                         { className: this.props.user._id ? "addButton active" : "addButton", onClick: function onClick(e) {
                                 return _this3.addToList(e, listing);
                             }, style: style },
-                        this.props.user._id && _react2.default.createElement('i', { className: mylistIndex > 0 ? 'fal fa-minus' : 'fal fa-plus', 'aria-hidden': 'true' })
+                        this.props.user._id && _react2.default.createElement(_reactFontawesome2.default, { icon: mylistingIcon })
                     ),
                     eventsPresence && _react2.default.createElement(
                         'span',
@@ -1531,11 +1533,11 @@ var _reactstrap = __webpack_require__(5);
 
 var _reactRouter = __webpack_require__(3);
 
-var _FacebookButton = __webpack_require__(98);
+var _FacebookButton = __webpack_require__(100);
 
 var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 
-var _loading = __webpack_require__(26);
+var _loading = __webpack_require__(27);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -1817,7 +1819,6 @@ var ListStore = function () {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
-        this.reviewListings = [];
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
@@ -1978,8 +1979,9 @@ var ListStore = function () {
         value: function onListingEditReset() {
             this.listingEdit = {
                 name: '',
-                events: [],
-                venue: {}
+                description: '',
+                venue: {},
+                events: []
             };
         }
 
@@ -2033,7 +2035,7 @@ var ListStore = function () {
                 this.listingEdit.events = [];
             }
             // Need to explain this
-            if (info.i !== null) {
+            if (info.i) {
                 console.log('Feature listing');
                 this.features[info.i].list = info.data;
                 console.log(this.features[info.i].list);
@@ -2221,7 +2223,6 @@ var ListStore = function () {
         value: function onUpdateListingSuccess(data) {
             this.loading.updatelisting = false;
             this.success.updatelisting = true;
-            this.reviewListings.push(data);
             var that = this;
             setTimeout(function () {
                 that.success.updatelisting = false;
@@ -2407,6 +2408,7 @@ var ListStore = function () {
         value: function onLoginAttempt() {
             this.loginRedirect = false;
             this.loading.login = true;
+            this.error.login = '';
         }
     }, {
         key: 'onLoginFailure',
@@ -2735,7 +2737,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(110);
+var _reactSelect = __webpack_require__(112);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2795,7 +2797,7 @@ var _alt = __webpack_require__(16);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(28);
+__webpack_require__(29);
 
 var _superagent = __webpack_require__(71);
 
@@ -2868,6 +2870,594 @@ exports.default = _alt2.default.createActions(ImagesActions);
 
 /***/ }),
 /* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
+
+
+
+
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var humps = createCommonjsModule(function (module) {
+// =========
+// = humps =
+// =========
+// Underscore-to-camelCase converter (and vice versa)
+// for strings and object keys
+
+// humps is copyright © 2012+ Dom Christie
+// Released under the MIT license.
+
+
+(function(global) {
+
+  var _processKeys = function(convert, obj, options) {
+    if(!_isObject(obj) || _isDate(obj) || _isRegExp(obj) || _isBoolean(obj) || _isFunction(obj)) {
+      return obj;
+    }
+
+    var output,
+        i = 0,
+        l = 0;
+
+    if(_isArray(obj)) {
+      output = [];
+      for(l=obj.length; i<l; i++) {
+        output.push(_processKeys(convert, obj[i], options));
+      }
+    }
+    else {
+      output = {};
+      for(var key in obj) {
+        if(Object.prototype.hasOwnProperty.call(obj, key)) {
+          output[convert(key, options)] = _processKeys(convert, obj[key], options);
+        }
+      }
+    }
+    return output;
+  };
+
+  // String conversion methods
+
+  var separateWords = function(string, options) {
+    options = options || {};
+    var separator = options.separator || '_';
+    var split = options.split || /(?=[A-Z])/;
+
+    return string.split(split).join(separator);
+  };
+
+  var camelize = function(string) {
+    if (_isNumerical(string)) {
+      return string;
+    }
+    string = string.replace(/[\-_\s]+(.)?/g, function(match, chr) {
+      return chr ? chr.toUpperCase() : '';
+    });
+    // Ensure 1st char is always lowercase
+    return string.substr(0, 1).toLowerCase() + string.substr(1);
+  };
+
+  var pascalize = function(string) {
+    var camelized = camelize(string);
+    // Ensure 1st char is always uppercase
+    return camelized.substr(0, 1).toUpperCase() + camelized.substr(1);
+  };
+
+  var decamelize = function(string, options) {
+    return separateWords(string, options).toLowerCase();
+  };
+
+  // Utilities
+  // Taken from Underscore.js
+
+  var toString = Object.prototype.toString;
+
+  var _isFunction = function(obj) {
+    return typeof(obj) === 'function';
+  };
+  var _isObject = function(obj) {
+    return obj === Object(obj);
+  };
+  var _isArray = function(obj) {
+    return toString.call(obj) == '[object Array]';
+  };
+  var _isDate = function(obj) {
+    return toString.call(obj) == '[object Date]';
+  };
+  var _isRegExp = function(obj) {
+    return toString.call(obj) == '[object RegExp]';
+  };
+  var _isBoolean = function(obj) {
+    return toString.call(obj) == '[object Boolean]';
+  };
+
+  // Performant way to determine if obj coerces to a number
+  var _isNumerical = function(obj) {
+    obj = obj - 0;
+    return obj === obj;
+  };
+
+  // Sets up function which handles processing keys
+  // allowing the convert function to be modified by a callback
+  var _processor = function(convert, options) {
+    var callback = options && 'process' in options ? options.process : options;
+
+    if(typeof(callback) !== 'function') {
+      return convert;
+    }
+
+    return function(string, options) {
+      return callback(string, convert, options);
+    }
+  };
+
+  var humps = {
+    camelize: camelize,
+    decamelize: decamelize,
+    pascalize: pascalize,
+    depascalize: decamelize,
+    camelizeKeys: function(object, options) {
+      return _processKeys(_processor(camelize, options), object);
+    },
+    decamelizeKeys: function(object, options) {
+      return _processKeys(_processor(decamelize, options), object, options);
+    },
+    pascalizeKeys: function(object, options) {
+      return _processKeys(_processor(pascalize, options), object);
+    },
+    depascalizeKeys: function () {
+      return this.decamelizeKeys.apply(this, arguments);
+    }
+  };
+
+  if (false) {
+    undefined(humps);
+  } else if ('object' !== 'undefined' && module.exports) {
+    module.exports = humps;
+  } else {
+    global.humps = humps;
+  }
+
+})(commonjsGlobal);
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+var asyncGenerator = function () {
+  function AwaitValue(value) {
+    this.value = value;
+  }
+
+  function AsyncGenerator(gen) {
+    var front, back;
+
+    function send(key, arg) {
+      return new Promise(function (resolve, reject) {
+        var request = {
+          key: key,
+          arg: arg,
+          resolve: resolve,
+          reject: reject,
+          next: null
+        };
+
+        if (back) {
+          back = back.next = request;
+        } else {
+          front = back = request;
+          resume(key, arg);
+        }
+      });
+    }
+
+    function resume(key, arg) {
+      try {
+        var result = gen[key](arg);
+        var value = result.value;
+
+        if (value instanceof AwaitValue) {
+          Promise.resolve(value.value).then(function (arg) {
+            resume("next", arg);
+          }, function (arg) {
+            resume("throw", arg);
+          });
+        } else {
+          settle(result.done ? "return" : "normal", result.value);
+        }
+      } catch (err) {
+        settle("throw", err);
+      }
+    }
+
+    function settle(type, value) {
+      switch (type) {
+        case "return":
+          front.resolve({
+            value: value,
+            done: true
+          });
+          break;
+
+        case "throw":
+          front.reject(value);
+          break;
+
+        default:
+          front.resolve({
+            value: value,
+            done: false
+          });
+          break;
+      }
+
+      front = front.next;
+
+      if (front) {
+        resume(front.key, front.arg);
+      } else {
+        back = null;
+      }
+    }
+
+    this._invoke = send;
+
+    if (typeof gen.return !== "function") {
+      this.return = undefined;
+    }
+  }
+
+  if (typeof Symbol === "function" && Symbol.asyncIterator) {
+    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+      return this;
+    };
+  }
+
+  AsyncGenerator.prototype.next = function (arg) {
+    return this._invoke("next", arg);
+  };
+
+  AsyncGenerator.prototype.throw = function (arg) {
+    return this._invoke("throw", arg);
+  };
+
+  AsyncGenerator.prototype.return = function (arg) {
+    return this._invoke("return", arg);
+  };
+
+  return {
+    wrap: function (fn) {
+      return function () {
+        return new AsyncGenerator(fn.apply(this, arguments));
+      };
+    },
+    await: function (value) {
+      return new AwaitValue(value);
+    }
+  };
+}();
+
+
+
+
+
+
+
+
+
+
+
+
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+var objectWithoutProperties = function (obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var toConsumableArray = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  } else {
+    return Array.from(arr);
+  }
+};
+
+function capitalize(val) {
+  return val.charAt(0).toUpperCase() + val.slice(1);
+}
+
+function styleToObject(style) {
+  return style.split(';').map(function (s) {
+    return s.trim();
+  }).filter(function (s) {
+    return s;
+  }).reduce(function (acc, pair) {
+    var i = pair.indexOf(':');
+    var prop = humps.camelize(pair.slice(0, i));
+    var value = pair.slice(i + 1).trim();
+
+    prop.startsWith('webkit') ? acc[capitalize(prop)] = value : acc[prop] = value;
+
+    return acc;
+  }, {});
+}
+
+function convert(createElement, element) {
+  var extraProps = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  var children = (element.children || []).map(convert.bind(null, createElement));
+
+  var mixins = Object.keys(element.attributes || {}).reduce(function (acc, key) {
+    var val = element.attributes[key];
+
+    switch (key) {
+      case 'class':
+        acc.attrs['className'] = val;
+        delete element.attributes['class'];
+        break;
+      case 'style':
+        acc.attrs['style'] = styleToObject(val);
+        break;
+      default:
+        if (key.indexOf('aria-') === 0 || key.indexOf('data-') === 0) {
+          acc.attrs[key.toLowerCase()] = val;
+        } else {
+          acc.attrs[humps.camelize(key)] = val;
+        }
+    }
+
+    return acc;
+  }, { attrs: {} });
+
+  var _extraProps$style = extraProps.style,
+      existingStyle = _extraProps$style === undefined ? {} : _extraProps$style,
+      remaining = objectWithoutProperties(extraProps, ['style']);
+
+
+  mixins.attrs['style'] = _extends({}, mixins.attrs['style'], existingStyle);
+
+  return createElement.apply(undefined, [element.tag, _extends({}, mixins.attrs, remaining)].concat(toConsumableArray(children)));
+}
+
+var PRODUCTION = false;
+
+try {
+  PRODUCTION = process.env.NODE_ENV === 'production';
+} catch (e) {}
+
+var log = function () {
+  if (!PRODUCTION && console && typeof console.error === 'function') {
+    var _console;
+
+    (_console = console).error.apply(_console, arguments);
+  }
+};
+
+function objectWithKey(key, value) {
+  return Array.isArray(value) && value.length > 0 || !Array.isArray(value) && value ? defineProperty({}, key, value) : {};
+}
+
+function classList(props) {
+  var _classes;
+
+  var classes = (_classes = {
+    'fa-spin': props.spin,
+    'fa-pulse': props.pulse,
+    'fa-fw': props.fixedWidth,
+    'fa-border': props.border,
+    'fa-li': props.listItem,
+    'fa-flip-horizontal': props.flip === 'horizontal' || props.flip === 'both',
+    'fa-flip-vertical': props.flip === 'vertical' || props.flip === 'both'
+  }, defineProperty(_classes, 'fa-' + props.size, props.size !== null), defineProperty(_classes, 'fa-rotate-' + props.rotation, props.rotation !== null), defineProperty(_classes, 'fa-pull-' + props.pull, props.pull !== null), _classes);
+
+  return Object.keys(classes).map(function (key) {
+    return classes[key] ? key : null;
+  }).filter(function (key) {
+    return key;
+  });
+}
+
+function normalizeIconArgs(icon) {
+  if (icon === null) {
+    return null;
+  }
+
+  if ((typeof icon === 'undefined' ? 'undefined' : _typeof(icon)) === 'object' && icon.prefix && icon.iconName) {
+    return icon;
+  }
+
+  if (Array.isArray(icon) && icon.length === 2) {
+    return { prefix: icon[0], iconName: icon[1] };
+  }
+
+  if (typeof icon === 'string') {
+    return { prefix: 'fas', iconName: icon };
+  }
+}
+
+function FontAwesomeIcon$1(props) {
+  var iconArgs = props.icon,
+      maskArgs = props.mask,
+      symbol = props.symbol,
+      className = props.className;
+
+
+  var icon = normalizeIconArgs(iconArgs);
+  var classes = objectWithKey('classes', [].concat(toConsumableArray(classList(props)), toConsumableArray(className.split(' '))));
+  var transform = objectWithKey('transform', typeof props.transform === 'string' ? __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__["default"].parse.transform(props.transform) : props.transform);
+  var mask = objectWithKey('mask', normalizeIconArgs(maskArgs));
+
+  var renderedIcon = __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__["default"].icon(icon, _extends({}, classes, transform, mask, {
+    symbol: symbol
+  }));
+
+  if (!renderedIcon) {
+    log('Could not find icon', icon);
+    return null;
+  }
+
+  var abstract = renderedIcon.abstract;
+
+  var convertCurry = convert.bind(null, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement);
+  var extraProps = {};
+
+  Object.keys(props).forEach(function (key) {
+    if (!FontAwesomeIcon$1.defaultProps.hasOwnProperty(key)) extraProps[key] = props[key];
+  });
+
+  return convertCurry(abstract[0], extraProps);
+}
+
+FontAwesomeIcon$1.propTypes = {
+  border: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+
+  className: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
+
+  mask: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string]),
+
+  fixedWidth: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+
+  flip: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(['horizontal', 'vertical', 'both']),
+
+  icon: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string]),
+
+  listItem: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+
+  pull: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(['right', 'left']),
+
+  pulse: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+
+  name: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
+
+  rotation: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf([90, 180, 270]),
+
+  size: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(['lg', 'xs', 'sm', '1x', '2x', '3x', '4x', '5x', '6x', '7x', '8x', '9x', '10x']),
+
+  spin: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+
+  symbol: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string]),
+
+  transform: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object])
+};
+
+FontAwesomeIcon$1.defaultProps = {
+  border: false,
+  className: '',
+  mask: null,
+  fixedWidth: false,
+  flip: null,
+  icon: null,
+  listItem: false,
+  pull: null,
+  pulse: false,
+  name: '',
+  rotation: null,
+  size: null,
+  spin: false,
+  symbol: false,
+  transform: null
+};
+
+__WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__["default"].noAuto();
+
+/* harmony default export */ __webpack_exports__["default"] = (FontAwesomeIcon$1);
+
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2915,7 +3505,7 @@ var imageBlock = function (_React$Component) {
 exports.default = imageBlock;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3030,19 +3620,19 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dates");
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-toggle-button");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3092,19 +3682,19 @@ var Loading = function (_React$Component) {
 exports.default = Loading;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3112,7 +3702,7 @@ module.exports = require("isomorphic-fetch");
 
 var mongoose = __webpack_require__(6),
     Schema = mongoose.Schema;
-var bcrypt = __webpack_require__(27); // encripts password
+var bcrypt = __webpack_require__(28); // encripts password
 
 // Create the Listings table ==================================
 
@@ -3150,7 +3740,7 @@ userSchema.methods.validPassword = function (password) {
 module.exports = mongoose.model('User', userSchema);
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3192,13 +3782,13 @@ var venueSchema = mongoose.Schema({
 module.exports = mongoose.model('Venue', venueSchema);
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5020,594 +5610,6 @@ var config = api$1.config;
 
 
 /***/ }),
-/* 33 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
-
-
-
-
-var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-
-
-
-
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
-
-var humps = createCommonjsModule(function (module) {
-// =========
-// = humps =
-// =========
-// Underscore-to-camelCase converter (and vice versa)
-// for strings and object keys
-
-// humps is copyright © 2012+ Dom Christie
-// Released under the MIT license.
-
-
-(function(global) {
-
-  var _processKeys = function(convert, obj, options) {
-    if(!_isObject(obj) || _isDate(obj) || _isRegExp(obj) || _isBoolean(obj) || _isFunction(obj)) {
-      return obj;
-    }
-
-    var output,
-        i = 0,
-        l = 0;
-
-    if(_isArray(obj)) {
-      output = [];
-      for(l=obj.length; i<l; i++) {
-        output.push(_processKeys(convert, obj[i], options));
-      }
-    }
-    else {
-      output = {};
-      for(var key in obj) {
-        if(Object.prototype.hasOwnProperty.call(obj, key)) {
-          output[convert(key, options)] = _processKeys(convert, obj[key], options);
-        }
-      }
-    }
-    return output;
-  };
-
-  // String conversion methods
-
-  var separateWords = function(string, options) {
-    options = options || {};
-    var separator = options.separator || '_';
-    var split = options.split || /(?=[A-Z])/;
-
-    return string.split(split).join(separator);
-  };
-
-  var camelize = function(string) {
-    if (_isNumerical(string)) {
-      return string;
-    }
-    string = string.replace(/[\-_\s]+(.)?/g, function(match, chr) {
-      return chr ? chr.toUpperCase() : '';
-    });
-    // Ensure 1st char is always lowercase
-    return string.substr(0, 1).toLowerCase() + string.substr(1);
-  };
-
-  var pascalize = function(string) {
-    var camelized = camelize(string);
-    // Ensure 1st char is always uppercase
-    return camelized.substr(0, 1).toUpperCase() + camelized.substr(1);
-  };
-
-  var decamelize = function(string, options) {
-    return separateWords(string, options).toLowerCase();
-  };
-
-  // Utilities
-  // Taken from Underscore.js
-
-  var toString = Object.prototype.toString;
-
-  var _isFunction = function(obj) {
-    return typeof(obj) === 'function';
-  };
-  var _isObject = function(obj) {
-    return obj === Object(obj);
-  };
-  var _isArray = function(obj) {
-    return toString.call(obj) == '[object Array]';
-  };
-  var _isDate = function(obj) {
-    return toString.call(obj) == '[object Date]';
-  };
-  var _isRegExp = function(obj) {
-    return toString.call(obj) == '[object RegExp]';
-  };
-  var _isBoolean = function(obj) {
-    return toString.call(obj) == '[object Boolean]';
-  };
-
-  // Performant way to determine if obj coerces to a number
-  var _isNumerical = function(obj) {
-    obj = obj - 0;
-    return obj === obj;
-  };
-
-  // Sets up function which handles processing keys
-  // allowing the convert function to be modified by a callback
-  var _processor = function(convert, options) {
-    var callback = options && 'process' in options ? options.process : options;
-
-    if(typeof(callback) !== 'function') {
-      return convert;
-    }
-
-    return function(string, options) {
-      return callback(string, convert, options);
-    }
-  };
-
-  var humps = {
-    camelize: camelize,
-    decamelize: decamelize,
-    pascalize: pascalize,
-    depascalize: decamelize,
-    camelizeKeys: function(object, options) {
-      return _processKeys(_processor(camelize, options), object);
-    },
-    decamelizeKeys: function(object, options) {
-      return _processKeys(_processor(decamelize, options), object, options);
-    },
-    pascalizeKeys: function(object, options) {
-      return _processKeys(_processor(pascalize, options), object);
-    },
-    depascalizeKeys: function () {
-      return this.decamelizeKeys.apply(this, arguments);
-    }
-  };
-
-  if (false) {
-    undefined(humps);
-  } else if ('object' !== 'undefined' && module.exports) {
-    module.exports = humps;
-  } else {
-    global.humps = humps;
-  }
-
-})(commonjsGlobal);
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
-
-
-
-
-var asyncGenerator = function () {
-  function AwaitValue(value) {
-    this.value = value;
-  }
-
-  function AsyncGenerator(gen) {
-    var front, back;
-
-    function send(key, arg) {
-      return new Promise(function (resolve, reject) {
-        var request = {
-          key: key,
-          arg: arg,
-          resolve: resolve,
-          reject: reject,
-          next: null
-        };
-
-        if (back) {
-          back = back.next = request;
-        } else {
-          front = back = request;
-          resume(key, arg);
-        }
-      });
-    }
-
-    function resume(key, arg) {
-      try {
-        var result = gen[key](arg);
-        var value = result.value;
-
-        if (value instanceof AwaitValue) {
-          Promise.resolve(value.value).then(function (arg) {
-            resume("next", arg);
-          }, function (arg) {
-            resume("throw", arg);
-          });
-        } else {
-          settle(result.done ? "return" : "normal", result.value);
-        }
-      } catch (err) {
-        settle("throw", err);
-      }
-    }
-
-    function settle(type, value) {
-      switch (type) {
-        case "return":
-          front.resolve({
-            value: value,
-            done: true
-          });
-          break;
-
-        case "throw":
-          front.reject(value);
-          break;
-
-        default:
-          front.resolve({
-            value: value,
-            done: false
-          });
-          break;
-      }
-
-      front = front.next;
-
-      if (front) {
-        resume(front.key, front.arg);
-      } else {
-        back = null;
-      }
-    }
-
-    this._invoke = send;
-
-    if (typeof gen.return !== "function") {
-      this.return = undefined;
-    }
-  }
-
-  if (typeof Symbol === "function" && Symbol.asyncIterator) {
-    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
-      return this;
-    };
-  }
-
-  AsyncGenerator.prototype.next = function (arg) {
-    return this._invoke("next", arg);
-  };
-
-  AsyncGenerator.prototype.throw = function (arg) {
-    return this._invoke("throw", arg);
-  };
-
-  AsyncGenerator.prototype.return = function (arg) {
-    return this._invoke("return", arg);
-  };
-
-  return {
-    wrap: function (fn) {
-      return function () {
-        return new AsyncGenerator(fn.apply(this, arguments));
-      };
-    },
-    await: function (value) {
-      return new AwaitValue(value);
-    }
-  };
-}();
-
-
-
-
-
-
-
-
-
-
-
-
-
-var defineProperty = function (obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-var objectWithoutProperties = function (obj, keys) {
-  var target = {};
-
-  for (var i in obj) {
-    if (keys.indexOf(i) >= 0) continue;
-    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-    target[i] = obj[i];
-  }
-
-  return target;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var toConsumableArray = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  } else {
-    return Array.from(arr);
-  }
-};
-
-function capitalize(val) {
-  return val.charAt(0).toUpperCase() + val.slice(1);
-}
-
-function styleToObject(style) {
-  return style.split(';').map(function (s) {
-    return s.trim();
-  }).filter(function (s) {
-    return s;
-  }).reduce(function (acc, pair) {
-    var i = pair.indexOf(':');
-    var prop = humps.camelize(pair.slice(0, i));
-    var value = pair.slice(i + 1).trim();
-
-    prop.startsWith('webkit') ? acc[capitalize(prop)] = value : acc[prop] = value;
-
-    return acc;
-  }, {});
-}
-
-function convert(createElement, element) {
-  var extraProps = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-  var children = (element.children || []).map(convert.bind(null, createElement));
-
-  var mixins = Object.keys(element.attributes || {}).reduce(function (acc, key) {
-    var val = element.attributes[key];
-
-    switch (key) {
-      case 'class':
-        acc.attrs['className'] = val;
-        delete element.attributes['class'];
-        break;
-      case 'style':
-        acc.attrs['style'] = styleToObject(val);
-        break;
-      default:
-        if (key.indexOf('aria-') === 0 || key.indexOf('data-') === 0) {
-          acc.attrs[key.toLowerCase()] = val;
-        } else {
-          acc.attrs[humps.camelize(key)] = val;
-        }
-    }
-
-    return acc;
-  }, { attrs: {} });
-
-  var _extraProps$style = extraProps.style,
-      existingStyle = _extraProps$style === undefined ? {} : _extraProps$style,
-      remaining = objectWithoutProperties(extraProps, ['style']);
-
-
-  mixins.attrs['style'] = _extends({}, mixins.attrs['style'], existingStyle);
-
-  return createElement.apply(undefined, [element.tag, _extends({}, mixins.attrs, remaining)].concat(toConsumableArray(children)));
-}
-
-var PRODUCTION = false;
-
-try {
-  PRODUCTION = process.env.NODE_ENV === 'production';
-} catch (e) {}
-
-var log = function () {
-  if (!PRODUCTION && console && typeof console.error === 'function') {
-    var _console;
-
-    (_console = console).error.apply(_console, arguments);
-  }
-};
-
-function objectWithKey(key, value) {
-  return Array.isArray(value) && value.length > 0 || !Array.isArray(value) && value ? defineProperty({}, key, value) : {};
-}
-
-function classList(props) {
-  var _classes;
-
-  var classes = (_classes = {
-    'fa-spin': props.spin,
-    'fa-pulse': props.pulse,
-    'fa-fw': props.fixedWidth,
-    'fa-border': props.border,
-    'fa-li': props.listItem,
-    'fa-flip-horizontal': props.flip === 'horizontal' || props.flip === 'both',
-    'fa-flip-vertical': props.flip === 'vertical' || props.flip === 'both'
-  }, defineProperty(_classes, 'fa-' + props.size, props.size !== null), defineProperty(_classes, 'fa-rotate-' + props.rotation, props.rotation !== null), defineProperty(_classes, 'fa-pull-' + props.pull, props.pull !== null), _classes);
-
-  return Object.keys(classes).map(function (key) {
-    return classes[key] ? key : null;
-  }).filter(function (key) {
-    return key;
-  });
-}
-
-function normalizeIconArgs(icon) {
-  if (icon === null) {
-    return null;
-  }
-
-  if ((typeof icon === 'undefined' ? 'undefined' : _typeof(icon)) === 'object' && icon.prefix && icon.iconName) {
-    return icon;
-  }
-
-  if (Array.isArray(icon) && icon.length === 2) {
-    return { prefix: icon[0], iconName: icon[1] };
-  }
-
-  if (typeof icon === 'string') {
-    return { prefix: 'fas', iconName: icon };
-  }
-}
-
-function FontAwesomeIcon$1(props) {
-  var iconArgs = props.icon,
-      maskArgs = props.mask,
-      symbol = props.symbol,
-      className = props.className;
-
-
-  var icon = normalizeIconArgs(iconArgs);
-  var classes = objectWithKey('classes', [].concat(toConsumableArray(classList(props)), toConsumableArray(className.split(' '))));
-  var transform = objectWithKey('transform', typeof props.transform === 'string' ? __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__["default"].parse.transform(props.transform) : props.transform);
-  var mask = objectWithKey('mask', normalizeIconArgs(maskArgs));
-
-  var renderedIcon = __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__["default"].icon(icon, _extends({}, classes, transform, mask, {
-    symbol: symbol
-  }));
-
-  if (!renderedIcon) {
-    log('Could not find icon', icon);
-    return null;
-  }
-
-  var abstract = renderedIcon.abstract;
-
-  var convertCurry = convert.bind(null, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement);
-  var extraProps = {};
-
-  Object.keys(props).forEach(function (key) {
-    if (!FontAwesomeIcon$1.defaultProps.hasOwnProperty(key)) extraProps[key] = props[key];
-  });
-
-  return convertCurry(abstract[0], extraProps);
-}
-
-FontAwesomeIcon$1.propTypes = {
-  border: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-
-  className: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-
-  mask: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string]),
-
-  fixedWidth: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-
-  flip: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(['horizontal', 'vertical', 'both']),
-
-  icon: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string]),
-
-  listItem: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-
-  pull: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(['right', 'left']),
-
-  pulse: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-
-  name: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-
-  rotation: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf([90, 180, 270]),
-
-  size: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(['lg', 'xs', 'sm', '1x', '2x', '3x', '4x', '5x', '6x', '7x', '8x', '9x', '10x']),
-
-  spin: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-
-  symbol: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string]),
-
-  transform: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object])
-};
-
-FontAwesomeIcon$1.defaultProps = {
-  border: false,
-  className: '',
-  mask: null,
-  fixedWidth: false,
-  flip: null,
-  icon: null,
-  listItem: false,
-  pull: null,
-  pulse: false,
-  name: '',
-  rotation: null,
-  size: null,
-  spin: false,
-  symbol: false,
-  transform: null
-};
-
-__WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__["default"].noAuto();
-
-/* harmony default export */ __webpack_exports__["default"] = (FontAwesomeIcon$1);
-
-
-/***/ }),
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5769,11 +5771,11 @@ var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 var _reactIntl = __webpack_require__(12);
 
-var _imageBlock = __webpack_require__(22);
+var _imageBlock = __webpack_require__(23);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _jquery = __webpack_require__(81);
+var _jquery = __webpack_require__(83);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -5954,7 +5956,7 @@ var _reactDom = __webpack_require__(10);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _googleMapReact = __webpack_require__(90);
+var _googleMapReact = __webpack_require__(92);
 
 var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
 
@@ -5962,7 +5964,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _singleMarker = __webpack_require__(91);
+var _singleMarker = __webpack_require__(93);
 
 var _singleMarker2 = _interopRequireDefault(_singleMarker);
 
@@ -6085,7 +6087,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _MarkerDisplay = __webpack_require__(102);
+var _MarkerDisplay = __webpack_require__(104);
 
 var _MarkerDisplay2 = _interopRequireDefault(_MarkerDisplay);
 
@@ -6243,13 +6245,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(25);
+var _reactToggleButton = __webpack_require__(26);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -6261,7 +6265,7 @@ var _reactRouter = __webpack_require__(3);
 
 var _reactstrap = __webpack_require__(5);
 
-var _formDateRange = __webpack_require__(109);
+var _formDateRange = __webpack_require__(111);
 
 var _formDateRange2 = _interopRequireDefault(_formDateRange);
 
@@ -6277,11 +6281,11 @@ var _ThumbnailInput = __webpack_require__(45);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
-var _EventsForm = __webpack_require__(112);
+var _EventsForm = __webpack_require__(114);
 
 var _EventsForm2 = _interopRequireDefault(_EventsForm);
 
-var _updateModal = __webpack_require__(113);
+var _updateModal = __webpack_require__(115);
 
 var _updateModal2 = _interopRequireDefault(_updateModal);
 
@@ -6309,7 +6313,8 @@ var ListingForm = function (_React$Component) {
             updatevisible: false,
             deletevisible: false,
             createvisible: false,
-            modal: false
+            modal: false,
+            wasChanged: false //check if any change was made to the listing
         };
 
         _this.handleChange = _this.handleChange.bind(_this);
@@ -6318,21 +6323,11 @@ var ListingForm = function (_React$Component) {
         _this.onDeleteConfirm = _this.onDeleteConfirm.bind(_this);
         _this.onCreateConfirm = _this.onCreateConfirm.bind(_this);
         _this.toggleCreate = _this.toggleCreate.bind(_this);
-        _this.toggle = _this.toggle.bind(_this);
         _this.toggleDelete = _this.toggleDelete.bind(_this);
-
         return _this;
     }
 
     _createClass(ListingForm, [{
-        key: 'toggle',
-        value: function toggle() {
-            this.setState({
-                modal: !this.state.modal,
-                updatevisible: !this.state.updatevisible
-            });
-        }
-    }, {
         key: 'toggleDelete',
         value: function toggleDelete() {
             this.setState({
@@ -6355,6 +6350,7 @@ var ListingForm = function (_React$Component) {
         key: 'onConfirm',
         value: function onConfirm(event) {
             event.preventDefault();
+            console.log("Let's try to update");
             this.setState({
                 updatevisible: true
             });
@@ -6383,6 +6379,9 @@ var ListingForm = function (_React$Component) {
         value: function handleChange(event) {
             //Update values of inputs
             _ListActions2.default.listingInfoChange(event);
+            this.setState({
+                wasChanged: true
+            });
         }
 
         //Search as the user types in select box
@@ -6423,41 +6422,6 @@ var ListingForm = function (_React$Component) {
                     return Promise.resolve({ options: [] });
                 }
             };
-
-            var showUpdateModal = this.state.updatevisible ? _react2.default.createElement(_updateModal2.default, null) : null;
-
-            // let updateModal = this.state.updatevisible ? 
-            //             <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
-            //                         <ModalHeader toggle={this.toggle}>Update Listing</ModalHeader>
-            //                           <ModalBody toggle={this.toggle}>
-            //                             {!this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null}
-
-            //                             {this.props.loading && 
-            //                             <div className='loading'>loading</div>
-            //                             }
-            //                             {this.props.success && 
-            //                                 <div className='success'>Saved!</div>
-            //                             }
-            //                             {this.props.error.general && 
-            //                                 <div className='error'>{this.props.error.savelisting.general}</div>
-            //                             }
-            //                           </ModalBody>
-            //                           <ModalFooter>
-            //                             {!this.props.success ? 
-            //                                 <div>
-            //                                     <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
-            //                                     <Button color="primary" onClick={this.toggle}>Cancel</Button>
-            //                                 </div>
-            //                             :
-            //                                 <Button color="success" onClick={this.toggle}>Close</Button>
-            //                             }
-
-
-            //                           </ModalFooter>
-            //             </Modal> 
-            //         : 
-            //             null
-
 
             var deleteModal = this.state.deletevisible ? _react2.default.createElement(
                 _reactstrap.Modal,
@@ -6507,7 +6471,7 @@ var ListingForm = function (_React$Component) {
                 )
             ) : null;
 
-            var createModal = this.state.createvisible ? _react2.default.createElement(
+            var createModal = this.state.createvisible && _react2.default.createElement(
                 _reactstrap.Modal,
                 { isOpen: this.onCreateConfirm, toggle: this.toggleCreate },
                 _react2.default.createElement(
@@ -6552,15 +6516,15 @@ var ListingForm = function (_React$Component) {
                         'Close'
                     )
                 )
-            ) : null;
+            );
 
             var venueData = { value: this.props.venue._id, label: this.props.venue.name };
 
-            var deleteButton = this.props.handleDelete ? _react2.default.createElement(
+            var deleteButton = this.props.handleDelete && _react2.default.createElement(
                 _reactstrap.Button,
                 { className: 'delete', color: 'danger', onClick: this.onDeleteConfirm },
                 'Delete'
-            ) : null;
+            );
 
             return _react2.default.createElement(
                 'div',
@@ -6673,7 +6637,7 @@ var ListingForm = function (_React$Component) {
                         null,
                         this.props._id ? _react2.default.createElement(
                             _reactstrap.Button,
-                            { onClick: this.onConfirm },
+                            { onClick: this.onConfirm, disabled: !this.state.wasChanged },
                             'Update'
                         ) : _react2.default.createElement(
                             _reactstrap.Button,
@@ -6683,7 +6647,7 @@ var ListingForm = function (_React$Component) {
                         deleteButton
                     )
                 ),
-                showUpdateModal,
+                this.state.updatevisible && _react2.default.createElement(_updateModal2.default, _extends({ updatevisible: this.state.updatevisible }, this.props, { error: this.props.error.general })),
                 createModal,
                 deleteModal
             );
@@ -6712,7 +6676,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(24);
+var _reactDates = __webpack_require__(25);
 
 var _moment = __webpack_require__(13);
 
@@ -6878,7 +6842,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDropzone = __webpack_require__(111);
+var _reactDropzone = __webpack_require__(113);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
@@ -7292,7 +7256,7 @@ var expressValidator = __webpack_require__(57);
 var passport = __webpack_require__(20);
 var flash = __webpack_require__(58);
 var session = __webpack_require__(59);
-var bcrypt = __webpack_require__(27); // encripts password
+var bcrypt = __webpack_require__(28); // encripts password
 
 // Get the User model
 __webpack_require__(60)(passport);
@@ -7314,8 +7278,8 @@ db.once('open', function () {
 // Import the Mongoose models
 var List = __webpack_require__(64);
 var Archive = __webpack_require__(65);
-var Venue = __webpack_require__(30);
-var User = __webpack_require__(29);
+var Venue = __webpack_require__(31);
+var User = __webpack_require__(30);
 var Feature = __webpack_require__(66);
 
 // view engine setup
@@ -7363,9 +7327,9 @@ app.use(function (req, res, next) {
 });
 
 var index = __webpack_require__(67);
-var venues = __webpack_require__(133);
-var listings = __webpack_require__(134);
-var auth = __webpack_require__(135);
+var venues = __webpack_require__(135);
+var listings = __webpack_require__(136);
+var auth = __webpack_require__(137);
 
 app.use('/venues', venues);
 app.use('/list', listings);
@@ -7551,8 +7515,8 @@ var FacebookStrategy = __webpack_require__(63).Strategy;
 
 
 // load up the user model
-var User = __webpack_require__(29);
-var Venue = __webpack_require__(30);
+var User = __webpack_require__(30);
+var Venue = __webpack_require__(31);
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -7930,13 +7894,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var JSX = __webpack_require__(131).install();
+var JSX = __webpack_require__(133).install();
 var passport = __webpack_require__(20);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var history = __webpack_require__(132);
+var history = __webpack_require__(134);
 var historyObj = history.createMemoryHistory();
 
 // Check if user is connected
@@ -7998,79 +7962,79 @@ var _layout = __webpack_require__(70);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _CurrentPage = __webpack_require__(77);
+var _CurrentPage = __webpack_require__(79);
 
 var _CurrentPage2 = _interopRequireDefault(_CurrentPage);
 
-var _FuturePage = __webpack_require__(78);
+var _FuturePage = __webpack_require__(80);
 
 var _FuturePage2 = _interopRequireDefault(_FuturePage);
 
-var _GlancePage = __webpack_require__(79);
+var _GlancePage = __webpack_require__(81);
 
 var _GlancePage2 = _interopRequireDefault(_GlancePage);
 
-var _CurrentMap = __webpack_require__(82);
+var _CurrentMap = __webpack_require__(84);
 
 var _CurrentMap2 = _interopRequireDefault(_CurrentMap);
 
-var _EventsPage = __webpack_require__(87);
+var _EventsPage = __webpack_require__(89);
 
 var _EventsPage2 = _interopRequireDefault(_EventsPage);
 
-var _VenuePage = __webpack_require__(89);
+var _VenuePage = __webpack_require__(91);
 
 var _VenuePage2 = _interopRequireDefault(_VenuePage);
 
-var _SignUpPage = __webpack_require__(94);
+var _SignUpPage = __webpack_require__(96);
 
 var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
-var _LogInPage = __webpack_require__(96);
+var _LogInPage = __webpack_require__(98);
 
 var _LogInPage2 = _interopRequireDefault(_LogInPage);
 
-var _myListPage = __webpack_require__(99);
+var _myListPage = __webpack_require__(101);
 
 var _myListPage2 = _interopRequireDefault(_myListPage);
 
-var _myListPublicPage = __webpack_require__(103);
+var _myListPublicPage = __webpack_require__(105);
 
 var _myListPublicPage2 = _interopRequireDefault(_myListPublicPage);
 
-var _AdminPage = __webpack_require__(106);
+var _AdminPage = __webpack_require__(108);
 
 var _AdminPage2 = _interopRequireDefault(_AdminPage);
 
-var _NewListing = __webpack_require__(108);
+var _NewListing = __webpack_require__(110);
 
 var _NewListing2 = _interopRequireDefault(_NewListing);
 
-var _EditListing = __webpack_require__(114);
+var _EditListing = __webpack_require__(116);
 
 var _EditListing2 = _interopRequireDefault(_EditListing);
 
-var _EditVenue = __webpack_require__(115);
+var _EditVenue = __webpack_require__(117);
 
 var _EditVenue2 = _interopRequireDefault(_EditVenue);
 
-var _featuredPage = __webpack_require__(118);
+var _featuredPage = __webpack_require__(120);
 
 var _featuredPage2 = _interopRequireDefault(_featuredPage);
 
-var _VenuesPage = __webpack_require__(121);
+var _VenuesPage = __webpack_require__(123);
 
 var _VenuesPage2 = _interopRequireDefault(_VenuesPage);
 
-var _UsersPage = __webpack_require__(123);
+var _UsersPage = __webpack_require__(125);
 
 var _UsersPage2 = _interopRequireDefault(_UsersPage);
 
-var _ReviewPage = __webpack_require__(127);
+var _ReviewPage = __webpack_require__(129);
 
 var _ReviewPage2 = _interopRequireDefault(_ReviewPage);
 
-var _Account = __webpack_require__(128);
+var _Account = __webpack_require__(130);
 
 var _Account2 = _interopRequireDefault(_Account);
 
@@ -8155,11 +8119,11 @@ var _sizeSelector = __webpack_require__(11);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
-var _fontawesome = __webpack_require__(32);
+var _fontawesome = __webpack_require__(33);
 
 var _fontawesome2 = _interopRequireDefault(_fontawesome);
 
-var _reactFontawesome = __webpack_require__(33);
+var _reactFontawesome = __webpack_require__(22);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -8175,7 +8139,15 @@ var _faGlassMartini = __webpack_require__(75);
 
 var _faGlassMartini2 = _interopRequireDefault(_faGlassMartini);
 
-var _faStar = __webpack_require__(76);
+var _faPlus = __webpack_require__(76);
+
+var _faPlus2 = _interopRequireDefault(_faPlus);
+
+var _faMinus = __webpack_require__(77);
+
+var _faMinus2 = _interopRequireDefault(_faMinus);
+
+var _faStar = __webpack_require__(78);
 
 var _faStar2 = _interopRequireDefault(_faStar);
 
@@ -8192,7 +8164,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //FontAwesome
 
 
-_fontawesome2.default.library.add(_faPlusCircle2.default, _faPlusCircle2.default, _faGlassMartini2.default, _faStar2.default);
+_fontawesome2.default.library.add(_faPlusCircle2.default, _faPlusCircle2.default, _faPlus2.default, _faMinus2.default, _faGlassMartini2.default, _faStar2.default);
 
 var Layout = function (_React$Component) {
     _inherits(Layout, _React$Component);
@@ -8405,10 +8377,22 @@ module.exports = { prefix: 'fal', iconName: 'glass-martini', icon: [512, 512, []
 /* 76 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fas', iconName: 'star', icon: [576, 512, [], "f005", "M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"] };
+module.exports = { prefix: 'far', iconName: 'plus', icon: [448, 512, [], "f067", "M436 228H252V44c0-6.6-5.4-12-12-12h-32c-6.6 0-12 5.4-12 12v184H12c-6.6 0-12 5.4-12 12v32c0 6.6 5.4 12 12 12h184v184c0 6.6 5.4 12 12 12h32c6.6 0 12-5.4 12-12V284h184c6.6 0 12-5.4 12-12v-32c0-6.6-5.4-12-12-12z"] };
 
 /***/ }),
 /* 77 */
+/***/ (function(module, exports) {
+
+module.exports = { prefix: 'far', iconName: 'minus', icon: [448, 512, [], "f068", "M436 284c6.6 0 12-5.4 12-12v-32c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v32c0 6.6 5.4 12 12 12h424z"] };
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports) {
+
+module.exports = { prefix: 'fas', iconName: 'star', icon: [576, 512, [], "f005", "M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"] };
+
+/***/ }),
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8578,7 +8562,7 @@ var CurrentPage = function (_React$Component) {
 exports.default = CurrentPage;
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8744,7 +8728,7 @@ var FuturePage = function (_React$Component) {
 exports.default = FuturePage;
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8772,11 +8756,11 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactIntl = __webpack_require__(12);
 
-var _daypage = __webpack_require__(80);
+var _daypage = __webpack_require__(82);
 
 var _daypage2 = _interopRequireDefault(_daypage);
 
-var _tabs = __webpack_require__(23);
+var _tabs = __webpack_require__(24);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -8865,7 +8849,7 @@ var GlancePage = function (_React$Component) {
 exports.default = GlancePage;
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9016,13 +9000,13 @@ var DayPage = function (_React$Component) {
 exports.default = DayPage;
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports) {
 
 module.exports = require("jquery");
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9052,7 +9036,7 @@ var _reactMapGl = __webpack_require__(14);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
-var _MapCluster = __webpack_require__(83);
+var _MapCluster = __webpack_require__(85);
 
 var _MapCluster2 = _interopRequireDefault(_MapCluster);
 
@@ -9060,7 +9044,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _d3Request = __webpack_require__(86);
+var _d3Request = __webpack_require__(88);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9303,7 +9287,7 @@ CurrentMap.defaultProps = {
 };
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9321,11 +9305,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _deck = __webpack_require__(84);
+var _deck = __webpack_require__(86);
 
 var _deck2 = _interopRequireDefault(_deck);
 
-var _rbush = __webpack_require__(85);
+var _rbush = __webpack_require__(87);
 
 var _rbush2 = _interopRequireDefault(_rbush);
 
@@ -9527,25 +9511,25 @@ var DeckGLOverlay = function (_Component) {
 exports.default = DeckGLOverlay;
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports = require("deck.gl");
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports) {
 
 module.exports = require("rbush");
 
 /***/ }),
-/* 86 */
+/* 88 */
 /***/ (function(module, exports) {
 
 module.exports = require("d3-request");
 
 /***/ }),
-/* 87 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9583,7 +9567,7 @@ var _sizeSelector = __webpack_require__(11);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
-var _DayPicker = __webpack_require__(88);
+var _DayPicker = __webpack_require__(90);
 
 var _DayPicker2 = _interopRequireDefault(_DayPicker);
 
@@ -9664,7 +9648,7 @@ var EventsPage = function (_React$Component) {
 exports.default = EventsPage;
 
 /***/ }),
-/* 88 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9684,7 +9668,7 @@ var _moment = __webpack_require__(13);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactDates = __webpack_require__(24);
+var _reactDates = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9770,7 +9754,7 @@ var DayPicker = function (_React$Component) {
 exports.default = DayPicker;
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9794,15 +9778,15 @@ var _mapBlock = __webpack_require__(37);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
-var _VenueListings = __webpack_require__(92);
+var _VenueListings = __webpack_require__(94);
 
 var _VenueListings2 = _interopRequireDefault(_VenueListings);
 
-var _VenueContent = __webpack_require__(93);
+var _VenueContent = __webpack_require__(95);
 
 var _VenueContent2 = _interopRequireDefault(_VenueContent);
 
-var _tabs = __webpack_require__(23);
+var _tabs = __webpack_require__(24);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -9877,13 +9861,13 @@ var VenuePage = function (_React$Component) {
 exports.default = VenuePage;
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, exports) {
 
 module.exports = require("google-map-react");
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9929,7 +9913,7 @@ var SingleMarker = function (_React$Component) {
 exports.default = SingleMarker;
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10002,7 +9986,7 @@ var VenueListings = function (_React$Component) {
 exports.default = VenueListings;
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10094,7 +10078,7 @@ var VenuePage = function (_React$Component) {
 exports.default = VenuePage;
 
 /***/ }),
-/* 94 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10112,7 +10096,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _SignUpForm = __webpack_require__(95);
+var _SignUpForm = __webpack_require__(97);
 
 var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
 
@@ -10166,7 +10150,7 @@ var LogInPage = function (_React$Component) {
 exports.default = LogInPage;
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10186,7 +10170,7 @@ var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(25);
+var _reactToggleButton = __webpack_require__(26);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -10545,7 +10529,7 @@ SignUpForm.contextTypes = {
 exports.default = SignUpForm;
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10563,7 +10547,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _reactRouterDom = __webpack_require__(97);
+var _reactRouterDom = __webpack_require__(99);
 
 var _propTypes = __webpack_require__(18);
 
@@ -10639,13 +10623,13 @@ LogInPage.contextTypes = {
 };
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10697,7 +10681,7 @@ var FacebookButton = function (_React$Component) {
 exports.default = FacebookButton;
 
 /***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10713,7 +10697,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _myList = __webpack_require__(100);
+var _myList = __webpack_require__(102);
 
 var _myList2 = _interopRequireDefault(_myList);
 
@@ -10780,7 +10764,7 @@ var MyListPage = function (_React$Component) {
 exports.default = MyListPage;
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10814,7 +10798,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactMapGl = __webpack_require__(14);
 
-var _myListings = __webpack_require__(101);
+var _myListings = __webpack_require__(103);
 
 var _myListings2 = _interopRequireDefault(_myListings);
 
@@ -11039,7 +11023,7 @@ MyList.defaultProps = {
 };
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11073,8 +11057,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // Components
 
 
-//
-
 var MyListings = function (_React$Component) {
     _inherits(MyListings, _React$Component);
 
@@ -11105,12 +11087,15 @@ var MyListings = function (_React$Component) {
                     this.props.user.mylist.map(function (listing, index) {
                         return _react2.default.createElement(
                             'div',
-                            { key: listing._id,
+                            {
+                                key: listing._id,
                                 className: listing._id == _this2.props.listingHover && 'active',
                                 onMouseEnter: _this2.props.onHover.bind(_this2, listing),
                                 onMouseLeave: _this2.props.onLeave.bind(_this2, listing)
                             },
-                            _react2.default.createElement(_listing2.default, { listing: listing, number: index + 1, user: _this2.props.user, mylisting: true })
+                            _react2.default.createElement(_listing2.default, {
+                                listing: listing, number: index + 1,
+                                user: _this2.props.user, mylisting: true })
                         );
                     })
                 )
@@ -11124,7 +11109,7 @@ var MyListings = function (_React$Component) {
 exports.default = MyListings;
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11174,7 +11159,7 @@ var Marker = function (_React$Component) {
 exports.default = Marker;
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11196,7 +11181,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _userList = __webpack_require__(104);
+var _userList = __webpack_require__(106);
 
 var _userList2 = _interopRequireDefault(_userList);
 
@@ -11250,7 +11235,7 @@ var MyListPage = function (_React$Component) {
 exports.default = MyListPage;
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11282,7 +11267,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactMapGl = __webpack_require__(14);
 
-var _userListings = __webpack_require__(105);
+var _userListings = __webpack_require__(107);
 
 var _userListings2 = _interopRequireDefault(_userListings);
 
@@ -11507,7 +11492,7 @@ UserList.defaultProps = {
 };
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11580,7 +11565,7 @@ var UserListings = function (_React$Component) {
 exports.default = UserListings;
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11602,7 +11587,7 @@ var _LogInForm = __webpack_require__(15);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
-var _UserPage = __webpack_require__(107);
+var _UserPage = __webpack_require__(109);
 
 var _UserPage2 = _interopRequireDefault(_UserPage);
 
@@ -11743,7 +11728,7 @@ var AdminPage = function (_React$Component) {
 exports.default = AdminPage;
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11793,7 +11778,7 @@ var UserPage = function (_React$Component) {
 exports.default = UserPage;
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11907,7 +11892,7 @@ var NewListing = function (_React$Component) {
 exports.default = NewListing;
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11923,7 +11908,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(24);
+var _reactDates = __webpack_require__(25);
 
 var _moment = __webpack_require__(13);
 
@@ -11981,19 +11966,19 @@ var DateRange = function (_React$Component) {
 exports.default = DateRange;
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-select");
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12016,6 +12001,10 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 var _formDateSingle = __webpack_require__(44);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
+
+var _reactFontawesome = __webpack_require__(22);
+
+var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12113,12 +12102,12 @@ var EventsForm = function (_React$Component) {
                                 { className: 'iconLink', onClick: function onClick(e) {
                                         return _this2.removeEvent(index);
                                     } },
-                                _react2.default.createElement('i', { className: 'fal fa-minus-circle' })
+                                _react2.default.createElement(_reactFontawesome2.default, { icon: ["fal", "minus-circle"] })
                             ),
                             index === events.length - 1 && _react2.default.createElement(
                                 'a',
                                 { className: 'iconLink', onClick: _this2.addEvent },
-                                _react2.default.createElement('i', { className: 'fal fa-plus-circle' })
+                                _react2.default.createElement(_reactFontawesome2.default, { icon: ["fal", "plus-circle"] })
                             )
                         )
                     );
@@ -12134,7 +12123,7 @@ var EventsForm = function (_React$Component) {
                     this.props.events.length > 0 ? eventsList(this.props.events) : _react2.default.createElement(
                         'a',
                         { className: 'iconLink', onClick: this.addEvent },
-                        _react2.default.createElement('i', { className: 'fal fa-plus-circle' })
+                        _react2.default.createElement(_reactFontawesome2.default, { icon: ["fal", "plus-circle"] })
                     )
                 )
             );
@@ -12147,7 +12136,7 @@ var EventsForm = function (_React$Component) {
 exports.default = EventsForm;
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12184,23 +12173,32 @@ var UpdateModal = function (_React$Component) {
         _this.state = {
             updatevisible: _this.props.updatevisible
         };
+
+        _this.toggle = _this.toggle.bind(_this);
         return _this;
     }
 
     _createClass(UpdateModal, [{
+        key: 'toggle',
+        value: function toggle() {
+            this.setState({
+                updatevisible: !this.state.updatevisible
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
                 _reactstrap.Modal,
-                { isOpen: this.state.updatevisible, toggle: this.toggle },
+                { isOpen: this.state.updatevisible },
                 _react2.default.createElement(
                     _reactstrap.ModalHeader,
-                    { toggle: this.toggle },
+                    null,
                     'Update Listing'
                 ),
                 _react2.default.createElement(
                     _reactstrap.ModalBody,
-                    { toggle: this.toggle },
+                    null,
                     !this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null,
                     this.props.loading && _react2.default.createElement(
                         'div',
@@ -12250,7 +12248,7 @@ var UpdateModal = function (_React$Component) {
 exports.default = UpdateModal;
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12325,6 +12323,7 @@ var ListingEdit = function (_React$Component) {
         value: function handleSubmit(event) {
             event.preventDefault();
             var newListing = this.props.listingEdit;
+            console.log(this.props.listingEdit);
 
             //Check and save only events that have a date
             var allEvents = [];
@@ -12417,7 +12416,7 @@ var ListingEdit = function (_React$Component) {
                     { id: 'ListingInfo' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'medium listingsWrap' },
+                        { className: 'medium' },
                         _react2.default.createElement(_listing2.default, { listing: this.props.listingEdit, user: '' })
                     )
                 ),
@@ -12443,7 +12442,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12477,7 +12476,7 @@ var _formSelect = __webpack_require__(19);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _VenueForm = __webpack_require__(116);
+var _VenueForm = __webpack_require__(118);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
 
@@ -12641,7 +12640,7 @@ var VenueEdit = function (_React$Component) {
 exports.default = VenueEdit;
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12681,7 +12680,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //COMPONENTS
 
 
-var MapboxClient = __webpack_require__(117);
+var MapboxClient = __webpack_require__(119);
 var client = new MapboxClient(process.env.MapboxAccessToken);
 
 var VenueForm = function (_React$Component) {
@@ -12941,13 +12940,13 @@ var VenueForm = function (_React$Component) {
 exports.default = VenueForm;
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, exports) {
 
 module.exports = require("mapbox");
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12971,11 +12970,11 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactIntl = __webpack_require__(12);
 
-var _featuredDay = __webpack_require__(119);
+var _featuredDay = __webpack_require__(121);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
-var _tabs = __webpack_require__(23);
+var _tabs = __webpack_require__(24);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -13055,7 +13054,7 @@ var FeaturePage = function (_React$Component) {
 exports.default = FeaturePage;
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13085,7 +13084,7 @@ var _formSelect = __webpack_require__(19);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _featuredForm = __webpack_require__(120);
+var _featuredForm = __webpack_require__(122);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
@@ -13198,7 +13197,7 @@ var FeaturedDay = function (_React$Component) {
 exports.default = FeaturedDay;
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13214,7 +13213,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(25);
+var _reactToggleButton = __webpack_require__(26);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -13297,7 +13296,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13323,7 +13322,7 @@ var _displayActions = __webpack_require__(7);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _VenueItem = __webpack_require__(122);
+var _VenueItem = __webpack_require__(124);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
@@ -13331,7 +13330,7 @@ var _NeighborhoodSelect = __webpack_require__(47);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
-var _loading = __webpack_require__(26);
+var _loading = __webpack_require__(27);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -13462,7 +13461,7 @@ var VenuesPage = function (_React$Component) {
 exports.default = VenuesPage;
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13600,7 +13599,7 @@ var VenueItem = function (_React$Component) {
 exports.default = VenueItem;
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13620,15 +13619,15 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _loading = __webpack_require__(26);
+var _loading = __webpack_require__(27);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _UserCard = __webpack_require__(124);
+var _UserCard = __webpack_require__(126);
 
 var _UserCard2 = _interopRequireDefault(_UserCard);
 
-var _UserFullInfo = __webpack_require__(126);
+var _UserFullInfo = __webpack_require__(128);
 
 var _UserFullInfo2 = _interopRequireDefault(_UserFullInfo);
 
@@ -13697,7 +13696,7 @@ var UsersPage = function (_React$Component) {
 exports.default = UsersPage;
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13721,7 +13720,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _imageBlock = __webpack_require__(22);
+var _imageBlock = __webpack_require__(23);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -13729,7 +13728,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _UserEdit = __webpack_require__(125);
+var _UserEdit = __webpack_require__(127);
 
 var _UserEdit2 = _interopRequireDefault(_UserEdit);
 
@@ -13854,7 +13853,7 @@ var UserCard = function (_React$Component) {
 exports.default = UserCard;
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13978,7 +13977,7 @@ var UserEdit = function (_React$Component) {
 exports.default = UserEdit;
 
 /***/ }),
-/* 126 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13994,7 +13993,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _imageBlock = __webpack_require__(22);
+var _imageBlock = __webpack_require__(23);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -14091,7 +14090,7 @@ var UserFullInfo = function (_React$Component) {
 exports.default = UserFullInfo;
 
 /***/ }),
-/* 127 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14100,8 +14099,6 @@ exports.default = UserFullInfo;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -14161,35 +14158,28 @@ var ReviewPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             //let futureListings = this.props.futureListings
             var thelistings = function thelistings(futureListings) {
                 return futureListings.map(function (listing, index) {
-                    console.log(listing);
-                    console.log((0, _moment2.default)(listing['start']).format().slice(0, 10));
-                    return _react2.default.createElement(_listing2.default, _extends({ key: index }, listing, { user: this.props.user }));
-                });
+                    //console.log(moment(listing['start']).format().slice(0,10))
+                    return _react2.default.createElement(_listing2.default, { key: index, listing: listing, user: this.props.user });
+                }, _this2);
             };
 
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
-                    'div',
+                    'h4',
                     null,
-                    _react2.default.createElement(
-                        'h4',
-                        null,
-                        'Review New Listings'
-                    )
+                    'Review New Listings'
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'events mainList' },
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        thelistings(this.props.futureListings)
-                    )
+                    { className: 'medium' },
+                    thelistings(this.props.futureListings)
                 )
             );
         }
@@ -14201,7 +14191,7 @@ var ReviewPage = function (_React$Component) {
 exports.default = ReviewPage;
 
 /***/ }),
-/* 128 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14221,7 +14211,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _AccountForm = __webpack_require__(129);
+var _AccountForm = __webpack_require__(131);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
@@ -14262,7 +14252,9 @@ var AccountPage = function (_React$Component) {
                     null,
                     'You need to be registered to access this page.'
                 ),
-                _react2.default.createElement(_LogInForm2.default, { loginFunction: _AuthActions2.default.attemptLogIn, loading: this.props.loading.login, error: this.props.error })
+                _react2.default.createElement(_LogInForm2.default, {
+                    loading: this.props.loading.login,
+                    error: this.props.error })
             );
 
             return _react2.default.createElement(
@@ -14284,7 +14276,7 @@ var AccountPage = function (_React$Component) {
 exports.default = AccountPage;
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14304,7 +14296,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _avatar = __webpack_require__(130);
+var _avatar = __webpack_require__(132);
 
 var _avatar2 = _interopRequireDefault(_avatar);
 
@@ -14461,7 +14453,7 @@ var AccountForm = function (_React$Component) {
 exports.default = AccountForm;
 
 /***/ }),
-/* 130 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14573,19 +14565,19 @@ var Avatar = function (_React$Component) {
 exports.default = Avatar;
 
 /***/ }),
-/* 131 */
+/* 133 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 132 */
+/* 134 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 133 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14593,7 +14585,7 @@ module.exports = require("history");
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var Promise = __webpack_require__(31);
+var Promise = __webpack_require__(32);
 
 /* GET All Venues */
 router.get('/', function (req, res, next) {
@@ -14796,7 +14788,7 @@ router.get('/:venue_id', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 134 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15088,7 +15080,7 @@ router.post('/delete/:listing_id', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 135 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -24,7 +24,8 @@ export default class ListingForm extends React.Component {
             updatevisible: false,
             deletevisible: false,
             createvisible: false,
-            modal: false
+            modal: false,
+            wasChanged: false //check if any change was made to the listing
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -33,18 +34,8 @@ export default class ListingForm extends React.Component {
         this.onDeleteConfirm = this.onDeleteConfirm.bind(this);
         this.onCreateConfirm = this.onCreateConfirm.bind(this);
         this.toggleCreate = this.toggleCreate.bind(this);
-        this.toggle = this.toggle.bind(this);
         this.toggleDelete = this.toggleDelete.bind(this);
-
       }
-
-    toggle() {
-        this.setState({
-          modal: !this.state.modal,
-          updatevisible: !this.state.updatevisible
-        });
-    }
-
 
     toggleDelete() {
         this.setState({
@@ -64,9 +55,10 @@ export default class ListingForm extends React.Component {
     //confirm alert
     onConfirm(event) {
         event.preventDefault();
+        console.log("Let's try to update")
         this.setState({ 
             updatevisible: true
-        });
+        })
     }
 
      //confirm alert
@@ -88,6 +80,9 @@ export default class ListingForm extends React.Component {
     handleChange (event) {
         //Update values of inputs
         ListActions.listingInfoChange(event);
+        this.setState({
+            wasChanged: true
+        })
     }
     
     //Search as the user types in select box
@@ -127,43 +122,6 @@ export default class ListingForm extends React.Component {
             }
         }
 
-        let showUpdateModal = this.state.updatevisible ? 
-            <UpdateModal /> 
-                : null
-
-        // let updateModal = this.state.updatevisible ? 
-        //             <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
-        //                         <ModalHeader toggle={this.toggle}>Update Listing</ModalHeader>
-        //                           <ModalBody toggle={this.toggle}>
-        //                             {!this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null}
-
-        //                             {this.props.loading && 
-        //                             <div className='loading'>loading</div>
-        //                             }
-        //                             {this.props.success && 
-        //                                 <div className='success'>Saved!</div>
-        //                             }
-        //                             {this.props.error.general && 
-        //                                 <div className='error'>{this.props.error.savelisting.general}</div>
-        //                             }
-        //                           </ModalBody>
-        //                           <ModalFooter>
-        //                             {!this.props.success ? 
-        //                                 <div>
-        //                                     <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
-        //                                     <Button color="primary" onClick={this.toggle}>Cancel</Button>
-        //                                 </div>
-        //                             :
-        //                                 <Button color="success" onClick={this.toggle}>Close</Button>
-        //                             }
-                                    
-                                    
-        //                           </ModalFooter>
-        //             </Modal> 
-        //         : 
-        //             null
-
-
             let deleteModal = this.state.deletevisible ?
         <Modal isOpen={this.state.deletevisible} toggle={this.toggleDelete}>
                       <ModalHeader toggle={this.toggleDelete}>Delete Listing</ModalHeader>
@@ -193,7 +151,7 @@ export default class ListingForm extends React.Component {
     :
         null
 
-          let createModal = this.state.createvisible ? 
+          let createModal = this.state.createvisible &&
                 <Modal isOpen={this.onCreateConfirm} toggle={this.toggleCreate}>
                             <ModalHeader toggle={this.toggleCreate}>Create Listing</ModalHeader>
                               <ModalBody toggle={this.toggleCreate}>
@@ -217,16 +175,12 @@ export default class ListingForm extends React.Component {
                                 
                                 
                               </ModalFooter>
-                </Modal> 
-            : 
-                null
+                </Modal>
         
         let venueData = { value: this.props.venue._id, label: this.props.venue.name}
         
-        let deleteButton = this.props.handleDelete ?
+        let deleteButton = this.props.handleDelete &&
                 <Button className="delete" color="danger" onClick={this.onDeleteConfirm}>Delete</Button>
-            :
-                null
 
         return ( 
 
@@ -284,11 +238,11 @@ export default class ListingForm extends React.Component {
 					</FormGroup>
 					
 					<FormGroup>
-                            {this.props._id ? <Button onClick={this.onConfirm}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
+                            {this.props._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
                             {deleteButton}
                     </FormGroup>
                 </Form>   
-                       {showUpdateModal}
+                       {this.state.updatevisible && <UpdateModal updatevisible={this.state.updatevisible} {...this.props} error={this.props.error.general}/>}
                        {createModal}
                        {deleteModal}
             </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import ListActions from '../../actions/ListActions'
 //Components
 import DateSingle from './formDateSingle'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 export default class EventsForm extends React.Component {
     
@@ -50,17 +51,17 @@ export default class EventsForm extends React.Component {
                     }
                     <textarea 
                         name="description" 
-                        value={event.description}
+                        value={event.description} 
                         data-index={index}
                         onChange={this.onChange}>
                     </textarea>
-                    </div>
-                    <div className="moreOrLess">
-                    <a className="iconLink" onClick={e => this.removeEvent(index)}><i className="fal fa-minus-circle"></i></a>
+                </div>
+                <div className="moreOrLess">
+                    <a className="iconLink" onClick={e => this.removeEvent(index)}><FontAwesomeIcon icon={["fal", "minus-circle"]}/></a>
                     {index === (events.length - 1) && 
-                        <a className="iconLink" onClick={this.addEvent}><i className="fal fa-plus-circle"></i></a>
+                        <a className="iconLink" onClick={this.addEvent}><FontAwesomeIcon icon={["fal", "plus-circle"]}/></a>
                     }
-                    </div>
+                </div>
             </div>
         })
 
@@ -69,7 +70,7 @@ export default class EventsForm extends React.Component {
             <div className="eventsWrap">
             {this.props.events.length > 0
                 ? eventsList(this.props.events)
-                : <a className="iconLink" onClick={this.addEvent}><i className="fal fa-plus-circle"></i></a>
+                : <a className="iconLink" onClick={this.addEvent}><FontAwesomeIcon icon={["fal", "plus-circle"]}/></a>
             }
             </div>
             </div>

@@ -21,24 +21,18 @@ export default class ReviewPage extends React.Component {
     render() {
         //let futureListings = this.props.futureListings
         let thelistings = futureListings => futureListings.map(function(listing, index){
-            console.log(listing)
-            console.log(moment(listing['start']).format().slice(0,10))
+            //console.log(moment(listing['start']).format().slice(0,10))
             return (
-                <Listing key={index} {...listing} user={this.props.user}/>
+                <Listing key={index} listing={listing} user={this.props.user}/>
             )
 
-        })
+        }, this)
 
     	return(
     		<div>
-	    		<div>
-	    			<h4>Review New Listings</h4>
-	    		</div>
-	    		
-	    		<div className="events mainList">
-    	            <div>
+	    		<h4>Review New Listings</h4>
+	    		<div className="medium">
                         {thelistings(this.props.futureListings)}
-    	            </div>
 	            </div>
             </div>
     	)

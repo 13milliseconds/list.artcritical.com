@@ -35,9 +35,7 @@ export default class Listing extends React.Component {
     }
 
     _editListing(listing){
-        console.log("let's edit", listing)
         ListActions.editListing(listing)
-
     }
 
     _revealInfo(){
@@ -49,7 +47,7 @@ export default class Listing extends React.Component {
     eventsDisplay(events){
         return events.map((event, index) => {
             return <div className="event" key={index}>
-                    <i className="fal fa-glass-martini"></i> {event.name} {this.props.start && <Date date={event.date} /> } {event.description && '- ' + event.description}
+                    <FontAwesomeIcon icon={['fal', 'glass-martini']}/> {event.name} {this.props.start && <Date date={event.date} /> } {event.description && '- ' + event.description}
             </div>
         })
 
@@ -84,7 +82,8 @@ export default class Listing extends React.Component {
                 return v._id === id;
             }).length;   
         }
-        
+        let mylistingIcon = mylistIndex > 0 ? ["far", "minus"] : ["far", "plus"]
+
         const image = listing.image? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
         const style = {backgroundImage: 'url(' + image + ')'}
       
@@ -95,8 +94,10 @@ export default class Listing extends React.Component {
                 {this.props.mylisting ? 
                     <span>{this.props.number}</span>
                    :
-                   <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
-                        {this.props.user._id && <i className = {mylistIndex > 0 ? 'fal fa-minus' : 'fal fa-plus' } aria-hidden="true"></i>}
+                    <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
+                        {this.props.user._id &&
+                        <FontAwesomeIcon icon={mylistingIcon} />
+                        }
                     </div>
                 }
                 {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}

@@ -245,6 +245,8 @@ class ListActions {
     }
     
     async updateListing(newInfo) {
+
+        console.log('updating ', newInfo)
         
         this.updateListingAttempt();
 

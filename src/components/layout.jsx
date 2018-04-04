@@ -13,9 +13,11 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPlusCircle from '@fortawesome/fontawesome-pro-light/faPlusCircle'
 import faMinusCircle from '@fortawesome/fontawesome-pro-light/faMinusCircle'
 import faGlassMartini from '@fortawesome/fontawesome-pro-light/faGlassMartini'
+import faPlus from '@fortawesome/fontawesome-pro-regular/faPlus'
+import faMinus from '@fortawesome/fontawesome-pro-regular/faMinus'
 import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
  
-fontawesome.library.add(faPlusCircle, faPlusCircle, faGlassMartini, faStar)
+fontawesome.library.add(faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar)
 
 
 export default class Layout extends React.Component {
