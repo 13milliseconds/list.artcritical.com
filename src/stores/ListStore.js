@@ -17,6 +17,7 @@ class ListStore {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
+        this.latestListings = []
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
@@ -113,6 +114,12 @@ class ListStore {
     }
     onGetGlanceSuccess(data) {
         this.glanceListings = data;
+    }
+    getLatestListingsSuccess(data){
+        this.latestListings = data
+    }
+    getLatestListingsFail(error){
+        console.log(error)
     }
 
 

@@ -15,7 +15,7 @@ export default class ReviewPage extends React.Component {
     }
 
     componentDidMount() {
-        ListActions.getFuture();
+        ListActions.getLatestListings();
     }
 
     render() {
@@ -32,7 +32,7 @@ export default class ReviewPage extends React.Component {
     		<div>
 	    		<h4>Review New Listings</h4>
 	    		<div className="medium">
-                        {thelistings(this.props.futureListings)}
+                        {thelistings(this.props.latestListings)}
 	            </div>
             </div>
     	)

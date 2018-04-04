@@ -236,6 +236,8 @@ export default class ListingForm extends React.Component {
                            <Label>Thumbnail</Label>
                             <ThumbnailInput {...this.props} /> 
 					</FormGroup>
+                    Edited by {this.props.updated_by} at {this.props.updated_at}
+                    Created on {this.props.created_at}
 					
 					<FormGroup>
                             {this.props._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}

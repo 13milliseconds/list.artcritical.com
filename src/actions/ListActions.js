@@ -18,6 +18,8 @@ class ListActions {
             'getEventsFail',
             'getGlanceSuccess',
             'getGlanceFail',
+            'getLatestListingsSuccess',
+            'getLatestListingsFail',
             'getListingInfoSuccess',
             'getListingInfoFailure',
             'getVenueInfoSuccess',
@@ -155,6 +157,19 @@ class ListActions {
                 })
                 .fail((jqXhr) => {
                     this.getGlanceFail(jqXhr)
+                });
+        };
+    }
+    getLatestListings() {
+        return dispatch => {
+            $.ajax({
+                    url: process.env.BASE_URI + '/list/latestlistings'
+                })
+                .done((data) => {
+                    this.getLatestListingsSuccess(data)
+                })
+                .fail((error) => {
+                    this.getLatestListingsFail(error)
                 });
         };
     }

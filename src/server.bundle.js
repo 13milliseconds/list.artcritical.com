@@ -100,7 +100,7 @@ var ListActions = function () {
     function ListActions() {
         _classCallCheck(this, ListActions);
 
-        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsSuccess', 'getEventsFail', 'getGlanceSuccess', 'getGlanceFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'saveVenueSuccess', 'saveVenueFailure', 'saveVenueAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadSuccess', 'featureLoadFailure', 'deleteListingSuccess', 'deleteListingFailure', 'deleteVenueSuccess', 'deleteVenueFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess');
+        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsSuccess', 'getEventsFail', 'getGlanceSuccess', 'getGlanceFail', 'getLatestListingsSuccess', 'getLatestListingsFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'saveVenueSuccess', 'saveVenueFailure', 'saveVenueAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadSuccess', 'featureLoadFailure', 'deleteListingSuccess', 'deleteListingFailure', 'deleteVenueSuccess', 'deleteVenueFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess');
     }
 
     _createClass(ListActions, [{
@@ -203,6 +203,21 @@ var ListActions = function () {
             };
         }
     }, {
+        key: 'getLatestListings',
+        value: function getLatestListings() {
+            var _this6 = this;
+
+            return function (dispatch) {
+                $.ajax({
+                    url: process.env.BASE_URI + '/list/latestlistings'
+                }).done(function (data) {
+                    _this6.getLatestListingsSuccess(data);
+                }).fail(function (error) {
+                    _this6.getLatestListingsFail(error);
+                });
+            };
+        }
+    }, {
         key: 'listingEditReset',
         value: function listingEditReset() {
             return true;
@@ -244,7 +259,7 @@ var ListActions = function () {
     }, {
         key: 'saveListing',
         value: async function saveListing(newListing) {
-            var _this6 = this;
+            var _this7 = this;
 
             this.saveListingAttempt();
 
@@ -261,17 +276,17 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this6.saveListingSuccess(json);
-                _this6.listingEditReset();
+                _this7.saveListingSuccess(json);
+                _this7.listingEditReset();
                 return true;
             }).catch(function (error) {
-                _this6.saveListingFailure(error);
+                _this7.saveListingFailure(error);
             });
         }
     }, {
         key: 'deleteListing',
         value: async function deleteListing(oldListing) {
-            var _this7 = this;
+            var _this8 = this;
 
             await fetch(process.env.BASE_URI + '/list/delete/' + oldListing, {
                 method: 'POST',
@@ -285,17 +300,17 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this7.deleteListingSuccess(json);
-                _this7.listingEditReset();
+                _this8.deleteListingSuccess(json);
+                _this8.listingEditReset();
                 return true;
             }).catch(function (error) {
-                _this7.deleteListingFailure(error);
+                _this8.deleteListingFailure(error);
             });
         }
     }, {
         key: 'updateListing',
         value: async function updateListing(newInfo) {
-            var _this8 = this;
+            var _this9 = this;
 
             console.log('updating ', newInfo);
 
@@ -314,11 +329,11 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this8.updateListingSuccess(json);
-                _this8.listingEditReset();
+                _this9.updateListingSuccess(json);
+                _this9.listingEditReset();
                 return true;
             }).catch(function (error) {
-                _this8.updateListingFailure(error);
+                _this9.updateListingFailure(error);
             });
         }
 
@@ -332,7 +347,7 @@ var ListActions = function () {
     }, {
         key: 'getListingInfo',
         value: function getListingInfo(id, i) {
-            var _this9 = this;
+            var _this10 = this;
 
             console.log('Getting the info');
             return function (dispatch) {
@@ -340,9 +355,9 @@ var ListActions = function () {
                 $.ajax({
                     url: process.env.BASE_URI + '/list/getinfo/' + id
                 }).done(function (data) {
-                    _this9.getListingInfoSuccess({ data: data, i: i });
+                    _this10.getListingInfoSuccess({ data: data, i: i });
                 }).fail(function (jqXhr) {
-                    _this9.getListingInfoFailure(jqXhr);
+                    _this10.getListingInfoFailure(jqXhr);
                 });
             };
         }
@@ -352,7 +367,7 @@ var ListActions = function () {
     }, {
         key: 'updateFeature',
         value: async function updateFeature(data) {
-            var _this10 = this;
+            var _this11 = this;
 
             await fetch(process.env.BASE_URI + '/list/feature', {
                 method: 'POST',
@@ -367,10 +382,10 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this10.updateFeatureSuccess(json);
+                _this11.updateFeatureSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this10.updateFeatureFailure(error);
+                _this11.updateFeatureFailure(error);
             });
         }
     }, {
@@ -381,7 +396,7 @@ var ListActions = function () {
     }, {
         key: 'featureLoad',
         value: async function featureLoad(days) {
-            var _this11 = this;
+            var _this12 = this;
 
             await fetch(process.env.BASE_URI + '/list/findfeatures/' + days, {
                 method: 'POST',
@@ -395,16 +410,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this11.featureLoadSuccess({ json: json, days: days });
+                _this12.featureLoadSuccess({ json: json, days: days });
                 return true;
             }).catch(function (error) {
-                _this11.featureLoadFailure(error);
+                _this12.featureLoadFailure(error);
             });
         }
     }, {
         key: 'getVenueInfo',
         value: async function getVenueInfo(id) {
-            var _this12 = this;
+            var _this13 = this;
 
             await fetch(process.env.BASE_URI + '/venues/getinfo/' + id, {
                 method: 'GET',
@@ -415,16 +430,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this12.getVenueInfoSuccess(json);
+                _this13.getVenueInfoSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this12.getVenueInfoFailure(error);
+                _this13.getVenueInfoFailure(error);
             });
         }
     }, {
         key: 'getVenueFullInfo',
         value: async function getVenueFullInfo(id) {
-            var _this13 = this;
+            var _this14 = this;
 
             await fetch(process.env.BASE_URI + '/venues/getfullinfo/' + id, {
                 method: 'GET',
@@ -435,16 +450,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this13.getVenueFullInfoSuccess(json);
+                _this14.getVenueFullInfoSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this13.getVenueFullInfoFailure(error);
+                _this14.getVenueFullInfoFailure(error);
             });
         }
     }, {
         key: 'getVenueListings',
         value: async function getVenueListings(id) {
-            var _this14 = this;
+            var _this15 = this;
 
             await fetch(process.env.BASE_URI + '/venues/getlistings/' + id, {
                 method: 'GET',
@@ -455,10 +470,10 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this14.getVenueListingsSuccess(json);
+                _this15.getVenueListingsSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this14.getVenueListingsFailure(error);
+                _this15.getVenueListingsFailure(error);
             });
         }
     }, {
@@ -474,7 +489,7 @@ var ListActions = function () {
     }, {
         key: 'getVenuesAdmin',
         value: function getVenuesAdmin(neighborhood) {
-            var _this15 = this;
+            var _this16 = this;
 
             this.getVenuesAdminAttempt();
             return function (dispatch) {
@@ -482,16 +497,16 @@ var ListActions = function () {
                 $.ajax({
                     url: process.env.BASE_URI + '/venues/getadmin/' + neighborhood
                 }).done(function (data) {
-                    _this15.getVenuesAdminSuccess(data);
+                    _this16.getVenuesAdminSuccess(data);
                 }).fail(function (jqXhr) {
-                    _this15.getVenuesAdminFailure(jqXhr);
+                    _this16.getVenuesAdminFailure(jqXhr);
                 });
             };
         }
     }, {
         key: 'updateVenue',
         value: async function updateVenue(info) {
-            var _this16 = this;
+            var _this17 = this;
 
             this.updateVenueAttempt();
 
@@ -508,17 +523,17 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this16.updateVenueSuccess(json);
-                _this16.venueEditReset();
+                _this17.updateVenueSuccess(json);
+                _this17.venueEditReset();
                 return true;
             }).catch(function (error) {
-                _this16.updateVenueFailure(error);
+                _this17.updateVenueFailure(error);
             });
         }
     }, {
         key: 'saveVenue',
         value: async function saveVenue(newVenue) {
-            var _this17 = this;
+            var _this18 = this;
 
             this.saveVenueAttempt();
 
@@ -535,17 +550,17 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this17.venueEditReset();
-                _this17.saveVenueSuccess(json);
+                _this18.venueEditReset();
+                _this18.saveVenueSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this17.saveVenueFailure(error);
+                _this18.saveVenueFailure(error);
             });
         }
     }, {
         key: 'deleteVenue',
         value: async function deleteVenue(oldVenue) {
-            var _this18 = this;
+            var _this19 = this;
 
             await fetch(process.env.BASE_URI + '/venues/delete/' + oldVenue, {
                 method: 'POST',
@@ -559,10 +574,10 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this18.deleteVenueSuccess(json);
+                _this19.deleteVenueSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this18.deleteVenueFailure(error);
+                _this19.deleteVenueFailure(error);
             });
         }
     }, {
@@ -1819,6 +1834,7 @@ var ListStore = function () {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
+        this.latestListings = [];
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
@@ -1930,6 +1946,16 @@ var ListStore = function () {
         key: 'onGetGlanceSuccess',
         value: function onGetGlanceSuccess(data) {
             this.glanceListings = data;
+        }
+    }, {
+        key: 'getLatestListingsSuccess',
+        value: function getLatestListingsSuccess(data) {
+            this.latestListings = data;
+        }
+    }, {
+        key: 'getLatestListingsFail',
+        value: function getLatestListingsFail(error) {
+            console.log(error);
         }
     }, {
         key: 'onGetCurrentFail',
@@ -6632,6 +6658,12 @@ var ListingForm = function (_React$Component) {
                         ),
                         _react2.default.createElement(_ThumbnailInput2.default, this.props)
                     ),
+                    'Edited by ',
+                    this.props.updated_by,
+                    ' at ',
+                    this.props.updated_at,
+                    'Created on ',
+                    this.props.created_at,
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
                         null,
@@ -14153,7 +14185,7 @@ var ReviewPage = function (_React$Component) {
     _createClass(ReviewPage, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            _ListActions2.default.getFuture();
+            _ListActions2.default.getLatestListings();
         }
     }, {
         key: 'render',
@@ -14179,7 +14211,7 @@ var ReviewPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'medium' },
-                    thelistings(this.props.futureListings)
+                    thelistings(this.props.latestListings)
                 )
             );
         }
@@ -14915,6 +14947,18 @@ router.get('/eventslistings', function (req, res) {
 });
 
 //#######################
+// GET LATEST LISTINGS to review
+//#######################
+
+router.get('/latestlistings', function (req, res) {
+    var List = req.list;
+
+    List.find().where('venue').ne('').where('updated_at').ne('').sort('updated_at').limit(20).populate('venue').exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+//#######################
 /* FIND listings based on text */
 //#######################
 
@@ -14963,6 +15007,12 @@ router.post('/add', function (req, res) {
     // define a new entry
     var newlisting = new List(req.body);
 
+    // Save when and who created it
+    var now = new Date();
+    newlisting.created_at = now;
+    newlisting.updated_at = now;
+    newlisting.updated_by = req.user._id;
+
     //Save this new entry
     newlisting.save(function (err, newlisting) {
         res.send(err === null ? {
@@ -14984,6 +15034,11 @@ router.post('/update', function (req, res) {
 
     // define a new entry
     var thelisting = new List(req.body);
+
+    // Save when and who created it
+    var now = new Date();
+    thelisting.updated_at = now;
+    thelisting.updated_by = req.user._id;
 
     List.update({
         _id: thelisting._id

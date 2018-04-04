@@ -156,6 +156,24 @@ router.get('/eventslistings', function (req, res) {
 
 
 //#######################
+// GET LATEST LISTINGS to review
+//#######################
+
+router.get('/latestlistings', function (req, res) {
+    var List = req.list;
+
+    List.find().
+    where('venue').ne('').
+    where('updated_at').ne('').
+    sort('updated_at').
+    limit(20).
+    populate('venue').
+    exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+//#######################
 /* FIND listings based on text */
 //#######################
 
@@ -215,6 +233,12 @@ router.post('/add', function (req, res) {
     // define a new entry
     var newlisting = new List(req.body);
 
+    // Save when and who created it
+	var now = new Date();
+	newlisting.created_at = now;
+	newlisting.updated_at = now;
+	newlisting.updated_by = req.user._id;
+
     //Save this new entry
     newlisting.save(function (err, newlisting) {
         res.send(
@@ -240,6 +264,11 @@ router.post('/update', function (req, res) {
 
     // define a new entry
     var thelisting = new List(req.body);
+
+    // Save when and who created it
+	var now = new Date();
+	thelisting.updated_at = now;
+	thelisting.updated_by = req.user._id;
 
 
     List.update({
