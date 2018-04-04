@@ -5,6 +5,7 @@ import AuthActions from '../../actions/AuthActions';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {Link } from 'react-router';
 import FacebookButton from '../buttons/FacebookButton.jsx';
+import Loading from '../blocks/loading'
 
 
 export default class LogInForm extends React.Component {
@@ -141,7 +142,12 @@ export default class LogInForm extends React.Component {
                     </FormGroup>
 
                     <Button>Log In</Button>
-                    {this.props.loading && <div className='loading'>Loading</div>}
+                    {this.props.loading && <Loading /> }
+                    {this.props.error.login && 
+                        <div className="alert alert-danger">
+                          {this.props.error.login}
+                        </div>
+                        }
 					<p>Don't have an account? <Link to={'/signup'} activeClassName="active">Register</Link></p>
 
                 </Form>

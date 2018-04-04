@@ -86,7 +86,7 @@ var _alt = __webpack_require__(16);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-var _bluebird = __webpack_require__(30);
+var _bluebird = __webpack_require__(31);
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
@@ -612,7 +612,7 @@ var _alt = __webpack_require__(16);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(27);
+__webpack_require__(28);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -956,7 +956,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _reactFontawesome = __webpack_require__(32);
+var _reactFontawesome = __webpack_require__(33);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -1519,7 +1519,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(37);
+var _validator = __webpack_require__(38);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -1534,6 +1534,10 @@ var _reactRouter = __webpack_require__(3);
 var _FacebookButton = __webpack_require__(98);
 
 var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
+
+var _loading = __webpack_require__(26);
+
+var _loading2 = _interopRequireDefault(_loading);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1715,10 +1719,11 @@ var LogInForm = function (_React$Component) {
                         null,
                         'Log In'
                     ),
-                    this.props.loading && _react2.default.createElement(
+                    this.props.loading && _react2.default.createElement(_loading2.default, null),
+                    this.props.error.login && _react2.default.createElement(
                         'div',
-                        { className: 'loading' },
-                        'Loading'
+                        { className: 'alert alert-danger' },
+                        this.props.error.login
                     ),
                     _react2.default.createElement(
                         'p',
@@ -1816,7 +1821,6 @@ var ListStore = function () {
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
-        this.user.isLoggingIn = false;
         this.user.facebook = {};
         this.user.local = {};
         this.user.mylist = [];
@@ -1868,6 +1872,7 @@ var ListStore = function () {
         //Error Messages
         this.error = {};
         this.error.feature = '';
+        this.error.login = '';
         this.error.updateuser = '';
         this.error.updatelisting = {};
         this.error.updatevenue = {};
@@ -2400,19 +2405,15 @@ var ListStore = function () {
     }, {
         key: 'onLoginAttempt',
         value: function onLoginAttempt() {
-            this.isLoggingIn = true;
             this.loginRedirect = false;
+            this.loading.login = true;
         }
     }, {
         key: 'onLoginFailure',
         value: function onLoginFailure(error) {
             console.log('Login error: ', error);
-            //this.user.firstname = '';
-            //this.user.lastname = '';
-            //this.user._id = '';
-            //this.user.isLoggedIn = false;
-            this.user.isLoggingIn = false;
-            //this.user.local = {};
+            this.error.login = 'Wrong username or password.';
+            this.loading.login = false;
         }
     }, {
         key: 'onLoginSuccess',
@@ -2421,7 +2422,7 @@ var ListStore = function () {
             this.user = json;
             this.user.isLoggedIn = true;
             this.user.userAccess = 3;
-            this.user.isLoggingIn = false;
+            this.loading.login = false;
         }
 
         // REGISTER ATTEMPT
@@ -2526,7 +2527,6 @@ var ListStore = function () {
             this.user.facebook = {};
             this.user.mylist = [];
             this.user.isLoggedIn = false;
-            this.user.isLoggingIn = false;
         }
 
         // CHECK SESSION
@@ -2539,7 +2539,6 @@ var ListStore = function () {
             this.user.facebook = {};
             this.user.mylist = [];
             this.user.isLoggedIn = false;
-            this.user.isLoggingIn = false;
         }
     }, {
         key: 'onSessionCheckSuccess',
@@ -2552,7 +2551,6 @@ var ListStore = function () {
                 this.user.facebook = {};
             }
             this.user.isLoggedIn = true;
-            this.user.isLoggingIn = false;
         }
 
         // ADD TO MYLIST
@@ -2797,7 +2795,7 @@ var _alt = __webpack_require__(16);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(27);
+__webpack_require__(28);
 
 var _superagent = __webpack_require__(71);
 
@@ -3045,18 +3043,68 @@ module.exports = require("react-toggle-button");
 
 /***/ }),
 /* 26 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("bcrypt");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Loading = function (_React$Component) {
+  _inherits(Loading, _React$Component);
+
+  function Loading() {
+    _classCallCheck(this, Loading);
+
+    return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).apply(this, arguments));
+  }
+
+  _createClass(Loading, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "loading" },
+        "Loading..."
+      );
+    }
+  }]);
+
+  return Loading;
+}(_react2.default.Component);
+
+exports.default = Loading;
 
 /***/ }),
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = require("isomorphic-fetch");
+module.exports = require("bcrypt");
 
 /***/ }),
 /* 28 */
+/***/ (function(module, exports) {
+
+module.exports = require("isomorphic-fetch");
+
+/***/ }),
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3064,7 +3112,7 @@ module.exports = require("isomorphic-fetch");
 
 var mongoose = __webpack_require__(6),
     Schema = mongoose.Schema;
-var bcrypt = __webpack_require__(26); // encripts password
+var bcrypt = __webpack_require__(27); // encripts password
 
 // Create the Listings table ==================================
 
@@ -3102,7 +3150,7 @@ userSchema.methods.validPassword = function (password) {
 module.exports = mongoose.model('User', userSchema);
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3144,13 +3192,13 @@ var venueSchema = mongoose.Schema({
 module.exports = mongoose.model('Venue', venueSchema);
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4972,12 +5020,12 @@ var config = api$1.config;
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
@@ -5560,7 +5608,7 @@ __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__["default"].noAuto();
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5699,7 +5747,7 @@ var HoodNav = function (_React$Component) {
 exports.default = HoodNav;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5878,13 +5926,13 @@ var FeatureBlock = function (_React$Component) {
 exports.default = FeatureBlock;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = require("d3-ease");
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6007,19 +6055,19 @@ var MapBlock = function (_React$Component) {
 exports.default = MapBlock;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-reorder");
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6129,7 +6177,7 @@ var MyMap = function (_React$Component) {
 exports.default = MyMap;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6179,13 +6227,13 @@ var facebookShare = function (_React$Component) {
 exports.default = facebookShare;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = require("async");
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6217,7 +6265,7 @@ var _formDateRange = __webpack_require__(109);
 
 var _formDateRange2 = _interopRequireDefault(_formDateRange);
 
-var _formDateSingle = __webpack_require__(43);
+var _formDateSingle = __webpack_require__(44);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
@@ -6225,7 +6273,7 @@ var _formSelect = __webpack_require__(19);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ThumbnailInput = __webpack_require__(44);
+var _ThumbnailInput = __webpack_require__(45);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
@@ -6648,7 +6696,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6721,7 +6769,7 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6737,7 +6785,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _imageUpload = __webpack_require__(45);
+var _imageUpload = __webpack_require__(46);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
@@ -6814,7 +6862,7 @@ var Thumbnail = function (_React$Component) {
 exports.default = Thumbnail;
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6919,7 +6967,7 @@ var ImageUpload = function (_React$Component) {
 exports.default = ImageUpload;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7172,56 +7220,6 @@ var NeighborhoodSelect = function (_React$Component) {
 exports.default = NeighborhoodSelect;
 
 /***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Loading = function (_React$Component) {
-  _inherits(Loading, _React$Component);
-
-  function Loading() {
-    _classCallCheck(this, Loading);
-
-    return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).apply(this, arguments));
-  }
-
-  _createClass(Loading, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "loading" },
-        "Loading..."
-      );
-    }
-  }]);
-
-  return Loading;
-}(_react2.default.Component);
-
-exports.default = Loading;
-
-/***/ }),
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7294,7 +7292,7 @@ var expressValidator = __webpack_require__(57);
 var passport = __webpack_require__(20);
 var flash = __webpack_require__(58);
 var session = __webpack_require__(59);
-var bcrypt = __webpack_require__(26); // encripts password
+var bcrypt = __webpack_require__(27); // encripts password
 
 // Get the User model
 __webpack_require__(60)(passport);
@@ -7316,8 +7314,8 @@ db.once('open', function () {
 // Import the Mongoose models
 var List = __webpack_require__(64);
 var Archive = __webpack_require__(65);
-var Venue = __webpack_require__(29);
-var User = __webpack_require__(28);
+var Venue = __webpack_require__(30);
+var User = __webpack_require__(29);
 var Feature = __webpack_require__(66);
 
 // view engine setup
@@ -7553,8 +7551,8 @@ var FacebookStrategy = __webpack_require__(63).Strategy;
 
 
 // load up the user model
-var User = __webpack_require__(28);
-var Venue = __webpack_require__(29);
+var User = __webpack_require__(29);
+var Venue = __webpack_require__(30);
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -8157,11 +8155,11 @@ var _sizeSelector = __webpack_require__(11);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
-var _fontawesome = __webpack_require__(31);
+var _fontawesome = __webpack_require__(32);
 
 var _fontawesome2 = _interopRequireDefault(_fontawesome);
 
-var _reactFontawesome = __webpack_require__(32);
+var _reactFontawesome = __webpack_require__(33);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -8440,7 +8438,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _neighborhoodNav = __webpack_require__(33);
+var _neighborhoodNav = __webpack_require__(34);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
@@ -8614,7 +8612,7 @@ var _sizeSelector = __webpack_require__(11);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
-var _neighborhoodNav = __webpack_require__(33);
+var _neighborhoodNav = __webpack_require__(34);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
@@ -8897,7 +8895,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _featureBlock = __webpack_require__(34);
+var _featureBlock = __webpack_require__(35);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -9074,7 +9072,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //COMPONENTS
 
 
-var d3 = __webpack_require__(35);
+var d3 = __webpack_require__(36);
 
 var CurrentMap = function (_React$Component) {
 	_inherits(CurrentMap, _React$Component);
@@ -9792,7 +9790,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _mapBlock = __webpack_require__(36);
+var _mapBlock = __webpack_require__(37);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
@@ -10192,7 +10190,7 @@ var _reactToggleButton = __webpack_require__(25);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
-var _validator = __webpack_require__(37);
+var _validator = __webpack_require__(38);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -10622,7 +10620,9 @@ var LogInPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'admin-content' },
-                    _react2.default.createElement(_LogInForm2.default, { loading: this.props.isLoggingIn })
+                    _react2.default.createElement(_LogInForm2.default, {
+                        loading: this.props.loading.login,
+                        error: this.props.error })
                 )
             );
         }
@@ -10757,7 +10757,9 @@ var MyListPage = function (_React$Component) {
                     null,
                     'An intro paragraph about why you should register.'
                 ),
-                _react2.default.createElement(_LogInForm2.default, { loginFunction: _AuthActions2.default.attemptLogIn, loading: this.props.isLoggingIn })
+                _react2.default.createElement(_LogInForm2.default, {
+                    loading: this.props.loading.login,
+                    error: this.props.error })
             );
             return _react2.default.createElement(
                 'div',
@@ -10816,15 +10818,15 @@ var _myListings = __webpack_require__(101);
 
 var _myListings2 = _interopRequireDefault(_myListings);
 
-var _myMap = __webpack_require__(39);
+var _myMap = __webpack_require__(40);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _facebookShare = __webpack_require__(40);
+var _facebookShare = __webpack_require__(41);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
-var _reactReorder = __webpack_require__(38);
+var _reactReorder = __webpack_require__(39);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10834,11 +10836,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var async = __webpack_require__(41);
+var async = __webpack_require__(42);
 // Components
 
 
-var d3 = __webpack_require__(35);
+var d3 = __webpack_require__(36);
 
 var MyList = function (_React$Component) {
     _inherits(MyList, _React$Component);
@@ -11057,7 +11059,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _reactReorder = __webpack_require__(38);
+var _reactReorder = __webpack_require__(39);
 
 var _reactReorder2 = _interopRequireDefault(_reactReorder);
 
@@ -11284,11 +11286,11 @@ var _userListings = __webpack_require__(105);
 
 var _userListings2 = _interopRequireDefault(_userListings);
 
-var _myMap = __webpack_require__(39);
+var _myMap = __webpack_require__(40);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _facebookShare = __webpack_require__(40);
+var _facebookShare = __webpack_require__(41);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
@@ -11300,7 +11302,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var async = __webpack_require__(41);
+var async = __webpack_require__(42);
 // Components
 
 var UserList = function (_React$Component) {
@@ -11707,7 +11709,9 @@ var AdminPage = function (_React$Component) {
                         null,
                         'You do not have the necessary privileges to access this page.'
                     ),
-                    _react2.default.createElement(_LogInForm2.default, null)
+                    _react2.default.createElement(_LogInForm2.default, {
+                        loading: this.props.loading.login,
+                        error: this.props.error })
                 )
             );
 
@@ -11811,7 +11815,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _ListingForm = __webpack_require__(42);
+var _ListingForm = __webpack_require__(43);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -12009,7 +12013,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formDateSingle = __webpack_require__(43);
+var _formDateSingle = __webpack_require__(44);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
@@ -12280,7 +12284,7 @@ var _formSelect = __webpack_require__(19);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ListingForm = __webpack_require__(42);
+var _ListingForm = __webpack_require__(43);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -12477,7 +12481,7 @@ var _VenueForm = __webpack_require__(116);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
 
-var _mapBlock = __webpack_require__(36);
+var _mapBlock = __webpack_require__(37);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
@@ -12663,7 +12667,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _NeighborhoodSelect = __webpack_require__(46);
+var _NeighborhoodSelect = __webpack_require__(47);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
@@ -13085,7 +13089,7 @@ var _featuredForm = __webpack_require__(120);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
-var _featureBlock = __webpack_require__(34);
+var _featureBlock = __webpack_require__(35);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -13218,7 +13222,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _ThumbnailInput = __webpack_require__(44);
+var _ThumbnailInput = __webpack_require__(45);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
@@ -13323,11 +13327,11 @@ var _VenueItem = __webpack_require__(122);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
-var _NeighborhoodSelect = __webpack_require__(46);
+var _NeighborhoodSelect = __webpack_require__(47);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
-var _loading = __webpack_require__(47);
+var _loading = __webpack_require__(26);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -13616,7 +13620,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _loading = __webpack_require__(47);
+var _loading = __webpack_require__(26);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -14258,7 +14262,7 @@ var AccountPage = function (_React$Component) {
                     null,
                     'You need to be registered to access this page.'
                 ),
-                _react2.default.createElement(_LogInForm2.default, { loginFunction: _AuthActions2.default.attemptLogIn, loading: this.props.isLoggingIn })
+                _react2.default.createElement(_LogInForm2.default, { loginFunction: _AuthActions2.default.attemptLogIn, loading: this.props.loading.login, error: this.props.error })
             );
 
             return _react2.default.createElement(
@@ -14477,7 +14481,7 @@ var _ImagesActions = __webpack_require__(21);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _imageUpload = __webpack_require__(45);
+var _imageUpload = __webpack_require__(46);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
@@ -14589,7 +14593,7 @@ module.exports = require("history");
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var Promise = __webpack_require__(30);
+var Promise = __webpack_require__(31);
 
 /* GET All Venues */
 router.get('/', function (req, res, next) {

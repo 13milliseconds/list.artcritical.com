@@ -21,7 +21,6 @@ class ListStore {
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
-        this.user.isLoggingIn = false;
         this.user.facebook = {};
 		this.user.local = {};
         this.user.mylist = [];
@@ -74,6 +73,7 @@ class ListStore {
         //Error Messages
         this.error = {};
         this.error.feature = '';
+        this.error.login = '';
         this.error.updateuser = '';
         this.error.updatelisting = {};
         this.error.updatevenue = {};
@@ -460,24 +460,21 @@ class ListStore {
     
     // LOGIN ATTEMPT
     onLoginAttempt(){
-        this.isLoggingIn = true;
         this.loginRedirect = false;
+        this.loading.login = true
+        this.error.login = ''
     }
     onLoginFailure(error){
         console.log('Login error: ', error);
-        //this.user.firstname = '';
-		//this.user.lastname = '';
-        //this.user._id = '';
-        //this.user.isLoggedIn = false;
-        this.user.isLoggingIn = false;
-        //this.user.local = {};
+        this.error.login = 'Wrong username or password.'
+        this.loading.login = false
     }
     onLoginSuccess(json){
 		console.log('Logged in: ', json);
         this.user = json;
         this.user.isLoggedIn = true;
         this.user.userAccess = 3;
-        this.user.isLoggingIn = false;
+        this.loading.login = false
     }
     
     // REGISTER ATTEMPT
@@ -554,7 +551,6 @@ class ListStore {
 		this.user.facebook= {};
         this.user.mylist = [];
         this.user.isLoggedIn = false;
-        this.user.isLoggingIn = false;
     }
     
     // CHECK SESSION
@@ -564,7 +560,6 @@ class ListStore {
 		this.user.facebook= {};
         this.user.mylist = [];
         this.user.isLoggedIn = false;
-        this.user.isLoggingIn = false;
     }
     onSessionCheckSuccess(action){
         this.user = action;
@@ -575,7 +570,6 @@ class ListStore {
 			this.user.facebook = {};
 		}
         this.user.isLoggedIn = true;
-        this.user.isLoggingIn = false;
     }
     
     // ADD TO MYLIST
