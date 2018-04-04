@@ -4,7 +4,7 @@ import AuthActions from '../../actions/AuthActions';
 //Components
 import ImageBlock from './imageBlock'
 import DateBlock from './DateBlock'
-
+import UserEdit from '../forms/UserEdit'
 import { Form, FormGroup, Label, Input, Alert, Button, Collapse } from 'reactstrap';
 
 
@@ -66,39 +66,15 @@ export default class UserCard extends React.Component {
 				<p>{userAccess([this.props.user.userAccess])}</p>
         	</div>
 			<div className="info">
-			<Button color="primary" onClick={this.toggleForm}>Edit</Button>
+			<Button color="primary" onClick={this.toggleForm}>{this.state.collapse? 'Close': 'Edit'}</Button>
 			<Collapse isOpen={this.state.collapse}>
+
+				<UserEdit 
+					user={user} 
+					handleChange={this.handleChange}
+					saveChanges={this.saveChanges}
+					/>
 			
-			<form onSubmit={this.saveChanges}>
-
-					  <label>First Name</label>
-	                <div className="formSection">
-	                    <input name="firstname" placeholder="Your First Name" type="text" onChange={this.handleChange} value={user.firstname}  />
-	                </div>
-					
-					<label>Last Name</label>
-	                <div className="formSection">
-	                    <input name="lastname" placeholder="Your Last Name" type="text" onChange={this.handleChange} value={user.lastname}  />
-	                </div>
-	                
-	                <label>Email</label>
-	                <div className="formSection">
-
-	                    <input name="email" placeholder="Your Email" type="email" onChange={this.handleChange}  value={user.local.username} />
-	                </div>
-
-			          <Label for="exampleSelect">User Role</Label>
-			          <Input type="select" name="userAccess" onChange={this.handleChange}>
-			          		<option value={3}>SuperAdmin</option>
-							<option value={1} >Editor</option>
-							<option value={2}>Admin</option>
-							<option value={0}>Subscriber</option>
-			          </Input>
-
-
-				<button type="submit">Submit Changes</button>
-
-					</form>
 			</Collapse>
 			</div>
 		</div>

@@ -119,9 +119,11 @@ export default class LogInForm extends React.Component {
                           value={this.state.username} 
                           onChange={this.handleChange} 
                           />
+                        {this.state.errorMessage.email && 
                         <div className="alert alert-danger">
                           {this.state.errorMessage.email}
                         </div>
+                        }
                     </FormGroup>
                     <FormGroup check>
                         <Input 
@@ -131,7 +133,11 @@ export default class LogInForm extends React.Component {
                             value={this.state.password} 
                             onChange={this.handleChange} 
                             />
-                        {this.state.errorMessage.password}
+                            {this.state.errorMessage.password && 
+                        <div className="alert alert-danger">
+                          {this.state.errorMessage.password}
+                        </div>
+                        }
                     </FormGroup>
 
                     <Button>Log In</Button>

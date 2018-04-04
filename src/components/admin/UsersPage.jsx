@@ -3,7 +3,6 @@ import AuthActions from '../../actions/AuthActions'
 // Components
 import Loading from '../blocks/loading'
 import UserCard from '../blocks/UserCard'
-import UserEdit from '../blocks/UserEdit'
 import UserFullInfo from '../blocks/UserFullInfo'
 
 
@@ -30,7 +29,7 @@ export default class UsersPage extends React.Component {
             
         });
 		
-		console.log('Current User: ', this.props.currentUser)
+		console.log('Current User: ', this.props.user)
         
         return ( 
             <div className = "usersWrap">

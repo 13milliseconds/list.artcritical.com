@@ -11,13 +11,8 @@ import DateRange from './formDateRange'
 import DateSingle from './formDateSingle'
 import Select from './formSelect'
 import ThumbnailInput from './ThumbnailInput'
-<<<<<<< HEAD
 import EventsForm from './EventsForm'
-
-
-=======
 import UpdateModal from './updateModal'
->>>>>>> e3bd20685b3d6b48ddd02626b265c6fe2b68e4b8
 
 export default class ListingForm extends React.Component {
 
@@ -225,69 +220,8 @@ export default class ListingForm extends React.Component {
                 </Modal> 
             : 
                 null
-<<<<<<< HEAD
-
-        let updateModal = this.state.updatevisible &&
-                <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
-                            <ModalHeader toggle={this.toggle}>Update Listing</ModalHeader>
-                              <ModalBody>
-                                {!this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null}
-
-                                {this.props.loading && 
-                                <div className='loading'>loading</div>
-                                }
-                                {this.props.success && 
-                                    <div className='success'>Saved!</div>
-                                }
-                                {this.props.error.general && 
-                                    <div className='error'>{this.props.error.savelisting.general}</div>
-                                }
-                              </ModalBody>
-                              <ModalFooter>
-                                {!this.props.success ? 
-                                    <div>
-                                        <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
-                                        <Button color="primary" onClick={this.toggle}>Cancel</Button>
-                                    </div>
-                                :
-                                    <Button color="success" onClick={this.toggle}>Close</Button>
-                                }
-                                
-                                
-                              </ModalFooter>
-                </Modal> 
-
-        let deleteModal = this.state.deletevisible &&
-                <Modal isOpen={this.state.deletevisible} toggle={this.toggleDelete}>
-                              <ModalHeader toggle={this.toggleDelete}>Delete Listing</ModalHeader>
-                              <ModalBody>
-                               {!this.props.deleteitem && !this.props.error.general ? "Press Confirm to DELETE this listing. Press Cancel to go back" : null}
-
-                                
-                                {this.props.deleteitem && 
-                                    <div className='success'>Deleted!</div>
-                                }
-                                {this.props.error.general && 
-                                    <div className='error'>Sorry, there was an error! Please try again!</div>
-                                }
-                              </ModalBody>
-                              <ModalFooter>
-                                {!this.props.deleteitem ? 
-                                    <div>
-                                        <Button color="primary" onClick={this.props.handleDelete}>Confirm</Button>{' '}
-                                        <Button color="primary" onClick={this.toggleDelete}>Cancel</Button>
-                                    </div>
-                                :
-                                    <Button color="success" onClick={this.toggleDelete}>Close</Button>
-                                }
-                                
-                              </ModalFooter>
-                </Modal>
-
-=======
         
         let venueData = { value: this.props.venue._id, label: this.props.venue.name}
->>>>>>> e3bd20685b3d6b48ddd02626b265c6fe2b68e4b8
         
         let deleteButton = this.props.handleDelete ?
                 <Button className="delete" color="danger" onClick={this.onDeleteConfirm}>Delete</Button>
