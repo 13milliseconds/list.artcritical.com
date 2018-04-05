@@ -5,7 +5,7 @@ export default class UpdateModal extends React.Component {
 	constructor(props) {
         super(props)
         this.state = {
-            updatevisible: this.props.updatevisible
+            modalVisible: this.props.modalVisible
         }
 
         this.toggle = this.toggle.bind(this);
@@ -13,22 +13,22 @@ export default class UpdateModal extends React.Component {
     
     toggle() {
         this.setState({
-            updatevisible: !this.state.updatevisible
+            modalVisible: !this.state.modalVisible
         });
     }
 
 	render() {
         return (
-            <Modal isOpen={this.state.updatevisible}>
-                <ModalHeader>Update Listing</ModalHeader>
+            <Modal isOpen={this.state.modalVisible}>
+                <ModalHeader>{this.props.textTitle}</ModalHeader>
                 <ModalBody>
-                    {!this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null}
+                    {!this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to " + this.props.textAction + ". Press Cancel to go back." : null}
 
                     {this.props.loading && 
                     <div className='loading'>loading</div>
                     }
                     {this.props.success && 
-                        <div className='success'>Saved!</div>
+                        <div className='success'>{this.props.textConfirm}</div>
                     }
                     {this.props.error && 
                         <div className='error'>Please Try Again</div>

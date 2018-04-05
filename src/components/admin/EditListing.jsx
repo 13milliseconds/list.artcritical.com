@@ -13,44 +13,12 @@ export default class ListingEdit extends React.Component {
     constructor(props) { 
         super(props);
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleSelectChange = this.handleSelectChange.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);        
       }
     
     componentWillUnmount(){
         ListActions.listingEditReset();
     }
-    
-    // Add the listing to the database
-    handleSubmit(event) {
-        event.preventDefault();
-        let newListing = this.props.listingEdit
-        console.log(this.props.listingEdit)
-
-        //Check and save only events that have a date
-        let allEvents = []
-        newListing.events.map(event => {
-            if (event.date){allEvents.push(event)}
-        })
-        newListing.events = allEvents
-
-		if (this.props.listingEdit._id){
-			//Edit the current listing
-			ListActions.updateListing(newListing)
-		} else {	
-			//Create a new Listing
-			delete newListing._id
-			newListing.venue = newListing.venue._id
-			newListing.neighborhood = newListing.venue.neighborhood
-			ListActions.saveListing(newListing)
-		}
-      }
-    
-    //Delete the listing
-    handleDelete() {
-        ListActions.deleteListing(this.props.listingEdit._id)
-      }
     
     handleSelectChange (data) {
         if (data){
@@ -90,7 +58,6 @@ export default class ListingEdit extends React.Component {
             <div>
                 <h3>Edit Listing</h3>
                 <div id="ListingList">
-                    <form onSubmit={this.handleSubmit}>
                         <Select value={{
                             value: this.props.listingEdit._id, 
                             label: this.props.listingEdit.name}
@@ -98,7 +65,6 @@ export default class ListingEdit extends React.Component {
                         handleSelectChange={this.handleSelectChange} 
                         getOptions={getOptions} 
                         />
-                    </form>
                 </div>
                 <div id="ListingInfo">
                     <div className="medium">
@@ -106,14 +72,11 @@ export default class ListingEdit extends React.Component {
                     </div>
                 </div>
                 <div className="listingForm">
-                    <ListingForm {...this.props.listingEdit} 
-                        handleSubmit={this.handleSubmit}  
-                        handleDelete={this.handleDelete} 
+                    <ListingForm 
+                        listing={this.props.listingEdit} 
                         error={this.props.error.updatelisting} 
                         loading={this.props.loading.updatelisting}
-                        success={this.props.success.updatelisting}
-                        deleteitem={this.props.success.deletelisting}
-                        savelisting={this.props.success.savelisting}/>
+                        success={this.props.success}/>
                 </div>
             </div>
         );

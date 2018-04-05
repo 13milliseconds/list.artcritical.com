@@ -58,7 +58,7 @@ export default class Listing extends React.Component {
         let listing = this.props.listing
 
         let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
-        let eventsPresence = listing.events.length > 0
+        let eventsPresence = listing.events? true : false
         
     //Display date according to type of listing and view
     var dateDisplay

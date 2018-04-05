@@ -1067,7 +1067,7 @@ var Listing = function (_React$Component) {
             var listing = this.props.listing;
 
             var closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"];
-            var eventsPresence = listing.events.length > 0;
+            var eventsPresence = listing.events ? true : false;
 
             //Display date according to type of listing and view
             var dateDisplay;
@@ -6290,8 +6290,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -6330,9 +6328,9 @@ var _EventsForm = __webpack_require__(114);
 
 var _EventsForm2 = _interopRequireDefault(_EventsForm);
 
-var _updateModal = __webpack_require__(115);
+var _confirmModal = __webpack_require__(115);
 
-var _updateModal2 = _interopRequireDefault(_updateModal);
+var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6358,7 +6356,6 @@ var ListingForm = function (_React$Component) {
             updatevisible: false,
             deletevisible: false,
             createvisible: false,
-            modal: false,
             wasChanged: false //check if any change was made to the listing
         };
 
@@ -6367,26 +6364,47 @@ var ListingForm = function (_React$Component) {
         _this.onConfirm = _this.onConfirm.bind(_this);
         _this.onDeleteConfirm = _this.onDeleteConfirm.bind(_this);
         _this.onCreateConfirm = _this.onCreateConfirm.bind(_this);
-        _this.toggleCreate = _this.toggleCreate.bind(_this);
-        _this.toggleDelete = _this.toggleDelete.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleDelete = _this.handleDelete.bind(_this);
         return _this;
     }
 
+    // Add the listing to the database
+
+
     _createClass(ListingForm, [{
-        key: 'toggleDelete',
-        value: function toggleDelete() {
-            this.setState({
-                modal: !this.state.modal,
-                deletevisible: !this.state.deletevisible
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            event.preventDefault();
+            var newListing = this.props.listing;
+
+            //Check and save only events that have a date
+            var allEvents = [];
+            newListing.events.map(function (event) {
+                if (event.date) {
+                    allEvents.push(event);
+                }
             });
+            newListing.events = allEvents;
+
+            if (this.props.listing._id) {
+                //Edit the current listing
+                _ListActions2.default.updateListing(newListing);
+            } else {
+                //Create a new Listing
+                delete newListing._id;
+                newListing.venue = newListing.venue._id;
+                newListing.neighborhood = newListing.venue.neighborhood;
+                _ListActions2.default.saveListing(newListing);
+            }
         }
+
+        //Delete the listing
+
     }, {
-        key: 'toggleCreate',
-        value: function toggleCreate() {
-            this.setState({
-                modal: !this.state.modal,
-                createvisible: !this.state.createvisible
-            });
+        key: 'handleDelete',
+        value: function handleDelete() {
+            _ListActions2.default.deleteListing(this.props.listing._id);
         }
 
         //confirm alert
@@ -6463,6 +6481,8 @@ var ListingForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var listing = this.props.listing;
+
             //how to get option for select element
             var getOptions = function getOptions(input) {
                 if (input) {
@@ -6476,104 +6496,10 @@ var ListingForm = function (_React$Component) {
                 }
             };
 
-            var deleteModal = this.state.deletevisible ? _react2.default.createElement(
-                _reactstrap.Modal,
-                { isOpen: this.state.deletevisible, toggle: this.toggleDelete },
-                _react2.default.createElement(
-                    _reactstrap.ModalHeader,
-                    { toggle: this.toggleDelete },
-                    'Delete Listing'
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalBody,
-                    null,
-                    !this.props.deleteitem && !this.props.error.general ? "Press Confirm to DELETE this listing. Press Cancel to go back" : null,
-                    this.props.deleteitem && _react2.default.createElement(
-                        'div',
-                        { className: 'success' },
-                        'Deleted!'
-                    ),
-                    this.props.error.general && _react2.default.createElement(
-                        'div',
-                        { className: 'error' },
-                        'Sorry, there was an error! Please try again!'
-                    )
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalFooter,
-                    null,
-                    !this.props.deleteitem ? _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.props.handleDelete },
-                            'Confirm'
-                        ),
-                        ' ',
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.toggleDelete },
-                            'Cancel'
-                        )
-                    ) : _react2.default.createElement(
-                        _reactstrap.Button,
-                        { color: 'success', onClick: this.toggleDelete },
-                        'Close'
-                    )
-                )
-            ) : null;
+            var venueData = { value: listing.venue._id, label: listing.venue.name
 
-            var createModal = this.state.createvisible && _react2.default.createElement(
-                _reactstrap.Modal,
-                { isOpen: this.onCreateConfirm, toggle: this.toggleCreate },
-                _react2.default.createElement(
-                    _reactstrap.ModalHeader,
-                    { toggle: this.toggleCreate },
-                    'Create Listing'
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalBody,
-                    { toggle: this.toggleCreate },
-                    !this.props.savelisting && !this.props.error.general ? "Press Confirm to CREATE this Listing. Press Cancel to go back" : null,
-                    this.props.savelisting && _react2.default.createElement(
-                        'div',
-                        { className: 'success' },
-                        'Created!'
-                    ),
-                    this.props.error.general && _react2.default.createElement(
-                        'div',
-                        { className: 'error' },
-                        this.props.error.savelisting.general
-                    )
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalFooter,
-                    null,
-                    !this.props.savelisting ? _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.props.handleSubmit },
-                            'Confirm'
-                        ),
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.toggleCreate },
-                            'Cancel'
-                        )
-                    ) : _react2.default.createElement(
-                        _reactstrap.Button,
-                        { color: 'success', onClick: this.toggleCreate },
-                        'Close'
-                    )
-                )
-            );
-
-            var venueData = { value: this.props.venue._id, label: this.props.venue.name };
-
-            var deleteButton = this.props.handleDelete && _react2.default.createElement(
+                // If the listing exists, offer to delete it
+            };var deleteButton = this.props.listing._id && _react2.default.createElement(
                 _reactstrap.Button,
                 { className: 'delete', color: 'danger', onClick: this.onDeleteConfirm },
                 'Delete'
@@ -6582,7 +6508,7 @@ var ListingForm = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { id: 'listingForm' },
-                !this.props._id && _react2.default.createElement(
+                !listing._id && _react2.default.createElement(
                     _reactstrap.Alert,
                     { color: 'primary' },
                     'This is a draft listing.'
@@ -6601,7 +6527,7 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'Event name', type: 'text', value: this.props.name, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'Event name', type: 'text', value: listing.name, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -6630,7 +6556,7 @@ var ListingForm = function (_React$Component) {
                             'div',
                             { className: 'formSection' },
                             _react2.default.createElement(_reactToggleButton2.default, {
-                                value: this.props.event,
+                                value: listing.event,
                                 onToggle: function onToggle(value) {
                                     _this2.handleChange({ 'event': value });
                                 } })
@@ -6647,9 +6573,9 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            this.props.event ? //If an event
-                            _react2.default.createElement(_formDateSingle2.default, { startDate: this.props.start, onDatesChange: this.handleChange }) : // If not an event
-                            _react2.default.createElement(_formDateRange2.default, { startDate: this.props.start, endDate: this.props.end, onDatesChange: this.handleChange })
+                            listing.event ? //If an event
+                            _react2.default.createElement(_formDateSingle2.default, { startDate: listing.start, onDatesChange: this.handleChange }) : // If not an event
+                            _react2.default.createElement(_formDateRange2.default, { startDate: listing.start, endDate: listing.end, onDatesChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -6663,7 +6589,7 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { type: 'textarea', name: 'description', value: this.props.description, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { type: 'textarea', name: 'description', value: listing.description, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -6677,7 +6603,7 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_EventsForm2.default, { events: this.props.events ? this.props.events : [] })
+                            _react2.default.createElement(_EventsForm2.default, { events: listing.events ? listing.events : [] })
                         )
                     ),
                     _react2.default.createElement(
@@ -6688,30 +6614,30 @@ var ListingForm = function (_React$Component) {
                             null,
                             'Thumbnail'
                         ),
-                        _react2.default.createElement(_ThumbnailInput2.default, this.props)
+                        _react2.default.createElement(_ThumbnailInput2.default, listing)
                     ),
-                    this.props.updated_by && _react2.default.createElement(
+                    listing.updated_by && _react2.default.createElement(
                         'div',
                         { className: 'byline' },
                         _react2.default.createElement(
                             'p',
                             null,
                             'Edited by ',
-                            this.props.updated_by.name,
+                            listing.updated_by.name,
                             ' on ',
-                            this.props.updated_at
+                            listing.updated_at
                         ),
                         _react2.default.createElement(
                             'p',
                             null,
                             'Created on ',
-                            this.props.created_at
+                            listing.created_at
                         )
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
                         null,
-                        this.props._id ? _react2.default.createElement(
+                        listing._id ? _react2.default.createElement(
                             _reactstrap.Button,
                             { onClick: this.onConfirm, disabled: !this.state.wasChanged },
                             'Update'
@@ -6721,16 +6647,37 @@ var ListingForm = function (_React$Component) {
                             'Create'
                         ),
                         deleteButton,
-                        this.props._id && _react2.default.createElement(
+                        listing._id && _react2.default.createElement(
                             _reactstrap.Button,
                             { onClick: this.onDuplicate },
                             'Duplicate'
                         )
                     )
                 ),
-                this.state.updatevisible && _react2.default.createElement(_updateModal2.default, _extends({ updatevisible: this.state.updatevisible }, this.props, { error: this.props.error.general })),
-                createModal,
-                deleteModal
+                this.state.updatevisible && _react2.default.createElement(_confirmModal2.default, {
+                    modalVisible: this.state.updatevisible,
+                    handleSubmit: this.handleSubmit,
+                    textTitle: 'Update',
+                    textAction: 'save this Listing',
+                    textConfirm: 'Saved!',
+                    error: this.props.error.general,
+                    success: this.props.success.updatelisting }),
+                this.state.createvisible && _react2.default.createElement(_confirmModal2.default, {
+                    modalVisible: this.state.createvisible,
+                    handleSubmit: this.handleSubmit,
+                    textTitle: 'Create',
+                    textAction: 'create this Listing',
+                    textConfirm: 'Created!',
+                    error: this.props.error.general,
+                    success: this.props.success.savelisting }),
+                this.state.deletevisible && _react2.default.createElement(_confirmModal2.default, {
+                    modalVisible: this.state.deletevisible,
+                    handleSubmit: this.handleDelete,
+                    textTitle: 'Delete',
+                    textAction: 'delete this Listing',
+                    textConfirm: 'Deleted!',
+                    error: this.props.error.general,
+                    success: this.props.success.deletelisting })
             );
         }
     }]);
@@ -12248,7 +12195,7 @@ var UpdateModal = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).call(this, props));
 
         _this.state = {
-            updatevisible: _this.props.updatevisible
+            modalVisible: _this.props.modalVisible
         };
 
         _this.toggle = _this.toggle.bind(_this);
@@ -12259,7 +12206,7 @@ var UpdateModal = function (_React$Component) {
         key: 'toggle',
         value: function toggle() {
             this.setState({
-                updatevisible: !this.state.updatevisible
+                modalVisible: !this.state.modalVisible
             });
         }
     }, {
@@ -12267,16 +12214,16 @@ var UpdateModal = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 _reactstrap.Modal,
-                { isOpen: this.state.updatevisible },
+                { isOpen: this.state.modalVisible },
                 _react2.default.createElement(
                     _reactstrap.ModalHeader,
                     null,
-                    'Update Listing'
+                    this.props.textTitle
                 ),
                 _react2.default.createElement(
                     _reactstrap.ModalBody,
                     null,
-                    !this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null,
+                    !this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to " + this.props.textAction + ". Press Cancel to go back." : null,
                     this.props.loading && _react2.default.createElement(
                         'div',
                         { className: 'loading' },
@@ -12285,7 +12232,7 @@ var UpdateModal = function (_React$Component) {
                     this.props.success && _react2.default.createElement(
                         'div',
                         { className: 'success' },
-                        'Saved!'
+                        this.props.textConfirm
                     ),
                     this.props.error && _react2.default.createElement(
                         'div',
@@ -12335,8 +12282,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -12381,9 +12326,7 @@ var ListingEdit = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (ListingEdit.__proto__ || Object.getPrototypeOf(ListingEdit)).call(this, props));
 
-        _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleSelectChange = _this.handleSelectChange.bind(_this);
-        _this.handleDelete = _this.handleDelete.bind(_this);
         return _this;
     }
 
@@ -12391,44 +12334,6 @@ var ListingEdit = function (_React$Component) {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             _ListActions2.default.listingEditReset();
-        }
-
-        // Add the listing to the database
-
-    }, {
-        key: 'handleSubmit',
-        value: function handleSubmit(event) {
-            event.preventDefault();
-            var newListing = this.props.listingEdit;
-            console.log(this.props.listingEdit);
-
-            //Check and save only events that have a date
-            var allEvents = [];
-            newListing.events.map(function (event) {
-                if (event.date) {
-                    allEvents.push(event);
-                }
-            });
-            newListing.events = allEvents;
-
-            if (this.props.listingEdit._id) {
-                //Edit the current listing
-                _ListActions2.default.updateListing(newListing);
-            } else {
-                //Create a new Listing
-                delete newListing._id;
-                newListing.venue = newListing.venue._id;
-                newListing.neighborhood = newListing.venue.neighborhood;
-                _ListActions2.default.saveListing(newListing);
-            }
-        }
-
-        //Delete the listing
-
-    }, {
-        key: 'handleDelete',
-        value: function handleDelete() {
-            _ListActions2.default.deleteListing(this.props.listingEdit._id);
         }
     }, {
         key: 'handleSelectChange',
@@ -12477,16 +12382,12 @@ var ListingEdit = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { id: 'ListingList' },
-                    _react2.default.createElement(
-                        'form',
-                        { onSubmit: this.handleSubmit },
-                        _react2.default.createElement(_formSelect2.default, { value: {
-                                value: this.props.listingEdit._id,
-                                label: this.props.listingEdit.name },
-                            handleSelectChange: this.handleSelectChange,
-                            getOptions: getOptions
-                        })
-                    )
+                    _react2.default.createElement(_formSelect2.default, { value: {
+                            value: this.props.listingEdit._id,
+                            label: this.props.listingEdit.name },
+                        handleSelectChange: this.handleSelectChange,
+                        getOptions: getOptions
+                    })
                 ),
                 _react2.default.createElement(
                     'div',
@@ -12500,14 +12401,11 @@ var ListingEdit = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'listingForm' },
-                    _react2.default.createElement(_ListingForm2.default, _extends({}, this.props.listingEdit, {
-                        handleSubmit: this.handleSubmit,
-                        handleDelete: this.handleDelete,
+                    _react2.default.createElement(_ListingForm2.default, {
+                        listing: this.props.listingEdit,
                         error: this.props.error.updatelisting,
                         loading: this.props.loading.updatelisting,
-                        success: this.props.success.updatelisting,
-                        deleteitem: this.props.success.deletelisting,
-                        savelisting: this.props.success.savelisting }))
+                        success: this.props.success })
                 )
             );
         }
