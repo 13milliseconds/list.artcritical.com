@@ -495,6 +495,36 @@ My List
     .mapWrap{
         margin-bottom: 20px;
     }
+    .listing{
+        &:hover{
+            .listingAdd{
+                @include transform(scale(1.1));
+                span{
+                    border-color: $green;
+                }
+            }
+        }
+        .listingAdd{
+            position: relative;
+            min-height: 100px;
+            transition: .5s;
+            span{
+                border: 1px solid $black;
+                padding: 10px;
+                border-radius: 50%;
+                height: 50px;
+                width: 50px;
+                display: inline-block;
+                text-align: center;
+                line-height: 30px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                @include transform(translate(-50%, -50%));
+            }
+        }
+    }
+    
 	.listInfo{
 		margin-bottom: 20px;
 		img.avatar{
@@ -508,15 +538,19 @@ My List
         @include span-columns(12);
         .listing{
             background-color: transparent;
-			.delete{
-				cursor: pointer;
-                color: $red;
-                margin-right: 10px;
-				@include transition(.2s);
-				&:hover{
-					color: red;
-				}
-			}
+            .listingActions{
+                text-align: right;
+                .delete{
+                    cursor: pointer;
+                    font-size: .8em;
+                    color: $red;
+                    margin-right: 10px;
+                    @include transition(.2s);
+                    &:hover{
+                        color: red;
+                    }
+                }
+            }
         }
     }   
 }

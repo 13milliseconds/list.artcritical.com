@@ -185,6 +185,10 @@ class ListActions {
     listingInfoChange(event){
         return event;
     }
+     // When new listing info is entered
+     listingDuplicate(){
+        return true;
+    }
     // When new feature info is entered
     featureInfoChange(event, i){
         return {event, i};

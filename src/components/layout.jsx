@@ -74,8 +74,7 @@ export default class Layout extends React.Component {
 			<div className="accountOptions">
             <Link to={'/mylist'} activeClassName="active">My List { mylistNum > 0 && '('+mylistNum+')'}</Link>
 			{ user.isLoggedIn && <Link to={'/account'} activeClassName="active">Account</Link>}
-			{ user.isLoggedIn 	? <a onClick={AuthActions.attemptLogOut}>Log Out</a> 
-								: <Link to={'/login'} activeClassName="active">Login</Link>}
+			{ user.isLoggedIn && <a onClick={AuthActions.attemptLogOut}>Log Out</a>}
 			</div>
 			{ user.isLoggedIn && <Link to={'/admin'} activeClassName="active">Admin</Link>}
 			</nav>

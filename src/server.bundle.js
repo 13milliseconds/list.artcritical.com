@@ -235,6 +235,13 @@ var ListActions = function () {
         value: function listingInfoChange(event) {
             return event;
         }
+        // When new listing info is entered
+
+    }, {
+        key: 'listingDuplicate',
+        value: function listingDuplicate() {
+            return true;
+        }
         // When new feature info is entered
 
     }, {
@@ -1168,21 +1175,25 @@ var Listing = function (_React$Component) {
                             )
                         ),
                         dateDisplay,
-                        this.props.mylisting && //If you are seeing this on your myList page
                         _react2.default.createElement(
-                            'a',
-                            { onClick: function onClick(e) {
-                                    return _this3.addToList(e, listing);
-                                }, className: 'delete' },
-                            'Remove'
-                        ),
-                        this.props.user.userAccess > 0 && //If you are seeing this as an editor
-                        _react2.default.createElement(
-                            _reactRouter.Link,
-                            { to: '/admin', onClick: function onClick(e) {
-                                    return _this3._editListing(listing);
-                                } },
-                            'Edit'
+                            'div',
+                            { className: 'listingActions' },
+                            this.props.mylisting && //If you are seeing this on your myList page
+                            _react2.default.createElement(
+                                'a',
+                                { onClick: function onClick(e) {
+                                        return _this3.addToList(e, listing);
+                                    }, className: 'delete' },
+                                'Remove'
+                            ),
+                            this.props.user.userAccess > 0 && //If you are seeing this as an editor
+                            _react2.default.createElement(
+                                _reactRouter.Link,
+                                { to: '/admin', onClick: function onClick(e) {
+                                        return _this3._editListing(listing);
+                                    }, className: 'edit' },
+                                'Edit'
+                            )
                         )
                     ),
                     this.state.fullInfo && _react2.default.createElement(
@@ -2300,6 +2311,14 @@ var ListStore = function () {
             } else {
                 this.listingEdit.event = !info.event;
             }
+        }
+
+        //Duplicate the current listing
+
+    }, {
+        key: 'onListingDuplicate',
+        value: function onListingDuplicate() {
+            this.listingEdit._id = '';
         }
 
         //Update info on feature page
@@ -6376,10 +6395,18 @@ var ListingForm = function (_React$Component) {
         key: 'onConfirm',
         value: function onConfirm(event) {
             event.preventDefault();
-            console.log("Let's try to update");
             this.setState({
                 updatevisible: true
             });
+        }
+
+        //Duplicate
+
+    }, {
+        key: 'onDuplicate',
+        value: function onDuplicate(event) {
+            event.preventDefault();
+            _ListActions2.default.listingDuplicate();
         }
 
         //confirm alert
@@ -6555,6 +6582,11 @@ var ListingForm = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { id: 'listingForm' },
+                !this.props._id && _react2.default.createElement(
+                    _reactstrap.Alert,
+                    { color: 'primary' },
+                    'This is a draft listing.'
+                ),
                 _react2.default.createElement(
                     _reactstrap.Form,
                     null,
@@ -6658,12 +6690,24 @@ var ListingForm = function (_React$Component) {
                         ),
                         _react2.default.createElement(_ThumbnailInput2.default, this.props)
                     ),
-                    'Edited by ',
-                    this.props.updated_by,
-                    ' at ',
-                    this.props.updated_at,
-                    'Created on ',
-                    this.props.created_at,
+                    this.props.updated_by && _react2.default.createElement(
+                        'div',
+                        { className: 'byline' },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            'Edited by ',
+                            this.props.updated_by.name,
+                            ' on ',
+                            this.props.updated_at
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            'Created on ',
+                            this.props.created_at
+                        )
+                    ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
                         null,
@@ -6676,7 +6720,12 @@ var ListingForm = function (_React$Component) {
                             { onClick: this.onCreateConfirm },
                             'Create'
                         ),
-                        deleteButton
+                        deleteButton,
+                        this.props._id && _react2.default.createElement(
+                            _reactstrap.Button,
+                            { onClick: this.onDuplicate },
+                            'Duplicate'
+                        )
                     )
                 ),
                 this.state.updatevisible && _react2.default.createElement(_updateModal2.default, _extends({ updatevisible: this.state.updatevisible }, this.props, { error: this.props.error.general })),
@@ -8321,14 +8370,10 @@ var Layout = function (_React$Component) {
                                 { to: '/account', activeClassName: 'active' },
                                 'Account'
                             ),
-                            user.isLoggedIn ? _react2.default.createElement(
+                            user.isLoggedIn && _react2.default.createElement(
                                 'a',
                                 { onClick: _AuthActions2.default.attemptLogOut },
                                 'Log Out'
-                            ) : _react2.default.createElement(
-                                _reactRouter.Link,
-                                { to: '/login', activeClassName: 'active' },
-                                'Login'
                             )
                         ),
                         user.isLoggedIn && _react2.default.createElement(

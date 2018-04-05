@@ -377,6 +377,11 @@ class ListStore {
            this.listingEdit.event = !info.event;  
         }
     }
+
+    //Duplicate the current listing
+    onListingDuplicate(){
+        this.listingEdit._id = ''
+    }
     
     //Update info on feature page
     onFeatureInfoChange (data){

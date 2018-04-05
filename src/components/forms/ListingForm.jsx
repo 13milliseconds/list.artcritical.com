@@ -55,10 +55,15 @@ export default class ListingForm extends React.Component {
     //confirm alert
     onConfirm(event) {
         event.preventDefault();
-        console.log("Let's try to update")
         this.setState({ 
             updatevisible: true
         })
+    }
+
+    //Duplicate
+    onDuplicate(event) {
+        event.preventDefault();
+        ListActions.listingDuplicate();
     }
 
      //confirm alert
@@ -185,7 +190,7 @@ export default class ListingForm extends React.Component {
         return ( 
 
             <div id="listingForm">
-
+                {!this.props._id && <Alert color="primary">This is a draft listing.</Alert>}
                 <Form>
                     <FormGroup check>
                         <Label>Name</Label>
@@ -236,12 +241,17 @@ export default class ListingForm extends React.Component {
                            <Label>Thumbnail</Label>
                             <ThumbnailInput {...this.props} /> 
 					</FormGroup>
-                    Edited by {this.props.updated_by} at {this.props.updated_at}
-                    Created on {this.props.created_at}
+                    {this.props.updated_by &&
+                        <div className="byline">
+                            <p>Edited by {this.props.updated_by.name} on {this.props.updated_at}</p>
+                            <p>Created on {this.props.created_at}</p>
+                        </div>
+                    }
 					
 					<FormGroup>
                             {this.props._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
                             {deleteButton}
+                            {this.props._id && <Button onClick={this.onDuplicate}>Duplicate</Button>}
                     </FormGroup>
                 </Form>   
                        {this.state.updatevisible && <UpdateModal updatevisible={this.state.updatevisible} {...this.props} error={this.props.error.general}/>}

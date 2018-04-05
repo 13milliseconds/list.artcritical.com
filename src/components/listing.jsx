@@ -107,12 +107,14 @@ export default class Listing extends React.Component {
                 <div className="header">
                     <p>{listing.name}{listing.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a></p>
                     {dateDisplay}
-                    {this.props.mylisting && //If you are seeing this on your myList page
-                	<a onClick={(e) => this.addToList(e, listing)} className="delete">Remove</a>
-                    }
-                    {this.props.user.userAccess > 0 && //If you are seeing this as an editor
-                    <Link to={'/admin'} onClick={(e) => this._editListing(listing)}>Edit</Link>
-				    }
+                    <div className="listingActions">
+                        {this.props.mylisting && //If you are seeing this on your myList page
+                        <a onClick={(e) => this.addToList(e, listing)} className="delete">Remove</a>
+                        }
+                        {this.props.user.userAccess > 0 && //If you are seeing this as an editor
+                        <Link to={'/admin'} onClick={(e) => this._editListing(listing)} className="edit">Edit</Link>
+                        }
+                    </div>
                 </div>
                 {this.state.fullInfo &&
                     <div className="moreInfo">
