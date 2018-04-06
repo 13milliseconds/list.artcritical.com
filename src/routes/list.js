@@ -45,20 +45,8 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     skip(offset_ratio).
     limit(100).
     populate('venue').
+    populate('updated_by').
     exec(function (e, docs) {
-		/*docs.map(listing => {
-		Venue.findOne({name: listing.venue}).exec().then(function(venue){
-			//console.log('listing: ', listing.name);
-			//console.log('venue: ', listing.venue);
-			if (venue) {
-				//console.log('venue real: ', venue.name);
-				//List.update({_id: listing._id}, {venue: venue._id}, function (err, newlisting){console.log(newlisting)});
-			} else {
-				//console.log('venue NOT real');
-				//List.update({_id: listing._id}, {venue: ""}, function (err, newlisting) {console.log(newlisting)});
-			}
-		});	
-		});*/
         res.json(docs);
     });
 });
@@ -213,10 +201,10 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     }).
 	where('venue').ne('').
     populate('venue').
+    populate('updated_by').
     exec(function (e, docs) {
         if (e)
             res.send(e);
-        console.log(docs);
         res.json(docs);
     });
 

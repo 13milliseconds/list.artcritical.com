@@ -8,10 +8,12 @@ import { Form, FormGroup, Label, Input, Alert, Button } from 'reactstrap';
 //Components
 import DateRange from './formDateRange'
 import DateSingle from './formDateSingle'
+import Date from '../blocks/DateBlock.jsx';
 import Select from './formSelect'
 import ThumbnailInput from './ThumbnailInput'
 import EventsForm from './EventsForm'
 import ConfirmModal from './confirmModal'
+import UserLink from '../blocks/UserLink'
 
 export default class ListingForm extends React.Component {
 
@@ -33,6 +35,7 @@ export default class ListingForm extends React.Component {
         this.onCreateConfirm = this.onCreateConfirm.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.onEventsChange = this.onEventsChange.bind(this);
       }
 
     // Add the listing to the database
@@ -58,6 +61,13 @@ export default class ListingForm extends React.Component {
 			ListActions.saveListing(newListing)
 		}
       }
+
+    //If events are edited
+    onEventsChange(){
+        this.setState({
+            wasChanged: true
+        })
+    }
     
     //Delete the listing
     handleDelete() {
@@ -196,19 +206,21 @@ export default class ListingForm extends React.Component {
                     <FormGroup check>
                         <Label>Events</Label>
                         <div className="formSection">
-                            <EventsForm events={listing.events? listing.events : []}/>
+                            <EventsForm events={listing.events? listing.events : []} onChange={this.onEventsChange}/>
                         </div>
                     </FormGroup>
                      <FormGroup check>
                            <Label>Thumbnail</Label>
                             <ThumbnailInput {...listing} /> 
 					</FormGroup>
-                    {listing.updated_by &&
                         <div className="byline">
-                            <p>Edited by {listing.updated_by.name} on {listing.updated_at}</p>
-                            <p>Created on {listing.created_at}</p>
+                        {listing.updated_by &&
+                            <p>Edited by <UserLink user={listing.updated_by}/> on <Date date={listing.updated_at}/></p>
+                        }
+                        {listing.created_at &&
+                            <p>Created on <Date date={listing.created_at}/></p>
+                        }
                         </div>
-                    }
 					
 					<FormGroup>
                             {listing._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}

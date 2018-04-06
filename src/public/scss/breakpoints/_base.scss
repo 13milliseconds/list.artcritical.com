@@ -82,6 +82,10 @@ COLUMNS
 BUTTONS
 *********************/
 
+body button{
+    margin-right: 10px;
+}
+
 a.facebookbutton{
     background: #3b5998;
     display: inline-block;
@@ -94,7 +98,6 @@ a.facebookbutton{
         margin-right: 10px;
     }
 }
-
 /******************
 HEADER
 ********************/
@@ -651,6 +654,27 @@ ADMIN
 		}
 	}
 }
+
+//User popover
+.userLink{
+    a{
+        border-bottom: 2px dotted $green;
+        cursor: pointer;
+    }
+}
+.popover{
+    .popover-title, .popover-content{
+        padding: 10px;
+    }
+    .popover-title{
+        img{
+            display: inline-block;
+            max-width: 50px;
+            max-height: 50px;
+        }
+    }
+}
+
 
 #listingForm, #newlistingDemo{
     float: left;

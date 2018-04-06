@@ -976,7 +976,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactRouter = __webpack_require__(3);
 
-var _DateBlock = __webpack_require__(8);
+var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -1067,7 +1067,7 @@ var Listing = function (_React$Component) {
             var listing = this.props.listing;
 
             var closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"];
-            var eventsPresence = listing.events ? true : false;
+            var eventsPresence = listing.events && listing.events.length > 0 ? true : false;
 
             //Display date according to type of listing and view
             var dateDisplay;
@@ -1233,12 +1233,65 @@ module.exports = require("reactstrap");
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactIntl = __webpack_require__(12);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Date = function (_React$Component) {
+    _inherits(Date, _React$Component);
+
+    function Date() {
+        _classCallCheck(this, Date);
+
+        return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
+    }
+
+    _createClass(Date, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                _reactIntl.IntlProvider,
+                { locale: 'en' },
+                _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.date, month: 'long', day: 'numeric' })
+            );
+        }
+    }]);
+
+    return Date;
+}(_react2.default.Component);
+
+exports.default = Date;
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongoose");
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1366,59 +1419,6 @@ module.exports = {
     }
 
 };
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactIntl = __webpack_require__(12);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Date = function (_React$Component) {
-    _inherits(Date, _React$Component);
-
-    function Date() {
-        _classCallCheck(this, Date);
-
-        return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
-    }
-
-    _createClass(Date, [{
-        key: 'render',
-        value: function render() {
-
-            return _react2.default.createElement(
-                _reactIntl.IntlProvider,
-                { locale: 'en' },
-                _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.date, month: 'long', day: 'numeric' })
-            );
-        }
-    }]);
-
-    return Date;
-}(_react2.default.Component);
-
-exports.default = Date;
 
 /***/ }),
 /* 9 */
@@ -3745,7 +3745,7 @@ module.exports = require("isomorphic-fetch");
 "use strict";
 
 
-var mongoose = __webpack_require__(6),
+var mongoose = __webpack_require__(7),
     Schema = mongoose.Schema;
 var bcrypt = __webpack_require__(28); // encripts password
 
@@ -3791,7 +3791,7 @@ module.exports = mongoose.model('User', userSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
 
@@ -3848,7 +3848,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return parse; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findIconDefinition", function() { return findIconDefinition; });
 /*!
- * Font Awesome Free 5.0.7 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.0.9 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 var noop = function noop() {};
@@ -4452,7 +4452,7 @@ function makeLayersTextAbstract(params) {
 
 var noop$2 = function noop() {};
 var p = config$1.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : { mark: noop$2, measure: noop$2 };
-var preamble = 'FA "5.0.7"';
+var preamble = 'FA "5.0.9"';
 
 var begin = function begin(name) {
   p.mark(preamble + ' ' + name + ' begins');
@@ -5253,7 +5253,7 @@ function onNode(node) {
   }
 }
 
-var baseStyles = "svg:not(:root).svg-inline--fa {\n  overflow: visible; }\n\n.svg-inline--fa {\n  display: inline-block;\n  font-size: inherit;\n  height: 1em;\n  overflow: visible;\n  vertical-align: -.125em; }\n  .svg-inline--fa.fa-lg {\n    vertical-align: -.225em; }\n  .svg-inline--fa.fa-w-1 {\n    width: 0.0625em; }\n  .svg-inline--fa.fa-w-2 {\n    width: 0.125em; }\n  .svg-inline--fa.fa-w-3 {\n    width: 0.1875em; }\n  .svg-inline--fa.fa-w-4 {\n    width: 0.25em; }\n  .svg-inline--fa.fa-w-5 {\n    width: 0.3125em; }\n  .svg-inline--fa.fa-w-6 {\n    width: 0.375em; }\n  .svg-inline--fa.fa-w-7 {\n    width: 0.4375em; }\n  .svg-inline--fa.fa-w-8 {\n    width: 0.5em; }\n  .svg-inline--fa.fa-w-9 {\n    width: 0.5625em; }\n  .svg-inline--fa.fa-w-10 {\n    width: 0.625em; }\n  .svg-inline--fa.fa-w-11 {\n    width: 0.6875em; }\n  .svg-inline--fa.fa-w-12 {\n    width: 0.75em; }\n  .svg-inline--fa.fa-w-13 {\n    width: 0.8125em; }\n  .svg-inline--fa.fa-w-14 {\n    width: 0.875em; }\n  .svg-inline--fa.fa-w-15 {\n    width: 0.9375em; }\n  .svg-inline--fa.fa-w-16 {\n    width: 1em; }\n  .svg-inline--fa.fa-w-17 {\n    width: 1.0625em; }\n  .svg-inline--fa.fa-w-18 {\n    width: 1.125em; }\n  .svg-inline--fa.fa-w-19 {\n    width: 1.1875em; }\n  .svg-inline--fa.fa-w-20 {\n    width: 1.25em; }\n  .svg-inline--fa.fa-pull-left {\n    margin-right: .3em;\n    width: auto; }\n  .svg-inline--fa.fa-pull-right {\n    margin-left: .3em;\n    width: auto; }\n  .svg-inline--fa.fa-border {\n    height: 1.5em; }\n  .svg-inline--fa.fa-li {\n    width: 2em; }\n  .svg-inline--fa.fa-fw {\n    width: 1.25em; }\n\n.fa-layers svg.svg-inline--fa {\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  position: absolute;\n  right: 0;\n  top: 0; }\n\n.fa-layers {\n  display: inline-block;\n  height: 1em;\n  position: relative;\n  text-align: center;\n  vertical-align: -.125em;\n  width: 1em; }\n  .fa-layers svg.svg-inline--fa {\n    -webkit-transform-origin: center center;\n            transform-origin: center center; }\n\n.fa-layers-text, .fa-layers-counter {\n  display: inline-block;\n  position: absolute;\n  text-align: center; }\n\n.fa-layers-text {\n  left: 50%;\n  top: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n  -webkit-transform-origin: center center;\n          transform-origin: center center; }\n\n.fa-layers-counter {\n  background-color: #ff253a;\n  border-radius: 1em;\n  color: #fff;\n  height: 1.5em;\n  line-height: 1;\n  max-width: 5em;\n  min-width: 1.5em;\n  overflow: hidden;\n  padding: .25em;\n  right: 0;\n  text-overflow: ellipsis;\n  top: 0;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: top right;\n          transform-origin: top right; }\n\n.fa-layers-bottom-right {\n  bottom: 0;\n  right: 0;\n  top: auto;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: bottom right;\n          transform-origin: bottom right; }\n\n.fa-layers-bottom-left {\n  bottom: 0;\n  left: 0;\n  right: auto;\n  top: auto;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: bottom left;\n          transform-origin: bottom left; }\n\n.fa-layers-top-right {\n  right: 0;\n  top: 0;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: top right;\n          transform-origin: top right; }\n\n.fa-layers-top-left {\n  left: 0;\n  right: auto;\n  top: 0;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: top left;\n          transform-origin: top left; }\n\n.fa-lg {\n  font-size: 1.33333em;\n  line-height: 0.75em;\n  vertical-align: -.0667em; }\n\n.fa-xs {\n  font-size: .75em; }\n\n.fa-sm {\n  font-size: .875em; }\n\n.fa-1x {\n  font-size: 1em; }\n\n.fa-2x {\n  font-size: 2em; }\n\n.fa-3x {\n  font-size: 3em; }\n\n.fa-4x {\n  font-size: 4em; }\n\n.fa-5x {\n  font-size: 5em; }\n\n.fa-6x {\n  font-size: 6em; }\n\n.fa-7x {\n  font-size: 7em; }\n\n.fa-8x {\n  font-size: 8em; }\n\n.fa-9x {\n  font-size: 9em; }\n\n.fa-10x {\n  font-size: 10em; }\n\n.fa-fw {\n  text-align: center;\n  width: 1.25em; }\n\n.fa-ul {\n  list-style-type: none;\n  margin-left: 2.5em;\n  padding-left: 0; }\n  .fa-ul > li {\n    position: relative; }\n\n.fa-li {\n  left: -2em;\n  position: absolute;\n  text-align: center;\n  width: 2em;\n  line-height: inherit; }\n\n.fa-border {\n  border: solid 0.08em #eee;\n  border-radius: .1em;\n  padding: .2em .25em .15em; }\n\n.fa-pull-left {\n  float: left; }\n\n.fa-pull-right {\n  float: right; }\n\n.fa.fa-pull-left,\n.fas.fa-pull-left,\n.far.fa-pull-left,\n.fal.fa-pull-left,\n.fab.fa-pull-left {\n  margin-right: .3em; }\n\n.fa.fa-pull-right,\n.fas.fa-pull-right,\n.far.fa-pull-right,\n.fal.fa-pull-right,\n.fab.fa-pull-right {\n  margin-left: .3em; }\n\n.fa-spin {\n  -webkit-animation: fa-spin 2s infinite linear;\n          animation: fa-spin 2s infinite linear; }\n\n.fa-pulse {\n  -webkit-animation: fa-spin 1s infinite steps(8);\n          animation: fa-spin 1s infinite steps(8); }\n\n@-webkit-keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n.fa-rotate-90 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)\";\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg); }\n\n.fa-rotate-180 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)\";\n  -webkit-transform: rotate(180deg);\n          transform: rotate(180deg); }\n\n.fa-rotate-270 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)\";\n  -webkit-transform: rotate(270deg);\n          transform: rotate(270deg); }\n\n.fa-flip-horizontal {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)\";\n  -webkit-transform: scale(-1, 1);\n          transform: scale(-1, 1); }\n\n.fa-flip-vertical {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)\";\n  -webkit-transform: scale(1, -1);\n          transform: scale(1, -1); }\n\n.fa-flip-horizontal.fa-flip-vertical {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)\";\n  -webkit-transform: scale(-1, -1);\n          transform: scale(-1, -1); }\n\n:root .fa-rotate-90,\n:root .fa-rotate-180,\n:root .fa-rotate-270,\n:root .fa-flip-horizontal,\n:root .fa-flip-vertical {\n  -webkit-filter: none;\n          filter: none; }\n\n.fa-stack {\n  display: inline-block;\n  height: 2em;\n  position: relative;\n  width: 2em; }\n\n.fa-stack-1x,\n.fa-stack-2x {\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  position: absolute;\n  right: 0;\n  top: 0; }\n\n.svg-inline--fa.fa-stack-1x {\n  height: 1em;\n  width: 1em; }\n\n.svg-inline--fa.fa-stack-2x {\n  height: 2em;\n  width: 2em; }\n\n.fa-inverse {\n  color: #fff; }\n\n.sr-only {\n  border: 0;\n  clip: rect(0, 0, 0, 0);\n  height: 1px;\n  margin: -1px;\n  overflow: hidden;\n  padding: 0;\n  position: absolute;\n  width: 1px; }\n\n.sr-only-focusable:active, .sr-only-focusable:focus {\n  clip: auto;\n  height: auto;\n  margin: 0;\n  overflow: visible;\n  position: static;\n  width: auto; }\n";
+var baseStyles = "svg:not(:root).svg-inline--fa {\n  overflow: visible; }\n\n.svg-inline--fa {\n  display: inline-block;\n  font-size: inherit;\n  height: 1em;\n  overflow: visible;\n  vertical-align: -.125em; }\n  .svg-inline--fa.fa-lg {\n    vertical-align: -.225em; }\n  .svg-inline--fa.fa-w-1 {\n    width: 0.0625em; }\n  .svg-inline--fa.fa-w-2 {\n    width: 0.125em; }\n  .svg-inline--fa.fa-w-3 {\n    width: 0.1875em; }\n  .svg-inline--fa.fa-w-4 {\n    width: 0.25em; }\n  .svg-inline--fa.fa-w-5 {\n    width: 0.3125em; }\n  .svg-inline--fa.fa-w-6 {\n    width: 0.375em; }\n  .svg-inline--fa.fa-w-7 {\n    width: 0.4375em; }\n  .svg-inline--fa.fa-w-8 {\n    width: 0.5em; }\n  .svg-inline--fa.fa-w-9 {\n    width: 0.5625em; }\n  .svg-inline--fa.fa-w-10 {\n    width: 0.625em; }\n  .svg-inline--fa.fa-w-11 {\n    width: 0.6875em; }\n  .svg-inline--fa.fa-w-12 {\n    width: 0.75em; }\n  .svg-inline--fa.fa-w-13 {\n    width: 0.8125em; }\n  .svg-inline--fa.fa-w-14 {\n    width: 0.875em; }\n  .svg-inline--fa.fa-w-15 {\n    width: 0.9375em; }\n  .svg-inline--fa.fa-w-16 {\n    width: 1em; }\n  .svg-inline--fa.fa-w-17 {\n    width: 1.0625em; }\n  .svg-inline--fa.fa-w-18 {\n    width: 1.125em; }\n  .svg-inline--fa.fa-w-19 {\n    width: 1.1875em; }\n  .svg-inline--fa.fa-w-20 {\n    width: 1.25em; }\n  .svg-inline--fa.fa-pull-left {\n    margin-right: .3em;\n    width: auto; }\n  .svg-inline--fa.fa-pull-right {\n    margin-left: .3em;\n    width: auto; }\n  .svg-inline--fa.fa-border {\n    height: 1.5em; }\n  .svg-inline--fa.fa-li {\n    width: 2em; }\n  .svg-inline--fa.fa-fw {\n    width: 1.25em; }\n\n.fa-layers svg.svg-inline--fa {\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  position: absolute;\n  right: 0;\n  top: 0; }\n\n.fa-layers {\n  display: inline-block;\n  height: 1em;\n  position: relative;\n  text-align: center;\n  vertical-align: -.125em;\n  width: 1em; }\n  .fa-layers svg.svg-inline--fa {\n    -webkit-transform-origin: center center;\n            transform-origin: center center; }\n\n.fa-layers-text, .fa-layers-counter {\n  display: inline-block;\n  position: absolute;\n  text-align: center; }\n\n.fa-layers-text {\n  left: 50%;\n  top: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n  -webkit-transform-origin: center center;\n          transform-origin: center center; }\n\n.fa-layers-counter {\n  background-color: #ff253a;\n  border-radius: 1em;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  color: #fff;\n  height: 1.5em;\n  line-height: 1;\n  max-width: 5em;\n  min-width: 1.5em;\n  overflow: hidden;\n  padding: .25em;\n  right: 0;\n  text-overflow: ellipsis;\n  top: 0;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: top right;\n          transform-origin: top right; }\n\n.fa-layers-bottom-right {\n  bottom: 0;\n  right: 0;\n  top: auto;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: bottom right;\n          transform-origin: bottom right; }\n\n.fa-layers-bottom-left {\n  bottom: 0;\n  left: 0;\n  right: auto;\n  top: auto;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: bottom left;\n          transform-origin: bottom left; }\n\n.fa-layers-top-right {\n  right: 0;\n  top: 0;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: top right;\n          transform-origin: top right; }\n\n.fa-layers-top-left {\n  left: 0;\n  right: auto;\n  top: 0;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: top left;\n          transform-origin: top left; }\n\n.fa-lg {\n  font-size: 1.33333em;\n  line-height: 0.75em;\n  vertical-align: -.0667em; }\n\n.fa-xs {\n  font-size: .75em; }\n\n.fa-sm {\n  font-size: .875em; }\n\n.fa-1x {\n  font-size: 1em; }\n\n.fa-2x {\n  font-size: 2em; }\n\n.fa-3x {\n  font-size: 3em; }\n\n.fa-4x {\n  font-size: 4em; }\n\n.fa-5x {\n  font-size: 5em; }\n\n.fa-6x {\n  font-size: 6em; }\n\n.fa-7x {\n  font-size: 7em; }\n\n.fa-8x {\n  font-size: 8em; }\n\n.fa-9x {\n  font-size: 9em; }\n\n.fa-10x {\n  font-size: 10em; }\n\n.fa-fw {\n  text-align: center;\n  width: 1.25em; }\n\n.fa-ul {\n  list-style-type: none;\n  margin-left: 2.5em;\n  padding-left: 0; }\n  .fa-ul > li {\n    position: relative; }\n\n.fa-li {\n  left: -2em;\n  position: absolute;\n  text-align: center;\n  width: 2em;\n  line-height: inherit; }\n\n.fa-border {\n  border: solid 0.08em #eee;\n  border-radius: .1em;\n  padding: .2em .25em .15em; }\n\n.fa-pull-left {\n  float: left; }\n\n.fa-pull-right {\n  float: right; }\n\n.fa.fa-pull-left,\n.fas.fa-pull-left,\n.far.fa-pull-left,\n.fal.fa-pull-left,\n.fab.fa-pull-left {\n  margin-right: .3em; }\n\n.fa.fa-pull-right,\n.fas.fa-pull-right,\n.far.fa-pull-right,\n.fal.fa-pull-right,\n.fab.fa-pull-right {\n  margin-left: .3em; }\n\n.fa-spin {\n  -webkit-animation: fa-spin 2s infinite linear;\n          animation: fa-spin 2s infinite linear; }\n\n.fa-pulse {\n  -webkit-animation: fa-spin 1s infinite steps(8);\n          animation: fa-spin 1s infinite steps(8); }\n\n@-webkit-keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n.fa-rotate-90 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)\";\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg); }\n\n.fa-rotate-180 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)\";\n  -webkit-transform: rotate(180deg);\n          transform: rotate(180deg); }\n\n.fa-rotate-270 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)\";\n  -webkit-transform: rotate(270deg);\n          transform: rotate(270deg); }\n\n.fa-flip-horizontal {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)\";\n  -webkit-transform: scale(-1, 1);\n          transform: scale(-1, 1); }\n\n.fa-flip-vertical {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)\";\n  -webkit-transform: scale(1, -1);\n          transform: scale(1, -1); }\n\n.fa-flip-horizontal.fa-flip-vertical {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)\";\n  -webkit-transform: scale(-1, -1);\n          transform: scale(-1, -1); }\n\n:root .fa-rotate-90,\n:root .fa-rotate-180,\n:root .fa-rotate-270,\n:root .fa-flip-horizontal,\n:root .fa-flip-vertical {\n  -webkit-filter: none;\n          filter: none; }\n\n.fa-stack {\n  display: inline-block;\n  height: 2em;\n  position: relative;\n  width: 2em; }\n\n.fa-stack-1x,\n.fa-stack-2x {\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  position: absolute;\n  right: 0;\n  top: 0; }\n\n.svg-inline--fa.fa-stack-1x {\n  height: 1em;\n  width: 1em; }\n\n.svg-inline--fa.fa-stack-2x {\n  height: 2em;\n  width: 2em; }\n\n.fa-inverse {\n  color: #fff; }\n\n.sr-only {\n  border: 0;\n  clip: rect(0, 0, 0, 0);\n  height: 1px;\n  margin: -1px;\n  overflow: hidden;\n  padding: 0;\n  position: absolute;\n  width: 1px; }\n\n.sr-only-focusable:active, .sr-only-focusable:focus {\n  clip: auto;\n  height: auto;\n  margin: 0;\n  overflow: visible;\n  position: static;\n  width: auto; }\n";
 
 var css = function () {
   var dfp = DEFAULT_FAMILY_PREFIX;
@@ -6316,6 +6316,10 @@ var _formDateSingle = __webpack_require__(44);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
+var _DateBlock = __webpack_require__(6);
+
+var _DateBlock2 = _interopRequireDefault(_DateBlock);
+
 var _formSelect = __webpack_require__(19);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
@@ -6331,6 +6335,10 @@ var _EventsForm2 = _interopRequireDefault(_EventsForm);
 var _confirmModal = __webpack_require__(115);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
+
+var _UserLink = __webpack_require__(116);
+
+var _UserLink2 = _interopRequireDefault(_UserLink);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6366,6 +6374,7 @@ var ListingForm = function (_React$Component) {
         _this.onCreateConfirm = _this.onCreateConfirm.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleDelete = _this.handleDelete.bind(_this);
+        _this.onEventsChange = _this.onEventsChange.bind(_this);
         return _this;
     }
 
@@ -6397,6 +6406,16 @@ var ListingForm = function (_React$Component) {
                 newListing.neighborhood = newListing.venue.neighborhood;
                 _ListActions2.default.saveListing(newListing);
             }
+        }
+
+        //If events are edited
+
+    }, {
+        key: 'onEventsChange',
+        value: function onEventsChange() {
+            this.setState({
+                wasChanged: true
+            });
         }
 
         //Delete the listing
@@ -6603,7 +6622,7 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_EventsForm2.default, { events: listing.events ? listing.events : [] })
+                            _react2.default.createElement(_EventsForm2.default, { events: listing.events ? listing.events : [], onChange: this.onEventsChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -6616,22 +6635,22 @@ var ListingForm = function (_React$Component) {
                         ),
                         _react2.default.createElement(_ThumbnailInput2.default, listing)
                     ),
-                    listing.updated_by && _react2.default.createElement(
+                    _react2.default.createElement(
                         'div',
                         { className: 'byline' },
-                        _react2.default.createElement(
+                        listing.updated_by && _react2.default.createElement(
                             'p',
                             null,
                             'Edited by ',
-                            listing.updated_by.name,
+                            _react2.default.createElement(_UserLink2.default, { user: listing.updated_by }),
                             ' on ',
-                            listing.updated_at
+                            _react2.default.createElement(_DateBlock2.default, { date: listing.updated_at })
                         ),
-                        _react2.default.createElement(
+                        listing.created_at && _react2.default.createElement(
                             'p',
                             null,
                             'Created on ',
-                            listing.created_at
+                            _react2.default.createElement(_DateBlock2.default, { date: listing.created_at })
                         )
                     ),
                     _react2.default.createElement(
@@ -7292,7 +7311,7 @@ __webpack_require__(60)(passport);
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 var url = process.env.MONGOLAB_URI;
 mongoose.Promise = global.Promise;
 mongoose.connect(url, { useMongoClient: true });
@@ -7355,9 +7374,9 @@ app.use(function (req, res, next) {
 });
 
 var index = __webpack_require__(67);
-var venues = __webpack_require__(135);
-var listings = __webpack_require__(136);
-var auth = __webpack_require__(137);
+var venues = __webpack_require__(136);
+var listings = __webpack_require__(137);
+var auth = __webpack_require__(138);
 
 app.use('/venues', venues);
 app.use('/list', listings);
@@ -7791,7 +7810,7 @@ module.exports = require("passport-facebook");
 "use strict";
 
 
-var mongoose = __webpack_require__(6),
+var mongoose = __webpack_require__(7),
     Schema = mongoose.Schema;
 
 // Create the Listings table ==================================
@@ -7816,12 +7835,8 @@ var listingSchema = mongoose.Schema({
     image: String,
     thumb: String,
     popularity: Number,
-    created_at: {
-        type: Date
-    },
-    updated_at: {
-        type: Date
-    },
+    created_at: Date,
+    updated_at: Date,
     updated_by: {
         type: String,
         ref: 'User'
@@ -7830,7 +7845,6 @@ var listingSchema = mongoose.Schema({
 });
 
 //compile the model
-
 module.exports = mongoose.model('List', listingSchema);
 
 /***/ }),
@@ -7840,12 +7854,19 @@ module.exports = mongoose.model('List', listingSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(6),
+var mongoose = __webpack_require__(7),
     Schema = mongoose.Schema;
 
 // Create the Archive table ==================================
 
 //This is where we'll store the past listings
+
+var eventSchema = new Schema({
+    name: String,
+    type: String,
+    date: { type: Date },
+    description: String
+});
 
 var archiveSchema = mongoose.Schema({
     name: String,
@@ -7857,10 +7878,9 @@ var archiveSchema = mongoose.Schema({
         ref: 'Venue'
     },
     event: Boolean,
-    events: [],
     image: String,
-    thumb: String,
-    popularity: Number
+    popularity: Number,
+    events: [eventSchema]
 });
 
 //compile the model
@@ -7874,7 +7894,7 @@ module.exports = mongoose.model('Archive', archiveSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
 
@@ -7922,13 +7942,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var JSX = __webpack_require__(133).install();
+var JSX = __webpack_require__(134).install();
 var passport = __webpack_require__(20);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var history = __webpack_require__(134);
+var history = __webpack_require__(135);
 var historyObj = history.createMemoryHistory();
 
 // Check if user is connected
@@ -8038,31 +8058,31 @@ var _NewListing = __webpack_require__(110);
 
 var _NewListing2 = _interopRequireDefault(_NewListing);
 
-var _EditListing = __webpack_require__(116);
+var _EditListing = __webpack_require__(117);
 
 var _EditListing2 = _interopRequireDefault(_EditListing);
 
-var _EditVenue = __webpack_require__(117);
+var _EditVenue = __webpack_require__(118);
 
 var _EditVenue2 = _interopRequireDefault(_EditVenue);
 
-var _featuredPage = __webpack_require__(120);
+var _featuredPage = __webpack_require__(121);
 
 var _featuredPage2 = _interopRequireDefault(_featuredPage);
 
-var _VenuesPage = __webpack_require__(123);
+var _VenuesPage = __webpack_require__(124);
 
 var _VenuesPage2 = _interopRequireDefault(_VenuesPage);
 
-var _UsersPage = __webpack_require__(125);
+var _UsersPage = __webpack_require__(126);
 
 var _UsersPage2 = _interopRequireDefault(_UsersPage);
 
-var _ReviewPage = __webpack_require__(129);
+var _ReviewPage = __webpack_require__(130);
 
 var _ReviewPage2 = _interopRequireDefault(_ReviewPage);
 
-var _Account = __webpack_require__(130);
+var _Account = __webpack_require__(131);
 
 var _Account2 = _interopRequireDefault(_Account);
 
@@ -8438,7 +8458,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -8608,7 +8628,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -9583,7 +9603,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _DateBlock = __webpack_require__(8);
+var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -10190,7 +10210,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -12049,15 +12069,16 @@ var EventsForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (EventsForm.__proto__ || Object.getPrototypeOf(EventsForm)).call(this, props));
 
         _this.addEvent = _this.addEvent.bind(_this);
+        _this.onChange = _this.onChange.bind(_this);
         return _this;
     }
 
     _createClass(EventsForm, [{
         key: 'onChange',
         value: function onChange(e) {
-            console.log(e);
             //Update values of inputs
             _ListActions2.default.eventsInfoChange(e);
+            this.props.onChange();
         }
     }, {
         key: 'addEvent',
@@ -12288,7 +12309,115 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(7);
+var _reactstrap = __webpack_require__(5);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
+
+var UserLink = function (_React$Component) {
+    _inherits(UserLink, _React$Component);
+
+    function UserLink(props) {
+        _classCallCheck(this, UserLink);
+
+        var _this = _possibleConstructorReturn(this, (UserLink.__proto__ || Object.getPrototypeOf(UserLink)).call(this, props));
+
+        _this.toggle = _this.toggle.bind(_this);
+        _this.state = {
+            popoverOpen: false
+        };
+        return _this;
+    }
+
+    _createClass(UserLink, [{
+        key: 'toggle',
+        value: function toggle() {
+            this.setState({
+                popoverOpen: !this.state.popoverOpen
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            var user = this.props.user;
+
+            //Get the user's avatar
+            var fullURL = '';
+            var hasAvatar = false;
+
+            if (user.avatar) {
+                hasAvatar = true;
+                fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg";
+            } else if (user.facebook) {
+                hasAvatar = true;
+                fullURL = "https://graph.facebook.com/" + user.facebook.id + "/picture?type=large";
+            }
+
+            return _react2.default.createElement(
+                'span',
+                { className: 'userLink' },
+                _react2.default.createElement(
+                    'a',
+                    { onClick: this.toggle,
+                        id: 'Popover-' + user._id,
+                        target: '_blank' },
+                    user.firstname,
+                    ' ',
+                    user.lastname
+                ),
+                _react2.default.createElement(
+                    _reactstrap.Popover,
+                    { placement: 'top', target: 'Popover-' + user._id, toggle: this.toggle, isOpen: this.state.popoverOpen },
+                    _react2.default.createElement(
+                        _reactstrap.PopoverTitle,
+                        null,
+                        hasAvatar && _react2.default.createElement('img', { className: 'avatar', src: fullURL }),
+                        ' ',
+                        user.firstname,
+                        ' ',
+                        user.lastname
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.PopoverContent,
+                        null,
+                        user.bio
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UserLink;
+}(_react2.default.Component);
+
+exports.default = UserLink;
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -12417,7 +12546,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12435,7 +12564,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -12451,7 +12580,7 @@ var _formSelect = __webpack_require__(19);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _VenueForm = __webpack_require__(118);
+var _VenueForm = __webpack_require__(119);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
 
@@ -12615,7 +12744,7 @@ var VenueEdit = function (_React$Component) {
 exports.default = VenueEdit;
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12637,7 +12766,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactstrap = __webpack_require__(5);
 
-var _DateBlock = __webpack_require__(8);
+var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -12655,7 +12784,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //COMPONENTS
 
 
-var MapboxClient = __webpack_require__(119);
+var MapboxClient = __webpack_require__(120);
 var client = new MapboxClient(process.env.MapboxAccessToken);
 
 var VenueForm = function (_React$Component) {
@@ -12915,13 +13044,13 @@ var VenueForm = function (_React$Component) {
 exports.default = VenueForm;
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports) {
 
 module.exports = require("mapbox");
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12945,7 +13074,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactIntl = __webpack_require__(12);
 
-var _featuredDay = __webpack_require__(121);
+var _featuredDay = __webpack_require__(122);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
@@ -13029,7 +13158,7 @@ var FeaturePage = function (_React$Component) {
 exports.default = FeaturePage;
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13047,7 +13176,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -13059,7 +13188,7 @@ var _formSelect = __webpack_require__(19);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _featuredForm = __webpack_require__(122);
+var _featuredForm = __webpack_require__(123);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
@@ -13172,7 +13301,7 @@ var FeaturedDay = function (_React$Component) {
 exports.default = FeaturedDay;
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13271,7 +13400,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13293,11 +13422,11 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(7);
+var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _VenueItem = __webpack_require__(124);
+var _VenueItem = __webpack_require__(125);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
@@ -13436,7 +13565,7 @@ var VenuesPage = function (_React$Component) {
 exports.default = VenuesPage;
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13454,7 +13583,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _DateBlock = __webpack_require__(8);
+var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -13574,7 +13703,7 @@ var VenueItem = function (_React$Component) {
 exports.default = VenueItem;
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13598,11 +13727,11 @@ var _loading = __webpack_require__(27);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _UserCard = __webpack_require__(126);
+var _UserCard = __webpack_require__(127);
 
 var _UserCard2 = _interopRequireDefault(_UserCard);
 
-var _UserFullInfo = __webpack_require__(128);
+var _UserFullInfo = __webpack_require__(129);
 
 var _UserFullInfo2 = _interopRequireDefault(_UserFullInfo);
 
@@ -13671,7 +13800,7 @@ var UsersPage = function (_React$Component) {
 exports.default = UsersPage;
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13699,11 +13828,11 @@ var _imageBlock = __webpack_require__(23);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _DateBlock = __webpack_require__(8);
+var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _UserEdit = __webpack_require__(127);
+var _UserEdit = __webpack_require__(128);
 
 var _UserEdit2 = _interopRequireDefault(_UserEdit);
 
@@ -13828,7 +13957,7 @@ var UserCard = function (_React$Component) {
 exports.default = UserCard;
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13952,7 +14081,7 @@ var UserEdit = function (_React$Component) {
 exports.default = UserEdit;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13972,7 +14101,7 @@ var _imageBlock = __webpack_require__(23);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _DateBlock = __webpack_require__(8);
+var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -14065,7 +14194,7 @@ var UserFullInfo = function (_React$Component) {
 exports.default = UserFullInfo;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14097,7 +14226,7 @@ var _listing = __webpack_require__(4);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _DateBlock = __webpack_require__(8);
+var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -14166,7 +14295,7 @@ var ReviewPage = function (_React$Component) {
 exports.default = ReviewPage;
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14186,7 +14315,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _AccountForm = __webpack_require__(131);
+var _AccountForm = __webpack_require__(132);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
@@ -14251,7 +14380,7 @@ var AccountPage = function (_React$Component) {
 exports.default = AccountPage;
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14271,7 +14400,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _avatar = __webpack_require__(132);
+var _avatar = __webpack_require__(133);
 
 var _avatar2 = _interopRequireDefault(_avatar);
 
@@ -14428,7 +14557,7 @@ var AccountForm = function (_React$Component) {
 exports.default = AccountForm;
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14540,19 +14669,19 @@ var Avatar = function (_React$Component) {
 exports.default = Avatar;
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14763,7 +14892,7 @@ router.get('/:venue_id', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14771,7 +14900,7 @@ module.exports = router;
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var mongoose = __webpack_require__(6);
+var mongoose = __webpack_require__(7);
 
 //#######################
 // GET ALL listings ===================
@@ -14801,20 +14930,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 100;
 
-    List.find().where('start').lte(today).where('end').gte(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(100).populate('venue').exec(function (e, docs) {
-        /*docs.map(listing => {
-        Venue.findOne({name: listing.venue}).exec().then(function(venue){
-        	//console.log('listing: ', listing.name);
-        	//console.log('venue: ', listing.venue);
-        	if (venue) {
-        		//console.log('venue real: ', venue.name);
-        		//List.update({_id: listing._id}, {venue: venue._id}, function (err, newlisting){console.log(newlisting)});
-        	} else {
-        		//console.log('venue NOT real');
-        		//List.update({_id: listing._id}, {venue: ""}, function (err, newlisting) {console.log(newlisting)});
-        	}
-        });	
-        });*/
+    List.find().where('start').lte(today).where('end').gte(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(100).populate('venue').populate('updated_by').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -14933,9 +15049,8 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 
     List.findOne({
         _id: req.params.listing_id
-    }).where('venue').ne('').populate('venue').exec(function (e, docs) {
+    }).where('venue').ne('').populate('venue').populate('updated_by').exec(function (e, docs) {
         if (e) res.send(e);
-        console.log(docs);
         res.json(docs);
     });
 });
@@ -15078,7 +15193,7 @@ router.post('/delete/:listing_id', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -10,12 +10,13 @@ export default class EventsForm extends React.Component {
         super(props);
 
         this.addEvent = this.addEvent.bind(this)
+        this.onChange = this.onChange.bind(this)
       }
 
     onChange(e){
-            console.log(e)
             //Update values of inputs
             ListActions.eventsInfoChange(e);
+            this.props.onChange();
     }
 
     addEvent() {
