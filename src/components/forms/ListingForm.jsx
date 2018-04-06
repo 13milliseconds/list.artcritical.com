@@ -52,13 +52,19 @@ export default class ListingForm extends React.Component {
 
 		if (this.props.listing._id){
 			//Edit the current listing
-			ListActions.updateListing(newListing)
+            ListActions.updateListing(newListing)
+            this.setState({ 
+                updatevisible: false
+            })
 		} else {	
 			//Create a new Listing
 			delete newListing._id
 			newListing.venue = newListing.venue._id
 			newListing.neighborhood = newListing.venue.neighborhood
-			ListActions.saveListing(newListing)
+            ListActions.saveListing(newListing)
+            this.setState({ 
+                createvisible: false
+            });
 		}
       }
 
@@ -72,7 +78,10 @@ export default class ListingForm extends React.Component {
     //Delete the listing
     handleDelete() {
         ListActions.deleteListing(this.props.listing._id)
-      }
+        this.setState({ 
+            deletevisible: false
+        });
+    }
 
     //confirm alert
     onConfirm(event) {

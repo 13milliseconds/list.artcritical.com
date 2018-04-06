@@ -9,6 +9,13 @@ export default class UpdateModal extends React.Component {
         }
 
         this.toggle = this.toggle.bind(this);
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    }
+
+    componentWillReceiveProps(props){
+        this.setState({
+            modalVisible: this.props.modalVisible
+        });
     }
     
     toggle() {

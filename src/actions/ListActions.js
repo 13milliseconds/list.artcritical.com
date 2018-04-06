@@ -580,6 +580,13 @@ class ListActions {
     eventsInfoChange(event){
         return event;
     }
+
+    /////////////////
+    // SIDEBAR
+    //////////////////
+    toggleSideBar(){
+        return true;
+    }
     
 }
 

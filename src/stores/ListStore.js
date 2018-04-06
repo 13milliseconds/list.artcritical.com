@@ -26,7 +26,9 @@ class ListStore {
         this.user.mylist = [];
 		this.currentUser = {};
         this.user.userAccess = 0;
-		this.allUsers = [];
+        this.allUsers = [];
+        //SideBar states
+        this.sidebarOpen = false;
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
@@ -335,6 +337,7 @@ class ListStore {
     onUpdateListingSuccess(data){
         this.loading.updatelisting = false; 
         this.success.updatelisting = true; 
+        this.sidebarOpen = false;
         var that = this;
         setTimeout(() => {
             that.success.updatelisting = false;
@@ -693,6 +696,11 @@ class ListStore {
             this.listingEdit.events[event.index].date = event.date;
         }
         
+    }
+
+    //Sidebar
+    onToggleSideBar(){
+        this.sidebarOpen = !this.sidebarOpen
     }
 }
 

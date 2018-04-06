@@ -36,6 +36,7 @@ export default class Listing extends React.Component {
 
     _editListing(listing){
         ListActions.editListing(listing)
+        ListActions.toggleSideBar()
     }
 
     _revealInfo(){
@@ -113,7 +114,7 @@ export default class Listing extends React.Component {
                         <a onClick={(e) => this.addToList(e, listing)} className="delete">Remove</a>
                         }
                         {this.props.user.userAccess > 0 && //If you are seeing this as an editor
-                        <Link to={'/admin'} onClick={(e) => this._editListing(listing)} className="edit">Edit</Link>
+                        <a onClick={(e) => this._editListing(listing)} className="edit">Edit</a>
                         }
                     </div>
                 </div>
