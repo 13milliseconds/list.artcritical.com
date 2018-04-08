@@ -35,9 +35,8 @@ export default class Listing extends React.Component {
     }
 
     _editListing(listing){
-        console.log("let's edit", listing)
         ListActions.editListing(listing)
-
+        ListActions.toggleSideBar()
     }
 
     _revealInfo(){
@@ -49,7 +48,7 @@ export default class Listing extends React.Component {
     eventsDisplay(events){
         return events.map((event, index) => {
             return <div className="event" key={index}>
-                    <i className="fal fa-glass-martini"></i> {event.name} {this.props.start && <Date date={event.date} /> } {event.description && '- ' + event.description}
+                    <FontAwesomeIcon icon={['fal', 'glass-martini']}/> {event.name} {this.props.start && <Date date={event.date} /> } {event.description && '- ' + event.description}
             </div>
         })
 
@@ -60,7 +59,8 @@ export default class Listing extends React.Component {
         let listing = this.props.listing
 
         let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
-        let eventsPresence = listing.events.length > 0
+        let eventsPresence = listing.events &&
+                                listing.events.length > 0 ? true : false
         
     //Display date according to type of listing and view
     var dateDisplay
@@ -84,7 +84,8 @@ export default class Listing extends React.Component {
                 return v._id === id;
             }).length;   
         }
-        
+        let mylistingIcon = mylistIndex > 0 ? ["far", "minus"] : ["far", "plus"]
+
         const image = listing.image? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
         const style = {backgroundImage: 'url(' + image + ')'}
       
@@ -95,8 +96,10 @@ export default class Listing extends React.Component {
                 {this.props.mylisting ? 
                     <span>{this.props.number}</span>
                    :
-                   <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
-                        {this.props.user._id && <i className = {mylistIndex > 0 ? 'fal fa-minus' : 'fal fa-plus' } aria-hidden="true"></i>}
+                    <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
+                        {this.props.user._id &&
+                        <FontAwesomeIcon icon={mylistingIcon} />
+                        }
                     </div>
                 }
                 {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}
@@ -106,12 +109,14 @@ export default class Listing extends React.Component {
                 <div className="header">
                     <p>{listing.name}{listing.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a></p>
                     {dateDisplay}
-                    {this.props.mylisting && //If you are seeing this on your myList page
-                	<a onClick={(e) => this.addToList(e, listing)} className="delete">Remove</a>
-                    }
-                    {this.props.user.userAccess > 0 && //If you are seeing this as an editor
-                    <Link to={'/admin'} onClick={(e) => this._editListing(listing)}>Edit</Link>
-				    }
+                    <div className="listingActions">
+                        {this.props.mylisting && //If you are seeing this on your myList page
+                        <a onClick={(e) => this.addToList(e, listing)} className="delete">Remove</a>
+                        }
+                        {this.props.user.userAccess > 0 && //If you are seeing this as an editor
+                        <a onClick={(e) => this._editListing(listing)} className="edit">Edit</a>
+                        }
+                    </div>
                 </div>
                 {this.state.fullInfo &&
                     <div className="moreInfo">

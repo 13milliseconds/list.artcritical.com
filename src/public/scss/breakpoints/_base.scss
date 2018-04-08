@@ -82,6 +82,10 @@ COLUMNS
 BUTTONS
 *********************/
 
+body button{
+    margin-right: 10px;
+}
+
 a.facebookbutton{
     background: #3b5998;
     display: inline-block;
@@ -94,7 +98,6 @@ a.facebookbutton{
         margin-right: 10px;
     }
 }
-
 /******************
 HEADER
 ********************/
@@ -495,6 +498,36 @@ My List
     .mapWrap{
         margin-bottom: 20px;
     }
+    .listing{
+        &:hover{
+            .listingAdd{
+                @include transform(scale(1.1));
+                span{
+                    border-color: $green;
+                }
+            }
+        }
+        .listingAdd{
+            position: relative;
+            min-height: 100px;
+            transition: .5s;
+            span{
+                border: 1px solid $black;
+                padding: 10px;
+                border-radius: 50%;
+                height: 50px;
+                width: 50px;
+                display: inline-block;
+                text-align: center;
+                line-height: 30px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                @include transform(translate(-50%, -50%));
+            }
+        }
+    }
+    
 	.listInfo{
 		margin-bottom: 20px;
 		img.avatar{
@@ -507,15 +540,20 @@ My List
     .listingsWrap{
         @include span-columns(12);
         .listing{
-			.delete{
-				cursor: pointer;
-                color: $red;
-                margin-right: 10px;
-				@include transition(.2s);
-				&:hover{
-					color: red;
-				}
-			}
+            background-color: transparent;
+            .listingActions{
+                text-align: right;
+                .delete{
+                    cursor: pointer;
+                    font-size: .8em;
+                    color: $red;
+                    margin-right: 10px;
+                    @include transition(.2s);
+                    &:hover{
+                        color: red;
+                    }
+                }
+            }
         }
     }   
 }
@@ -617,9 +655,43 @@ ADMIN
 	}
 }
 
+//User popover
+.userLink{
+    a{
+        border-bottom: 2px dotted $green;
+        cursor: pointer;
+    }
+}
+.popover{
+    .popover-title, .popover-content{
+        padding: 10px;
+    }
+    .popover-title{
+        img{
+            display: inline-block;
+            max-width: 50px;
+            max-height: 50px;
+        }
+    }
+}
+
+
 #listingForm, #newlistingDemo{
     float: left;
     width: 50%;
+}
+
+
+//Sidemenu
+.sideMenu{
+    padding-top: 100px;
+    height: 100%;
+    background-color: #eee;
+    #listingForm{
+        float: none;
+        width: 100%;
+        padding: 20px;
+    }
 }
 
 label{

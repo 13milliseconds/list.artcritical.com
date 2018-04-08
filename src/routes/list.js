@@ -45,20 +45,8 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     skip(offset_ratio).
     limit(100).
     populate('venue').
+    populate('updated_by').
     exec(function (e, docs) {
-		/*docs.map(listing => {
-		Venue.findOne({name: listing.venue}).exec().then(function(venue){
-			//console.log('listing: ', listing.name);
-			//console.log('venue: ', listing.venue);
-			if (venue) {
-				//console.log('venue real: ', venue.name);
-				//List.update({_id: listing._id}, {venue: venue._id}, function (err, newlisting){console.log(newlisting)});
-			} else {
-				//console.log('venue NOT real');
-				//List.update({_id: listing._id}, {venue: ""}, function (err, newlisting) {console.log(newlisting)});
-			}
-		});	
-		});*/
         res.json(docs);
     });
 });
@@ -156,6 +144,24 @@ router.get('/eventslistings', function (req, res) {
 
 
 //#######################
+// GET LATEST LISTINGS to review
+//#######################
+
+router.get('/latestlistings', function (req, res) {
+    var List = req.list;
+
+    List.find().
+    where('venue').ne('').
+    where('updated_at').ne('').
+    sort('updated_at').
+    limit(20).
+    populate('venue').
+    exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+//#######################
 /* FIND listings based on text */
 //#######################
 
@@ -195,10 +201,10 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     }).
 	where('venue').ne('').
     populate('venue').
+    populate('updated_by').
     exec(function (e, docs) {
         if (e)
             res.send(e);
-        console.log(docs);
         res.json(docs);
     });
 
@@ -214,6 +220,12 @@ router.post('/add', function (req, res) {
 
     // define a new entry
     var newlisting = new List(req.body);
+
+    // Save when and who created it
+	var now = new Date();
+	newlisting.created_at = now;
+	newlisting.updated_at = now;
+	newlisting.updated_by = req.user._id;
 
     //Save this new entry
     newlisting.save(function (err, newlisting) {
@@ -240,6 +252,11 @@ router.post('/update', function (req, res) {
 
     // define a new entry
     var thelisting = new List(req.body);
+
+    // Save when and who created it
+	var now = new Date();
+	thelisting.updated_at = now;
+	thelisting.updated_by = req.user._id;
 
 
     List.update({

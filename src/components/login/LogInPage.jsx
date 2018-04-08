@@ -28,7 +28,9 @@ export default class LogInPage extends React.Component {
                     <h2>Login</h2>
                 </header>
                 <div className="admin-content">
-                	<LogInForm loading={this.props.isLoggingIn} />
+                <LogInForm 
+                    loading={this.props.loading.login} 
+                    error={this.props.error} />
             	</div>
             </div>
         );

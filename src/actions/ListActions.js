@@ -18,6 +18,8 @@ class ListActions {
             'getEventsFail',
             'getGlanceSuccess',
             'getGlanceFail',
+            'getLatestListingsSuccess',
+            'getLatestListingsFail',
             'getListingInfoSuccess',
             'getListingInfoFailure',
             'getVenueInfoSuccess',
@@ -158,6 +160,19 @@ class ListActions {
                 });
         };
     }
+    getLatestListings() {
+        return dispatch => {
+            $.ajax({
+                    url: process.env.BASE_URI + '/list/latestlistings'
+                })
+                .done((data) => {
+                    this.getLatestListingsSuccess(data)
+                })
+                .fail((error) => {
+                    this.getLatestListingsFail(error)
+                });
+        };
+    }
     
     listingEditReset() {
         return true;
@@ -169,6 +184,10 @@ class ListActions {
     // When new listing info is entered
     listingInfoChange(event){
         return event;
+    }
+     // When new listing info is entered
+     listingDuplicate(){
+        return true;
     }
     // When new feature info is entered
     featureInfoChange(event, i){
@@ -245,6 +264,8 @@ class ListActions {
     }
     
     async updateListing(newInfo) {
+
+        console.log('updating ', newInfo)
         
         this.updateListingAttempt();
 
@@ -558,6 +579,13 @@ class ListActions {
 
     eventsInfoChange(event){
         return event;
+    }
+
+    /////////////////
+    // SIDEBAR
+    //////////////////
+    toggleSideBar(){
+        return true;
     }
     
 }

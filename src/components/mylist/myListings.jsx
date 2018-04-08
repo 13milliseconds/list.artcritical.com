@@ -8,8 +8,6 @@ import Reorder, {
   reorderFromToImmutable
 } from 'react-reorder';
 
-//
-
 export default class MyListings extends React.Component {
     constructor(props) {
         super(props)
@@ -29,12 +27,15 @@ export default class MyListings extends React.Component {
                     onReorder={this.props.onReorder.bind(this)}
                     >
                     { this.props.user.mylist.map((listing, index) => (
-                        <div key={listing._id} 
+                        <div  
+                            key={listing._id}
                             className={listing._id == this.props.listingHover && 'active'} 
                             onMouseEnter={this.props.onHover.bind(this, listing)}
                             onMouseLeave={this.props.onLeave.bind(this, listing)}
                             >
-                            <Listing  listing={listing} number={index + 1} user={this.props.user} mylisting={true}/>
+                            <Listing  
+                                listing={listing} number={index + 1} 
+                                user={this.props.user} mylisting={true}/>
                         </div>
                         ))}
                 </Reorder>

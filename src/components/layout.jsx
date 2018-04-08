@@ -13,9 +13,16 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPlusCircle from '@fortawesome/fontawesome-pro-light/faPlusCircle'
 import faMinusCircle from '@fortawesome/fontawesome-pro-light/faMinusCircle'
 import faGlassMartini from '@fortawesome/fontawesome-pro-light/faGlassMartini'
+import faTimes from '@fortawesome/fontawesome-pro-light/faTimes'
+import faPlus from '@fortawesome/fontawesome-pro-regular/faPlus'
+import faMinus from '@fortawesome/fontawesome-pro-regular/faMinus'
 import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
  
-fontawesome.library.add(faPlusCircle, faPlusCircle, faGlassMartini, faStar)
+fontawesome.library.add(faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes)
+
+//Sidebar
+import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'
+import ListingForm from './forms/ListingForm';
 
 
 export default class Layout extends React.Component {
@@ -46,10 +53,7 @@ export default class Layout extends React.Component {
     }
 
     toggleMenu(){
-        this.setState({
-            menuActive: !this.state.menuActive,
-            hamburgerActive: !this.state.hamburgerActive
-        })
+        ListActions.toggleSideBar()
     }
     
 
@@ -62,9 +66,9 @@ export default class Layout extends React.Component {
       const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><button onClick={AuthActions.attemptLogOut}>Log Out</button></div>;
     return (
       <div className="app-container">
-        <div className="hamburger" onClick={this.toggleMenu}><i className={"fal " + (this.state.hamburgerActive ? "fa-close" : "fa-bars")}></i></div>
+        <div className="hamburger" onClick={this.toggleMenu}><FontAwesomeIcon icon={['fal', 'glass-martini']}/></div>
         <header className={"mainHeader" + (this.state.menuActive? ' active' : '')}>
-			<nav onClick={this.toggleMenu}>
+			<nav>
             <IndexLink to={'/'} activeClassName="active">Week at a Glance</IndexLink>
             <Link to={'/current'} activeClassName="active">Current</Link>
             <Link to={'/events'} activeClassName="active">Events</Link>
@@ -72,17 +76,27 @@ export default class Layout extends React.Component {
 			<div className="accountOptions">
             <Link to={'/mylist'} activeClassName="active">My List { mylistNum > 0 && '('+mylistNum+')'}</Link>
 			{ user.isLoggedIn && <Link to={'/account'} activeClassName="active">Account</Link>}
-			{ user.isLoggedIn 	? <a onClick={AuthActions.attemptLogOut}>Log Out</a> 
-								: <Link to={'/login'} activeClassName="active">Login</Link>}
+			{ user.isLoggedIn && <a onClick={AuthActions.attemptLogOut}>Log Out</a>}
 			</div>
 			{ user.isLoggedIn && <Link to={'/admin'} activeClassName="active">Admin</Link>}
 			</nav>
 			<SizeSelector view={this.state.view} />
         </header>
-        <div className="app-content">
-            { //Give the current state as props to the children elements
-				React.cloneElement(this.props.children, this.state)}
-        </div>
+        <OffCanvas width={500} transitionDuration={300} isMenuOpened={this.state.sidebarOpen} position={"right"}>
+            <OffCanvasBody className={"app-content"}>
+                { //Give the current state as props to the children elements
+                React.cloneElement(this.props.children, this.state)}
+            </OffCanvasBody>
+            <OffCanvasMenu className={"sideMenu"}>
+                    <a onClick={this.toggleMenu}><FontAwesomeIcon icon={['fal', 'times']}/></a>
+                <ListingForm 
+                            listing={this.state.listingEdit} 
+                            error={this.state.error.updatelisting} 
+                            loading={this.state.loading.updatelisting}
+                            success={this.state.success}/>
+                <div className="overlay"></div>
+            </OffCanvasMenu>
+        </OffCanvas>
         <footer>
           <p>
             This is a first version of the new list using <strong>React</strong> and <strong>Express</strong>.

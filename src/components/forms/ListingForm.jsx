@@ -2,17 +2,18 @@ import React from 'react'
 import ToggleButton from 'react-toggle-button'
 import ListActions from '../../actions/ListActions'
 import {browserHistory} from 'react-router'; 
-import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Alert, Button } from 'reactstrap';
 
 
 //Components
 import DateRange from './formDateRange'
 import DateSingle from './formDateSingle'
+import Date from '../blocks/DateBlock.jsx';
 import Select from './formSelect'
 import ThumbnailInput from './ThumbnailInput'
 import EventsForm from './EventsForm'
-import UpdateModal from './updateModal'
+import ConfirmModal from './confirmModal'
+import UserLink from '../blocks/UserLink'
 
 export default class ListingForm extends React.Component {
 
@@ -24,7 +25,7 @@ export default class ListingForm extends React.Component {
             updatevisible: false,
             deletevisible: false,
             createvisible: false,
-            modal: false
+            wasChanged: false //check if any change was made to the listing
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -32,32 +33,53 @@ export default class ListingForm extends React.Component {
         this.onConfirm = this.onConfirm.bind(this);
         this.onDeleteConfirm = this.onDeleteConfirm.bind(this);
         this.onCreateConfirm = this.onCreateConfirm.bind(this);
-        this.toggleCreate = this.toggleCreate.bind(this);
-        this.toggle = this.toggle.bind(this);
-        this.toggleDelete = this.toggleDelete.bind(this);
-
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.onEventsChange = this.onEventsChange.bind(this);
       }
 
-    toggle() {
+    // Add the listing to the database
+    handleSubmit(event) {
+        event.preventDefault();
+        let newListing = this.props.listing
+
+        //Check and save only events that have a date
+        let allEvents = []
+        newListing.events.map(event => {
+            if (event.date){allEvents.push(event)}
+        })
+        newListing.events = allEvents
+
+		if (this.props.listing._id){
+			//Edit the current listing
+            ListActions.updateListing(newListing)
+            this.setState({ 
+                updatevisible: false
+            })
+		} else {	
+			//Create a new Listing
+			delete newListing._id
+			newListing.venue = newListing.venue._id
+			newListing.neighborhood = newListing.venue.neighborhood
+            ListActions.saveListing(newListing)
+            this.setState({ 
+                createvisible: false
+            });
+		}
+      }
+
+    //If events are edited
+    onEventsChange(){
         this.setState({
-          modal: !this.state.modal,
-          updatevisible: !this.state.updatevisible
-        });
+            wasChanged: true
+        })
     }
-
-
-    toggleDelete() {
-        this.setState({
-          modal: !this.state.modal,
-          deletevisible: !this.state.deletevisible
-        });
-    }
-
-
-    toggleCreate() {
+    
+    //Delete the listing
+    handleDelete() {
+        ListActions.deleteListing(this.props.listing._id)
         this.setState({ 
-            modal: !this.state.modal,
-            createvisible: !this.state.createvisible 
+            deletevisible: false
         });
     }
 
@@ -66,7 +88,13 @@ export default class ListingForm extends React.Component {
         event.preventDefault();
         this.setState({ 
             updatevisible: true
-        });
+        })
+    }
+
+    //Duplicate
+    onDuplicate(event) {
+        event.preventDefault();
+        ListActions.listingDuplicate();
     }
 
      //confirm alert
@@ -88,6 +116,9 @@ export default class ListingForm extends React.Component {
     handleChange (event) {
         //Update values of inputs
         ListActions.listingInfoChange(event);
+        this.setState({
+            wasChanged: true
+        })
     }
     
     //Search as the user types in select box
@@ -112,6 +143,8 @@ export default class ListingForm extends React.Component {
 
     
     render() {
+
+        let listing = this.props.listing
         
         //how to get option for select element
         const getOptions = (input) => {
@@ -127,116 +160,23 @@ export default class ListingForm extends React.Component {
             }
         }
 
-        let showUpdateModal = this.state.updatevisible ? 
-            <UpdateModal /> 
-                : null
-
-        // let updateModal = this.state.updatevisible ? 
-        //             <Modal isOpen={this.state.updatevisible} toggle={this.toggle}>
-        //                         <ModalHeader toggle={this.toggle}>Update Listing</ModalHeader>
-        //                           <ModalBody toggle={this.toggle}>
-        //                             {!this.props.loading && !this.props.success && !this.props.error.general ? "Press Confirm to UPDATE this Listing. Press Cancel to go back" : null}
-
-        //                             {this.props.loading && 
-        //                             <div className='loading'>loading</div>
-        //                             }
-        //                             {this.props.success && 
-        //                                 <div className='success'>Saved!</div>
-        //                             }
-        //                             {this.props.error.general && 
-        //                                 <div className='error'>{this.props.error.savelisting.general}</div>
-        //                             }
-        //                           </ModalBody>
-        //                           <ModalFooter>
-        //                             {!this.props.success ? 
-        //                                 <div>
-        //                                     <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
-        //                                     <Button color="primary" onClick={this.toggle}>Cancel</Button>
-        //                                 </div>
-        //                             :
-        //                                 <Button color="success" onClick={this.toggle}>Close</Button>
-        //                             }
-                                    
-                                    
-        //                           </ModalFooter>
-        //             </Modal> 
-        //         : 
-        //             null
-
-
-            let deleteModal = this.state.deletevisible ?
-        <Modal isOpen={this.state.deletevisible} toggle={this.toggleDelete}>
-                      <ModalHeader toggle={this.toggleDelete}>Delete Listing</ModalHeader>
-                      <ModalBody>
-                       {!this.props.deleteitem && !this.props.error.general ? "Press Confirm to DELETE this listing. Press Cancel to go back" : null}
-
-                        
-                        {this.props.deleteitem && 
-                            <div className='success'>Deleted!</div>
-                        }
-                        {this.props.error.general && 
-                            <div className='error'>Sorry, there was an error! Please try again!</div>
-                        }
-                      </ModalBody>
-                      <ModalFooter>
-                        {!this.props.deleteitem ? 
-                            <div>
-                                <Button color="primary" onClick={this.props.handleDelete}>Confirm</Button>{' '}
-                                <Button color="primary" onClick={this.toggleDelete}>Cancel</Button>
-                            </div>
-                        :
-                            <Button color="success" onClick={this.toggleDelete}>Close</Button>
-                        }
-                        
-                      </ModalFooter>
-        </Modal> 
-    :
-        null
-
-          let createModal = this.state.createvisible ? 
-                <Modal isOpen={this.onCreateConfirm} toggle={this.toggleCreate}>
-                            <ModalHeader toggle={this.toggleCreate}>Create Listing</ModalHeader>
-                              <ModalBody toggle={this.toggleCreate}>
-                                {!this.props.savelisting && !this.props.error.general ? "Press Confirm to CREATE this Listing. Press Cancel to go back" : null}
-                                {this.props.savelisting && 
-                                    <div className='success'>Created!</div>
-                                }
-                                {this.props.error.general && 
-                                    <div className='error'>{this.props.error.savelisting.general}</div>
-                                }
-                              </ModalBody>
-                              <ModalFooter>
-                                {!this.props.savelisting ? 
-                                    <div>
-                                        <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
-                                        <Button color="primary" onClick={this.toggleCreate}>Cancel</Button>
-                                    </div>
-                                :
-                                    <Button color="success" onClick={this.toggleCreate}>Close</Button>
-                                }
-                                
-                                
-                              </ModalFooter>
-                </Modal> 
-            : 
-                null
+          
         
-        let venueData = { value: this.props.venue._id, label: this.props.venue.name}
+        let venueData = { value: listing.venue._id, label: listing.venue.name}
         
-        let deleteButton = this.props.handleDelete ?
+        // If the listing exists, offer to delete it
+        let deleteButton = this.props.listing._id &&
                 <Button className="delete" color="danger" onClick={this.onDeleteConfirm}>Delete</Button>
-            :
-                null
 
         return ( 
 
             <div id="listingForm">
-
+                {!listing._id && <Alert color="primary">This is a draft listing.</Alert>}
                 <Form>
                     <FormGroup check>
                         <Label>Name</Label>
                         <div className="formSection">
-                            <Input name="name" placeholder="Event name" type="text" value={this.props.name} onChange={this.handleChange} />
+                            <Input name="name" placeholder="Event name" type="text" value={listing.name} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
                     <FormGroup check>
@@ -249,7 +189,7 @@ export default class ListingForm extends React.Component {
                         <Label>Event</Label>
                         <div className="formSection">
                             <ToggleButton
-                              value={this.props.event}
+                              value={listing.event}
                               onToggle={(value) => {
                                 this.handleChange({'event': value})
                               }} />
@@ -258,39 +198,69 @@ export default class ListingForm extends React.Component {
                     <FormGroup check>
                         <Label> Dates </Label>
                         <div className="formSection">
-                           {this.props.event 
+                           {listing.event 
                                 ? //If an event
-                                <DateSingle startDate={this.props.start} onDatesChange={this.handleChange}/>
+                                <DateSingle startDate={listing.start} onDatesChange={this.handleChange}/>
                                 : // If not an event
-                                <DateRange startDate={this.props.start} endDate={this.props.end} onDatesChange={this.handleChange}/>
+                                <DateRange startDate={listing.start} endDate={listing.end} onDatesChange={this.handleChange}/>
                            }
                         </div>  
                     </FormGroup>
                      <FormGroup check>
                         <Label>Description</Label>
                         <div className="formSection">
-                            <Input type="textarea" name="description" value={this.props.description} onChange={this.handleChange} />
+                            <Input type="textarea" name="description" value={listing.description} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
                     <FormGroup check>
                         <Label>Events</Label>
                         <div className="formSection">
-                            <EventsForm events={this.props.events? this.props.events : []}/>
+                            <EventsForm events={listing.events? listing.events : []} onChange={this.onEventsChange}/>
                         </div>
                     </FormGroup>
                      <FormGroup check>
                            <Label>Thumbnail</Label>
-                            <ThumbnailInput {...this.props} /> 
+                            <ThumbnailInput {...listing} /> 
 					</FormGroup>
+                        <div className="byline">
+                        {listing.updated_by &&
+                            <p>Edited by <UserLink user={listing.updated_by}/> on <Date date={listing.updated_at}/></p>
+                        }
+                        {listing.created_at &&
+                            <p>Created on <Date date={listing.created_at}/></p>
+                        }
+                        </div>
 					
 					<FormGroup>
-                            {this.props._id ? <Button onClick={this.onConfirm}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
+                            {listing._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
                             {deleteButton}
+                            {listing._id && <Button onClick={this.onDuplicate}>Duplicate</Button>}
                     </FormGroup>
                 </Form>   
-                       {showUpdateModal}
-                       {createModal}
-                       {deleteModal}
+                       {this.state.updatevisible && <ConfirmModal 
+                                                        modalVisible={this.state.updatevisible}
+                                                        handleSubmit={this.handleSubmit}
+                                                        textTitle="Update"
+                                                        textAction="save this Listing"
+                                                        textConfirm="Saved!"
+                                                        error={this.props.error.general}
+                                                        success={this.props.success.updatelisting}/>}
+                       {this.state.createvisible && <ConfirmModal 
+                                                        modalVisible={this.state.createvisible}
+                                                        handleSubmit={this.handleSubmit}
+                                                        textTitle="Create"
+                                                        textAction="create this Listing"
+                                                        textConfirm="Created!"
+                                                        error={this.props.error.general}
+                                                        success={this.props.success.savelisting}/>}
+                        {this.state.deletevisible && <ConfirmModal 
+                                                        modalVisible={this.state.deletevisible}
+                                                        handleSubmit={this.handleDelete}
+                                                        textTitle="Delete"
+                                                        textAction="delete this Listing"
+                                                        textConfirm="Deleted!"
+                                                        error={this.props.error.general}
+                                                        success={this.props.success.deletelisting}/>}
             </div>
 
            

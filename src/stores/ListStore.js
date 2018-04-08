@@ -17,17 +17,18 @@ class ListStore {
         this.allListings = [];
         this.eventsListings = [];
         this.glanceListings = [];
-        this.reviewListings = [];
+        this.latestListings = []
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
-        this.user.isLoggingIn = false;
         this.user.facebook = {};
 		this.user.local = {};
         this.user.mylist = [];
 		this.currentUser = {};
         this.user.userAccess = 0;
-		this.allUsers = [];
+        this.allUsers = [];
+        //SideBar states
+        this.sidebarOpen = false;
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
@@ -74,6 +75,7 @@ class ListStore {
         //Error Messages
         this.error = {};
         this.error.feature = '';
+        this.error.login = '';
         this.error.updateuser = '';
         this.error.updatelisting = {};
         this.error.updatevenue = {};
@@ -115,6 +117,12 @@ class ListStore {
     onGetGlanceSuccess(data) {
         this.glanceListings = data;
     }
+    getLatestListingsSuccess(data){
+        this.latestListings = data
+    }
+    getLatestListingsFail(error){
+        console.log(error)
+    }
 
 
     onGetCurrentFail(jqXhr) {
@@ -149,8 +157,9 @@ class ListStore {
     onListingEditReset(){
         this.listingEdit = {
             name: '',
-            events: [],
-            venue: {}
+            description: '',
+            venue: {},
+            events: []
         };
     }
 
@@ -198,7 +207,7 @@ class ListStore {
             this.listingEdit.events = [];
         }
 		// Need to explain this
-		if (info.i !== null){
+		if (info.i){
 			console.log('Feature listing');
 			this.features[info.i].list = info.data;
 			console.log(this.features[info.i].list);
@@ -223,7 +232,7 @@ class ListStore {
 		//Create a slug automatically if there is none
 		if(!data.slug){
             this.venueEdit.slug = data.name.replace(/\s+/g, '-').toLowerCase();
-                      }
+        }
     }
     onGetVenueFullInfoFailure(jqXhr){
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
@@ -328,7 +337,7 @@ class ListStore {
     onUpdateListingSuccess(data){
         this.loading.updatelisting = false; 
         this.success.updatelisting = true; 
-        this.reviewListings.push(data);
+        this.sidebarOpen = false;
         var that = this;
         setTimeout(() => {
             that.success.updatelisting = false;
@@ -370,6 +379,11 @@ class ListStore {
        } else {
            this.listingEdit.event = !info.event;  
         }
+    }
+
+    //Duplicate the current listing
+    onListingDuplicate(){
+        this.listingEdit._id = ''
     }
     
     //Update info on feature page
@@ -460,24 +474,21 @@ class ListStore {
     
     // LOGIN ATTEMPT
     onLoginAttempt(){
-        this.isLoggingIn = true;
         this.loginRedirect = false;
+        this.loading.login = true
+        this.error.login = ''
     }
     onLoginFailure(error){
         console.log('Login error: ', error);
-        //this.user.firstname = '';
-		//this.user.lastname = '';
-        //this.user._id = '';
-        //this.user.isLoggedIn = false;
-        this.user.isLoggingIn = false;
-        //this.user.local = {};
+        this.error.login = 'Wrong username or password.'
+        this.loading.login = false
     }
     onLoginSuccess(json){
 		console.log('Logged in: ', json);
         this.user = json;
         this.user.isLoggedIn = true;
         this.user.userAccess = 3;
-        this.user.isLoggingIn = false;
+        this.loading.login = false
     }
     
     // REGISTER ATTEMPT
@@ -554,7 +565,6 @@ class ListStore {
 		this.user.facebook= {};
         this.user.mylist = [];
         this.user.isLoggedIn = false;
-        this.user.isLoggingIn = false;
     }
     
     // CHECK SESSION
@@ -564,7 +574,6 @@ class ListStore {
 		this.user.facebook= {};
         this.user.mylist = [];
         this.user.isLoggedIn = false;
-        this.user.isLoggingIn = false;
     }
     onSessionCheckSuccess(action){
         this.user = action;
@@ -575,7 +584,6 @@ class ListStore {
 			this.user.facebook = {};
 		}
         this.user.isLoggedIn = true;
-        this.user.isLoggingIn = false;
     }
     
     // ADD TO MYLIST
@@ -688,6 +696,11 @@ class ListStore {
             this.listingEdit.events[event.index].date = event.date;
         }
         
+    }
+
+    //Sidebar
+    onToggleSideBar(){
+        this.sidebarOpen = !this.sidebarOpen
     }
 }
 

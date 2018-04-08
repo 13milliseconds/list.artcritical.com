@@ -23,12 +23,8 @@ var listingSchema = mongoose.Schema({
     image: String,
     thumb: String,
 	popularity: Number,
-	created_at: {
-        type: Date
-    },
-    updated_at: {
-        type: Date
-    },
+	created_at: Date,
+    updated_at: Date,
 	updated_by: {
         type: String,
 		ref: 'User'
@@ -37,5 +33,4 @@ var listingSchema = mongoose.Schema({
 });
 
 //compile the model
-
 module.exports = mongoose.model('List', listingSchema);

@@ -14,7 +14,12 @@ export default class AccountPage extends React.Component {
 		let accountRender = this.props.user.isLoggedIn ?
                             <AccountForm {...this.props} />
                             :
-                            <div><p>You need to be registered to access this page.</p><LogInForm loginFunction={AuthActions.attemptLogIn} loading={this.props.isLoggingIn} /></div>
+                            <div>
+                                <p>You need to be registered to access this page.</p>
+                                <LogInForm 
+                                    loading={this.props.loading.login} 
+                                    error={this.props.error} />
+                            </div>
         
         return ( 
             <div className = "account">

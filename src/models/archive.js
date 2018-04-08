@@ -5,6 +5,13 @@ var mongoose = require('mongoose')
 
 //This is where we'll store the past listings
 
+var eventSchema = new Schema({ 
+    name: String,
+    type: String,
+    date: {type: Date},
+    description: String 
+});
+
 var archiveSchema = mongoose.Schema({
     name: String,
     start: Date,
@@ -15,10 +22,9 @@ var archiveSchema = mongoose.Schema({
 		ref: 'Venue'
       },
     event: Boolean,
-    events: [],
     image: String,
-    thumb: String,
-	popularity: Number
+	popularity: Number,
+    events: [eventSchema]
 });
 
 //compile the model
