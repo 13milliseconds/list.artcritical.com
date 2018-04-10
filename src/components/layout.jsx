@@ -61,11 +61,12 @@ export default class Layout extends React.Component {
       const { user } = this.state;
       const name = user.name;
       const mylistNum = user.mylist.length;
+      var currentLocation = this.props.location.pathname.slice(1).replace("/", "-")
       
       const renderLogin = () => <Link to={'/login'} activeClassName="active">Login</Link>;
       const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><button onClick={AuthActions.attemptLogOut}>Log Out</button></div>;
     return (
-      <div className="app-container">
+      <div className={currentLocation + " app-container"}>
         <div className="hamburger" onClick={this.toggleMenu}><FontAwesomeIcon icon={['fal', 'glass-martini']}/></div>
         <header className={"mainHeader" + (this.state.menuActive? ' active' : '')}>
 			<nav>

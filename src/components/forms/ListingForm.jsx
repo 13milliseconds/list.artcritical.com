@@ -43,6 +43,10 @@ export default class ListingForm extends React.Component {
         event.preventDefault();
         let newListing = this.props.listing
 
+        //Make sure that the listing copies the venue's neighborhood
+        console.log(newListing.venue.neighborhood)
+		newListing.neighborhood = newListing.venue.neighborhood
+
         //Check and save only events that have a date
         let allEvents = []
         newListing.events.map(event => {
@@ -59,8 +63,6 @@ export default class ListingForm extends React.Component {
 		} else {	
 			//Create a new Listing
 			delete newListing._id
-			newListing.venue = newListing.venue._id
-			newListing.neighborhood = newListing.venue.neighborhood
             ListActions.saveListing(newListing)
             this.setState({ 
                 createvisible: false

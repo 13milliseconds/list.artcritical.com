@@ -22,7 +22,8 @@ var listingSchema = mongoose.Schema({
     event: Boolean,
     image: String,
     thumb: String,
-	popularity: Number,
+    popularity: Number,
+    neighborhood: Number,
 	created_at: Date,
     updated_at: Date,
 	updated_by: {

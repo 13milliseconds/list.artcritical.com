@@ -24,36 +24,33 @@ export default class CurrentPage extends React.Component {
         let title = ''
         let num = this.props.currentListings.length - 1
         
-        let neighborhood = (name,num) => (<h2 id={num}>{name}</h2>)
-        
         let thelistRender = currentListings => currentListings.map((listing, index) => {
             
             let result = <Listing key={index} listing={listing} user={this.props.user} dateView="current"/>
                 
             newSecondaryNH = listing.venue.neighborhood;
             
+            //If the new neighborhood is different
             if ( newSecondaryNH !== secondaryNH) {
                 
                 //Add the result to the next export and reset the render
-                var contentRender = <div key={index} className="neighborhood">{renderExport}</div>
-                var newExport = [title, contentRender]
+                var contentRender = <div key={index} id={secondaryNH} className="neighborhood">{title}{renderExport}</div>
                 renderExport = []; 
                 
                 // Update neighborhood
                 secondaryNH = newSecondaryNH
                 newSecondaryNH = Display.displayNeighborhood(secondaryNH)
-                title = neighborhood(newSecondaryNH, listing.venue.neighborhood)
+                title = <h2>{newSecondaryNH}</h2>
                 renderExport.push(result)
                 
                 // Export the last neighborhood
-                return newExport
+                return contentRender
             } 
             
             renderExport.push(result)
             if (num == index){
-                var contentRender = <div key={index} className="neighborhood">{renderExport}</div>
-                var newExport = [title, contentRender]
-                return newExport
+                var contentRender = <div key={index} className="neighborhood">{title}{renderExport}</div>
+                return contentRender
             }
             return true;
         });

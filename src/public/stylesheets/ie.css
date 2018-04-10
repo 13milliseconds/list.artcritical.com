@@ -169,40 +169,47 @@ come into play. Have fun!
 /*********************
 GENERAL STYLES
 *********************/
-/* line 22, ../scss/breakpoints/_768up.scss */
+/* line 21, ../scss/breakpoints/_768up.scss */
+.app-container {
+  padding: 50px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* line 27, ../scss/breakpoints/_768up.scss */
 h2 {
   font-size: 2em;
 }
 
-/* line 26, ../scss/breakpoints/_768up.scss */
+/* line 31, ../scss/breakpoints/_768up.scss */
 #banner {
   width: auto;
   padding: 20px;
 }
-/* line 29, ../scss/breakpoints/_768up.scss */
+/* line 34, ../scss/breakpoints/_768up.scss */
 #banner a {
   position: relative;
   display: inline-block;
   margin-right: 10px;
 }
-/* line 33, ../scss/breakpoints/_768up.scss */
+/* line 38, ../scss/breakpoints/_768up.scss */
 #banner a:nth-of-type(1) {
   left: auto;
 }
-/* line 36, ../scss/breakpoints/_768up.scss */
+/* line 41, ../scss/breakpoints/_768up.scss */
 #banner a:nth-of-type(4) {
   left: auto;
 }
-/* line 39, ../scss/breakpoints/_768up.scss */
+/* line 44, ../scss/breakpoints/_768up.scss */
 #banner a:nth-of-type(2) {
   right: auto;
 }
-/* line 42, ../scss/breakpoints/_768up.scss */
+/* line 47, ../scss/breakpoints/_768up.scss */
 #banner a:nth-of-type(3) {
   right: auto;
 }
 
-/* line 48, ../scss/breakpoints/_768up.scss */
+/* line 53, ../scss/breakpoints/_768up.scss */
 #topMenu {
   left: 50px;
   padding: 0 20px 10px;
@@ -211,7 +218,7 @@ h2 {
   border-bottom: 0;
 }
 
-/* line 56, ../scss/breakpoints/_768up.scss */
+/* line 61, ../scss/breakpoints/_768up.scss */
 header.mainHeader {
   position: fixed;
   left: 0;
@@ -222,7 +229,7 @@ header.mainHeader {
   text-align: center;
   background: white;
 }
-/* line 65, ../scss/breakpoints/_768up.scss */
+/* line 70, ../scss/breakpoints/_768up.scss */
 header.mainHeader h1 {
   color: #323944;
   min-width: 500px;
@@ -230,7 +237,7 @@ header.mainHeader h1 {
   margin: 30px auto;
   max-width: 600px;
 }
-/* line 73, ../scss/breakpoints/_768up.scss */
+/* line 78, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav a {
   display: inline-block;
   font-size: 1em;
@@ -241,27 +248,27 @@ header.mainHeader nav a {
   color: black;
   text-decoration: none;
 }
-/* line 82, ../scss/breakpoints/_768up.scss */
+/* line 87, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav a:hover {
   background-color: #019476;
   color: #fff;
 }
-/* line 86, ../scss/breakpoints/_768up.scss */
+/* line 91, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav a.active {
   background-color: #019476;
   color: #fff;
 }
-/* line 92, ../scss/breakpoints/_768up.scss */
+/* line 97, ../scss/breakpoints/_768up.scss */
 header.mainHeader div {
   display: inline-block;
 }
-/* line 95, ../scss/breakpoints/_768up.scss */
+/* line 100, ../scss/breakpoints/_768up.scss */
 header.mainHeader .accountOptions {
   width: 90px;
   position: relative;
   margin-right: 10px;
 }
-/* line 99, ../scss/breakpoints/_768up.scss */
+/* line 104, ../scss/breakpoints/_768up.scss */
 header.mainHeader .accountOptions a {
   padding: 5px 0px;
   margin-right: 0;
@@ -269,25 +276,25 @@ header.mainHeader .accountOptions a {
   position: absolute;
   width: 90px;
 }
-/* line 105, ../scss/breakpoints/_768up.scss */
+/* line 110, ../scss/breakpoints/_768up.scss */
 header.mainHeader .accountOptions a:first-child {
   display: block;
   position: relative;
 }
-/* line 109, ../scss/breakpoints/_768up.scss */
+/* line 114, ../scss/breakpoints/_768up.scss */
 header.mainHeader .accountOptions a:nth-child(2) {
   top: 100%;
 }
-/* line 112, ../scss/breakpoints/_768up.scss */
+/* line 117, ../scss/breakpoints/_768up.scss */
 header.mainHeader .accountOptions a:nth-child(3) {
   top: 200%;
 }
-/* line 117, ../scss/breakpoints/_768up.scss */
+/* line 122, ../scss/breakpoints/_768up.scss */
 header.mainHeader .accountOptions:hover a {
   display: block;
 }
 
-/* line 123, ../scss/breakpoints/_768up.scss */
+/* line 128, ../scss/breakpoints/_768up.scss */
 #header {
   width: 200px;
   position: fixed;
@@ -296,26 +303,26 @@ header.mainHeader .accountOptions:hover a {
   z-index: 99;
 }
 
-/* line 130, ../scss/breakpoints/_768up.scss */
+/* line 135, ../scss/breakpoints/_768up.scss */
 .menu {
   position: relative;
 }
 
-/* line 134, ../scss/breakpoints/_768up.scss */
+/* line 139, ../scss/breakpoints/_768up.scss */
 #sortPanel {
   width: 200px;
   top: 100px;
 }
-/* line 137, ../scss/breakpoints/_768up.scss */
+/* line 142, ../scss/breakpoints/_768up.scss */
 #sortPanel .wrap {
   width: auto;
 }
-/* line 139, ../scss/breakpoints/_768up.scss */
+/* line 144, ../scss/breakpoints/_768up.scss */
 #sortPanel .wrap a {
   display: table;
 }
 
-/* line 145, ../scss/breakpoints/_768up.scss */
+/* line 150, ../scss/breakpoints/_768up.scss */
 #banner, #introPanel.active, #loginPanel, #sharePanel, #sortPanel {
   overflow: auto;
   position: relative;
@@ -327,24 +334,24 @@ header.mainHeader .accountOptions:hover a {
   transform: translateY(0);
 }
 
-/* line 152, ../scss/breakpoints/_768up.scss */
+/* line 157, ../scss/breakpoints/_768up.scss */
 #introPanel {
   padding: 20px;
 }
 
-/* line 156, ../scss/breakpoints/_768up.scss */
+/* line 161, ../scss/breakpoints/_768up.scss */
 #aboutPanel {
   display: none;
 }
 
-/* line 160, ../scss/breakpoints/_768up.scss */
+/* line 165, ../scss/breakpoints/_768up.scss */
 #thelist {
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 50px 50px 0;
+  padding: 0;
 }
 
-/* line 169, ../scss/breakpoints/_768up.scss */
+/* line 174, ../scss/breakpoints/_768up.scss */
 .edit-page .container {
   display: block;
 }
@@ -354,7 +361,7 @@ header.mainHeader .accountOptions:hover a {
   content: "";
   display: block;
 }
-/* line 171, ../scss/breakpoints/_768up.scss */
+/* line 176, ../scss/breakpoints/_768up.scss */
 .edit-page .container .header {
   float: left;
   display: block;
@@ -369,7 +376,7 @@ header.mainHeader .accountOptions:hover a {
 .edit-page .container .header:last-child {
   margin-right: 0;
 }
-/* line 179, ../scss/breakpoints/_768up.scss */
+/* line 184, ../scss/breakpoints/_768up.scss */
 .edit-page .container .content {
   margin-left: 25.5894130058%;
   float: left;
@@ -382,12 +389,12 @@ header.mainHeader .accountOptions:hover a {
   margin-right: 0;
 }
 
-/* line 191, ../scss/breakpoints/_768up.scss */
+/* line 196, ../scss/breakpoints/_768up.scss */
 .listing p {
   font-size: 16px;
 }
 
-/* line 198, ../scss/breakpoints/_768up.scss */
+/* line 203, ../scss/breakpoints/_768up.scss */
 .glance ul.tabs__labels {
   padding: 0;
   float: left;
@@ -399,7 +406,7 @@ header.mainHeader .accountOptions:hover a {
 .glance ul.tabs__labels:last-child {
   margin-right: 0;
 }
-/* line 203, ../scss/breakpoints/_768up.scss */
+/* line 208, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content .day {
   display: block;
   float: left;
@@ -411,7 +418,7 @@ header.mainHeader .accountOptions:hover a {
 .glance div.tabs__content .day:last-child {
   margin-right: 0;
 }
-/* line 206, ../scss/breakpoints/_768up.scss */
+/* line 211, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content .day .listingsWrap {
   float: left;
   display: block;
@@ -422,7 +429,7 @@ header.mainHeader .accountOptions:hover a {
 .glance div.tabs__content .day .listingsWrap:last-child {
   margin-right: 0;
 }
-/* line 209, ../scss/breakpoints/_768up.scss */
+/* line 214, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content .day .featuredSection {
   float: left;
   display: block;
@@ -434,7 +441,7 @@ header.mainHeader .accountOptions:hover a {
   margin-right: 0;
 }
 
-/* line 216, ../scss/breakpoints/_768up.scss */
+/* line 221, ../scss/breakpoints/_768up.scss */
 .feature-wrap .image {
   float: left;
   display: block;
@@ -445,7 +452,7 @@ header.mainHeader .accountOptions:hover a {
 .feature-wrap .image:last-child {
   margin-right: 0;
 }
-/* line 219, ../scss/breakpoints/_768up.scss */
+/* line 224, ../scss/breakpoints/_768up.scss */
 .feature-wrap .info {
   float: left;
   display: block;
@@ -457,30 +464,60 @@ header.mainHeader .accountOptions:hover a {
   margin-right: 0;
 }
 
-/* line 227, ../scss/breakpoints/_768up.scss */
-.mainList .left-col, .mainList .right-col {
+/* line 232, ../scss/breakpoints/_768up.scss */
+.mainList .left-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 14.7019566472%;
+  position: fixed;
+  float: none;
+  padding-right: 4%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .left-col:last-child {
+  margin-right: 0;
+}
+/* line 238, ../scss/breakpoints/_768up.scss */
+.mainList .right-col {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
   width: 14.7019566472%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
-.mainList .left-col:last-child, .mainList .right-col:last-child {
+.mainList .right-col:last-child {
   margin-right: 0;
 }
-/* line 230, ../scss/breakpoints/_768up.scss */
+/* line 241, ../scss/breakpoints/_768up.scss */
 .mainList .main-col {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
   width: 65.8807826589%;
+  margin-left: 17.0596086706%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .mainList .main-col:last-child {
   margin-right: 0;
 }
 
-/* line 238, ../scss/breakpoints/_768up.scss */
+/* line 248, ../scss/breakpoints/_768up.scss */
+.map.app-container, .mylist.app-container {
+  min-height: 100%;
+  padding: 0;
+  max-width: none;
+  position: absolute;
+  width: 100%;
+}
+/* line 254, ../scss/breakpoints/_768up.scss */
+.map.app-container .app-content, .mylist.app-container .app-content {
+  min-height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+/* line 262, ../scss/breakpoints/_768up.scss */
 .currentMap .mapWrap .label {
   display: block;
   position: absolute;
@@ -490,7 +527,7 @@ header.mainHeader .accountOptions:hover a {
   margin-left: 5px;
   padding: 5px;
 }
-/* line 248, ../scss/breakpoints/_768up.scss */
+/* line 272, ../scss/breakpoints/_768up.scss */
 .currentMap .list {
   top: 0;
   bottom: auto;
@@ -499,27 +536,55 @@ header.mainHeader .accountOptions:hover a {
   padding: 100px 20px 20px;
 }
 
-/* line 259, ../scss/breakpoints/_768up.scss */
+/* line 282, ../scss/breakpoints/_768up.scss */
+.mylist.app-container {
+  padding: 0;
+  max-width: none;
+}
+
+/* line 287, ../scss/breakpoints/_768up.scss */
 .myList .mapWrap {
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 48.8211739883%;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.myList .mapWrap:last-child {
-  margin-right: 0;
+/* line 294, ../scss/breakpoints/_768up.scss */
+.myList .listInfo {
+  margin-bottom: 20px;
+  position: fixed;
+  z-index: 2;
+  background-color: white;
+  max-width: 500px;
+  top: 0;
+  padding: 100px 20px;
+  max-height: 100%;
+  overflow: auto;
 }
-/* line 262, ../scss/breakpoints/_768up.scss */
-.myList .listingsWrap {
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 48.8211739883%;
+/* line 305, ../scss/breakpoints/_768up.scss */
+.myList .popupList {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.myList .listingsWrap:last-child {
-  margin-right: 0;
+/* line 313, ../scss/breakpoints/_768up.scss */
+.myList .popupList div {
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  padding: 50px;
+  border-radius: 10px;
 }
 
 /******************************************************************

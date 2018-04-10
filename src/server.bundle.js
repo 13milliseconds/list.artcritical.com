@@ -1087,8 +1087,8 @@ var Listing = function (_React$Component) {
                 null,
                 listing.venue.address1,
                 ' ',
-                listing.venue.address1,
-                listing.venue.address1 !== '' && listing.venue.city !== '' && ', ',
+                listing.venue.address2,
+                listing.venue.address2 !== '' && listing.venue.city !== '' && ', ',
                 listing.venue.city
             );
 
@@ -1156,16 +1156,6 @@ var Listing = function (_React$Component) {
                                 return _this3.addToList(e, listing);
                             }, style: style },
                         this.props.user._id && _react2.default.createElement(_reactFontawesome2.default, { icon: mylistingIcon })
-                    ),
-                    eventsPresence && _react2.default.createElement(
-                        'span',
-                        { className: 'events' },
-                        _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'glass-martini'] })
-                    ),
-                    listing.popularity >= 5 && _react2.default.createElement(
-                        'span',
-                        { className: 'popular' },
-                        _react2.default.createElement(_reactFontawesome2.default, { icon: ['fas', 'star'] })
                     )
                 ),
                 _react2.default.createElement(
@@ -1177,7 +1167,11 @@ var Listing = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            listing.name,
+                            _react2.default.createElement(
+                                'span',
+                                { className: 'title' },
+                                listing.name
+                            ),
                             listing.venue._id !== '' && ' at ',
                             _react2.default.createElement(
                                 'a',
@@ -1186,6 +1180,20 @@ var Listing = function (_React$Component) {
                             )
                         ),
                         dateDisplay,
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'icons' },
+                            eventsPresence && _react2.default.createElement(
+                                'span',
+                                { className: 'events' },
+                                _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'glass-martini'] })
+                            ),
+                            listing.popularity >= 5 && _react2.default.createElement(
+                                'span',
+                                { className: 'popular' },
+                                _react2.default.createElement(_reactFontawesome2.default, { icon: ['fas', 'star'] })
+                            )
+                        ),
                         _react2.default.createElement(
                             'div',
                             { className: 'listingActions' },
@@ -3631,6 +3639,10 @@ var ListingForm = function (_React$Component) {
             event.preventDefault();
             var newListing = this.props.listing;
 
+            //Make sure that the listing copies the venue's neighborhood
+            console.log(newListing.venue.neighborhood);
+            newListing.neighborhood = newListing.venue.neighborhood;
+
             //Check and save only events that have a date
             var allEvents = [];
             newListing.events.map(function (event) {
@@ -3649,8 +3661,6 @@ var ListingForm = function (_React$Component) {
             } else {
                 //Create a new Listing
                 delete newListing._id;
-                newListing.venue = newListing.venue._id;
-                newListing.neighborhood = newListing.venue.neighborhood;
                 _ListActions2.default.saveListing(newListing);
                 this.setState({
                     createvisible: false
@@ -7866,6 +7876,7 @@ var listingSchema = mongoose.Schema({
     image: String,
     thumb: String,
     popularity: Number,
+    neighborhood: Number,
     created_at: Date,
     updated_at: Date,
     updated_by: {
@@ -8310,6 +8321,7 @@ var Layout = function (_React$Component) {
 
             var name = user.name;
             var mylistNum = user.mylist.length;
+            var currentLocation = this.props.location.pathname.slice(1).replace("/", "-");
 
             var renderLogin = function renderLogin() {
                 return _react2.default.createElement(
@@ -8336,7 +8348,7 @@ var Layout = function (_React$Component) {
             };
             return _react2.default.createElement(
                 'div',
-                { className: 'app-container' },
+                { className: currentLocation + " app-container" },
                 _react2.default.createElement(
                     'div',
                     { className: 'hamburger', onClick: this.toggleMenu },
@@ -9055,14 +9067,6 @@ var CurrentPage = function (_React$Component) {
             var title = '';
             var num = this.props.currentListings.length - 1;
 
-            var neighborhood = function neighborhood(name, num) {
-                return _react2.default.createElement(
-                    'h2',
-                    { id: num },
-                    name
-                );
-            };
-
             var thelistRender = function thelistRender(currentListings) {
                 return currentListings.map(function (listing, index) {
 
@@ -9070,25 +9074,30 @@ var CurrentPage = function (_React$Component) {
 
                     newSecondaryNH = listing.venue.neighborhood;
 
+                    //If the new neighborhood is different
                     if (newSecondaryNH !== secondaryNH) {
 
                         //Add the result to the next export and reset the render
                         var contentRender = _react2.default.createElement(
                             'div',
-                            { key: index, className: 'neighborhood' },
+                            { key: index, id: secondaryNH, className: 'neighborhood' },
+                            title,
                             renderExport
                         );
-                        var newExport = [title, contentRender];
                         renderExport = [];
 
                         // Update neighborhood
                         secondaryNH = newSecondaryNH;
                         newSecondaryNH = _displayActions2.default.displayNeighborhood(secondaryNH);
-                        title = neighborhood(newSecondaryNH, listing.venue.neighborhood);
+                        title = _react2.default.createElement(
+                            'h2',
+                            null,
+                            newSecondaryNH
+                        );
                         renderExport.push(result);
 
                         // Export the last neighborhood
-                        return newExport;
+                        return contentRender;
                     }
 
                     renderExport.push(result);
@@ -9096,10 +9105,10 @@ var CurrentPage = function (_React$Component) {
                         var contentRender = _react2.default.createElement(
                             'div',
                             { key: index, className: 'neighborhood' },
+                            title,
                             renderExport
                         );
-                        var newExport = [title, contentRender];
-                        return newExport;
+                        return contentRender;
                     }
                     return true;
                 });
@@ -11260,7 +11269,7 @@ var FacebookButton = function (_React$Component) {
         value: function openFBAuth() {
             var url = '/auth/facebook';
             var name = '_blank';
-            var specs = 'width=800,height=400';
+            var specs = 'width=600,height=400';
             window.open(url, name, specs);
         }
     }, {
@@ -11349,11 +11358,6 @@ var MyListPage = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'myListwrap' },
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    'My List'
-                ),
                 myListRender
             );
         }
@@ -11413,6 +11417,8 @@ var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
 var _reactReorder = __webpack_require__(43);
 
+var _reactstrap = __webpack_require__(5);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11447,7 +11453,7 @@ var MyList = function (_React$Component) {
                 bearing: 0,
                 pitch: 0,
                 width: 0,
-                height: 500
+                height: 0
             }
         };
 
@@ -11487,7 +11493,8 @@ var MyList = function (_React$Component) {
         key: '_updateDimensions',
         value: function _updateDimensions() {
             var viewport = _extends({}, this.state.viewport, {
-                width: document.getElementsByClassName("mapWrap")[0].offsetWidth
+                width: document.getElementsByClassName("mapWrap")[0].offsetWidth,
+                height: document.getElementsByClassName("mapWrap")[0].offsetHeight
             });
             this.setState({
                 viewport: viewport
@@ -11582,11 +11589,45 @@ var MyList = function (_React$Component) {
                     'div',
                     { className: 'listInfo cf' },
                     _react2.default.createElement(
+                        'h2',
+                        null,
+                        'My List'
+                    ),
+                    _react2.default.createElement(
                         'a',
                         { target: '_blank', href: window.location.href + '/' + this.props.user.slug },
                         'Public page'
                     ),
-                    _react2.default.createElement(_facebookShare2.default, { url: this.state.publicUrl })
+                    _react2.default.createElement(_facebookShare2.default, { url: this.state.publicUrl }),
+                    this.props.user.mylist && this.props.user.mylist.length > 0 ? _react2.default.createElement(_myListings2.default, {
+                        user: this.props.user,
+                        view: this.props.view,
+                        onHover: this._onHover,
+                        onLeave: this._onLeave,
+                        onReorder: this.onReorder,
+                        listingHover: this.state.listingHover }) : _react2.default.createElement(
+                        'div',
+                        { className: 'popupList' },
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            _react2.default.createElement(
+                                'h2',
+                                null,
+                                'You don\'t have any show in your list yet!'
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'Add some listings to your list to enjoy this page.'
+                            ),
+                            _react2.default.createElement(
+                                _reactstrap.Button,
+                                { href: '/current' },
+                                'Explore all shows'
+                            )
+                        )
+                    )
                 ),
                 _react2.default.createElement(_myMap2.default, {
                     markers: this.state.markers,
@@ -11595,15 +11636,7 @@ var MyList = function (_React$Component) {
                     listingHover: this.state.listingHover,
                     onHover: this._onHover,
                     onLeave: this._onLeave
-                }),
-                this.props.user.mylist ? _react2.default.createElement(_myListings2.default, {
-                    user: this.props.user,
-                    view: this.props.view,
-                    onHover: this._onHover,
-                    onLeave: this._onLeave,
-                    onReorder: this.onReorder,
-                    listingHover: this.state.listingHover
-                }) : null
+                })
             );
         }
     }]);
@@ -12202,7 +12235,7 @@ var AuthSuccess = function (_Component) {
   _createClass(AuthSuccess, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var url = '/private';
+      var url = '/mylist';
       window.opener.open(url, '_self');
       window.opener.focus();
       window.close();

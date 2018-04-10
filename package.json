@@ -99,6 +99,7 @@
         "react-validation": "^2.10.9",
         "reactstrap": "^4.8.0",
         "serve-favicon": "^2.4.5",
+        "smooth-scroll": "^12.1.5",
         "style-loader": "^0.18.2",
         "superagent": "^3.8.2",
         "toastr": "^2.1.4",

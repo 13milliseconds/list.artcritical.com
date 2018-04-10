@@ -22,7 +22,6 @@ export default class MyListPage extends React.Component {
                             </div>
         return ( 
                 <div className="myListwrap">
-                    <h2>My List</h2>
                     {myListRender}
                 </div>
         );

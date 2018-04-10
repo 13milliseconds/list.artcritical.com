@@ -9,6 +9,7 @@ import MyListings from './myListings';
 import MyMap from './myMap';
 import FacebookShare from '../blocks/facebookShare';
 import {reorder} from 'react-reorder';
+import { Button} from 'reactstrap';
 
 var d3 = require('d3-ease');
 
@@ -27,7 +28,7 @@ export default class MyList extends React.Component {
                 bearing: 0,
                 pitch: 0,
                 width: 0,
-                height: 500,
+                height: 0,
             }
         }
         
@@ -63,7 +64,8 @@ export default class MyList extends React.Component {
     _updateDimensions(){
         const viewport = {
 			...this.state.viewport,
-            width: document.getElementsByClassName("mapWrap")[0].offsetWidth
+            width: document.getElementsByClassName("mapWrap")[0].offsetWidth,
+            height: document.getElementsByClassName("mapWrap")[0].offsetHeight
         }
         this.setState({
             viewport
@@ -152,8 +154,26 @@ export default class MyList extends React.Component {
         return ( 
                 <div className="myList">
 				<div className="listInfo cf">
+                    <h2>My List</h2>
 					<a target="_blank" href={window.location.href + '/' + this.props.user.slug}>Public page</a>
 					<FacebookShare url={this.state.publicUrl} />
+                    {this.props.user.mylist && 
+                                this.props.user.mylist.length > 0 
+                                        ?<MyListings 
+                                           user={this.props.user}
+                                            view={this.props.view}
+                                           onHover={this._onHover}
+                                           onLeave={this._onLeave}
+                                           onReorder={this.onReorder}
+                                            listingHover={this.state.listingHover}/> 
+                                        :   <div className="popupList">
+                                                <div>
+                                                    <h2>You don't have any show in your list yet!</h2>
+                                                    <p>Add some listings to your list to enjoy this page.</p>
+                                                    <Button href="/current">Explore all shows</Button>
+                                                </div>
+                                            </div>  
+                    }
 				</div>
                     <MyMap 
                         markers={this.state.markers} 
@@ -163,14 +183,6 @@ export default class MyList extends React.Component {
                         onHover={this._onHover}
                         onLeave={this._onLeave}
                         />
-                    {this.props.user.mylist? <MyListings 
-                                           user={this.props.user}
-                                            view={this.props.view}
-                                           onHover={this._onHover}
-                                           onLeave={this._onLeave}
-                                           onReorder={this.onReorder}
-                                            listingHover={this.state.listingHover}
-                                           /> : null }
                 </div>
         );
     }

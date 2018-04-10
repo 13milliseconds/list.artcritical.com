@@ -64,7 +64,7 @@ export default class Listing extends React.Component {
         
     //Display date according to type of listing and view
     var dateDisplay
-    let address = <span>{listing.venue.address1} {listing.venue.address1}{(listing.venue.address1 !== '' && listing.venue.city !== '') && ', ' }{listing.venue.city}</span>
+    let address = <span>{listing.venue.address1} {listing.venue.address2}{(listing.venue.address2 !== '' && listing.venue.city !== '') && ', ' }{listing.venue.city}</span>
         
     if (listing.event == true) {
         dateDisplay = <p>{listing.start && <Date date={listing.start} /> } - {address}</p>
@@ -102,20 +102,20 @@ export default class Listing extends React.Component {
                         }
                     </div>
                 }
-                {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}
-                {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
             </div>
             <div className = "listingContent">
                 <div className="header">
-                    <p>{listing.name}{listing.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a></p>
+                    <p><span className="title">{listing.name}</span>{listing.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a></p>
                     {dateDisplay}
+                    <div className="icons">
+                        {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}
+                        {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
+                    </div>
                     <div className="listingActions">
                         {this.props.mylisting && //If you are seeing this on your myList page
-                        <a onClick={(e) => this.addToList(e, listing)} className="delete">Remove</a>
-                        }
+                        <a onClick={(e) => this.addToList(e, listing)} className="delete">Remove</a> }
                         {this.props.user.userAccess > 0 && //If you are seeing this as an editor
-                        <a onClick={(e) => this._editListing(listing)} className="edit">Edit</a>
-                        }
+                        <a onClick={(e) => this._editListing(listing)} className="edit">Edit</a> }
                     </div>
                 </div>
                 {this.state.fullInfo &&
