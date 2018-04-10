@@ -8393,7 +8393,7 @@ var Layout = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     _reactOffcanvas.OffCanvas,
-                    { width: 500, transitionDuration: 300, isMenuOpened: this.state.sidebarOpen, position: "right" },
+                    { width: 500, transitionDuration: 300, isMenuOpened: this.state.sidebarOpen, position: "right", className: "fullCanvas" },
                     _react2.default.createElement(
                         _reactOffcanvas.OffCanvasBody,
                         { className: "app-content" },

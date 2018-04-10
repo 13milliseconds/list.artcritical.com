@@ -82,7 +82,7 @@ export default class Layout extends React.Component {
 			</nav>
 			<SizeSelector view={this.state.view} />
         </header>
-        <OffCanvas width={500} transitionDuration={300} isMenuOpened={this.state.sidebarOpen} position={"right"}>
+        <OffCanvas width={500} transitionDuration={300} isMenuOpened={this.state.sidebarOpen} position={"right"} className={"fullCanvas"}>
             <OffCanvasBody className={"app-content"}>
                 { //Give the current state as props to the children elements
                 React.cloneElement(this.props.children, this.state)}
