@@ -7405,9 +7405,9 @@ app.use(function (req, res, next) {
 });
 
 var index = __webpack_require__(67);
-var venues = __webpack_require__(138);
-var listings = __webpack_require__(139);
-var auth = __webpack_require__(140);
+var venues = __webpack_require__(139);
+var listings = __webpack_require__(140);
+var auth = __webpack_require__(141);
 
 app.use('/venues', venues);
 app.use('/list', listings);
@@ -7438,7 +7438,7 @@ module.exports = app;
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
 /**
@@ -7973,13 +7973,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(9);
 var router = express.Router();
-var JSX = __webpack_require__(136).install();
+var JSX = __webpack_require__(137).install();
 var passport = __webpack_require__(20);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var history = __webpack_require__(137);
+var history = __webpack_require__(138);
 var historyObj = history.createMemoryHistory();
 
 // Check if user is connected
@@ -8081,39 +8081,43 @@ var _myListPublicPage = __webpack_require__(113);
 
 var _myListPublicPage2 = _interopRequireDefault(_myListPublicPage);
 
-var _AdminPage = __webpack_require__(116);
+var _AuthSuccess = __webpack_require__(116);
+
+var _AuthSuccess2 = _interopRequireDefault(_AuthSuccess);
+
+var _AdminPage = __webpack_require__(117);
 
 var _AdminPage2 = _interopRequireDefault(_AdminPage);
 
-var _NewListing = __webpack_require__(118);
+var _NewListing = __webpack_require__(119);
 
 var _NewListing2 = _interopRequireDefault(_NewListing);
 
-var _EditListing = __webpack_require__(119);
+var _EditListing = __webpack_require__(120);
 
 var _EditListing2 = _interopRequireDefault(_EditListing);
 
-var _EditVenue = __webpack_require__(120);
+var _EditVenue = __webpack_require__(121);
 
 var _EditVenue2 = _interopRequireDefault(_EditVenue);
 
-var _featuredPage = __webpack_require__(123);
+var _featuredPage = __webpack_require__(124);
 
 var _featuredPage2 = _interopRequireDefault(_featuredPage);
 
-var _VenuesPage = __webpack_require__(126);
+var _VenuesPage = __webpack_require__(127);
 
 var _VenuesPage2 = _interopRequireDefault(_VenuesPage);
 
-var _UsersPage = __webpack_require__(128);
+var _UsersPage = __webpack_require__(129);
 
 var _UsersPage2 = _interopRequireDefault(_UsersPage);
 
-var _ReviewPage = __webpack_require__(132);
+var _ReviewPage = __webpack_require__(133);
 
 var _ReviewPage2 = _interopRequireDefault(_ReviewPage);
 
-var _Account = __webpack_require__(133);
+var _Account = __webpack_require__(134);
 
 var _Account2 = _interopRequireDefault(_Account);
 
@@ -8124,8 +8128,6 @@ var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //Admin Components
-
-//Signin Components
 var routes = _react2.default.createElement(
       _reactRouter.Route,
       { path: '/', component: _layout2.default, history: _reactRouter.browserHistory },
@@ -8154,9 +8156,12 @@ var routes = _react2.default.createElement(
             _react2.default.createElement(_reactRouter.Route, { path: 'users', component: _UsersPage2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'review', component: _ReviewPage2.default })
       ),
+      _react2.default.createElement(_reactRouter.Route, { path: 'auth/facebook/success', component: _AuthSuccess2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '*', component: _ErrorPage2.default })
 );
 // Error Components
+
+//Signin Components
 exports.default = routes;
 
 /***/ }),
@@ -11251,14 +11256,22 @@ var FacebookButton = function (_React$Component) {
     }
 
     _createClass(FacebookButton, [{
-        key: "render",
+        key: 'openFBAuth',
+        value: function openFBAuth() {
+            var url = '/auth/facebook';
+            var name = '_blank';
+            var specs = 'width=800,height=400';
+            window.open(url, name, specs);
+        }
+    }, {
+        key: 'render',
         value: function render() {
 
             return _react2.default.createElement(
-                "a",
-                { className: "facebookbutton", href: "/auth/facebook" },
-                _react2.default.createElement("i", { className: "fa fa-facebook", "aria-hidden": "true" }),
-                "Login with Facebook"
+                'a',
+                { className: 'facebookbutton', onClick: this.openFBAuth },
+                _react2.default.createElement('i', { className: 'fa fa-facebook', 'aria-hidden': 'true' }),
+                'Login with Facebook'
             );
         }
     }]);
@@ -12160,6 +12173,64 @@ exports.default = UserListings;
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AuthSuccess = function (_Component) {
+  _inherits(AuthSuccess, _Component);
+
+  function AuthSuccess() {
+    _classCallCheck(this, AuthSuccess);
+
+    return _possibleConstructorReturn(this, (AuthSuccess.__proto__ || Object.getPrototypeOf(AuthSuccess)).apply(this, arguments));
+  }
+
+  _createClass(AuthSuccess, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var url = '/private';
+      window.opener.open(url, '_self');
+      window.opener.focus();
+      window.close();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'AUTH SUCCESS!'
+      );
+    }
+  }]);
+
+  return AuthSuccess;
+}(_react.Component);
+
+exports.default = AuthSuccess;
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -12175,7 +12246,7 @@ var _LogInForm = __webpack_require__(15);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
-var _UserPage = __webpack_require__(117);
+var _UserPage = __webpack_require__(118);
 
 var _UserPage2 = _interopRequireDefault(_UserPage);
 
@@ -12316,7 +12387,7 @@ var AdminPage = function (_React$Component) {
 exports.default = AdminPage;
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12366,7 +12437,7 @@ var UserPage = function (_React$Component) {
 exports.default = UserPage;
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12480,7 +12551,7 @@ var NewListing = function (_React$Component) {
 exports.default = NewListing;
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12625,7 +12696,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12659,7 +12730,7 @@ var _formSelect = __webpack_require__(19);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _VenueForm = __webpack_require__(121);
+var _VenueForm = __webpack_require__(122);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
 
@@ -12823,7 +12894,7 @@ var VenueEdit = function (_React$Component) {
 exports.default = VenueEdit;
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12863,7 +12934,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //COMPONENTS
 
 
-var MapboxClient = __webpack_require__(122);
+var MapboxClient = __webpack_require__(123);
 var client = new MapboxClient(process.env.MapboxAccessToken);
 
 var VenueForm = function (_React$Component) {
@@ -13123,13 +13194,13 @@ var VenueForm = function (_React$Component) {
 exports.default = VenueForm;
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports) {
 
 module.exports = require("mapbox");
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13153,7 +13224,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactIntl = __webpack_require__(13);
 
-var _featuredDay = __webpack_require__(124);
+var _featuredDay = __webpack_require__(125);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
@@ -13237,7 +13308,7 @@ var FeaturePage = function (_React$Component) {
 exports.default = FeaturePage;
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13267,7 +13338,7 @@ var _formSelect = __webpack_require__(19);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _featuredForm = __webpack_require__(125);
+var _featuredForm = __webpack_require__(126);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
@@ -13380,7 +13451,7 @@ var FeaturedDay = function (_React$Component) {
 exports.default = FeaturedDay;
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13479,7 +13550,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13505,7 +13576,7 @@ var _displayActions = __webpack_require__(8);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _VenueItem = __webpack_require__(127);
+var _VenueItem = __webpack_require__(128);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
@@ -13644,7 +13715,7 @@ var VenuesPage = function (_React$Component) {
 exports.default = VenuesPage;
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13782,7 +13853,7 @@ var VenueItem = function (_React$Component) {
 exports.default = VenueItem;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13806,11 +13877,11 @@ var _loading = __webpack_require__(28);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _UserCard = __webpack_require__(129);
+var _UserCard = __webpack_require__(130);
 
 var _UserCard2 = _interopRequireDefault(_UserCard);
 
-var _UserFullInfo = __webpack_require__(131);
+var _UserFullInfo = __webpack_require__(132);
 
 var _UserFullInfo2 = _interopRequireDefault(_UserFullInfo);
 
@@ -13879,7 +13950,7 @@ var UsersPage = function (_React$Component) {
 exports.default = UsersPage;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13911,7 +13982,7 @@ var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _UserEdit = __webpack_require__(130);
+var _UserEdit = __webpack_require__(131);
 
 var _UserEdit2 = _interopRequireDefault(_UserEdit);
 
@@ -14036,7 +14107,7 @@ var UserCard = function (_React$Component) {
 exports.default = UserCard;
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14160,7 +14231,7 @@ var UserEdit = function (_React$Component) {
 exports.default = UserEdit;
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14273,7 +14344,7 @@ var UserFullInfo = function (_React$Component) {
 exports.default = UserFullInfo;
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14374,7 +14445,7 @@ var ReviewPage = function (_React$Component) {
 exports.default = ReviewPage;
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14394,7 +14465,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _AccountForm = __webpack_require__(134);
+var _AccountForm = __webpack_require__(135);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
@@ -14459,7 +14530,7 @@ var AccountPage = function (_React$Component) {
 exports.default = AccountPage;
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14479,7 +14550,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _avatar = __webpack_require__(135);
+var _avatar = __webpack_require__(136);
 
 var _avatar2 = _interopRequireDefault(_avatar);
 
@@ -14636,7 +14707,7 @@ var AccountForm = function (_React$Component) {
 exports.default = AccountForm;
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14748,19 +14819,19 @@ var Avatar = function (_React$Component) {
 exports.default = Avatar;
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-jsx");
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14971,7 +15042,7 @@ router.get('/:venue_id', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15272,7 +15343,7 @@ router.post('/delete/:listing_id', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15350,11 +15421,9 @@ router.post('/login', async function (req, res) {
 // FACEBOOK LOGIN
 //###################################
 
-router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook', passport.authenticate('facebook', { display: 'popup' }));
 
 router.get('/facebook/callback', function (req, res) {
-
-    console.log("In route: ", req.body);
 
     passport.authenticate('facebook', { failureRedirect: '/login' }, function (err, user, info) {
         if (err) {
@@ -15374,7 +15443,8 @@ router.get('/facebook/callback', function (req, res) {
                 return err;
             }
             req.session.user = user;
-            res.redirect('/');
+            res.redirect('/auth/facebook/success');
+            //res.redirect('/');
         });
     })(req, res);
 });

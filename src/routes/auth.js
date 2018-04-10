@@ -76,12 +76,10 @@ router.post('/login', async(req, res) => {
 // FACEBOOK LOGIN
 //###################################
 
-router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook', passport.authenticate('facebook', { display: 'popup' }));
 
 
 router.get('/facebook/callback', function(req, res){
-    
-    console.log("In route: ", req.body);
            
     passport.authenticate('facebook', {failureRedirect: '/login'}, 
                           
@@ -103,7 +101,8 @@ router.get('/facebook/callback', function(req, res){
                 return err;
             }
             req.session.user = user;
-            res.redirect('/');
+            res.redirect('/auth/facebook/success');
+            //res.redirect('/');
         });
     })(req, res)
 });

@@ -12,6 +12,7 @@ import SignUpPage from './components/login/SignUpPage';
 import LogInPage from './components/login/LogInPage';
 import MyListPage from './components/myListPage';
 import MyListPublicPage from './components/myListPublicPage';
+import AuthSuccess from './components/login/AuthSuccess';
 //Admin Components
 import AdminPage from './components/admin/AdminPage';
 import NewListing from './components/admin/NewListing';
@@ -48,6 +49,7 @@ const routes = (
 			<Route path="users" component={UsersPage}/>
             <Route path="review" component={ReviewPage}/>
         </Route>
+        <Route path="auth/facebook/success" component={AuthSuccess} />
         <Route path="*" component={ErrorPage}/>
       </Route>
 );
