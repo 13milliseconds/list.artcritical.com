@@ -78,6 +78,7 @@ router.post('/login', async(req, res) => {
 
 router.get('/facebook', passport.authenticate('facebook'));
 
+
 router.get('/facebook/callback', function(req, res){
     
     console.log("In route: ", req.body);
