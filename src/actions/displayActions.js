@@ -47,6 +47,24 @@ module.exports = {
             return "";
         }
     },
+    displayCityNum: function ($num) {
+        const allCities = [10, 20, 30, 60, 170, 220, 270, 300, 310, 320, 330]
+        let winner
+        for (let itt of allCities){
+            let diff = $num - itt
+            console.log("diff: ", diff)
+            if (diff > 0) {
+                winner = itt
+                console.log("winner = ", itt)
+            } else if (diff == 0){
+                console.log("Return ", itt)
+                return itt
+            } else {
+                console.log("Return ", winner)
+                return winner
+            }
+        }
+    },
     displayNeighborhood: function ($numero) { 
         
         if ($numero < "20" && $numero >= "10") {
