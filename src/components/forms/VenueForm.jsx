@@ -1,6 +1,7 @@
 import React from 'react';
 import ListActions from '../../actions/ListActions';
 //COMPONENTS
+import ConfirmModal from './confirmModal'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import Date from '../blocks/DateBlock.jsx';
 import NeighborhoodSelect from './NeighborhoodSelect'
@@ -14,16 +15,59 @@ export default class VenueForm extends React.Component {
     constructor(props) {
         super(props)
 		this.state = {
-			fullAdress: null
+			fullAdress: null,
+            event: this.props.event,
+            updatevisible: false,
+            deletevisible: false,
+            createvisible: false,
+            wasChanged: false 
 		}
 
         this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.onConfirm = this.onConfirm.bind(this)
+        this.onDeleteConfirm = this.onDeleteConfirm.bind(this)
       }
     
     handleChange (event) {
         //Update values of inputs
-        ListActions.venueInfoChange(event.target)
+        ListActions.venueInfoChange(event.target);
+        this.setState({
+            wasChanged:true
+        })
     }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        let venue = this.props
+
+        //Make sure that the listing copies the venue's neighborhood
+
+        if (this.props._id){
+            //Edit the current listing
+            ListActions.updateVenue(venue)
+            this.setState({ 
+                updatevisible: false
+            })
+        } 
+      }
+
+
+    onConfirm(event) {
+        event.preventDefault();
+        this.setState({ 
+            updatevisible: true
+        })
+    }
+
+    onDeleteConfirm(event) {
+        event.preventDefault();
+        this.setState({ 
+            deletevisible: true
+        });
+    }
+
+
 		
 	componentWillMount(){
 		//Define the full address
@@ -57,6 +101,9 @@ export default class VenueForm extends React.Component {
 	}
     
     render() {
+
+         let deleteButton = this.props._id &&
+                <Button className="delete" color="danger" onClick={this.onDeleteConfirm}>Delete</Button>
 		
 		let coordinates = this.props.coordinates || {}
         
@@ -139,28 +186,37 @@ export default class VenueForm extends React.Component {
 					   		<p> Updated on <Date date = {this.props.updated_at}/> by {this.props.updated_by.name}.</p>
 				   		: ''
 				   	}
-
+  
                     <FormGroup>
-                        <Button onClick={this.props.handleSubmit}>{this.props._id ? 'Update' : 'Create'}</Button>
-                            {this.props.loading && 
-                                <div className='loading'>loading</div>
-                            }
-                            {this.props.success.updatevenue && 
-                                <div className='success'>Saved!</div>
-                            }
-							{this.props.success.deleted && 
-                                <div className='deleted'>Deleted!</div>
-                            }
-                            {this.props.error.general && 
-                                <div className='error'>{this.props.error.general}</div>
-                            }
-                            { (this.props.handleDelete && this.props._id) ?
-                                <Button className="delete" onClick={this.props.handleDelete}>Delete</Button>
-                            :
-                                null
-                            }
-                    </FormGroup>     
+                            {this.props._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
+                            {deleteButton}
+                    </FormGroup>
+                    {this.state.updatevisible && <ConfirmModal 
+                                                        modalVisible={this.state.updatevisible}
+                                                        handleSubmit={this.handleSubmit}
+                                                        textTitle="Update"
+                                                        textAction="save this Listing"
+                                                        textConfirm="Saved!"
+                                                        error={this.props.error.general}
+                                                        success={this.props.success.updatelisting}/>}
+                       {this.state.createvisible && <ConfirmModal 
+                                                        modalVisible={this.state.createvisible}
+                                                        handleSubmit={this.handleSubmit}
+                                                        textTitle="Create"
+                                                        textAction="create this Listing"
+                                                        textConfirm="Created!"
+                                                        error={this.props.error.general}
+                                                        success={this.props.success.savelisting}/>}
+                        {this.state.deletevisible && <ConfirmModal 
+                                                        modalVisible={this.state.deletevisible}
+                                                        handleSubmit={this.handleDelete}
+                                                        textTitle="Delete"
+                                                        textAction="delete this Listing"
+                                                        textConfirm="Deleted!"
+                                                        error={this.props.error.general}
+                                                        success={this.props.success.deletelisting}/>} 
                 </Form>      
+
             </div>
         );
     }
