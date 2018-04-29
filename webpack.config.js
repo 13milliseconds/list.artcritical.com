@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const Uglify = require("uglifyjs-webpack-plugin");
 
 
 module.exports = {
@@ -22,7 +23,7 @@ module.exports = {
                 exclude: /node_modules/,
                 query: {
                     cacheDirectory: 'babel_cache',
-                    presets: ['react', 'es2015']
+                    presets: ['es2015', 'react']
                 }
     },
             {
@@ -43,7 +44,11 @@ module.exports = {
                 'MapboxAccessToken': JSON.stringify(process.env.MapboxAccessToken),
             }
         }),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    //new webpack.optimize.DedupePlugin(), //dedupe similar code 
+    //new webpack.optimize.UglifyJsPlugin(), //minify everything
+    new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks
+    new Uglify()
   ],
     devtool: '#source-map'
 };
