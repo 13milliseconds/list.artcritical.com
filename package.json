@@ -7,8 +7,9 @@
     "private": true,
     "scripts": {
         "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-        "start:dev": "npm run build && node src/server.bundle.js",
-        "start:prod": "npm run build && node src/server.bundle.js",
+        "postinstall": "npm run build",
+        "start:dev": "node src/server.bundle.js",
+        "start:prod": "node src/server.bundle.js",
         "build:client": "webpack --config webpack.config.js",
         "build:server": "webpack --config webpack.server.config.js",
         "build": "npm run build:server && npm run build:client"
