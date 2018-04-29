@@ -503,7 +503,7 @@ header.mainHeader .accountOptions:hover a {
 }
 
 /* line 248, ../scss/breakpoints/_768up.scss */
-.map.app-container, .mylist.app-container {
+.map.app-container, .mylist.connected.app-container {
   min-height: 100%;
   padding: 0;
   max-width: none;
@@ -511,7 +511,7 @@ header.mainHeader .accountOptions:hover a {
   width: 100%;
 }
 /* line 254, ../scss/breakpoints/_768up.scss */
-.map.app-container .app-content, .mylist.app-container .app-content {
+.map.app-container .app-content, .mylist.connected.app-container .app-content {
   min-height: 100%;
   position: absolute;
   width: 100%;

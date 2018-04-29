@@ -1366,15 +1366,11 @@ module.exports = {
                 var itt = _step.value;
 
                 var diff = $num - itt;
-                console.log("diff: ", diff);
                 if (diff > 0) {
                     winner = itt;
-                    console.log("winner = ", itt);
                 } else if (diff == 0) {
-                    console.log("Return ", itt);
                     return itt;
                 } else {
-                    console.log("Return ", winner);
                     return winner;
                 }
             }
@@ -6685,23 +6681,53 @@ var ListingsPerNeighbor = function (_React$Component) {
                             );
                             neighborExport = [];
 
+                            if (num == index) {
+
+                                contentRender = _react2.default.createElement(
+                                    'div',
+                                    { className: 'neighborhood' },
+                                    title,
+                                    renderExport
+                                );
+
+                                //Add last neighborhood to the current City
+                                neighborExport = _react2.default.createElement(
+                                    'div',
+                                    { key: index + 1, id: cityID, className: 'city' },
+                                    contentRender
+                                );
+
+                                cityRender = [cityRender];
+                                cityRender.push(neighborExport);
+
+                                return cityRender;
+                            }
+
                             // Export the last city
                             return cityRender;
                         }
-                    }
+                    } else {
+                        renderExport.push(result);
 
-                    renderExport.push(result);
-                    if (num == index) {
+                        if (num == index) {
 
-                        //Add last neighborhood to the current City
-                        neighborExport.push(contentRender);
+                            var contentRender = _react2.default.createElement(
+                                'div',
+                                { className: 'neighborhood' },
+                                title,
+                                renderExport
+                            );
 
-                        var cityRender = neighborExport.length > 0 && _react2.default.createElement(
-                            'div',
-                            { key: index, id: cityID, className: 'city' },
-                            neighborExport
-                        );
-                        return cityRender;
+                            //Add last neighborhood to the current City
+                            neighborExport.push(contentRender);
+
+                            var cityRender = neighborExport.length > 0 && _react2.default.createElement(
+                                'div',
+                                { key: index, id: cityID, className: 'city' },
+                                neighborExport
+                            );
+                            return cityRender;
+                        }
                     }
                     return true;
                 });
@@ -8509,6 +8535,7 @@ var Layout = function (_React$Component) {
 
             var name = user.name;
             var mylistNum = user.mylist.length;
+            var connectedClass = user.isLoggedIn && ' connected';
             var currentLocation = this.props.location.pathname.slice(1).replace("/", "-");
 
             var renderLogin = function renderLogin() {
@@ -8536,7 +8563,7 @@ var Layout = function (_React$Component) {
             };
             return _react2.default.createElement(
                 'div',
-                { className: currentLocation + " app-container" },
+                { className: currentLocation + connectedClass + " app-container" },
                 _react2.default.createElement(
                     'div',
                     { className: 'hamburger', onClick: this.toggleMenu },

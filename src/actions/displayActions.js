@@ -52,15 +52,11 @@ module.exports = {
         let winner
         for (let itt of allCities){
             let diff = $num - itt
-            console.log("diff: ", diff)
             if (diff > 0) {
                 winner = itt
-                console.log("winner = ", itt)
             } else if (diff == 0){
-                console.log("Return ", itt)
                 return itt
             } else {
-                console.log("Return ", winner)
                 return winner
             }
         }
