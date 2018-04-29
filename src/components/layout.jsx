@@ -17,8 +17,9 @@ import faTimes from '@fortawesome/fontawesome-pro-light/faTimes'
 import faPlus from '@fortawesome/fontawesome-pro-regular/faPlus'
 import faMinus from '@fortawesome/fontawesome-pro-regular/faMinus'
 import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
+import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
  
-fontawesome.library.add(faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes)
+fontawesome.library.add(faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook)
 
 //Sidebar
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'
@@ -68,7 +69,6 @@ export default class Layout extends React.Component {
       const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><button onClick={AuthActions.attemptLogOut}>Log Out</button></div>;
     return (
       <div className={currentLocation + connectedClass + " app-container"}>
-        <div className="hamburger" onClick={this.toggleMenu}><FontAwesomeIcon icon={['fal', 'glass-martini']}/></div>
         <header className={"mainHeader" + (this.state.menuActive? ' active' : '')}>
 			<nav>
             <IndexLink to={'/'} activeClassName="active">Week at a Glance</IndexLink>

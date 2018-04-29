@@ -89,13 +89,19 @@ body button{
 
 a.facebookbutton{
     background: #3b5998;
+    border-radius: 5px;
     display: inline-block;
-    padding: 10px;
-    color: white;
+    padding: 10px 20px;
+    color: white!important;
     text-decoration: none;
     letter-spacing: .03em;
     margin: 20px 0;
-    i{
+    cursor: pointer;
+    @include transition(.5s);
+    &:hover{
+        background-color: #2f457a;
+    }
+    svg{
         margin-right: 10px;
     }
 }

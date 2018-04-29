@@ -1,4 +1,5 @@
 import React from 'react';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 export default class FacebookButton extends React.Component {
 
@@ -13,7 +14,7 @@ export default class FacebookButton extends React.Component {
         
         return ( 
                 <a className="facebookbutton" onClick={this.openFBAuth}>
-                    <i className="fa fa-facebook" aria-hidden="true"></i>
+                    <FontAwesomeIcon icon={['fab', 'facebook']}/>
                     Login with Facebook
                 </a>
         );
