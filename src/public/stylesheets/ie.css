@@ -389,82 +389,7 @@ header.mainHeader .accountOptions:hover a {
   margin-right: 0;
 }
 
-/* line 196, ../scss/breakpoints/_768up.scss */
-.listing p {
-  font-size: 16px;
-}
-
-/* line 203, ../scss/breakpoints/_768up.scss */
-.glance ul.tabs__labels {
-  padding: 0;
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 14.7019566472%;
-}
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.glance ul.tabs__labels:last-child {
-  margin-right: 0;
-}
-/* line 208, ../scss/breakpoints/_768up.scss */
-.glance div.tabs__content .day {
-  display: block;
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 82.9403913294%;
-}
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.glance div.tabs__content .day:last-child {
-  margin-right: 0;
-}
-/* line 211, ../scss/breakpoints/_768up.scss */
-.glance div.tabs__content .day .listingsWrap {
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 65.8807826589%;
-}
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.glance div.tabs__content .day .listingsWrap:last-child {
-  margin-right: 0;
-}
-/* line 214, ../scss/breakpoints/_768up.scss */
-.glance div.tabs__content .day .featuredSection {
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 31.7615653177%;
-}
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.glance div.tabs__content .day .featuredSection:last-child {
-  margin-right: 0;
-}
-
-/* line 221, ../scss/breakpoints/_768up.scss */
-.feature-wrap .image {
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 100%;
-}
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.feature-wrap .image:last-child {
-  margin-right: 0;
-}
-/* line 224, ../scss/breakpoints/_768up.scss */
-.feature-wrap .info {
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 100%;
-}
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.feature-wrap .info:last-child {
-  margin-right: 0;
-}
-
-/* line 232, ../scss/breakpoints/_768up.scss */
+/* line 195, ../scss/breakpoints/_768up.scss */
 .mainList .left-col {
   float: left;
   display: block;
@@ -478,18 +403,22 @@ header.mainHeader .accountOptions:hover a {
 .mainList .left-col:last-child {
   margin-right: 0;
 }
-/* line 238, ../scss/breakpoints/_768up.scss */
+/* line 201, ../scss/breakpoints/_768up.scss */
 .mainList .right-col {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
   width: 14.7019566472%;
+  position: fixed;
+  float: none;
+  padding-right: 4%;
+  right: 0;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .mainList .right-col:last-child {
   margin-right: 0;
 }
-/* line 241, ../scss/breakpoints/_768up.scss */
+/* line 208, ../scss/breakpoints/_768up.scss */
 .mainList .main-col {
   float: left;
   display: block;
@@ -502,7 +431,117 @@ header.mainHeader .accountOptions:hover a {
   margin-right: 0;
 }
 
-/* line 248, ../scss/breakpoints/_768up.scss */
+/* line 217, ../scss/breakpoints/_768up.scss */
+.listing p {
+  font-size: 16px;
+}
+
+/* line 225, ../scss/breakpoints/_768up.scss */
+.events .left-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+  position: fixed;
+  float: none;
+  padding-right: 4%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.events .left-col:last-child {
+  margin-right: 0;
+}
+/* line 230, ../scss/breakpoints/_768up.scss */
+.events .left-col .DayPicker {
+  -webkit-transform: translateX(-20px);
+  -moz-transform: translateX(-20px);
+  -ms-transform: translateX(-20px);
+  -o-transform: translateX(-20px);
+  transform: translateX(-20px);
+}
+/* line 234, ../scss/breakpoints/_768up.scss */
+.events .main-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 57.3509783236%;
+  margin-left: 25.5894130058%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.events .main-col:last-child {
+  margin-right: 0;
+}
+
+/* line 242, ../scss/breakpoints/_768up.scss */
+.glance ul.tabs__labels {
+  padding: 0;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 14.7019566472%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.glance ul.tabs__labels:last-child {
+  margin-right: 0;
+}
+/* line 247, ../scss/breakpoints/_768up.scss */
+.glance div.tabs__content .day {
+  display: block;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 82.9403913294%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.glance div.tabs__content .day:last-child {
+  margin-right: 0;
+}
+/* line 250, ../scss/breakpoints/_768up.scss */
+.glance div.tabs__content .day .listingsWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.glance div.tabs__content .day .listingsWrap:last-child {
+  margin-right: 0;
+}
+/* line 253, ../scss/breakpoints/_768up.scss */
+.glance div.tabs__content .day .featuredSection {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.glance div.tabs__content .day .featuredSection:last-child {
+  margin-right: 0;
+}
+
+/* line 260, ../scss/breakpoints/_768up.scss */
+.feature-wrap .image {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.feature-wrap .image:last-child {
+  margin-right: 0;
+}
+/* line 263, ../scss/breakpoints/_768up.scss */
+.feature-wrap .info {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.feature-wrap .info:last-child {
+  margin-right: 0;
+}
+
+/* line 270, ../scss/breakpoints/_768up.scss */
 .map.app-container, .mylist.connected.app-container {
   min-height: 100%;
   padding: 0;
@@ -510,14 +549,14 @@ header.mainHeader .accountOptions:hover a {
   position: absolute;
   width: 100%;
 }
-/* line 254, ../scss/breakpoints/_768up.scss */
+/* line 276, ../scss/breakpoints/_768up.scss */
 .map.app-container .app-content, .mylist.connected.app-container .app-content {
   min-height: 100%;
   position: absolute;
   width: 100%;
 }
 
-/* line 262, ../scss/breakpoints/_768up.scss */
+/* line 284, ../scss/breakpoints/_768up.scss */
 .currentMap .mapWrap .label {
   display: block;
   position: absolute;
@@ -527,7 +566,7 @@ header.mainHeader .accountOptions:hover a {
   margin-left: 5px;
   padding: 5px;
 }
-/* line 272, ../scss/breakpoints/_768up.scss */
+/* line 294, ../scss/breakpoints/_768up.scss */
 .currentMap .list {
   top: 0;
   bottom: auto;
@@ -536,13 +575,13 @@ header.mainHeader .accountOptions:hover a {
   padding: 100px 20px 20px;
 }
 
-/* line 282, ../scss/breakpoints/_768up.scss */
+/* line 304, ../scss/breakpoints/_768up.scss */
 .mylist.app-container {
   padding: 0;
   max-width: none;
 }
 
-/* line 287, ../scss/breakpoints/_768up.scss */
+/* line 309, ../scss/breakpoints/_768up.scss */
 .myList .mapWrap {
   width: 100%;
   height: 100%;
@@ -550,7 +589,7 @@ header.mainHeader .accountOptions:hover a {
   top: 0;
   left: 0;
 }
-/* line 294, ../scss/breakpoints/_768up.scss */
+/* line 316, ../scss/breakpoints/_768up.scss */
 .myList .listInfo {
   margin-bottom: 20px;
   position: fixed;
@@ -562,7 +601,7 @@ header.mainHeader .accountOptions:hover a {
   max-height: 100%;
   overflow: auto;
 }
-/* line 305, ../scss/breakpoints/_768up.scss */
+/* line 327, ../scss/breakpoints/_768up.scss */
 .myList .popupList {
   position: fixed;
   z-index: 99;
@@ -572,7 +611,7 @@ header.mainHeader .accountOptions:hover a {
   left: 0;
   background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 313, ../scss/breakpoints/_768up.scss */
+/* line 335, ../scss/breakpoints/_768up.scss */
 .myList .popupList div {
   background: #fff;
   position: absolute;

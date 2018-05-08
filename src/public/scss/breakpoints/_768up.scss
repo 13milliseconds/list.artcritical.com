@@ -190,12 +190,51 @@ header.mainHeader{
     }   
 }
 
+// CURRENT PAGE
+.mainList{
+    .left-col{
+        @include span-columns(2);
+        position: fixed;
+        float: none;
+        padding-right: 4%;
+    }
+    .right-col{
+        @include span-columns(2);
+        position: fixed;
+        float: none;
+        padding-right: 4%;
+        right: 0;
+	}
+	.main-col{
+        @include span-columns(8);
+        @include shift(2);
+	}
+}
+
 // LISTINGS
 
 .listing{
     p{
         font-size: 16px;
     }
+}
+
+// EVENTS
+
+.events{
+    .left-col{
+        @include span-columns(3);
+        position: fixed;
+        float: none;
+        padding-right: 4%;
+        .DayPicker{
+            @include transform(translateX(-20px));
+        }
+    }
+	.main-col{
+        @include span-columns(7);
+        @include shift(3);
+	}
 }
 
 //GLANCE
@@ -226,23 +265,6 @@ header.mainHeader{
     } 
 }
 
-
-// CURRENT PAGE
-.mainList{
-    .left-col{
-        @include span-columns(2);
-        position: fixed;
-        float: none;
-        padding-right: 4%;
-    }
-    .right-col{
-        @include span-columns(2);
-	}
-	.main-col{
-        @include span-columns(8);
-        @include shift(2);
-	}
-}
 
 //CURRENT MAP
 .map.app-container, .mylist.connected.app-container{

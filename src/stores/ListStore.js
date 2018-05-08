@@ -106,7 +106,6 @@ class ListStore {
     onGetFutureSuccess(data) {
         this.loading.future = false;
         this.futureListings = this.futureListings.concat(data);
-        console.log(data)
     }
     onGetAllSuccess(data) {
         this.allListings = data;

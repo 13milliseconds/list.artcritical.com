@@ -14,7 +14,9 @@ export default class CurrentPage extends React.Component {
 
     componentDidMount() {
         //If the current listings are not loaded, load em
-		this.props.currentListings.length === 0 && ListActions.getCurrent()
+        this.props.currentListings.length === 0 && ListActions.getCurrent()
+        //This goes through all listing and matches them with venues if the venue name exists (only when importing from old artcritical)
+        //ListActions.getAll()
     }
 
     render() {
@@ -26,7 +28,6 @@ export default class CurrentPage extends React.Component {
 					<p>See all future listings: <Link to={'/future'} activeClassName="active">Future</Link></p>
 				</div>
                 <div className={this.props.view + " listingsWrap main-col"}>
-					<p>There are currently {this.props.currentListings.length} art shows open.</p>
                     <ListingsPerNeighbor listings={this.props.currentListings} user={this.props.user}/>
                     {this.props.loading.current && <Loading />}
                 </div>

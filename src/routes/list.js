@@ -12,10 +12,24 @@ router.get('/alllistings', function (req, res) {
     var Venue = req.venue;
 
     List.find().
-    sort('neighborhood').
-    limit(50).
-    populate('venue').
     exec(function (e, docs) {
+        docs.map(function(listing){
+            Venue
+            .findOne({name: listing.venue})
+            .exec(function (e, venue) {
+                if (venue){
+                    console.log('Found!');
+                    listing.venue = venue._id;
+                    List.update({
+                        _id: listing._id
+                    }, {
+                        $set: listing
+                    }, function (err, newlisting) {
+                        console.log(err);
+                    });
+                }
+            });
+        });
         res.json(docs);
     });
 });
@@ -253,7 +267,7 @@ router.post('/update', function (req, res) {
     // define a new entry
     var thelisting = new List(req.body);
 
-    // Save when and who created it
+    // Save when and who updated it
 	var now = new Date();
 	thelisting.updated_at = now;
 	thelisting.updated_by = req.user._id;

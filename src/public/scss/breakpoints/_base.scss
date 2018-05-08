@@ -153,8 +153,12 @@ Main PAGES
 
 .listingsWrap{
     @include span-columns(9);
-    .neighborhood{
-        @include row();
+    .city{
+        margin-top: -20px;
+        padding-top: 50px;
+        .neighborhood{
+            @include row();
+        }
     }
     h2{
         font-size: 1.2em;
@@ -164,6 +168,11 @@ Main PAGES
         border-bottom: 1px solid green;
         padding-bottom: 5px;
         display: inline-block;
+    }
+    &> div:first-of-type{
+        h2{
+            padding-top: 0;
+        }
     }
 }
 

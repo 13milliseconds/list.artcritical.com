@@ -21,7 +21,7 @@ export default class DayPicker extends React.Component {
     isDayHighlighted(day, eventDays){
         var highlight = false
         eventDays.map(event => {
-            if (moment(event.start).isSame(day)){
+            if (moment(event.start).isSame(day, 'day')){
                 highlight = true
             }
         })
@@ -30,10 +30,10 @@ export default class DayPicker extends React.Component {
     }
 
     onDateChange(date){
-        console.log('startDate ', date)
         this.setState({
             datePicked: date,
         })
+        this.props.scrollToDate(date)
     }
         
     render() {

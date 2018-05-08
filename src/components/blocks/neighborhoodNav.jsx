@@ -12,7 +12,8 @@ export default class HoodNav extends React.Component {
             <li><a href="#170">Midtown & Uptown & Harlem</a></li>
             <li><a href="#220">Brooklyn</a></li>
             <li><a href="#270">Queens & Bronx & Staten Island</a></li>
-            <li><a href="#300">Upstate New York</a></li>
+            <li><a href="#300">Long Island</a></li>
+            <li><a href="#310">Upstate New York</a></li>
             <li><a href="#320">New Jersey</a></li>
 			<li><a href="#330">Philadelphia</a></li>
 		</ul>

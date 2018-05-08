@@ -65,7 +65,7 @@ export default class ListingsPerNeighbor extends React.Component {
                         //If this is the last listing, we need to include it in the export
         
                         //Add last neighborhood to the current City
-                        neighborExport = <div key={index+1} id={cityID} className="city"><div className="neighborhood">{title}{renderExport}</div></div>
+                        neighborExport = <div key={index} id={cityID} className="city"><div className="neighborhood">{title}{renderExport}</div></div>
         
                         cityRender = [cityRender] //Make cityRender a table so we can add a second <div>
                         cityRender.push(neighborExport)
@@ -90,7 +90,7 @@ export default class ListingsPerNeighbor extends React.Component {
                     return cityRender
                 }
             }
-            return true;
+
         });
 
         return ( 

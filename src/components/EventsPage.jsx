@@ -2,20 +2,31 @@ import React from 'react';
 import {Link} from 'react-router';
 import ListStore from '../stores/ListStore';
 import ListActions from '../actions/ListActions';
+import moment from 'moment';
 //COMPONENTS
 import Listing from './listing.jsx';
 import Date from './blocks/DateBlock.jsx';
 import SizeSelector from './blocks/sizeSelector';
 import DayPicker from './forms/DayPicker';
 
+var scrollToComponent = ''
+
 
 export default class EventsPage extends React.Component {
     constructor(props) {
         super(props);
+
+        this.scrollToDate = this.scrollToDate.bind(this)
     }
 
     componentDidMount() {
         ListActions.getEvents();
+        scrollToComponent = require('react-scroll-to-component')
+    }
+
+    scrollToDate(date) {
+        let formattedDate = moment(date).format('YYYY MM DD')
+        scrollToComponent(this.refs[formattedDate])
     }
 
     render() {
@@ -26,7 +37,7 @@ export default class EventsPage extends React.Component {
                 oldDate = newDate
                 return (
                     <div key={listing._id}>
-                        <h2><Date date={newDate} /></h2>
+                        <h2><Date date={newDate} ref={moment(newDate).format('YYYY MM DD')} /></h2>
                         <Listing listing={listing} user={this.props.user}/>
                     </div>
                 )
@@ -40,7 +51,7 @@ export default class EventsPage extends React.Component {
         return ( 
             <div className="events mainList">
             <div className="left-col">
-				<DayPicker events={this.props.eventsListings} />
+				{this.props.eventsListings && <DayPicker events={this.props.eventsListings} scrollToDate={this.scrollToDate} />}
 			</div>
             <div className={this.props.view + " listingsWrap main-col"}>
                 {this.props.eventsListings.length ? thelist : "No Future Events"}

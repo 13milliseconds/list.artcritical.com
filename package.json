@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {
         "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-        "heroku-postbuild": "npm run build:prod", 
+        "heroku-postbuild": "npm run build:prod",
         "start:dev": "npm run build:dev && node src/server.bundle.js",
         "start:prod": "node src/server.bundle.js",
         "build:dev": "npm run build:server && webpack --config webpack.dev.config.js",
@@ -96,6 +96,7 @@
         "react-reorder": "^3.0.0-alpha.6",
         "react-router": "^2.8.1",
         "react-router-dom": "^4.2.2",
+        "react-scroll-to-component": "^1.0.2",
         "react-select": "^1.2.1",
         "react-toggle-button": "^2.2.0",
         "react-validation": "^2.10.9",
