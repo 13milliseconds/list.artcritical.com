@@ -7,12 +7,12 @@
     "private": true,
     "scripts": {
         "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-        "postinstall": "npm run build",
-        "start:dev": "node src/server.bundle.js",
+        "heroku-postbuild": "npm run build:prod", 
+        "start:dev": "npm run build:dev && node src/server.bundle.js",
         "start:prod": "node src/server.bundle.js",
-        "build:client": "webpack --config webpack.config.js",
-        "build:server": "webpack --config webpack.server.config.js",
-        "build": "npm run build:server && npm run build:client"
+        "build:dev": "npm run build:server && webpack --config webpack.dev.config.js",
+        "build:prod": "npm run build:server && webpack --config webpack.prod.config.js",
+        "build:server": "webpack --config webpack.server.config.js"
     },
     "dependencies": {
         "@fortawesome/fontawesome": "^1.1.5",
