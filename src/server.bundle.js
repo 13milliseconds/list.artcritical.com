@@ -2137,14 +2137,10 @@ var ListStore = function () {
         }
     }, {
         key: 'onGetVenueFullInfoFailure',
-        value: function onGetVenueFullInfoFailure(jqXhr) {
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
+        value: function onGetVenueFullInfoFailure(jqXhr) {}
     }, {
         key: 'onGetVenueInfoFailure',
-        value: function onGetVenueInfoFailure(jqXhr) {
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
+        value: function onGetVenueInfoFailure(jqXhr) {}
         //Add a venue
 
     }, {
@@ -2155,13 +2151,17 @@ var ListStore = function () {
     }, {
         key: 'onSaveVenueSuccess',
         value: function onSaveVenueSuccess(data) {
+            console.log('Venue saved');
             this.loading.updatevenue = false;
             this.success.updatevenue = true;
+            this.venueEdit = {
+                coordinates: {}
+            };
         }
     }, {
         key: 'onSaveVenueFailure',
         value: function onSaveVenueFailure(err) {
-            console.log('Error: ', err);
+            console.log('Problem saving venue', err);
             this.loading.updatevenue = false;
             this.error.updatevenue.general = 'Error while saving changes';
         }
@@ -2183,12 +2183,18 @@ var ListStore = function () {
     }, {
         key: 'onUpdateVenueSuccess',
         value: function onUpdateVenueSuccess(data) {
+            console.log('Venue updated');
             this.loading.updatevenue = false;
             this.success.updatevenue = true;
+            this.venueEdit = {
+                coordinates: {}
+            };
+            console.log(venueEdit);
         }
     }, {
         key: 'onUpdateVenueFailure',
         value: function onUpdateVenueFailure(error) {
+            console.log('Problem updating venue', error);
             this.loading.updatevenue = false;
             this.error.updatevenue.general = error;
         }
@@ -13189,7 +13195,6 @@ var VenueForm = function (_React$Component) {
     }, {
         key: 'calculateCoords',
         value: function calculateCoords(fullAdress) {
-            console.log(fullAdress);
             client.geocodeForward(fullAdress, function (err, data, res) {
                 if (data.features[0]) {
                     var newCoords = data.features[0].center;

@@ -237,21 +237,25 @@ class ListStore {
         }
     }
     onGetVenueFullInfoFailure(jqXhr){
-        toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        
     }
     onGetVenueInfoFailure(jqXhr){
-        toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        
     }
 	//Add a venue
     onSaveVenueAttempt(){
         this.loading.updatevenue = true;       
     }
     onSaveVenueSuccess(data){
+        console.log('Venue saved')
         this.loading.updatevenue = false; 
         this.success.updatevenue = true;
+        this.venueEdit = {
+			coordinates: {}
+		};
     }
     onSaveVenueFailure(err){
-        console.log('Error: ', err);
+        console.log('Problem saving venue', err)
         this.loading.updatevenue = false; 
         this.error.updatevenue.general = 'Error while saving changes'; 
     }
@@ -266,10 +270,16 @@ class ListStore {
         this.loading.updatevenue = true;
     }
     onUpdateVenueSuccess(data){
+        console.log('Venue updated')
         this.loading.updatevenue = false;
         this.success.updatevenue = true;
+        this.venueEdit = {
+			coordinates: {}
+        };
+        console.log(venueEdit);
     }
     onUpdateVenueFailure(error){
+        console.log('Problem updating venue', error)
         this.loading.updatevenue = false;
         this.error.updatevenue.general = error;
     }
