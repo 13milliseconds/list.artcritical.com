@@ -81,17 +81,11 @@ export default class DeckGLOverlay extends Component {
     });
 
     data.forEach(p => {
-      let coordinates = []
-      if (p.venue.coordinates) {
-        coordinates = [p.venue.coordinates.lat, p.venue.coordinates.long]
-      } else {
-        coordinates = [0,0]
-      }
-        
-        const screenCoords = transform.project(coordinates)
-        p.x = screenCoords[0];
-        p.y = screenCoords[1];
-        p.zoomLevels = [];
+	    const coordinates = [p.venue.coordinates.lat, p.venue.coordinates.long]
+      const screenCoords = transform.project(coordinates)
+      p.x = screenCoords[0];
+      p.y = screenCoords[1];
+      p.zoomLevels = [];
     });
 
     tree.clear();

@@ -2126,6 +2126,9 @@ var ListStore = function () {
         key: 'onGetVenueInfoSuccess',
         value: function onGetVenueInfoSuccess(data) {
             this.listingEdit.venue = data;
+            if (!data.coordinates) {
+                data.coordinates = {};
+            }
             this.venueEdit = data;
             //Create a slug automatically if there is none
             if (!data.slug) {
@@ -10108,13 +10111,7 @@ var DeckGLOverlay = function (_Component) {
       });
 
       data.forEach(function (p) {
-        var coordinates = [];
-        if (p.venue.coordinates) {
-          coordinates = [p.venue.coordinates.lat, p.venue.coordinates.long];
-        } else {
-          coordinates = [0, 0];
-        }
-
+        var coordinates = [p.venue.coordinates.lat, p.venue.coordinates.long];
         var screenCoords = transform.project(coordinates);
         p.x = screenCoords[0];
         p.y = screenCoords[1];
@@ -13173,14 +13170,14 @@ var VenueForm = function (_React$Component) {
         key: 'componentWillMount',
         value: function componentWillMount() {
             //Define the full address
-            this.props.address ? this.setState({
-                fullAdress: this.props.address + ' ' + this.props.city + ', ' + this.props.state + ' ' + this.props.zipcode
+            this.props.address1 ? this.setState({
+                fullAdress: this.props.address1 + (this.props.address2 ? ' ' + this.props.address2 : '') + (this.props.city ? ' ' + this.props.city : '') + (this.props.state ? ', ' + this.props.state : '') + (this.props.zipcode ? ' ' + this.props.zipcode : '')
             }) : null;
         }
     }, {
         key: 'componentWillUpdate',
         value: function componentWillUpdate(nextProps, nextState) {
-            var nextFullAdress = nextProps.address ? nextProps.address + ' ' + nextProps.city + ', ' + nextProps.state + ' ' + nextProps.zipcode : null;
+            var nextFullAdress = nextProps.address1 ? nextProps.address1 + (nextProps.address2 ? ' ' + nextProps.address2 : '') + (nextProps.city ? ' ' + nextProps.city : '') + (nextProps.state ? ', ' + nextProps.state : '') + (nextProps.zipcode ? ' ' + nextProps.zipcode : '') : null;
             if (nextFullAdress !== this.state.fullAdress && nextFullAdress !== null) {
 
                 this.setState({
@@ -13192,6 +13189,7 @@ var VenueForm = function (_React$Component) {
     }, {
         key: 'calculateCoords',
         value: function calculateCoords(fullAdress) {
+            console.log(fullAdress);
             client.geocodeForward(fullAdress, function (err, data, res) {
                 if (data.features[0]) {
                     var newCoords = data.features[0].center;
@@ -13211,7 +13209,7 @@ var VenueForm = function (_React$Component) {
 
             var coordinates = this.props.coordinates || {};
 
-            if (this.state.fullAdress && !coordinates) {
+            if (this.state.fullAdress && !coordinates.lat) {
                 this.calculateCoords(this.state.fullAdress);
             }
 
@@ -13260,7 +13258,8 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'address', placeholder: 'Address', type: 'text', value: this.props.address, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { name: 'address1', placeholder: 'Line 1', type: 'text', value: this.props.address1, onChange: this.handleChange }),
+                            _react2.default.createElement(_reactstrap.Input, { name: 'address2', placeholder: 'Line 2', type: 'text', value: this.props.address2, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(

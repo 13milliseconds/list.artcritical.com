@@ -226,8 +226,11 @@ class ListStore {
     }
     // Get venue info
     onGetVenueInfoSuccess(data){
-		this.listingEdit.venue = data;
-		this.venueEdit = data;
+        this.listingEdit.venue = data;
+        if (!data.coordinates){
+            data.coordinates = {}
+        }
+        this.venueEdit = data;
 		//Create a slug automatically if there is none
 		if(!data.slug){
             this.venueEdit.slug = data.name.replace(/\s+/g, '-').toLowerCase();

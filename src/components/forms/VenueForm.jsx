@@ -70,17 +70,25 @@ export default class VenueForm extends React.Component {
 
 		
 	componentWillMount(){
-		//Define the full address
-        this.props.address 
+        //Define the full address
+        this.props.address1 
 				? this.setState({
-					fullAdress: this.props.address + ' ' + this.props.city + ', ' + this.props.state + ' ' + this.props.zipcode
+                    fullAdress: this.props.address1
+                                + (this.props.address2? ' ' + this.props.address2 : '')
+                                + (this.props.city? ' ' + this.props.city : '')
+                                + (this.props.state? ', ' + this.props.state : '')
+                                + (this.props.zipcode? ' ' + this.props.zipcode : '')
 				})
 				: null
 	}
 		
 	componentWillUpdate(nextProps, nextState){
-		const nextFullAdress = nextProps.address
-								? nextProps.address + ' ' + nextProps.city + ', ' + nextProps.state + ' ' + nextProps.zipcode
+		const nextFullAdress = nextProps.address1
+                                ? nextProps.address1
+                                    + (nextProps.address2? ' ' + nextProps.address2 : '')
+                                    + (nextProps.city? ' ' + nextProps.city : '')
+                                    + (nextProps.state? ', ' + nextProps.state : '') 
+                                    + (nextProps.zipcode? ' ' + nextProps.zipcode : '')
 								: null
 		if (nextFullAdress !== this.state.fullAdress && nextFullAdress !== null) {
 			
@@ -107,7 +115,7 @@ export default class VenueForm extends React.Component {
 		
 		let coordinates = this.props.coordinates || {}
         
-        if (this.state.fullAdress && !coordinates) {
+        if (this.state.fullAdress && !coordinates.lat) {
             this.calculateCoords(this.state.fullAdress);
         }
         
@@ -131,7 +139,8 @@ export default class VenueForm extends React.Component {
                     <FormGroup>
                         <Label>Address</Label>
                         <div className="formSection">
-                          <Input name="address" placeholder="Address" type="text" value={this.props.address} onChange={this.handleChange} />
+                          <Input name="address1" placeholder="Line 1" type="text" value={this.props.address1} onChange={this.handleChange} />
+                          <Input name="address2" placeholder="Line 2" type="text" value={this.props.address2} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
 
