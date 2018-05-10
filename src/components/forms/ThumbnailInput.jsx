@@ -22,6 +22,7 @@ export default class Thumbnail extends React.Component {
                 uploadedFile: accepted[0],
                 isUploading: true
             });
+            this.props.onChange()
             
             ImagesActions.handleThumbnailUpload(accepted[0], this.props.number);
         } else {
@@ -33,8 +34,7 @@ export default class Thumbnail extends React.Component {
         
     render() {
         
-        let isUploaded = false
-        if (this.props.image) { isUploaded = this.props.image.length > 0 }
+        let isUploaded = this.props.image ? true : false
         
         let avatarRender = isUploaded || this.state.isUploading ? 
             <div className={isUploaded? 'avatar loaded' : 'avatar loading'}>

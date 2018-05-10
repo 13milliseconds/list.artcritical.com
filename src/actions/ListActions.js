@@ -9,11 +9,14 @@ class ListActions {
             'getCurrentAttempt',
             'getCurrentSuccess',
             'getCurrentFail',
+            'currentNotLoaded',
+            'currentLoaded',
             'getFutureAttempt',
             'getFutureSuccess',
             'getFutureFail',
             'getAllSuccess',
             'getAllFail',
+            'getEventsAttempt',
             'getEventsSuccess',
             'getEventsFail',
             'getGlanceSuccess',
@@ -52,7 +55,7 @@ class ListActions {
             'getVenuesAdminFailure',
             'getVenuesAdminAttempt',
             'getCoordFailure',
-            'getCoordSuccess'
+            'getCoordSuccess',
         );
     }
     
@@ -78,7 +81,10 @@ class ListActions {
             if (data[0]){
                 offset = offset + 1
                 this.getCurrent()
+                this.currentNotLoaded()
             } else {
+                this.currentLoaded()
+                console.log('done loading current shows!')
                 offset = 0
             }
         })
@@ -148,6 +154,9 @@ class ListActions {
     }
 
     getGlance() {
+
+        this.getEventsAttempt();
+
         return dispatch => {
             $.ajax({
                     url: process.env.BASE_URI + '/list/glancelistings'
@@ -264,8 +273,6 @@ class ListActions {
     }
     
     async updateListing(newInfo) {
-
-        console.log('updating ', newInfo)
         
         this.updateListingAttempt();
 
@@ -320,6 +327,9 @@ class ListActions {
     
     // Update or save a featured article
     async updateFeature (data) {
+
+        console.log('Update feature', data)
+
         await fetch(
           process.env.BASE_URI + '/list/feature',
           {

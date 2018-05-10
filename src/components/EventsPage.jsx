@@ -8,6 +8,7 @@ import Listing from './listing.jsx';
 import Date from './blocks/DateBlock.jsx';
 import SizeSelector from './blocks/sizeSelector';
 import DayPicker from './forms/DayPicker';
+import Loading from './blocks/loading'
 
 var scrollToComponent = ''
 
@@ -36,7 +37,7 @@ export default class EventsPage extends React.Component {
             if ( newDate !== oldDate) {
                 oldDate = newDate
                 return (
-                    <div key={listing._id}>
+                    <div className="date" key={listing._id}>
                         <h2><Date date={newDate} ref={moment(newDate).format('YYYY MM DD')} /></h2>
                         <Listing listing={listing} user={this.props.user}/>
                     </div>
@@ -54,7 +55,11 @@ export default class EventsPage extends React.Component {
 				{this.props.eventsListings && <DayPicker events={this.props.eventsListings} scrollToDate={this.scrollToDate} />}
 			</div>
             <div className={this.props.view + " listingsWrap main-col"}>
-                {this.props.eventsListings.length ? thelist : "No Future Events"}
+                {this.props.eventsListings.length 
+                    ? thelist 
+                    : this.props.loading.events 
+                        ? <Loading />
+                        : "No Future Events"}
             </div>
 			<div className="right-col">
 				Ads

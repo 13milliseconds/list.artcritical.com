@@ -33,7 +33,15 @@ module.exports = {
                 test: /\.css$/,
                 loaders: ["style-loader", "css-loader"]
             }
-    ]
+    ],
+    loaders: [
+        {
+          test: /plugin\.css$/,
+          loaders: [
+            'style-loader', 'css',
+          ],
+        },
+      ]
     },
     plugins: [
     new webpack.DefinePlugin({

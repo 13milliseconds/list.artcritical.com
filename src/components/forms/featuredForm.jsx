@@ -1,9 +1,14 @@
 import React from 'react';
 import ToggleButton from 'react-toggle-button';
 import ListActions from '../../actions/ListActions';
+import {EditorState } from 'draft-js';
+import {stateFromHTML} from 'draft-js-import-html';
+import {stateToHTML} from 'draft-js-export-html';
+import {createEditorStateWithText } from 'draft-js-plugins-editor';
 //Components
+import ConfirmModal from './confirmModal'
 import ThumbnailInput from './ThumbnailInput';
-
+import MyEditor from './MyEditor';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
@@ -11,13 +16,44 @@ export default class ListingForm extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            text: '',
+            updatevisible: false,
+            editorState: createEditorStateWithText('')
+        }
+
+        this.onEditorChange = this.onEditorChange.bind(this)
+        this.onUpdate = this.onUpdate.bind(this)
       }
     
+    componentDidMount() {
+        require("draft-js-inline-toolbar-plugin/lib/plugin.css")
+    }
+
+    componentDidUpdate(){
+        if (this.props.text !== this.state.text) {
+            this.setState({
+                text: this.props.text,
+                editorState: EditorState.createWithContent(stateFromHTML(this.props.text))
+            })
+        }
+    }
+
+    onEditorChange(editorState){
+        this.props.onTextChange(stateToHTML(editorState.getCurrentContent()))
+        this.setState({
+          editorState
+        })
+      }
+
+      onUpdate(e){
+        e.preventDefault();
+        this.setState({ 
+            updatevisible: true
+        })
+    }
     
     render() {
-        
-
-        
         return ( 
             <div className="featuredForm">
                 <Form>
@@ -29,12 +65,23 @@ export default class ListingForm extends React.Component {
                     <FormGroup check>
                     <Label>Description</Label>
                      <div className="formSection">
-                      <textarea name="text" type="text" value={this.props.text} onChange={this.props.handleChange} />
+                      <MyEditor
+                        name="text"
+                        editorState={this.state.editorState}
+                        onEditorChange={this.onEditorChange}/>
                     </div>
                     </FormGroup>
                 </Form>
                 
-                <button onClick={this.props.handleSubmit}>Submit</button>
+                <button onClick={this.onUpdate}>Submit</button>
+                {this.state.updatevisible && <ConfirmModal 
+                                                        modalVisible={this.state.updatevisible}
+                                                        handleSubmit={this.props.handleSubmit}
+                                                        textTitle="Save"
+                                                        textAction="save this Feature"
+                                                        textConfirm="Saved!"
+                                                        error={this.props.error}
+                                                        success={this.props.success}/>}
                 
             </div>
         );

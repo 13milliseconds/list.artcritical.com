@@ -48,7 +48,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     today.setHours(0, 0, 0, 0);
     
     //Count how many times we've fetched listings
-    var offset_ratio = parseInt(req.params.offset_ratio) * 100; 
+    var offset_ratio = parseInt(req.params.offset_ratio) * 500; 
 
     List.find().
     where('start').lte(today).
@@ -57,7 +57,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
 	where('venue').ne('').
     sort('neighborhood').
     skip(offset_ratio).
-    limit(100).
+    limit(500).
     populate('venue').
     populate('updated_by').
     exec(function (e, docs) {

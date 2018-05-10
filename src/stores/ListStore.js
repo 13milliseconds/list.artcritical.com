@@ -13,6 +13,7 @@ class ListStore {
         this.view = 'medium';
         //List states
         this.currentListings = [];
+        this.currentLoaded = false
         this.futureListings = [];
         this.allListings = [];
         this.eventsListings = [];
@@ -71,6 +72,7 @@ class ListStore {
         this.loading.savevenue = false;
         this.loading.current = false;
         this.loading.future = false;
+        this.loading.events = true;
         this.loading.allVenues = false;
         //Error Messages
         this.error = {};
@@ -90,6 +92,7 @@ class ListStore {
         this.success.deletevenue = false;
         this.success.savelisting = false;
         this.success.savevenue = false;
+        this.success.feature = false;
     }
     
     //List Reducers
@@ -99,6 +102,12 @@ class ListStore {
     onGetCurrentSuccess(data) {
         this.loading.current = false;
         this.currentListings = this.currentListings.concat(data);
+    }
+    onCurrentNotLoaded(){
+        this.currentLoaded = false
+    }
+    onCurrentLoaded(){
+        this.currentLoaded = true
     }
     onGetFutureAttempt(){
         this.loading.future = true;
@@ -110,8 +119,12 @@ class ListStore {
     onGetAllSuccess(data) {
         this.allListings = data;
     }
+    onGetEventsAttempt() {
+        this.loading.events = true;
+    }
     onGetEventsSuccess(data) {
         this.eventsListings = data;
+        this.loading.events = false;
     }
     onGetGlanceSuccess(data) {
         this.glanceListings = data;
@@ -139,6 +152,7 @@ class ListStore {
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
     onGetEventsFail(jqXhr) {
+        this.loading.events = false;
         // Handle multiple response formats, fallback to HTTP status code number.
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
@@ -154,9 +168,11 @@ class ListStore {
     
     // Reset listing edit
     onListingEditReset(){
+        console.log('Rest listingEdit')
         this.listingEdit = {
             name: '',
             description: '',
+            image: '',
             venue: {},
             events: []
         };
@@ -206,7 +222,7 @@ class ListStore {
             this.listingEdit.events = [];
         }
 		// Need to explain this
-		if (info.i){
+		if (Number.isInteger(info.i)){
 			console.log('Feature listing');
 			this.features[info.i].list = info.data;
 			console.log(this.features[info.i].list);
@@ -276,7 +292,7 @@ class ListStore {
         this.venueEdit = {
 			coordinates: {}
         };
-        console.log(venueEdit);
+        console.log(this.venueEdit);
     }
     onUpdateVenueFailure(error){
         console.log('Problem updating venue', error)
@@ -401,7 +417,7 @@ class ListStore {
     //Update info on feature page
     onFeatureInfoChange (data){
             const value = data.event.target.value;
-            const name = data.event.target.name;   
+            const name = data.event.target.name;  
             this.features[data.i][name] = value;
     }
     
@@ -428,14 +444,16 @@ class ListStore {
     }
     
     //FEATURED
-    onupdateFeatureSuccess(data){
-        console.log(onupdateFeatureSuccess, data);
+    onUpdateFeatureSuccess(data){
+        this.success.feature = true
     }
-    onupdateFeatureFailure(error){
+    onUpdateFeatureFailure(error){
+        this.error.feature = 'Error updating the feature: ' + error
         console.log(error);
     }
     onFeatureReset(){
         this.feature= {};
+        this.success.feature = false
     }
     onFeatureLoadSuccess(data) {
         if (data.json){

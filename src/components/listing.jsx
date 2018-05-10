@@ -58,7 +58,7 @@ export default class Listing extends React.Component {
 
         let listing = this.props.listing
 
-        let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
+        //let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
         let eventsPresence = listing.events &&
                                 listing.events.length > 0 ? true : false
         
@@ -108,6 +108,7 @@ export default class Listing extends React.Component {
                     <p><span className="title">{listing.name}</span>{listing.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a></p>
                     {dateDisplay}
                     <div className="icons">
+                        {(listing.description || eventsPresence) && <FontAwesomeIcon icon={['fal', 'info-circle']} onClick={this._revealInfo}/>}
                         {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}
                         {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
                     </div>
@@ -126,12 +127,6 @@ export default class Listing extends React.Component {
                         </div>}
                     </div>
                 }
-            </div>
-
-            <div className="listingClose">
-            {(listing.description || eventsPresence) &&
-                    <FontAwesomeIcon icon={closeIcon} onClick={this._revealInfo}/>
-            }
             </div>
         </div>
     );

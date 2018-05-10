@@ -36,6 +36,7 @@ export default class ListingForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.onEventsChange = this.onEventsChange.bind(this);
+        this.onThumbChange = this.onThumbChange.bind(this)
       }
 
     // Add the listing to the database
@@ -72,6 +73,13 @@ export default class ListingForm extends React.Component {
 
     //If events are edited
     onEventsChange(){
+        this.setState({
+            wasChanged: true
+        })
+    }
+
+    //If thumbnail are edited
+    onThumbChange(){
         this.setState({
             wasChanged: true
         })
@@ -222,7 +230,7 @@ export default class ListingForm extends React.Component {
                     </FormGroup>
                      <FormGroup check>
                            <Label>Thumbnail</Label>
-                            <ThumbnailInput {...listing} /> 
+                            <ThumbnailInput {...listing} onChange={this.onThumbChange}/> 
 					</FormGroup>
                         <div className="byline">
                         {listing.updated_by &&

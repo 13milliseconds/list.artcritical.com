@@ -61,9 +61,7 @@ export default class ListingsPerNeighbor extends React.Component {
                     var cityRender = neighborExport.length > 0 && <div key={index} id={cityID} className="city">{neighborExport}</div>
                     neighborExport = []
 
-                    if (num == index){
-                        //If this is the last listing, we need to include it in the export
-        
+                    if (num == index){//If this is the last listing, we need to include it in the export
                         //Add last neighborhood to the current City
                         neighborExport = <div key={index} id={cityID} className="city"><div className="neighborhood">{title}{renderExport}</div></div>
         
@@ -74,7 +72,9 @@ export default class ListingsPerNeighbor extends React.Component {
                     }
 
                     // Export the last city
-                    return cityRender
+                    if (index !== 1){
+                        return cityRender
+                    }
                 }
             } else {
                 renderExport.push(result)
@@ -91,12 +91,12 @@ export default class ListingsPerNeighbor extends React.Component {
                 }
             }
 
-        });
+        })
 
         return ( 
             <div>
                 {thelistRender(this.props.listings)}
             </div>
-        );
+        )
     }
 }

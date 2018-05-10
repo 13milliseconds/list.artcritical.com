@@ -244,6 +244,7 @@ header.mainHeader{
 		@include span-columns(2);
     }
 	div.tabs__content{
+        @include span-columns(10);
         .day{
             display: block;
             @include span-columns(10);

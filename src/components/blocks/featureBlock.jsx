@@ -4,6 +4,7 @@ import AuthActions from '../../actions/AuthActions';
 import {IntlProvider, FormattedDate} from 'react-intl';
 import ImageBlock from './imageBlock';
 import $ from 'jquery'; 
+import HtmlText from './HtmlText'
 
 export default class FeatureBlock extends React.Component {
     constructor(props) {
@@ -69,7 +70,7 @@ export default class FeatureBlock extends React.Component {
             </div>
             <div className="info">
                 <h3>{listing.name} at <a className="venueName" href={"/venue/" + venue.slug}>{venue.name}</a></h3>
-                <p>{feature.text}</p>
+                <HtmlText content={feature.text} />
                 <div className="dates">{start}{end? ' to ' : ''}{end}</div>
                 <div className="address">{venue.address1} {venue.address2}, {venue.city}</div>
                 {this.props.user._id

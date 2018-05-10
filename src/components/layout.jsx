@@ -14,12 +14,14 @@ import faPlusCircle from '@fortawesome/fontawesome-pro-light/faPlusCircle'
 import faMinusCircle from '@fortawesome/fontawesome-pro-light/faMinusCircle'
 import faGlassMartini from '@fortawesome/fontawesome-pro-light/faGlassMartini'
 import faTimes from '@fortawesome/fontawesome-pro-light/faTimes'
+import faInfoCircle from '@fortawesome/fontawesome-pro-light/faInfoCircle'
 import faPlus from '@fortawesome/fontawesome-pro-regular/faPlus'
 import faMinus from '@fortawesome/fontawesome-pro-regular/faMinus'
 import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
 import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
+
  
-fontawesome.library.add(faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook)
+fontawesome.library.add(faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle)
 
 //Sidebar
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'
@@ -90,7 +92,7 @@ export default class Layout extends React.Component {
                 React.cloneElement(this.props.children, this.state)}
             </OffCanvasBody>
             <OffCanvasMenu className={"sideMenu"}>
-                    <a onClick={this.toggleMenu}><FontAwesomeIcon icon={['fal', 'times']}/></a>
+                    <a className="close" onClick={this.toggleMenu}><FontAwesomeIcon icon={['fal', 'times']}/></a>
                 <ListingForm 
                             listing={this.state.listingEdit} 
                             error={this.state.error.updatelisting} 

@@ -55,7 +55,7 @@ export default class CurrentMap extends React.Component {
 		window.addEventListener("resize", this._resizeMap);
 
 		//If the current listings are not loaded, load em
-		this.props.currentListings.length === 0 && ListActions.getCurrent()
+		!this.props.currentLoaded && ListActions.getCurrent()
 		
     }
 	_resizeMap(){
@@ -157,16 +157,17 @@ export default class CurrentMap extends React.Component {
 							displayListings(this.state.browseListings)
 							:
 							<div className="intro">
-							<h2>Welcome to the artcritical map</h2>
+							<h2>Discover the latest shows and events that your friends and art experts love</h2>
 							<p>Click on markers to explore all the shows currently open in New York City and beyond.</p>
 							{this.props.loading.current && <div className="loading">Loading...</div>}
 							<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
-							<div className="cityJump">
-								<button onClick={this._goToNYC}>New York City</button>
-								<button onClick={this._goToPhil}>Philadelphia</button>
-							</div>
 							</div>
 						}
+						<div className="cityJump">
+							<h6>Navigate bwteen Cities</h6>
+							<button onClick={this._goToNYC}>New York City</button>
+							<button onClick={this._goToPhil}>Philadelphia</button>
+						</div>
 					</div>
             </div>
         );

@@ -11,19 +11,19 @@ export default class FeaturedDay extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            text: this.props.text
+        }
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
-		this.handleChange = this.handleChange.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.onTextChange = this.onTextChange.bind(this)
       }
     
     componentWillUnmount(){
         ListActions.featureReset();
     }
-	
-	componentWillReceiveProps(nextProps){
-		
-	}
     
     
     // Add the listing to the database
@@ -32,7 +32,7 @@ export default class FeaturedDay extends React.Component {
         let newFeature = {
             _id:    id,
             date:   this.props.date,
-            text:   this.props.feature.text,
+            text:   this.state.text,
             list:   this.props.feature.list._id,
 			venue:  this.props.feature.list.venue._id
         }
@@ -54,6 +54,12 @@ export default class FeaturedDay extends React.Component {
             ListActions.getListingInfo(data.value, this.props.dayNumber); 
         }
     }
+
+    onTextChange(newText){
+        this.setState({
+            text: newText
+        })
+    }
     
     render() {
 		
@@ -73,7 +79,13 @@ export default class FeaturedDay extends React.Component {
             <div>
                 <div className="column-2of3">
                     <Select value={{label: list.name, value: list._id}} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
-                    <FeaturedForm {...this.props.feature} number={this.props.dayNumber} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+                    <FeaturedForm {...this.props.feature} 
+                    number={this.props.dayNumber} 
+                    handleChange={this.handleChange} 
+                    handleSubmit={this.handleSubmit} 
+                    onTextChange={this.onTextChange}
+                    error={this.props.error}
+                    success={this.props.success}/>
                 </div>
                 <div className="column-1of3">
                     {this.props.feature.list ? <FeatureBlock feature={this.props.feature} user={this.props.user} /> : this.props.error }
