@@ -2884,6 +2884,7 @@ you can add resource intensive styles.
   }
   /* line 317, ../scss/breakpoints/_768up.scss */
   .myList .listInfo {
+    left: 0;
     margin-bottom: 20px;
     position: fixed;
     z-index: 2;
@@ -2894,7 +2895,7 @@ you can add resource intensive styles.
     max-height: 100%;
     overflow: auto;
   }
-  /* line 328, ../scss/breakpoints/_768up.scss */
+  /* line 329, ../scss/breakpoints/_768up.scss */
   .myList .popupList {
     position: fixed;
     z-index: 99;
@@ -2904,7 +2905,7 @@ you can add resource intensive styles.
     left: 0;
     background-color: rgba(255, 255, 255, 0.5);
   }
-  /* line 336, ../scss/breakpoints/_768up.scss */
+  /* line 337, ../scss/breakpoints/_768up.scss */
   .myList .popupList div {
     background: #fff;
     position: absolute;

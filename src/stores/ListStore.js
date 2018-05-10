@@ -645,12 +645,11 @@ class ListStore {
     }
 	//Get a user's list
 	onGetUserMylistSuccess(data) {
-		console.log('onGetUserMylistSuccess');
+		console.log('onGetUserMylistSuccess', data);
         this.currentUser = data;
     }
-    onGetUserMylistFailure(jqXhr) {
-        // Handle multiple response formats, fallback to HTTP status code number.
-        toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+    onGetUserMylistFailure(error) {
+        console.log('onGetUserMylistFailure', error);
     }
     // REORDER MYLIST
     onReorderMyListAttempt(data){

@@ -602,6 +602,7 @@ header.mainHeader .accountOptions:hover a {
 }
 /* line 317, ../scss/breakpoints/_768up.scss */
 .myList .listInfo {
+  left: 0;
   margin-bottom: 20px;
   position: fixed;
   z-index: 2;
@@ -612,7 +613,7 @@ header.mainHeader .accountOptions:hover a {
   max-height: 100%;
   overflow: auto;
 }
-/* line 328, ../scss/breakpoints/_768up.scss */
+/* line 329, ../scss/breakpoints/_768up.scss */
 .myList .popupList {
   position: fixed;
   z-index: 99;
@@ -622,7 +623,7 @@ header.mainHeader .accountOptions:hover a {
   left: 0;
   background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 336, ../scss/breakpoints/_768up.scss */
+/* line 337, ../scss/breakpoints/_768up.scss */
 .myList .popupList div {
   background: #fff;
   position: absolute;

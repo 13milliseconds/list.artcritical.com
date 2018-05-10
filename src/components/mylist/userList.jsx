@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AuthActions from '../../actions/AuthActions';
 import ListActions from '../../actions/ListActions';
-import {experimental} from 'react-map-gl';
+import {FlyToInterpolator} from 'react-map-gl';
 var async = require('async');
 // Components
 import UserListings from './userListings';
 import MyMap from './myMap';
 import FacebookShare from '../blocks/facebookShare';
+import { Button} from 'reactstrap';
+
+var d3 = require('d3-ease');
 
 export default class UserList extends React.Component {
     constructor(props) {
@@ -24,17 +27,17 @@ export default class UserList extends React.Component {
                 bearing: 0,
                 pitch: 0,
                 width: 0,
-                height: 500
+                height: 0,
               }
         }
         
-        this._goToViewport = this._goToViewport.bind(this);
         this.findCoord = this.findCoord.bind(this);
-		this.onHover = this.onHover.bind(this);
+		this._onHover = this._onHover.bind(this);
         this.onLeave = this.onLeave.bind(this);
         this.updateViewport = this.updateViewport.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this._updateDimensions = this._updateDimensions.bind(this);
     }
     
     componentWillMount(){
@@ -47,20 +50,24 @@ export default class UserList extends React.Component {
     }
     
     componentDidMount(){
-        // Create variable to change property
-        let newViewport = this.state.viewport
-        newViewport.width = ReactDOM.findDOMNode(this).offsetWidth /2
-        //Update state
-        this.setState({
-			viewport: newViewport,
-			url: window.location.href
-		})
+        //Resize the map
+        this._updateDimensions()
+        window.addEventListener("resize", this._updateDimensions)
     }
 	
-	onHover(listing){
-        this._goToViewport(listing.venue.coordinates.lat, listing.venue.coordinates.long)
+	_onHover(listing){
+        const viewport = {
+            ...this.state.viewport,
+            longitude: listing.venue.coordinates.long,
+          	latitude: listing.venue.coordinates.lat,
+            zoom: 14,
+			transitionDuration: this.props.transitionDuration,
+			transitionInterpolator: this.props.transitionInterpolator,
+			transitionEasing: this.props.transitionEasing
+        }
         //Find the right marker
         this.setState({
+			viewport,
             listingHover: listing._id
         })
     }
@@ -105,17 +112,16 @@ export default class UserList extends React.Component {
             }
         }
     }
-    
-     _goToViewport(latitude, longitude){
-        this.updateViewport({
-          longitude: longitude,
-          latitude: latitude,
-          zoom: 14,
-            width: this.state.viewport.width,
-            height: this.state.viewport.height,
-          transitionInterpolator: experimental.viewportFlyToInterpolator,
-          transitionDuration: 3000
-        });
+
+    _updateDimensions(){
+        const viewport = {
+			...this.state.viewport,
+            width: document.getElementsByClassName("mapWrap")[0].offsetWidth,
+            height: document.getElementsByClassName("mapWrap")[0].offsetHeight
+        }
+        this.setState({
+            viewport
+        })
     }
     
     updateViewport(v) {
@@ -150,22 +156,25 @@ export default class UserList extends React.Component {
 												href={this.props.user.website}
 												target="_blank">Website</a>}
 					<FacebookShare url={this.state.url} />
+                    {this.props.user.mylist? <UserListings 
+                                           user={this.props.user}
+                                            view={this.props.view}
+                                            listingHover={this.state.listingHover}
+											onHover={this._onHover}
+                        					onLeave={this.onLeave}
+                                           /> : <div>
+                                                    <h2>There is no show in this list</h2>
+                                                    <Button href="/current">Explore all shows</Button>
+                                                </div> }
 				</div>
                     <MyMap 
                         markers={this.state.markers} 
                         viewport ={this.state.viewport}
                         updateViewport ={this.updateViewport}
                         listingHover={this.state.listingHover} 
-                        onHover={this.onHover}
+                        onHover={this._onHover}
                         onLeave={this.onLeave}
                         />
-                    {this.props.user.mylist? <UserListings 
-                                           user={this.props.user}
-                                            view={this.props.view}
-                                            listingHover={this.state.listingHover}
-											onHover={this.onHover}
-                        					onLeave={this.onLeave}
-                                           /> : null }
                 </div>
         );
     }
@@ -174,5 +183,8 @@ export default class UserList extends React.Component {
 UserList.defaultProps = {
     center: {lat: 40.7238556, lng: -73.9221523},
     zoom: 11,
-    token: process.env.MapboxAccessToken
+    token: process.env.MapboxAccessToken,
+	transitionDuration: 1000,
+	transitionInterpolator: new FlyToInterpolator(),
+	transitionEasing: d3.easeCubic
 };
