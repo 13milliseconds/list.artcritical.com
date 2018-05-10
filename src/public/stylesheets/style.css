@@ -1160,6 +1160,7 @@ a {
 
 /* line 51, ../scss/breakpoints/_base.scss */
 .app-content {
+  transform: none !important;
   margin: 100px auto;
   width: 96%;
 }

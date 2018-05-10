@@ -14,6 +14,8 @@ import faPlusCircle from '@fortawesome/fontawesome-pro-light/faPlusCircle'
 import faMinusCircle from '@fortawesome/fontawesome-pro-light/faMinusCircle'
 import faGlassMartini from '@fortawesome/fontawesome-pro-light/faGlassMartini'
 import faTimes from '@fortawesome/fontawesome-pro-light/faTimes'
+import faEdit from '@fortawesome/fontawesome-pro-light/faEdit'
+import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
 import faInfoCircle from '@fortawesome/fontawesome-pro-light/faInfoCircle'
 import faPlus from '@fortawesome/fontawesome-pro-regular/faPlus'
 import faMinus from '@fortawesome/fontawesome-pro-regular/faMinus'
@@ -21,7 +23,7 @@ import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
 import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
 
  
-fontawesome.library.add(faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle)
+fontawesome.library.add(faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faEdit, faTrash)
 
 //Sidebar
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'

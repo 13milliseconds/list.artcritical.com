@@ -114,9 +114,9 @@ export default class Listing extends React.Component {
                     </div>
                     <div className="listingActions">
                         {this.props.mylisting && //If you are seeing this on your myList page
-                        <a onClick={(e) => this.addToList(e, listing)} className="delete">Remove</a> }
+                        <a onClick={(e) => this.addToList(e, listing)} className="delete"><FontAwesomeIcon icon={['fal', 'trash']}/></a> }
                         {this.props.user.userAccess > 0 && //If you are seeing this as an editor
-                        <a onClick={(e) => this._editListing(listing)} className="edit">Edit</a> }
+                        <a onClick={(e) => this._editListing(listing)} className="edit"><FontAwesomeIcon icon={['fal', 'edit']}/></a> }
                     </div>
                 </div>
                 {this.state.fullInfo &&
