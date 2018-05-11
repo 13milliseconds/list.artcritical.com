@@ -19,7 +19,11 @@ export default class UsersPage extends React.Component {
     render() {
         
         let usersRender = users => users.map((user, index) => {
-            return <UserCard key={index} index={index} user={user} />
+            return <UserCard key={index} 
+                            index={index} 
+                            user={user} 
+                            error={this.props.error}
+                            success={this.props.success}/>
         });
         
         return ( 

@@ -1,20 +1,62 @@
 import React from 'react'
 import ListActions from '../../actions/ListActions';
 import AuthActions from '../../actions/AuthActions';
+//Components
+import ConfirmModal from './confirmModal'
 
 import { Form, FormGroup, Label, Input, Alert, Button, Collapse } from 'reactstrap';
 
 export default class UserEdit extends React.Component {
 
 	constructor (props){
-        super(props);
+		super(props);
+		
+		this.state = {
+			save: false,
+			delete: false
+		}
 
-    }
+		this.onSave = this.onSave.bind(this)
+		this.onDelete = this.onDelete.bind(this)
+		this.onSaveAlert = this.onSaveAlert.bind(this)
+		this.onDeleteAlert = this.onDeleteAlert.bind(this)
+
+	}
+	
+	//save alert
+    onSaveAlert(event) {
+        event.preventDefault();
+        this.setState({ 
+            save: true
+        })
+	}
+	//delete alert
+    onDeleteAlert(event) {
+        event.preventDefault();
+        this.setState({ 
+            delete: true
+        })
+	}
+	
+	//save
+    onSave(event) {
+		AuthActions.updateUser(this.props.user)
+        this.setState({ 
+            save: false
+        })
+	}
+	//delete
+    onDelete(event) {
+		console.log('deleting user')
+        this.setState({ 
+            delete: false
+        })
+	}
 
     render() {
     	let user = this.props.user;
     	return (
-    		<Form onSubmit={this.props.saveChanges}>
+    		<Form>
 
 				<Label>First Name</Label>
 				<div className="formSection">
@@ -39,8 +81,27 @@ export default class UserEdit extends React.Component {
 					<option value={0}>Subscriber</option>
 				</Input>
 
+			<FormGroup>
+				<Button onClick={this.onSaveAlert}>Save</Button> <Button color="danger" onClick={this.onDeleteAlert}>Delete</Button>
+            </FormGroup>
 
-			<Button type="submit">Submit Changes</Button>
+			{this.state.save && <ConfirmModal 
+                                                        modalVisible={this.state.save}
+                                                        handleSubmit={this.onSave}
+                                                        textTitle="Save"
+                                                        textAction="save this User"
+                                                        textConfirm="Saved!"
+                                                        error={this.props.error.updateUser}
+														success={this.props.success.updateUser}/>}
+														
+			{this.state.delete && <ConfirmModal 
+                                                        modalVisible={this.state.delete}
+                                                        handleSubmit={this.onDelete}
+                                                        textTitle="Delete"
+                                                        textAction="Delete this user"
+                                                        textConfirm="Deleted!"
+                                                        error={this.props.error.deleteUser}
+                                                        success={this.props.success.deleteUser}/>}
 
 		</Form>
     	)

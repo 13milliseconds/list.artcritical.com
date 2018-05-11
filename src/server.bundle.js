@@ -2433,7 +2433,7 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _ImagesActions = __webpack_require__(23);
+var _ImagesActions = __webpack_require__(24);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -3550,12 +3550,132 @@ exports.default = formSelect;
 
 /***/ }),
 /* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactstrap = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpdateModal = function (_React$Component) {
+    _inherits(UpdateModal, _React$Component);
+
+    function UpdateModal(props) {
+        _classCallCheck(this, UpdateModal);
+
+        var _this = _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).call(this, props));
+
+        _this.state = {
+            modalVisible: _this.props.modalVisible
+        };
+
+        _this.toggle = _this.toggle.bind(_this);
+        _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
+        return _this;
+    }
+
+    _createClass(UpdateModal, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(props) {
+            this.setState({
+                modalVisible: this.props.modalVisible
+            });
+        }
+    }, {
+        key: 'toggle',
+        value: function toggle() {
+            this.setState({
+                modalVisible: !this.state.modalVisible
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _reactstrap.Modal,
+                { isOpen: this.state.modalVisible },
+                _react2.default.createElement(
+                    _reactstrap.ModalHeader,
+                    null,
+                    this.props.textTitle
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalBody,
+                    null,
+                    !this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to " + this.props.textAction + ". Press Cancel to go back." : null,
+                    this.props.loading && _react2.default.createElement(
+                        'div',
+                        { className: 'loading' },
+                        'loading'
+                    ),
+                    this.props.success && _react2.default.createElement(
+                        'div',
+                        { className: 'success' },
+                        this.props.textConfirm
+                    ),
+                    this.props.error && _react2.default.createElement(
+                        'div',
+                        { className: 'error' },
+                        'Please Try Again'
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalFooter,
+                    null,
+                    !this.props.success ? _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.props.handleSubmit },
+                            'Confirm'
+                        ),
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.toggle },
+                            'Cancel'
+                        )
+                    ) : _react2.default.createElement(
+                        _reactstrap.Button,
+                        { color: 'success', onClick: this.toggle },
+                        'Close'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UpdateModal;
+}(_react2.default.Component);
+
+exports.default = UpdateModal;
+
+/***/ }),
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3643,7 +3763,7 @@ var ImagesActions = function () {
 exports.default = _alt2.default.createActions(ImagesActions);
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3661,7 +3781,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(25);
+var _reactToggleButton = __webpack_require__(26);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -3697,7 +3817,7 @@ var _EventsForm = __webpack_require__(91);
 
 var _EventsForm2 = _interopRequireDefault(_EventsForm);
 
-var _confirmModal = __webpack_require__(27);
+var _confirmModal = __webpack_require__(22);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -4094,136 +4214,16 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-toggle-button");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dates");
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactstrap = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var UpdateModal = function (_React$Component) {
-    _inherits(UpdateModal, _React$Component);
-
-    function UpdateModal(props) {
-        _classCallCheck(this, UpdateModal);
-
-        var _this = _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).call(this, props));
-
-        _this.state = {
-            modalVisible: _this.props.modalVisible
-        };
-
-        _this.toggle = _this.toggle.bind(_this);
-        _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
-        return _this;
-    }
-
-    _createClass(UpdateModal, [{
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(props) {
-            this.setState({
-                modalVisible: this.props.modalVisible
-            });
-        }
-    }, {
-        key: 'toggle',
-        value: function toggle() {
-            this.setState({
-                modalVisible: !this.state.modalVisible
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _reactstrap.Modal,
-                { isOpen: this.state.modalVisible },
-                _react2.default.createElement(
-                    _reactstrap.ModalHeader,
-                    null,
-                    this.props.textTitle
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalBody,
-                    null,
-                    !this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to " + this.props.textAction + ". Press Cancel to go back." : null,
-                    this.props.loading && _react2.default.createElement(
-                        'div',
-                        { className: 'loading' },
-                        'loading'
-                    ),
-                    this.props.success && _react2.default.createElement(
-                        'div',
-                        { className: 'success' },
-                        this.props.textConfirm
-                    ),
-                    this.props.error && _react2.default.createElement(
-                        'div',
-                        { className: 'error' },
-                        'Please Try Again'
-                    )
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalFooter,
-                    null,
-                    !this.props.success ? _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.props.handleSubmit },
-                            'Confirm'
-                        ),
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.toggle },
-                            'Cancel'
-                        )
-                    ) : _react2.default.createElement(
-                        _reactstrap.Button,
-                        { color: 'success', onClick: this.toggle },
-                        'Close'
-                    )
-                )
-            );
-        }
-    }]);
-
-    return UpdateModal;
-}(_react2.default.Component);
-
-exports.default = UpdateModal;
 
 /***/ }),
 /* 28 */
@@ -6339,7 +6339,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(26);
+var _reactDates = __webpack_require__(27);
 
 var _moment = __webpack_require__(9);
 
@@ -6416,7 +6416,7 @@ var _imageUpload = __webpack_require__(39);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
-var _ImagesActions = __webpack_require__(23);
+var _ImagesActions = __webpack_require__(24);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -7705,7 +7705,7 @@ var debug = __webpack_require__(59)('artcritical-list:server');
 var expressValidator = __webpack_require__(60);
 
 //Authentification
-var passport = __webpack_require__(22);
+var passport = __webpack_require__(23);
 var flash = __webpack_require__(61);
 var session = __webpack_require__(62);
 var bcrypt = __webpack_require__(31); // encripts password
@@ -8145,8 +8145,8 @@ module.exports = function (passport) {
         console.log(profile);
 
         // set the user's local credentials
-        newUser.firstname = profile.givenName;
-        newUser.lastname = profile.familyName;
+        newUser.firstname = profile.name.givenName;
+        newUser.lastname = profile.name.familyName;
         newUser.slug = profile.displayName.replace(/\s+/g, '').toLowerCase();
         newUser.userAccess = 1;
         newUser.facebook.id = profile.id;
@@ -8351,7 +8351,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var express = __webpack_require__(12);
 var router = express.Router();
 var JSX = __webpack_require__(157).install();
-var passport = __webpack_require__(22);
+var passport = __webpack_require__(23);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
@@ -8634,7 +8634,7 @@ var _faFacebook2 = _interopRequireDefault(_faFacebook);
 
 var _reactOffcanvas = __webpack_require__(87);
 
-var _ListingForm = __webpack_require__(24);
+var _ListingForm = __webpack_require__(25);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -8942,7 +8942,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(26);
+var _reactDates = __webpack_require__(27);
 
 var _moment = __webpack_require__(9);
 
@@ -10880,7 +10880,7 @@ var _moment = __webpack_require__(9);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactDates = __webpack_require__(26);
+var _reactDates = __webpack_require__(27);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11388,7 +11388,7 @@ var _displayActions = __webpack_require__(10);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(25);
+var _reactToggleButton = __webpack_require__(26);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -13144,7 +13144,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _ListingForm = __webpack_require__(24);
+var _ListingForm = __webpack_require__(25);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -13268,7 +13268,7 @@ var _formSelect = __webpack_require__(21);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ListingForm = __webpack_require__(24);
+var _ListingForm = __webpack_require__(25);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -13599,7 +13599,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _confirmModal = __webpack_require__(27);
+var _confirmModal = __webpack_require__(22);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -14225,7 +14225,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(25);
+var _reactToggleButton = __webpack_require__(26);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -14241,7 +14241,7 @@ var _draftJsExportHtml = __webpack_require__(139);
 
 var _draftJsPluginsEditor = __webpack_require__(50);
 
-var _confirmModal = __webpack_require__(27);
+var _confirmModal = __webpack_require__(22);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -15422,10 +15422,15 @@ var UsersPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
 
             var usersRender = function usersRender(users) {
                 return users.map(function (user, index) {
-                    return _react2.default.createElement(_UserCard2.default, { key: index, index: index, user: user });
+                    return _react2.default.createElement(_UserCard2.default, { key: index,
+                        index: index,
+                        user: user,
+                        error: _this2.props.error,
+                        success: _this2.props.success });
                 });
             };
 
@@ -15465,7 +15470,7 @@ exports.default = UsersPage;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -15507,102 +15512,96 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var UserCard = function (_React$Component) {
-  _inherits(UserCard, _React$Component);
+	_inherits(UserCard, _React$Component);
 
-  function UserCard(props) {
-    _classCallCheck(this, UserCard);
+	function UserCard(props) {
+		_classCallCheck(this, UserCard);
 
-    var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
 
-    _this.state = { collapse: false };
+		_this.state = { collapse: false };
 
-    _this.saveChanges = _this.saveChanges.bind(_this);
-    _this.handleChange = _this.handleChange.bind(_this);
-    _this.toggleForm = _this.toggleForm.bind(_this);
-    return _this;
-  }
+		_this.handleChange = _this.handleChange.bind(_this);
+		_this.toggleForm = _this.toggleForm.bind(_this);
+		return _this;
+	}
 
-  _createClass(UserCard, [{
-    key: 'handleChange',
-    value: function handleChange(event) {
-      //Update values of inputs
-      _AuthActions2.default.userInfoChange(event, this.props.index);
-    }
-  }, {
-    key: 'saveChanges',
-    value: function saveChanges(event) {
-      event.preventDefault();
-      _AuthActions2.default.updateUser(this.props.user);
-    }
-  }, {
-    key: 'toggleForm',
-    value: function toggleForm() {
-      this.setState({ collapse: !this.state.collapse });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
+	_createClass(UserCard, [{
+		key: 'handleChange',
+		value: function handleChange(event) {
+			//Update values of inputs
+			_AuthActions2.default.userInfoChange(event, this.props.index);
+		}
+	}, {
+		key: 'toggleForm',
+		value: function toggleForm() {
+			this.setState({ collapse: !this.state.collapse });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
 
-      var user = this.props.user;
-      var userAccess = function userAccess(accessCode) {
-        return {
-          3: 'Super Admin',
-          2: 'Admin',
-          1: 'Editor',
-          0: 'Subscriber'
-        }[accessCode];
-      };
+			var user = this.props.user;
+			var userAccess = function userAccess(accessCode) {
+				return {
+					3: 'Super Admin',
+					2: 'Admin',
+					1: 'Editor',
+					0: 'Subscriber'
+				}[accessCode];
+			};
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'user' },
-        _react2.default.createElement(
-          'div',
-          { className: 'image' },
-          _react2.default.createElement(_imageBlock2.default, { image: user.avatar })
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'p',
-            null,
-            user['firstname'] + ' ' + user['lastname']
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            user.local.username
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            userAccess([this.props.user.userAccess])
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'info' },
-          _react2.default.createElement(
-            _reactstrap.Button,
-            { color: 'primary', onClick: this.toggleForm },
-            this.state.collapse ? 'Close' : 'Edit'
-          ),
-          _react2.default.createElement(
-            _reactstrap.Collapse,
-            { isOpen: this.state.collapse },
-            _react2.default.createElement(_UserEdit2.default, {
-              user: user,
-              handleChange: this.handleChange,
-              saveChanges: this.saveChanges
-            })
-          )
-        )
-      );
-    }
-  }]);
+			return _react2.default.createElement(
+				'div',
+				{ className: 'user' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'image' },
+					_react2.default.createElement(_imageBlock2.default, { image: user.avatar })
+				),
+				_react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'p',
+						null,
+						user['firstname'] + ' ' + user['lastname']
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						user.local.username
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						userAccess([this.props.user.userAccess])
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'info' },
+					_react2.default.createElement(
+						_reactstrap.Button,
+						{ color: 'primary', onClick: this.toggleForm },
+						this.state.collapse ? 'Close' : 'Edit'
+					),
+					_react2.default.createElement(
+						_reactstrap.Collapse,
+						{ isOpen: this.state.collapse },
+						_react2.default.createElement(_UserEdit2.default, {
+							user: user,
+							handleChange: this.handleChange,
+							error: this.props.error,
+							success: this.props.success
+						})
+					)
+				)
+			);
+		}
+	}]);
 
-  return UserCard;
+	return UserCard;
 }(_react2.default.Component);
 
 exports.default = UserCard;
@@ -15632,6 +15631,10 @@ var _AuthActions = __webpack_require__(2);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
+var _confirmModal = __webpack_require__(22);
+
+var _confirmModal2 = _interopRequireDefault(_confirmModal);
+
 var _reactstrap = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -15641,6 +15644,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//Components
+
 
 var UserEdit = function (_React$Component) {
 	_inherits(UserEdit, _React$Component);
@@ -15648,16 +15653,70 @@ var UserEdit = function (_React$Component) {
 	function UserEdit(props) {
 		_classCallCheck(this, UserEdit);
 
-		return _possibleConstructorReturn(this, (UserEdit.__proto__ || Object.getPrototypeOf(UserEdit)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (UserEdit.__proto__ || Object.getPrototypeOf(UserEdit)).call(this, props));
+
+		_this.state = {
+			save: false,
+			delete: false
+		};
+
+		_this.onSave = _this.onSave.bind(_this);
+		_this.onDelete = _this.onDelete.bind(_this);
+		_this.onSaveAlert = _this.onSaveAlert.bind(_this);
+		_this.onDeleteAlert = _this.onDeleteAlert.bind(_this);
+
+		return _this;
 	}
 
+	//save alert
+
+
 	_createClass(UserEdit, [{
+		key: 'onSaveAlert',
+		value: function onSaveAlert(event) {
+			event.preventDefault();
+			this.setState({
+				save: true
+			});
+		}
+		//delete alert
+
+	}, {
+		key: 'onDeleteAlert',
+		value: function onDeleteAlert(event) {
+			event.preventDefault();
+			this.setState({
+				delete: true
+			});
+		}
+
+		//save
+
+	}, {
+		key: 'onSave',
+		value: function onSave(event) {
+			_AuthActions2.default.updateUser(this.props.user);
+			this.setState({
+				save: false
+			});
+		}
+		//delete
+
+	}, {
+		key: 'onDelete',
+		value: function onDelete(event) {
+			console.log('deleting user');
+			this.setState({
+				delete: false
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var user = this.props.user;
 			return _react2.default.createElement(
 				_reactstrap.Form,
-				{ onSubmit: this.props.saveChanges },
+				null,
 				_react2.default.createElement(
 					_reactstrap.Label,
 					null,
@@ -15718,10 +15777,36 @@ var UserEdit = function (_React$Component) {
 					)
 				),
 				_react2.default.createElement(
-					_reactstrap.Button,
-					{ type: 'submit' },
-					'Submit Changes'
-				)
+					_reactstrap.FormGroup,
+					null,
+					_react2.default.createElement(
+						_reactstrap.Button,
+						{ onClick: this.onSaveAlert },
+						'Save'
+					),
+					' ',
+					_react2.default.createElement(
+						_reactstrap.Button,
+						{ onClick: this.onDeleteAlert },
+						'Delete'
+					)
+				),
+				this.state.save && _react2.default.createElement(_confirmModal2.default, {
+					modalVisible: this.state.save,
+					handleSubmit: this.onSave,
+					textTitle: 'Save',
+					textAction: 'save this User',
+					textConfirm: 'Saved!',
+					error: this.props.error.updateUser,
+					success: this.props.success.updateUser }),
+				this.state.delete && _react2.default.createElement(_confirmModal2.default, {
+					modalVisible: this.state.delete,
+					handleSubmit: this.onDelete,
+					textTitle: 'Delete',
+					textAction: 'Delete this user',
+					textConfirm: 'Deleted!',
+					error: this.props.error.deleteUser,
+					success: this.props.success.deleteUser })
 			);
 		}
 	}]);
@@ -16224,7 +16309,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(23);
+var _ImagesActions = __webpack_require__(24);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -16867,7 +16952,7 @@ module.exports = router;
 
 var express = __webpack_require__(12);
 var router = express.Router();
-var passport = __webpack_require__(22);
+var passport = __webpack_require__(23);
 
 //###################################
 // SIGNUP

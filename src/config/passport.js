@@ -199,8 +199,8 @@ module.exports = function(passport) {
                 console.log(profile)
 
                 // set the user's local credentials
-                newUser.firstname      	= profile.givenName;
-				newUser.lastname      	= profile.familyName;
+                newUser.firstname      	= profile.name.givenName;
+				newUser.lastname      	= profile.name.familyName;
 				newUser.slug      		= profile.displayName.replace(/\s+/g, '').toLowerCase();
 				newUser.userAccess 		= 1;
                 newUser.facebook.id  	= profile.id;

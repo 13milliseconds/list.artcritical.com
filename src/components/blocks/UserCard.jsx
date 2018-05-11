@@ -15,7 +15,6 @@ export default class UserCard extends React.Component {
 
     	this.state = { collapse: false };
 
-        this.saveChanges = this.saveChanges.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
     }
@@ -25,10 +24,6 @@ export default class UserCard extends React.Component {
        AuthActions.userInfoChange(event, this.props.index);
     }
 
-    saveChanges(event){
-    	event.preventDefault();
-        AuthActions.updateUser(this.props.user)
-    }
 
     toggleForm() {
     	this.setState({ collapse: !this.state.collapse });
@@ -66,7 +61,8 @@ export default class UserCard extends React.Component {
 				<UserEdit 
 					user={user} 
 					handleChange={this.handleChange} 
-					saveChanges={this.saveChanges}
+					error={this.props.error}
+					success={this.props.success}
 					/>
 			
 			</Collapse>
