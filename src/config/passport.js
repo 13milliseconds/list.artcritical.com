@@ -177,7 +177,7 @@ module.exports = function(passport) {
         clientID: "1154923567943109",
         clientSecret: "9ab1f837eabcc53aafadc9657eb65f19",
         callbackURL: process.env.BASE_URI + "/auth/facebook/callback",
-        profileFields: ['id', 'displayName', 'email', 'givenName', 'familyName']
+        profileFields: ['id', 'displayName', 'email']
       },
       function(accessToken, refreshToken, profile, done) {
         
@@ -205,7 +205,7 @@ module.exports = function(passport) {
 				newUser.userAccess 		= 1;
                 newUser.facebook.id  	= profile.id;
                 newUser.facebook.token  = accessToken;
-				newUser.local.username	= profile.email;
+				newUser.local.username	= '';
 				newUser.local.password	= '';
 				
 				//Check if slug already exist
