@@ -177,7 +177,7 @@ module.exports = function(passport) {
         clientID: "1154923567943109",
         clientSecret: "9ab1f837eabcc53aafadc9657eb65f19",
         callbackURL: process.env.BASE_URI + "/auth/facebook/callback",
-        profileFields: ['id', 'displayName', 'email']
+        profileFields: ['id', 'displayName', 'email', 'first_name', 'last_name']
       },
       function(accessToken, refreshToken, profile, done) {
         

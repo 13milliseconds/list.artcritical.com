@@ -19,12 +19,6 @@ export default class UserCard extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
     }
-
-    componentWillReceiveProps(nextProps){
-        if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)){
-           	console.log(nextProps.user);
-        }
-    }
     
     handleChange(event) {
         //Update values of inputs
@@ -71,7 +65,7 @@ export default class UserCard extends React.Component {
 
 				<UserEdit 
 					user={user} 
-					handleChange={this.handleChange}
+					handleChange={this.handleChange} 
 					saveChanges={this.saveChanges}
 					/>
 			

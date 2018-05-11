@@ -10,11 +10,9 @@ import UserFullInfo from '../blocks/UserFullInfo'
 export default class UsersPage extends React.Component {
     constructor(props) {
         super(props);
-
-
     }
 	
-	componentDidMount(){
+	componentWillMount(){
 		AuthActions.getAllUsers()
 	}
 

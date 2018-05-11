@@ -3313,6 +3313,8 @@ var ListStore = function () {
     }, {
         key: 'onUserInfoChange',
         value: function onUserInfoChange(data) {
+            console.log(data);
+
             var target = data.event.target;
             var value = target.value;
             var name = target.name;
@@ -8124,7 +8126,7 @@ module.exports = function (passport) {
     clientID: "1154923567943109",
     clientSecret: "9ab1f837eabcc53aafadc9657eb65f19",
     callbackURL: process.env.BASE_URI + "/auth/facebook/callback",
-    profileFields: ['id', 'displayName', 'email']
+    profileFields: ['id', 'displayName', 'email', 'first_name', 'last_name']
   }, function (accessToken, refreshToken, profile, done) {
 
     //check user table for anyone with a facebook ID of profile.id
@@ -8139,6 +8141,8 @@ module.exports = function (passport) {
         console.log("New user", user);
         // create the user
         var newUser = new User();
+
+        console.log(profile);
 
         // set the user's local credentials
         newUser.firstname = profile.givenName;
@@ -9628,7 +9632,7 @@ var ListingCluster = function (_React$Component) {
                 return listings.map(function (currentListing, index) {
                     return _react2.default.createElement(
                         'p',
-                        null,
+                        { key: currentListing._id },
                         _react2.default.createElement(
                             'span',
                             { className: 'title' },
@@ -15411,8 +15415,8 @@ var UsersPage = function (_React$Component) {
     }
 
     _createClass(UsersPage, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
             _AuthActions2.default.getAllUsers();
         }
     }, {
@@ -15424,8 +15428,6 @@ var UsersPage = function (_React$Component) {
                     return _react2.default.createElement(_UserCard2.default, { key: index, index: index, user: user });
                 });
             };
-
-            console.log('Current User: ', this.props.user);
 
             return _react2.default.createElement(
                 'div',
@@ -15463,7 +15465,7 @@ exports.default = UsersPage;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -15505,109 +15507,102 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var UserCard = function (_React$Component) {
-    _inherits(UserCard, _React$Component);
+  _inherits(UserCard, _React$Component);
 
-    function UserCard(props) {
-        _classCallCheck(this, UserCard);
+  function UserCard(props) {
+    _classCallCheck(this, UserCard);
 
-        var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
 
-        _this.state = { collapse: false };
+    _this.state = { collapse: false };
 
-        _this.saveChanges = _this.saveChanges.bind(_this);
-        _this.handleChange = _this.handleChange.bind(_this);
-        _this.toggleForm = _this.toggleForm.bind(_this);
-        return _this;
+    _this.saveChanges = _this.saveChanges.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.toggleForm = _this.toggleForm.bind(_this);
+    return _this;
+  }
+
+  _createClass(UserCard, [{
+    key: 'handleChange',
+    value: function handleChange(event) {
+      //Update values of inputs
+      _AuthActions2.default.userInfoChange(event, this.props.index);
     }
+  }, {
+    key: 'saveChanges',
+    value: function saveChanges(event) {
+      event.preventDefault();
+      _AuthActions2.default.updateUser(this.props.user);
+    }
+  }, {
+    key: 'toggleForm',
+    value: function toggleForm() {
+      this.setState({ collapse: !this.state.collapse });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
 
-    _createClass(UserCard, [{
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            if (JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)) {
-                console.log(nextProps.user);
-            }
-        }
-    }, {
-        key: 'handleChange',
-        value: function handleChange(event) {
-            //Update values of inputs
-            _AuthActions2.default.userInfoChange(event, this.props.index);
-        }
-    }, {
-        key: 'saveChanges',
-        value: function saveChanges(event) {
-            event.preventDefault();
-            _AuthActions2.default.updateUser(this.props.user);
-        }
-    }, {
-        key: 'toggleForm',
-        value: function toggleForm() {
-            this.setState({ collapse: !this.state.collapse });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
+      var user = this.props.user;
+      var userAccess = function userAccess(accessCode) {
+        return {
+          3: 'Super Admin',
+          2: 'Admin',
+          1: 'Editor',
+          0: 'Subscriber'
+        }[accessCode];
+      };
 
-            var user = this.props.user;
-            var userAccess = function userAccess(accessCode) {
-                return {
-                    3: 'Super Admin',
-                    2: 'Admin',
-                    1: 'Editor',
-                    0: 'Subscriber'
-                }[accessCode];
-            };
+      return _react2.default.createElement(
+        'div',
+        { className: 'user' },
+        _react2.default.createElement(
+          'div',
+          { className: 'image' },
+          _react2.default.createElement(_imageBlock2.default, { image: user.avatar })
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'p',
+            null,
+            user['firstname'] + ' ' + user['lastname']
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            user.local.username
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            userAccess([this.props.user.userAccess])
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'info' },
+          _react2.default.createElement(
+            _reactstrap.Button,
+            { color: 'primary', onClick: this.toggleForm },
+            this.state.collapse ? 'Close' : 'Edit'
+          ),
+          _react2.default.createElement(
+            _reactstrap.Collapse,
+            { isOpen: this.state.collapse },
+            _react2.default.createElement(_UserEdit2.default, {
+              user: user,
+              handleChange: this.handleChange,
+              saveChanges: this.saveChanges
+            })
+          )
+        )
+      );
+    }
+  }]);
 
-            return _react2.default.createElement(
-                'div',
-                { className: 'user' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'image' },
-                    _react2.default.createElement(_imageBlock2.default, { image: user.avatar })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        user['firstname'] + ' ' + user['lastname']
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        user.local.username
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        userAccess([this.props.user.userAccess])
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'info' },
-                    _react2.default.createElement(
-                        _reactstrap.Button,
-                        { color: 'primary', onClick: this.toggleForm },
-                        this.state.collapse ? 'Close' : 'Edit'
-                    ),
-                    _react2.default.createElement(
-                        _reactstrap.Collapse,
-                        { isOpen: this.state.collapse },
-                        _react2.default.createElement(_UserEdit2.default, {
-                            user: user,
-                            handleChange: this.handleChange,
-                            saveChanges: this.saveChanges
-                        })
-                    )
-                )
-            );
-        }
-    }]);
-
-    return UserCard;
+  return UserCard;
 }(_react2.default.Component);
 
 exports.default = UserCard;
@@ -15662,7 +15657,7 @@ var UserEdit = function (_React$Component) {
 			var user = this.props.user;
 			return _react2.default.createElement(
 				_reactstrap.Form,
-				{ onSubmit: this.saveChanges },
+				{ onSubmit: this.props.saveChanges },
 				_react2.default.createElement(
 					_reactstrap.Label,
 					null,
@@ -15671,7 +15666,7 @@ var UserEdit = function (_React$Component) {
 				_react2.default.createElement(
 					'div',
 					{ className: 'formSection' },
-					_react2.default.createElement(_reactstrap.Input, { name: 'firstname', placeholder: 'Your First Name', type: 'text', onChange: this.handleChange, value: user.firstname })
+					_react2.default.createElement(_reactstrap.Input, { name: 'firstname', placeholder: 'Your First Name', type: 'text', onChange: this.props.handleChange, value: user.firstname })
 				),
 				_react2.default.createElement(
 					_reactstrap.Label,
@@ -15681,7 +15676,7 @@ var UserEdit = function (_React$Component) {
 				_react2.default.createElement(
 					'div',
 					{ className: 'formSection' },
-					_react2.default.createElement(_reactstrap.Input, { name: 'lastname', placeholder: 'Your Last Name', type: 'text', onChange: this.handleChange, value: user.lastname })
+					_react2.default.createElement(_reactstrap.Input, { name: 'lastname', placeholder: 'Your Last Name', type: 'text', onChange: this.props.handleChange, value: user.lastname })
 				),
 				_react2.default.createElement(
 					_reactstrap.Label,
@@ -15691,7 +15686,7 @@ var UserEdit = function (_React$Component) {
 				_react2.default.createElement(
 					'div',
 					{ className: 'formSection' },
-					_react2.default.createElement(_reactstrap.Input, { name: 'email', placeholder: 'Your Email', type: 'email', onChange: this.handleChange, value: user.local.username })
+					_react2.default.createElement(_reactstrap.Input, { name: 'email', placeholder: 'Your Email', type: 'email', onChange: this.props.handleChange, value: user.local.username })
 				),
 				_react2.default.createElement(
 					_reactstrap.Label,
@@ -15700,7 +15695,7 @@ var UserEdit = function (_React$Component) {
 				),
 				_react2.default.createElement(
 					_reactstrap.Input,
-					{ type: 'select', name: 'userAccess', onChange: this.handleChange, value: user.userAccess },
+					{ type: 'select', name: 'userAccess', onChange: this.props.handleChange, value: user.userAccess },
 					_react2.default.createElement(
 						'option',
 						{ value: 3 },
@@ -16883,7 +16878,6 @@ router.post('/signup', async function (req, res) {
         // If logged in, we should have user info to send back
         if (req.user) {
             passport.authenticate('local-login')(req, res, function () {
-                console.log('Logged in.');
                 // If logged in, we should have user info to send back
 
                 if (req.user) {

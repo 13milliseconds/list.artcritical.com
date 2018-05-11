@@ -14,25 +14,25 @@ export default class UserEdit extends React.Component {
     render() {
     	let user = this.props.user;
     	return (
-    		<Form onSubmit={this.saveChanges}>
+    		<Form onSubmit={this.props.saveChanges}>
 
 				<Label>First Name</Label>
 				<div className="formSection">
-					<Input name="firstname" placeholder="Your First Name" type="text" onChange={this.handleChange} value={user.firstname}  />
+					<Input name="firstname" placeholder="Your First Name" type="text" onChange={this.props.handleChange} value={user.firstname}  />
 				</div>
 				
 				<Label>Last Name</Label>
 				<div className="formSection">
-					<Input name="lastname" placeholder="Your Last Name" type="text" onChange={this.handleChange} value={user.lastname}  />
+					<Input name="lastname" placeholder="Your Last Name" type="text" onChange={this.props.handleChange} value={user.lastname}  />
 				</div>
 				
 				<Label>Email</Label>
 				<div className="formSection">
-					<Input name="email" placeholder="Your Email" type="email" onChange={this.handleChange}  value={user.local.username} />
+					<Input name="email" placeholder="Your Email" type="email" onChange={this.props.handleChange}  value={user.local.username} />
 				</div>
 
 				<Label for="exampleSelect">User Role</Label>
-				<Input type="select" name="userAccess" onChange={this.handleChange} value={user.userAccess}>
+				<Input type="select" name="userAccess" onChange={this.props.handleChange} value={user.userAccess}>
 					<option value={3}>SuperAdmin</option>
 					<option value={1} >Editor</option>
 					<option value={2}>Admin</option>

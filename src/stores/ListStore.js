@@ -664,6 +664,8 @@ class ListStore {
     
     // INFO CHANGE ON ACCOUNT PAGE
     onUserInfoChange (data){
+        console.log(data);
+
         const target = data.event.target;
         const value = target.value;
         const name = target.name;
