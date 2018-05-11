@@ -67,12 +67,12 @@ export default class Listing extends React.Component {
     let address = <span>{listing.venue.address1} {listing.venue.address2}{(listing.venue.address2 !== '' && listing.venue.city !== '') && ', ' }{listing.venue.city}</span>
         
     if (listing.event == true) {
-        dateDisplay = <p>{listing.start && <Date date={listing.start} /> } - {address}</p>
+        dateDisplay = listing.start && <span className="date"><Date date={listing.start} /></span>
     } else {
         if (this.props.dateView == "current") {
-            dateDisplay = <p>Until <Date date={listing.end}/> - {address}</p>
+            dateDisplay = <span className="date">Until <Date date={listing.end}/></span>
         } else {
-            dateDisplay = <p>{listing.start && <Date date={listing.start} /> }{listing.end && <span> to <Date date={listing.end} /></span>} - {address}</p>
+        dateDisplay = <span className="date">{listing.start && <Date date={listing.start} /> }{listing.end && <span> to <Date date={listing.end} /></span>}</span>
         }
     }
         
@@ -105,8 +105,10 @@ export default class Listing extends React.Component {
             </div>
             <div className = "listingContent">
                 <div className="header">
-                    <p><span className="title">{listing.name}</span>{listing.venue._id !== '' && ' at ' }<a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a></p>
-                    {dateDisplay}
+
+                    <p><span className="title">{listing.name}</span> {dateDisplay}</p>
+                    <p><a className="venueName" href={"/venue/" + listing.venue.slug}>{listing.venue.name}</a> - {address}</p>
+
                     <div className="icons">
                         {(listing.description || eventsPresence) && <FontAwesomeIcon icon={['fal', 'info-circle']} onClick={this._revealInfo}/>}
                         {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}

@@ -65,12 +65,15 @@ export default class DayPage extends React.Component {
         
         return ( 
             <div className = "day">
+            <p> { this.state.openings.length > 0 && this.state.openings.length + ' shows openings, '}
+                { this.state.events.length > 0 && this.state.events.length + ' events, '}
+                { this.state.closings.length > 0 && this.state.closings.length + ' shows closing'}</p>
             <div className={this.props.view + " listingsWrap"}>
                     { this.state.openings.length > 0 && <h2>Openings</h2>}
                         {this.state.openings}
                     { this.state.events.length > 0 && <h2>Events</h2> }
                         {this.state.events}
-                    { this.state.closings.length > 0 && <h2>Closing</h2> }
+                    { this.state.closings.length > 0 && <h2>Last Chance</h2> }
                         {this.state.closings}
                         
                     { (this.state.closings.length + this.state.events.length + this.state.openings.length) == 0 

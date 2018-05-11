@@ -14,11 +14,14 @@ export default class MyListPage extends React.Component {
         let myListRender = this.props.user.isLoggedIn ?
                             <MyList {...this.props} />
                             :
-                            <div>
-                                <p>An intro paragraph about why you should register.</p>
-                                <LogInForm 
-                                    loading={this.props.loading.login} 
-                                    error={this.props.error} />
+                            <div className="popupList">
+                                <div>
+                                    <h2>Register</h2>
+                                    <p>Sign in to start adding shows to your list.</p>
+                                    <LogInForm 
+                                        loading={this.props.loading.login} 
+                                        error={this.props.error} />
+                                </div>
                             </div>
         return ( 
                 <div className="myListwrap">

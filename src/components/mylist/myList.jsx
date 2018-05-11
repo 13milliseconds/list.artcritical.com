@@ -172,7 +172,7 @@ export default class MyList extends React.Component {
                                                     <p>Add some listings to your list to enjoy this page.</p>
                                                     <Button href="/current">Explore all shows</Button>
                                                 </div>
-                                            </div>  
+                                            </div>
                     }
 				</div>
                     <MyMap 
