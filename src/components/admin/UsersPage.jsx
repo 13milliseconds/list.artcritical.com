@@ -21,15 +21,8 @@ export default class UsersPage extends React.Component {
     render() {
         
         let usersRender = users => users.map((user, index) => {
-            return (
-    
-            <UserCard key={index} index={index} user={user} />
-
-            )
-            
+            return <UserCard key={index} index={index} user={user} />
         });
-		
-		console.log('Current User: ', this.props.user)
         
         return ( 
             <div className = "usersWrap">

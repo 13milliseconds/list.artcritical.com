@@ -12,7 +12,6 @@ router.post('/signup', async(req, res) => {
         // If logged in, we should have user info to send back
         if (req.user) {
             passport.authenticate('local-login')(req, res, () => {
-				console.log('Logged in.');
 				// If logged in, we should have user info to send back
 
 				if (req.user) {

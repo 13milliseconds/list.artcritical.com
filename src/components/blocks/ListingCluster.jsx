@@ -60,8 +60,7 @@ export default class ListingCluster extends React.Component {
         let listing = this.props.listings[0]
         const id = listing._id;
 
-        let eventsPresence = listing.events &&
-                                listing.events.length > 0 ? true : false
+        let eventsPresence = listing.events && listing.events.length > 0 ? true : false
         
         //Display address
         let address = <span>{listing.venue.address1} {listing.venue.address2}{(listing.venue.address2 !== '' && listing.venue.city !== '') && ', ' }{listing.venue.city}</span>
