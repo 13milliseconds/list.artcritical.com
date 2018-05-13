@@ -171,7 +171,6 @@ class ListStore {
     
     // Reset listing edit
     onListingEditReset(){
-        console.log('Rest listingEdit')
         this.listingEdit = {
             name: '',
             description: '',
@@ -371,7 +370,12 @@ class ListStore {
     onSaveListingSuccess(data){
         console.log('Saved: ', data);   
         this.loading.savelisting = false; 
-        this.success.savelisting = true; 
+        this.success.savelisting = true;
+        this.listingEdit._id = data._id;
+        var that = this;
+        setTimeout(function(){
+            that.success.savelisting = false;
+        }.bind(this), 1000)
     }
     onSaveListingFailure(err){
         console.log('Error: ', err);
@@ -404,9 +408,10 @@ class ListStore {
         console.log('Deleted');  
 		//Reset the listing data
         this.success.deletelisting = true;
-		this.listingEdit = {
-            venue: {},
-        };
+        var that = this;
+        setTimeout(() => {
+            that.success.deletelisting = false;
+        }, 1000);
     }
     onDeleteListingFailure(err){
         console.log('Error: ', err);

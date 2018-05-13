@@ -65,16 +65,10 @@ export default class ListingForm extends React.Component {
 		if (this.props.listing._id){
 			//Edit the current listing
             ListActions.updateListing(newListing)
-            this.setState({ 
-                updateModal: false
-            })
 		} else {	
 			//Create a new Listing
 			delete newListing._id
             ListActions.saveListing(newListing)
-            this.setState({ 
-                createModal: false
-            });
 		}
       }
 
@@ -95,9 +89,6 @@ export default class ListingForm extends React.Component {
     //Delete the listing
     handleDelete() {
         ListActions.deleteListing(this.props.listing._id)
-        this.setState({ 
-            deleteModal: false
-        });
     }
 
     //confirm alert
@@ -182,7 +173,7 @@ export default class ListingForm extends React.Component {
         let venueData = listing.venue ? { value: listing.venue._id, label: listing.venue.name} : {value:'', label:''}
         
         // If the listing exists, offer to delete it
-        let deleteButton = this.props.listing._id &&
+        let deleteButton = listing._id &&
                 <Button className="delete" color="danger" onClick={this.onDeleteConfirm}>Delete</Button>
 
         return ( 
@@ -227,6 +218,12 @@ export default class ListingForm extends React.Component {
                         <Label>Description</Label>
                         <div className="formSection">
                             <Input type="textarea" name="description" value={listing.description} onChange={this.handleChange} />
+                        </div>
+                    </FormGroup>
+                    <FormGroup check>
+                        <Label>Review Link</Label>
+                        <div className="formSection">
+                            <Input type="url"  name="review" placeholder="Link" type="text" value={listing.review} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
                     <FormGroup check>

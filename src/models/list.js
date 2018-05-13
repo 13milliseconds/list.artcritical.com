@@ -24,6 +24,7 @@ var listingSchema = mongoose.Schema({
     thumb: String,
     popularity: Number,
     neighborhood: Number,
+    review: String,
 	created_at: Date,
     updated_at: Date,
 	updated_by: {
@@ -34,4 +35,8 @@ var listingSchema = mongoose.Schema({
 });
 
 //compile the model
-module.exports = mongoose.model('List', listingSchema);
+module.exports = {
+    list: mongoose.model('List', listingSchema),
+    trash: mongoose.model('Trash', listingSchema),
+    archive: mongoose.model('Archive', listingSchema)
+}

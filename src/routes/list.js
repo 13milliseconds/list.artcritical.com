@@ -167,7 +167,7 @@ router.get('/latestlistings', function (req, res) {
     List.find().
     where('venue').ne('').
     where('updated_at').ne('').
-    sort('updated_at').
+    sort({updated_at: -1}).
     limit(20).
     populate('venue').
     exec(function (e, docs) {
@@ -219,7 +219,6 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     exec(function (e, docs) {
         if (e)
             res.send(e);
-        console.log(docs, e)
         res.json(docs);
     });
 
@@ -363,19 +362,31 @@ router.post('/findfeatures/:days', function (req, res) {
 
 router.post('/delete/:listing_id', function (req, res) {
     var List = req.list;
+    var Trash = req.trash;
 
     console.log("Deleting one listing", req.params.listing_id);
 
     var listingToDelete = req.params.listing_id;
-    List.remove({
-        '_id': listingToDelete
-    }, function (err) {
-        res.send((err === null) ? {
-            msg: ''
-        } : {
-            msg: 'error: ' + err
+
+    List.findOne({ _id: listingToDelete }, function(err, result) {
+
+        let swap = new Trash(result);
+        swap._id = mongoose.Types.ObjectId()
+        swap.isNew = true
+    
+        swap.save(function (err, newlisting) {
+            res.send(
+                (err === null) ? {
+                    data: newlisting
+                } : {
+                    msg: err
+                }
+            );
         });
-    });
+
+        result.remove();
+    
+    })
 
 });
 
