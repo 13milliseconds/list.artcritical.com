@@ -219,6 +219,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     exec(function (e, docs) {
         if (e)
             res.send(e);
+        console.log(docs, e)
         res.json(docs);
     });
 

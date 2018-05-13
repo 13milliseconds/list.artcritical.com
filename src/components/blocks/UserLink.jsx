@@ -1,6 +1,7 @@
 import React from 'react';
 //COMPONENTS
-import {Popover, PopoverTitle, PopoverContent} from 'reactstrap'
+import {Popover, PopoverTitle, PopoverContent, Button} from 'reactstrap'
+import {Link} from 'react-router';
 
 
 export default class UserLink extends React.Component {
@@ -47,6 +48,9 @@ export default class UserLink extends React.Component {
                     <PopoverTitle>{hasAvatar && <img className="avatar" src={fullURL}/>} {user.firstname} {user.lastname}</PopoverTitle>
                     <PopoverContent>
                         {user.bio}
+                        <Link to={'/mylist/' + user.slug}>
+                            <Button>Profile</Button>
+                        </Link>
                     </PopoverContent>
                 </Popover>
             </span>

@@ -234,7 +234,6 @@ class ListActions {
         })
         .then((json) => {
             this.saveListingSuccess(json);
-            this.listingEditReset();
             return true;
         })
         .catch((error) => {
@@ -295,7 +294,6 @@ class ListActions {
         })
         .then((json) => {
             this.updateListingSuccess(json);
-            this.listingEditReset();
             return true;
         })
         .catch((error) => {
@@ -502,8 +500,7 @@ class ListActions {
           return null;
         })
         .then((json) => {
-            this.updateVenueSuccess(json);
-            this.venueEditReset();
+            this.updateVenueSuccess(info);
             return true;
         })
         .catch((error) => {
@@ -533,7 +530,6 @@ class ListActions {
           return null;
         })
         .then((json) => {
-			      this.venueEditReset();
             this.saveVenueSuccess(json);
             return true;
         })
@@ -562,6 +558,7 @@ class ListActions {
           return null;
         })
         .then((json) => {
+            this.venueEditReset();
             this.deleteVenueSuccess(json);
             return true;
         })

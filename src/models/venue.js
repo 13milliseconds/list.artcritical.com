@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var venueSchema = mongoose.Schema({
     name: String,
     slug: String,
+    popup: Boolean,
+    disabled: Boolean,
     website: String,
 	phone: String,
     address1: String,
@@ -27,7 +29,9 @@ var venueSchema = mongoose.Schema({
 	updated_by: {
         type: String,
 		ref: 'User'
-    }
+    },
+    email: String,
+    phone: String,
 });
 
 //compile the model

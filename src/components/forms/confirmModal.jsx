@@ -4,29 +4,19 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap'
 export default class UpdateModal extends React.Component {
 	constructor(props) {
         super(props)
-        this.state = {
-            modalVisible: this.props.modalVisible
-        }
 
-        this.toggle = this.toggle.bind(this);
-        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+        this.componentDidUpdate = this.componentDidUpdate.bind(this)
     }
 
-    componentWillReceiveProps(props){
-        this.setState({
-            modalVisible: this.props.modalVisible
-        });
-    }
-    
-    toggle() {
-        this.setState({
-            modalVisible: !this.state.modalVisible
-        });
+    componentDidUpdate(){
+        this.props.success && setTimeout(function(){
+            this.props.toggle(this.props.name)
+        }.bind(this), 1000)
     }
 
 	render() {
         return (
-            <Modal isOpen={this.state.modalVisible}>
+            <Modal isOpen={true} backdrop={true}>
                 <ModalHeader>{this.props.textTitle}</ModalHeader>
                 <ModalBody>
                     {!this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to " + this.props.textAction + ". Press Cancel to go back." : null}
@@ -42,13 +32,11 @@ export default class UpdateModal extends React.Component {
                     }
                 </ModalBody>
                 <ModalFooter>
-                    {!this.props.success ? 
+                    {!this.props.success &&
                         <div>
                             <Button color="primary" onClick={this.props.handleSubmit}>Confirm</Button>
-                            <Button color="primary" onClick={this.toggle}>Cancel</Button>
+                            <Button color="primary" onClick={() => this.props.toggle(this.props.name)}>Cancel</Button>
                         </div>
-                    :
-                        <Button color="success" onClick={this.toggle}>Close</Button>
                     }
                 </ModalFooter>
             </Modal> 

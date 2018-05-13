@@ -12,6 +12,9 @@ export default class ListingEdit extends React.Component {
 
     constructor(props) { 
         super(props);
+        this.state = {
+            formDisplay: false,
+        }
 
         this.handleSelectChange = this.handleSelectChange.bind(this);        
       }
@@ -22,6 +25,9 @@ export default class ListingEdit extends React.Component {
     
     handleSelectChange (data) {
         if (data){
+            this.setState({
+                formDisplay: true
+            })
 			if (data.label == data.value) {
 				//New Listing
 				ListActions.listingInfoChange({target:{
@@ -34,7 +40,10 @@ export default class ListingEdit extends React.Component {
 			}
         } else {
 			//Reset
-			ListActions.listingEditReset();
+            ListActions.listingEditReset();
+            this.setState({
+                formDisplay: false
+            })
 		}
     }
     
@@ -68,15 +77,19 @@ export default class ListingEdit extends React.Component {
                 </div>
                 <div id="ListingInfo">
                     <div className="medium">
-                        <Listing listing={this.props.listingEdit} user=""/>
+                        {this.props.listingEdit.venue &&
+                            <Listing listing={this.props.listingEdit} user=""/>
+                        }
                     </div>
                 </div>
                 <div className="listingForm">
-                    <ListingForm 
-                        listing={this.props.listingEdit} 
-                        error={this.props.error.updatelisting} 
-                        loading={this.props.loading.updatelisting}
-                        success={this.props.success}/>
+                    {this.state.formDisplay && 
+                        <ListingForm 
+                            listing={this.props.listingEdit} 
+                            error={this.props.error.updatelisting} 
+                            loading={this.props.loading.updatelisting}
+                            success={this.props.success}/>
+                    }
                 </div>
             </div>
         );

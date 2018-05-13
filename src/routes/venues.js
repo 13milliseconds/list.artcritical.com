@@ -75,6 +75,7 @@ router.get('/getinfo/:venue_id', function (req, res, next) {
 		.findOne({_id: req.params.venue_id})
 		.populate('updated_by')
     	.exec(function (e, docs) {
+            console.log(docs);
         	if (e)
             	res.send(e);
 
@@ -168,11 +169,7 @@ router.post('/add', function (req, res) {
 
     // Save this new entry
     newvenue.save(function (err, newvenue) {
-        res.send(
-            (err !== null) && {
-                msg: err
-            }
-        );
+        res.json(newvenue);
     });
 
 });

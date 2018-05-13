@@ -1,11 +1,11 @@
 import React from 'react'
-import ToggleButton from 'react-toggle-button'
 import ListActions from '../../actions/ListActions'
 import {browserHistory} from 'react-router'; 
 import { Form, FormGroup, Label, Input, Alert, Button } from 'reactstrap';
 
 
 //Components
+import ToggleButton from 'react-toggle-button'
 import DateRange from './formDateRange'
 import DateSingle from './formDateSingle'
 import Date from '../blocks/DateBlock.jsx';
@@ -22,9 +22,9 @@ export default class ListingForm extends React.Component {
         
         this.state = {
             event: this.props.event,
-            updatevisible: false,
-            deletevisible: false,
-            createvisible: false,
+            updateModal: false,
+            deleteModal: false,
+            createModal: false,
             wasChanged: false //check if any change was made to the listing
         };
 
@@ -37,7 +37,14 @@ export default class ListingForm extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.onEventsChange = this.onEventsChange.bind(this);
         this.onThumbChange = this.onThumbChange.bind(this)
+        this.toggleModal = this.toggleModal.bind(this)
       }
+
+    toggleModal(modalName) {
+        this.setState({
+            [modalName]: !this.state[modalName]
+        })
+    }
 
     // Add the listing to the database
     handleSubmit(event) {
@@ -59,14 +66,14 @@ export default class ListingForm extends React.Component {
 			//Edit the current listing
             ListActions.updateListing(newListing)
             this.setState({ 
-                updatevisible: false
+                updateModal: false
             })
 		} else {	
 			//Create a new Listing
 			delete newListing._id
             ListActions.saveListing(newListing)
             this.setState({ 
-                createvisible: false
+                createModal: false
             });
 		}
       }
@@ -89,7 +96,7 @@ export default class ListingForm extends React.Component {
     handleDelete() {
         ListActions.deleteListing(this.props.listing._id)
         this.setState({ 
-            deletevisible: false
+            deleteModal: false
         });
     }
 
@@ -97,7 +104,7 @@ export default class ListingForm extends React.Component {
     onConfirm(event) {
         event.preventDefault();
         this.setState({ 
-            updatevisible: true
+            updateModal: true
         })
     }
 
@@ -111,14 +118,14 @@ export default class ListingForm extends React.Component {
     onDeleteConfirm(event) {
         event.preventDefault();
         this.setState({ 
-            deletevisible: true
+            deleteModal: true
         });
     }
 
     onCreateConfirm(event) {
         event.preventDefault();
         this.setState({ 
-            createvisible: true
+            createModal: true
         });
     }
 
@@ -172,7 +179,7 @@ export default class ListingForm extends React.Component {
 
           
         
-        let venueData = { value: listing.venue._id, label: listing.venue.name}
+        let venueData = listing.venue ? { value: listing.venue._id, label: listing.venue.name} : {value:'', label:''}
         
         // If the listing exists, offer to delete it
         let deleteButton = this.props.listing._id &&
@@ -247,25 +254,28 @@ export default class ListingForm extends React.Component {
                             {listing._id && <Button onClick={this.onDuplicate}>Duplicate</Button>}
                     </FormGroup>
                 </Form>   
-                       {this.state.updatevisible && <ConfirmModal 
-                                                        modalVisible={this.state.updatevisible}
+                       {this.state.updateModal && <ConfirmModal 
+                                                        toggle={this.toggleModal}
                                                         handleSubmit={this.handleSubmit}
+                                                        name="updateModal"
                                                         textTitle="Update"
                                                         textAction="save this Listing"
                                                         textConfirm="Saved!"
                                                         error={this.props.error.general}
                                                         success={this.props.success.updatelisting}/>}
-                       {this.state.createvisible && <ConfirmModal 
-                                                        modalVisible={this.state.createvisible}
+                       {this.state.createModal && <ConfirmModal 
+                                                        toggle={this.toggleModal}
                                                         handleSubmit={this.handleSubmit}
+                                                        name="createModal"
                                                         textTitle="Create"
                                                         textAction="create this Listing"
                                                         textConfirm="Created!"
                                                         error={this.props.error.general}
                                                         success={this.props.success.savelisting}/>}
-                        {this.state.deletevisible && <ConfirmModal 
-                                                        modalVisible={this.state.deletevisible}
+                        {this.state.deleteModal && <ConfirmModal 
+                                                        toggle={this.toggleModal}
                                                         handleSubmit={this.handleDelete}
+                                                        name="deleteModal"
                                                         textTitle="Delete"
                                                         textAction="delete this Listing"
                                                         textConfirm="Deleted!"

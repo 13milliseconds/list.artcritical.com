@@ -11,7 +11,10 @@ export default class NeighborhoodSelect extends React.Component {
     
     render() { 
         return (  
-        <Input type="select" name="neighborhood"
+        <Input 
+            type="select" 
+            name="neighborhood"  
+            disabled={this.props.disabled}
             value={this.props.selected? this.props.selected : "no-value"} 
             onChange={this.props.onChange}>
 			<option value= "no-value" disabled>Neighborhood</option>

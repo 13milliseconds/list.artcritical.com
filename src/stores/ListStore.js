@@ -48,6 +48,7 @@ class ListStore {
         this.listingEdit.venue.address = '';
         //New venue states
         this.venueEdit = {
+            popup: false,
 			coordinates: {}
 		};
         // Featured listings
@@ -93,6 +94,8 @@ class ListStore {
         this.success.savelisting = false;
         this.success.savevenue = false;
         this.success.feature = false;
+        this.success.updateUser = false
+        this.success.updateUser = false
     }
     
     //List Reducers
@@ -203,8 +206,22 @@ class ListStore {
 	
     onVenueEditReset(){
         this.venueEdit = {
-            coordinates: {}
+            _id: '',
+            name: '',
+            slug: '',
+            address1: '',
+            address2: '',
+            city: '',
+            zipcode: '',
+            state: '',
+            email: '',
+            phone: '',
+            coordinates: {
+                lat: '',
+                long: ''
+            }
         }
+        console.log("reset")
 		// Reset messages
 		this.success.updatevenue = false;
 		this.loading.updatevenue = false;
@@ -260,19 +277,21 @@ class ListStore {
     }
 	//Add a venue
     onSaveVenueAttempt(){
-        this.loading.updatevenue = true;       
+        this.loading.savevenue = true;       
     }
     onSaveVenueSuccess(data){
         console.log('Venue saved')
-        this.loading.updatevenue = false; 
-        this.success.updatevenue = true;
-        this.venueEdit = {
-			coordinates: {}
-		};
+        this.venueEdit._id = data._id
+        this.loading.savevenue = false
+        this.success.savevenue = true
+
+        setTimeout(function(){
+            this.success.savevenue = false;
+        }.bind(this), 1000)
     }
     onSaveVenueFailure(err){
         console.log('Problem saving venue', err)
-        this.loading.updatevenue = false; 
+        this.loading.savevenue = false; 
         this.error.updatevenue.general = 'Error while saving changes'; 
     }
 	// Update a venue
@@ -286,13 +305,13 @@ class ListStore {
         this.loading.updatevenue = true;
     }
     onUpdateVenueSuccess(data){
-        console.log('Venue updated')
+        console.log('Venue updated', data)
+        this.venueEdit = data
         this.loading.updatevenue = false;
         this.success.updatevenue = true;
-        this.venueEdit = {
-			coordinates: {}
-        };
-        console.log(this.venueEdit);
+        setTimeout(function(){
+            this.success.updatevenue = false;
+        }.bind(this), 1000)
     }
     onUpdateVenueFailure(error){
         console.log('Problem updating venue', error)
@@ -305,10 +324,13 @@ class ListStore {
         this.loading.deletevenue = true;
 		this.success.deletevenue = false;
     }
-    onDeleteVenueSuccess(data){
+    onDeleteVenueSuccess(){
         console.log('Deleted');
 		this.loading.deletevenue = false;
         this.success.deletevenue = true;
+        setTimeout(function(){
+            this.success.deletevenue = false;
+        }.bind(this), 1000)
     }
     onDeleteVenueFailure(err){
         console.log('Error deleting: ', err);
@@ -425,15 +447,16 @@ class ListStore {
     onVenueInfoChange (info){
             const value = info.value;
             const name = info.name;  
-        if (name === 'lat'){
-            this.venueEdit.coordinates.lat = parseFloat(value);       
-        } else if (name === 'long'){
-            this.venueEdit.coordinates.long = parseFloat(value);       
-        } else {
-            this.venueEdit[name] = value;
-        }
-		//Keep the slug synced with the name
-		this.venueEdit.slug = this.venueEdit.name.replace(/\s+/g, '-').toLowerCase();
+            if (name === 'lat'){
+                this.venueEdit.coordinates.lat = parseFloat(value);       
+            } else if (name === 'long'){
+                this.venueEdit.coordinates.long = parseFloat(value);       
+            } else {
+                this.venueEdit[name] = value;
+            }
+            //Keep the slug synced with the name
+            this.venueEdit.slug = this.venueEdit.name.replace(/\s+/g, '-').toLowerCase();
+            
     }
     //Update coordinates on venue page
     onCoordinatesChange (coord){
@@ -665,6 +688,7 @@ class ListStore {
     // INFO CHANGE ON ACCOUNT PAGE
     onUserInfoChange (data){
         console.log(data);
+        this.success.updateUser = true
 
         const target = data.event.target;
         const value = target.value;

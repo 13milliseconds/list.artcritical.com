@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ 	return __webpack_require__(__webpack_require__.s = 53);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -289,7 +289,6 @@ var ListActions = function () {
                 return null;
             }).then(function (json) {
                 _this7.saveListingSuccess(json);
-                _this7.listingEditReset();
                 return true;
             }).catch(function (error) {
                 _this7.saveListingFailure(error);
@@ -340,7 +339,6 @@ var ListActions = function () {
                 return null;
             }).then(function (json) {
                 _this9.updateListingSuccess(json);
-                _this9.listingEditReset();
                 return true;
             }).catch(function (error) {
                 _this9.updateListingFailure(error);
@@ -535,8 +533,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this17.updateVenueSuccess(json);
-                _this17.venueEditReset();
+                _this17.updateVenueSuccess(info);
                 return true;
             }).catch(function (error) {
                 _this17.updateVenueFailure(error);
@@ -562,7 +559,6 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this18.venueEditReset();
                 _this18.saveVenueSuccess(json);
                 return true;
             }).catch(function (error) {
@@ -586,6 +582,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
+                _this19.venueEditReset();
                 _this19.deleteVenueSuccess(json);
                 return true;
             }).catch(function (error) {
@@ -636,6 +633,12 @@ exports.default = _alt2.default.createActions(ListActions);
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -959,12 +962,6 @@ var AuthActions = function () {
 exports.default = _alt2.default.createActions(AuthActions);
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router");
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
@@ -987,7 +984,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -995,7 +992,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _DateBlock = __webpack_require__(6);
 
@@ -2162,17 +2159,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(44);
+var _validator = __webpack_require__(45);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 var _reactstrap = __webpack_require__(4);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _FacebookButton = __webpack_require__(118);
 
@@ -2400,7 +2397,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _alt = __webpack_require__(64);
+var _alt = __webpack_require__(65);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -2429,15 +2426,15 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _ImagesActions = __webpack_require__(24);
+var _ImagesActions = __webpack_require__(25);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _toastr = __webpack_require__(75);
+var _toastr = __webpack_require__(76);
 
 var _toastr2 = _interopRequireDefault(_toastr);
 
@@ -2490,6 +2487,7 @@ var ListStore = function () {
         this.listingEdit.venue.address = '';
         //New venue states
         this.venueEdit = {
+            popup: false,
             coordinates: {}
         };
         // Featured listings
@@ -2535,6 +2533,8 @@ var ListStore = function () {
         this.success.savelisting = false;
         this.success.savevenue = false;
         this.success.feature = false;
+        this.success.updateUser = false;
+        this.success.updateUser = false;
     }
 
     //List Reducers
@@ -2690,9 +2690,24 @@ var ListStore = function () {
         key: 'onVenueEditReset',
         value: function onVenueEditReset() {
             this.venueEdit = {
-                coordinates: {}
-                // Reset messages
-            };this.success.updatevenue = false;
+                _id: '',
+                name: '',
+                slug: '',
+                address1: '',
+                address2: '',
+                city: '',
+                zipcode: '',
+                state: '',
+                email: '',
+                phone: '',
+                coordinates: {
+                    lat: '',
+                    long: ''
+                }
+            };
+            console.log("reset");
+            // Reset messages
+            this.success.updatevenue = false;
             this.loading.updatevenue = false;
             this.error.updatevenue = {
                 general: ''
@@ -2759,23 +2774,25 @@ var ListStore = function () {
     }, {
         key: 'onSaveVenueAttempt',
         value: function onSaveVenueAttempt() {
-            this.loading.updatevenue = true;
+            this.loading.savevenue = true;
         }
     }, {
         key: 'onSaveVenueSuccess',
         value: function onSaveVenueSuccess(data) {
             console.log('Venue saved');
-            this.loading.updatevenue = false;
-            this.success.updatevenue = true;
-            this.venueEdit = {
-                coordinates: {}
-            };
+            this.venueEdit._id = data._id;
+            this.loading.savevenue = false;
+            this.success.savevenue = true;
+
+            setTimeout(function () {
+                this.success.savevenue = false;
+            }.bind(this), 1000);
         }
     }, {
         key: 'onSaveVenueFailure',
         value: function onSaveVenueFailure(err) {
             console.log('Problem saving venue', err);
-            this.loading.updatevenue = false;
+            this.loading.savevenue = false;
             this.error.updatevenue.general = 'Error while saving changes';
         }
         // Update a venue
@@ -2796,13 +2813,13 @@ var ListStore = function () {
     }, {
         key: 'onUpdateVenueSuccess',
         value: function onUpdateVenueSuccess(data) {
-            console.log('Venue updated');
+            console.log('Venue updated', data);
+            this.venueEdit = data;
             this.loading.updatevenue = false;
             this.success.updatevenue = true;
-            this.venueEdit = {
-                coordinates: {}
-            };
-            console.log(this.venueEdit);
+            setTimeout(function () {
+                this.success.updatevenue = false;
+            }.bind(this), 1000);
         }
     }, {
         key: 'onUpdateVenueFailure',
@@ -2822,10 +2839,13 @@ var ListStore = function () {
         }
     }, {
         key: 'onDeleteVenueSuccess',
-        value: function onDeleteVenueSuccess(data) {
+        value: function onDeleteVenueSuccess() {
             console.log('Deleted');
             this.loading.deletevenue = false;
             this.success.deletevenue = true;
+            setTimeout(function () {
+                this.success.deletevenue = false;
+            }.bind(this), 1000);
         }
     }, {
         key: 'onDeleteVenueFailure',
@@ -3314,6 +3334,7 @@ var ListStore = function () {
         key: 'onUserInfoChange',
         value: function onUserInfoChange(data) {
             console.log(data);
+            this.success.updateUser = true;
 
             var target = data.event.target;
             var value = target.value;
@@ -3496,6 +3517,12 @@ module.exports = require("prop-types");
 
 /***/ }),
 /* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-toggle-button");
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3511,7 +3538,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(89);
+var _reactSelect = __webpack_require__(90);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3549,7 +3576,7 @@ var formSelect = function (_React$Component) {
 exports.default = formSelect;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3583,35 +3610,25 @@ var UpdateModal = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).call(this, props));
 
-        _this.state = {
-            modalVisible: _this.props.modalVisible
-        };
-
-        _this.toggle = _this.toggle.bind(_this);
-        _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
+        _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
         return _this;
     }
 
     _createClass(UpdateModal, [{
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(props) {
-            this.setState({
-                modalVisible: this.props.modalVisible
-            });
-        }
-    }, {
-        key: 'toggle',
-        value: function toggle() {
-            this.setState({
-                modalVisible: !this.state.modalVisible
-            });
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            this.props.success && setTimeout(function () {
+                this.props.toggle(this.props.name);
+            }.bind(this), 1000);
         }
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 _reactstrap.Modal,
-                { isOpen: this.state.modalVisible },
+                { isOpen: true, backdrop: true },
                 _react2.default.createElement(
                     _reactstrap.ModalHeader,
                     null,
@@ -3640,7 +3657,7 @@ var UpdateModal = function (_React$Component) {
                 _react2.default.createElement(
                     _reactstrap.ModalFooter,
                     null,
-                    !this.props.success ? _react2.default.createElement(
+                    !this.props.success && _react2.default.createElement(
                         'div',
                         null,
                         _react2.default.createElement(
@@ -3650,13 +3667,11 @@ var UpdateModal = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                             _reactstrap.Button,
-                            { color: 'primary', onClick: this.toggle },
+                            { color: 'primary', onClick: function onClick() {
+                                    return _this2.props.toggle(_this2.props.name);
+                                } },
                             'Cancel'
                         )
-                    ) : _react2.default.createElement(
-                        _reactstrap.Button,
-                        { color: 'success', onClick: this.toggle },
-                        'Close'
                     )
                 )
             );
@@ -3669,13 +3684,13 @@ var UpdateModal = function (_React$Component) {
 exports.default = UpdateModal;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3693,7 +3708,7 @@ var _alt2 = _interopRequireDefault(_alt);
 
 __webpack_require__(32);
 
-var _superagent = __webpack_require__(74);
+var _superagent = __webpack_require__(75);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -3763,7 +3778,7 @@ var ImagesActions = function () {
 exports.default = _alt2.default.createActions(ImagesActions);
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3781,19 +3796,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(26);
-
-var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
-
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _reactstrap = __webpack_require__(4);
 
-var _formDateRange = __webpack_require__(88);
+var _reactToggleButton = __webpack_require__(21);
+
+var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
+
+var _formDateRange = __webpack_require__(89);
 
 var _formDateRange2 = _interopRequireDefault(_formDateRange);
 
@@ -3805,7 +3820,7 @@ var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _formSelect = __webpack_require__(21);
+var _formSelect = __webpack_require__(22);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -3813,19 +3828,21 @@ var _ThumbnailInput = __webpack_require__(38);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
-var _EventsForm = __webpack_require__(91);
+var _EventsForm = __webpack_require__(92);
 
 var _EventsForm2 = _interopRequireDefault(_EventsForm);
 
-var _confirmModal = __webpack_require__(22);
+var _confirmModal = __webpack_require__(23);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _UserLink = __webpack_require__(92);
+var _UserLink = __webpack_require__(40);
 
 var _UserLink2 = _interopRequireDefault(_UserLink);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3846,9 +3863,9 @@ var ListingForm = function (_React$Component) {
 
         _this.state = {
             event: _this.props.event,
-            updatevisible: false,
-            deletevisible: false,
-            createvisible: false,
+            updateModal: false,
+            deleteModal: false,
+            createModal: false,
             wasChanged: false //check if any change was made to the listing
         };
 
@@ -3861,13 +3878,19 @@ var ListingForm = function (_React$Component) {
         _this.handleDelete = _this.handleDelete.bind(_this);
         _this.onEventsChange = _this.onEventsChange.bind(_this);
         _this.onThumbChange = _this.onThumbChange.bind(_this);
+        _this.toggleModal = _this.toggleModal.bind(_this);
         return _this;
     }
 
-    // Add the listing to the database
-
-
     _createClass(ListingForm, [{
+        key: 'toggleModal',
+        value: function toggleModal(modalName) {
+            this.setState(_defineProperty({}, modalName, !this.state[modalName]));
+        }
+
+        // Add the listing to the database
+
+    }, {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
             event.preventDefault();
@@ -3890,14 +3913,14 @@ var ListingForm = function (_React$Component) {
                 //Edit the current listing
                 _ListActions2.default.updateListing(newListing);
                 this.setState({
-                    updatevisible: false
+                    updateModal: false
                 });
             } else {
                 //Create a new Listing
                 delete newListing._id;
                 _ListActions2.default.saveListing(newListing);
                 this.setState({
-                    createvisible: false
+                    createModal: false
                 });
             }
         }
@@ -3929,7 +3952,7 @@ var ListingForm = function (_React$Component) {
         value: function handleDelete() {
             _ListActions2.default.deleteListing(this.props.listing._id);
             this.setState({
-                deletevisible: false
+                deleteModal: false
             });
         }
 
@@ -3940,7 +3963,7 @@ var ListingForm = function (_React$Component) {
         value: function onConfirm(event) {
             event.preventDefault();
             this.setState({
-                updatevisible: true
+                updateModal: true
             });
         }
 
@@ -3960,7 +3983,7 @@ var ListingForm = function (_React$Component) {
         value: function onDeleteConfirm(event) {
             event.preventDefault();
             this.setState({
-                deletevisible: true
+                deleteModal: true
             });
         }
     }, {
@@ -3968,7 +3991,7 @@ var ListingForm = function (_React$Component) {
         value: function onCreateConfirm(event) {
             event.preventDefault();
             this.setState({
-                createvisible: true
+                createModal: true
             });
         }
     }, {
@@ -4022,7 +4045,7 @@ var ListingForm = function (_React$Component) {
                 }
             };
 
-            var venueData = { value: listing.venue._id, label: listing.venue.name
+            var venueData = listing.venue ? { value: listing.venue._id, label: listing.venue.name } : { value: '', label: ''
 
                 // If the listing exists, offer to delete it
             };var deleteButton = this.props.listing._id && _react2.default.createElement(
@@ -4180,25 +4203,28 @@ var ListingForm = function (_React$Component) {
                         )
                     )
                 ),
-                this.state.updatevisible && _react2.default.createElement(_confirmModal2.default, {
-                    modalVisible: this.state.updatevisible,
+                this.state.updateModal && _react2.default.createElement(_confirmModal2.default, {
+                    toggle: this.toggleModal,
                     handleSubmit: this.handleSubmit,
+                    name: 'updateModal',
                     textTitle: 'Update',
                     textAction: 'save this Listing',
                     textConfirm: 'Saved!',
                     error: this.props.error.general,
                     success: this.props.success.updatelisting }),
-                this.state.createvisible && _react2.default.createElement(_confirmModal2.default, {
-                    modalVisible: this.state.createvisible,
+                this.state.createModal && _react2.default.createElement(_confirmModal2.default, {
+                    toggle: this.toggleModal,
                     handleSubmit: this.handleSubmit,
+                    name: 'createModal',
                     textTitle: 'Create',
                     textAction: 'create this Listing',
                     textConfirm: 'Created!',
                     error: this.props.error.general,
                     success: this.props.success.savelisting }),
-                this.state.deletevisible && _react2.default.createElement(_confirmModal2.default, {
-                    modalVisible: this.state.deletevisible,
+                this.state.deleteModal && _react2.default.createElement(_confirmModal2.default, {
+                    toggle: this.toggleModal,
                     handleSubmit: this.handleDelete,
+                    name: 'deleteModal',
                     textTitle: 'Delete',
                     textAction: 'delete this Listing',
                     textConfirm: 'Deleted!',
@@ -4212,12 +4238,6 @@ var ListingForm = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = ListingForm;
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-toggle-button");
 
 /***/ }),
 /* 27 */
@@ -4459,13 +4479,17 @@ module.exports = mongoose.model('User', userSchema);
 "use strict";
 
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
 
-var venueSchema = mongoose.Schema({
+var venueSchema = mongoose.Schema(_defineProperty({
     name: String,
     slug: String,
+    popup: Boolean,
+    disabled: Boolean,
     website: String,
     phone: String,
     address1: String,
@@ -4488,8 +4512,9 @@ var venueSchema = mongoose.Schema({
     updated_by: {
         type: String,
         ref: 'User'
-    }
-});
+    },
+    email: String
+}, 'phone', String));
 
 //compile the model
 module.exports = mongoose.model('Venue', venueSchema);
@@ -6416,7 +6441,7 @@ var _imageUpload = __webpack_require__(39);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
-var _ImagesActions = __webpack_require__(24);
+var _ImagesActions = __webpack_require__(25);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -6503,7 +6528,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDropzone = __webpack_require__(90);
+var _reactDropzone = __webpack_require__(91);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
@@ -6593,6 +6618,125 @@ exports.default = ImageUpload;
 
 /***/ }),
 /* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactstrap = __webpack_require__(4);
+
+var _reactRouter = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
+
+var UserLink = function (_React$Component) {
+    _inherits(UserLink, _React$Component);
+
+    function UserLink(props) {
+        _classCallCheck(this, UserLink);
+
+        var _this = _possibleConstructorReturn(this, (UserLink.__proto__ || Object.getPrototypeOf(UserLink)).call(this, props));
+
+        _this.toggle = _this.toggle.bind(_this);
+        _this.state = {
+            popoverOpen: false
+        };
+        return _this;
+    }
+
+    _createClass(UserLink, [{
+        key: 'toggle',
+        value: function toggle() {
+            this.setState({
+                popoverOpen: !this.state.popoverOpen
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            var user = this.props.user;
+
+            //Get the user's avatar
+            var fullURL = '';
+            var hasAvatar = false;
+
+            if (user.avatar) {
+                hasAvatar = true;
+                fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg";
+            } else if (user.facebook) {
+                hasAvatar = true;
+                fullURL = "https://graph.facebook.com/" + user.facebook.id + "/picture?type=large";
+            }
+
+            return _react2.default.createElement(
+                'span',
+                { className: 'userLink' },
+                _react2.default.createElement(
+                    'a',
+                    { onClick: this.toggle,
+                        id: 'Popover-' + user._id,
+                        target: '_blank' },
+                    user.firstname,
+                    ' ',
+                    user.lastname
+                ),
+                _react2.default.createElement(
+                    _reactstrap.Popover,
+                    { placement: 'top', target: 'Popover-' + user._id, toggle: this.toggle, isOpen: this.state.popoverOpen },
+                    _react2.default.createElement(
+                        _reactstrap.PopoverTitle,
+                        null,
+                        hasAvatar && _react2.default.createElement('img', { className: 'avatar', src: fullURL }),
+                        ' ',
+                        user.firstname,
+                        ' ',
+                        user.lastname
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.PopoverContent,
+                        null,
+                        user.bio,
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            { to: '/mylist/' + user.slug },
+                            _react2.default.createElement(
+                                _reactstrap.Button,
+                                null,
+                                'Profile'
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UserLink;
+}(_react2.default.Component);
+
+exports.default = UserLink;
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6740,7 +6884,7 @@ var HoodNav = function (_React$Component) {
 exports.default = HoodNav;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6897,7 +7041,7 @@ var ListingsPerNeighbor = function (_React$Component) {
 exports.default = ListingsPerNeighbor;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6913,7 +7057,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -7076,7 +7220,7 @@ var FeatureBlock = function (_React$Component) {
 exports.default = FeatureBlock;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7199,19 +7343,19 @@ var MapBlock = function (_React$Component) {
 exports.default = MapBlock;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-reorder");
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7321,7 +7465,7 @@ var MyMap = function (_React$Component) {
 exports.default = MyMap;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7371,13 +7515,13 @@ var facebookShare = function (_React$Component) {
 exports.default = facebookShare;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = require("async");
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7417,7 +7561,10 @@ var NeighborhoodSelect = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 _reactstrap.Input,
-                { type: 'select', name: 'neighborhood',
+                {
+                    type: 'select',
+                    name: 'neighborhood',
+                    disabled: this.props.disabled,
                     value: this.props.selected ? this.props.selected : "no-value",
                     onChange: this.props.onChange },
                 _react2.default.createElement(
@@ -7630,13 +7777,13 @@ var NeighborhoodSelect = function (_React$Component) {
 exports.default = NeighborhoodSelect;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = require("draft-js-plugins-editor");
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7687,31 +7834,31 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
 var express = __webpack_require__(12);
-var path = __webpack_require__(53);
-var favicon = __webpack_require__(54);
-var logger = __webpack_require__(55);
-var cookieParser = __webpack_require__(56);
-var bodyParser = __webpack_require__(57);
-var http = __webpack_require__(58);
-var debug = __webpack_require__(59)('artcritical-list:server');
+var path = __webpack_require__(54);
+var favicon = __webpack_require__(55);
+var logger = __webpack_require__(56);
+var cookieParser = __webpack_require__(57);
+var bodyParser = __webpack_require__(58);
+var http = __webpack_require__(59);
+var debug = __webpack_require__(60)('artcritical-list:server');
 
-var expressValidator = __webpack_require__(60);
+var expressValidator = __webpack_require__(61);
 
 //Authentification
-var passport = __webpack_require__(23);
-var flash = __webpack_require__(61);
-var session = __webpack_require__(62);
+var passport = __webpack_require__(24);
+var flash = __webpack_require__(62);
+var session = __webpack_require__(63);
 var bcrypt = __webpack_require__(31); // encripts password
 
 // Get the User model
-__webpack_require__(63)(passport);
+__webpack_require__(64)(passport);
 
 var app = express();
 
@@ -7728,11 +7875,11 @@ db.once('open', function () {
 });
 
 // Import the Mongoose models
-var List = __webpack_require__(67);
-var Archive = __webpack_require__(68);
+var List = __webpack_require__(68);
+var Archive = __webpack_require__(69);
 var Venue = __webpack_require__(34);
 var User = __webpack_require__(33);
-var Feature = __webpack_require__(69);
+var Feature = __webpack_require__(70);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -7778,7 +7925,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-var index = __webpack_require__(70);
+var index = __webpack_require__(71);
 var venues = __webpack_require__(159);
 var listings = __webpack_require__(160);
 var auth = __webpack_require__(161);
@@ -7887,73 +8034,73 @@ function onListening() {
 /* WEBPACK VAR INJECTION */}.call(exports, "src"))
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = require("debug");
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-validator");
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports) {
 
 module.exports = require("connect-flash");
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-session");
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -7962,8 +8109,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // config/passport.js
 
 // load all the things we need
-var LocalStrategy = __webpack_require__(65).Strategy;
-var FacebookStrategy = __webpack_require__(66).Strategy;
+var LocalStrategy = __webpack_require__(66).Strategy;
+var FacebookStrategy = __webpack_require__(67).Strategy;
 
 
 // load up the user model
@@ -8193,25 +8340,25 @@ module.exports = function (passport) {
 };
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 module.exports = require("alt");
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-facebook");
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8256,7 +8403,7 @@ var listingSchema = mongoose.Schema({
 module.exports = mongoose.model('List', listingSchema);
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8296,7 +8443,7 @@ var archiveSchema = mongoose.Schema({
 module.exports = mongoose.model('Archive', archiveSchema);
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8324,7 +8471,7 @@ var featureSchema = mongoose.Schema({
 module.exports = mongoose.model('Feature', featureSchema);
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8334,15 +8481,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(71);
+var _server = __webpack_require__(72);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
-var _routes = __webpack_require__(72);
+var _routes = __webpack_require__(73);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _ErrorPage = __webpack_require__(51);
+var _ErrorPage = __webpack_require__(52);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -8351,7 +8498,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var express = __webpack_require__(12);
 var router = express.Router();
 var JSX = __webpack_require__(157).install();
-var passport = __webpack_require__(23);
+var passport = __webpack_require__(24);
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
@@ -8392,13 +8539,13 @@ router.get('*', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8412,9 +8559,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
-var _layout = __webpack_require__(73);
+var _layout = __webpack_require__(74);
 
 var _layout2 = _interopRequireDefault(_layout);
 
@@ -8498,7 +8645,7 @@ var _Account = __webpack_require__(154);
 
 var _Account2 = _interopRequireDefault(_Account);
 
-var _ErrorPage = __webpack_require__(51);
+var _ErrorPage = __webpack_require__(52);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
@@ -8542,7 +8689,7 @@ var routes = _react2.default.createElement(
 exports.default = routes;
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8566,7 +8713,7 @@ var _ListStore = __webpack_require__(18);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -8574,7 +8721,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _sizeSelector = __webpack_require__(19);
 
@@ -8588,53 +8735,53 @@ var _reactFontawesome = __webpack_require__(13);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _faPlusCircle = __webpack_require__(76);
+var _faPlusCircle = __webpack_require__(77);
 
 var _faPlusCircle2 = _interopRequireDefault(_faPlusCircle);
 
-var _faMinusCircle = __webpack_require__(77);
+var _faMinusCircle = __webpack_require__(78);
 
 var _faMinusCircle2 = _interopRequireDefault(_faMinusCircle);
 
-var _faGlassMartini = __webpack_require__(78);
+var _faGlassMartini = __webpack_require__(79);
 
 var _faGlassMartini2 = _interopRequireDefault(_faGlassMartini);
 
-var _faTimes = __webpack_require__(79);
+var _faTimes = __webpack_require__(80);
 
 var _faTimes2 = _interopRequireDefault(_faTimes);
 
-var _faEdit = __webpack_require__(80);
+var _faEdit = __webpack_require__(81);
 
 var _faEdit2 = _interopRequireDefault(_faEdit);
 
-var _faTrash = __webpack_require__(81);
+var _faTrash = __webpack_require__(82);
 
 var _faTrash2 = _interopRequireDefault(_faTrash);
 
-var _faInfoCircle = __webpack_require__(82);
+var _faInfoCircle = __webpack_require__(83);
 
 var _faInfoCircle2 = _interopRequireDefault(_faInfoCircle);
 
-var _faPlus = __webpack_require__(83);
+var _faPlus = __webpack_require__(84);
 
 var _faPlus2 = _interopRequireDefault(_faPlus);
 
-var _faMinus = __webpack_require__(84);
+var _faMinus = __webpack_require__(85);
 
 var _faMinus2 = _interopRequireDefault(_faMinus);
 
-var _faStar = __webpack_require__(85);
+var _faStar = __webpack_require__(86);
 
 var _faStar2 = _interopRequireDefault(_faStar);
 
-var _faFacebook = __webpack_require__(86);
+var _faFacebook = __webpack_require__(87);
 
 var _faFacebook2 = _interopRequireDefault(_faFacebook);
 
-var _reactOffcanvas = __webpack_require__(87);
+var _reactOffcanvas = __webpack_require__(88);
 
-var _ListingForm = __webpack_require__(25);
+var _ListingForm = __webpack_require__(26);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -8842,91 +8989,91 @@ var Layout = function (_React$Component) {
 exports.default = Layout;
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = require("superagent");
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports) {
 
 module.exports = require("toastr");
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'plus-circle', icon: [512, 512, [], "f055", "M384 250v12c0 6.6-5.4 12-12 12h-98v98c0 6.6-5.4 12-12 12h-12c-6.6 0-12-5.4-12-12v-98h-98c-6.6 0-12-5.4-12-12v-12c0-6.6 5.4-12 12-12h98v-98c0-6.6 5.4-12 12-12h12c6.6 0 12 5.4 12 12v98h98c6.6 0 12 5.4 12 12zm120 6c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-32 0c0-119.9-97.3-216-216-216-119.9 0-216 97.3-216 216 0 119.9 97.3 216 216 216 119.9 0 216-97.3 216-216z"] };
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'minus-circle', icon: [512, 512, [], "f056", "M140 274c-6.6 0-12-5.4-12-12v-12c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v12c0 6.6-5.4 12-12 12H140zm364-18c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-32 0c0-119.9-97.3-216-216-216-119.9 0-216 97.3-216 216 0 119.9 97.3 216 216 216 119.9 0 216-97.3 216-216z"] };
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'glass-martini', icon: [512, 512, [], "f000", "M508 26.6C517.1 16.3 509.7 0 496 0H16C2.3 0-5.1 16.3 4 26.6L240 294v186H122c-14.4 0-26 11.6-26 26 0 3.3 2.7 6 6 6h308c3.3 0 6-2.7 6-6 0-14.4-11.6-26-26-26H272V294L508 26.6zM460.5 32L256 263.8 51.5 32h409z"] };
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'times', icon: [384, 512, [], "f00d", "M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z"] };
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'edit', icon: [576, 512, [], "f044", "M417.8 315.5l20-20c3.8-3.8 10.2-1.1 10.2 4.2V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h292.3c5.3 0 8 6.5 4.2 10.2l-20 20c-1.1 1.1-2.7 1.8-4.2 1.8H48c-8.8 0-16 7.2-16 16v352c0 8.8 7.2 16 16 16h352c8.8 0 16-7.2 16-16V319.7c0-1.6.6-3.1 1.8-4.2zm145.9-191.2L251.2 436.8l-99.9 11.1c-13.4 1.5-24.7-9.8-23.2-23.2l11.1-99.9L451.7 12.3c16.4-16.4 43-16.4 59.4 0l52.6 52.6c16.4 16.4 16.4 43 0 59.4zm-93.6 48.4L403.4 106 169.8 339.5l-8.3 75.1 75.1-8.3 233.5-233.6zm71-85.2l-52.6-52.6c-3.8-3.8-10.2-4-14.1 0L426 83.3l66.7 66.7 48.4-48.4c3.9-3.8 3.9-10.2 0-14.1z"] };
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'trash', icon: [512, 512, [], "f1f8", "M368 64l-33.6-44.8C325.3 7.1 311.1 0 296 0h-80c-15.1 0-29.3 7.1-38.4 19.2L144 64H40c-13.3 0-24 10.7-24 24v2c0 3.3 2.7 6 6 6h20.9l33.2 372.3C78.3 493 99 512 123.9 512h264.2c24.9 0 45.6-19 47.8-43.7L469.1 96H490c3.3 0 6-2.7 6-6v-2c0-13.3-10.7-24-24-24H368zM216 32h80c5 0 9.8 2.4 12.8 6.4L328 64H184l19.2-25.6c3-4 7.8-6.4 12.8-6.4zm188 433.4c-.7 8.3-7.6 14.6-15.9 14.6H123.9c-8.3 0-15.2-6.3-15.9-14.6L75 96h362l-33 369.4z"] };
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'info-circle', icon: [512, 512, [], "f05a", "M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"] };
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'far', iconName: 'plus', icon: [448, 512, [], "f067", "M436 228H252V44c0-6.6-5.4-12-12-12h-32c-6.6 0-12 5.4-12 12v184H12c-6.6 0-12 5.4-12 12v32c0 6.6 5.4 12 12 12h184v184c0 6.6 5.4 12 12 12h32c6.6 0 12-5.4 12-12V284h184c6.6 0 12-5.4 12-12v-32c0-6.6-5.4-12-12-12z"] };
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'far', iconName: 'minus', icon: [448, 512, [], "f068", "M436 284c6.6 0 12-5.4 12-12v-32c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v32c0 6.6 5.4 12 12 12h424z"] };
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fas', iconName: 'star', icon: [576, 512, [], "f005", "M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"] };
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fab', iconName: 'facebook', icon: [448, 512, [], "f09a", "M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"] };
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-offcanvas");
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9000,19 +9147,19 @@ var DateRange = function (_React$Component) {
 exports.default = DateRange;
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-select");
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9171,114 +9318,6 @@ var EventsForm = function (_React$Component) {
 exports.default = EventsForm;
 
 /***/ }),
-/* 92 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactstrap = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//COMPONENTS
-
-
-var UserLink = function (_React$Component) {
-    _inherits(UserLink, _React$Component);
-
-    function UserLink(props) {
-        _classCallCheck(this, UserLink);
-
-        var _this = _possibleConstructorReturn(this, (UserLink.__proto__ || Object.getPrototypeOf(UserLink)).call(this, props));
-
-        _this.toggle = _this.toggle.bind(_this);
-        _this.state = {
-            popoverOpen: false
-        };
-        return _this;
-    }
-
-    _createClass(UserLink, [{
-        key: 'toggle',
-        value: function toggle() {
-            this.setState({
-                popoverOpen: !this.state.popoverOpen
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-
-            var user = this.props.user;
-
-            //Get the user's avatar
-            var fullURL = '';
-            var hasAvatar = false;
-
-            if (user.avatar) {
-                hasAvatar = true;
-                fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg";
-            } else if (user.facebook) {
-                hasAvatar = true;
-                fullURL = "https://graph.facebook.com/" + user.facebook.id + "/picture?type=large";
-            }
-
-            return _react2.default.createElement(
-                'span',
-                { className: 'userLink' },
-                _react2.default.createElement(
-                    'a',
-                    { onClick: this.toggle,
-                        id: 'Popover-' + user._id,
-                        target: '_blank' },
-                    user.firstname,
-                    ' ',
-                    user.lastname
-                ),
-                _react2.default.createElement(
-                    _reactstrap.Popover,
-                    { placement: 'top', target: 'Popover-' + user._id, toggle: this.toggle, isOpen: this.state.popoverOpen },
-                    _react2.default.createElement(
-                        _reactstrap.PopoverTitle,
-                        null,
-                        hasAvatar && _react2.default.createElement('img', { className: 'avatar', src: fullURL }),
-                        ' ',
-                        user.firstname,
-                        ' ',
-                        user.lastname
-                    ),
-                    _react2.default.createElement(
-                        _reactstrap.PopoverContent,
-                        null,
-                        user.bio
-                    )
-                )
-            );
-        }
-    }]);
-
-    return UserLink;
-}(_react2.default.Component);
-
-exports.default = UserLink;
-
-/***/ }),
 /* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9295,17 +9334,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _neighborhoodNav = __webpack_require__(40);
+var _neighborhoodNav = __webpack_require__(41);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
-var _listingsPerNeighbor = __webpack_require__(41);
+var _listingsPerNeighbor = __webpack_require__(42);
 
 var _listingsPerNeighbor2 = _interopRequireDefault(_listingsPerNeighbor);
 
@@ -9503,7 +9542,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -9511,7 +9550,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _DateBlock = __webpack_require__(6);
 
@@ -9769,17 +9808,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _neighborhoodNav = __webpack_require__(40);
+var _neighborhoodNav = __webpack_require__(41);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
-var _listingsPerNeighbor = __webpack_require__(41);
+var _listingsPerNeighbor = __webpack_require__(42);
 
 var _listingsPerNeighbor2 = _interopRequireDefault(_listingsPerNeighbor);
 
@@ -9876,7 +9915,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _ListStore = __webpack_require__(18);
 
@@ -10011,7 +10050,7 @@ var _listing = __webpack_require__(5);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _featureBlock = __webpack_require__(42);
+var _featureBlock = __webpack_require__(43);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -10737,7 +10776,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _ListStore = __webpack_require__(18);
 
@@ -10992,7 +11031,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _mapBlock = __webpack_require__(43);
+var _mapBlock = __webpack_require__(44);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
@@ -11312,7 +11351,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _SignUpForm = __webpack_require__(115);
 
@@ -11388,11 +11427,11 @@ var _displayActions = __webpack_require__(10);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(26);
+var _reactToggleButton = __webpack_require__(21);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
-var _validator = __webpack_require__(44);
+var _validator = __webpack_require__(45);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -11400,7 +11439,7 @@ var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -11763,7 +11802,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _reactRouterDom = __webpack_require__(117);
 
@@ -11935,11 +11974,11 @@ var _LogInForm = __webpack_require__(16);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12022,7 +12061,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -12036,15 +12075,15 @@ var _myListings = __webpack_require__(121);
 
 var _myListings2 = _interopRequireDefault(_myListings);
 
-var _myMap = __webpack_require__(46);
+var _myMap = __webpack_require__(47);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _facebookShare = __webpack_require__(47);
+var _facebookShare = __webpack_require__(48);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
-var _reactReorder = __webpack_require__(45);
+var _reactReorder = __webpack_require__(46);
 
 var _reactstrap = __webpack_require__(4);
 
@@ -12056,7 +12095,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var async = __webpack_require__(48);
+var async = __webpack_require__(49);
 // Components
 
 
@@ -12306,7 +12345,7 @@ var _listing = __webpack_require__(5);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _reactReorder = __webpack_require__(45);
+var _reactReorder = __webpack_require__(46);
 
 var _reactReorder2 = _interopRequireDefault(_reactReorder);
 
@@ -12440,7 +12479,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -12522,7 +12561,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -12536,11 +12575,11 @@ var _userListings = __webpack_require__(125);
 
 var _userListings2 = _interopRequireDefault(_userListings);
 
-var _myMap = __webpack_require__(46);
+var _myMap = __webpack_require__(47);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _facebookShare = __webpack_require__(47);
+var _facebookShare = __webpack_require__(48);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
@@ -12554,7 +12593,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var async = __webpack_require__(48);
+var async = __webpack_require__(49);
 // Components
 
 
@@ -12925,7 +12964,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _LogInForm = __webpack_require__(16);
 
@@ -13144,7 +13183,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _ListingForm = __webpack_require__(25);
+var _ListingForm = __webpack_require__(26);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -13264,11 +13303,11 @@ var _listing = __webpack_require__(5);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formSelect = __webpack_require__(21);
+var _formSelect = __webpack_require__(22);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ListingForm = __webpack_require__(25);
+var _ListingForm = __webpack_require__(26);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -13290,6 +13329,10 @@ var ListingEdit = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (ListingEdit.__proto__ || Object.getPrototypeOf(ListingEdit)).call(this, props));
 
+        _this.state = {
+            formDisplay: false
+        };
+
         _this.handleSelectChange = _this.handleSelectChange.bind(_this);
         return _this;
     }
@@ -13303,6 +13346,9 @@ var ListingEdit = function (_React$Component) {
         key: 'handleSelectChange',
         value: function handleSelectChange(data) {
             if (data) {
+                this.setState({
+                    formDisplay: true
+                });
                 if (data.label == data.value) {
                     //New Listing
                     _ListActions2.default.listingInfoChange({ target: {
@@ -13316,6 +13362,9 @@ var ListingEdit = function (_React$Component) {
             } else {
                 //Reset
                 _ListActions2.default.listingEditReset();
+                this.setState({
+                    formDisplay: false
+                });
             }
         }
     }, {
@@ -13359,13 +13408,13 @@ var ListingEdit = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'medium' },
-                        _react2.default.createElement(_listing2.default, { listing: this.props.listingEdit, user: '' })
+                        this.props.listingEdit.venue && _react2.default.createElement(_listing2.default, { listing: this.props.listingEdit, user: '' })
                     )
                 ),
                 _react2.default.createElement(
                     'div',
                     { className: 'listingForm' },
-                    _react2.default.createElement(_ListingForm2.default, {
+                    this.state.formDisplay && _react2.default.createElement(_ListingForm2.default, {
                         listing: this.props.listingEdit,
                         error: this.props.error.updatelisting,
                         loading: this.props.loading.updatelisting,
@@ -13411,7 +13460,7 @@ var _listing = __webpack_require__(5);
 
 var _listing2 = _interopRequireDefault(_listing);
 
-var _formSelect = __webpack_require__(21);
+var _formSelect = __webpack_require__(22);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -13419,9 +13468,11 @@ var _VenueForm = __webpack_require__(132);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
 
-var _mapBlock = __webpack_require__(43);
+var _mapBlock = __webpack_require__(44);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
+
+var _reactstrap = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13432,6 +13483,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 //Components
 
+
+var MapboxClient = __webpack_require__(133);
+var client = new MapboxClient(process.env.MapboxAccessToken);
 
 var VenueEdit = function (_React$Component) {
     _inherits(VenueEdit, _React$Component);
@@ -13446,8 +13500,9 @@ var VenueEdit = function (_React$Component) {
         };
 
         _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.handleSelectChange = _this.handleSelectChange.bind(_this);
         _this.handleDelete = _this.handleDelete.bind(_this);
+        _this.handleSelectChange = _this.handleSelectChange.bind(_this);
+        _this.calculateCoords = _this.calculateCoords.bind(_this);
         return _this;
     }
 
@@ -13469,9 +13524,6 @@ var VenueEdit = function (_React$Component) {
                 delete newVenue._id;
                 _ListActions2.default.saveVenue(newVenue);
             }
-            this.setState({
-                formDisplay: false
-            });
         }
 
         //Delete the listing
@@ -13482,6 +13534,7 @@ var VenueEdit = function (_React$Component) {
             _ListActions2.default.deleteVenue(this.props.venueEdit._id);
             //Reset the form
             _ListActions2.default.venueEditReset();
+            //Hide the form
             this.setState({
                 formDisplay: false
             });
@@ -13511,6 +13564,20 @@ var VenueEdit = function (_React$Component) {
                     formDisplay: false
                 });
             }
+        }
+    }, {
+        key: 'calculateCoords',
+        value: function calculateCoords(fullAdress) {
+            var self = this;
+            client.geocodeForward(fullAdress, function (err, data, res) {
+                if (data.features[0]) {
+                    var newCoords = data.features[0].center;
+                    _ListActions2.default.coordinatesChange(newCoords);
+                    self.setState({
+                        foundAddress: data.features[0].place_name
+                    });
+                }
+            });
         }
     }, {
         key: 'render',
@@ -13543,23 +13610,20 @@ var VenueEdit = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'venueList' },
-                        _react2.default.createElement(
-                            'form',
-                            { onSubmit: this.handleSubmit },
-                            _react2.default.createElement(_formSelect2.default, {
-                                value: { value: this.props.venueEdit._id, label: this.props.venueEdit.name },
-                                handleSelectChange: this.handleSelectChange,
-                                getOptions: getOptions })
-                        )
+                        _react2.default.createElement(_formSelect2.default, {
+                            value: { value: this.props.venueEdit._id, label: this.props.venueEdit.name },
+                            handleSelectChange: this.handleSelectChange,
+                            getOptions: getOptions })
                     ),
                     _react2.default.createElement(
                         'div',
                         { className: 'listingForm' },
                         this.state.formDisplay && _react2.default.createElement(_VenueForm2.default, _extends({}, this.props.venueEdit, {
+                            //newVenue={(this.props._id == '' || this.props._id == null && this.props.name !== '')}
                             handleSubmit: this.handleSubmit,
                             handleDelete: this.handleDelete,
-                            newVenue: this.props._id == '' || this.props._id == null && this.props.name !== '',
                             error: this.props.error.updatevenue,
+                            calculateCoords: this.calculateCoords,
                             loading: this.props.loading.updatevenue || this.props.loading.deletevenue,
                             success: this.props.success }))
                     )
@@ -13567,7 +13631,13 @@ var VenueEdit = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'd-1of2' },
-                    _react2.default.createElement(_mapBlock2.default, this.props.venueEdit)
+                    _react2.default.createElement(_mapBlock2.default, this.props.venueEdit),
+                    this.state.foundAddress && this.props.address1 && _react2.default.createElement(
+                        _reactstrap.Alert,
+                        { color: 'secondary' },
+                        'Found by GPS: ',
+                        this.state.foundAddress
+                    )
                 )
             );
         }
@@ -13589,6 +13659,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -13599,7 +13671,11 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _confirmModal = __webpack_require__(22);
+var _reactToggleButton = __webpack_require__(21);
+
+var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
+
+var _confirmModal = __webpack_require__(23);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -13609,11 +13685,17 @@ var _DateBlock = __webpack_require__(6);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _NeighborhoodSelect = __webpack_require__(49);
+var _NeighborhoodSelect = __webpack_require__(50);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
+var _UserLink = __webpack_require__(40);
+
+var _UserLink2 = _interopRequireDefault(_UserLink);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -13622,9 +13704,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 //COMPONENTS
 
-
-var MapboxClient = __webpack_require__(133);
-var client = new MapboxClient(process.env.MapboxAccessToken);
 
 var VenueForm = function (_React$Component) {
     _inherits(VenueForm, _React$Component);
@@ -13637,50 +13716,65 @@ var VenueForm = function (_React$Component) {
         _this.state = {
             fullAdress: null,
             event: _this.props.event,
-            updatevisible: false,
-            deletevisible: false,
+            updateModal: false,
+            disableModal: false,
+            deleteModal: false,
             createvisible: false,
             wasChanged: false
         };
 
         _this.handleChange = _this.handleChange.bind(_this);
-        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleDisable = _this.handleDisable.bind(_this);
         _this.onConfirm = _this.onConfirm.bind(_this);
+        _this.onCreateConfirm = _this.onCreateConfirm.bind(_this);
         _this.onDeleteConfirm = _this.onDeleteConfirm.bind(_this);
+        _this.onDisableConfirm = _this.onDisableConfirm.bind(_this);
+        _this.toggleModal = _this.toggleModal.bind(_this);
         return _this;
     }
 
     _createClass(VenueForm, [{
+        key: 'toggleModal',
+        value: function toggleModal(modalName) {
+            this.setState(_defineProperty({}, modalName, !this.state[modalName]));
+        }
+    }, {
         key: 'handleChange',
         value: function handleChange(event) {
             //Update values of inputs
-            _ListActions2.default.venueInfoChange(event.target);
+            _ListActions2.default.venueInfoChange(event.target ? event.target : event);
             this.setState({
                 wasChanged: true
             });
         }
+
+        //Disable the listing
+
     }, {
-        key: 'handleSubmit',
-        value: function handleSubmit(event) {
+        key: 'handleDisable',
+        value: function handleDisable(event) {
             event.preventDefault();
-            var venue = this.props;
+            var venue = _extends({}, this.props, {
+                disabled: !this.props.disabled
+            });
 
-            //Make sure that the listing copies the venue's neighborhood
-
-            if (this.props._id) {
-                //Edit the current listing
-                _ListActions2.default.updateVenue(venue);
-                this.setState({
-                    updatevisible: false
-                });
-            }
+            _ListActions2.default.updateVenue(venue);
+            //this.setState({disablevisible: false})
         }
     }, {
         key: 'onConfirm',
         value: function onConfirm(event) {
             event.preventDefault();
             this.setState({
-                updatevisible: true
+                updateModal: true
+            });
+        }
+    }, {
+        key: 'onCreateConfirm',
+        value: function onCreateConfirm(event) {
+            event.preventDefault();
+            this.setState({
+                createModal: true
             });
         }
     }, {
@@ -13688,7 +13782,15 @@ var VenueForm = function (_React$Component) {
         value: function onDeleteConfirm(event) {
             event.preventDefault();
             this.setState({
-                deletevisible: true
+                deleteModal: true
+            });
+        }
+    }, {
+        key: 'onDisableConfirm',
+        value: function onDisableConfirm(event) {
+            event.preventDefault();
+            this.setState({
+                disableModal: true
             });
         }
     }, {
@@ -13696,46 +13798,39 @@ var VenueForm = function (_React$Component) {
         value: function componentWillMount() {
             //Define the full address
             this.props.address1 ? this.setState({
-                fullAdress: this.props.address1 + (this.props.address2 ? ' ' + this.props.address2 : '') + (this.props.city ? ' ' + this.props.city : '') + (this.props.state ? ', ' + this.props.state : '') + (this.props.zipcode ? ' ' + this.props.zipcode : '')
+                fullAdress: this.props.address1 + (this.props.city ? ' ' + this.props.city : '') + (this.props.state ? ', ' + this.props.state : '') + (this.props.zipcode ? ' ' + this.props.zipcode : '')
             }) : null;
         }
     }, {
         key: 'componentWillUpdate',
         value: function componentWillUpdate(nextProps, nextState) {
-            var nextFullAdress = nextProps.address1 ? nextProps.address1 + (nextProps.address2 ? ' ' + nextProps.address2 : '') + (nextProps.city ? ' ' + nextProps.city : '') + (nextProps.state ? ', ' + nextProps.state : '') + (nextProps.zipcode ? ' ' + nextProps.zipcode : '') : null;
+            var nextFullAdress = nextProps.address1 !== '' && nextProps.address1 ? nextProps.address1 + (nextProps.address2 ? ' ' + nextProps.address2 : '') + (nextProps.city ? ' ' + nextProps.city : '') + (nextProps.state ? ', ' + nextProps.state : '') + (nextProps.zipcode ? ' ' + nextProps.zipcode : '') : null;
             if (nextFullAdress !== this.state.fullAdress && nextFullAdress !== null) {
-
                 this.setState({
                     fullAdress: nextFullAdress
                 });
-                this.calculateCoords(nextFullAdress);
+                this.props.calculateCoords(nextFullAdress);
             }
-        }
-    }, {
-        key: 'calculateCoords',
-        value: function calculateCoords(fullAdress) {
-            client.geocodeForward(fullAdress, function (err, data, res) {
-                if (data.features[0]) {
-                    var newCoords = data.features[0].center;
-                    _ListActions2.default.coordinatesChange(newCoords);
-                }
-            });
         }
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            var venue = this.props;
 
             var deleteButton = this.props._id && _react2.default.createElement(
                 _reactstrap.Button,
                 { className: 'delete', color: 'danger', onClick: this.onDeleteConfirm },
                 'Delete'
             );
+            var disableButton = this.props._id && _react2.default.createElement(
+                _reactstrap.Button,
+                { className: 'disable', color: 'info', onClick: this.onDisableConfirm },
+                this.props.disabled ? "Enable" : "Disable"
+            );
 
             var coordinates = this.props.coordinates || {};
-
-            if (this.state.fullAdress && !coordinates.lat) {
-                this.calculateCoords(this.state.fullAdress);
-            }
 
             return _react2.default.createElement(
                 'div',
@@ -13743,6 +13838,16 @@ var VenueForm = function (_React$Component) {
                 _react2.default.createElement(
                     _reactstrap.Form,
                     null,
+                    !venue._id && _react2.default.createElement(
+                        _reactstrap.Alert,
+                        { color: 'primary' },
+                        'This is a draft venue.'
+                    ),
+                    venue.disabled && _react2.default.createElement(
+                        _reactstrap.Alert,
+                        { color: 'danger' },
+                        'This venue is currently disabled.'
+                    ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
                         null,
@@ -13754,7 +13859,7 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'Name', type: 'text', value: this.props.name, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'name', placeholder: 'Name', type: 'text', value: this.props.name, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -13768,7 +13873,25 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { disabled: true, name: 'slug', type: 'text', value: this.props.slug, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: true, name: 'slug', type: 'text', value: venue.slug, onChange: this.handleChange })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        null,
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            'Popup'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(_reactToggleButton2.default, {
+                                value: venue.popup,
+                                onToggle: function onToggle(value) {
+                                    _this2.handleChange({ name: 'popup', value: value });
+                                } })
                         )
                     ),
                     _react2.default.createElement(
@@ -13782,8 +13905,8 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'address1', placeholder: 'Line 1', type: 'text', value: this.props.address1, onChange: this.handleChange }),
-                            _react2.default.createElement(_reactstrap.Input, { name: 'address2', placeholder: 'Line 2', type: 'text', value: this.props.address2, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'address1', placeholder: 'Line 1', type: 'text', value: venue.address1, onChange: this.handleChange }),
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'address2', placeholder: 'Line 2', type: 'text', value: venue.address2, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -13797,7 +13920,7 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'city', placeholder: 'City', type: 'text', value: this.props.city, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'city', placeholder: 'City', type: 'text', value: venue.city, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -13811,7 +13934,7 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_NeighborhoodSelect2.default, { selected: this.props.neighborhood, onChange: this.handleChange })
+                            _react2.default.createElement(_NeighborhoodSelect2.default, { disabled: venue.disabled, selected: venue.neighborhood, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -13825,7 +13948,7 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'state', placeholder: 'State', type: 'text', value: this.props.state, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'state', placeholder: 'State', type: 'text', value: this.props.state, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -13839,7 +13962,7 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'zipcode', placeholder: 'Zipcode', type: 'number', value: this.props.zipcode, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'zipcode', placeholder: 'Zipcode', type: 'number', value: this.props.zipcode, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -13853,8 +13976,8 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'lat', type: 'text', value: coordinates.lat, onChange: this.handleChange }),
-                            _react2.default.createElement(_reactstrap.Input, { name: 'long', type: 'text', value: coordinates.long, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'lat', type: 'text', value: coordinates.lat, onChange: this.handleChange }),
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'long', type: 'text', value: coordinates.long, onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -13868,30 +13991,63 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'website', placeholder: 'Website', type: 'text', value: this.props.website, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'website', placeholder: 'Website', type: 'text', value: venue.website, onChange: this.handleChange })
                         )
                     ),
-                    this.props.updated_by ? this.props.created_at === this.props.updated_at ? _react2.default.createElement(
+                    _react2.default.createElement(
+                        'h6',
+                        null,
+                        'The following info is for artcritical use only.'
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        null,
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            'Email'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'email', placeholder: 'Email', type: 'text', value: venue.email, onChange: this.handleChange })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        null,
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            'Phone Number'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'phone', placeholder: 'Phone Number', type: 'text', value: venue.phone, onChange: this.handleChange })
+                        )
+                    ),
+                    venue.updated_by ? venue.created_at === venue.updated_at ? _react2.default.createElement(
                         'p',
                         null,
                         ' Created on ',
-                        _react2.default.createElement(_DateBlock2.default, { date: this.props.updated_at }),
+                        _react2.default.createElement(_DateBlock2.default, { date: venue.updated_at }),
                         ' by ',
-                        this.props.updated_by.name,
+                        _react2.default.createElement(_UserLink2.default, { user: venue.updated_by }),
                         '.'
                     ) : _react2.default.createElement(
                         'p',
                         null,
                         ' Updated on ',
-                        _react2.default.createElement(_DateBlock2.default, { date: this.props.updated_at }),
+                        _react2.default.createElement(_DateBlock2.default, { date: venue.updated_at }),
                         ' by ',
-                        this.props.updated_by.name,
+                        _react2.default.createElement(_UserLink2.default, { user: venue.updated_by }),
                         '.'
                     ) : '',
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
                         null,
-                        this.props._id ? _react2.default.createElement(
+                        venue._id ? _react2.default.createElement(
                             _reactstrap.Button,
                             { onClick: this.onConfirm, disabled: !this.state.wasChanged },
                             'Update'
@@ -13900,32 +14056,50 @@ var VenueForm = function (_React$Component) {
                             { onClick: this.onCreateConfirm },
                             'Create'
                         ),
+                        disableButton,
                         deleteButton
                     ),
-                    this.state.updatevisible && _react2.default.createElement(_confirmModal2.default, {
-                        modalVisible: this.state.updatevisible,
-                        handleSubmit: this.handleSubmit,
+                    this.state.updateModal && _react2.default.createElement(_confirmModal2.default, {
+                        toggle: this.toggleModal,
+                        handleSubmit: this.props.handleSubmit,
+                        name: 'updateModal',
                         textTitle: 'Update',
                         textAction: 'save this Listing',
                         textConfirm: 'Saved!',
+                        loading: this.props.loading.updatevenue,
                         error: this.props.error.general,
-                        success: this.props.success.updatelisting }),
-                    this.state.createvisible && _react2.default.createElement(_confirmModal2.default, {
-                        modalVisible: this.state.createvisible,
-                        handleSubmit: this.handleSubmit,
+                        success: this.props.success.updatevenue }),
+                    this.state.createModal && _react2.default.createElement(_confirmModal2.default, {
+                        toggle: this.toggleModal,
+                        modalVisible: this.state.createModal,
+                        handleSubmit: this.props.handleSubmit,
+                        name: 'createModal',
                         textTitle: 'Create',
                         textAction: 'create this Listing',
                         textConfirm: 'Created!',
+                        loading: this.props.loading.savevenue,
                         error: this.props.error.general,
-                        success: this.props.success.savelisting }),
-                    this.state.deletevisible && _react2.default.createElement(_confirmModal2.default, {
-                        modalVisible: this.state.deletevisible,
-                        handleSubmit: this.handleDelete,
+                        success: this.props.success.savevenue }),
+                    this.state.deleteModal && _react2.default.createElement(_confirmModal2.default, {
+                        toggle: this.toggleModal,
+                        handleSubmit: this.props.handleDelete,
+                        name: 'deleteModal',
                         textTitle: 'Delete',
                         textAction: 'delete this Listing',
                         textConfirm: 'Deleted!',
+                        loading: this.props.loading.deletevenue,
                         error: this.props.error.general,
-                        success: this.props.success.deletelisting })
+                        success: this.props.success.deletevenue }),
+                    this.state.disableModal && _react2.default.createElement(_confirmModal2.default, {
+                        toggle: this.toggleModal,
+                        handleSubmit: this.handleDisable,
+                        name: 'disableModal',
+                        textTitle: this.props.disabled ? "Enable" : "Disable",
+                        textAction: this.props.disabled ? "activate this venue again." : "hide this venue from the list of active venues.",
+                        textConfirm: this.props.disabled ? "Disabled!" : "Enabled!",
+                        loading: this.props.loading.updatevenue,
+                        error: this.props.error.general,
+                        success: this.props.success.updatevenue })
                 )
             );
         }
@@ -13959,7 +14133,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _ListActions = __webpack_require__(1);
 
@@ -14077,7 +14251,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(21);
+var _formSelect = __webpack_require__(22);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -14085,7 +14259,7 @@ var _featuredForm = __webpack_require__(136);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
-var _featureBlock = __webpack_require__(42);
+var _featureBlock = __webpack_require__(43);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -14225,7 +14399,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(26);
+var _reactToggleButton = __webpack_require__(21);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -14239,9 +14413,9 @@ var _draftJsImportHtml = __webpack_require__(138);
 
 var _draftJsExportHtml = __webpack_require__(139);
 
-var _draftJsPluginsEditor = __webpack_require__(50);
+var _draftJsPluginsEditor = __webpack_require__(51);
 
-var _confirmModal = __webpack_require__(22);
+var _confirmModal = __webpack_require__(23);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -14413,7 +14587,7 @@ var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _draftJsPluginsEditor = __webpack_require__(50);
+var _draftJsPluginsEditor = __webpack_require__(51);
 
 var _draftJsPluginsEditor2 = _interopRequireDefault(_draftJsPluginsEditor);
 
@@ -15090,7 +15264,7 @@ var _VenueItem = __webpack_require__(148);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
-var _NeighborhoodSelect = __webpack_require__(49);
+var _NeighborhoodSelect = __webpack_require__(50);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
@@ -15241,7 +15415,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _DateBlock = __webpack_require__(6);
 
@@ -15379,7 +15553,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -15483,7 +15657,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -15627,11 +15801,11 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _confirmModal = __webpack_require__(22);
+var _confirmModal = __webpack_require__(23);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -15787,7 +15961,7 @@ var UserEdit = function (_React$Component) {
 					' ',
 					_react2.default.createElement(
 						_reactstrap.Button,
-						{ onClick: this.onDeleteAlert },
+						{ color: 'danger', onClick: this.onDeleteAlert },
 						'Delete'
 					)
 				),
@@ -16047,7 +16221,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -16132,7 +16306,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(2);
+var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -16309,7 +16483,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(24);
+var _ImagesActions = __webpack_require__(25);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -16486,6 +16660,7 @@ router.get('/getinfo/:venue_id', function (req, res, next) {
     var Venue = req.venue;
 
     Venue.findOne({ _id: req.params.venue_id }).populate('updated_by').exec(function (e, docs) {
+        console.log(docs);
         if (e) res.send(e);
 
         res.json(docs);
@@ -16559,9 +16734,7 @@ router.post('/add', function (req, res) {
 
     // Save this new entry
     newvenue.save(function (err, newvenue) {
-        res.send(err !== null && {
-            msg: err
-        });
+        res.json(newvenue);
     });
 });
 
@@ -16802,6 +16975,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
         _id: req.params.listing_id
     }).where('venue').ne('').populate('venue').populate('updated_by').exec(function (e, docs) {
         if (e) res.send(e);
+        console.log(docs, e);
         res.json(docs);
     });
 });
@@ -16952,7 +17126,7 @@ module.exports = router;
 
 var express = __webpack_require__(12);
 var router = express.Router();
-var passport = __webpack_require__(23);
+var passport = __webpack_require__(24);
 
 //###################################
 // SIGNUP
