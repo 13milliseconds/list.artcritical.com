@@ -2,7 +2,7 @@ import React from 'react';
 import Display from '../../actions/displayActions';
 import ListActions from '../../actions/ListActions';
 //Components
-import Listing from '../listing';
+import VenueBlock from '../blocks/VenueBlock';
 import Select from '../forms/formSelect';
 import ListingForm from '../forms/ListingForm';
 
@@ -78,7 +78,7 @@ export default class ListingEdit extends React.Component {
                 <div id="ListingInfo">
                     <div className="medium">
                         {this.props.listingEdit.venue &&
-                            <Listing listing={this.props.listingEdit} user=""/>
+                            <VenueBlock listings={this.props.listingEdit} user=""/>
                         }
                     </div>
                 </div>

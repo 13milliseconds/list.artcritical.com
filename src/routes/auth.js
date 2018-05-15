@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-
+var mongoose = require('mongoose');
 
 //###################################
 // SIGNUP
@@ -311,6 +311,8 @@ router.get('/user', function (req, res) {
 // UPDATE USER INFO 
  //###################################
 router.post('/updateuser', function (req, res) {
+
+    console.log('auth/updateuser');
     var Userlist = req.userlist;
     var User = req.user;
     
@@ -331,7 +333,46 @@ router.post('/updateuser', function (req, res) {
     });
 });
 
+//###################################
+// DELETE USER 
+ //###################################
+ router.post('/deleteuser', function (req, res) {
+    
+    console.log('auth/deleteuser');
+    var Userlist = req.userlist;
+    var UserTrash = req.usertrash;
+    
+    var user = req.body;
 
+    Userlist.findOne({ _id: user._id }, function(err, result) {
+
+        if (result) {
+            let swap = new UserTrash(result);
+            swap._id = mongoose.Types.ObjectId()
+            swap.isNew = true
+        
+            swap.save(function (err, newtrash) {
+                res.send(
+                    (err === null) ? {
+                        data: newtrash
+                    } : {
+                        msg: err
+                    }
+                );
+            });
+
+            result.remove();
+        } else {
+            res.send('No User Found');
+        }
+    
+    })
+
+});
+
+//###################################
+// GET ALL USERS
+ //###################################
 
 router.get('/getallusers', function (req, res){
 	var Userlist = req.userlist;

@@ -1763,10 +1763,6 @@ VENUE ELEMENTS
   color: green;
   text-decoration: none;
 }
-/* line 434, ../scss/breakpoints/_base.scss */
-.venue div {
-  margin-left: 50px;
-}
 
 /*********************
 HEADER

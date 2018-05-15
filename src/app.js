@@ -15,7 +15,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var bcrypt = require('bcrypt'); // encripts password
 
-// Get the User model
+// Get the User Atuhentification model
 require('./config/passport')(passport);
 
 var app = express();
@@ -38,7 +38,9 @@ var List = ListModels.list;
 var Archive = ListModels.archive;
 var Trash = ListModels.trash;
 var Venue = require('./models/venue.js');
-var User = require('./models/user.js');
+var UserModels = require('./models/user.js');
+var User = UserModels.user;
+var UserTrash = UserModels.userTrash;
 var Feature = require('./models/feature.js');
 
 
@@ -85,6 +87,7 @@ app.use(function(req,res,next){
     req.trash = Trash;
     req.venue = Venue;
     req.userlist = User;
+    req.usertrash = UserTrash;
     req.feature = Feature;
     next();
 });

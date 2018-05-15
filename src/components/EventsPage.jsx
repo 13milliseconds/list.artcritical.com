@@ -4,8 +4,8 @@ import ListStore from '../stores/ListStore';
 import ListActions from '../actions/ListActions';
 import moment from 'moment';
 //COMPONENTS
-import Listing from './listing.jsx';
-import Date from './blocks/DateBlock.jsx';
+import VenueBlock from './blocks/VenueBlock';
+import Date from './blocks/DateBlock';
 import SizeSelector from './blocks/sizeSelector';
 import DayPicker from './forms/DayPicker';
 import Loading from './blocks/loading'
@@ -39,12 +39,12 @@ export default class EventsPage extends React.Component {
                 return (
                     <div className="date" key={listing._id}>
                         <h2><Date date={newDate} ref={moment(newDate).format('YYYY MM DD')} /></h2>
-                        <Listing listing={listing} user={this.props.user}/>
+                        <VenueBlock listings={listing} user={this.props.user}/>
                     </div>
                 )
             } else {
                 return (
-                  <Listing listing={listing} key={listing._id} user={this.props.user}/>
+                  <VenueBlock listings={listing} key={listing._id} user={this.props.user}/>
               )   
             }
         })

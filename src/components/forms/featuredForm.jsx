@@ -24,6 +24,7 @@ export default class ListingForm extends React.Component {
 
         this.onEditorChange = this.onEditorChange.bind(this)
         this.onUpdate = this.onUpdate.bind(this)
+        this.toggleModal = this.toggleModal.bind(this)
       }
     
     componentDidMount() {
@@ -39,6 +40,12 @@ export default class ListingForm extends React.Component {
         }
     }
 
+    toggleModal() {
+        this.setState({
+            updatevisible: !this.state.updatevisible
+        })
+    }
+
     onEditorChange(editorState){
         this.props.onTextChange(stateToHTML(editorState.getCurrentContent()))
         this.setState({
@@ -46,7 +53,9 @@ export default class ListingForm extends React.Component {
         })
       }
 
-      onUpdate(e){
+
+
+    onUpdate(e){
         e.preventDefault();
         this.setState({ 
             updatevisible: true
@@ -75,6 +84,7 @@ export default class ListingForm extends React.Component {
                 
                 <button onClick={this.onUpdate}>Submit</button>
                 {this.state.updatevisible && <ConfirmModal 
+                                                        toggle={this.toggleModal}
                                                         modalVisible={this.state.updatevisible}
                                                         handleSubmit={this.props.handleSubmit}
                                                         textTitle="Save"

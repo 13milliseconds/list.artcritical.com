@@ -7,7 +7,8 @@ import AuthActions from '../actions/AuthActions';
 
 
 // load up the user model
-var User            = require('../models/user');
+var UserModels       = require('../models/user');
+var User             = UserModels.user;
 var Venue            = require('../models/venue');
 
 // expose this function to our app using module.exports

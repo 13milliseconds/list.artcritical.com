@@ -211,7 +211,6 @@ export default class VenueForm extends React.Component {
                           <Input disabled={venue.disabled} name="website" placeholder="Website" type="text" value={venue.website} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
-                    <h6>The following info is for artcritical use only.</h6>
                     <FormGroup>
                         <Label>Email</Label>
                         <div className="formSection">

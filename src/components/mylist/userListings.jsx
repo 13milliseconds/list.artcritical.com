@@ -1,6 +1,6 @@
 import React from 'react';
 // Components
-import Listing from '../listing';
+import VenueBlock from '../blocks/VenueBlock';
 
 //
 
@@ -19,7 +19,7 @@ export default class UserListings extends React.Component {
                             onMouseEnter={this.props.onHover.bind(this, listing)}
                             onMouseLeave={this.props.onLeave.bind(this, listing)}
                             >
-                            <Listing  listing={listing} 
+                            <VenueBlock  listings={listing} 
 								number={index + 1} 
 								user={this.props.user}
 								public={true}/>

@@ -2,7 +2,7 @@ import React from 'react';
 import ListActions from '../../actions/ListActions';
 //Components
 import ListingForm from '../forms/ListingForm';
-import Listing from '../listing';
+import VenueBlock from '../blocks/VenueBlock';
 
 
 export default class NewListing extends React.Component {
@@ -44,7 +44,7 @@ export default class NewListing extends React.Component {
                     <div id="newlistingDemo">
                         <h2>Listing Preview</h2>
                         <div className="medium listingsWrap">
-                            <Listing listing={this.props.listingEdit} user="" />
+                            <VenueBlock listings={this.props.listingEdit} user="" />
                         </div>
                     </div>
                 </div>

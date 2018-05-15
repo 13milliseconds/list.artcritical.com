@@ -19,15 +19,18 @@ class AuthActions {
             'updateUserSuccess',
             'updateUserFailure',
             'updateUserAttempt',
+            'deleteUserSuccess',
+            'deleteUserFailure',
+            'deleteUserAttempt',
             'getMylistSuccess',
             'getMylistFailure',
             'reorderMyListSuccess',
             'reorderMyListFailure',
-			'getUserMylistSuccess',
-			'getUserMylistFailure',
-			'getAllUserAttempt',
-			'getAllUserSuccess',
-			'getAllUserFailure'
+            'getUserMylistSuccess',
+            'getUserMylistFailure',
+            'getAllUserAttempt',
+            'getAllUserSuccess',
+            'getAllUserFailure'
         );
     }
     
@@ -278,8 +281,6 @@ class AuthActions {
     }
     
     async updateUser(newUserInfo) {
-		
-		console.log(newUserInfo);
 
         this.updateUserAttempt();
         
@@ -310,12 +311,44 @@ class AuthActions {
         });
 
     }
+
+    async deleteUser(user) {
+
+      this.deleteUserAttempt();
+      
+      await fetch(
+        process.env.BASE_URI + '/auth/deleteuser',
+        {
+          body: JSON.stringify(user),
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        },
+      )
+      .then((response) => {
+        if (response.status === 200) {
+            return response.json();
+        }
+          return null;
+      })
+      .then((json) => {
+          this.deleteUserSuccess(json);
+          return true;
+      })
+      .catch((error) => {
+          this.deleteUserFailure(error);
+          return true;
+      });
+
+  }
 	
 	async getAllUsers() {
 		
 		console.log("Getting all Users");
 
-        this.getAllUserAttempt();
+        this.getAllUserAttempt.defer()
         
         await fetch(
           process.env.BASE_URI + '/auth/getallusers',

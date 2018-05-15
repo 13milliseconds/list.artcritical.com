@@ -1,6 +1,6 @@
 import React from 'react';
 //COMPONENTS
-import Listing from '../listing'
+import VenueBlock from './VenueBlock'
 import ListingCluster from './ListingCluster'
 
 export default class FeatureBlock extends React.Component {
@@ -28,11 +28,8 @@ export default class FeatureBlock extends React.Component {
                 var thisExport = listingsExport
                 listingsExport = [listing]
 
-                if (thisExport.length == 1) {
-                    return <Listing key={listing._id} listing={thisExport[0]} user={this.props.user} dateView="current"/>
-                } else if (thisExport.length > 1) {
-                    return <ListingCluster key={listing._id} listings={thisExport} user={this.props.user} dateView="current"/>
-                }
+                return <VenueBlock key={listing._id} listings={thisExport} user={this.props.user} dateView="current"/>
+
             } else {
                 listingsExport.push(listing)
                 currentVenue = listing.venue._id

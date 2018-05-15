@@ -1,6 +1,6 @@
 import React from 'react';
 // Components
-import Listing from '../listing';
+import VenueBlock from '../blocks/VenueBlock';
 import SizeSelector from '../blocks/sizeSelector';
 
 export default class VenueListings extends React.Component {
@@ -10,17 +10,14 @@ export default class VenueListings extends React.Component {
 
     render() {
         
-        let listingsRender = listings => listings.map((listing) => {
-            return(
-                <Listing listing={listing} user={this.props.user} key={listing._id}/>
-            )
-        })
         
         return ( 
                 <div className="venueListings">
                     <SizeSelector view={this.props.view} />
                     <div className={this.props.view + " listingsWrap"}>
-                    {this.props.listings ? listingsRender(this.props.listings) : 'No Listings'}
+                    {this.props.listings[0]    ? <VenueBlock listings={this.props.listings} user={this.props.user} key={this.props.listings[0]._id}/> 
+                                            : 'No Listings'
+                    }
                     </div>
                 </div>
         );

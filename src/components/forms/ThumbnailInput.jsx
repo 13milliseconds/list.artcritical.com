@@ -16,13 +16,12 @@ export default class Thumbnail extends React.Component {
     }
     
     onImageDrop(accepted, rejected) {
-        console.log(accepted, rejected)
         if (accepted.length){
             this.setState({
                 uploadedFile: accepted[0],
                 isUploading: true
             });
-            this.props.onChange()
+            this.props.onChange && this.props.onChange()
             
             ImagesActions.handleThumbnailUpload(accepted[0], this.props.number);
         } else {

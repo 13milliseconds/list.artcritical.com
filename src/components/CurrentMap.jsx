@@ -4,7 +4,7 @@ import ListActions from '../actions/ListActions';
 //COMPONENTS
 import ReactMapGL, {LinearInterpolator, FlyToInterpolator} from 'react-map-gl';
 import DeckGLOverlay from './blocks/MapCluster';
-import Listing from './listing'
+import VenueBlock from './blocks/VenueBlock'
 import {json as requestJson} from 'd3-request';
 
 var d3 = require('d3-ease');
@@ -117,7 +117,7 @@ export default class CurrentMap extends React.Component {
     render() {
 
 		let displayListings = (listings) => listings.map((listing, index) => {
-			return <Listing key={index} listing={listing} user={this.props.user} dateView="current"/>
+			return <VenueBlock key={index} listings={listing} user={this.props.user} dateView="current"/>
 		})
 
 		let showLabels = (listings) => listings.map((listing, index) => {

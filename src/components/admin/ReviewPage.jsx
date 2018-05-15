@@ -4,7 +4,7 @@ import ListActions from '../../actions/ListActions';
 import moment from 'moment';
 
 //COMPONENTS
-import Listing from '../listing.jsx';
+import VenueBlock from '../blocks/VenueBlock.jsx';
 import Date from '../blocks/DateBlock.jsx';
 import SizeSelector from '../blocks/sizeSelector';
 
@@ -23,7 +23,7 @@ export default class ReviewPage extends React.Component {
         let thelistings = futureListings => futureListings.map(function(listing, index){
             //console.log(moment(listing['start']).format().slice(0,10))
             return (
-                <Listing key={index} listing={listing} user={this.props.user}/>
+                <VenueBlock key={index} listings={listing} user={this.props.user}/>
             )
 
         }, this)

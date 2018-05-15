@@ -75,6 +75,7 @@ class ListStore {
         this.loading.future = false;
         this.loading.events = true;
         this.loading.allVenues = false;
+        this.loading.features = false;
         //Error Messages
         this.error = {};
         this.error.feature = '';
@@ -94,8 +95,7 @@ class ListStore {
         this.success.savelisting = false;
         this.success.savevenue = false;
         this.success.feature = false;
-        this.success.updateUser = false
-        this.success.updateUser = false
+        this.success.deleteUser = false;
     }
     
     //List Reducers
@@ -283,7 +283,6 @@ class ListStore {
         this.venueEdit._id = data._id
         this.loading.savevenue = false
         this.success.savevenue = true
-
         setTimeout(function(){
             this.success.savevenue = false;
         }.bind(this), 1000)
@@ -474,16 +473,30 @@ class ListStore {
     //FEATURED
     onUpdateFeatureSuccess(data){
         this.success.feature = true
+        var that = this;
+        setTimeout(() => {
+            that.success.feature = false;
+        }, 1000);
     }
     onUpdateFeatureFailure(error){
         this.error.feature = 'Error updating the feature: ' + error
         console.log(error);
     }
-    onFeatureReset(){
-        this.feature= {};
+    onFeatureReset(day){
+        day 
+            ? this.features[day]= {
+                text: '',
+                list: {},
+                venue: {}
+            }
+            : this.features = []
         this.success.feature = false
     }
+    onFeatureLoadAttempt() {
+        this.loading.features = true
+    }
     onFeatureLoadSuccess(data) {
+        this.loading.features = false
         if (data.json){
 			// Match all features with a day of the next week
 			let features = []
@@ -521,6 +534,7 @@ class ListStore {
         }
     }
     onFeatureLoadFailure(error) {
+        this.loading.features = false
         console.log("Feature load error: ", error);
         this.features= [];
     }
@@ -580,19 +594,38 @@ class ListStore {
     //UPDATE USER
     onUpdateUserAttempt(){
         this.loading.updateuser = true;
-        this.success.updateuser = '';
+        this.success.updateuser = false;
         this.error.updateuser = '';
     }
-
     onUpdateUserSuccess(data){
         console.log('Success!', 'woo');
         this.loading.updateuser = false;
-        this.success.updateuser = 'Saved!';
+        this.success.updateuser = true;
     }
     onUpdateUserFailure(error){
         console.log('Failed Updating User', error);
         this.loading.updateuser = false;
         this.error.updateuser = 'Error Saving';
+    }
+
+     //DELETE USER
+     onDeleteUserAttempt(){
+        this.success.deleteUser = false;
+        this.error.updateuser = '';
+    }
+    onDeleteUserSuccess(info){
+        console.log(info.data.slug)
+        //Find user in current list of all users and delete it there for visualization
+        this.allUsers = this.allUsers.filter(user => {return user.slug !== info.data.slug})
+        //Display Success
+        this.success.deleteUser = true;
+        setTimeout(function(){
+            this.success.deleteUser = false;
+        }.bind(this), 1000)
+    }
+    onDeleteUserFailure(error){
+        console.log('Failed Deleting User', error);
+        this.error.deleteUser = 'Error Saving';
     }
 	
 	//USERS ADMIN PAGE
@@ -692,8 +725,6 @@ class ListStore {
     
     // INFO CHANGE ON ACCOUNT PAGE
     onUserInfoChange (data){
-        console.log(data);
-        this.success.updateUser = true
 
         const target = data.event.target;
         const value = target.value;

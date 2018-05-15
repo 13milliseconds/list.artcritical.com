@@ -4,7 +4,7 @@ import ListStore from '../stores/ListStore';
 import ListActions from '../actions/ListActions';
 //COMPONENTS
 import {IntlProvider, FormattedDate} from 'react-intl';
-import DayPage from './daypage.jsx';
+import DayPage from './DayPage';
 import Tabs from './tabs.jsx'; 
 
 

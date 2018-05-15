@@ -43,6 +43,7 @@ class ListActions {
             'updateVenueFailure',
             'updateFeatureSuccess',
             'updateFeatureFailure',
+            'featureLoadAttempt',
             'featureLoadSuccess',
             'featureLoadFailure',
             'deleteListingSuccess',
@@ -354,11 +355,13 @@ class ListActions {
         });
     }
     
-    featureReset(){
-        return true;
+    featureReset(day){
+        return day;
     }
     
     async featureLoad(days){
+
+        this.featureLoadAttempt.defer()
         
         await fetch(
           process.env.BASE_URI + '/list/findfeatures/' + days,

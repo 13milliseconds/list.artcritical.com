@@ -226,12 +226,14 @@ export default class ListingForm extends React.Component {
                             <Input type="url"  name="review" placeholder="Link" type="text" value={listing.review} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
-                    <FormGroup check>
-                        <Label>Events</Label>
-                        <div className="formSection">
-                            <EventsForm events={listing.events? listing.events : []} onChange={this.onEventsChange}/>
-                        </div>
-                    </FormGroup>
+                    {!listing.event &&
+                        <FormGroup check>
+                            <Label>Events</Label>
+                            <div className="formSection">
+                                <EventsForm events={listing.events? listing.events : []} onChange={this.onEventsChange}/>
+                            </div>
+                        </FormGroup>
+                    }
                      <FormGroup check>
                            <Label>Thumbnail</Label>
                             <ThumbnailInput {...listing} onChange={this.onThumbChange}/> 

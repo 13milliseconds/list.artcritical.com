@@ -21,10 +21,6 @@ export default class FeaturedDay extends React.Component {
         this.onTextChange = this.onTextChange.bind(this)
       }
     
-    componentWillUnmount(){
-        ListActions.featureReset();
-    }
-    
     
     // Add the listing to the database
     handleSubmit(event) {
@@ -49,10 +45,9 @@ export default class FeaturedDay extends React.Component {
     }
     
     handleSelectChange (data) {
-        if (data.value){
-            //Fetch all the listing info
-            ListActions.getListingInfo(data.value, this.props.dayNumber); 
-        }
+        data
+            ? data.value && ListActions.getListingInfo(data.value, this.props.dayNumber)
+            : ListActions.featureReset(this.props.dayNumber)
     }
 
     onTextChange(newText){

@@ -6,6 +6,7 @@ import {IntlProvider, FormattedDate} from 'react-intl';
 import { Button } from 'reactstrap';
 import FeaturedDay from './featuredDay';
 import Tabs from '../tabs';
+import Loading from '../blocks/loading';
 
 
 export default class FeaturePage extends React.Component {
@@ -26,8 +27,8 @@ export default class FeaturePage extends React.Component {
 		}
     }
 
-    componentWillMount() {
-		ListActions.featureLoad(14);
+    componentDidMount() {
+		ListActions.featureLoad(14)
     }
 
     render() {
@@ -42,9 +43,10 @@ export default class FeaturePage extends React.Component {
         return ( 
             <div className = "glance">
               <h2>Featured Listings</h2>
-                <Tabs>
-                    {days}
-                </Tabs>
+              {this.props.loading.features 
+                    ? <Loading />
+                    :<Tabs>{days}</Tabs>
+              }
             </div>
         );
     }

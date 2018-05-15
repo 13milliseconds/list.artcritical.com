@@ -2,7 +2,7 @@ import React from 'react';
 import Display from '../../actions/displayActions';
 import ListActions from '../../actions/ListActions';
 //Components
-import Listing from '../listing';
+import VenueBlock from '../blocks/VenueBlock';
 import Select from '../forms/formSelect';
 import VenueForm from '../forms/VenueForm';
 import MapBlock from '../blocks/mapBlock';

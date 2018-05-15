@@ -20,8 +20,15 @@ export default class UserEdit extends React.Component {
 		this.onDelete = this.onDelete.bind(this)
 		this.onSaveAlert = this.onSaveAlert.bind(this)
 		this.onDeleteAlert = this.onDeleteAlert.bind(this)
+		this.toggleModal = this.toggleModal.bind(this)
 
 	}
+
+	toggleModal(modalName) {
+        this.setState({
+            [modalName]: !this.state[modalName]
+        })
+    }
 	
 	//save alert
     onSaveAlert(event) {
@@ -41,16 +48,11 @@ export default class UserEdit extends React.Component {
 	//save
     onSave(event) {
 		AuthActions.updateUser(this.props.user)
-        this.setState({ 
-            save: false
-        })
 	}
 	//delete
     onDelete(event) {
 		console.log('deleting user')
-        this.setState({ 
-            delete: false
-        })
+		AuthActions.deleteUser({_id: this.props.user._id})
 	}
 
     render() {
@@ -86,8 +88,9 @@ export default class UserEdit extends React.Component {
             </FormGroup>
 
 			{this.state.save && <ConfirmModal 
-                                                        modalVisible={this.state.save}
-                                                        handleSubmit={this.onSave}
+														handleSubmit={this.onSave}
+														toggle={this.toggleModal}
+														name="save"
                                                         textTitle="Save"
                                                         textAction="save this User"
                                                         textConfirm="Saved!"
@@ -95,8 +98,9 @@ export default class UserEdit extends React.Component {
 														success={this.props.success.updateUser}/>}
 														
 			{this.state.delete && <ConfirmModal 
-                                                        modalVisible={this.state.delete}
-                                                        handleSubmit={this.onDelete}
+														handleSubmit={this.onDelete}
+														toggle={this.toggleModal}
+														name="delete"
                                                         textTitle="Delete"
                                                         textAction="Delete this user"
                                                         textConfirm="Deleted!"
