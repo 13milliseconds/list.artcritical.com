@@ -39,12 +39,12 @@ export default class EventsPage extends React.Component {
                 return (
                     <div className="date" key={listing._id}>
                         <h2><Date date={newDate} ref={moment(newDate).format('YYYY MM DD')} /></h2>
-                        <VenueBlock listings={listing} user={this.props.user}/>
+                        <VenueBlock listings={[listing]} user={this.props.user}/>
                     </div>
                 )
             } else {
                 return (
-                  <VenueBlock listings={listing} key={listing._id} user={this.props.user}/>
+                  <VenueBlock listings={[listing]} key={listing._id} user={this.props.user}/>
               )   
             }
         })

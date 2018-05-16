@@ -246,8 +246,7 @@ header.mainHeader{
 	div.tabs__content{
         @include span-columns(10);
         .day{
-            display: block;
-            @include span-columns(10);
+            @include row();
             .listingsWrap{
                 @include span-columns(8);
             }

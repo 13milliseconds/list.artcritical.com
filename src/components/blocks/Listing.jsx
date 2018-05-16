@@ -66,15 +66,13 @@ export default class Listing extends React.Component {
     //Display date according to type of listing and view
     var dateDisplay
         
-    if (listing.event == true) {
-        dateDisplay = listing.start && <span className="date"><Date date={listing.start} /></span>
-    } else {
-        if (this.props.dateView == "current") {
-            dateDisplay = <span className="date">Until <Date date={listing.end}/></span>
-        } else {
-        dateDisplay = <span className="date">{listing.start && <Date date={listing.start} /> }{listing.end && <span> to <Date date={listing.end} /></span>}</span>
-        }
-    }
+    listing.event == true && this.props.dateView !== "nodate"
+        ? dateDisplay = listing.start && <span className="date"><Date date={listing.start} /></span>
+        : this.props.dateView == "current"
+            ? dateDisplay = <span className="date">Until <Date date={listing.end}/></span>
+            : this.props.dateView == "nodate"
+                ? dateDisplay = ''
+                : dateDisplay = <span className="date">{listing.start && <Date date={listing.start} /> }{listing.end && <span> to <Date date={listing.end} /></span>}</span>
         
         const id = listing._id;
         // Check if the listing is in mylist
@@ -107,8 +105,9 @@ export default class Listing extends React.Component {
                 <div className="header">
 
                     <p><span className="title">{listing.name}</span> {dateDisplay}</p>
-                    {moment(listing.start).isSame(moment(), 'day') && <div className="opening">Opening Today</div>}
-                    {moment(listing.end).isSame(moment(), 'day') && <div className="closing">Closing Today</div>}
+
+                    {moment(listing.start).isSame(moment(), 'day') && <span className="opening">Opening Today</span>}
+                    {moment(listing.end).isSame(moment(), 'day') && <span className="closing">Closing Today</span>}
 
                     <div className="icons">
                         {(listing.description || eventsPresence) && <FontAwesomeIcon icon={['fal', 'info-circle']} onClick={this._revealInfo}/>}

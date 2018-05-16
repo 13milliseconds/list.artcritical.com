@@ -6,6 +6,7 @@ import ListActions from '../actions/ListActions';
 import {IntlProvider, FormattedDate} from 'react-intl';
 import DayPage from './DayPage';
 import Tabs from './tabs.jsx'; 
+import Loading from './blocks/loading'
 
 
 export default class GlancePage extends React.Component {
@@ -27,36 +28,40 @@ export default class GlancePage extends React.Component {
     }
 	
 	componentWillMount() {
-		ListActions.featureLoad(7);
+        ListActions.featureLoad(7);
+        ListActions.getGlance();
 	}
 
     componentDidMount() {
-        ListActions.getGlance();
+        
     }
 
     render() {
         
-        let thelist = this.props.glanceListings
-        
-        let days = [];
-        
-        for (var i=0; i < 7; i++) {
-            let label = <IntlProvider locale="en"><FormattedDate value={this.state.dates[i]} weekday="long" day="numeric" month="short" /></IntlProvider>
-            days.push(<DayPage 
-						  key={i} 
-						  feature={this.props.features[i]? this.props.features[i] : {}} 
-						  glanceListings={thelist} 
-						  user={this.props.user} 
-						  label={label} 
-						  date={this.state.dates[i]} 
-						  view={this.props.view} />);
+        let daysDisplay = listings => {
+            let days = []
+            for (var i=0; i < 7; i++) {
+                let label = <IntlProvider locale="en"><FormattedDate value={this.state.dates[i]} weekday="long" day="numeric" month="short" /></IntlProvider>
+                days.push(<DayPage 
+                              key={i} 
+                              feature={this.props.features[i]? this.props.features[i] : {}} 
+                              glanceListings={listings} 
+                              user={this.props.user} 
+                              label={label} 
+                              date={this.state.dates[i]}
+                              view={this.props.view} />)
+            }
+            return days
         }
         
         return ( 
             <div className = "glance">
-                <Tabs>
-                    {days}
-                </Tabs>
+                {this.props.glanceListings.length ?
+                    <Tabs>
+                        {daysDisplay(this.props.glanceListings)}
+                    </Tabs>
+                    : <Loading />
+                }
             </div>
         );
     }

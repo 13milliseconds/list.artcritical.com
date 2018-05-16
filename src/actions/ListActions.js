@@ -19,6 +19,7 @@ class ListActions {
             'getEventsAttempt',
             'getEventsSuccess',
             'getEventsFail',
+            'getGlanceAttempt',
             'getGlanceSuccess',
             'getGlanceFail',
             'getLatestListingsSuccess',
@@ -154,22 +155,32 @@ class ListActions {
         };
     }
 
-    getGlance() {
+    async getGlance() {
 
-        this.getEventsAttempt();
+        this.getGlanceAttempt();
 
-        return dispatch => {
-            $.ajax({
-                    url: process.env.BASE_URI + '/list/glancelistings'
-                })
-                .done((data) => {
-                    this.getGlanceSuccess(data)
-                })
-                .fail((jqXhr) => {
-                    this.getGlanceFail(jqXhr)
-                });
-        };
+        await fetch(
+            process.env.BASE_URI + '/list/glancelistings',
+            {
+              method: 'GET',
+              credentials: 'same-origin',
+            },
+          )
+          .then((response) => {
+            if (response.status === 200) {
+                return response.json();
+            }
+            return null;
+          })
+          .then((data) => {
+            this.getGlanceSuccess(data)
+              return true;
+          })
+          .catch((error) => {
+            this.getGlanceFail(error)
+          });
     }
+
     getLatestListings() {
         return dispatch => {
             $.ajax({

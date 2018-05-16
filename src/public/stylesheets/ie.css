@@ -365,8 +365,8 @@ header.mainHeader .accountOptions:hover a {
 .edit-page .container .header {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 23.2317609825%;
+  margin-right: 2.35765%;
+  width: 23.23176%;
   position: fixed;
   top: 0;
   left: 0;
@@ -378,11 +378,11 @@ header.mainHeader .accountOptions:hover a {
 }
 /* line 184, ../scss/breakpoints/_768up.scss */
 .edit-page .container .content {
-  margin-left: 25.5894130058%;
+  margin-left: 25.58941%;
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 74.4105869942%;
+  margin-right: 2.35765%;
+  width: 74.41059%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .edit-page .container .content:last-child {
@@ -393,8 +393,8 @@ header.mainHeader .accountOptions:hover a {
 .mainList .left-col {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 14.7019566472%;
+  margin-right: 2.35765%;
+  width: 14.70196%;
   position: fixed;
   float: none;
   padding-right: 4%;
@@ -407,8 +407,8 @@ header.mainHeader .accountOptions:hover a {
 .mainList .right-col {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 14.7019566472%;
+  margin-right: 2.35765%;
+  width: 14.70196%;
   position: fixed;
   float: none;
   padding-right: 4%;
@@ -422,9 +422,9 @@ header.mainHeader .accountOptions:hover a {
 .mainList .main-col {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 65.8807826589%;
-  margin-left: 17.0596086706%;
+  margin-right: 2.35765%;
+  width: 65.88078%;
+  margin-left: 17.05961%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .mainList .main-col:last-child {
@@ -440,8 +440,8 @@ header.mainHeader .accountOptions:hover a {
 .events .left-col {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 23.2317609825%;
+  margin-right: 2.35765%;
+  width: 23.23176%;
   position: fixed;
   float: none;
   padding-right: 4%;
@@ -462,9 +462,9 @@ header.mainHeader .accountOptions:hover a {
 .events .main-col {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 57.3509783236%;
-  margin-left: 25.5894130058%;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+  margin-left: 25.58941%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .events .main-col:last-child {
@@ -476,8 +476,8 @@ header.mainHeader .accountOptions:hover a {
   padding: 0;
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 14.7019566472%;
+  margin-right: 2.35765%;
+  width: 14.70196%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance ul.tabs__labels:last-child {
@@ -487,8 +487,8 @@ header.mainHeader .accountOptions:hover a {
 .glance div.tabs__content {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 82.9403913294%;
+  margin-right: 2.35765%;
+  width: 82.94039%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance div.tabs__content:last-child {
@@ -497,54 +497,52 @@ header.mainHeader .accountOptions:hover a {
 /* line 248, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content .day {
   display: block;
-  float: left;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.glance div.tabs__content .day::after {
+  clear: both;
+  content: "";
   display: block;
-  margin-right: 2.3576520234%;
-  width: 82.9403913294%;
 }
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.glance div.tabs__content .day:last-child {
-  margin-right: 0;
-}
-/* line 251, ../scss/breakpoints/_768up.scss */
+/* line 250, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content .day .listingsWrap {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 65.8807826589%;
+  margin-right: 2.35765%;
+  width: 65.88078%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance div.tabs__content .day .listingsWrap:last-child {
   margin-right: 0;
 }
-/* line 254, ../scss/breakpoints/_768up.scss */
+/* line 253, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content .day .featuredSection {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
-  width: 31.7615653177%;
+  margin-right: 2.35765%;
+  width: 31.76157%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance div.tabs__content .day .featuredSection:last-child {
   margin-right: 0;
 }
 
-/* line 261, ../scss/breakpoints/_768up.scss */
+/* line 260, ../scss/breakpoints/_768up.scss */
 .feature-wrap .image {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
+  margin-right: 2.35765%;
   width: 100%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .feature-wrap .image:last-child {
   margin-right: 0;
 }
-/* line 264, ../scss/breakpoints/_768up.scss */
+/* line 263, ../scss/breakpoints/_768up.scss */
 .feature-wrap .info {
   float: left;
   display: block;
-  margin-right: 2.3576520234%;
+  margin-right: 2.35765%;
   width: 100%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
@@ -552,7 +550,7 @@ header.mainHeader .accountOptions:hover a {
   margin-right: 0;
 }
 
-/* line 271, ../scss/breakpoints/_768up.scss */
+/* line 270, ../scss/breakpoints/_768up.scss */
 .map.app-container, .mylist.connected.app-container {
   min-height: 100%;
   padding: 0;
@@ -560,14 +558,14 @@ header.mainHeader .accountOptions:hover a {
   position: absolute;
   width: 100%;
 }
-/* line 277, ../scss/breakpoints/_768up.scss */
+/* line 276, ../scss/breakpoints/_768up.scss */
 .map.app-container .app-content, .mylist.connected.app-container .app-content {
   min-height: 100%;
   position: absolute;
   width: 100%;
 }
 
-/* line 285, ../scss/breakpoints/_768up.scss */
+/* line 284, ../scss/breakpoints/_768up.scss */
 .currentMap .mapWrap .label {
   display: block;
   position: absolute;
@@ -577,7 +575,7 @@ header.mainHeader .accountOptions:hover a {
   margin-left: 5px;
   padding: 5px;
 }
-/* line 295, ../scss/breakpoints/_768up.scss */
+/* line 294, ../scss/breakpoints/_768up.scss */
 .currentMap .list {
   top: 0;
   bottom: auto;
@@ -586,13 +584,13 @@ header.mainHeader .accountOptions:hover a {
   padding: 100px 20px 20px;
 }
 
-/* line 305, ../scss/breakpoints/_768up.scss */
+/* line 304, ../scss/breakpoints/_768up.scss */
 .mylist.app-container {
   padding: 0;
   max-width: none;
 }
 
-/* line 310, ../scss/breakpoints/_768up.scss */
+/* line 309, ../scss/breakpoints/_768up.scss */
 .myList .mapWrap {
   width: 100%;
   height: 100%;
@@ -600,7 +598,7 @@ header.mainHeader .accountOptions:hover a {
   top: 0;
   left: 0;
 }
-/* line 317, ../scss/breakpoints/_768up.scss */
+/* line 316, ../scss/breakpoints/_768up.scss */
 .myList .listInfo {
   left: 0;
   margin-bottom: 20px;
@@ -613,7 +611,7 @@ header.mainHeader .accountOptions:hover a {
   max-height: 100%;
   overflow: auto;
 }
-/* line 329, ../scss/breakpoints/_768up.scss */
+/* line 328, ../scss/breakpoints/_768up.scss */
 .myList .popupList {
   position: fixed;
   z-index: 99;
@@ -623,7 +621,7 @@ header.mainHeader .accountOptions:hover a {
   left: 0;
   background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 337, ../scss/breakpoints/_768up.scss */
+/* line 336, ../scss/breakpoints/_768up.scss */
 .myList .popupList div {
   background: #fff;
   position: absolute;

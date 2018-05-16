@@ -34,7 +34,7 @@ export default class MyListings extends React.Component {
                             onMouseLeave={this.props.onLeave.bind(this, listing)}
                             >
                             <VenueBlock  
-                                listings={listing} number={index + 1} 
+                                listings={[listing]} number={index + 1} 
                                 user={this.props.user} mylisting={true}/>
                         </div>
                         ))}

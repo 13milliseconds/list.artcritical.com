@@ -117,7 +117,7 @@ export default class CurrentMap extends React.Component {
     render() {
 
 		let displayListings = (listings) => listings.map((listing, index) => {
-			return <VenueBlock key={index} listings={listing} user={this.props.user} dateView="current"/>
+			return <VenueBlock key={index} listings={[listing]} user={this.props.user} dateView="current"/>
 		})
 
 		let showLabels = (listings) => listings.map((listing, index) => {

@@ -19,7 +19,7 @@ export default class UserListings extends React.Component {
                             onMouseEnter={this.props.onHover.bind(this, listing)}
                             onMouseLeave={this.props.onLeave.bind(this, listing)}
                             >
-                            <VenueBlock  listings={listing} 
+                            <VenueBlock  listings={[listing]} 
 								number={index + 1} 
 								user={this.props.user}
 								public={true}/>

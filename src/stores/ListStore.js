@@ -76,6 +76,7 @@ class ListStore {
         this.loading.events = true;
         this.loading.allVenues = false;
         this.loading.features = false;
+        this.loading.glance = false
         //Error Messages
         this.error = {};
         this.error.feature = '';
@@ -129,7 +130,11 @@ class ListStore {
         this.eventsListings = data;
         this.loading.events = false;
     }
+    onGetGlanceAttempt(){
+        this.loading.glance = true
+    }
     onGetGlanceSuccess(data) {
+        this.loading.glance = false
         this.glanceListings = data;
     }
     getLatestListingsSuccess(data){
@@ -160,6 +165,7 @@ class ListStore {
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
     onGetGlanceFail(jqXhr) {
+        this.loading.glance = false
         // Handle multiple response formats, fallback to HTTP status code number.
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }

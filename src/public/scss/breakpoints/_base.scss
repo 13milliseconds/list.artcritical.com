@@ -221,6 +221,11 @@ Main PAGES
 /*********************
 LISTING ELEMENTS
 *********************/
+.venue{
+    .venueInfo{
+        @include shift(1);
+    }
+}
 .listing{
     @include transition(.3s);
     background: #fff;
@@ -391,12 +396,16 @@ LISTING ELEMENTS
 .placeholder{
     opacity: 0;
 }
-.selectorBlock{
+.SizeSelector{
     float: right;
-    i{
+    span{
+        display: inline-block;
         color: $gray;
         padding-right: 5px;
-		cursor: pointer;
+        cursor: pointer;
+        svg{
+            pointer-events: none;
+        }
         &.active{
             color: $green;
 			cursor: default;
