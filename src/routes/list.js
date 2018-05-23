@@ -48,18 +48,19 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     today.setHours(0, 0, 0, 0);
     
     //Count how many times we've fetched listings
-    var offset_ratio = parseInt(req.params.offset_ratio) * 100; 
+    var offset_ratio = parseInt(req.params.offset_ratio) * 500; 
 
     List.find().
     where('start').lte(today).
     where('end').gte(today).
 	where('event').ne(true).
 	where('venue').ne('').
-    sort('neighborhood').
     skip(offset_ratio).
-    limit(100).
+    limit(500).
     populate('venue').
+    populate('artists').
     populate('updated_by').
+    sort({'neighborhood': 1, 'venue': -1}).
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -88,6 +89,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     skip(offset_ratio).
     limit(30).
     populate('venue').
+    populate('artists').
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -125,6 +127,7 @@ router.get('/glancelistings', function (req, res) {
 	where('venue').ne('').
     sort('neighborhood').
     populate('venue').
+    populate('artists').
     exec(function (e, docs) {
         if (e)
             res.send(e);
@@ -151,6 +154,7 @@ router.get('/eventslistings', function (req, res) {
 	where('venue').ne('').
     sort('start').
     populate('venue').
+    populate('artists').
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -170,6 +174,7 @@ router.get('/latestlistings', function (req, res) {
     sort({updated_at: -1}).
     limit(20).
     populate('venue').
+    populate('artists').
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -215,6 +220,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     }).
 	where('venue').ne('').
     populate('venue').
+    populate('artists').
     populate('updated_by').
     exec(function (e, docs) {
         if (e)
@@ -239,17 +245,37 @@ router.post('/add', function (req, res) {
 	var now = new Date();
 	newlisting.created_at = now;
 	newlisting.updated_at = now;
-	newlisting.updated_by = req.user._id;
+    newlisting.updated_by = req.user._id;
+    
+    var fn = function saveArtists(artist){ // Save artist async
+        if (artist._id){
+            return artist._id
+        } else {
+            var newArtist = new Artists(artist);
+            return new Promise(resolve => {
+                newArtist.save(function (err, newArtist) { 
+                    console.log(newArtist)
+                    resolve(newArtist._id)
+                })
+            })
+        }
+    };
 
-    //Save this new entry
-    newlisting.save(function (err, newlisting) {
-        res.send(
-            (err === null) ? {
-                data: newlisting
-            } : {
-                msg: err
-            }
-        );
+    var saving = newlisting.artists.map(fn); // run the function over all items
+
+    var savedArtists = Promise.all(saving); // pass array of promises
+
+    savedArtists.then(data => {// or just .then(console.log)
+        
+        newlisting.artists = data;
+        newlisting = new List(newlisting);
+
+        //Save this new entry
+        newlisting.save(function (err, newlisting) {
+            res.send(
+                (err === null) ? { data: newlisting } : { msg: err }
+            );
+        });
     });
 
 });
@@ -261,30 +287,57 @@ router.post('/add', function (req, res) {
 
 router.post('/update', function (req, res) {
     var List = req.list;
+    var Artists = req.artists;
 
     console.log("Update one listing");
 
     // define a new entry
-    var thelisting = new List(req.body);
+    var thelisting = req.body;
 
     // Save when and who updated it
 	var now = new Date();
 	thelisting.updated_at = now;
-	thelisting.updated_by = req.user._id;
+    thelisting.updated_by = req.user._id;
 
 
-    List.update({
-        _id: thelisting._id
-    }, {
-        $set: thelisting
-    }, function (err, newlisting) {
-        res.send(
-            (err === null) ? {
-                msg: ''
-            } : {
-                msg: err
-            }
-        );
+    var fn = function saveArtists(artist){ // Save artist async
+        if (artist._id){
+            return artist._id
+        } else {
+            var newArtist = new Artists(artist);
+            return new Promise(resolve => {
+                newArtist.save(function (err, newArtist) { 
+                    console.log(newArtist)
+                    resolve(newArtist._id)
+                })
+            })
+        }
+    };
+
+    var saving = thelisting.artists.map(fn); // run the function over all items
+
+    var savedArtists = Promise.all(saving); // pass array of promises
+
+    savedArtists.then(data => {// or just .then(console.log)
+        
+        thelisting.artists = data;
+        thelisting = new List(thelisting);
+        console.log('Before saving: ', thelisting)
+
+        List.update({
+            _id: thelisting._id
+            }, {
+                $set: thelisting
+            }, function (err, newlisting) {
+                console.log('After saving: ', newlisting);
+                res.send(
+                    (err === null) ? {
+                        msg: ''
+                    } : {
+                        msg: err
+                    }
+                );
+        });
     });
 
 });
@@ -349,6 +402,7 @@ router.post('/findfeatures/:days', function (req, res) {
     }).
     populate('list').
     populate('venue').
+    populate('artists').
     exec(function (e, docs) {
         res.json(docs);
     });

@@ -23,7 +23,7 @@ export default class ReviewPage extends React.Component {
         let thelistings = futureListings => futureListings.map(function(listing, index){
             //console.log(moment(listing['start']).format().slice(0,10))
             return (
-                <VenueBlock key={index} listings={listing} user={this.props.user}/>
+                <VenueBlock key={index} listings={[listing]} user={this.props.user}/>
             )
 
         }, this)

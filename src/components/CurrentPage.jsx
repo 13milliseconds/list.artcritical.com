@@ -29,7 +29,7 @@ export default class CurrentPage extends React.Component {
 				</div>
                 <div className={this.props.view + " listingsWrap main-col"}>
                     <h1>Current Listings</h1>
-                    <ListingsPerNeighbor listings={this.props.currentListings} user={this.props.user}/>
+                    <ListingsPerNeighbor listings={this.props.currentListings} user={this.props.user} view="current"/>
                     {this.props.loading.current && <Loading />}
                 </div>
 				<div className="right-col">

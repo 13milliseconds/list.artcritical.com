@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import ListStore from '../stores/ListStore';
 import AuthActions from '../actions/AuthActions';
 import ListActions from '../actions/ListActions';
+
 // Components
 import { IndexLink, Link } from 'react-router';
 import SizeSelector from './blocks/sizeSelector';
@@ -34,10 +35,10 @@ import ListingForm from './forms/ListingForm';
 
 
 export default class Layout extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = ListStore.getState();
-
 
         this.onChange = this.onChange.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this)
@@ -66,6 +67,7 @@ export default class Layout extends React.Component {
     
 
   render() {
+
       const { user } = this.state;
       const name = user.name;
       const mylistNum = user.mylist.length;

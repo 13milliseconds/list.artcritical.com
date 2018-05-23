@@ -37,6 +37,9 @@ var ListModels = require('./models/list.js');
 var List = ListModels.list;
 var Archive = ListModels.archive;
 var Trash = ListModels.trash;
+var ArtistModels = require('./models/artist.js');
+var Artist = ArtistModels.artist;
+var ArtistTrash = ArtistModels.artistTrash;
 var Venue = require('./models/venue.js');
 var UserModels = require('./models/user.js');
 var User = UserModels.user;
@@ -85,6 +88,8 @@ app.use(function(req,res,next){
     req.list = List;
     req.archive = Archive;
     req.trash = Trash;
+    req.artists = Artist;
+    req.artistTrash = ArtistTrash;
     req.venue = Venue;
     req.userlist = User;
     req.usertrash = UserTrash;
@@ -95,10 +100,12 @@ app.use(function(req,res,next){
 var index = require('./routes/index');
 var venues = require('./routes/venues');
 var listings = require('./routes/list');
+var artists = require('./routes/artist');
 var auth = require('./routes/auth');
 
 app.use('/venues', venues);
 app.use('/list', listings);
+app.use('/artist', artists);
 app.use('/auth', auth);
 app.use('/', index);
 

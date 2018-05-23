@@ -12,6 +12,7 @@ var eventSchema = new Schema({
 
 var listingSchema = mongoose.Schema({
     name: String,
+    artists: [{type: String, ref: 'Artist'}],
     start: Date,
     end: Date,
     description: String,

@@ -1,5 +1,4 @@
 import alt from '../alt';
-import Promise from 'bluebird';
 
 let offset = 0;
 

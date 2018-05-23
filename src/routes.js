@@ -15,7 +15,6 @@ import MyListPublicPage from './components/myListPublicPage';
 import AuthSuccess from './components/login/AuthSuccess';
 //Admin Components
 import AdminPage from './components/admin/AdminPage';
-import NewListing from './components/admin/NewListing';
 import EditListing from './components/admin/EditListing';
 import EditVenue from './components/admin/EditVenue';
 import FeaturedListings from './components/admin/featuredPage';
@@ -41,8 +40,6 @@ const routes = (
 		<Route path="account" component={Account}/>
         <Route path="admin" component={AdminPage}>
             <IndexRoute component={EditListing}/>
-            //<Route path="listings" component={EditListing}/>
-            //<Route path="newlisting" component={NewListing}/>
             <Route path="venues" component={EditVenue}/>
             <Route path="featured" component={FeaturedListings}/>
 			<Route path="venuesadmin" component={VenuesPage}/>

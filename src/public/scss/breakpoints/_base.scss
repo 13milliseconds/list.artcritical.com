@@ -222,13 +222,14 @@ Main PAGES
 LISTING ELEMENTS
 *********************/
 .venue{
+    margin-bottom: 40px;
+    @include row();
     .venueInfo{
         @include shift(1);
     }
 }
 .listing{
     @include transition(.3s);
-    background: #fff;
     .listingAdd{
         .addButton{
             overflow: hidden;
@@ -330,9 +331,16 @@ LISTING ELEMENTS
     }
 }
 .small{
+    .venue{
+        background-color: transparent;
+        padding: 0;
+        .venueInfo{
+            @include shift(1);
+        }
+    }
     .listing{
-        padding: 0px 10px 10px;
-        @include row();
+        @include span-columns(12);
+        padding: 0 0 5px;
 		p{
 			font-size: 15px;
     		line-height: 1;
@@ -353,8 +361,8 @@ LISTING ELEMENTS
 }
 .medium{
     .listing{
+        @include span-columns(12);
 		padding-bottom: 20px;
-        @include row();
         .listingAdd{
             @include span-columns(1);
             .addButton{
@@ -370,8 +378,11 @@ LISTING ELEMENTS
     }
 }
 .large{
-    h2{
-        @include span-columns(12);
+    .venue{
+        .venueInfo{
+            @include span-columns(12);
+            @include shift(0);
+        }
     }
     .listing{
         padding: 0px 10px 20px;
@@ -381,7 +392,9 @@ LISTING ELEMENTS
             @include span-columns(12);
             .addButton{
                 width: 100%;
-                height: 100px;
+                height: 0;
+                padding-top: 100%;
+                border-radius: 5px;
             }
         }
         .listingContent{
@@ -708,6 +721,32 @@ ADMIN
         }
     }
 }
+
+//Artists editing
+.react-tagsinput{
+    .react-tagsinput-tag{
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: $gray;
+        margin-right: 10px;
+        .react-tagsinput-remove{
+            padding-left: 5px;
+            &:after{
+                content: 'x';
+            }
+        }
+    }
+    .react-autosuggest__container{
+        margin-top: 10px;
+    }
+    //SUGGESTIONS
+    .react-autosuggest__suggestions-list{
+        .react-autosuggest__suggestion--highlighted{
+            background-color: $gray;
+        }
+    }
+}
+
 
 .DraftEditor-root{
     border: 1px solid #eee;

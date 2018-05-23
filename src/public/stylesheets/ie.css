@@ -365,8 +365,8 @@ header.mainHeader .accountOptions:hover a {
 .edit-page .container .header {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 23.23176%;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
   position: fixed;
   top: 0;
   left: 0;
@@ -378,11 +378,11 @@ header.mainHeader .accountOptions:hover a {
 }
 /* line 184, ../scss/breakpoints/_768up.scss */
 .edit-page .container .content {
-  margin-left: 25.58941%;
+  margin-left: 25.5894130058%;
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 74.41059%;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .edit-page .container .content:last-child {
@@ -393,8 +393,8 @@ header.mainHeader .accountOptions:hover a {
 .mainList .left-col {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 14.70196%;
+  margin-right: 2.3576520234%;
+  width: 14.7019566472%;
   position: fixed;
   float: none;
   padding-right: 4%;
@@ -407,8 +407,8 @@ header.mainHeader .accountOptions:hover a {
 .mainList .right-col {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 14.70196%;
+  margin-right: 2.3576520234%;
+  width: 14.7019566472%;
   position: fixed;
   float: none;
   padding-right: 4%;
@@ -422,9 +422,9 @@ header.mainHeader .accountOptions:hover a {
 .mainList .main-col {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 65.88078%;
-  margin-left: 17.05961%;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
+  margin-left: 17.0596086706%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .mainList .main-col:last-child {
@@ -440,8 +440,8 @@ header.mainHeader .accountOptions:hover a {
 .events .left-col {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 23.23176%;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
   position: fixed;
   float: none;
   padding-right: 4%;
@@ -462,9 +462,9 @@ header.mainHeader .accountOptions:hover a {
 .events .main-col {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 57.35098%;
-  margin-left: 25.58941%;
+  margin-right: 2.3576520234%;
+  width: 57.3509783236%;
+  margin-left: 25.5894130058%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .events .main-col:last-child {
@@ -476,8 +476,8 @@ header.mainHeader .accountOptions:hover a {
   padding: 0;
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 14.70196%;
+  margin-right: 2.3576520234%;
+  width: 14.7019566472%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance ul.tabs__labels:last-child {
@@ -487,8 +487,8 @@ header.mainHeader .accountOptions:hover a {
 .glance div.tabs__content {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 82.94039%;
+  margin-right: 2.3576520234%;
+  width: 82.9403913294%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance div.tabs__content:last-child {
@@ -508,8 +508,8 @@ header.mainHeader .accountOptions:hover a {
 .glance div.tabs__content .day .listingsWrap {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 65.88078%;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance div.tabs__content .day .listingsWrap:last-child {
@@ -519,8 +519,8 @@ header.mainHeader .accountOptions:hover a {
 .glance div.tabs__content .day .featuredSection {
   float: left;
   display: block;
-  margin-right: 2.35765%;
-  width: 31.76157%;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance div.tabs__content .day .featuredSection:last-child {
@@ -531,7 +531,7 @@ header.mainHeader .accountOptions:hover a {
 .feature-wrap .image {
   float: left;
   display: block;
-  margin-right: 2.35765%;
+  margin-right: 2.3576520234%;
   width: 100%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
@@ -542,7 +542,7 @@ header.mainHeader .accountOptions:hover a {
 .feature-wrap .info {
   float: left;
   display: block;
-  margin-right: 2.35765%;
+  margin-right: 2.3576520234%;
   width: 100%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */

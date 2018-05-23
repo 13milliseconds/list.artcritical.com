@@ -1,5 +1,6 @@
 import alt from '../alt';
 import ListActions from '../actions/ListActions';
+import ArtistsActions from '../actions/ArtistsActions';
 import AuthActions from '../actions/AuthActions';
 import ImagesActions from '../actions/ImagesActions';
 import toastr from 'toastr';
@@ -7,6 +8,7 @@ import toastr from 'toastr';
 class ListStore {
     constructor() {
         this.bindActions(ListActions);
+        this.bindActions(ArtistsActions);
         this.bindActions(AuthActions);
         this.bindActions(ImagesActions);
         //Display settings
@@ -38,6 +40,7 @@ class ListStore {
         //New listing states
         this.listingEdit = {};
         this.listingEdit._id = '';
+        this.listingEdit.artists = [];
         this.listingEdit.name = '';
         this.listingEdit.description = '';
         this.listingEdit.text = '';
@@ -60,6 +63,8 @@ class ListStore {
         this.venue.currentListings = [];
         this.venue.upcomingListings = [];
         this.venue.pastListings = [];
+        //Artists
+        this.allArtists = [{name: 'The test artist'}]
         //Loadings
         this.loading = {};
         this.loading.login = false;
@@ -429,6 +434,7 @@ class ListStore {
             const value = info.target.value;
             const name = info.target.name;   
             this.listingEdit[name] = value;
+            console.log(this.listingEdit)
         } else if (info.startDate) {
             this.listingEdit.start = info.startDate;
             if (info.endDate){
@@ -799,6 +805,20 @@ class ListStore {
     onToggleSideBar(){
         this.sidebarOpen = !this.sidebarOpen
     }
+
+    // ARTISTS
+
+    onGetAllArtistsSuggestionsAttempt(){
+        console.log('Attempting to retrieve all artists')
+    }
+    onGetAllArtistsSuggestionsSuccess(data){
+        console.log('Success retrieving all artists', data)
+        this.allArtists = data
+    }
+    onGetAllArtistsSuggestionsFailure(){
+        console.log('Error retrieving all artists')
+    }
+
 }
 
 export default alt.createStore(ListStore);

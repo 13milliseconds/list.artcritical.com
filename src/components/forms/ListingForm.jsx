@@ -14,6 +14,7 @@ import ThumbnailInput from './ThumbnailInput'
 import EventsForm from './EventsForm'
 import ConfirmModal from './confirmModal'
 import UserLink from '../blocks/UserLink'
+import ArtistTags from './ArtistTags'
 
 export default class ListingForm extends React.Component {
 
@@ -28,14 +29,15 @@ export default class ListingForm extends React.Component {
             wasChanged: false //check if any change was made to the listing
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSelectChange = this.handleSelectChange.bind(this);
-        this.onConfirm = this.onConfirm.bind(this);
-        this.onDeleteConfirm = this.onDeleteConfirm.bind(this);
-        this.onCreateConfirm = this.onCreateConfirm.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-        this.onEventsChange = this.onEventsChange.bind(this);
+        this.handleChange = this.handleChange.bind(this)
+        this.handleArtistsChange = this.handleArtistsChange.bind(this)
+        this.handleSelectChange = this.handleSelectChange.bind(this)
+        this.onConfirm = this.onConfirm.bind(this)
+        this.onDeleteConfirm = this.onDeleteConfirm.bind(this)
+        this.onCreateConfirm = this.onCreateConfirm.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+        this.onEventsChange = this.onEventsChange.bind(this)
         this.onThumbChange = this.onThumbChange.bind(this)
         this.toggleModal = this.toggleModal.bind(this)
       }
@@ -52,7 +54,6 @@ export default class ListingForm extends React.Component {
         let newListing = this.props.listing
 
         //Make sure that the listing copies the venue's neighborhood
-        console.log(newListing.venue.neighborhood)
 		newListing.neighborhood = newListing.venue.neighborhood
 
         //Check and save only events that have a date
@@ -123,7 +124,15 @@ export default class ListingForm extends React.Component {
 
     handleChange (event) {
         //Update values of inputs
-        ListActions.listingInfoChange(event);
+        ListActions.listingInfoChange(event)
+        this.setState({
+            wasChanged: true
+        })
+    }
+
+    handleArtistsChange (artists) {
+        //Update values of inputs
+        ListActions.listingInfoChange({target: {name: 'artists', value: artists}})
         this.setState({
             wasChanged: true
         })
@@ -181,6 +190,12 @@ export default class ListingForm extends React.Component {
             <div id="listingForm">
                 {!listing._id && <Alert color="primary">This is a draft listing.</Alert>}
                 <Form>
+                <FormGroup check>
+                        <Label>Artists</Label>
+                        <div className="formSection">
+                            <ArtistTags allArtists={this.props.allArtists} onChange={this.handleArtistsChange} value={listing.artists}/>
+                        </div>
+                    </FormGroup>
                     <FormGroup check>
                         <Label>Name</Label>
                         <div className="formSection">

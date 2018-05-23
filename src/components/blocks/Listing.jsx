@@ -84,6 +84,11 @@ export default class Listing extends React.Component {
         }
         let mylistingIcon = mylistIndex > 0 ? ["far", "minus"] : ["far", "plus"]
 
+        let artists = listing.artists.map((artist, index) => {
+            var comma = index > 0 ? ", " : ''
+            return comma + artist.name
+        })
+
         const image = listing.image? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
         const style = {backgroundImage: 'url(' + image + ')'}
       
@@ -104,7 +109,7 @@ export default class Listing extends React.Component {
             <div className = "listingContent">
                 <div className="header">
 
-                    <p><span className="title">{listing.name}</span> {dateDisplay}</p>
+                    <p><span className="title">{listing.artists.length < 4 ? artists : "Group Show"}: {listing.name}</span> {dateDisplay}</p>
 
                     {moment(listing.start).isSame(moment(), 'day') && <span className="opening">Opening Today</span>}
                     {moment(listing.end).isSame(moment(), 'day') && <span className="closing">Closing Today</span>}
