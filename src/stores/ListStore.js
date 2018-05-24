@@ -434,7 +434,6 @@ class ListStore {
             const value = info.target.value;
             const name = info.target.name;   
             this.listingEdit[name] = value;
-            console.log(this.listingEdit)
         } else if (info.startDate) {
             this.listingEdit.start = info.startDate;
             if (info.endDate){
