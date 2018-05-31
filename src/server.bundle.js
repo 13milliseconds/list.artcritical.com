@@ -426,6 +426,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
+                console.log('found!');
                 _this12.featureLoadSuccess({ json: json, days: days });
                 return true;
             }).catch(function (error) {
@@ -3083,7 +3084,6 @@ var ListStore = function () {
                 var value = info.target.value;
                 var name = info.target.name;
                 this.listingEdit[name] = value;
-                console.log(this.listingEdit);
             } else if (info.startDate) {
                 this.listingEdit.start = info.startDate;
                 if (info.endDate) {
@@ -5843,6 +5843,8 @@ var ArtistsActions = function () {
         value: async function getAllArtistsSuggestions() {
             var _this = this;
 
+            console.log('in ArtistActions');
+
             this.getAllArtistsSuggestionsAttempt.defer();
 
             await fetch(process.env.BASE_URI + '/artist/allartists', {
@@ -6428,6 +6430,8 @@ var ListingsPerNeighbor = function (_React$Component) {
             var thelistRender = function thelistRender(listings) {
                 return listings.map(function (listing, index) {
 
+                    listing.key = listing._id;
+
                     newSecondaryNH = listing.venue.neighborhood;
                     newCity = _displayActions2.default.displayCity(listing.venue.neighborhood);
 
@@ -6441,7 +6445,7 @@ var ListingsPerNeighbor = function (_React$Component) {
                     if (newSecondaryNH !== secondaryNH) {
 
                         //Add the result to the next export and reset the render
-                        var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({}, _this2.props, { listings: renderListings, title: title }));
+                        var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({ key: secondaryNH }, _this2.props, { listings: renderListings, title: title }));
                         renderListings = [];
 
                         // Update neighborhood
@@ -6457,23 +6461,24 @@ var ListingsPerNeighbor = function (_React$Component) {
 
                         if (newCity !== city) {
 
-                            city = newCity;
-                            cityChange = true;
-
                             // Create the last city
                             var cityRender = neighborExport.length > 0 && _react2.default.createElement(
                                 'div',
-                                { key: index, id: cityID, className: 'city' },
+                                { key: cityID, id: cityID, className: 'city' },
                                 neighborExport
                             );
                             neighborExport = [];
+
+                            //Update city
+                            city = newCity;
+                            cityChange = true;
 
                             if (num == index) {
                                 //If this is the last listing, we need to include it in the export
                                 //Add last neighborhood to the current City
                                 neighborExport = _react2.default.createElement(
                                     'div',
-                                    { key: index, id: cityID, className: 'city' },
+                                    { key: city, id: cityID + 1, className: 'city' },
                                     _react2.default.createElement(_ListingsNeighborhood2.default, _extends({}, _this2.props, { listings: renderListings, title: title }))
                                 );
 
@@ -6493,14 +6498,14 @@ var ListingsPerNeighbor = function (_React$Component) {
 
                         if (num == index) {
 
-                            var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({}, _this2.props, { listings: renderListings, title: title }));
+                            var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({ key: secondaryNH }, _this2.props, { listings: renderListings, title: title }));
 
                             //Add last neighborhood to the current City
                             neighborExport.push(contentRender);
 
                             var cityRender = neighborExport.length > 0 && _react2.default.createElement(
                                 'div',
-                                { key: index, id: cityID, className: 'city' },
+                                { key: cityID, id: cityID, className: 'city' },
                                 neighborExport
                             );
                             return cityRender;
@@ -8278,7 +8283,10 @@ var eventSchema = new Schema({
 
 var listingSchema = mongoose.Schema({
     name: String,
-    artists: [{ type: String, ref: 'Artist' }],
+    artists: [{
+        type: String,
+        ref: 'Artist'
+    }],
     start: Date,
     end: Date,
     description: String,
@@ -8838,7 +8846,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 500;
 
-    List.find().where('start').lte(today).where('end').gte(today).where('event').ne(true).where('venue').ne('').skip(offset_ratio).limit(500).populate('venue').populate('artists').populate('updated_by').sort({ 'neighborhood': 1, 'venue': -1 }).exec(function (e, docs) {
+    List.find().where('start').lte(today).where('end').gte(today).where('event').ne(true).where('venue').ne('').skip(offset_ratio).limit(500).sort({ neighborhood: 1, venue: 1 }).populate('venue').populate('artists').populate('updated_by').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -8891,9 +8899,10 @@ router.get('/glancelistings', function (req, res) {
             }
         }]
     }, {}).where('venue').ne('').sort('neighborhood').populate('venue').populate('artists').exec(function (e, docs) {
-        if (e) res.send(e);
-
-        res.json(docs);
+        if (e) {
+            console.log('Error: ', e);
+            res.send(e);
+        } else res.json(docs);
     });
 });
 
@@ -9123,7 +9132,8 @@ router.post('/findfeatures/:days', function (req, res) {
             $gte: today,
             $lt: inaWeek
         }
-    }).populate('list').populate('venue').populate('artists').exec(function (e, docs) {
+    }).populate('list').populate('venue').exec(function (e, docs) {
+        console.log('Found', e);
         res.json(docs);
     });
 });
@@ -12109,6 +12119,8 @@ var _moment2 = _interopRequireDefault(_moment);
 
 var _reactRouter = __webpack_require__(2);
 
+var _reactstrap = __webpack_require__(4);
+
 var _DateBlock = __webpack_require__(7);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
@@ -12136,11 +12148,13 @@ var Listing = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).call(this, props));
 
         _this.state = {
-            fullInfo: false
+            fullInfo: false,
+            tooltipOpen: false
 
             // Function binding
         };_this._revealInfo = _this._revealInfo.bind(_this);
         _this.addToList = _this.addToList.bind(_this);
+        _this.toggleTooltip = _this.toggleTooltip.bind(_this);
         return _this;
     }
 
@@ -12170,6 +12184,7 @@ var Listing = function (_React$Component) {
     }, {
         key: '_revealInfo',
         value: function _revealInfo() {
+            console.log('Reveal Info');
             this.setState({
                 fullInfo: !this.state.fullInfo
             });
@@ -12191,6 +12206,13 @@ var Listing = function (_React$Component) {
                     ' ',
                     event.description && '- ' + event.description
                 );
+            });
+        }
+    }, {
+        key: 'toggleTooltip',
+        value: function toggleTooltip() {
+            this.setState({
+                tooltipOpen: !this.state.tooltipOpen
             });
         }
     }, {
@@ -12216,7 +12238,7 @@ var Listing = function (_React$Component) {
                 'Until ',
                 _react2.default.createElement(_DateBlock2.default, { date: listing.end })
             ) : this.props.dateView == "nodate" ? dateDisplay = '' : dateDisplay = _react2.default.createElement(
-                'span',
+                'div',
                 { className: 'date' },
                 listing.start && _react2.default.createElement(_DateBlock2.default, { date: listing.start }),
                 listing.end && _react2.default.createElement(
@@ -12237,9 +12259,13 @@ var Listing = function (_React$Component) {
             }
             var mylistingIcon = mylistIndex > 0 ? ["far", "minus"] : ["far", "plus"];
 
+            var isGroupShow = listing.artists.length > 3 ? true : false;
             var artists = listing.artists.map(function (artist, index) {
-                var comma = index > 0 ? ", " : '';
-                return comma + artist.name;
+                return _react2.default.createElement(
+                    'span',
+                    { key: artist._id, className: 'artist' },
+                    artist.name
+                );
             });
 
             var image = listing.image ? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
@@ -12247,7 +12273,7 @@ var Listing = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: "listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected'), id: id },
+                { className: "listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected') },
                 _react2.default.createElement(
                     'div',
                     { className: 'listingAdd' },
@@ -12268,32 +12294,36 @@ var Listing = function (_React$Component) {
                     { className: 'listingContent' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'header' },
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            _react2.default.createElement(
-                                'span',
-                                { className: 'title' },
-                                listing.artists.length < 4 ? artists : "Group Show",
-                                ': ',
-                                listing.name
-                            ),
-                            ' ',
-                            dateDisplay
-                        ),
-                        (0, _moment2.default)(listing.start).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
-                            'span',
-                            { className: 'opening' },
-                            'Opening Today'
-                        ),
-                        (0, _moment2.default)(listing.end).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
-                            'span',
-                            { className: 'closing' },
-                            'Closing Today'
-                        ),
+                        { className: 'header cf' },
                         _react2.default.createElement(
                             'div',
+                            { className: 'title' },
+                            listing.artists.length > 0 && _react2.default.createElement(
+                                'span',
+                                { className: 'artists' },
+                                isGroupShow ? _react2.default.createElement(
+                                    'span',
+                                    { id: id, className: 'groupShow' },
+                                    'Group Show'
+                                ) : artists,
+                                ': '
+                            ),
+                            listing.name,
+                            ' '
+                        ),
+                        dateDisplay,
+                        (0, _moment2.default)(listing.start).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
+                            'div',
+                            { className: 'opening' },
+                            ' Opening Today '
+                        ),
+                        (0, _moment2.default)(listing.end).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
+                            'div',
+                            { className: 'closing' },
+                            ' Closing Today '
+                        ),
+                        _react2.default.createElement(
+                            'span',
                             { className: 'icons' },
                             (listing.description || eventsPresence) && _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'info-circle'], onClick: this._revealInfo }),
                             eventsPresence && _react2.default.createElement(
@@ -12341,6 +12371,12 @@ var Listing = function (_React$Component) {
                             { className: 'events' },
                             this.eventsDisplay(listing.events)
                         )
+                    ),
+                    isGroupShow && //Tooltip displaying all the artists' names
+                    _react2.default.createElement(
+                        _reactstrap.Tooltip,
+                        { placement: 'top', isOpen: this.state.tooltipOpen, autohide: false, target: id, toggle: this.toggleTooltip },
+                        artists
                     )
                 )
             );
@@ -12362,6 +12398,8 @@ exports.default = Listing;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12396,6 +12434,15 @@ var ListingsHood = function (_React$Component) {
         key: 'render',
         value: function render() {
 
+            var sortedListings = this.props.listings.sort(function (a, b) {
+                var nameA = a.venue.name.toLowerCase(),
+                    nameB = b.venue.name.toLowerCase();
+                if (nameA < nameB) //sort string ascending
+                    return -1;
+                if (nameA > nameB) return 1;
+                return 0; //default return value (no sorting)
+            });
+
             return _react2.default.createElement(
                 'div',
                 { className: 'neighborhood' },
@@ -12404,7 +12451,7 @@ var ListingsHood = function (_React$Component) {
                     null,
                     this.props.title
                 ),
-                _react2.default.createElement(_VenueList2.default, this.props)
+                _react2.default.createElement(_VenueList2.default, _extends({}, this.props, { listings: sortedListings }))
             );
         }
     }]);
@@ -13288,6 +13335,7 @@ var ArtistTags = function (_React$Component) {
   _createClass(ArtistTags, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      console.log('in ArtistTags');
       _ArtistsActions2.default.getAllArtistsSuggestions();
     }
   }, {
@@ -14899,7 +14947,7 @@ var Layout = function (_React$Component) {
                             { className: 'close', onClick: this.toggleMenu },
                             _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'times'] })
                         ),
-                        _react2.default.createElement(_ListingForm2.default, {
+                        user.isLoggedIn && _react2.default.createElement(_ListingForm2.default, {
                             listing: this.state.listingEdit,
                             error: this.state.error.updatelisting,
                             loading: this.state.loading.updatelisting,

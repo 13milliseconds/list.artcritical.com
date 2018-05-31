@@ -390,6 +390,7 @@ class ListActions {
           return null;
         })
         .then((json) => {
+            console.log('found!');
             this.featureLoadSuccess({json, days});
             return true;
         })

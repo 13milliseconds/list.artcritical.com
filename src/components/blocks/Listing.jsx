@@ -4,6 +4,7 @@ import ListActions from '../../actions/ListActions';
 import moment from 'moment'
 //COMPONENTS
 import {Link} from 'react-router';
+import { Tooltip } from 'reactstrap';
 import Date from './DateBlock.jsx';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
@@ -13,12 +14,14 @@ export default class Listing extends React.Component {
         super(props);
 
         this.state = {
-            fullInfo: false
+            fullInfo: false,
+            tooltipOpen: false
         }
         
         // Function binding
         this._revealInfo = this._revealInfo.bind(this)
         this.addToList = this.addToList.bind(this)
+        this.toggleTooltip = this.toggleTooltip.bind(this)
     }
     
     //Function to add a listing to the personal list
@@ -41,6 +44,7 @@ export default class Listing extends React.Component {
     }
 
     _revealInfo(){
+        console.log('Reveal Info')
         this.setState({
             fullInfo: !this.state.fullInfo
         })
@@ -54,6 +58,12 @@ export default class Listing extends React.Component {
         })
 
     }
+
+    toggleTooltip() {
+        this.setState({
+          tooltipOpen: !this.state.tooltipOpen
+        });
+      }
         
     render() {
 
@@ -72,7 +82,7 @@ export default class Listing extends React.Component {
             ? dateDisplay = <span className="date">Until <Date date={listing.end}/></span>
             : this.props.dateView == "nodate"
                 ? dateDisplay = ''
-                : dateDisplay = <span className="date">{listing.start && <Date date={listing.start} /> }{listing.end && <span> to <Date date={listing.end} /></span>}</span>
+                : dateDisplay = <div className="date">{listing.start && <Date date={listing.start} /> }{listing.end && <span> to <Date date={listing.end} /></span>}</div>
         
         const id = listing._id;
         // Check if the listing is in mylist
@@ -84,9 +94,9 @@ export default class Listing extends React.Component {
         }
         let mylistingIcon = mylistIndex > 0 ? ["far", "minus"] : ["far", "plus"]
 
+        let isGroupShow = listing.artists.length > 3 ? true : false
         let artists = listing.artists.map((artist, index) => {
-            var comma = index > 0 ? ", " : ''
-            return comma + artist.name
+            return <span key={artist._id} className="artist" >{artist.name}</span>
         })
 
         const image = listing.image? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
@@ -94,37 +104,42 @@ export default class Listing extends React.Component {
       
       
     return (
-        <div className = {"listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected') } id={id}>
+        <div className = {"listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected') }>
             <div className="listingAdd">
-                {this.props.mylisting ? 
+                {this.props.mylisting 
+                    ? 
                     <span>{this.props.number}</span>
                    :
                     <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
-                        {this.props.user._id &&
-                        <FontAwesomeIcon icon={mylistingIcon} />
-                        }
+                        {this.props.user._id && <FontAwesomeIcon icon={mylistingIcon} />}
                     </div>
                 }
             </div>
             <div className = "listingContent">
-                <div className="header">
+                <div className="header cf">
 
-                    <p><span className="title">{listing.artists.length < 4 ? artists : "Group Show"}: {listing.name}</span> {dateDisplay}</p>
+                    <div className="title">
+                        {listing.artists.length > 0 && <span className="artists">{isGroupShow ? <span id={id} className="groupShow">Group Show</span> : artists}: </span>}
+                        {listing.name} </div>
 
-                    {moment(listing.start).isSame(moment(), 'day') && <span className="opening">Opening Today</span>}
-                    {moment(listing.end).isSame(moment(), 'day') && <span className="closing">Closing Today</span>}
+                    {dateDisplay}
 
-                    <div className="icons">
+                    {this.props.dateView == "current" && moment(listing.start).isSame(moment(), 'day') && <div className="opening"> Opening Today </div>}
+                    {this.props.dateView == "current" && moment(listing.end).isSame(moment(), 'day') && <div className="closing"> Closing Today </div>}
+
+                    <span className="icons">
                         {(listing.description || eventsPresence) && <FontAwesomeIcon icon={['fal', 'info-circle']} onClick={this._revealInfo}/>}
                         {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}
                         {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
-                    </div>
+                    </span>
+
                     <div className="listingActions">
                         {this.props.mylisting && //If you are seeing this on your myList page
                         <a onClick={(e) => this.addToList(e, listing)} className="delete"><FontAwesomeIcon icon={['fal', 'trash']}/></a> }
                         {this.props.user.userAccess > 0 && //If you are seeing this as an editor
                         <a onClick={(e) => this._editListing(listing)} className="edit"><FontAwesomeIcon icon={['fal', 'edit']}/></a> }
                     </div>
+                    
                 </div>
                 {this.state.fullInfo &&
                     <div className="moreInfo">
@@ -133,6 +148,9 @@ export default class Listing extends React.Component {
                             {this.eventsDisplay(listing.events)}
                         </div>}
                     </div>
+                }
+                {isGroupShow && //Tooltip displaying all the artists' names
+                <Tooltip placement="top" isOpen={this.state.tooltipOpen} autohide={false} target={id} toggle={this.toggleTooltip}>{artists}</Tooltip>
                 }
             </div>
         </div>

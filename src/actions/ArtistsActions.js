@@ -10,6 +10,7 @@ class ArtistsActions {
     }
 
     async getAllArtistsSuggestions () {
+        console.log('in ArtistActions')
         
         this.getAllArtistsSuggestionsAttempt.defer()
         

@@ -229,7 +229,6 @@ LISTING ELEMENTS
     }
 }
 .listing{
-    @include transition(.3s);
     .listingAdd{
         .addButton{
             overflow: hidden;
@@ -271,6 +270,36 @@ LISTING ELEMENTS
                 font-weight: 500;
             }
         }
+        .artists{
+            .groupShow{
+                border-bottom: 1px $green dotted;
+            }
+            .artist{
+                &:after{
+                    content: ', ';
+                }
+                &:last-of-type{
+                    &:after{
+                        content: '';
+                    }
+                }
+            }
+        }
+    }
+    .icons{
+        svg{
+            cursor: pointer;
+            @include transition(.2s);
+            &:hover{
+                color: $green;
+            }
+        }
+    }
+    .closing, 
+    .opening{
+        padding-left: 5px;
+        float: left;
+        color: $red;
     }
 	.popular{
 		background-color: antiquewhite;
@@ -311,6 +340,7 @@ LISTING ELEMENTS
         }
         .moreInfo{
             background-color: #f5f5f5;
+            margin-top: 10px;
             padding: 10px;
             border-radius: 5px;
         }
@@ -360,6 +390,9 @@ LISTING ELEMENTS
     }
 }
 .medium{
+    .venue{
+        margin-bottom: 60px;
+    }
     .listing{
         @include span-columns(12);
 		padding-bottom: 20px;
@@ -374,6 +407,13 @@ LISTING ELEMENTS
         }
         .listingContent{
             @include span-columns(11);
+            .icons{
+                float: left;
+                padding-left: 5px;
+            }
+            .date{
+                float: left;
+            }
         }
     }
 }
@@ -408,6 +448,11 @@ LISTING ELEMENTS
 }
 .placeholder{
     opacity: 0;
+}
+.tooltip{
+    .artist{
+        display: block;
+    }
 }
 .SizeSelector{
     float: right;
