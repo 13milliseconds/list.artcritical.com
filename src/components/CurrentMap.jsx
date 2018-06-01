@@ -12,7 +12,7 @@ var d3 = require('d3-ease');
 
 export default class CurrentMap extends React.Component {
     constructor(props) {
-        super(props);
+		super(props);
 		
 		this.state = {
             viewport: {
@@ -59,12 +59,12 @@ export default class CurrentMap extends React.Component {
 		
     }
 	_resizeMap(){
-		console.log('window: ', window)
+		console.log(this.refs.mapWrap)
 		// Create variable to change property
 		const viewport = {
 			...this.state.viewport,
-			width: window.innerWidth,//ReactDOM.findDOMNode(this).offsetWidth
-			height: window.innerHeight
+			width: this.refs.mapWrap.offsetWidth,
+			height: this.refs.mapWrap.offsetHeight
 		}
 		//Update state
 		this.setState({
@@ -131,7 +131,24 @@ export default class CurrentMap extends React.Component {
 
         return ( 
             <div className="currentMap">
-					<div className="mapWrap"> 
+					<div className={this.props.view + " list"}>
+						{this.state.browseListings?
+							displayListings(this.state.browseListings)
+							:
+							<div className="intro">
+							<h2>Discover the latest shows and events that your friends and art experts love</h2>
+							<p>Click on markers to explore all the shows currently open in New York City and beyond.</p>
+							{this.props.loading.current && <div className="loading">Loading...</div>}
+							<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
+							</div>
+						}
+						<div className="cityJump">
+							<h6>Navigate bwteen Cities</h6>
+							<button onClick={this._goToNYC}>New York City</button>
+							<button onClick={this._goToPhil}>Philadelphia</button>
+						</div>
+					</div>
+					<div className="mapWrap" ref="mapWrap"> 
                     <ReactMapGL
 						{...this.state.viewport}
 						onViewportChange={this._onViewportChange}
@@ -152,23 +169,6 @@ export default class CurrentMap extends React.Component {
 						</div>
 					}
 					</div> 
-					<div className={this.props.view + " list"}>
-						{this.state.browseListings?
-							displayListings(this.state.browseListings)
-							:
-							<div className="intro">
-							<h2>Discover the latest shows and events that your friends and art experts love</h2>
-							<p>Click on markers to explore all the shows currently open in New York City and beyond.</p>
-							{this.props.loading.current && <div className="loading">Loading...</div>}
-							<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
-							</div>
-						}
-						<div className="cityJump">
-							<h6>Navigate bwteen Cities</h6>
-							<button onClick={this._goToNYC}>New York City</button>
-							<button onClick={this._goToPhil}>Philadelphia</button>
-						</div>
-					</div>
             </div>
         );
     }

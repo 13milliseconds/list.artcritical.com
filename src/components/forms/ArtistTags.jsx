@@ -11,6 +11,7 @@ export default class ArtistTags extends React.Component {
       }
 
       componentDidMount(){
+        console.log('in ArtistTags')
         ArtistsActions.getAllArtistsSuggestions();
       }
 

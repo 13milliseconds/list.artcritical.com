@@ -23,6 +23,8 @@ export default class ListingsPerNeighbor extends React.Component {
         let num = this.props.listings.length - 1
         
         let thelistRender = listings => listings.map((listing, index) => {
+
+            listing.key = listing._id
                 
             newSecondaryNH = listing.venue.neighborhood
             newCity = Display.displayCity(listing.venue.neighborhood)
@@ -37,7 +39,7 @@ export default class ListingsPerNeighbor extends React.Component {
             if ( newSecondaryNH !== secondaryNH) {
                 
                 //Add the result to the next export and reset the render
-                var contentRender = <Neighborhood {...this.props} listings={renderListings} title={title} />
+                var contentRender = <Neighborhood key={secondaryNH} {...this.props} listings={renderListings} title={title} />
                 renderListings = []; 
                 
                 // Update neighborhood
@@ -53,16 +55,17 @@ export default class ListingsPerNeighbor extends React.Component {
 
                 if (newCity !== city ){
 
+                    // Create the last city
+                    var cityRender = neighborExport.length > 0 && <div key={cityID} id={cityID} className="city">{neighborExport}</div>
+                    neighborExport = []
+
+                    //Update city
                     city = newCity
                     cityChange = true
 
-                    // Create the last city
-                    var cityRender = neighborExport.length > 0 && <div key={index} id={cityID} className="city">{neighborExport}</div>
-                    neighborExport = []
-
                     if (num == index){//If this is the last listing, we need to include it in the export
                         //Add last neighborhood to the current City
-                        neighborExport = <div key={index} id={cityID} className="city"><Neighborhood {...this.props} listings={renderListings} title={title}/></div>
+                        neighborExport = <div key={city} id={cityID + 1} className="city"><Neighborhood {...this.props} listings={renderListings} title={title}/></div>
         
                         cityRender = [cityRender] //Make cityRender a table so we can add a second <div>
                         cityRender.push(neighborExport)
@@ -80,12 +83,12 @@ export default class ListingsPerNeighbor extends React.Component {
 
                 if (num == index){
 
-                    var contentRender = <Neighborhood {...this.props} listings={renderListings} title={title} />
+                    var contentRender = <Neighborhood key={secondaryNH} {...this.props} listings={renderListings} title={title} />
     
                     //Add last neighborhood to the current City
                     neighborExport.push(contentRender)
     
-                    var cityRender = neighborExport.length > 0 && <div key={index} id={cityID} className="city">{neighborExport}</div>
+                    var cityRender = neighborExport.length > 0 && <div key={cityID} id={cityID} className="city">{neighborExport}</div>
                     return cityRender
                 }
             }

@@ -57,10 +57,10 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
 	where('venue').ne('').
     skip(offset_ratio).
     limit(500).
+    sort({neighborhood: 1, venue: 1}).
     populate('venue').
     populate('artists').
     populate('updated_by').
-    sort({'neighborhood': 1, 'venue': -1}).
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -123,16 +123,17 @@ router.get('/glancelistings', function (req, res) {
                 $lt: inaWeek
             }
         }]
-    }, {}).
-	where('venue').ne('').
-    sort('neighborhood').
-    populate('venue').
-    populate('artists').
-    exec(function (e, docs) {
+    }, {})
+    .where('venue').ne('')
+    .sort('neighborhood')
+    .populate('venue')
+    .populate('artists')
+    .exec(function (e, docs) {
         if (e)
-            res.send(e);
-        
-        res.json(docs);
+            {console.log('Error: ', e)
+            res.send(e);}
+        else 
+            res.json(docs);
     });
 });
 
@@ -393,18 +394,18 @@ router.post('/findfeatures/:days', function (req, res) {
     var inaWeek = new Date();
     inaWeek.setDate(inaWeek.getDate() + req.params.days);
     inaWeek.setHours(0, 0, 0, 0);
-    
+
     Feature.find({
         date: {
                 $gte: today,
                 $lt: inaWeek
             }
-    }).
-    populate('list').
-    populate('venue').
-    populate('artists').
-    exec(function (e, docs) {
-        res.json(docs);
+    })
+    .populate('list')
+    .populate('venue')
+    .exec(function (e, docs) {
+        console.log('Found', e)
+        res.json(docs)
     });
 
 });

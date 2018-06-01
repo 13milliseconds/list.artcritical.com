@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
 // Components
-import VenueBlock from '../blocks/VenueBlock';
+import VenueBlock from '../blocks/VenueBlock'
+import {Button} from 'reactstrap'
 import Reorder, {
   reorder,
   reorderImmutable,
@@ -39,6 +40,8 @@ export default class MyListings extends React.Component {
                         </div>
                         ))}
                 </Reorder>
+                <h6>Reorder your shows by neighborhood</h6>
+                <Button onClick={this.props.onAutoReorder}>Reorder</Button>
             </div>
         );
     }

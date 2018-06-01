@@ -100,11 +100,13 @@ export default class Layout extends React.Component {
             </OffCanvasBody>
             <OffCanvasMenu className={"sideMenu"}>
                     <a className="close" onClick={this.toggleMenu}><FontAwesomeIcon icon={['fal', 'times']}/></a>
-                <ListingForm 
-                            listing={this.state.listingEdit} 
-                            error={this.state.error.updatelisting} 
-                            loading={this.state.loading.updatelisting}
-                            success={this.state.success}/>
+                    {user.isLoggedIn &&
+                    <ListingForm 
+                        listing={this.state.listingEdit} 
+                        error={this.state.error.updatelisting} 
+                        loading={this.state.loading.updatelisting}
+                        success={this.state.success}/>
+                    }
                 <div className="overlay"></div>
             </OffCanvasMenu>
         </OffCanvas>
