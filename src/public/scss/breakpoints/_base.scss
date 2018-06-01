@@ -183,31 +183,30 @@ Main PAGES
     }
 }
 
-.currentMap{
+.currentMap, .myList{
 	width: 100%;
-	height: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    .list{
+        height: 100%;
+        @include span-columns(4);
+        @include omega();
+        background: #fff;
+        padding: 100px 20px 20px;
+        overflow: auto;
+        .cityJump{
+            margin-top: 20px;
+        }
+    }
     .mapWrap{
-        position: fixed;
-        top: 0;
-        left: 0;
-        @include span-columns(12);
+        height: 100%;
+        @include span-columns(8);
+        @include omega();
         .label{
             display: none;
         }
-    }
-    .list{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        max-height: 300px;
-        width: 100%;
-        background: #fff;
-        z-index: 2;
-        padding: 20px 20px 20px;
-        overflow: auto;
-    }
-    .cityJump{
-        margin-top: 20px;
     }
 }
 
@@ -456,6 +455,7 @@ LISTING ELEMENTS
 }
 .SizeSelector{
     float: right;
+    margin-top: -25px;
     span{
         display: inline-block;
         color: $gray;
@@ -631,8 +631,6 @@ My List
 *********************/
 
 .myList{
-    @include row();
-    position: relative;
 	.fb-share-button{
 		position: absolute;
 		top: 0;

@@ -646,6 +646,12 @@ module.exports = require("react-router");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("reactstrap");
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -994,12 +1000,6 @@ var AuthActions = function () {
 exports.default = _alt2.default.createActions(AuthActions);
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("reactstrap");
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -1167,7 +1167,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2013,11 +2013,11 @@ var _validator = __webpack_require__(53);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 var _reactRouter = __webpack_require__(2);
 
@@ -2355,7 +2355,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2525,7 +2525,7 @@ var _ArtistsActions = __webpack_require__(34);
 
 var _ArtistsActions2 = _interopRequireDefault(_ArtistsActions);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -4004,7 +4004,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return parse; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findIconDefinition", function() { return findIconDefinition; });
 /*!
- * Font Awesome Free 5.0.9 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.0.13 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 var noop = function noop() {};
@@ -4608,7 +4608,7 @@ function makeLayersTextAbstract(params) {
 
 var noop$2 = function noop() {};
 var p = config$1.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : { mark: noop$2, measure: noop$2 };
-var preamble = 'FA "5.0.9"';
+var preamble = 'FA "5.0.13"';
 
 var begin = function begin(name) {
   p.mark(preamble + ' ' + name + ' begins');
@@ -5935,7 +5935,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 var _reactRouter = __webpack_require__(2);
 
@@ -6203,7 +6203,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -6823,7 +6823,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactRouter = __webpack_require__(2);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 var _reactToggleButton = __webpack_require__(23);
 
@@ -7310,7 +7310,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7964,7 +7964,7 @@ module.exports = require("validator");
 "use strict";
 
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -9498,7 +9498,7 @@ module.exports = { prefix: 'fal', iconName: 'th', icon: [512, 512, [], "f00a", "
 /* 82 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fal', iconName: 'times', icon: [384, 512, [], "f00d", "M217.5 256l137.2-137.2c4.7-4.7 4.7-12.3 0-17l-8.5-8.5c-4.7-4.7-12.3-4.7-17 0L192 230.5 54.8 93.4c-4.7-4.7-12.3-4.7-17 0l-8.5 8.5c-4.7 4.7-4.7 12.3 0 17L166.5 256 29.4 393.2c-4.7 4.7-4.7 12.3 0 17l8.5 8.5c4.7 4.7 12.3 4.7 17 0L192 281.5l137.2 137.2c4.7 4.7 12.3 4.7 17 0l8.5-8.5c4.7-4.7 4.7-12.3 0-17L217.5 256z"] };
+module.exports = { prefix: 'fal', iconName: 'times', icon: [320, 512, [], "f00d", "M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"] };
 
 /***/ }),
 /* 83 */
@@ -9510,13 +9510,13 @@ module.exports = { prefix: 'fal', iconName: 'trash', icon: [512, 512, [], "f1f8"
 /* 84 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'far', iconName: 'minus', icon: [448, 512, [], "f068", "M436 284c6.6 0 12-5.4 12-12v-32c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v32c0 6.6 5.4 12 12 12h424z"] };
+module.exports = { prefix: 'far', iconName: 'minus', icon: [384, 512, [], "f068", "M368 224H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h352c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"] };
 
 /***/ }),
 /* 85 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'far', iconName: 'plus', icon: [448, 512, [], "f067", "M436 228H252V44c0-6.6-5.4-12-12-12h-32c-6.6 0-12 5.4-12 12v184H12c-6.6 0-12 5.4-12 12v32c0 6.6 5.4 12 12 12h184v184c0 6.6 5.4 12 12 12h32c6.6 0 12-5.4 12-12V284h184c6.6 0 12-5.4 12-12v-32c0-6.6-5.4-12-12-12z"] };
+module.exports = { prefix: 'far', iconName: 'plus', icon: [384, 512, [], "f067", "M368 224H224V80c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v144H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h144v144c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V288h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"] };
 
 /***/ }),
 /* 86 */
@@ -9845,11 +9845,11 @@ var CurrentMap = function (_React$Component) {
 	}, {
 		key: '_resizeMap',
 		value: function _resizeMap() {
-			console.log('window: ', window);
+			console.log(this.refs.mapWrap);
 			// Create variable to change property
 			var viewport = _extends({}, this.state.viewport, {
-				width: window.innerWidth, //ReactDOM.findDOMNode(this).offsetWidth
-				height: window.innerHeight
+				width: this.refs.mapWrap.offsetWidth,
+				height: this.refs.mapWrap.offsetHeight
 				//Update state
 			});this.setState({
 				viewport: viewport
@@ -9933,30 +9933,6 @@ var CurrentMap = function (_React$Component) {
 				{ className: 'currentMap' },
 				_react2.default.createElement(
 					'div',
-					{ className: 'mapWrap' },
-					_react2.default.createElement(
-						_reactMapGl2.default,
-						_extends({}, this.state.viewport, {
-							onViewportChange: this._onViewportChange
-						}),
-						_react2.default.createElement(_MapCluster2.default, {
-							viewport: this.state.viewport,
-							data: this.props.currentListings,
-							iconAtlas: 'images/location-icon-atlas.png',
-							iconMapping: this.state.iconMapping,
-							showCluster: true,
-							onHover: this._onHover,
-							onClick: this._onClick
-						})
-					),
-					this.state.hoverListings && _react2.default.createElement(
-						'div',
-						{ className: 'label', style: labelStyles },
-						showLabels(this.state.hoverListings.zoomLevels[Math.round(this.state.viewport.zoom)].points)
-					)
-				),
-				_react2.default.createElement(
-					'div',
 					{ className: this.props.view + " list" },
 					this.state.browseListings ? displayListings(this.state.browseListings) : _react2.default.createElement(
 						'div',
@@ -10002,6 +9978,30 @@ var CurrentMap = function (_React$Component) {
 							{ onClick: this._goToPhil },
 							'Philadelphia'
 						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'mapWrap', ref: 'mapWrap' },
+					_react2.default.createElement(
+						_reactMapGl2.default,
+						_extends({}, this.state.viewport, {
+							onViewportChange: this._onViewportChange
+						}),
+						_react2.default.createElement(_MapCluster2.default, {
+							viewport: this.state.viewport,
+							data: this.props.currentListings,
+							iconAtlas: 'images/location-icon-atlas.png',
+							iconMapping: this.state.iconMapping,
+							showCluster: true,
+							onHover: this._onHover,
+							onClick: this._onClick
+						})
+					),
+					this.state.hoverListings && _react2.default.createElement(
+						'div',
+						{ className: 'label', style: labelStyles },
+						showLabels(this.state.hoverListings.zoomLevels[Math.round(this.state.viewport.zoom)].points)
 					)
 				)
 			);
@@ -10689,7 +10689,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -11119,7 +11119,7 @@ var _mapBlock = __webpack_require__(41);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11413,7 +11413,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -11948,7 +11948,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactIntl = __webpack_require__(16);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 var _featuredDay = __webpack_require__(102);
 
@@ -12105,7 +12105,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -12119,7 +12119,7 @@ var _moment2 = _interopRequireDefault(_moment);
 
 var _reactRouter = __webpack_require__(2);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 var _DateBlock = __webpack_require__(7);
 
@@ -12312,12 +12312,12 @@ var Listing = function (_React$Component) {
                             ' '
                         ),
                         dateDisplay,
-                        (0, _moment2.default)(listing.start).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
+                        this.props.dateView == "current" && (0, _moment2.default)(listing.start).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
                             'div',
                             { className: 'opening' },
                             ' Opening Today '
                         ),
-                        (0, _moment2.default)(listing.end).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
+                        this.props.dateView == "current" && (0, _moment2.default)(listing.end).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
                             'div',
                             { className: 'closing' },
                             ' Closing Today '
@@ -12756,7 +12756,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -12772,7 +12772,7 @@ var _UserEdit = __webpack_require__(118);
 
 var _UserEdit2 = _interopRequireDefault(_UserEdit);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13119,7 +13119,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -13772,7 +13772,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -13780,7 +13780,7 @@ var _confirmModal = __webpack_require__(19);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13997,7 +13997,7 @@ var _confirmModal = __webpack_require__(19);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 var _DateBlock = __webpack_require__(7);
 
@@ -14468,7 +14468,7 @@ var _MyEditor = __webpack_require__(117);
 
 var _MyEditor2 = _interopRequireDefault(_MyEditor);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14697,7 +14697,7 @@ var _ListStore = __webpack_require__(21);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -15170,11 +15170,11 @@ var _propTypes = __webpack_require__(22);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15613,7 +15613,7 @@ var _LogInForm = __webpack_require__(15);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -15694,7 +15694,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -15776,7 +15776,7 @@ var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -15800,7 +15800,7 @@ var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
 var _reactReorder = __webpack_require__(52);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15841,6 +15841,7 @@ var MyList = function (_React$Component) {
         };
 
         _this.onReorder = _this.onReorder.bind(_this);
+        _this.onAutoReorder = _this.onAutoReorder.bind(_this);
         _this._onHover = _this._onHover.bind(_this);
         _this._onLeave = _this._onLeave.bind(_this);
         _this.findCoord = _this.findCoord.bind(_this);
@@ -15876,8 +15877,8 @@ var MyList = function (_React$Component) {
         key: '_updateDimensions',
         value: function _updateDimensions() {
             var viewport = _extends({}, this.state.viewport, {
-                width: document.getElementsByClassName("mapWrap")[0].offsetWidth,
-                height: document.getElementsByClassName("mapWrap")[0].offsetHeight
+                width: this.refs.mapWrap.offsetWidth,
+                height: this.refs.mapWrap.offsetHeight
             });
             this.setState({
                 viewport: viewport
@@ -15927,6 +15928,20 @@ var MyList = function (_React$Component) {
             });
         }
     }, {
+        key: 'onAutoReorder',
+        value: function onAutoReorder() {
+            var newOrder = this.props.user.mylist.sort(function (a, b) {
+                if (a.neighborhood < b.neighborhood) //sort string ascending
+                    return -1;
+                if (a.neighborhood > b.neighborhood) return 1;
+                return 0; //default return value (no sorting)
+            });
+            _AuthActions2.default.reorderMyList(newOrder);
+            this.setState({
+                markers: newOrder
+            });
+        }
+    }, {
         key: 'findCoord',
         value: function findCoord(listing, done) {
             if (listing.venue !== null && _typeof(listing.venue) === 'object') {
@@ -15970,7 +15985,7 @@ var MyList = function (_React$Component) {
                 { className: 'myList' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'listInfo cf' },
+                    { className: 'list cf' },
                     _react2.default.createElement(
                         'h2',
                         null,
@@ -15988,6 +16003,7 @@ var MyList = function (_React$Component) {
                         onHover: this._onHover,
                         onLeave: this._onLeave,
                         onReorder: this.onReorder,
+                        onAutoReorder: this.onAutoReorder,
                         listingHover: this.state.listingHover }) : _react2.default.createElement(
                         'div',
                         { className: 'popupList' },
@@ -16012,14 +16028,18 @@ var MyList = function (_React$Component) {
                         )
                     )
                 ),
-                _react2.default.createElement(_myMap2.default, {
-                    markers: this.state.markers,
-                    viewport: this.state.viewport,
-                    updateViewport: this._updateViewport,
-                    listingHover: this.state.listingHover,
-                    onHover: this._onHover,
-                    onLeave: this._onLeave
-                })
+                _react2.default.createElement(
+                    'div',
+                    { className: 'mapWrap', ref: 'mapWrap' },
+                    _react2.default.createElement(_myMap2.default, {
+                        markers: this.state.markers,
+                        viewport: this.state.viewport,
+                        updateViewport: this._updateViewport,
+                        listingHover: this.state.listingHover,
+                        onHover: this._onHover,
+                        onLeave: this._onLeave
+                    })
+                )
             );
         }
     }]);
@@ -16059,6 +16079,8 @@ var _react2 = _interopRequireDefault(_react);
 var _VenueBlock = __webpack_require__(6);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
+
+var _reactstrap = __webpack_require__(3);
 
 var _reactReorder = __webpack_require__(52);
 
@@ -16115,6 +16137,16 @@ var MyListings = function (_React$Component) {
                                 user: _this2.props.user, mylisting: true })
                         );
                     })
+                ),
+                _react2.default.createElement(
+                    'h6',
+                    null,
+                    'Reorder your shows by neighborhood'
+                ),
+                _react2.default.createElement(
+                    _reactstrap.Button,
+                    { onClick: this.props.onAutoReorder },
+                    'Reorder'
                 )
             );
         }
@@ -16150,7 +16182,7 @@ var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AuthActions = __webpack_require__(3);
+var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
@@ -16172,7 +16204,7 @@ var _facebookShare = __webpack_require__(38);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
-var _reactstrap = __webpack_require__(4);
+var _reactstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

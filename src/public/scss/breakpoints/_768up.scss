@@ -292,10 +292,6 @@ header.mainHeader{
         }
     }
     .list{
-        top: 0;
-        bottom: auto;
-        max-height: 100%;
-        width: 30%;
         padding: 100px 20px 20px;
     }
 }
@@ -306,25 +302,6 @@ header.mainHeader{
     max-width: none;
 }
 .myList{
-    .mapWrap{
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-    }
-    .listInfo{
-        left: 0;
-        margin-bottom: 20px;
-        position: fixed;
-        z-index: 2;
-        background-color: white;
-        max-width: 500px;
-        top: 0;
-        padding: 100px 20px;
-        max-height: 100%;
-        overflow: auto;
-    }
     .popupList{
         position: fixed;
         z-index: 99;

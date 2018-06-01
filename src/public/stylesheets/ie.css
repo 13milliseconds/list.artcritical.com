@@ -577,41 +577,16 @@ header.mainHeader .accountOptions:hover a {
 }
 /* line 294, ../scss/breakpoints/_768up.scss */
 .currentMap .list {
-  top: 0;
-  bottom: auto;
-  max-height: 100%;
-  width: 30%;
   padding: 100px 20px 20px;
 }
 
-/* line 304, ../scss/breakpoints/_768up.scss */
+/* line 300, ../scss/breakpoints/_768up.scss */
 .mylist.app-container {
   padding: 0;
   max-width: none;
 }
 
-/* line 309, ../scss/breakpoints/_768up.scss */
-.myList .mapWrap {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-/* line 316, ../scss/breakpoints/_768up.scss */
-.myList .listInfo {
-  left: 0;
-  margin-bottom: 20px;
-  position: fixed;
-  z-index: 2;
-  background-color: white;
-  max-width: 500px;
-  top: 0;
-  padding: 100px 20px;
-  max-height: 100%;
-  overflow: auto;
-}
-/* line 328, ../scss/breakpoints/_768up.scss */
+/* line 305, ../scss/breakpoints/_768up.scss */
 .myList .popupList {
   position: fixed;
   z-index: 99;
@@ -621,7 +596,7 @@ header.mainHeader .accountOptions:hover a {
   left: 0;
   background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 336, ../scss/breakpoints/_768up.scss */
+/* line 313, ../scss/breakpoints/_768up.scss */
 .myList .popupList div {
   background: #fff;
   position: absolute;

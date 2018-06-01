@@ -32,7 +32,8 @@ export default class MyList extends React.Component {
             }
         }
         
-        this.onReorder = this.onReorder.bind(this);
+        this.onReorder = this.onReorder.bind(this)
+        this.onAutoReorder = this.onAutoReorder.bind(this)
         this._onHover = this._onHover.bind(this);
         this._onLeave = this._onLeave.bind(this);
         this.findCoord = this.findCoord.bind(this);
@@ -64,8 +65,8 @@ export default class MyList extends React.Component {
     _updateDimensions(){
         const viewport = {
 			...this.state.viewport,
-            width: document.getElementsByClassName("mapWrap")[0].offsetWidth,
-            height: document.getElementsByClassName("mapWrap")[0].offsetHeight
+            width: this.refs.mapWrap.offsetWidth,
+			height: this.refs.mapWrap.offsetHeight
         }
         this.setState({
             viewport
@@ -115,6 +116,20 @@ export default class MyList extends React.Component {
               markers: newOrder
           })
     }
+
+    onAutoReorder () {
+        let newOrder = this.props.user.mylist.sort(function(a, b){
+            if (a.neighborhood < b.neighborhood) //sort string ascending
+             return -1;
+            if (a.neighborhood > b.neighborhood)
+             return 1;
+            return 0; //default return value (no sorting)
+           })
+        AuthActions.reorderMyList(newOrder)
+        this.setState({
+              markers: newOrder
+          })
+    }
     
     findCoord(listing, done) {
         if (listing.venue !== null && typeof listing.venue === 'object') { //If venue is an object
@@ -153,18 +168,19 @@ export default class MyList extends React.Component {
         
         return ( 
                 <div className="myList">
-				<div className="listInfo cf">
+				<div className="list cf">
                     <h2>My List</h2>
 					<a target="_blank" href={window.location.href + '/' + this.props.user.slug}>Public page</a>
 					<FacebookShare url={this.state.publicUrl} />
                     {this.props.user.mylist && 
                                 this.props.user.mylist.length > 0 
                                         ?<MyListings 
-                                           user={this.props.user}
+                                            user={this.props.user}
                                             view={this.props.view}
-                                           onHover={this._onHover}
-                                           onLeave={this._onLeave}
-                                           onReorder={this.onReorder}
+                                            onHover={this._onHover}
+                                            onLeave={this._onLeave}
+                                            onReorder={this.onReorder}
+                                            onAutoReorder = {this.onAutoReorder}
                                             listingHover={this.state.listingHover}/> 
                                         :   <div className="popupList">
                                                 <div>
@@ -175,14 +191,16 @@ export default class MyList extends React.Component {
                                             </div>
                     }
 				</div>
-                    <MyMap 
-                        markers={this.state.markers} 
-                        viewport ={this.state.viewport}
-                        updateViewport ={this._updateViewport}
-                        listingHover={this.state.listingHover} 
-                        onHover={this._onHover}
-                        onLeave={this._onLeave}
-                        />
+                    <div className="mapWrap" ref="mapWrap"> 
+                        <MyMap 
+                            markers={this.state.markers} 
+                            viewport ={this.state.viewport}
+                            updateViewport ={this._updateViewport}
+                            listingHover={this.state.listingHover} 
+                            onHover={this._onHover}
+                            onLeave={this._onLeave}
+                            />
+                    </div>
                 </div>
         );
     }
