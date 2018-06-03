@@ -1,7 +1,5 @@
 import alt from '../alt';
 
-import { BASE_URI } from '../../env';
-
 let offset = 0;
 
 class ListActions {
@@ -101,7 +99,7 @@ class ListActions {
         this.getFutureAttempt();
         
         await fetch(
-          BASE_URI + '/list/futurelistings/' + offset,
+          '/list/futurelistings/' + offset,
           {
             method: 'GET',
           },
@@ -130,7 +128,7 @@ class ListActions {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: BASE_URI + '/list/alllistings'
+                    url: '/list/alllistings'
                 })
                 .done((data) => {
                     this.getAllSuccess(data)
@@ -145,7 +143,7 @@ class ListActions {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: BASE_URI + '/list/eventslistings'
+                    url: '/list/eventslistings'
                 })
                 .done((data) => {
                     this.getEventsSuccess(data)
@@ -161,7 +159,7 @@ class ListActions {
         this.getGlanceAttempt();
 
         await fetch(
-            BASE_URI + '/list/glancelistings',
+            '/list/glancelistings',
             {
               method: 'GET',
               credentials: 'same-origin',
@@ -185,7 +183,7 @@ class ListActions {
     getLatestListings() {
         return dispatch => {
             $.ajax({
-                    url: BASE_URI + '/list/latestlistings'
+                    url: '/list/latestlistings'
                 })
                 .done((data) => {
                     this.getLatestListingsSuccess(data)
@@ -229,7 +227,7 @@ class ListActions {
         this.saveListingAttempt();
 
         await fetch(
-          BASE_URI + '/list/add',
+          '/list/add',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -258,7 +256,7 @@ class ListActions {
     async deleteListing(oldListing) {
 
         await fetch(
-          BASE_URI + '/list/delete/' + oldListing,
+          '/list/delete/' + oldListing,
 			{
             method: 'POST',
             credentials: 'same-origin',
@@ -289,7 +287,7 @@ class ListActions {
         this.updateListingAttempt();
 
         await fetch(
-          BASE_URI + '/list/update',
+          '/list/update',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -325,7 +323,7 @@ class ListActions {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: BASE_URI + '/list/getinfo/' + id
+                    url: '/list/getinfo/' + id
                 })
                 .done((data) => {
                     this.getListingInfoSuccess({data, i})
@@ -342,7 +340,7 @@ class ListActions {
         console.log('Update feature', data)
 
         await fetch(
-          BASE_URI + '/list/feature',
+          '/list/feature',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -376,7 +374,7 @@ class ListActions {
         this.featureLoadAttempt.defer()
         
         await fetch(
-          BASE_URI + '/list/findfeatures/' + days,
+          '/list/findfeatures/' + days,
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -402,7 +400,7 @@ class ListActions {
     
     async getVenueInfo(id){
         await fetch(
-          BASE_URI + '/venues/getinfo/' + id,
+          '/venues/getinfo/' + id,
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -425,7 +423,7 @@ class ListActions {
     
     async getVenueFullInfo(id){
         await fetch(
-          BASE_URI + '/venues/getfullinfo/' + id,
+          '/venues/getfullinfo/' + id,
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -448,7 +446,7 @@ class ListActions {
     
     async getVenueListings(id){
         await fetch(
-          BASE_URI + '/venues/getlistings/' + id,
+          '/venues/getlistings/' + id,
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -482,7 +480,7 @@ class ListActions {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: BASE_URI + '/venues/getadmin/'+ neighborhood
+                    url: '/venues/getadmin/'+ neighborhood
                 })
                 .done((data) => {
                         this.getVenuesAdminSuccess(data)
@@ -498,7 +496,7 @@ class ListActions {
         this.updateVenueAttempt();
 
         await fetch(
-          BASE_URI + '/venues/update',
+          '/venues/update',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -528,7 +526,7 @@ class ListActions {
 		this.saveVenueAttempt();
 
         await fetch(
-          BASE_URI + '/venues/add',
+          '/venues/add',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -557,7 +555,7 @@ class ListActions {
 	async deleteVenue(oldVenue) {
 
         await fetch(
-          BASE_URI + '/venues/delete/' + oldVenue ,
+          '/venues/delete/' + oldVenue ,
 			{
             method: 'POST',
             credentials: 'same-origin',

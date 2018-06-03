@@ -40,7 +40,7 @@ class AuthActions {
 
 
         await fetch(
-          process.env.BASE_URI + '/auth/login',
+          '/auth/login',
           {
             method: 'POST',
             body: JSON.stringify(userData),
@@ -71,7 +71,7 @@ class AuthActions {
     async attemptLogOut() {
 
         await fetch(
-          process.env.BASE_URI + '/auth/logout',
+          '/auth/logout',
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -101,7 +101,7 @@ class AuthActions {
         this.registerAttempt();
 
         await fetch(
-          process.env.BASE_URI + '/auth/signup',
+          '/auth/signup',
           {
             method: 'POST',
             body: JSON.stringify(registerData),
@@ -131,7 +131,7 @@ class AuthActions {
     async getMylist() {
         console.log('Get MyList');
         await fetch(
-          process.env.BASE_URI + '/auth/getmylist',
+          '/auth/getmylist',
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -159,7 +159,7 @@ class AuthActions {
 	
 	async getUserMylist(user_slug) {
         await fetch(
-          process.env.BASE_URI + '/auth/getusermylist/' + user_slug,
+          '/auth/getusermylist/' + user_slug,
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -188,7 +188,7 @@ class AuthActions {
     async checkSession() {
         console.log('Check Session');
         await fetch(
-          process.env.BASE_URI + '/auth/checksession',
+          '/auth/checksession',
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -221,7 +221,7 @@ class AuthActions {
         
         //Upload the ID to the user profile
         await fetch(
-          process.env.BASE_URI + '/auth/addtolist',
+          '/auth/addtolist',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -251,7 +251,7 @@ class AuthActions {
         this.reorderMyListAttempt(newList);
         
         await fetch(
-          process.env.BASE_URI + '/auth/updatemylist',
+          '/auth/updatemylist',
           {
             body: JSON.stringify(newList),
             method: 'POST',
@@ -285,7 +285,7 @@ class AuthActions {
         this.updateUserAttempt();
         
         await fetch(
-          process.env.BASE_URI + '/auth/updateuser',
+          '/auth/updateuser',
           {
             body: JSON.stringify(newUserInfo),
             method: 'POST',
@@ -317,7 +317,7 @@ class AuthActions {
       this.deleteUserAttempt();
       
       await fetch(
-        process.env.BASE_URI + '/auth/deleteuser',
+        '/auth/deleteuser',
         {
           body: JSON.stringify(user),
           method: 'POST',
@@ -351,7 +351,7 @@ class AuthActions {
         this.getAllUserAttempt.defer()
         
         await fetch(
-          process.env.BASE_URI + '/auth/getallusers',
+          '/auth/getallusers',
           {
             method: 'GET',
             credentials: 'same-origin',

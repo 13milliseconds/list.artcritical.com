@@ -15,7 +15,7 @@ class ArtistsActions {
         this.getAllArtistsSuggestionsAttempt.defer()
         
         await fetch(
-          process.env.BASE_URI + '/artist/allartists',
+          '/artist/allartists',
           {
             method: 'GET',
           },

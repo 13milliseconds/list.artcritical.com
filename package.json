@@ -8,9 +8,8 @@
     "scripts": {
         "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
         "heroku-postbuild": "npm run build:prod",
-        "set:env": "node setenv.js > .env",
-        "start:dev": "npm run set:env && npm run build:dev && node src/server.bundle.js",
-        "start:prod": "npm run set:env && node src/server.bundle.js",
+        "start:dev": "npm run build:dev && node src/server.bundle.js",
+        "start:prod": "node src/server.bundle.js",
         "build:dev": "npm run build:server && webpack --config webpack.dev.config.js",
         "build:prod": "npm run build:server && webpack --config webpack.prod.config.js",
         "build:server": "webpack --config webpack.server.config.js"

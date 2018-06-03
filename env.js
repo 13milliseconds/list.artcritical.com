@@ -1,1 +1,0 @@
-export const BASE_URI = process.env.BASE_URI;
