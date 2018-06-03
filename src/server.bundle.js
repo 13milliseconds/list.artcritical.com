@@ -2546,6 +2546,10 @@ var _toastr = __webpack_require__(170);
 
 var _toastr2 = _interopRequireDefault(_toastr);
 
+var _moment = __webpack_require__(9);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2603,6 +2607,7 @@ var ListStore = function () {
         };
         // Featured listings
         this.features = [];
+        this.allFeatures = [];
         //Venues
         this.allVenues = [];
         this.venue = {};
@@ -2846,9 +2851,9 @@ var ListStore = function () {
             }
             // Need to explain this
             if (Number.isInteger(info.i)) {
-                console.log('Feature listing');
+                console.log('Feature listing', this.features);
                 this.features[info.i].list = info.data;
-                console.log(this.features[info.i].list);
+                console.log('Feature #' + info.i, this.features[info.i].list);
             }
         }
     }, {
@@ -3172,11 +3177,13 @@ var ListStore = function () {
     }, {
         key: 'onFeatureReset',
         value: function onFeatureReset(day) {
-            day ? this.features[day] = {
-                text: '',
-                list: {},
-                venue: {}
-            } : this.features = [];
+            if (Number.isInteger(day)) {
+                this.features[day] = {
+                    text: '',
+                    list: {},
+                    venue: {}
+                };
+            }
             this.success.feature = false;
         }
     }, {
@@ -3197,6 +3204,7 @@ var ListStore = function () {
                 (function () {
                     // Match all features with a day of the next week
                     var features = [];
+                    _this.allFeatures = data.json;
                     var dates = [];
                     for (i = 0; i < data.days; i++) {
                         var d = new Date();
@@ -3209,12 +3217,9 @@ var ListStore = function () {
                     for (i = 0; i < data.days; i++) {
                         var tempFeature = null;
                         // Go through all the features
-                        data.json.map(function (feature) {
-                            // Format the feature's date
-                            var tempDate = new Date(feature.date);
-                            tempDate.setHours(0, 0, 0, 0);
+                        _this.allFeatures.map(function (feature) {
                             // Check if it matches
-                            if (tempDate.getTime() == dates[i].getTime()) {
+                            if ((0, _moment2.default)(feature.date).isSame(dates[i], 'day')) {
                                 tempFeature = feature;
                             }
                         });
@@ -3226,6 +3231,7 @@ var ListStore = function () {
                         }
                     }
                     _this.features = features;
+                    console.log('Loaded all features: ', _this.features);
                 })();
             } else {
                 this.error.feature = "No Features";
@@ -9208,12 +9214,7 @@ router.post('/findfeatures/:days', function (req, res) {
     inaWeek.setDate(inaWeek.getDate() + req.params.days);
     inaWeek.setHours(0, 0, 0, 0);
 
-    Feature.find({
-        date: {
-            $gte: today,
-            $lt: inaWeek
-        }
-    }).populate('list').populate('venue').exec(function (e, docs) {
+    Feature.find().populate('list').populate('venue').exec(function (e, docs) {
         console.log('Found', e);
         res.json(docs);
     });
@@ -10371,7 +10372,7 @@ var DayPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'featuredSection' },
-                    _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
+                    this.props.feature.list && _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
                 )
             );
         }
@@ -14638,7 +14639,7 @@ var ListingForm = function (_React$Component) {
         _this.state = {
             text: '',
             updatevisible: false,
-            editorState: (0, _draftJsPluginsEditor.createEditorStateWithText)('')
+            editorState: (0, _draftJsPluginsEditor.createEditorStateWithText)('Test')
         };
 
         _this.onEditorChange = _this.onEditorChange.bind(_this);

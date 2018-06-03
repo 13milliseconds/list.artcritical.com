@@ -19,7 +19,7 @@ export default class ListingForm extends React.Component {
         this.state = {
             text: '',
             updatevisible: false,
-            editorState: createEditorStateWithText('')
+            editorState: createEditorStateWithText('Test')
         }
 
         this.onEditorChange = this.onEditorChange.bind(this)
@@ -52,8 +52,6 @@ export default class ListingForm extends React.Component {
           editorState
         })
       }
-
-
 
     onUpdate(e){
         e.preventDefault();

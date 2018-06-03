@@ -82,7 +82,7 @@ export default class DayPage extends React.Component {
                      && <h4>Nothing happening today!</h4> }
             </div>
 			<div className="featuredSection">
-                <FeatureBlock feature={this.props.feature} user={this.props.user}/>
+                {this.props.feature.list && <FeatureBlock feature={this.props.feature} user={this.props.user}/>}
             </div>
             </div>
         );

@@ -4,6 +4,7 @@ import ArtistsActions from '../actions/ArtistsActions';
 import AuthActions from '../actions/AuthActions';
 import ImagesActions from '../actions/ImagesActions';
 import toastr from 'toastr';
+import moment from 'moment';
 
 class ListStore {
     constructor() {
@@ -56,7 +57,8 @@ class ListStore {
 			coordinates: {}
 		};
         // Featured listings
-		this.features = [];
+        this.features = [];
+        this.allFeatures = [];
         //Venues
         this.allVenues = [];
         this.venue = {};
@@ -251,9 +253,9 @@ class ListStore {
         }
 		// Need to explain this
 		if (Number.isInteger(info.i)){
-			console.log('Feature listing');
+			console.log('Feature listing', this.features);
 			this.features[info.i].list = info.data;
-			console.log(this.features[info.i].list);
+			console.log('Feature #' + info.i, this.features[info.i].list);
 		}
     }
     onGetListingInfoFailure(jqXhr){
@@ -495,13 +497,13 @@ class ListStore {
         console.log(error);
     }
     onFeatureReset(day){
-        day 
-            ? this.features[day]= {
+        if (Number.isInteger(day)){
+            this.features[day]= {
                 text: '',
                 list: {},
                 venue: {}
             }
-            : this.features = []
+        }
         this.success.feature = false
     }
     onFeatureLoadAttempt() {
@@ -511,8 +513,9 @@ class ListStore {
         this.loading.features = false
         if (data.json){
 			// Match all features with a day of the next week
-			let features = []
-			let dates = []
+            let features = []
+            this.allFeatures = data.json
+            let dates = []
 			for (var i=0; i < data.days; i++) {
 				let d = new Date();
 				d.setHours(0,0,0,0)
@@ -522,25 +525,23 @@ class ListStore {
 			//Find element in features whose date == d
 				//For each day of the week
 				for (var i=0; i < data.days; i++) { 
-					let tempFeature = null
+                    let tempFeature = null
 					// Go through all the features
-					data.json.map(feature => { 
-						// Format the feature's date
-						let tempDate = new Date(feature.date);
-						tempDate.setHours(0,0,0,0)
+					this.allFeatures.map((feature) => {
 						// Check if it matches
-						if (tempDate.getTime() == dates[i].getTime()){
-							tempFeature = feature
-						}
+						if (moment(feature.date).isSame(dates[i], 'day')){
+                            tempFeature = feature
+                        }
 					})
 					if (tempFeature){
 						features.push(tempFeature)
 						tempFeature = null
-					} else {
+					}  else {
 						features.push({})
 					}
 				}
             this.features = features;
+            console.log('Loaded all features: ', this.features)
         } else {
             this.error.feature = "No Features";
         }

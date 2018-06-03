@@ -395,12 +395,7 @@ router.post('/findfeatures/:days', function (req, res) {
     inaWeek.setDate(inaWeek.getDate() + req.params.days);
     inaWeek.setHours(0, 0, 0, 0);
 
-    Feature.find({
-        date: {
-                $gte: today,
-                $lt: inaWeek
-            }
-    })
+    Feature.find()
     .populate('list')
     .populate('venue')
     .exec(function (e, docs) {
