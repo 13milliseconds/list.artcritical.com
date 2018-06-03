@@ -68,7 +68,7 @@ class ListActions {
         this.getCurrentAttempt();
         
         await fetch(
-          BASE_URI + '/list/currentlistings/' + offset,
+          '/list/currentlistings/' + offset,
           {
             method: 'GET',
           },

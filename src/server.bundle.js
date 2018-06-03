@@ -111,7 +111,7 @@ var ListActions = function () {
 
             this.getCurrentAttempt();
 
-            await fetch(_env.BASE_URI + '/list/currentlistings/' + offset, {
+            await fetch('/list/currentlistings/' + offset, {
                 method: 'GET'
             }).then(function (response) {
                 if (response.status === 200) {
@@ -428,7 +428,6 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                console.log('found!');
                 _this12.featureLoadSuccess({ json: json, days: days });
                 return true;
             }).catch(function (error) {
