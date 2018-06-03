@@ -49,6 +49,7 @@
         "d3-request": "^1.0.6",
         "debug": "^2.6.9",
         "deck.gl": "^5.2.5",
+        "dotenv-webpack": "^1.5.5",
         "draft-js": "^0.10.5",
         "draft-js-export-html": "^1.2.0",
         "draft-js-import-html": "^1.2.1",

@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const Uglify = require("uglifyjs-webpack-plugin");
+const Dotenv = require('dotenv-webpack');
 
 
 module.exports = {
@@ -37,13 +38,9 @@ module.exports = {
     ]
     },
     plugins: [
-    new webpack.DefinePlugin({
-            'process.env' : {
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-                'BASE_URI': JSON.stringify(process.env.BASE_URI),
-                'MapboxAccessToken': JSON.stringify(process.env.MapboxAccessToken),
-            }
-        }),
+    new Dotenv({
+        systemvars: true
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     //new webpack.optimize.DedupePlugin(), //dedupe similar code 
     //new webpack.optimize.UglifyJsPlugin(), //minify everything
