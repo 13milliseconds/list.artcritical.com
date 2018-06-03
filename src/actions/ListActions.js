@@ -1,6 +1,6 @@
 import alt from '../alt';
 
-import { BASE_URI } from '../env';
+import { BASE_URI } from '../../env';
 
 let offset = 0;
 
@@ -392,7 +392,6 @@ class ListActions {
           return null;
         })
         .then((json) => {
-            console.log('found!');
             this.featureLoadSuccess({json, days});
             return true;
         })
