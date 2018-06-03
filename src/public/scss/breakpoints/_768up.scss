@@ -211,6 +211,15 @@ header.mainHeader{
 	}
 }
 
+.hoodNav{
+    ul{
+        display: block;
+    }
+    select{
+        display: none;
+    }
+}
+
 // LISTINGS
 
 .listing{

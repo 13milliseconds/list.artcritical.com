@@ -1,5 +1,7 @@
 import alt from '../alt';
 
+import { BASE_URI } from '../env';
+
 let offset = 0;
 
 class ListActions {
@@ -66,7 +68,7 @@ class ListActions {
         this.getCurrentAttempt();
         
         await fetch(
-          process.env.BASE_URI + '/list/currentlistings/' + offset,
+          BASE_URI + '/list/currentlistings/' + offset,
           {
             method: 'GET',
           },
@@ -99,7 +101,7 @@ class ListActions {
         this.getFutureAttempt();
         
         await fetch(
-          process.env.BASE_URI + '/list/futurelistings/' + offset,
+          BASE_URI + '/list/futurelistings/' + offset,
           {
             method: 'GET',
           },
@@ -128,7 +130,7 @@ class ListActions {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: process.env.BASE_URI + '/list/alllistings'
+                    url: BASE_URI + '/list/alllistings'
                 })
                 .done((data) => {
                     this.getAllSuccess(data)
@@ -143,7 +145,7 @@ class ListActions {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: process.env.BASE_URI + '/list/eventslistings'
+                    url: BASE_URI + '/list/eventslistings'
                 })
                 .done((data) => {
                     this.getEventsSuccess(data)
@@ -159,7 +161,7 @@ class ListActions {
         this.getGlanceAttempt();
 
         await fetch(
-            process.env.BASE_URI + '/list/glancelistings',
+            BASE_URI + '/list/glancelistings',
             {
               method: 'GET',
               credentials: 'same-origin',
@@ -183,7 +185,7 @@ class ListActions {
     getLatestListings() {
         return dispatch => {
             $.ajax({
-                    url: process.env.BASE_URI + '/list/latestlistings'
+                    url: BASE_URI + '/list/latestlistings'
                 })
                 .done((data) => {
                     this.getLatestListingsSuccess(data)
@@ -227,7 +229,7 @@ class ListActions {
         this.saveListingAttempt();
 
         await fetch(
-          process.env.BASE_URI + '/list/add',
+          BASE_URI + '/list/add',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -256,7 +258,7 @@ class ListActions {
     async deleteListing(oldListing) {
 
         await fetch(
-          process.env.BASE_URI + '/list/delete/' + oldListing,
+          BASE_URI + '/list/delete/' + oldListing,
 			{
             method: 'POST',
             credentials: 'same-origin',
@@ -287,7 +289,7 @@ class ListActions {
         this.updateListingAttempt();
 
         await fetch(
-          process.env.BASE_URI + '/list/update',
+          BASE_URI + '/list/update',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -323,7 +325,7 @@ class ListActions {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: process.env.BASE_URI + '/list/getinfo/' + id
+                    url: BASE_URI + '/list/getinfo/' + id
                 })
                 .done((data) => {
                     this.getListingInfoSuccess({data, i})
@@ -340,7 +342,7 @@ class ListActions {
         console.log('Update feature', data)
 
         await fetch(
-          process.env.BASE_URI + '/list/feature',
+          BASE_URI + '/list/feature',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -374,7 +376,7 @@ class ListActions {
         this.featureLoadAttempt.defer()
         
         await fetch(
-          process.env.BASE_URI + '/list/findfeatures/' + days,
+          BASE_URI + '/list/findfeatures/' + days,
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -401,7 +403,7 @@ class ListActions {
     
     async getVenueInfo(id){
         await fetch(
-          process.env.BASE_URI + '/venues/getinfo/' + id,
+          BASE_URI + '/venues/getinfo/' + id,
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -424,7 +426,7 @@ class ListActions {
     
     async getVenueFullInfo(id){
         await fetch(
-          process.env.BASE_URI + '/venues/getfullinfo/' + id,
+          BASE_URI + '/venues/getfullinfo/' + id,
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -447,7 +449,7 @@ class ListActions {
     
     async getVenueListings(id){
         await fetch(
-          process.env.BASE_URI + '/venues/getlistings/' + id,
+          BASE_URI + '/venues/getlistings/' + id,
           {
             method: 'GET',
             credentials: 'same-origin',
@@ -481,7 +483,7 @@ class ListActions {
         return dispatch => {
             dispatch();
             $.ajax({
-                    url: process.env.BASE_URI + '/venues/getadmin/'+ neighborhood
+                    url: BASE_URI + '/venues/getadmin/'+ neighborhood
                 })
                 .done((data) => {
                         this.getVenuesAdminSuccess(data)
@@ -497,7 +499,7 @@ class ListActions {
         this.updateVenueAttempt();
 
         await fetch(
-          process.env.BASE_URI + '/venues/update',
+          BASE_URI + '/venues/update',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -527,7 +529,7 @@ class ListActions {
 		this.saveVenueAttempt();
 
         await fetch(
-          process.env.BASE_URI + '/venues/add',
+          BASE_URI + '/venues/add',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -556,7 +558,7 @@ class ListActions {
 	async deleteVenue(oldVenue) {
 
         await fetch(
-          process.env.BASE_URI + '/venues/delete/' + oldVenue ,
+          BASE_URI + '/venues/delete/' + oldVenue ,
 			{
             method: 'POST',
             credentials: 'same-origin',
@@ -606,6 +608,13 @@ class ListActions {
     // SIDEBAR
     //////////////////
     toggleSideBar(){
+        return true;
+    }
+
+     /////////////////
+    // Menu
+    //////////////////
+    toggleMenu(){
         return true;
     }
     

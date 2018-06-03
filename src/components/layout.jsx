@@ -7,6 +7,7 @@ import ListActions from '../actions/ListActions';
 // Components
 import { IndexLink, Link } from 'react-router';
 import SizeSelector from './blocks/sizeSelector';
+import Hamburger from './blocks/Hamburger';
 
 //FontAwesome
 import fontawesome from '@fortawesome/fontawesome'
@@ -91,6 +92,7 @@ export default class Layout extends React.Component {
 			</div>
 			{ user.isLoggedIn && <Link to={'/admin'} activeClassName="active">Admin</Link>}
 			</nav>
+            <Hamburger />
 			<SizeSelector view={this.state.view} />
         </header>
         <OffCanvas width={500} transitionDuration={300} isMenuOpened={this.state.sidebarOpen} position={"right"} className={"fullCanvas"}>

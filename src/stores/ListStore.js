@@ -13,6 +13,7 @@ class ListStore {
         this.bindActions(ImagesActions);
         //Display settings
         this.view = 'medium';
+        this.menuActive = false;
         //List states
         this.currentListings = [];
         this.currentLoaded = false
@@ -803,6 +804,11 @@ class ListStore {
     //Sidebar
     onToggleSideBar(){
         this.sidebarOpen = !this.sidebarOpen
+    }
+
+    //Menu
+    onToggleMenu(){
+        this.menuActive = !this.menuActive
     }
 
     // ARTISTS

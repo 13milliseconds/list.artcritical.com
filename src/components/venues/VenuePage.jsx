@@ -2,9 +2,7 @@ import React from 'react';
 import ListActions from '../../actions/ListActions';
 //COMPONENTS
 import MapBlock from '../blocks/mapBlock';
-import VenueListings from './VenueListings';
 import VenueContent from './VenueContent';
-import Tabs from '../tabs.jsx';
 
 
 export default class VenuePage extends React.Component {
@@ -28,8 +26,6 @@ export default class VenuePage extends React.Component {
         const venueId = this.props.venue
 							? this.props.venue._id
 							: ''
-        
-		console.log(fullAdress)
 		
         if (fullAdress && !this.props.venue.coordinates) {
             client.geocodeForward(fullAdress, function(err, data, res) {
@@ -40,15 +36,8 @@ export default class VenuePage extends React.Component {
         
         return ( 
             <div className="venuePage">
-                <VenueContent venue={this.props.venue}/>
+                <VenueContent {...this.props}/>
                 {this.props.venue.coordinates && <MapBlock {...this.props.venue} />}
-                <div className="listingsWrap">
-                    <Tabs>
-                        <VenueListings view={this.props.view} listings={this.props.venue.currentListings} user={this.props.user} label="Current Shows" />
-                        <VenueListings view={this.props.view} listings={this.props.venue.upcomingListings} user={this.props.user} label="Upcoming Shows" />
-                        <VenueListings view={this.props.view} listings={this.props.venue.pastListings} user={this.props.user} label="Past Shows" />
-                    </Tabs>
-                </div>
             </div>
         );
     }
