@@ -9,6 +9,10 @@ import { IndexLink, Link } from 'react-router';
 import SizeSelector from './blocks/sizeSelector';
 import Hamburger from './blocks/Hamburger';
 
+//Sidebar
+import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'
+import ListingForm from './forms/ListingForm';
+
 //FontAwesome
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -29,10 +33,6 @@ import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
 
 
 fontawesome.library.add(faBars, faListUl, faTh, faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faEdit, faTrash)
-
-//Sidebar
-import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'
-import ListingForm from './forms/ListingForm';
 
 
 export default class Layout extends React.Component {

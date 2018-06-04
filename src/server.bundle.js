@@ -651,13 +651,13 @@ exports.default = _alt2.default.createActions(ListActions);
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router");
+module.exports = require("reactstrap");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("reactstrap");
+module.exports = require("react-router");
 
 /***/ }),
 /* 4 */
@@ -1033,7 +1033,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _Listing = __webpack_require__(106);
 
@@ -1176,7 +1176,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2026,9 +2026,9 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _FacebookButton = __webpack_require__(113);
 
@@ -2364,7 +2364,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5959,9 +5959,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6691,7 +6691,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6908,9 +6908,9 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 var _reactToggleButton = __webpack_require__(23);
 
@@ -7397,7 +7397,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8824,7 +8824,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _server = __webpack_require__(162);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _routes = __webpack_require__(139);
 
@@ -9860,6 +9860,8 @@ var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
 var _d3Request = __webpack_require__(147);
 
+var _reactstrap = __webpack_require__(2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10015,6 +10017,30 @@ var CurrentMap = function (_React$Component) {
 				{ className: 'currentMap' },
 				_react2.default.createElement(
 					'div',
+					{ className: 'mapWrap', ref: 'mapWrap' },
+					_react2.default.createElement(
+						_reactMapGl2.default,
+						_extends({}, this.state.viewport, {
+							onViewportChange: this._onViewportChange
+						}),
+						_react2.default.createElement(_MapCluster2.default, {
+							viewport: this.state.viewport,
+							data: this.props.currentListings,
+							iconAtlas: 'images/location-icon-atlas.png',
+							iconMapping: this.state.iconMapping,
+							showCluster: true,
+							onHover: this._onHover,
+							onClick: this._onClick
+						})
+					),
+					this.state.hoverListings && _react2.default.createElement(
+						'div',
+						{ className: 'label', style: labelStyles },
+						showLabels(this.state.hoverListings.zoomLevels[Math.round(this.state.viewport.zoom)].points)
+					)
+				),
+				_react2.default.createElement(
+					'div',
 					{ className: this.props.view + " list" },
 					this.state.browseListings ? displayListings(this.state.browseListings) : _react2.default.createElement(
 						'div',
@@ -10048,42 +10074,18 @@ var CurrentMap = function (_React$Component) {
 						_react2.default.createElement(
 							'h6',
 							null,
-							'Navigate bwteen Cities'
+							'Navigate between Cities'
 						),
 						_react2.default.createElement(
-							'button',
+							_reactstrap.Button,
 							{ onClick: this._goToNYC },
 							'New York City'
 						),
 						_react2.default.createElement(
-							'button',
+							_reactstrap.Button,
 							{ onClick: this._goToPhil },
 							'Philadelphia'
 						)
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'mapWrap', ref: 'mapWrap' },
-					_react2.default.createElement(
-						_reactMapGl2.default,
-						_extends({}, this.state.viewport, {
-							onViewportChange: this._onViewportChange
-						}),
-						_react2.default.createElement(_MapCluster2.default, {
-							viewport: this.state.viewport,
-							data: this.props.currentListings,
-							iconAtlas: 'images/location-icon-atlas.png',
-							iconMapping: this.state.iconMapping,
-							showCluster: true,
-							onHover: this._onHover,
-							onClick: this._onClick
-						})
-					),
-					this.state.hoverListings && _react2.default.createElement(
-						'div',
-						{ className: 'label', style: labelStyles },
-						showLabels(this.state.hoverListings.zoomLevels[Math.round(this.state.viewport.zoom)].points)
 					)
 				)
 			);
@@ -10122,7 +10124,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _ListActions = __webpack_require__(1);
 
@@ -10326,8 +10328,10 @@ var DayPage = function (_React$Component) {
                     'p',
                     null,
                     ' ',
-                    this.state.openings.length > 0 && this.state.openings.length + ' shows openings, ',
-                    this.state.events.length > 0 && this.state.events.length + ' events, ',
+                    this.state.openings.length > 0 && this.state.openings.length + ' shows openings',
+                    this.state.openings.length > 0 && (this.state.events.length > 0 || this.state.closings.length > 0) && ',',
+                    this.state.events.length > 0 && this.state.events.length + ' events',
+                    this.state.events.length > 0 && this.state.closings.length > 0 && ',',
                     this.state.closings.length > 0 && this.state.closings.length + ' shows closing'
                 ),
                 _react2.default.createElement(
@@ -10400,7 +10404,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _ListStore = __webpack_require__(21);
 
@@ -10539,7 +10543,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _ListActions = __webpack_require__(1);
 
@@ -10646,7 +10650,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _ListStore = __webpack_require__(21);
 
@@ -10853,7 +10857,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _LogInForm = __webpack_require__(15);
 
@@ -11198,7 +11202,7 @@ var _mapBlock = __webpack_require__(41);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12019,7 +12023,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _ListActions = __webpack_require__(1);
 
@@ -12027,7 +12031,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactIntl = __webpack_require__(16);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 var _featuredDay = __webpack_require__(102);
 
@@ -12262,9 +12266,9 @@ var _moment = __webpack_require__(9);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 var _DateBlock = __webpack_require__(7);
 
@@ -12917,7 +12921,7 @@ var _UserEdit = __webpack_require__(119);
 
 var _UserEdit2 = _interopRequireDefault(_UserEdit);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13925,7 +13929,7 @@ var _confirmModal = __webpack_require__(19);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14142,7 +14146,7 @@ var _confirmModal = __webpack_require__(19);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 var _DateBlock = __webpack_require__(7);
 
@@ -14613,7 +14617,7 @@ var _MyEditor = __webpack_require__(118);
 
 var _MyEditor2 = _interopRequireDefault(_MyEditor);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14850,7 +14854,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _sizeSelector = __webpack_require__(18);
 
@@ -14859,6 +14863,12 @@ var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 var _Hamburger = __webpack_require__(104);
 
 var _Hamburger2 = _interopRequireDefault(_Hamburger);
+
+var _reactOffcanvas = __webpack_require__(164);
+
+var _ListingForm = __webpack_require__(43);
+
+var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
 var _fontawesome = __webpack_require__(33);
 
@@ -14924,12 +14934,6 @@ var _faFacebook = __webpack_require__(73);
 
 var _faFacebook2 = _interopRequireDefault(_faFacebook);
 
-var _reactOffcanvas = __webpack_require__(164);
-
-var _ListingForm = __webpack_require__(43);
-
-var _ListingForm2 = _interopRequireDefault(_ListingForm);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14941,12 +14945,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // Components
 
 
+//Sidebar
+
+
 //FontAwesome
 
 
 _fontawesome2.default.library.add(_faBars2.default, _faListUl2.default, _faTh2.default, _faPlusCircle2.default, _faPlusCircle2.default, _faPlus2.default, _faMinus2.default, _faGlassMartini2.default, _faStar2.default, _faTimes2.default, _faFacebook2.default, _faInfoCircle2.default, _faEdit2.default, _faTrash2.default);
-
-//Sidebar
 
 var Layout = function (_React$Component) {
     _inherits(Layout, _React$Component);
@@ -15203,7 +15208,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _reactRouterDom = __webpack_require__(165);
 
@@ -15317,7 +15322,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15676,7 +15681,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _SignUpForm = __webpack_require__(126);
 
@@ -15760,7 +15765,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15943,7 +15948,7 @@ var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
 var _reactReorder = __webpack_require__(52);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16223,7 +16228,7 @@ var _VenueBlock = __webpack_require__(6);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 var _reactReorder = __webpack_require__(52);
 
@@ -16347,7 +16352,7 @@ var _facebookShare = __webpack_require__(38);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
-var _reactstrap = __webpack_require__(3);
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16827,7 +16832,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _DateBlock = __webpack_require__(7);
 
@@ -17115,7 +17120,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(2);
+var _reactRouter = __webpack_require__(3);
 
 var _layout = __webpack_require__(123);
 
