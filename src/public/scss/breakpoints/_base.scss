@@ -36,6 +36,13 @@ body {
     padding: 0;
     font-family: "Futura", Helvetica, Arial, sans-serif;
     font-size: 16px;
+    h1{
+
+    }
+    h2{
+        font-size: 1.2em;
+        font-weight: 200;
+    }
 }
 
 a {
@@ -55,8 +62,7 @@ a {
 }
 
 footer{
-    padding: 0 50px;
-    position: absolute;
+    padding: 0 20px;
     bottom: 10px;
 	font-size: .7em;
 }
@@ -154,7 +160,6 @@ Main PAGES
 }
 
 .listingsWrap{
-    @include span-columns(9);
     .city{
         margin-top: -50px;
         padding-top: 50px;
@@ -168,12 +173,9 @@ Main PAGES
         }
     }
     h2{
-        font-size: 1.2em;
         margin: 50px 0 20px;
-        font-weight: 200;
         border-bottom: 1px solid green;
         padding-bottom: 5px;
-        display: inline-block;
     }
     &> h2:first-of-type{
         margin-top: 0;
@@ -522,6 +524,9 @@ header.mainHeader{
             color: $black;
             font-size: 2em;
             display: block;
+            &.active{
+                color: $green;
+            }
         }
     }
 } 
@@ -540,14 +545,13 @@ AT A GLANCE
     }
 	div.tabs__content{
         .day{
-            display: flex;
-            flex-direction: column-reverse;
             .listingsWrap{
                 margin-top: 20px;
-                @include span-columns(12);
+                h2{
+                    margin: 0 0 20px;
+                }
             }
             .featuredSection{
-                @include span-columns(12);
             }
         }
     }
@@ -674,7 +678,6 @@ My List
 		}
 	}
     .listingsWrap{
-        @include span-columns(12);
         .listing{
             background-color: transparent;
         }

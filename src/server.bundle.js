@@ -10177,6 +10177,11 @@ var CurrentPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'left-col' },
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Current Listings'
+                    ),
                     _react2.default.createElement(_neighborhoodNav2.default, null),
                     _react2.default.createElement(
                         'p',
@@ -10193,11 +10198,6 @@ var CurrentPage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: this.props.view + " listingsWrap main-col" },
-                    _react2.default.createElement(
-                        'h1',
-                        null,
-                        'Current Listings'
-                    ),
                     _react2.default.createElement(_listingsPerNeighbor2.default, { listings: this.props.currentListings, user: this.props.user, view: 'current' }),
                     this.props.loading.current && _react2.default.createElement(_loading2.default, null)
                 ),
@@ -10591,6 +10591,11 @@ var FuturePage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'left-col' },
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Future Listings'
+                    ),
                     _react2.default.createElement(_neighborhoodNav2.default, null),
                     _react2.default.createElement(
                         'p',
@@ -10607,11 +10612,6 @@ var FuturePage = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: this.props.view + " listingsWrap main-col" },
-                    _react2.default.createElement(
-                        'h1',
-                        null,
-                        'Future Listings'
-                    ),
                     _react2.default.createElement(_listingsPerNeighbor2.default, { listings: this.props.futureListings, user: this.props.user }),
                     this.props.loading.future && _react2.default.createElement(_loading2.default, null)
                 ),
@@ -10709,9 +10709,6 @@ var GlancePage = function (_React$Component) {
             _ListActions2.default.featureLoad(7);
             _ListActions2.default.getGlance();
         }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {}
     }, {
         key: 'render',
         value: function render() {
@@ -12179,7 +12176,7 @@ var Hamburger = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'hamburger' },
-                _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'bars'], onClick: this._toggleMenu })
+                _react2.default.createElement(_reactFontawesome2.default, { icon: this.props.active ? ['fal', 'times'] : ['fal', 'bars'], onClick: this._toggleMenu })
             );
         }
     }]);
@@ -14990,6 +14987,11 @@ var Layout = function (_React$Component) {
     }, {
         key: 'toggleMenu',
         value: function toggleMenu() {
+            _ListActions2.default.toggleMenu();
+        }
+    }, {
+        key: 'toggleAdminMenu',
+        value: function toggleAdminMenu() {
             _ListActions2.default.toggleSideBar();
         }
     }, {
@@ -15036,22 +15038,22 @@ var Layout = function (_React$Component) {
                         null,
                         _react2.default.createElement(
                             _reactRouter.IndexLink,
-                            { to: '/', activeClassName: 'active' },
+                            { onClick: this.toggleMenu, to: '/', activeClassName: 'active' },
                             'Week at a Glance'
                         ),
                         _react2.default.createElement(
                             _reactRouter.Link,
-                            { to: '/current', activeClassName: 'active' },
+                            { onClick: this.toggleMenu, to: '/current', activeClassName: 'active' },
                             'Current'
                         ),
                         _react2.default.createElement(
                             _reactRouter.Link,
-                            { to: '/events', activeClassName: 'active' },
+                            { onClick: this.toggleMenu, to: '/events', activeClassName: 'active' },
                             'Events'
                         ),
                         _react2.default.createElement(
                             _reactRouter.Link,
-                            { to: '/map', activeClassName: 'active' },
+                            { onClick: this.toggleMenu, to: '/map', activeClassName: 'active' },
                             'Map'
                         ),
                         _react2.default.createElement(
@@ -15059,13 +15061,13 @@ var Layout = function (_React$Component) {
                             { className: 'accountOptions' },
                             _react2.default.createElement(
                                 _reactRouter.Link,
-                                { to: '/mylist', activeClassName: 'active' },
+                                { onClick: this.toggleMenu, to: '/mylist', activeClassName: 'active' },
                                 'My List ',
                                 mylistNum > 0 && '(' + mylistNum + ')'
                             ),
                             user.isLoggedIn && _react2.default.createElement(
                                 _reactRouter.Link,
-                                { to: '/account', activeClassName: 'active' },
+                                { onClick: this.toggleMenu, to: '/account', activeClassName: 'active' },
                                 'Account'
                             ),
                             user.isLoggedIn && _react2.default.createElement(
@@ -15076,13 +15078,13 @@ var Layout = function (_React$Component) {
                         ),
                         user.isLoggedIn && _react2.default.createElement(
                             _reactRouter.Link,
-                            { to: '/admin', activeClassName: 'active' },
+                            { onClick: this.toggleMenu, to: '/admin', activeClassName: 'active' },
                             'Admin'
                         )
                     ),
                     _react2.default.createElement(_sizeSelector2.default, { view: this.state.view })
                 ),
-                _react2.default.createElement(_Hamburger2.default, null),
+                _react2.default.createElement(_Hamburger2.default, { active: this.state.menuActive }),
                 _react2.default.createElement(
                     _reactOffcanvas.OffCanvas,
                     { width: 500, transitionDuration: 300, isMenuOpened: this.state.sidebarOpen, position: "right", className: "fullCanvas" },
@@ -15097,10 +15099,10 @@ var Layout = function (_React$Component) {
                         { className: "sideMenu" },
                         _react2.default.createElement(
                             'a',
-                            { className: 'close', onClick: this.toggleMenu },
+                            { className: 'close', onClick: this.toggleAdminMenu },
                             _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'times'] })
                         ),
-                        user.isLoggedIn && _react2.default.createElement(_ListingForm2.default, {
+                        this.state.sidebarOpen && _react2.default.createElement(_ListingForm2.default, {
                             listing: this.state.listingEdit,
                             error: this.state.error.updatelisting,
                             loading: this.state.loading.updatelisting,
@@ -15114,19 +15116,7 @@ var Layout = function (_React$Component) {
                     _react2.default.createElement(
                         'p',
                         null,
-                        'This is a first version of the new list using ',
-                        _react2.default.createElement(
-                            'strong',
-                            null,
-                            'React'
-                        ),
-                        ' and ',
-                        _react2.default.createElement(
-                            'strong',
-                            null,
-                            'Express'
-                        ),
-                        '.'
+                        '"artcritical," "artcritical.com" and "The Review Panel" \xA92018 artcritical, LLC 2003-2010'
                     )
                 )
             );

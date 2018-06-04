@@ -467,12 +467,24 @@ header.mainHeader .accountOptions:hover a {
   display: none;
 }
 
-/* line 248, ../scss/breakpoints/_768up.scss */
+/* line 246, ../scss/breakpoints/_768up.scss */
+.listingsWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.listingsWrap:last-child {
+  margin-right: 0;
+}
+
+/* line 250, ../scss/breakpoints/_768up.scss */
 .listing p {
   font-size: 16px;
 }
 
-/* line 256, ../scss/breakpoints/_768up.scss */
+/* line 258, ../scss/breakpoints/_768up.scss */
 .events .left-col {
   float: left;
   display: block;
@@ -486,7 +498,7 @@ header.mainHeader .accountOptions:hover a {
 .events .left-col:last-child {
   margin-right: 0;
 }
-/* line 261, ../scss/breakpoints/_768up.scss */
+/* line 263, ../scss/breakpoints/_768up.scss */
 .events .left-col .DayPicker {
   -webkit-transform: translateX(-20px);
   -moz-transform: translateX(-20px);
@@ -494,7 +506,7 @@ header.mainHeader .accountOptions:hover a {
   -o-transform: translateX(-20px);
   transform: translateX(-20px);
 }
-/* line 265, ../scss/breakpoints/_768up.scss */
+/* line 267, ../scss/breakpoints/_768up.scss */
 .events .main-col {
   float: left;
   display: block;
@@ -507,7 +519,7 @@ header.mainHeader .accountOptions:hover a {
   margin-right: 0;
 }
 
-/* line 273, ../scss/breakpoints/_768up.scss */
+/* line 275, ../scss/breakpoints/_768up.scss */
 .glance ul.tabs__labels {
   padding: 0;
   float: left;
@@ -519,7 +531,7 @@ header.mainHeader .accountOptions:hover a {
 .glance ul.tabs__labels:last-child {
   margin-right: 0;
 }
-/* line 277, ../scss/breakpoints/_768up.scss */
+/* line 279, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content {
   float: left;
   display: block;
@@ -530,9 +542,11 @@ header.mainHeader .accountOptions:hover a {
 .glance div.tabs__content:last-child {
   margin-right: 0;
 }
-/* line 279, ../scss/breakpoints/_768up.scss */
+/* line 281, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content .day {
   display: block;
+  display: flex;
+  flex-direction: column-reverse;
 }
 /* line 20, ../scss/neat/mixins/_clearfix.scss */
 .glance div.tabs__content .day::after {
@@ -540,7 +554,7 @@ header.mainHeader .accountOptions:hover a {
   content: "";
   display: block;
 }
-/* line 281, ../scss/breakpoints/_768up.scss */
+/* line 285, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content .day .listingsWrap {
   float: left;
   display: block;
@@ -551,7 +565,7 @@ header.mainHeader .accountOptions:hover a {
 .glance div.tabs__content .day .listingsWrap:last-child {
   margin-right: 0;
 }
-/* line 284, ../scss/breakpoints/_768up.scss */
+/* line 288, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content .day .featuredSection {
   float: left;
   display: block;
@@ -563,7 +577,7 @@ header.mainHeader .accountOptions:hover a {
   margin-right: 0;
 }
 
-/* line 291, ../scss/breakpoints/_768up.scss */
+/* line 295, ../scss/breakpoints/_768up.scss */
 .feature-wrap .image {
   float: left;
   display: block;
@@ -574,7 +588,7 @@ header.mainHeader .accountOptions:hover a {
 .feature-wrap .image:last-child {
   margin-right: 0;
 }
-/* line 294, ../scss/breakpoints/_768up.scss */
+/* line 298, ../scss/breakpoints/_768up.scss */
 .feature-wrap .info {
   float: left;
   display: block;
@@ -586,7 +600,7 @@ header.mainHeader .accountOptions:hover a {
   margin-right: 0;
 }
 
-/* line 301, ../scss/breakpoints/_768up.scss */
+/* line 305, ../scss/breakpoints/_768up.scss */
 .map.app-container, .mylist.connected.app-container {
   min-height: 100%;
   padding: 0;
@@ -594,14 +608,14 @@ header.mainHeader .accountOptions:hover a {
   position: absolute;
   width: 100%;
 }
-/* line 307, ../scss/breakpoints/_768up.scss */
+/* line 311, ../scss/breakpoints/_768up.scss */
 .map.app-container .app-content, .mylist.connected.app-container .app-content {
   min-height: 100%;
   position: absolute;
   width: 100%;
 }
 
-/* line 315, ../scss/breakpoints/_768up.scss */
+/* line 319, ../scss/breakpoints/_768up.scss */
 .currentMap .mapWrap .label {
   display: block;
   position: absolute;
@@ -611,18 +625,18 @@ header.mainHeader .accountOptions:hover a {
   margin-left: 5px;
   padding: 5px;
 }
-/* line 325, ../scss/breakpoints/_768up.scss */
+/* line 329, ../scss/breakpoints/_768up.scss */
 .currentMap .list {
   padding: 100px 20px 20px;
 }
 
-/* line 331, ../scss/breakpoints/_768up.scss */
+/* line 335, ../scss/breakpoints/_768up.scss */
 .mylist.app-container {
   padding: 0;
   max-width: none;
 }
 
-/* line 336, ../scss/breakpoints/_768up.scss */
+/* line 340, ../scss/breakpoints/_768up.scss */
 .myList .popupList {
   position: fixed;
   z-index: 99;
@@ -632,7 +646,7 @@ header.mainHeader .accountOptions:hover a {
   left: 0;
   background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 344, ../scss/breakpoints/_768up.scss */
+/* line 348, ../scss/breakpoints/_768up.scss */
 .myList .popupList div {
   background: #fff;
   position: absolute;

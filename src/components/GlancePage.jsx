@@ -32,10 +32,6 @@ export default class GlancePage extends React.Component {
         ListActions.getGlance();
 	}
 
-    componentDidMount() {
-        
-    }
-
     render() {
         
         let daysDisplay = listings => {
