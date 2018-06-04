@@ -92,9 +92,9 @@ export default class Layout extends React.Component {
 			</div>
 			{ user.isLoggedIn && <Link to={'/admin'} activeClassName="active">Admin</Link>}
 			</nav>
-            <Hamburger />
 			<SizeSelector view={this.state.view} />
         </header>
+        <Hamburger />
         <OffCanvas width={500} transitionDuration={300} isMenuOpened={this.state.sidebarOpen} position={"right"} className={"fullCanvas"}>
             <OffCanvasBody className={"app-content"}>
                 { //Give the current state as props to the children elements

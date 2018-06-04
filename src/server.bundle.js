@@ -15080,9 +15080,9 @@ var Layout = function (_React$Component) {
                             'Admin'
                         )
                     ),
-                    _react2.default.createElement(_Hamburger2.default, null),
                     _react2.default.createElement(_sizeSelector2.default, { view: this.state.view })
                 ),
+                _react2.default.createElement(_Hamburger2.default, null),
                 _react2.default.createElement(
                     _reactOffcanvas.OffCanvas,
                     { width: 500, transitionDuration: 300, isMenuOpened: this.state.sidebarOpen, position: "right", className: "fullCanvas" },

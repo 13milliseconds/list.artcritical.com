@@ -58,6 +58,28 @@ h2{
     border-bottom: 0;
 }
 
+.hamburger{
+    display: none;
+}
+
+.SizeSelector{
+    float: right;
+    margin-top: -25px;
+    span{
+        display: inline-block;
+        color: $gray;
+        padding-right: 5px;
+        cursor: pointer;
+        svg{
+            pointer-events: none;
+        }
+        &.active{
+            color: $green;
+			cursor: default;
+        }
+    } 
+}
+
 header.mainHeader{
 	position: fixed;
     left: 0;

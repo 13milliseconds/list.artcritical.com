@@ -456,21 +456,7 @@ LISTING ELEMENTS
     }
 }
 .SizeSelector{
-    float: right;
-    margin-top: -25px;
-    span{
-        display: inline-block;
-        color: $gray;
-        padding-right: 5px;
-        cursor: pointer;
-        svg{
-            pointer-events: none;
-        }
-        &.active{
-            color: $green;
-			cursor: default;
-        }
-    } 
+    display: none;
 }
 .venueName{
     font-weight: bold
@@ -524,7 +510,7 @@ header.mainHeader{
     left: 100%;
     height: 100%;
     width: 100%;
-    padding: 50px;
+    padding: 100px 50px;
     z-index: 98;
     background-color: $white;
     @include transition(.3s);
@@ -564,7 +550,10 @@ AT A GLANCE
                 @include span-columns(12);
             }
         }
-	}
+    }
+    .opening, .closing{ //Hide "opening today"
+        display: none;
+    }
 }
 .feature-wrap{
     @include row();
