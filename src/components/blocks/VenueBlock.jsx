@@ -18,14 +18,14 @@ export default class VenueBlock extends React.Component {
         return <Listing listing={currentListing} key={index} {...this.props}/>
     })
         
-    let address = <span>{listing.venue.address1} {listing.venue.address2}{(listing.venue.address2 !== '' && listing.venue.city !== '') && ', ' }{listing.venue.city}</span>
+    let address = <span className="address">{listing.venue.address1} {listing.venue.address2}{(listing.venue.address2 !== '' && listing.venue.city !== '') && ', ' }{listing.venue.city}</span>
       
     return (
         <div className="venue">
-                    {displayListings(this.props.listings)}
-                    <div className="venueInfo">
-                        <Link className="venueName" to={"/venue/" + listing.venue.slug}>{listing.venue.name}</Link> - {address}
-                    </div>
+            <div className="venueInfo">
+                <Link className="venueName" to={"/venue/" + listing.venue.slug}>{listing.venue.name}</Link>{address}
+            </div>
+            {displayListings(this.props.listings)}
         </div>
     );
   }

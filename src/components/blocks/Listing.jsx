@@ -3,9 +3,9 @@ import AuthActions from '../../actions/AuthActions';
 import ListActions from '../../actions/ListActions';
 import moment from 'moment'
 //COMPONENTS
-import {Link} from 'react-router';
-import { Tooltip } from 'reactstrap';
-import Date from './DateBlock.jsx';
+import {Link} from 'react-router'
+import {Tooltip, Popover, PopoverTitle, PopoverContent} from 'reactstrap'
+import Date from './DateBlock.jsx'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 export default class Listing extends React.Component {
@@ -15,11 +15,13 @@ export default class Listing extends React.Component {
 
         this.state = {
             fullInfo: false,
-            tooltipOpen: false
+            tooltipOpen: false,
+            fullEvents: false
         }
         
         // Function binding
         this._revealInfo = this._revealInfo.bind(this)
+        this._revealEvents = this._revealEvents.bind(this)
         this.addToList = this.addToList.bind(this)
         this.toggleTooltip = this.toggleTooltip.bind(this)
     }
@@ -44,9 +46,14 @@ export default class Listing extends React.Component {
     }
 
     _revealInfo(){
-        console.log('Reveal Info')
         this.setState({
             fullInfo: !this.state.fullInfo
+        })
+    }
+
+    _revealEvents(){
+        this.setState({
+            fullEvents: !this.state.fullEvents
         })
     }
 
@@ -96,25 +103,32 @@ export default class Listing extends React.Component {
 
         let isGroupShow = listing.artists.length > 3 ? true : false
         let artists = listing.artists.map((artist, index) => {
-            return <span key={artist._id} className="artist" >{artist.name}</span>
+            return <span key={index} className="artist" >{artist.name}</span>
         })
 
         const image = listing.image? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
         const style = {backgroundImage: 'url(' + image + ')'}
+
+        let popoverInfoID = "info-" + listing._id
+        let popoverEventsID = "events-" + listing._id
       
       
     return (
         <div className = {"listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected') }>
+        {this.props.user._id &&
             <div className="listingAdd">
                 {this.props.mylisting 
                     ? 
-                    <span>{this.props.number}</span>
+                    <span   onClick={this.props.mapMouseEnter} >
+                            {this.props.number}
+                    </span>
                    :
-                    <div className={this.props.user._id? "addButton active" : "addButton" } onClick={(e) => this.addToList(e, listing)} style={style}>
+                    <div className="addButton" onClick={(e) => this.addToList(e, listing)} style={style}>
                         {this.props.user._id && <FontAwesomeIcon icon={mylistingIcon} />}
                     </div>
                 }
             </div>
+        }
             <div className = "listingContent">
                 <div className="header cf">
 
@@ -128,8 +142,8 @@ export default class Listing extends React.Component {
                     {this.props.dateView == "current" && moment(listing.end).isSame(moment(), 'day') && <div className="closing"> Closing Today </div>}
 
                     <span className="icons">
-                        {(listing.description || eventsPresence) && <FontAwesomeIcon icon={['fal', 'info-circle']} onClick={this._revealInfo}/>}
-                        {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']}/></span>}
+                        {listing.description && <FontAwesomeIcon id={popoverInfoID} onClick={this._revealInfo} icon={['fal', 'info-circle']}/>}
+                        {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']} id={popoverEventsID} onClick={this._revealEvents}/></span>}
                         {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
                     </span>
 
@@ -141,13 +155,17 @@ export default class Listing extends React.Component {
                     </div>
                     
                 </div>
-                {this.state.fullInfo &&
-                    <div className="moreInfo">
-                        <p>{listing.description}</p>
-                        {listing.events && <div className="events">
-                            {this.eventsDisplay(listing.events)}
-                        </div>}
-                    </div>
+                {listing.description && 
+                <Popover placement="top" isOpen={this.state.fullInfo} target={popoverInfoID} toggle={this._revealInfo}>
+                    <PopoverTitle>More Info</PopoverTitle>
+                    <PopoverContent>{listing.description}</PopoverContent>
+                </Popover>
+                }
+                {eventsPresence && 
+                <Popover placement="top" isOpen={this.state.fullEvents} target={popoverEventsID} toggle={this._revealEvents}>
+                    <PopoverTitle>Events</PopoverTitle>
+                    <PopoverContent>{this.eventsDisplay(listing.events)}</PopoverContent>
+                </Popover>
                 }
                 {isGroupShow && //Tooltip displaying all the artists' names
                 <Tooltip placement="top" isOpen={this.state.tooltipOpen} autohide={false} target={id} toggle={this.toggleTooltip}>{artists}</Tooltip>

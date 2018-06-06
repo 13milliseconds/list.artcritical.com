@@ -3,6 +3,7 @@ import {IndexLink, Link} from 'react-router';
 // Components
 import LogInForm from '../login/LogInForm.jsx';
 import UserPage from '../user/UserPage';
+import Helmet from '../blocks/Helmet'
 // import UserPanel from '../'
 
 
@@ -44,6 +45,9 @@ export default class AdminPage extends React.Component {
 		
         return ( 
             <div className = "admin cf">
+            <Helmet 
+                title="Admin"
+                />
                 <header>
                     <h2>Account page</h2>
               {adminRender}

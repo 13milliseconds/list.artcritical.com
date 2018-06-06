@@ -9,3 +9,16 @@ be seen on the Desktop.
 
 ******************************************************************/
 
+// CURRENT PAGE
+.mainList{
+    .left-col{
+        @include span-columns(3);
+    }
+    .right-col{
+        @include span-columns(2);
+	}
+	.main-col{
+        @include span-columns(7);
+        @include shift(3);
+	}
+}

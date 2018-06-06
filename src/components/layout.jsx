@@ -8,6 +8,7 @@ import ListActions from '../actions/ListActions';
 import { IndexLink, Link } from 'react-router';
 import SizeSelector from './blocks/sizeSelector';
 import Hamburger from './blocks/Hamburger';
+import Helmet from './blocks/Helmet'
 
 //Sidebar
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'
@@ -25,14 +26,16 @@ import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
 import faBars from '@fortawesome/fontawesome-pro-light/faBars'
 import faListUl from '@fortawesome/fontawesome-pro-light/faListUl'
 import faTh from '@fortawesome/fontawesome-pro-light/faTh'
+import faLink from '@fortawesome/fontawesome-pro-light/faLink'
 import faInfoCircle from '@fortawesome/fontawesome-pro-light/faInfoCircle'
 import faPlus from '@fortawesome/fontawesome-pro-regular/faPlus'
 import faMinus from '@fortawesome/fontawesome-pro-regular/faMinus'
+import faPhone from '@fortawesome/fontawesome-pro-regular/faPhone'
 import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
 import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
 
 
-fontawesome.library.add(faBars, faListUl, faTh, faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faEdit, faTrash)
+fontawesome.library.add(faBars, faListUl, faTh, faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faEdit, faTrash, faPhone, faLink)
 
 
 export default class Layout extends React.Component {
@@ -83,6 +86,10 @@ export default class Layout extends React.Component {
         const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><button onClick={AuthActions.attemptLogOut}>Log Out</button></div>;
         return (
             <div className={currentLocation + connectedClass + " app-container"}>
+                <Helmet
+                    title="The List"
+                    link="http://list.artcritical.com"
+                />
                 <header className={"mainHeader" + (this.state.menuActive ? ' active' : '')}>
                     <nav>
                         <IndexLink onClick={this.toggleMenu} to={'/'} activeClassName="active">Week at a Glance</IndexLink>
@@ -100,7 +107,7 @@ export default class Layout extends React.Component {
                 </header>
                 <Hamburger active={this.state.menuActive} />
                 <OffCanvas width={500} transitionDuration={300} isMenuOpened={this.state.sidebarOpen} position={"right"} className={"fullCanvas"}>
-                    <OffCanvasBody className={"app-content"}>
+                    <OffCanvasBody className={"app-content cf"}>
                         { //Give the current state as props to the children elements
                             React.cloneElement(this.props.children, this.state)}
                     </OffCanvasBody>

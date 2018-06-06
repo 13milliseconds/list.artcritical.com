@@ -2,7 +2,7 @@ import React from 'react';
 import validator from 'validator';
 import AuthActions from '../../actions/AuthActions';
 //COMPONENTS
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {Link } from 'react-router';
 import FacebookButton from '../buttons/FacebookButton.jsx';
 import Loading from '../blocks/loading'
@@ -110,7 +110,7 @@ export default class LogInForm extends React.Component {
         
         return ( 
             <div className="loginForm">
-				<h2>Sign-In</h2>
+                <FacebookButton />
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup check>
                       <Input 
@@ -140,19 +140,16 @@ export default class LogInForm extends React.Component {
                         </div>
                         }
                     </FormGroup>
-
-                    <Button>Log In</Button>
                     {this.props.loading && <Loading /> }
                     {this.props.error.login && 
-                        <div className="alert alert-danger">
+                        <Alert color="danger">
                           {this.props.error.login}
-                        </div>
+                        </Alert>
                         }
+                    <Button>Log In</Button>
 					<p>Don't have an account? <Link to={'/signup'} activeClassName="active">Register</Link></p>
 
                 </Form>
-                
-                <FacebookButton />
             </div>
         );
     }

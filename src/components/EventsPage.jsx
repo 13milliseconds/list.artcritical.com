@@ -4,6 +4,7 @@ import ListStore from '../stores/ListStore';
 import ListActions from '../actions/ListActions';
 import moment from 'moment';
 //COMPONENTS
+import Helmet from './blocks/Helmet'
 import VenueBlock from './blocks/VenueBlock';
 import Date from './blocks/DateBlock';
 import SizeSelector from './blocks/sizeSelector';
@@ -51,6 +52,10 @@ export default class EventsPage extends React.Component {
         
         return ( 
             <div className="events mainList">
+            <Helmet
+                title="Events"
+                link="http://list.artcritical.com/events"
+            />
             <div className="left-col">
 				{this.props.eventsListings && <DayPicker events={this.props.eventsListings} scrollToDate={this.scrollToDate} />}
 			</div>

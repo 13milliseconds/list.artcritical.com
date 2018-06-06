@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ListActions from '../actions/ListActions';
 //COMPONENTS
+import Helmet from './blocks/Helmet'
 import ReactMapGL, {LinearInterpolator, FlyToInterpolator} from 'react-map-gl';
 import DeckGLOverlay from './blocks/MapCluster';
 import VenueBlock from './blocks/VenueBlock'
@@ -132,6 +133,10 @@ export default class CurrentMap extends React.Component {
 
         return ( 
             <div className="currentMap">
+			<Helmet 
+				title="Map"
+				link="http://list.artcritical.com/map"
+				/>
 					<div className="mapWrap" ref="mapWrap"> 
                     <ReactMapGL
 						{...this.state.viewport}
@@ -153,18 +158,22 @@ export default class CurrentMap extends React.Component {
 						</div>
 					}
 					</div> 
-					<div className={this.props.view + " list"}>
+					<div className={this.props.view + " mapInfo"}>
+						<div className="mapHeader">
+						<h2>Discover the latest shows and events that your friends and art experts love</h2>
+						</div>
+						<div className="content">
 						{this.state.browseListings?
 							displayListings(this.state.browseListings)
 							:
 							<div className="intro">
-							<h2>Discover the latest shows and events that your friends and art experts love</h2>
 							<p>Click on markers to explore all the shows currently open in New York City and beyond.</p>
 							{this.props.loading.current && <div className="loading">Loading...</div>}
 							<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
 							</div>
 						}
-						<div className="cityJump">
+						</div>
+						<div className="footer cityJump">
 							<h6>Navigate between Cities</h6>
 							<Button onClick={this._goToNYC}>New York City</Button>
 							<Button onClick={this._goToPhil}>Philadelphia</Button>

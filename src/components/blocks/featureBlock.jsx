@@ -64,7 +64,6 @@ export default class FeatureBlock extends React.Component {
       
     return (
         <div className="feature-wrap">
-            <h4>Featured item</h4>
             <div className="image">
                 {listing.image? <ImageBlock image={listing.image} classes="feature" /> : ''}
             </div>

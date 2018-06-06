@@ -3,17 +3,18 @@ import {Link} from 'react-router';
 import SignUpForm from './SignUpForm.jsx';
 
 
-export default class LogInPage extends React.Component {
+export default class SignUpPage extends React.Component {
 
     render() {
         
         return ( 
-            <div className = "admin">
-                <header>
+            <div className="SignIn">
+                <div className="signupForm">
                     <h2>Sign Up</h2>
-                </header>
-                <SignUpForm {...this.props} />
-                Already signed up? <Link to={'/login'} activeClassName="active">Log In</Link>
+                    <p>Register now and start adding shows to your list!</p>
+                    <SignUpForm {...this.props} />
+                    <p>Already have an account? <Link to={'/login'} activeClassName="active">Log In</Link></p>
+                </div>
             </div>
         );
     }

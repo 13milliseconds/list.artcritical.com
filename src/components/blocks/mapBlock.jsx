@@ -24,17 +24,28 @@ export default class MapBlock extends React.Component {
         
         this.updateViewport = this.updateViewport.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
+        this._resizeMap = this._resizeMap.bind(this)
     }
     
     componentDidMount(){
-        // Create variable to change property
-        let newViewport = this.state.viewport
-        newViewport.width = ReactDOM.findDOMNode(this).offsetWidth
-        //Update state
-        this.setState({
-              viewport: newViewport
-          })
+        //Resize the map in the background
+		this._resizeMap()
+        window.addEventListener("resize", this._resizeMap);
+        
     }
+
+    _resizeMap(){
+		// Create variable to change property
+		const viewport = {
+			...this.state.viewport,
+			width: this.refs.mapWrap.offsetWidth,
+			height: this.refs.mapWrap.offsetHeight
+		}
+		//Update state
+		this.setState({
+			viewport
+		})
+	}
     
     updateViewport(v) {
         this.setState({
@@ -44,7 +55,7 @@ export default class MapBlock extends React.Component {
 
   render() {
     return (
-        <div className="mapWrap">
+        <div className="mapWrap" ref="mapWrap">
 			{this.props.coordinates &&
             <ReactMapGL
                 {...this.state.viewport}

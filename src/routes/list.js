@@ -79,7 +79,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     today.setHours(0, 0, 0, 0);
     
     //Count how many times we've fetched listings
-    var offset_ratio = parseInt(req.params.offset_ratio) * 30; 
+    var offset_ratio = parseInt(req.params.offset_ratio) * 100; 
 
     List.find().
     where('start').gte(today).
@@ -87,9 +87,10 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
 	where('venue').ne('').
     sort('neighborhood').
     skip(offset_ratio).
-    limit(30).
+    limit(100).
     populate('venue').
     populate('artists').
+    populate('updated_by').
     exec(function (e, docs) {
         res.json(docs);
     });

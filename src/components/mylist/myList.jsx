@@ -168,10 +168,13 @@ export default class MyList extends React.Component {
         
         return ( 
                 <div className="myList">
-				<div className="list cf">
+				<div className={this.props.view + " mapInfo cf"}>
+                    <div className="mapHeader">
                     <h2>My List</h2>
 					<a target="_blank" href={window.location.href + '/' + this.props.user.slug}>Public page</a>
-					<FacebookShare url={this.state.publicUrl} />
+                    <FacebookShare url={this.state.publicUrl} />
+                    </div>
+                    <div className="content">
                     {this.props.user.mylist && 
                                 this.props.user.mylist.length > 0 
                                         ?<MyListings 
@@ -190,6 +193,11 @@ export default class MyList extends React.Component {
                                                 </div>
                                             </div>
                     }
+                    </div>
+                    <div className="footer">
+                        <h6>Reorder your shows by neighborhood</h6>
+                        <Button onClick={this.onAutoReorder}>Reorder</Button>
+                    </div>
 				</div>
                     <div className="mapWrap" ref="mapWrap"> 
                         <MyMap 

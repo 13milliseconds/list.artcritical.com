@@ -13,7 +13,7 @@ class ListStore {
         this.bindActions(AuthActions);
         this.bindActions(ImagesActions);
         //Display settings
-        this.view = 'medium';
+        this.view = 'condensed';
         this.menuActive = false;
         //List states
         this.currentListings = [];

@@ -15,9 +15,10 @@ and will be used across all viewports.
 @mixin leftNavStyle() {
 	a {
 		text-decoration: none;
-		color: black;
+        color: black;
+        margin-bottom: 10px;
+        display: inline-block;
 		&.active {
-			font-weight: bold;
 			color: $green;
 		}
 	}
@@ -103,7 +104,7 @@ a.facebookbutton{
     color: white!important;
     text-decoration: none;
     letter-spacing: .03em;
-    margin: 20px 0;
+    margin-bottom: 50px;
     cursor: pointer;
     @include transition(.5s);
     &:hover{
@@ -131,12 +132,35 @@ HEADER
 	}
 }
 
-.loginForm {
+.loginForm, .signupForm {
     max-width: 500px;
     margin: 50px auto;
-    background-color: #F6F6f6;
-    padding: 20px 50px;
+    background-color: $white; 
+    //padding: 50px;
     border-radius: 5px;
+    h2{
+        margin-bottom: 30px;
+    }
+    .form-check{
+        padding-left: 0;
+        input{
+            height: 50px;
+            &[type="checkbox"]{
+                height: auto;
+                margin-left: 0;
+                position: inherit;
+                margin-right: 5px;
+            }
+        }
+    }
+    button{
+        background-color: $green;
+        border-color: $green;
+        margin-top: 20px;
+    }
+    p{
+        margin-top: 20px;
+    }
 }
 
 /*********************
@@ -194,20 +218,17 @@ Main PAGES
     }
 }
 
-.currentMap, .myList{
-    .list{
-        background: #fff;
-        padding: 50px 20px;
-        overflow: auto;
-        .cityJump{
-            margin-top: 20px;
-        }
+.mapInfo{
+    background: #fff;
+    padding: 50px 20px;
+    overflow: auto;
+    .cityJump{
+        margin-top: 20px;
     }
-    .mapWrap{
-        height: 500px;
-        .label{
-            display: none;
-        }
+}
+.mapWrap{
+    .label{
+        display: none;
     }
 }
 
@@ -222,47 +243,13 @@ Main PAGES
 LISTING ELEMENTS
 *********************/
 .venue{
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     @include row();
-    .venueInfo{
-        @include shift(1);
+    a{
+        font-weight: 600;
     }
 }
 .listing{
-    .listingAdd{
-        .addButton{
-            overflow: hidden;
-            background-size: cover;
-            position: relative;
-			font-size: 30px;
-            color: $black;
-            border: 0px solid $green;
-            box-sizing: content-box;
-            @include transition(.2s);
-            &.active{
-                cursor: pointer;   
-            }
-            svg{
-                opacity: 0.2;
-                top: 50%;
-                left: 50%;
-                position: absolute;
-                @include transform(translate(-50%, -50%));
-                @include transition(.3s);
-            }
-            span{
-                top: 50%;
-                left: 50%;
-                position: absolute;
-                @include transform(translate(-50%, -50%));
-            }
-            &:hover{
-                svg{
-                    opacity: 1;
-                }
-            }
-        }
-    }
     .listingContent{
         p{
             margin-bottom: 0;
@@ -339,15 +326,11 @@ LISTING ELEMENTS
             color: $green;
         }
         .moreInfo{
-            background-color: #f5f5f5;
+            background-color: #f8f8f8;
             margin-top: 10px;
-            padding: 10px;
+            padding: 20px 10px;
             border-radius: 5px;
-        }
-    }
-    &.selected{
-        .addButton{
-            border: 3px solid $green;
+            line-height: 1.5em;
         }
     }
     a{
@@ -360,38 +343,116 @@ LISTING ELEMENTS
         white-space: pre-wrap;
     }
 }
-.small{
+.condensed{
     .venue{
-        background-color: transparent;
         padding: 0;
         .venueInfo{
-            @include shift(1);
+            span{
+                color: $dark-gray;
+                font-weight: 100;
+            }
         }
     }
     .listing{
-        @include span-columns(12);
         padding: 0 0 5px;
+        @include transition(.2s);
+        white-space: nowrap;
+        will-change: margin-left;
 		p{
-			font-size: 15px;
     		line-height: 1;
-		}
+        }
+        & > * {
+            vertical-align: top;
+            white-space: normal;
+        }
+        &.selected{
+            @include transform(translateX(50px));
+            .addButton, .title{
+                color: $green;
+            }
+        }
     }
     .listingAdd{
-        @include span-columns(1);
+        display: inline-block;
+        margin-right: 10px;
             .addButton{
-                width: 20px;
-                height: 20px;
-                border: 0;
                 background-size: 0;
+                color: $dark-gray;
+                cursor: pointer;
             }
     }
     .listingContent{
-        @include span-columns(11);
+        display: inline-block;
+        .title{
+            margin-right: 10px;
+        }
+        .date, 
+        .icons, 
+        .listingActions{
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .date{
+            color: $dark-gray;
+            font-weight: 100;
+        }
+        //@include span-columns(11);
+    }
+    .closingWrap{
+        .listingContent{
+            .title{
+                display: inline-block;
+            }
+        }
+    }
+}
+.medium, .large{
+    .listing{
+        .listingAdd{
+            .addButton{
+                overflow: hidden;
+                background-size: cover;
+                position: relative;
+                font-size: 30px;
+                color: $black;
+                border: 0px solid $green;
+                box-sizing: content-box;
+                @include transition(.2s);
+                cursor: pointer;   
+                svg{
+                    opacity: 0.2;
+                    top: 50%;
+                    left: 50%;
+                    position: absolute;
+                    @include transform(translate(-50%, -50%));
+                    @include transition(.3s);
+                }
+                span{
+                    top: 50%;
+                    left: 50%;
+                    position: absolute;
+                    @include transform(translate(-50%, -50%));
+                }
+                &:hover{
+                    svg{
+                        opacity: 1;
+                    }
+                }
+            }
+            &.selected{
+                .addButton{
+                    border: 3px solid $green;
+                }
+            }
+        }
     }
 }
 .medium{
     .venue{
         margin-bottom: 60px;
+        .venueInfo{
+            @include shift(1);
+        }
     }
     .listing{
         @include span-columns(12);
@@ -457,9 +518,6 @@ LISTING ELEMENTS
 .SizeSelector{
     display: none;
 }
-.venueName{
-    font-weight: bold
-}
 
 /*********************
 VENUE ELEMENTS
@@ -481,12 +539,19 @@ VENUE ELEMENTS
             }
         }
     }
-    a{
-        color: green;
-        text-decoration: none;
-    }
-    div{
-        //margin-left: 50px;
+    .venueInfo{
+        margin-bottom: 5px;
+        a{
+            color: $black;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .address{
+            opacity: 0;
+            display: inline-block;
+            margin-left: 10px;
+            @include transition(.5s opacity);
+        }
     }
 }
 
@@ -629,43 +694,41 @@ My List
 
 .myList{
 	.fb-share-button{
-		position: absolute;
-		top: 0;
-		right: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
     }
     .mapWrap{
         margin-bottom: 20px;
     }
     .listing{
-        &:hover{
-            .listingAdd{
-                @include transform(scale(1.1));
-                span{
-                    border-color: $green;
-                }
-            }
-        }
         .listingAdd{
-            position: relative;
-            min-height: 100px;
             transition: .5s;
+            vertical-align: top;
+            padding-top: 5px;
+            margin-right: 10px;
             span{
                 border: 1px solid $black;
                 padding: 10px;
                 border-radius: 50%;
-                height: 50px;
-                width: 50px;
+                height: 30px;
+                width: 30px;
                 display: inline-block;
                 text-align: center;
-                line-height: 30px;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                @include transform(translate(-50%, -50%));
+                line-height: 9px;
+                cursor: pointer;
+                @include transition(.3s);
             }
         }
     }
-    
+    .condensed{
+        .listing.selected{
+            @include transform(translateX(0));
+            .title{
+                color: $black;
+            }
+        }
+    }
 	.listInfo{
 		margin-bottom: 20px;
 		img.avatar{
@@ -708,10 +771,12 @@ Venue Page
 
 .venuePage{
     @include row();
-    .infoWrap{
-        @include span-columns(6);
+    .mapInfo{
         h2{
             margin-top: 0;
+        }
+        section{
+            margin-bottom: 50px;
         }
         .tabs{
             border-top: 1px solid $black;
@@ -736,10 +801,6 @@ Venue Page
                 display: none;
             }
         }
-    }
-    .mapWrap{
-        @include span-columns(6);
-        @include omega();
     }
 }
 
@@ -836,6 +897,8 @@ ADMIN
         padding: 10px;
     }
     .popover-title{
+        background: $gray;
+        font-size: 1.2em;
         img{
             display: inline-block;
             max-width: 50px;
@@ -881,7 +944,7 @@ label{
     }
 }
 input.invalid{
-    border: 2px solid red!important;
+    border: 1px solid $red!important;
 }
 .eventsform{
     .event{
@@ -895,10 +958,6 @@ input.invalid{
 }
 .iconLink{
     margin-right: 10px;
-    cursor: pointer;
-    &:hover{
-        @include transform(scale(1.1));
-    }
 }
 
 

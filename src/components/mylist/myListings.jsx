@@ -18,7 +18,6 @@ export default class MyListings extends React.Component {
     render() {
         
         return ( 
-            <div className={this.props.view + " listingsWrap"}>
                 <Reorder
                     reorderId="my-list"
                     draggedClassName="dragged"
@@ -31,18 +30,16 @@ export default class MyListings extends React.Component {
                         <div  
                             key={listing._id}
                             className={listing._id == this.props.listingHover && 'active'} 
-                            onMouseEnter={this.props.onHover.bind(this, listing)}
-                            onMouseLeave={this.props.onLeave.bind(this, listing)}
                             >
                             <VenueBlock  
                                 listings={[listing]} number={index + 1} 
-                                user={this.props.user} mylisting={true}/>
+                                user={this.props.user} mylisting={true}
+                                mapMouseEnter={this.props.onHover.bind(this, listing)}
+                                mapMouseLeave={this.props.onLeave.bind(this, listing)}
+                            />
                         </div>
                         ))}
                 </Reorder>
-                <h6>Reorder your shows by neighborhood</h6>
-                <Button onClick={this.props.onAutoReorder}>Reorder</Button>
-            </div>
         );
     }
 }

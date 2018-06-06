@@ -20,8 +20,8 @@ export default class SizeSelector extends React.Component {
     return (
         <div className="SizeSelector">
             <span   onClick={this.viewChange}
-                    className={this.props.view == 'small' && 'active'} 
-                    data-size="small" >
+                    className={this.props.view == 'condensed' && 'active'} 
+                    data-size="condensed" >
                 <FontAwesomeIcon icon={['fal', 'bars']} /></span>
             <span   onClick={this.viewChange}
                     data-size="medium" 

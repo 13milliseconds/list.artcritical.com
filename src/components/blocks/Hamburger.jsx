@@ -19,6 +19,6 @@ export default class Hamburger extends React.Component {
         <div className="hamburger">
             <FontAwesomeIcon icon={this.props.active ? ['fal', 'times'] : ['fal', 'bars']} onClick={this._toggleMenu} />
         </div>
-    );
+    )
   }
 }

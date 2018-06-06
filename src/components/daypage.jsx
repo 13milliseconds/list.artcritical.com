@@ -61,21 +61,21 @@ export default class DayPage extends React.Component {
         
         return ( 
             <div className = "day">
+            <div className={this.props.view + " listingsWrap"}>
             <p> { this.state.openings.length > 0 && this.state.openings.length + ' shows openings'}
                 { (this.state.openings.length > 0 && ( this.state.events.length > 0 || this.state.closings.length > 0)) && ','}
                 { this.state.events.length > 0 && this.state.events.length + ' events'}
                 { (this.state.events.length > 0 && this.state.closings.length > 0) && ','}
                 { this.state.closings.length > 0 && this.state.closings.length + ' shows closing'}</p>
-            <div className={this.props.view + " listingsWrap"}>
-                    { this.state.openings.length > 0 && <div><h2>Openings</h2>
+                    { this.state.openings.length > 0 && <div className="openingWrap"><h2>Openings</h2>
                         <VenueList listings={this.state.openings} user={this.props.user} dateView="current"/>
                         </div>
                     }
-                    { this.state.events.length > 0 && <div><h2>Events</h2> 
+                    { this.state.events.length > 0 && <div className="eventsWrap"><h2>Events</h2> 
                         <VenueList listings={this.state.events}  user={this.props.user} dateView="nodate"/>
                         </div>
                     }
-                    { this.state.closings.length > 0 && <div><h2>Last Chance</h2>
+                    { this.state.closings.length > 0 && <div className="closingWrap"><h2>Last Chance</h2>
                         <VenueList listings={this.state.closings} user={this.props.user} dateView="nodate"/>
                         </div>
                     }

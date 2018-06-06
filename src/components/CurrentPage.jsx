@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import ListActions from '../actions/ListActions';
 //COMPONENTS
+import Helmet from './blocks/Helmet'
 import NeighborhoodNav from './blocks/neighborhoodNav'
 import ListingsPerNeighbor from './blocks/listingsPerNeighbor'
 import Loading from './blocks/loading'
@@ -23,6 +24,10 @@ export default class CurrentPage extends React.Component {
 
         return ( 
             <div className="current mainList">
+                <Helmet
+                    title="Current"
+                    link="http://list.artcritical.com/current"
+                />
 				<div className="left-col">
                     <h1>Current Listings</h1>
 					<NeighborhoodNav />
