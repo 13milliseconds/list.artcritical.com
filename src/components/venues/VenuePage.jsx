@@ -37,7 +37,7 @@ export default class VenuePage extends React.Component {
         return ( 
             <div className="venuePage">
                 <VenueContent {...this.props}/>
-                {this.props.venue.coordinates && <MapBlock {...this.props.venue} />}
+                {this.props.venue.coordinates && <div className="mapWrap" ><MapBlock {...this.props.venue} /></div>}
             </div>
         );
     }

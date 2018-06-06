@@ -11,7 +11,8 @@ export default class formSelect extends React.Component {
 
         return (
             <AsyncCreatable 
-                name="venue" 
+                name="venue"
+                placeholder="Select venue"
                 value={this.props.value}  
                 loadOptions={this.props.getOptions} 
                 onChange={this.props.handleSelectChange} 

@@ -57,6 +57,7 @@ export default class ArtistTags extends React.Component {
                     value={this.props.value} 
                     onChange={this.props.onChange}
                     tagDisplayProp={"name"}
+                    placeholder={'Add an artist'}
                     renderInput={this.autoSuggestRenderInput}
          />
       }

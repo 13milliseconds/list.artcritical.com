@@ -20,7 +20,8 @@ var userSchema = mongoose.Schema({
     userAccess: Number,
     avatar: String,
 	bio: String,
-	website: String,
+    website: String,
+    subscribed: Boolean,
 	createdOn: {type: Date, default: Date.now},
 	lastConnection: {type: Date},
     mylist: [{type: String, ref: 'List'}]

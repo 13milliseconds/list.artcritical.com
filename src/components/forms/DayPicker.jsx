@@ -39,8 +39,6 @@ export default class DayPicker extends React.Component {
     render() {
 
         return (
-            <div>
-            {this.props.events.length > 0 &&
            <ReactDayPicker
                 hideKeyboardShortcutsPanel
                 numberOfMonths={1}
@@ -51,9 +49,6 @@ export default class DayPicker extends React.Component {
                 //focusedInput={this.state.focusedInput}
                 //onFocusChange={focusedInput => this.setState({ focusedInput })}
             />
-        }
-        </div>
-
         );
   }
 }

@@ -26,7 +26,7 @@ export default class CurrentPage extends React.Component {
             <div className="current mainList">
                 <Helmet
                     title="Current"
-                    link="http://list.artcritical.com/current"
+                    link="https://list.artcritical.com/current"
                 />
 				<div className="left-col">
                     <h1>Current Listings</h1>

@@ -117,20 +117,6 @@ a.facebookbutton{
 /******************
 HEADER
 ********************/
-#topMenu{
-    top: 0;
-    left: 0;
-	padding: 0 20px 10px;
-    z-index: 99;
-    position: fixed;
-    background-color: $white;
-    width: 100%;
-    border-bottom: 1px solid $gray;
-	img{
-		max-height: 30px;
-    	margin-top: 10px;
-	}
-}
 
 .loginForm, .signupForm {
     max-width: 500px;
@@ -274,8 +260,11 @@ LISTING ELEMENTS
         }
     }
     .icons{
-        svg{
+        & > *{
             cursor: pointer;
+            color: $black;
+            border-bottom: 0;
+            margin-right: 5px;
             @include transition(.2s);
             &:hover{
                 color: $green;
@@ -366,7 +355,7 @@ LISTING ELEMENTS
             white-space: normal;
         }
         &.selected{
-            @include transform(translateX(50px));
+            @include transform(translateX(30px));
             .addButton, .title{
                 color: $green;
             }
@@ -517,6 +506,11 @@ LISTING ELEMENTS
 }
 .SizeSelector{
     display: none;
+}
+.listingEvent{
+    .type{
+        font-weight: 500;
+    }
 }
 
 /*********************
@@ -791,7 +785,6 @@ Venue Page
                     text-decoration: none;
                     &.active, &:hover{
                         color: $green;
-                        font-weight: 600;
                     }
                 }
             }
@@ -811,8 +804,7 @@ ADMIN
     header{
         padding-left: 0;
 		a{
-			text-decoration: none;
-			padding-right: 20px;
+			margin-right: 20px;
 			color: $black;
 			&.active{
 				color: $green;
@@ -892,9 +884,11 @@ ADMIN
         cursor: pointer;
     }
 }
-.popover{
+.popover.show{
+    top: -5px!important;
+    max-width: 500px;
     .popover-title, .popover-content{
-        padding: 10px;
+        padding: 10px 20px;
     }
     .popover-title{
         background: $gray;
@@ -919,15 +913,24 @@ ADMIN
     padding-top: 100px;
     height: 100%;
     background-color: #eee;
+    overflow: auto;
+    &::-webkit-scrollbar { 
+        display: none; 
+    }
     a.close{
         padding: 20px;
         font-size: 20px;
         float: none;
     }
     #listingForm{
+        @include row();
         float: none;
         width: 100%;
         padding: 20px;
+        label,
+        .byline{
+            @include span-columns(12);
+        }
     }
 }
 

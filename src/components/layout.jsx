@@ -24,6 +24,7 @@ import faTimes from '@fortawesome/fontawesome-pro-light/faTimes'
 import faEdit from '@fortawesome/fontawesome-pro-light/faEdit'
 import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
 import faBars from '@fortawesome/fontawesome-pro-light/faBars'
+import faPencilAlt from '@fortawesome/fontawesome-pro-light/faPencilAlt'
 import faListUl from '@fortawesome/fontawesome-pro-light/faListUl'
 import faTh from '@fortawesome/fontawesome-pro-light/faTh'
 import faLink from '@fortawesome/fontawesome-pro-light/faLink'
@@ -35,7 +36,7 @@ import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
 import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
 
 
-fontawesome.library.add(faBars, faListUl, faTh, faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faEdit, faTrash, faPhone, faLink)
+fontawesome.library.add(faBars, faListUl, faTh, faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faEdit, faTrash, faPhone, faLink, faPencilAlt)
 
 
 export default class Layout extends React.Component {
@@ -88,20 +89,36 @@ export default class Layout extends React.Component {
             <div className={currentLocation + connectedClass + " app-container"}>
                 <Helmet
                     title="The List"
-                    link="http://list.artcritical.com"
+                    link="https://list.artcritical.com"
                 />
                 <header className={"mainHeader" + (this.state.menuActive ? ' active' : '')}>
+                    <div className="mainLogo">
+			            <img src="/images/artcritical-toplogo.png" />
+                    </div>
                     <nav>
-                        <IndexLink onClick={this.toggleMenu} to={'/'} activeClassName="active">Week at a Glance</IndexLink>
-                        <Link onClick={this.toggleMenu} to={'/current'} activeClassName="active">Current</Link>
-                        <Link onClick={this.toggleMenu} to={'/events'} activeClassName="active">Events</Link>
-                        <Link onClick={this.toggleMenu} to={'/map'} activeClassName="active">Map</Link>
-                        <div className="accountOptions">
-                            <Link onClick={this.toggleMenu} to={'/mylist'} activeClassName="active">My List {mylistNum > 0 && '(' + mylistNum + ')'}</Link>
-                            {user.isLoggedIn && <Link onClick={this.toggleMenu} to={'/account'} activeClassName="active">Account</Link>}
-                            {user.isLoggedIn && <a onClick={AuthActions.attemptLogOut}>Log Out</a>}
-                        </div>
-                        {user.isLoggedIn && <Link onClick={this.toggleMenu} to={'/admin'} activeClassName="active">Admin</Link>}
+                        <ul>
+                            <li>
+                                <a href="/">List</a>
+                                <ul className="submenu">
+                                    <li><IndexLink onClick={this.toggleMenu} to={'/'} activeClassName="active">Week at a Glance</IndexLink></li>
+                                    <li><Link onClick={this.toggleMenu} to={'/current'} activeClassName="active">Current</Link></li>
+                                    <li><Link onClick={this.toggleMenu} to={'/events'} activeClassName="active">Events</Link></li>
+                                    <li><Link onClick={this.toggleMenu} to={'/map'} activeClassName="active">Map</Link></li>
+                                    <li className="accountOptions">
+                                        <Link onClick={this.toggleMenu} to={'/mylist'} activeClassName="active">My List {mylistNum > 0 && '(' + mylistNum + ')'}</Link>
+                                        {user.isLoggedIn && 
+                                            <ul className="submenu">
+                                                <Link onClick={this.toggleMenu} to={'/account'} activeClassName="active">Account</Link>
+                                                <a onClick={AuthActions.attemptLogOut}>Log Out</a>
+                                            </ul>
+                                        }
+                                    </li>
+                                    {user.isLoggedIn &&  <li><Link onClick={this.toggleMenu} to={'/admin'} activeClassName="active">Admin</Link></li>}
+                                </ul>
+                            </li>
+                            <li><a href="#">Magazine</a></li>
+                            <li><a href="#">The Review Panel</a></li>
+                        </ul>
                     </nav>
                     <SizeSelector view={this.state.view} />
                 </header>
@@ -114,11 +131,14 @@ export default class Layout extends React.Component {
                     <OffCanvasMenu className={"sideMenu"}>
                         <a className="close" onClick={this.toggleAdminMenu}><FontAwesomeIcon icon={['fal', 'times']} /></a>
                         {this.state.sidebarOpen &&
+                            <div>
+                                <h3>Edit Listing</h3>
                             <ListingForm
                                 listing={this.state.listingEdit}
                                 error={this.state.error.updatelisting}
                                 loading={this.state.loading.updatelisting}
                                 success={this.state.success} />
+                                </div>
                         }
                         <div className="overlay"></div>
                     </OffCanvasMenu>

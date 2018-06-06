@@ -243,7 +243,7 @@ export default class ListingForm extends React.Component {
                     </FormGroup>
                     {!listing.event &&
                         <FormGroup check>
-                            <Label>Events</Label>
+                            <Label>Related Events</Label>
                             <div className="formSection">
                                 <EventsForm events={listing.events? listing.events : []} onChange={this.onEventsChange}/>
                             </div>

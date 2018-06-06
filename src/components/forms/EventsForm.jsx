@@ -3,6 +3,7 @@ import ListActions from '../../actions/ListActions'
 //Components
 import DateSingle from './formDateSingle'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import {Input} from 'reactstrap';
 
 export default class EventsForm extends React.Component {
     
@@ -32,15 +33,15 @@ export default class EventsForm extends React.Component {
         let eventsList = events => events.map((event, index) => {
             return <div className="event" key={index}>
                 <div className="eventInfo">
-                    <select
+                    <Input type="select"
                         name="type"
-                        value={event.type? event.type : "no-value"}
+                        value={event.type? event.type : "opening"}
                         data-index={index}
                         onChange={this.onChange} >
-                        <option value="opening">Reception</option>
-                        <option value="closing">Closing</option>
-                        <option value="other">Other</option>
-                    </select>
+                        <option value="Reception" selected="selected">Reception</option>
+                        <option value="Closing">Closing</option>
+                        <option value="Other">Other</option>
+                    </Input>
                     <DateSingle event={index} startDate={event.date} onDatesChange={this.onChange}/>
                     {event.type === "other" &&
                         <input 
@@ -50,12 +51,12 @@ export default class EventsForm extends React.Component {
                         value={event.name}
                         onChange={this.onChange} />
                     }
-                    <textarea 
+                    <Input 
+                        type="textarea"
                         name="description" 
                         value={event.description} 
                         data-index={index}
-                        onChange={this.onChange}>
-                    </textarea>
+                        onChange={this.onChange} />
                 </div>
                 <div className="moreOrLess">
                     <a className="iconLink" onClick={e => this.removeEvent(index)}><FontAwesomeIcon icon={["fal", "minus-circle"]}/></a>

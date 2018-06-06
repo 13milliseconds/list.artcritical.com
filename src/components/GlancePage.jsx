@@ -52,12 +52,9 @@ export default class GlancePage extends React.Component {
         
         return ( 
             <div className = "glance">
-                {this.props.glanceListings.length ?
                     <Tabs>
                         {daysDisplay(this.props.glanceListings)}
                     </Tabs>
-                    : <Loading />
-                }
             </div>
         );
     }

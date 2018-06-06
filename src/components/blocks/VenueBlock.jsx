@@ -23,7 +23,7 @@ export default class VenueBlock extends React.Component {
     return (
         <div className="venue">
             <div className="venueInfo">
-                <Link className="venueName" to={"/venue/" + listing.venue.slug}>{listing.venue.name}</Link>{address}
+                <Link className="venueName" to={"/venue/" + listing.venue.slug}>{listing.venue.name}</Link>
             </div>
             {displayListings(this.props.listings)}
         </div>

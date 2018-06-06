@@ -54,17 +54,20 @@ export default class EventsPage extends React.Component {
             <div className="events mainList">
             <Helmet
                 title="Events"
-                link="http://list.artcritical.com/events"
+                link="https://list.artcritical.com/events"
             />
             <div className="left-col">
-				{this.props.eventsListings && <DayPicker events={this.props.eventsListings} scrollToDate={this.scrollToDate} />}
+				<DayPicker events={this.props.eventsListings} scrollToDate={this.scrollToDate} />
 			</div>
             <div className={this.props.view + " listingsWrap main-col"}>
                 {this.props.eventsListings.length 
                     ? thelist 
                     : this.props.loading.events 
                         ? <Loading />
-                        : "No Future Events"}
+                        : <div>
+                            <h2>No Future Events</h2>
+                            <p>Check back again later or check out our <Link to={'/'}>list of this week's openings</Link>.</p>
+                        </div>}
             </div>
 			<div className="right-col">
 				Ads

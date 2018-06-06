@@ -23,7 +23,7 @@ GENERAL STYLES
     //max-width: 1400px;
     margin: 0 auto;
     .app-content{
-        padding: 100px 50px;
+        padding: 130px 50px;
         min-height: 100vh;
     }
 }
@@ -83,91 +83,100 @@ body{
     display: none;
 }
 
-.SizeSelector{
-    display: none;
-    float: right;
-    margin-top: -25px;
-    span{
-        display: inline-block;
-        color: $gray;
-        padding-right: 5px;
-        cursor: pointer;
-        svg{
-            pointer-events: none;
-        }
-        &.active{
-            color: $green;
-			cursor: default;
-        }
-    } 
-}
-
 header.mainHeader{
 	position: fixed;
     left: 0;
-    height: 78px;
-    padding: 20px;
+    height: 100px;
+    padding: 20px 50px;
 	border-bottom: 1px solid $gray;
     width: 100%;
-	text-align: center;
     background: white;
-    h1{
-        color: $black;
-		min-width: 500px;
-		width: 70%;
-		margin: 30px auto;
-		max-width: 600px;
+    @include row();
+    .mainLogo{
+        @include span-columns(3);
+        img{
+            max-height: 30px;
+        }
     }
     nav{
-        a{
-            display: inline-block;
-            font-size: 1em;
-            padding: 5px 10px;
-            background-color: $white;
-            border: 1px solid $gray;
-            margin-right: 10px;
-            color: black;
-            text-decoration: none;
-            &:hover{
-                background-color: $green;
-                color: $white;
+        @include span-columns(9);
+        @include omega();
+        & > ul{
+            text-align: left;
+            li{
+                display: inline-block; 
+                a{
+                    display: inline-block;
+                    font-size: 1em;
+                    padding: 5px 20px;
+                    margin-right: 10px;
+                    color: $white;
+                    text-transform: uppercase;
+                    font-weight: 100;
+                }
+                & > ul.submenu{
+                    display: block;
+                    position: absolute;
+                    top: 63px;
+                    li{
+                        a{
+                            padding: 5px 0;
+                            margin-right: 20px;
+                            color: black;
+                            border-bottom: 3px solid transparent;
+                            &:hover{
+                                border-color: $green;
+                            }
+                            &.active{
+                                border-color: $green;
+                            }
+                        }
+                        &:hover{
+                            & > ul{
+                                display: block;
+                            }
+                        }
+                        & > ul{
+                            display: none;
+                            background: $white;
+                            top: 37px;
+                            padding: 10px;
+                        }
+                    }
+                }
             }
-            &.active{
+            & > li:nth-child(1) > a{
                 background-color: $green;
-                color: $white;
             }
-        }  
+            & > li:nth-child(2) > a{
+                background-color: $red;
+            }
+            & > li:nth-child(3) > a{
+                background-color: $purple;
+            }
+        }
     }
     div{
         display: inline-block;
     }
-	.accountOptions{
-		width: 90px;
-		position: relative;
-		margin-right: 10px;
-		a{
-			padding: 5px 0px;
-			margin-right: 0;
-			display: none;
-			position: absolute;
-			width: 90px;
-			&:first-child{
-				display: block;
-				position: relative;
-			}
-			&:nth-child(2){
-				top: 100%;
-			}
-			&:nth-child(3){
-				top: 200%;
-			}
-		}
-		&:hover{
-			a{
-				display: block;
-			}
-		}
-	}
+    .SizeSelector{
+        display: none;
+        float: right;
+        margin-top: -25px;
+        span{
+            display: inline-block;
+            color: $gray;
+            padding-right: 5px;
+            cursor: pointer;
+            svg{
+                pointer-events: none;
+            }
+            &.active{
+                color: $green;
+                cursor: default;
+            }
+        } 
+    }
 } 
 #header{
     width: 200px;
@@ -189,6 +198,9 @@ header.mainHeader{
             display: table;
         }
     }
+}
+.sideMenu{
+    //box-shadow: 0px 0px 30px #ccc;
 }
 
 #banner, #introPanel.active, #loginPanel, #sharePanel, #sortPanel{
@@ -241,9 +253,9 @@ header.mainHeader{
 // CURRENT PAGE
 .mainList{
     .left-col{
-        @include span-columns(4);
+        @include span-columns(3);
         position: fixed;
-        top: 100px;
+        top: 130px;
     }
     .right-col{
         @include span-columns(0);
@@ -252,7 +264,7 @@ header.mainHeader{
         right: 0;
 	}
 	.main-col{
-        @include span-columns(8);
+        @include span-columns(9);
         @include shift(4);
 	}
 }
@@ -301,30 +313,37 @@ header.mainHeader{
 
 // EVENTS
 
-.events{
+.events.mainList{
     .left-col{
         @include span-columns(3);
         position: fixed;
         float: none;
         padding-right: 4%;
         .DayPicker{
-            @include transform(translateX(-20px));
+            display: none;
+            @include transform(translate(-20%) scale(.8));
         }
     }
 	.main-col{
-        @include span-columns(7);
-        @include shift(3);
-	}
+        @include span-columns(9);
+        h2{
+            margin-top: 0;
+            border-bottom: 0;
+        }
+    }
+    .right-col{
+        display: none;
+    }
 }
 
 //GLANCE
 .glance{
     ul.tabs__labels{
         padding: 0;
-		@include span-columns(2);
+		@include span-columns(3);
     }
 	div.tabs__content{
-        @include span-columns(10);
+        @include span-columns(9);
         .day{
             @include row();
             .listingsWrap{
@@ -481,5 +500,8 @@ header.mainHeader{
         @include span-columns(6);
         @include shift(6);
         @include omega();
+        .map{
+            height: 100%;
+        }
     }
 }

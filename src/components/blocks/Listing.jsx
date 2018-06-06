@@ -16,7 +16,8 @@ export default class Listing extends React.Component {
         this.state = {
             fullInfo: false,
             tooltipOpen: false,
-            fullEvents: false
+            fullEvents: false,
+            canToggle: true
         }
         
         // Function binding
@@ -46,21 +47,35 @@ export default class Listing extends React.Component {
     }
 
     _revealInfo(){
-        this.setState({
+        this.state.canToggle && this.setState({
+            canToggle: false,
             fullInfo: !this.state.fullInfo
         })
+        let that = this
+        setTimeout(function(){
+            that.setState({
+                canToggle: true
+            })
+        },10)
     }
 
     _revealEvents(){
-        this.setState({
+        this.state.canToggle && this.setState({
+            canToggle: false,
             fullEvents: !this.state.fullEvents
         })
+        let that = this
+        setTimeout(function(){
+            that.setState({
+                canToggle: true
+            })
+        },10)
     }
 
     eventsDisplay(events){
         return events.map((event, index) => {
-            return <div className="event" key={index}>
-                    <FontAwesomeIcon icon={['fal', 'glass-martini']}/> {event.name} {this.props.start && <Date date={event.date} /> } {event.description && '- ' + event.description}
+            return <div className="listingEvent" key={index}>
+                    <span className="type">{event.type || event.name}</span>: <Date date={event.date} /> 8pm {event.description && " - " + event.description}
             </div>
         })
 
@@ -142,8 +157,9 @@ export default class Listing extends React.Component {
                     {this.props.dateView == "current" && moment(listing.end).isSame(moment(), 'day') && <div className="closing"> Closing Today </div>}
 
                     <span className="icons">
-                        {listing.description && <FontAwesomeIcon id={popoverInfoID} onClick={this._revealInfo} icon={['fal', 'info-circle']}/>}
-                        {eventsPresence && <span className="events"><FontAwesomeIcon icon={['fal', 'glass-martini']} id={popoverEventsID} onClick={this._revealEvents}/></span>}
+                        {listing.review && <a alt="Review" target="_blank" href={listing.review}><FontAwesomeIcon icon={['fal', 'pencil-alt']}/></a>}
+                        {listing.description && <FontAwesomeIcon id={popoverInfoID} onClick={!this.state.fullInfo && this._revealInfo} icon={['fal', 'info-circle']}/>}
+                        {eventsPresence && <FontAwesomeIcon icon={['fal', 'glass-martini']} id={popoverEventsID} onClick={!this.state.fullEvents && this._revealEvents}/>}
                         {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
                     </span>
 
@@ -157,7 +173,7 @@ export default class Listing extends React.Component {
                 </div>
                 {listing.description && 
                 <Popover placement="top" isOpen={this.state.fullInfo} target={popoverInfoID} toggle={this._revealInfo}>
-                    <PopoverTitle>More Info</PopoverTitle>
+                    <PopoverTitle>Notes</PopoverTitle>
                     <PopoverContent>{listing.description}</PopoverContent>
                 </Popover>
                 }

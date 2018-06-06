@@ -135,7 +135,7 @@ export default class CurrentMap extends React.Component {
             <div className="currentMap">
 			<Helmet 
 				title="Map"
-				link="http://list.artcritical.com/map"
+				link="https://list.artcritical.com/map"
 				/>
 					<div className="mapWrap" ref="mapWrap"> 
                     <ReactMapGL

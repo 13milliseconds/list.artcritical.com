@@ -28,7 +28,7 @@ export default class MyListPage extends React.Component {
                 <div className="myListwrap">
                     <Helmet
                         title="My List"
-                        link="http://list.artcritical.com/mylist"
+                        link="https://list.artcritical.com/mylist"
                     />
                     {myListRender}
                 </div>

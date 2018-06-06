@@ -1,10 +1,11 @@
 import React from 'react';
-import {IntlProvider, FormattedDate} from 'react-intl';
-import ListActions from '../actions/ListActions';
-import moment from 'moment';
+import {IntlProvider, FormattedDate} from 'react-intl'
+import ListActions from '../actions/ListActions'
+import moment from 'moment'
 //COMPONENTS
-import VenueList from './blocks/VenueList';
-import FeatureBlock from './blocks/featureBlock';
+import VenueList from './blocks/VenueList'
+import Loading from './blocks/loading'
+import FeatureBlock from './blocks/featureBlock'
 
 
 export default class DayPage extends React.Component {
@@ -14,20 +15,12 @@ export default class DayPage extends React.Component {
 		
 		this.state={
 			date: moment(this.props.date).format().slice(0,10),
-			openings: [],
-			events: [],
-        	closings: [],
 		}
     }
-    
-    //componentWillMount(){
-        //ListActions.featureReset();
-        //ListActions.featureLoad({date: this.props.date});
-    //}
-	
-	componentWillMount(){
-		
-		let events = []
+
+    render() { 
+
+        let events = []
 		let openings = []
 		let closings = []
 		
@@ -46,47 +39,44 @@ export default class DayPage extends React.Component {
                     closings.push(listing)  
                 } 
             }
-			
-			this.setState({
-				openings: openings,
-				events: events,
-				closings: closings,
-			})
                   
-        });
-		
-	}
+        })
 
-    render() { 
+        let totalListings = closings.length + events.length + openings.length
         
         return ( 
             <div className = "day">
-            <div className={this.props.view + " listingsWrap"}>
-            <p> { this.state.openings.length > 0 && this.state.openings.length + ' shows openings'}
-                { (this.state.openings.length > 0 && ( this.state.events.length > 0 || this.state.closings.length > 0)) && ','}
-                { this.state.events.length > 0 && this.state.events.length + ' events'}
-                { (this.state.events.length > 0 && this.state.closings.length > 0) && ','}
-                { this.state.closings.length > 0 && this.state.closings.length + ' shows closing'}</p>
-                    { this.state.openings.length > 0 && <div className="openingWrap"><h2>Openings</h2>
-                        <VenueList listings={this.state.openings} user={this.props.user} dateView="current"/>
+                {this.props.glanceListings.length > 0 ?
+                    <div>
+                        <div className={this.props.view + " listingsWrap"}>
+
+                            { openings.length > 0 && <div className="openingWrap">
+                                    <h2>Openings</h2>
+                                    <VenueList listings={openings} user={this.props.user} dateView="current"/>
+                                </div>
+                            }
+
+                            { events.length > 0 && <div className="eventsWrap">
+                                    <h2>Events</h2> 
+                                    <VenueList listings={events}  user={this.props.user} dateView="nodate"/>
+                                </div>
+                            }
+
+                            { closings.length > 0 && <div className="closingWrap">
+                                    <h2>Last Chance</h2>
+                                    <VenueList listings={closings} user={this.props.user} dateView="nodate"/>
+                                </div>
+                            }
+                            
+                            { totalListings == 0 && <h4>Nothing happening today.</h4> }
                         </div>
-                    }
-                    { this.state.events.length > 0 && <div className="eventsWrap"><h2>Events</h2> 
-                        <VenueList listings={this.state.events}  user={this.props.user} dateView="nodate"/>
-                        </div>
-                    }
-                    { this.state.closings.length > 0 && <div className="closingWrap"><h2>Last Chance</h2>
-                        <VenueList listings={this.state.closings} user={this.props.user} dateView="nodate"/>
-                        </div>
-                    }
-                        
-                    { (this.state.closings.length + this.state.events.length + this.state.openings.length) == 0 
-                     && <h4>Nothing happening today!</h4> }
+                        <div className="featuredSection">
+                            {this.props.feature.list && <FeatureBlock feature={this.props.feature} user={this.props.user}/>}
+                        </div>   
+                    </div>
+                    : <Loading />
+                }
             </div>
-			<div className="featuredSection">
-                {this.props.feature.list && <FeatureBlock feature={this.props.feature} user={this.props.user}/>}
-            </div>
-            </div>
-        );
+        )
     }
 }

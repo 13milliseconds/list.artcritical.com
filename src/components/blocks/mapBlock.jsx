@@ -55,7 +55,7 @@ export default class MapBlock extends React.Component {
 
   render() {
     return (
-        <div className="mapWrap" ref="mapWrap">
+        <div className="map" ref="mapWrap">
 			{this.props.coordinates &&
             <ReactMapGL
                 {...this.state.viewport}

@@ -16,21 +16,14 @@ export default class AdminPage extends React.Component {
         const editor = 1
         const subscriber = 0
 
-        let adminRender = this.props.user.isLoggedIn && this.props.user.userAccess >= 2 ?
+        let adminRender = this.props.user.isLoggedIn && this.props.user.userAccess > 0 ? 
 				<nav>
-                    <IndexLink to={'/admin'} activeClassName="active">Listings</IndexLink>
+                    <IndexLink to={'/admin/venuesadmin'} activeClassName="active">Overview</IndexLink>
+                    <Link to={'/admin'} activeClassName="active">Listings</Link>
                     <Link to={'/admin/venues'} activeClassName="active">Venues</Link>
-                    <Link to={'/admin/venuesadmin'} activeClassName="active">Overview</Link>
                     <Link to={'/admin/featured'} activeClassName="active">Featured Calendar</Link>
-					<Link to={'/admin/users'} activeClassName="active">User Admin</Link>
                     <Link to={'/admin/review'} activeClassName="active">Review Events</Link>
-				</nav>
-            : this.props.user.isLoggedIn && this.props.user.userAccess === editor ? 
-				<nav>
-                    <IndexLink to={'/admin'} activeClassName="active">Listings</IndexLink>
-                    <Link to={'/admin/venues'} activeClassName="active">Venues</Link>
-                    <Link to={'/admin/venuesadmin'} activeClassName="active">Overview</Link>
-                    <Link to={'/admin/featured'} activeClassName="active">Featured Calendar</Link>
+                    {this.props.user.userAccess >=1 && <Link to={'/admin/users'} activeClassName="active">User Admin</Link>}
 				</nav>
             :  	<div>
 					<header>
@@ -45,13 +38,11 @@ export default class AdminPage extends React.Component {
 		
         return ( 
             <div className = "admin cf">
-            <Helmet 
-                title="Admin"
-                />
+                <Helmet title="Admin"/>
                 <header>
                     <h2>Account page</h2>
-              {adminRender}
-            </header>
+                    {adminRender}
+                </header>
 				{this.props.user.isLoggedIn && this.props.user.userAccess > 0 &&
                 <div className="admin-content">{React.cloneElement(this.props.children, this.props)}</div>
 				 }

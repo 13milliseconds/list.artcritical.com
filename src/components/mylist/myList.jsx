@@ -195,8 +195,7 @@ export default class MyList extends React.Component {
                     }
                     </div>
                     <div className="footer">
-                        <h6>Reorder your shows by neighborhood</h6>
-                        <Button onClick={this.onAutoReorder}>Reorder</Button>
+                        <Button onClick={this.onAutoReorder}>Reset Order</Button>
                     </div>
 				</div>
                     <div className="mapWrap" ref="mapWrap"> 
