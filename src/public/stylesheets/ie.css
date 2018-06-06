@@ -186,7 +186,7 @@ footer {
 
 /* line 36, ../scss/breakpoints/_768up.scss */
 body a {
-  color: #019476;
+  color: #d70b00;
   border-bottom: 1px transparent dotted;
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;
@@ -195,7 +195,7 @@ body a {
 /* line 40, ../scss/breakpoints/_768up.scss */
 body a:hover {
   color: #323944;
-  border-color: #019476;
+  border-color: #d70b00;
   text-decoration: none;
 }
 /* line 46, ../scss/breakpoints/_768up.scss */
@@ -322,11 +322,11 @@ header.mainHeader nav > ul li > ul.submenu li a {
 }
 /* line 127, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li a:hover {
-  border-color: #019476;
+  border-color: #d70b00;
 }
 /* line 130, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li a.active {
-  border-color: #019476;
+  border-color: #d70b00;
 }
 /* line 135, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li:hover > ul {
@@ -341,15 +341,15 @@ header.mainHeader nav > ul li > ul.submenu li > ul {
 }
 /* line 148, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul > li:nth-child(1) > a {
-  background-color: #019476;
+  background-color: #d70b00;
 }
 /* line 151, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul > li:nth-child(2) > a {
-  background-color: #770600;
+  background-color: #9f0900;
 }
 /* line 154, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul > li:nth-child(3) > a {
-  background-color: #574DA0;
+  background-color: #770600;
 }
 /* line 159, ../scss/breakpoints/_768up.scss */
 header.mainHeader div {
@@ -374,7 +374,7 @@ header.mainHeader .SizeSelector span svg {
 }
 /* line 174, ../scss/breakpoints/_768up.scss */
 header.mainHeader .SizeSelector span.active {
-  color: #019476;
+  color: #d70b00;
   cursor: default;
 }
 
@@ -556,7 +556,7 @@ header.mainHeader .SizeSelector span.active {
 
 /* line 306, ../scss/breakpoints/_768up.scss */
 .condensed .listing .listingAdd .addButton:hover {
-  color: #019476;
+  color: #d70b00;
 }
 
 /* line 317, ../scss/breakpoints/_768up.scss */
@@ -746,7 +746,7 @@ header.mainHeader .SizeSelector span.active {
 .mapInfo .footer {
   order: 3;
   flex: 1 auto;
-  margin-top: 0;
+  margin-top: 50px;
 }
 
 /* line 415, ../scss/breakpoints/_768up.scss */
@@ -784,7 +784,7 @@ header.mainHeader .SizeSelector span.active {
 
 /* line 442, ../scss/breakpoints/_768up.scss */
 .myList .listing:hover .listingAdd span {
-  background-color: #019476;
+  background-color: #d70b00;
   color: white;
 }
 /* line 449, ../scss/breakpoints/_768up.scss */

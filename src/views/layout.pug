@@ -26,6 +26,14 @@ html
     script(src="https://use.typekit.net/csp0cwt.js")
     //Draft Editor Plugin CSS
     //link(href='node_modules/draft-js-inline-toolbar-plugin/lib/plugin.css' rel='stylesheet')
+    // Google Analytics
+    script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-74357159-12")
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-74357159-12');
+
     script. 
         try{Typekit.load({ async: true });}catch(e){}
   body

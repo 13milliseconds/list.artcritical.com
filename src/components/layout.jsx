@@ -93,12 +93,14 @@ export default class Layout extends React.Component {
                 />
                 <header className={"mainHeader" + (this.state.menuActive ? ' active' : '')}>
                     <div className="mainLogo">
-			            <img src="/images/artcritical-toplogo.png" />
+                        <a href="http://artcritical.com">
+			                <img src="/images/artcritical-toplogo.png" />
+                        </a>
                     </div>
                     <nav>
                         <ul>
                             <li>
-                                <a href="/">List</a>
+                                <a href="/">The List</a>
                                 <ul className="submenu">
                                     <li><IndexLink onClick={this.toggleMenu} to={'/'} activeClassName="active">Week at a Glance</IndexLink></li>
                                     <li><Link onClick={this.toggleMenu} to={'/current'} activeClassName="active">Current</Link></li>
@@ -116,8 +118,8 @@ export default class Layout extends React.Component {
                                     {user.isLoggedIn &&  <li><Link onClick={this.toggleMenu} to={'/admin'} activeClassName="active">Admin</Link></li>}
                                 </ul>
                             </li>
-                            <li><a href="#">Magazine</a></li>
-                            <li><a href="#">The Review Panel</a></li>
+                            <li><a href="http://www.artcritical.com">Magazine</a></li>
+                            <li><a href="http://www.artcritical.com/category/departments/the-review-panel/">The Review Panel</a></li>
                         </ul>
                     </nav>
                     <SizeSelector view={this.state.view} />

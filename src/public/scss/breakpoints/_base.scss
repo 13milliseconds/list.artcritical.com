@@ -47,10 +47,9 @@ body {
         font-size: 1.2em;
         font-weight: 200;
     }
-}
-
-a {
-  color: #00B7FF;
+    button.btn-secondary{
+        border: 0;
+    }
 }
 
 #thelist{
@@ -191,7 +190,7 @@ Main PAGES
     }
     h2{
         margin: 50px 0 20px;
-        border-bottom: 1px solid green;
+        border-bottom: 1px solid $green;
         padding-bottom: 5px;
     }
     &> h2:first-of-type{
@@ -210,6 +209,9 @@ Main PAGES
     overflow: auto;
     .cityJump{
         margin-top: 20px;
+        button{
+            background-color: $green;
+        }
     }
 }
 .mapWrap{
