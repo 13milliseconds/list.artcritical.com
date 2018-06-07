@@ -14,6 +14,9 @@ import Helmet from './blocks/Helmet'
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'
 import ListingForm from './forms/ListingForm';
 
+//Google Analytics
+import ReactGA from 'react-ga';
+
 //FontAwesome
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -52,15 +55,27 @@ export default class Layout extends React.Component {
     componentWillMount() {
         // Before the component mounts, check for an existing user session
         AuthActions.checkSession();
+        ReactGA.initialize('UA-74357159-12');
     }
 
     componentDidMount() {
         ListStore.listen(this.onChange);
+        ReactGA.pageview(window.location.pathname);
+
     }
 
     componentWillUnmount() {
         ListStore.unlisten(this.onChange);
     }
+
+    componentWillReceiveProps(nextProps) {
+        const currentPage = this.props.location.pathname;
+        const nextPage = nextProps.location.pathname;
+  
+        if (currentPage !== nextPage) {
+            ReactGA.pageview(nextPage);
+        }
+      }
 
     onChange(state) {
         this.setState(state);

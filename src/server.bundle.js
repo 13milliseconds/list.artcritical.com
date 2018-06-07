@@ -1226,7 +1226,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactHelmet = __webpack_require__(168);
+var _reactHelmet = __webpack_require__(169);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2523,7 +2523,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(172);
+var _reactSelect = __webpack_require__(173);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2594,7 +2594,7 @@ var _ImagesActions = __webpack_require__(26);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _toastr = __webpack_require__(175);
+var _toastr = __webpack_require__(176);
 
 var _toastr2 = _interopRequireDefault(_toastr);
 
@@ -3719,7 +3719,7 @@ var _alt2 = _interopRequireDefault(_alt);
 
 __webpack_require__(52);
 
-var _superagent = __webpack_require__(174);
+var _superagent = __webpack_require__(175);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -10593,7 +10593,7 @@ var EventsPage = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             _ListActions2.default.getEvents();
-            scrollToComponent = __webpack_require__(171);
+            scrollToComponent = __webpack_require__(172);
         }
     }, {
         key: 'scrollToDate',
@@ -13625,7 +13625,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactTagsinput = __webpack_require__(173);
+var _reactTagsinput = __webpack_require__(174);
 
 var _reactTagsinput2 = _interopRequireDefault(_reactTagsinput);
 
@@ -15046,11 +15046,15 @@ var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _reactOffcanvas = __webpack_require__(169);
+var _reactOffcanvas = __webpack_require__(170);
 
 var _ListingForm = __webpack_require__(44);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
+
+var _reactGa = __webpack_require__(168);
+
+var _reactGa2 = _interopRequireDefault(_reactGa);
 
 var _fontawesome = __webpack_require__(34);
 
@@ -15142,6 +15146,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //Sidebar
 
 
+//Google Analytics
+
+
 //FontAwesome
 
 
@@ -15167,16 +15174,28 @@ var Layout = function (_React$Component) {
         value: function componentWillMount() {
             // Before the component mounts, check for an existing user session
             _AuthActions2.default.checkSession();
+            _reactGa2.default.initialize('UA-74357159-12');
         }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             _ListStore2.default.listen(this.onChange);
+            _reactGa2.default.pageview(window.location.pathname);
         }
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             _ListStore2.default.unlisten(this.onChange);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var currentPage = this.props.location.pathname;
+            var nextPage = nextProps.location.pathname;
+
+            if (currentPage !== nextPage) {
+                _reactGa2.default.pageview(nextPage);
+            }
         }
     }, {
         key: 'onChange',
@@ -15485,7 +15504,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _reactRouterDom = __webpack_require__(170);
+var _reactRouterDom = __webpack_require__(171);
 
 var _propTypes = __webpack_require__(23);
 
@@ -18275,46 +18294,52 @@ module.exports = require("react-dropzone");
 /* 168 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-helmet");
+module.exports = require("react-ga");
 
 /***/ }),
 /* 169 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-offcanvas");
+module.exports = require("react-helmet");
 
 /***/ }),
 /* 170 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-dom");
+module.exports = require("react-offcanvas");
 
 /***/ }),
 /* 171 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-scroll-to-component");
+module.exports = require("react-router-dom");
 
 /***/ }),
 /* 172 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-select");
+module.exports = require("react-scroll-to-component");
 
 /***/ }),
 /* 173 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-tagsinput");
+module.exports = require("react-select");
 
 /***/ }),
 /* 174 */
 /***/ (function(module, exports) {
 
-module.exports = require("superagent");
+module.exports = require("react-tagsinput");
 
 /***/ }),
 /* 175 */
+/***/ (function(module, exports) {
+
+module.exports = require("superagent");
+
+/***/ }),
+/* 176 */
 /***/ (function(module, exports) {
 
 module.exports = require("toastr");
