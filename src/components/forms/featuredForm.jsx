@@ -27,9 +27,6 @@ export default class ListingForm extends React.Component {
         this.toggleModal = this.toggleModal.bind(this)
       }
     
-    componentDidMount() {
-        require("draft-js-inline-toolbar-plugin/lib/plugin.css")
-    }
 
     componentDidUpdate(){
         if (this.props.text !== this.state.text) {

@@ -41,7 +41,7 @@ export default class UserList extends React.Component {
     }
     
     componentWillMount(){
-        async.map(this.props.user.mylist, this.findCoord, function(err, results){
+        async.map(this.props.currentUser.mylist, this.findCoord, function(err, results){
           // results is now an array
           this.setState({
               markers: results
@@ -131,37 +131,44 @@ export default class UserList extends React.Component {
     }
 
     render() {
+        let user = this.props.currentUser
 		let fullURL = ''
         let hasAvatar = false
         
-        if (this.props.user.avatar) {
+        if (user.avatar) {
             hasAvatar = true
-            fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + this.props.user.avatar + ".jpg";
-        } else if (this.props.user.facebook){
+            fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg";
+        } else if (user.facebook){
             hasAvatar = true
-            fullURL = "https://graph.facebook.com/" + this.props.user.facebook.id + "/picture?type=large";
+            fullURL = "https://graph.facebook.com/" + user.facebook.id + "/picture?type=large";
         }
 		
-        let name = this.props.user.lastname 
-                                ? this.props.user.firstname + " " + this.props.user.lastname
-                                : this.props.user.firstname
+        let name = user.lastname 
+                                ? user.firstname + " " + user.lastname
+                                : user.firstname
         
         return ( 
-                <div className="myList">
-				<div className="listInfo cf">
-					{hasAvatar && <img className="avatar" src={fullURL}/>}
-					<h2>{name}'s List</h2>
-					<p className="bio">{this.props.user.bio}</p>
-					{this.props.user.website && <a className="button"
-												href={this.props.user.website}
-												target="_blank">Website</a>}
-					<FacebookShare url={this.state.url} />
-                    {this.props.user.mylist? <UserListings 
-                                           user={this.props.user}
-                                            view={this.props.view}
+                <div className="myList userList">
+				<div className={this.props.view + " mapInfo cf"}>
+                    <header>
+                        <div className="avatarWrap">
+                            {hasAvatar && <div className="avatar" style={{backgroundImage: "url(" + fullURL + ")"}}></div>}
+                        </div>
+                        <div className="infoWrap">
+                            <h2>{name}'s List</h2>
+                            <p className="bio">{user.bio}</p>
+                            {user.website && <a className="button"
+                                                        href={user.website}
+                                                        target="_blank">Website</a>}
+                            <FacebookShare url={this.state.url} />
+                        </div>
+                    </header>
+                    {user.mylist? <UserListings 
+                                            {...this.props}
                                             listingHover={this.state.listingHover}
 											onHover={this._onHover}
-                        					onLeave={this.onLeave}
+                                            onLeave={this.onLeave}
+                                            onMap={true}
                                            /> : <div>
                                                     <h2>There is no show in this list</h2>
                                                     <Button href="/current">Explore all shows</Button>

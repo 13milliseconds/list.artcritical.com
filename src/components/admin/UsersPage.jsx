@@ -10,11 +10,25 @@ import UserFullInfo from '../blocks/UserFullInfo'
 export default class UsersPage extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state={
+            editing: false,
+            editingUser: 0
+        }
+
+        this._userFullInfoReveal = this._userFullInfoReveal.bind(this)
     }
 	
 	componentWillMount(){
 		AuthActions.getAllUsers()
-	}
+    }
+    
+    _userFullInfoReveal(index){
+        this.setState({
+            editing: true,
+            editingUser: index
+        })
+    }
 
     render() {
         
@@ -22,6 +36,7 @@ export default class UsersPage extends React.Component {
             return <UserCard key={index} 
                             index={index} 
                             user={user} 
+                            infoReveal={this._userFullInfoReveal}
                             error={this.props.error}
                             success={this.props.success}/>
         });
@@ -35,7 +50,7 @@ export default class UsersPage extends React.Component {
                 {usersRender(this.props.allUsers)}
 				</div>
 				<div className="allInfo">
-					{Object.keys(this.props.currentUser).length > 0 && <UserFullInfo userCard={this.props.user} />}
+					{this.state.editing && <UserFullInfo {...this.props} user={this.props.allUsers[this.state.editingUser]} index={this.state.editingUser}/>}
 				</div>
             </div>
         );

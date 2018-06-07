@@ -119,9 +119,7 @@ HEADER
 ********************/
 
 .loginForm, .signupForm {
-    max-width: 500px;
-    margin: 50px auto;
-    background-color: $white; 
+    margin: 50px 20px;
     //padding: 50px;
     border-radius: 5px;
     h2{
@@ -599,6 +597,12 @@ header.mainHeader{
                     font-weight: 300;
                     color: $black;
                 }
+                .submenu{
+                    padding-left: 20px;
+                    a{
+                        display: block;
+                    }
+                }
             }
         }
         &> ul{
@@ -715,11 +719,15 @@ ACCOUNT
 *********************/
 
 .avatar{
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 0;
     border-radius: 50%;
     overflow: hidden;
+    padding-top: 100%;
+    position: relative;
     img{
+        position: absolute;
+        top: 0;
         width: 100%;
         min-height: 100%;
         opacity: .5;
@@ -1078,6 +1086,60 @@ input.invalid{
 input::-webkit-input-placeholder,/* Chrome/Opera/Safari */
 option{ 
   color: #C9C9C9;
+}
+
+//ACCOUNT
+
+.account{
+    .app-content{
+        background-color: $light-gray;
+    }
+    h1{
+        text-align: center;
+        margin-top: 30px;
+    }
+    .accountform{
+        padding: 20px;
+        background: white;
+        padding: 120px 20px 20px;
+        margin-top: 100px;
+        border-radius: 10px;
+        position: relative;
+        .avatarWrap{
+            position: absolute;
+            width: 30%;
+            left: 50%;
+            top: 0;
+            @include transform(translate(-50%, -50%))
+        }
+        .infoWrap{
+            input{
+                background: $light-gray;
+                &:nth-child(1){
+                    width: 45%;
+                    margin-right: 5%;
+                    display: inline-block;
+                }
+                &:nth-child(2){
+                    width: 50%;
+                    display: inline-block;
+                }
+                &:nth-child(3){
+
+                }
+            }
+            .DraftEditor-root{
+                background: $light-gray;
+                margin-bottom: 20px;
+            }
+            .form-text{
+                margin-bottom: 20px;
+            }
+            button{
+                margin-top: 20px;
+            }
+        }
+    }
 }
 
 /*********************

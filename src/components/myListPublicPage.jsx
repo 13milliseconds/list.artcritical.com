@@ -19,7 +19,7 @@ export default class MyListPage extends React.Component {
                         ? this.props.currentUser.firstname + ' ' + this.props.currentUser.lastname + "'s List"
                         : 'The List'
         let myListRender = this.props.currentUser.mylist ?
-                            <UserList {...this.props} user={this.props.currentUser}/>
+                            <UserList {...this.props}/>
                             :
                             <div>No such user.</div>
         return ( 

@@ -31,6 +31,7 @@ import faPencilAlt from '@fortawesome/fontawesome-pro-light/faPencilAlt'
 import faListUl from '@fortawesome/fontawesome-pro-light/faListUl'
 import faTh from '@fortawesome/fontawesome-pro-light/faTh'
 import faLink from '@fortawesome/fontawesome-pro-light/faLink'
+import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
 import faInfoCircle from '@fortawesome/fontawesome-pro-light/faInfoCircle'
 import faPlus from '@fortawesome/fontawesome-pro-regular/faPlus'
 import faMinus from '@fortawesome/fontawesome-pro-regular/faMinus'
@@ -39,7 +40,7 @@ import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
 import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
 
 
-fontawesome.library.add(faBars, faListUl, faTh, faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faEdit, faTrash, faPhone, faLink, faPencilAlt)
+fontawesome.library.add(faBars, faListUl, faTh, faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
 
 
 export default class Layout extends React.Component {

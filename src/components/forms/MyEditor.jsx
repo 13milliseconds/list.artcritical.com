@@ -16,6 +16,10 @@ export default class MyEditor extends React.Component {
     constructor(props) {
         super(props);
       }
+
+      componentDidMount() {
+        require("draft-js-inline-toolbar-plugin/lib/plugin.css")
+    }
     
     render() {
         

@@ -1,12 +1,22 @@
 import React from 'react';
+import AuthActions from '../../actions/AuthActions'
 //Components
 import ImageBlock from './imageBlock'
 import DateBlock from './DateBlock'
-
-
-
+import UserEdit from '../forms/UserEdit'
 
 export default class UserFullInfo extends React.Component {
+
+		constructor(props){
+				super(props)
+
+				this.handleChange = this.handleChange.bind(this);
+			}
+			
+			handleChange(event) {
+					//Update values of inputs
+				 AuthActions.userInfoChange(event, this.props.index);
+			}
         
     render() {
 		
@@ -20,17 +30,15 @@ export default class UserFullInfo extends React.Component {
 		})[accessCode]
         
     return (
-        <div className="infoWrap">
-			<div className="image">
-				<ImageBlock image={user.avatar} />
+			<div>
+				<h1>{user.firstname} {user.lastname}</h1>
+				<UserEdit 
+						user={user} 
+						handleChange={this.handleChange} 
+						error={this.props.error}
+						success={this.props.success}
+						/>
 			</div>
-			
-			<div className="info">
-			
-				<p>{user.firstname} {user.lastname} - <a href={ "mailto:" + user.local.username}>{user.local.username}</a> - {userAccess(user.userAccess)}</p>
-				<p>MyList: {user.mylist.length}{user.createdOn &&  <span> - Created On <DateBlock date={user.createdOn} /></span>}{user.lastConnection &&  <span> - Last Connection: <DateBlock date={user.lastConnection} /></span>}</p>
-			</div>
-		</div>
     );
   }
 }

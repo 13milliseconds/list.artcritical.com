@@ -1,11 +1,8 @@
 import React from 'react';
-import ListActions from '../../actions/ListActions';
-import AuthActions from '../../actions/AuthActions';
 //Components
 import ImageBlock from './imageBlock'
 import DateBlock from './DateBlock'
-import UserEdit from '../forms/UserEdit'
-import { Form, FormGroup, Label, Input, Alert, Button, Collapse } from 'reactstrap';
+import { Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 
 export default class UserCard extends React.Component {
@@ -14,25 +11,13 @@ export default class UserCard extends React.Component {
         super(props);
 
     	this.state = { collapse: false };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.toggleForm = this.toggleForm.bind(this);
     }
-    
-    handleChange(event) {
-        //Update values of inputs
-       AuthActions.userInfoChange(event, this.props.index);
-    }
-
-
-    toggleForm() {
-    	this.setState({ collapse: !this.state.collapse });
-  	}
 
 
     render() {
 		
-    	let user = this.props.user;
+		let user = this.props.user;
+		
 		let userAccess = accessCode => ({
 			3: 'Super Admin',
 			2: 'Admin',
@@ -40,34 +25,24 @@ export default class UserCard extends React.Component {
 			0 : 'Subscriber'
 		})[accessCode]
 
+		let avatar = user.avatar
+							? "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg"
+							: "https://qph.fs.quoracdn.net/main-qimg-87001d2ce810c2f48c97032cbc905939"
 
         
     return (
-        <div className="user">
-      
-			<div className="image">
-				<ImageBlock image={user.avatar} />
-
-			</div>
-			  	<div>
-        		<p>{`${user['firstname']} ${user['lastname']}`}</p>
-				<p>{user.local.username}</p>
-				<p>{userAccess([this.props.user.userAccess])}</p>
-        	</div>
-			<div className="info">
-			<Button color="primary" onClick={this.toggleForm}>{this.state.collapse? 'Close': 'Edit'}</Button>
-			<Collapse isOpen={this.state.collapse}>
-
-				<UserEdit 
-					user={user} 
-					handleChange={this.handleChange} 
-					error={this.props.error}
-					success={this.props.success}
-					/>
-			
-			</Collapse>
-			</div>
-		</div>
+		<Card>
+        <CardImg top width="100%" src={avatar} alt="Card image cap" />
+        <CardBlock>
+			<CardTitle>{user.firstname} {user.lastname}</CardTitle>
+			<CardSubtitle>{userAccess(user.userAccess)}</CardSubtitle>
+			<CardText>MyList: {user.mylist.length}
+			{user.createdOn &&  <span><br/>Created On <DateBlock date={user.createdOn} /></span>}
+			<br/>Last Connection: <DateBlock date={user.lastConnection ? user.lastConnection : user.createdOn} />
+			</CardText>
+			<Button color="primary" onClick={() => this.props.infoReveal(this.props.index)}>More Info</Button>
+        </CardBlock>
+      </Card>
     );
   }
 }

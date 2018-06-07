@@ -23,7 +23,9 @@ export default class AccountPage extends React.Component {
         
         return ( 
             <div className = "account">
-                <h3>Your Account</h3>
+                <div className="left-col">
+                    <h1>Your Account</h1>
+                </div>
                 {accountRender}
             </div>
         );

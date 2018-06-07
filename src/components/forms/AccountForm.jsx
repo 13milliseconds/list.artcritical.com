@@ -1,7 +1,13 @@
-import React from 'react';
-import AuthActions from '../../actions/AuthActions';
+import React from 'react'
+import AuthActions from '../../actions/AuthActions'
 //Components
-import Avatar from '../admin/avatar';
+import Avatar from '../admin/avatar'
+import {Input, FormText, Button} from 'reactstrap'
+import {EditorState } from 'draft-js'
+import {createEditorStateWithText } from 'draft-js-plugins-editor';
+import {stateFromHTML} from 'draft-js-import-html';
+import {stateToHTML} from 'draft-js-export-html';
+import MyEditor from './MyEditor'
 
 var updateTimer;
 
@@ -9,18 +15,26 @@ export default class AccountForm extends React.Component {
     
     constructor(props){
         super(props);
+
+        this.state = {
+            text: '',
+            updatevisible: false,
+            editorState: createEditorStateWithText(this.props.user.bio)
+        }
         
         //Function Binding
         this.handleChange = this.handleChange.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
+        this.onEditorChange = this.onEditorChange.bind(this)
     }
     
-    
-    componentWillReceiveProps(nextProps){
-        if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)){
-            console.log(nextProps.user);
-        }
-    }
+
+    onEditorChange(editorState){
+        this.setState({
+            text: stateToHTML(editorState.getCurrentContent()),
+            editorState
+        })
+      }
     
     //Update values of inputs
     handleChange (event) {
@@ -29,7 +43,10 @@ export default class AccountForm extends React.Component {
     
     saveChanges(event){
         event.preventDefault();
-        AuthActions.updateUser(this.props.user)
+        let newUser = this.props.user
+        newUser.bio = this.state.text
+        console.log(newUser)
+        //AuthActions.updateUser(this.props.user)
     }
 
     render() {
@@ -37,48 +54,23 @@ export default class AccountForm extends React.Component {
         return ( 
             <div className = "accountform">
                 <form onSubmit={this.saveChanges}>
-                    <label>First Name</label>
-                    <div className="formSection">
-                        <input name="firstname" placeholder="Your First Name" type="text" value={this.props.user.firstname} onChange={this.handleChange} />
-                    </div>
-    				
-    				<label>Last Name</label>
-                    <div className="formSection">
-                        <input name="lastname" placeholder="Your Last Name" type="text" value={this.props.user.lastname} onChange={this.handleChange} />
-                    </div>
-                    
-                    <label>Email</label>
-                    <div className="formSection">
-                        <input name="email" placeholder="Your Email" type="text" value={this.props.user.local.username} onChange={this.handleChange} />
-                    </div>
-    				
-    				<h3>This text will appear on your <a href={location.protocol + '//' + location.host + '/mylist/' + this.props.user.slug} target="_blank">public page</a>.</h3>
-                    
-                    <label>Profile Picture</label>
-                    <div className="formSection">
+
+                    <div className="avatarWrap">
                         <Avatar {...this.props.user}/>
                     </div>
-    				
-    				<label>Bio</label>
-                    <div className="formSection">
-    					<textarea name="bio" 
-    						placeholder="Your Bio" 
-    						type="text" 
-    						value={this.props.user.bio} 
-    						onChange={this.handleChange}
-    						rows="4" 
-    						cols="50"></textarea>
+                    <div className="infoWrap">
+                        <Input name="firstname" placeholder="First Name" type="text" value={this.props.user.firstname} onChange={this.handleChange} />
+                        <Input name="lastname" placeholder="Last Name" type="text" value={this.props.user.lastname} onChange={this.handleChange} />
+                        <Input name="email" placeholder="Email" type="email" value={this.props.user.local.username} onChange={this.handleChange} />
+                        <label>Bio</label>
+                        <FormText color="muted">This text will appear on your <a href={location.protocol + '//' + location.host + '/mylist/' + this.props.user.slug} target="_blank">public page</a>.</FormText>
+                        <MyEditor
+                        name="bio"
+                        editorState={this.state.editorState}
+                        onEditorChange={this.onEditorChange}/>
+                        <Input name="website" placeholder="Website" type="website" value={this.props.user.website} onChange={this.handleChange} />  
+                        <Button type="submit">Save</Button>
                     </div>
-    				
-    				<label>Website</label>
-                    <div className="formSection">
-                        <input name="website" placeholder="Your Website" type="text" value={this.props.user.website} onChange={this.handleChange} />
-                    </div>
-                    
-                    <button type="submit">Save</button>
-                    {this.props.loading.updateuser? 'saving...' : ''}
-                    {this.props.success.updateuser || ''}
-                    {this.props.error.updateuser || ''}
                  </form>
             </div>
 

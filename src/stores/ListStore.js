@@ -72,7 +72,7 @@ class ListStore {
         this.loading = {};
         this.loading.login = false;
         this.loading.register = false;
-        this.loading.updateuser = false;
+        this.loading.updateUser = false;
         this.loading.updatelisting = false;
 		this.loading.deletelisting = false;
         this.loading.updatevenue = false;
@@ -89,14 +89,14 @@ class ListStore {
         this.error = {};
         this.error.feature = '';
         this.error.login = '';
-        this.error.updateuser = '';
+        this.error.updateUser = '';
         this.error.updatelisting = {};
         this.error.updatevenue = {};
         this.error.savelisting = {};
         this.error.savevenue = {};
         //Success
         this.success = {};
-        this.success.updateuser = false;
+        this.success.updateUser = false;
         this.success.updatelisting = false;
         this.success.updatevenue = false;
 		this.success.deletelisting = false;
@@ -607,25 +607,25 @@ class ListStore {
     
     //UPDATE USER
     onUpdateUserAttempt(){
-        this.loading.updateuser = true;
-        this.success.updateuser = false;
-        this.error.updateuser = '';
+        this.loading.updateUser = true;
+        this.success.updateUser = false;
+        this.error.updateUser = '';
     }
     onUpdateUserSuccess(data){
-        console.log('Success!', 'woo');
-        this.loading.updateuser = false;
-        this.success.updateuser = true;
+        console.log('Success!');
+        this.loading.updateUser = false;
+        this.success.updateUser = true;
     }
     onUpdateUserFailure(error){
         console.log('Failed Updating User', error);
-        this.loading.updateuser = false;
-        this.error.updateuser = 'Error Saving';
+        this.loading.updateUser = false;
+        this.error.updateUser = 'Error Saving';
     }
 
      //DELETE USER
      onDeleteUserAttempt(){
         this.success.deleteUser = false;
-        this.error.updateuser = '';
+        this.error.updateUser = '';
     }
     onDeleteUserSuccess(info){
         console.log(info.data.slug)

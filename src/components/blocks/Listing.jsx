@@ -134,9 +134,7 @@ export default class Listing extends React.Component {
             <div className="listingAdd">
                 {this.props.mylisting 
                     ? 
-                    <span   onClick={this.props.mapMouseEnter} >
-                            {this.props.number}
-                    </span>
+                    <span>{this.props.number}</span>
                    :
                     <div className="addButton" onClick={(e) => this.addToList(e, listing)} style={style}>
                         {this.props.user._id && <FontAwesomeIcon icon={mylistingIcon} />}
@@ -157,6 +155,7 @@ export default class Listing extends React.Component {
                     {this.props.dateView == "current" && moment(listing.end).isSame(moment(), 'day') && <div className="closing"> Closing Today </div>}
 
                     <span className="icons">
+                        {this.props.onMap && <FontAwesomeIcon onClick={this.props.mapMouseEnter} icon={['fal', 'search']}/>}
                         {listing.review && <a alt="Review" target="_blank" href={listing.review}><FontAwesomeIcon icon={['fal', 'pencil-alt']}/></a>}
                         {listing.description && <FontAwesomeIcon id={popoverInfoID} onClick={!this.state.fullInfo && this._revealInfo} icon={['fal', 'info-circle']}/>}
                         {eventsPresence && <FontAwesomeIcon icon={['fal', 'glass-martini']} id={popoverEventsID} onClick={!this.state.fullEvents && this._revealEvents}/>}

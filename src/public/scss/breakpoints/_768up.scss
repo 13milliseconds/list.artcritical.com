@@ -145,6 +145,17 @@ header.mainHeader{
                             background: $white;
                             top: 37px;
                             padding: 10px;
+                            a{
+                                cursor: pointer;
+                                &:hover{
+                                    color: $green;
+                                    border-color: transparent;
+                                }
+                                &.active{
+                                    color: $green;
+                                    border-color: transparent;
+                                }
+                            }
                         }
                     }
                 }
@@ -526,6 +537,63 @@ header.mainHeader{
     }
 }
 
+//Login
+.loginForm, .signupForm {
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+
+//ACCOUNT
+.account{
+    @include row();
+    .left-col{
+        @include span-columns(3);
+        h1{
+            text-align: left;
+            margin-top: 0;
+        }
+    }
+    .accountform{
+        @include span-columns(6);
+        padding: 150px 50px 50px;
+    }
+}
+
+.draftJsToolbar__toolbar__dNtBH{
+    button{
+        margin: 0 0 0 0!important;
+    }
+}
+
+// PUBLIC USER LIST
+.userList{
+    .mapInfo{
+        header{
+            @include row();
+            border-bottom: 1px solid $gray;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+            .avatarWrap{
+                @include span-columns(3);
+                .avatar{
+                    width: 100%;
+                    height: 0;
+                    padding-bottom: 100%;
+                    background-size: cover;
+                    background-position: center;
+                }
+            }
+            .infoWrap{
+                @include span-columns(9);
+                @include omega();
+            }
+        }
+    }
+}
+
+//ADMIN
+
 .admin{
     .editVenue{
         @include row();
@@ -533,5 +601,28 @@ header.mainHeader{
         .venueLocation{
             @include span-columns(6);
         }
+    }
+    //USERS
+    .allUsers{
+        @include span-columns(6);
+        .card{
+            @include span-columns(4);
+            float: none;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 20px;
+            &:nth-of-type(3n){
+                @include omega();
+            }
+            .card-img-top{
+                height: 200px;
+            }
+            .card-block{
+                padding: 20px;
+            }
+        }
+    }
+    .allInfo{
+        @include span-columns(6);
     }
 }
