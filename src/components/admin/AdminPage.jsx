@@ -18,8 +18,8 @@ export default class AdminPage extends React.Component {
 
         let adminRender = this.props.user.isLoggedIn && this.props.user.userAccess > 0 ? 
 				<nav>
-                    <IndexLink to={'/admin/venuesadmin'} activeClassName="active">Overview</IndexLink>
-                    <Link to={'/admin'} activeClassName="active">Listings</Link>
+                    <IndexLink to={'/admin/'} activeClassName="active">Overview</IndexLink>
+                    <Link to={'/admin/listings'} activeClassName="active">Listings</Link>
                     <Link to={'/admin/venues'} activeClassName="active">Venues</Link>
                     <Link to={'/admin/featured'} activeClassName="active">Featured Calendar</Link>
                     <Link to={'/admin/review'} activeClassName="active">Review Events</Link>

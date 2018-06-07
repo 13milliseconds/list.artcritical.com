@@ -52,6 +52,7 @@ export default class GlancePage extends React.Component {
         
         return ( 
             <div className = "glance">
+                    <h1>Week at a Glance</h1>
                     <Tabs>
                         {daysDisplay(this.props.glanceListings)}
                     </Tabs>

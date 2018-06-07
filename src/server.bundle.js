@@ -2833,7 +2833,8 @@ var ListStore = function () {
                 description: '',
                 image: '',
                 venue: {},
-                events: []
+                events: [],
+                artists: []
             };
         }
 
@@ -3856,6 +3857,8 @@ var _propTypes = __webpack_require__(23);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _reactstrap = __webpack_require__(2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3863,6 +3866,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
 
 var Tabs = function (_React$Component) {
     _inherits(Tabs, _React$Component);
@@ -3884,6 +3889,14 @@ var Tabs = function (_React$Component) {
             event.preventDefault();
             this.setState({
                 selected: index
+            });
+        }
+    }, {
+        key: 'handleSelectChange',
+        value: function handleSelectChange(event) {
+            console.log(event);
+            this.setState({
+                selected: event.target.value
             });
         }
     }, {
@@ -3912,6 +3925,31 @@ var Tabs = function (_React$Component) {
             );
         }
     }, {
+        key: '_renderSelect',
+        value: function _renderSelect() {
+
+            function labels(child, index) {
+                return _react2.default.createElement(
+                    'option',
+                    { key: index,
+                        selected: this.state.selected === index,
+                        value: index },
+                    child.props.label
+                );
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'tabs__select' },
+                _react2.default.createElement(
+                    _reactstrap.Input,
+                    { type: 'select',
+                        onChange: this.handleSelectChange.bind(this) },
+                    this.props.children.map(labels.bind(this))
+                )
+            );
+        }
+    }, {
         key: '_renderContent',
         value: function _renderContent() {
             return _react2.default.createElement(
@@ -3930,6 +3968,7 @@ var Tabs = function (_React$Component) {
                 'div',
                 { className: 'tabs' },
                 this._renderTitles(),
+                this._renderSelect(),
                 this._renderContent()
             );
         }
@@ -6780,7 +6819,7 @@ var HoodNav = function (_React$Component) {
   _createClass(HoodNav, [{
     key: 'scrollTo',
     value: function scrollTo(e) {
-      console.log(e.target);
+      document.getElementById(e.target.value).scrollIntoView();
     }
   }, {
     key: 'render',
@@ -6896,47 +6935,47 @@ var HoodNav = function (_React$Component) {
           { type: 'select', name: 'select', onChange: this.scrollTo },
           _react2.default.createElement(
             'option',
-            { value: '#20' },
+            { value: '20' },
             'Lower East Side'
           ),
           _react2.default.createElement(
             'option',
-            { value: '#30' },
+            { value: '30' },
             'Soho & Noho & East Village'
           ),
           _react2.default.createElement(
             'option',
-            { value: '#60' },
+            { value: '60' },
             'West Village & Chelsea'
           ),
           _react2.default.createElement(
             'option',
-            { value: '#170' },
+            { value: '170' },
             'Midtown & Uptown & Harlem'
           ),
           _react2.default.createElement(
             'option',
-            { value: '#220' },
+            { value: '220' },
             'Brooklyn'
           ),
           _react2.default.createElement(
             'option',
-            { value: '#270' },
+            { value: '270' },
             'Queens & Bronx & Staten Island'
           ),
           _react2.default.createElement(
             'option',
-            { value: '#300' },
+            { value: '300' },
             'Long Island'
           ),
           _react2.default.createElement(
             'option',
-            { value: '#310' },
+            { value: '310' },
             'Upstate New York'
           ),
           _react2.default.createElement(
             'option',
-            { value: '#320' },
+            { value: '320' },
             'New Jersey'
           )
         )
@@ -10387,7 +10426,7 @@ var DayPage = function (_React$Component) {
     }
 
     _createClass(DayPage, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             var _this2 = this;
 
@@ -10416,54 +10455,50 @@ var DayPage = function (_React$Component) {
             var totalListings = closings.length + events.length + openings.length;
 
             return _react2.default.createElement(
-                'div',
-                { className: 'day' },
+                "div",
+                { className: "day" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "featuredSection" },
+                    this.props.feature.list && _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
+                ),
                 this.props.glanceListings.length > 0 ? _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'div',
-                        { className: this.props.view + " listingsWrap" },
-                        openings.length > 0 && _react2.default.createElement(
-                            'div',
-                            { className: 'openingWrap' },
-                            _react2.default.createElement(
-                                'h2',
-                                null,
-                                'Openings'
-                            ),
-                            _react2.default.createElement(_VenueList2.default, { listings: openings, user: this.props.user, dateView: 'current' })
-                        ),
-                        events.length > 0 && _react2.default.createElement(
-                            'div',
-                            { className: 'eventsWrap' },
-                            _react2.default.createElement(
-                                'h2',
-                                null,
-                                'Events'
-                            ),
-                            _react2.default.createElement(_VenueList2.default, { listings: events, user: this.props.user, dateView: 'nodate' })
-                        ),
-                        closings.length > 0 && _react2.default.createElement(
-                            'div',
-                            { className: 'closingWrap' },
-                            _react2.default.createElement(
-                                'h2',
-                                null,
-                                'Last Chance'
-                            ),
-                            _react2.default.createElement(_VenueList2.default, { listings: closings, user: this.props.user, dateView: 'nodate' })
-                        ),
-                        totalListings == 0 && _react2.default.createElement(
-                            'h4',
+                    "div",
+                    { className: this.props.view + " listingsWrap" },
+                    openings.length > 0 && _react2.default.createElement(
+                        "div",
+                        { className: "openingWrap" },
+                        _react2.default.createElement(
+                            "h2",
                             null,
-                            'Nothing happening today.'
-                        )
+                            "Openings"
+                        ),
+                        _react2.default.createElement(_VenueList2.default, { listings: openings, user: this.props.user, dateView: "current" })
                     ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'featuredSection' },
-                        this.props.feature.list && _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
+                    events.length > 0 && _react2.default.createElement(
+                        "div",
+                        { className: "eventsWrap" },
+                        _react2.default.createElement(
+                            "h2",
+                            null,
+                            "Events"
+                        ),
+                        _react2.default.createElement(_VenueList2.default, { listings: events, user: this.props.user, dateView: "nodate" })
+                    ),
+                    closings.length > 0 && _react2.default.createElement(
+                        "div",
+                        { className: "closingWrap" },
+                        _react2.default.createElement(
+                            "h2",
+                            null,
+                            "Last Chance"
+                        ),
+                        _react2.default.createElement(_VenueList2.default, { listings: closings, user: this.props.user, dateView: "nodate" })
+                    ),
+                    totalListings == 0 && _react2.default.createElement(
+                        "h4",
+                        null,
+                        "Nothing happening today."
                     )
                 ) : _react2.default.createElement(_loading2.default, null)
             );
@@ -10857,6 +10892,11 @@ var GlancePage = function (_React$Component) {
                 'div',
                 { className: 'glance' },
                 _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Week at a Glance'
+                ),
+                _react2.default.createElement(
                     _tabs2.default,
                     null,
                     daysDisplay(this.props.glanceListings)
@@ -11022,12 +11062,12 @@ var AdminPage = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                     _reactRouter.IndexLink,
-                    { to: '/admin/venuesadmin', activeClassName: 'active' },
+                    { to: '/admin/', activeClassName: 'active' },
                     'Overview'
                 ),
                 _react2.default.createElement(
                     _reactRouter.Link,
-                    { to: '/admin', activeClassName: 'active' },
+                    { to: '/admin/listings', activeClassName: 'active' },
                     'Listings'
                 ),
                 _react2.default.createElement(
@@ -11433,7 +11473,7 @@ var VenueEdit = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'd-1of2' },
+                    { className: 'venueEditing' },
                     _react2.default.createElement(
                         'div',
                         { className: 'venueList' },
@@ -11457,7 +11497,7 @@ var VenueEdit = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'd-1of2' },
+                    { className: 'venueLocation' },
                     _react2.default.createElement(_mapBlock2.default, this.props.venueEdit),
                     this.state.foundAddress && this.props.address1 && _react2.default.createElement(
                         _reactstrap.Alert,
@@ -15199,7 +15239,11 @@ var Layout = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'mainLogo' },
-                        _react2.default.createElement('img', { src: '/images/artcritical-toplogo.png' })
+                        _react2.default.createElement(
+                            'a',
+                            { href: 'http://artcritical.com' },
+                            _react2.default.createElement('img', { src: '/images/artcritical-toplogo.png' })
+                        )
                     ),
                     _react2.default.createElement(
                         'nav',
@@ -15213,7 +15257,7 @@ var Layout = function (_React$Component) {
                                 _react2.default.createElement(
                                     'a',
                                     { href: '/' },
-                                    'List'
+                                    'The List'
                                 ),
                                 _react2.default.createElement(
                                     'ul',
@@ -15294,7 +15338,7 @@ var Layout = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: '#' },
+                                    { href: 'http://www.artcritical.com' },
                                     'Magazine'
                                 )
                             ),
@@ -15303,7 +15347,7 @@ var Layout = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     'a',
-                                    { href: '#' },
+                                    { href: 'http://www.artcritical.com/category/departments/the-review-panel/' },
                                     'The Review Panel'
                                 )
                             )
@@ -17517,12 +17561,12 @@ var routes = _react2.default.createElement(
       _react2.default.createElement(
             _reactRouter.Route,
             { path: 'admin', component: _AdminPage2.default },
-            _react2.default.createElement(_reactRouter.IndexRoute, { component: _EditListing2.default }),
+            _react2.default.createElement(_reactRouter.IndexRoute, { component: _VenuesPage2.default }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'listings', component: _EditListing2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'venues', component: _EditVenue2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'featured', component: _featuredPage2.default }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'venuesadmin', component: _VenuesPage2.default }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'users', component: _UsersPage2.default }),
-            _react2.default.createElement(_reactRouter.Route, { path: 'review', component: _ReviewPage2.default })
+            _react2.default.createElement(_reactRouter.Route, { path: 'review', component: _ReviewPage2.default }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'users', component: _UsersPage2.default })
       ),
       _react2.default.createElement(_reactRouter.Route, { path: 'auth/facebook/success', component: _AuthSuccess2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '*', component: _ErrorPage2.default })

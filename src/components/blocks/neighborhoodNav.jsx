@@ -9,7 +9,7 @@ export default class HoodNav extends React.Component {
   }
 
   scrollTo(e){
-    console.log(e.target)
+    document.getElementById(e.target.value).scrollIntoView() 
   }
 
   render() {
@@ -29,15 +29,15 @@ export default class HoodNav extends React.Component {
         <li><a href="#330">Philadelphia</a></li>
       </ul>
       <Input type="select" name="select" onChange={this.scrollTo}>
-          <option value="#20">Lower East Side</option>
-          <option value="#30">Soho & Noho & East Village</option>
-          <option value="#60">West Village & Chelsea</option>
-          <option value="#170">Midtown & Uptown & Harlem</option>
-          <option value="#220">Brooklyn</option>
-          <option value="#270">Queens & Bronx & Staten Island</option>
-          <option value="#300">Long Island</option>
-          <option value="#310">Upstate New York</option>
-          <option value="#320">New Jersey</option>
+          <option value="20">Lower East Side</option>
+          <option value="30">Soho & Noho & East Village</option>
+          <option value="60">West Village & Chelsea</option>
+          <option value="170">Midtown & Uptown & Harlem</option>
+          <option value="220">Brooklyn</option>
+          <option value="270">Queens & Bronx & Staten Island</option>
+          <option value="300">Long Island</option>
+          <option value="310">Upstate New York</option>
+          <option value="320">New Jersey</option>
       </Input>
     </div>
     );

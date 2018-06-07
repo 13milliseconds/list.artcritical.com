@@ -94,16 +94,18 @@ header.mainHeader{
     @include row();
     .mainLogo{
         @include span-columns(3);
-        img{
-            max-height: 30px;
-        }
     }
     nav{
+        position: initial;
+        padding: 0 0;
+        top: 0;
+        left: 0;
         @include span-columns(9);
         @include omega();
         & > ul{
             text-align: left;
             li{
+                font-size: 1em;
                 display: inline-block; 
                 a{
                     display: inline-block;
@@ -119,6 +121,8 @@ header.mainHeader{
                     position: absolute;
                     top: 63px;
                     li{
+                        font-size: 1em;
+                        padding-left: 0;
                         a{
                             padding: 5px 0;
                             margin-right: 20px;
@@ -147,12 +151,15 @@ header.mainHeader{
             }
             & > li:nth-child(1) > a{
                 background-color: $green;
+                color: $white;
             }
             & > li:nth-child(2) > a{
                 background-color: $red;
+                color: $white;
             }
             & > li:nth-child(3) > a{
                 background-color: $purple;
+                color: $white;
             }
         }
     }
@@ -270,6 +277,8 @@ header.mainHeader{
 }
 
 .hoodNav{
+    position: initial;
+    padding: 0;
     ul{
         display: block;
     }
@@ -338,9 +347,18 @@ header.mainHeader{
 
 //GLANCE
 .glance{
+    h1{
+        height: 0;
+        margin-bottom: 0;
+    }
     ul.tabs__labels{
+        display: block;
         padding: 0;
+        margin-top: 70px;
 		@include span-columns(3);
+    }
+    .tabs__select{
+        display: none;
     }
 	div.tabs__content{
         @include span-columns(9);
@@ -348,20 +366,22 @@ header.mainHeader{
             @include row();
             .listingsWrap{
                 @include span-columns(8);
+                padding-right: 30px;
+                float: right;
             }
             .featuredSection{
                 @include span-columns(4);
+                float: right;
+                min-height: 1px;
             }
         }
 	}
 }
 .feature-wrap{
     .image{
-        @include span-columns(12);
     }
     .info{
         margin-top: 30px;
-        @include span-columns(12);
     } 
 }
 
@@ -502,6 +522,16 @@ header.mainHeader{
         @include omega();
         .map{
             height: 100%;
+        }
+    }
+}
+
+.admin{
+    .editVenue{
+        @include row();
+        .venueEditing,
+        .venueLocation{
+            @include span-columns(6);
         }
     }
 }

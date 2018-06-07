@@ -190,7 +190,8 @@ class ListStore {
             description: '',
             image: '',
             venue: {},
-            events: []
+            events: [],
+            artists: []
         };
     }
 

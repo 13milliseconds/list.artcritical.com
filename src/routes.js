@@ -39,12 +39,12 @@ const routes = (
         <Route path="venue/:slug" component={VenuePage}/>
 		<Route path="account" component={Account}/>
         <Route path="admin" component={AdminPage}>
-            <IndexRoute component={EditListing}/>
+            <IndexRoute component={VenuesPage}/>
+            <Route path="listings" component={EditListing}/>
             <Route path="venues" component={EditVenue}/>
             <Route path="featured" component={FeaturedListings}/>
-			<Route path="venuesadmin" component={VenuesPage}/>
+			<Route path="review" component={ReviewPage}/>
 			<Route path="users" component={UsersPage}/>
-            <Route path="review" component={ReviewPage}/>
         </Route>
         <Route path="auth/facebook/success" component={AuthSuccess} />
         <Route path="*" component={ErrorPage}/>

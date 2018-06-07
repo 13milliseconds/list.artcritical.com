@@ -110,7 +110,7 @@ export default class VenueEdit extends React.Component {
         return ( 
             <div className="editVenue cf">
                 <h3>Edit Venue</h3>
-                <div className="d-1of2">
+                <div className="venueEditing">
                 <div className="venueList">
                         <Select 
 							value={{value: this.props.venueEdit._id, label: this.props.venueEdit.name}} 
@@ -130,7 +130,7 @@ export default class VenueEdit extends React.Component {
 						}
 					</div>
                 </div>
-                <div className="d-1of2">
+                <div className="venueLocation">
 						<MapBlock {...this.props.venueEdit} />
                         {this.state.foundAddress && this.props.address1 &&
                                         <Alert color="secondary">Found by GPS: {this.state.foundAddress}</Alert>}
