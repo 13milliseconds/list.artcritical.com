@@ -325,83 +325,87 @@ header.mainHeader nav > ul li > ul.submenu li a {
   margin-right: 20px;
   color: black;
   border-bottom: 3px solid transparent;
+  -webkit-transition: 0s;
+  -moz-transition: 0s;
+  transition: 0s;
 }
-/* line 131, ../scss/breakpoints/_768up.scss */
+/* line 132, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li a:hover {
   border-color: #d70b00;
 }
-/* line 134, ../scss/breakpoints/_768up.scss */
+/* line 135, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li a.active {
   border-color: #d70b00;
+  color: #323944;
 }
-/* line 139, ../scss/breakpoints/_768up.scss */
+/* line 141, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li:hover > ul {
   display: block;
 }
-/* line 143, ../scss/breakpoints/_768up.scss */
+/* line 145, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li > ul {
   display: none;
   background: #fff;
   top: 37px;
   padding: 10px;
 }
-/* line 148, ../scss/breakpoints/_768up.scss */
+/* line 150, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li > ul a {
   cursor: pointer;
 }
-/* line 150, ../scss/breakpoints/_768up.scss */
+/* line 152, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li > ul a:hover {
   color: #d70b00;
   border-color: transparent;
 }
-/* line 154, ../scss/breakpoints/_768up.scss */
+/* line 156, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul li > ul.submenu li > ul a.active {
   color: #d70b00;
   border-color: transparent;
 }
-/* line 163, ../scss/breakpoints/_768up.scss */
+/* line 165, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul > li:nth-child(1) > a {
   background-color: #d70b00;
   color: #fff;
 }
-/* line 167, ../scss/breakpoints/_768up.scss */
+/* line 169, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul > li:nth-child(2) > a {
   background-color: #9f0900;
   color: #fff;
 }
-/* line 171, ../scss/breakpoints/_768up.scss */
+/* line 173, ../scss/breakpoints/_768up.scss */
 header.mainHeader nav > ul > li:nth-child(3) > a {
   background-color: #770600;
   color: #fff;
 }
-/* line 177, ../scss/breakpoints/_768up.scss */
+/* line 179, ../scss/breakpoints/_768up.scss */
 header.mainHeader div {
   display: inline-block;
 }
-/* line 180, ../scss/breakpoints/_768up.scss */
+/* line 182, ../scss/breakpoints/_768up.scss */
 header.mainHeader .SizeSelector {
   display: none;
   float: right;
   margin-top: -25px;
 }
-/* line 184, ../scss/breakpoints/_768up.scss */
+/* line 186, ../scss/breakpoints/_768up.scss */
 header.mainHeader .SizeSelector span {
   display: inline-block;
   color: #eaedf2;
   padding-right: 5px;
   cursor: pointer;
 }
-/* line 189, ../scss/breakpoints/_768up.scss */
+/* line 191, ../scss/breakpoints/_768up.scss */
 header.mainHeader .SizeSelector span svg {
   pointer-events: none;
 }
-/* line 192, ../scss/breakpoints/_768up.scss */
+/* line 194, ../scss/breakpoints/_768up.scss */
 header.mainHeader .SizeSelector span.active {
   color: #d70b00;
   cursor: default;
 }
 
-/* line 199, ../scss/breakpoints/_768up.scss */
+/* line 201, ../scss/breakpoints/_768up.scss */
 #header {
   width: 200px;
   position: fixed;
@@ -410,26 +414,26 @@ header.mainHeader .SizeSelector span.active {
   z-index: 99;
 }
 
-/* line 206, ../scss/breakpoints/_768up.scss */
+/* line 208, ../scss/breakpoints/_768up.scss */
 .menu {
   position: relative;
 }
 
-/* line 210, ../scss/breakpoints/_768up.scss */
+/* line 212, ../scss/breakpoints/_768up.scss */
 #sortPanel {
   width: 200px;
   top: 100px;
 }
-/* line 213, ../scss/breakpoints/_768up.scss */
+/* line 215, ../scss/breakpoints/_768up.scss */
 #sortPanel .wrap {
   width: auto;
 }
-/* line 215, ../scss/breakpoints/_768up.scss */
+/* line 217, ../scss/breakpoints/_768up.scss */
 #sortPanel .wrap a {
   display: table;
 }
 
-/* line 224, ../scss/breakpoints/_768up.scss */
+/* line 226, ../scss/breakpoints/_768up.scss */
 #banner, #introPanel.active, #loginPanel, #sharePanel, #sortPanel {
   overflow: auto;
   position: relative;
@@ -441,24 +445,24 @@ header.mainHeader .SizeSelector span.active {
   transform: translateY(0);
 }
 
-/* line 231, ../scss/breakpoints/_768up.scss */
+/* line 233, ../scss/breakpoints/_768up.scss */
 #introPanel {
   padding: 20px;
 }
 
-/* line 235, ../scss/breakpoints/_768up.scss */
+/* line 237, ../scss/breakpoints/_768up.scss */
 #aboutPanel {
   display: none;
 }
 
-/* line 239, ../scss/breakpoints/_768up.scss */
+/* line 241, ../scss/breakpoints/_768up.scss */
 #thelist {
   max-width: 100%;
   margin: 0 auto;
   padding: 0;
 }
 
-/* line 248, ../scss/breakpoints/_768up.scss */
+/* line 250, ../scss/breakpoints/_768up.scss */
 .edit-page .container {
   display: block;
 }
@@ -468,7 +472,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 250, ../scss/breakpoints/_768up.scss */
+/* line 252, ../scss/breakpoints/_768up.scss */
 .edit-page .container .header {
   float: left;
   display: block;
@@ -483,7 +487,7 @@ header.mainHeader .SizeSelector span.active {
 .edit-page .container .header:last-child {
   margin-right: 0;
 }
-/* line 258, ../scss/breakpoints/_768up.scss */
+/* line 260, ../scss/breakpoints/_768up.scss */
 .edit-page .container .content {
   margin-left: 25.5894130058%;
   float: left;
@@ -496,12 +500,12 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 268, ../scss/breakpoints/_768up.scss */
+/* line 270, ../scss/breakpoints/_768up.scss */
 .home, .glance, .current, .future {
   padding: 0 0;
 }
 
-/* line 273, ../scss/breakpoints/_768up.scss */
+/* line 275, ../scss/breakpoints/_768up.scss */
 .mainList .left-col {
   float: left;
   display: block;
@@ -514,7 +518,7 @@ header.mainHeader .SizeSelector span.active {
 .mainList .left-col:last-child {
   margin-right: 0;
 }
-/* line 278, ../scss/breakpoints/_768up.scss */
+/* line 280, ../scss/breakpoints/_768up.scss */
 .mainList .right-col {
   float: left;
   display: block;
@@ -528,7 +532,7 @@ header.mainHeader .SizeSelector span.active {
 .mainList .right-col:last-child {
   margin-right: 0;
 }
-/* line 284, ../scss/breakpoints/_768up.scss */
+/* line 286, ../scss/breakpoints/_768up.scss */
 .mainList .main-col {
   float: left;
   display: block;
@@ -541,21 +545,22 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 290, ../scss/breakpoints/_768up.scss */
+/* line 292, ../scss/breakpoints/_768up.scss */
 .hoodNav {
   position: initial;
   padding: 0;
+  border-top: 0;
 }
-/* line 293, ../scss/breakpoints/_768up.scss */
+/* line 296, ../scss/breakpoints/_768up.scss */
 .hoodNav ul {
   display: block;
 }
-/* line 296, ../scss/breakpoints/_768up.scss */
+/* line 299, ../scss/breakpoints/_768up.scss */
 .hoodNav select {
   display: none;
 }
 
-/* line 302, ../scss/breakpoints/_768up.scss */
+/* line 305, ../scss/breakpoints/_768up.scss */
 .listingsWrap {
   float: left;
   display: block;
@@ -566,28 +571,28 @@ header.mainHeader .SizeSelector span.active {
 .listingsWrap:last-child {
   margin-right: 0;
 }
-/* line 304, ../scss/breakpoints/_768up.scss */
+/* line 307, ../scss/breakpoints/_768up.scss */
 .listingsWrap .city {
   margin-top: -100px;
   padding-top: 100px;
 }
 
-/* line 311, ../scss/breakpoints/_768up.scss */
+/* line 314, ../scss/breakpoints/_768up.scss */
 .venue:hover .address {
   opacity: 1;
 }
 
-/* line 317, ../scss/breakpoints/_768up.scss */
+/* line 320, ../scss/breakpoints/_768up.scss */
 .listing p {
   font-size: 16px;
 }
 
-/* line 326, ../scss/breakpoints/_768up.scss */
+/* line 329, ../scss/breakpoints/_768up.scss */
 .condensed .listing .listingAdd .addButton:hover {
   color: #d70b00;
 }
 
-/* line 337, ../scss/breakpoints/_768up.scss */
+/* line 340, ../scss/breakpoints/_768up.scss */
 .events.mainList .left-col {
   float: left;
   display: block;
@@ -601,7 +606,7 @@ header.mainHeader .SizeSelector span.active {
 .events.mainList .left-col:last-child {
   margin-right: 0;
 }
-/* line 342, ../scss/breakpoints/_768up.scss */
+/* line 345, ../scss/breakpoints/_768up.scss */
 .events.mainList .left-col .DayPicker {
   display: none;
   -webkit-transform: translate(-20%) scale(0.8);
@@ -610,7 +615,7 @@ header.mainHeader .SizeSelector span.active {
   -o-transform: translate(-20%) scale(0.8);
   transform: translate(-20%) scale(0.8);
 }
-/* line 347, ../scss/breakpoints/_768up.scss */
+/* line 350, ../scss/breakpoints/_768up.scss */
 .events.mainList .main-col {
   float: left;
   display: block;
@@ -621,22 +626,22 @@ header.mainHeader .SizeSelector span.active {
 .events.mainList .main-col:last-child {
   margin-right: 0;
 }
-/* line 349, ../scss/breakpoints/_768up.scss */
+/* line 352, ../scss/breakpoints/_768up.scss */
 .events.mainList .main-col h2 {
   margin-top: 0;
   border-bottom: 0;
 }
-/* line 354, ../scss/breakpoints/_768up.scss */
+/* line 357, ../scss/breakpoints/_768up.scss */
 .events.mainList .right-col {
   display: none;
 }
 
-/* line 361, ../scss/breakpoints/_768up.scss */
+/* line 364, ../scss/breakpoints/_768up.scss */
 .glance h1 {
   height: 0;
   margin-bottom: 0;
 }
-/* line 365, ../scss/breakpoints/_768up.scss */
+/* line 368, ../scss/breakpoints/_768up.scss */
 .glance ul.tabs__labels {
   display: block;
   padding: 0;
@@ -649,10 +654,6 @@ header.mainHeader .SizeSelector span.active {
 /* line 89, ../scss/neat/grid/_span-columns.scss */
 .glance ul.tabs__labels:last-child {
   margin-right: 0;
-}
-/* line 371, ../scss/breakpoints/_768up.scss */
-.glance .tabs__select {
-  display: none;
 }
 /* line 374, ../scss/breakpoints/_768up.scss */
 .glance div.tabs__content {
@@ -720,7 +721,12 @@ header.mainHeader .SizeSelector span.active {
   transform: scale(1.1);
 }
 
-/* line 408, ../scss/breakpoints/_768up.scss */
+/* line 409, ../scss/breakpoints/_768up.scss */
+.tabs .tabs__select {
+  display: none;
+}
+
+/* line 416, ../scss/breakpoints/_768up.scss */
 .map.app-container, .mylist.connected.app-container {
   min-height: 100%;
   padding: 0;
@@ -728,14 +734,14 @@ header.mainHeader .SizeSelector span.active {
   position: absolute;
   width: 100%;
 }
-/* line 414, ../scss/breakpoints/_768up.scss */
+/* line 422, ../scss/breakpoints/_768up.scss */
 .map.app-container .app-content, .mylist.connected.app-container .app-content {
   min-height: 100%;
   position: absolute;
   width: 100%;
 }
 
-/* line 421, ../scss/breakpoints/_768up.scss */
+/* line 429, ../scss/breakpoints/_768up.scss */
 .mapInfo {
   float: left;
   display: block;
@@ -751,29 +757,29 @@ header.mainHeader .SizeSelector span.active {
 .mapInfo:last-child {
   margin-right: 0;
 }
-/* line 428, ../scss/breakpoints/_768up.scss */
+/* line 436, ../scss/breakpoints/_768up.scss */
 .mapInfo h2 {
   font-size: 2em;
 }
-/* line 431, ../scss/breakpoints/_768up.scss */
+/* line 439, ../scss/breakpoints/_768up.scss */
 .mapInfo .mapHeader {
   order: 1;
   flex: 1 auto;
   position: relative;
   margin-bottom: 30px;
 }
-/* line 437, ../scss/breakpoints/_768up.scss */
+/* line 445, ../scss/breakpoints/_768up.scss */
 .mapInfo .content {
   order: 2;
 }
-/* line 440, ../scss/breakpoints/_768up.scss */
+/* line 448, ../scss/breakpoints/_768up.scss */
 .mapInfo .footer {
   order: 3;
   flex: 1 auto;
   margin-top: 50px;
 }
 
-/* line 446, ../scss/breakpoints/_768up.scss */
+/* line 454, ../scss/breakpoints/_768up.scss */
 .mapWrap {
   float: left;
   display: block;
@@ -789,7 +795,7 @@ header.mainHeader .SizeSelector span.active {
 .mapWrap:last-child {
   margin-right: 0;
 }
-/* line 453, ../scss/breakpoints/_768up.scss */
+/* line 461, ../scss/breakpoints/_768up.scss */
 .mapWrap .label {
   display: block;
   position: absolute;
@@ -800,18 +806,18 @@ header.mainHeader .SizeSelector span.active {
   padding: 5px;
 }
 
-/* line 465, ../scss/breakpoints/_768up.scss */
+/* line 473, ../scss/breakpoints/_768up.scss */
 .mylist.app-container {
   padding: 0;
   max-width: none;
 }
 
-/* line 473, ../scss/breakpoints/_768up.scss */
+/* line 481, ../scss/breakpoints/_768up.scss */
 .myList .listing:hover .listingAdd span {
   background-color: #d70b00;
   color: white;
 }
-/* line 480, ../scss/breakpoints/_768up.scss */
+/* line 488, ../scss/breakpoints/_768up.scss */
 .myList .popupList {
   position: fixed;
   z-index: 99;
@@ -821,7 +827,7 @@ header.mainHeader .SizeSelector span.active {
   left: 0;
   background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 489, ../scss/breakpoints/_768up.scss */
+/* line 497, ../scss/breakpoints/_768up.scss */
 .myList .popupList div {
   background: #fff;
   position: absolute;
@@ -836,7 +842,7 @@ header.mainHeader .SizeSelector span.active {
   border-radius: 10px;
 }
 
-/* line 500, ../scss/breakpoints/_768up.scss */
+/* line 508, ../scss/breakpoints/_768up.scss */
 .SignIn {
   position: fixed;
   width: 100%;
@@ -848,7 +854,7 @@ header.mainHeader .SizeSelector span.active {
   background-position: center;
   background-repeat: no-repeat;
 }
-/* line 510, ../scss/breakpoints/_768up.scss */
+/* line 518, ../scss/breakpoints/_768up.scss */
 .SignIn > div {
   background-color: #fff;
   position: absolute;
@@ -865,7 +871,7 @@ header.mainHeader .SizeSelector span.active {
   border-radius: 10px;
 }
 
-/* line 526, ../scss/breakpoints/_768up.scss */
+/* line 534, ../scss/breakpoints/_768up.scss */
 .venuePage .mapInfo {
   float: left;
   display: block;
@@ -877,7 +883,7 @@ header.mainHeader .SizeSelector span.active {
 .venuePage .mapInfo:last-child {
   margin-right: 0;
 }
-/* line 530, ../scss/breakpoints/_768up.scss */
+/* line 538, ../scss/breakpoints/_768up.scss */
 .venuePage .mapWrap {
   float: left;
   display: block;
@@ -890,18 +896,18 @@ header.mainHeader .SizeSelector span.active {
 .venuePage .mapWrap:last-child {
   margin-right: 0;
 }
-/* line 534, ../scss/breakpoints/_768up.scss */
+/* line 542, ../scss/breakpoints/_768up.scss */
 .venuePage .mapWrap .map {
   height: 100%;
 }
 
-/* line 541, ../scss/breakpoints/_768up.scss */
+/* line 549, ../scss/breakpoints/_768up.scss */
 .loginForm, .signupForm {
   max-width: 500px;
   margin: 50px auto;
 }
 
-/* line 548, ../scss/breakpoints/_768up.scss */
+/* line 556, ../scss/breakpoints/_768up.scss */
 .account {
   display: block;
 }
@@ -911,7 +917,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 550, ../scss/breakpoints/_768up.scss */
+/* line 558, ../scss/breakpoints/_768up.scss */
 .account .left-col {
   float: left;
   display: block;
@@ -922,12 +928,12 @@ header.mainHeader .SizeSelector span.active {
 .account .left-col:last-child {
   margin-right: 0;
 }
-/* line 552, ../scss/breakpoints/_768up.scss */
+/* line 560, ../scss/breakpoints/_768up.scss */
 .account .left-col h1 {
   text-align: left;
   margin-top: 0;
 }
-/* line 557, ../scss/breakpoints/_768up.scss */
+/* line 565, ../scss/breakpoints/_768up.scss */
 .account .accountform {
   float: left;
   display: block;
@@ -940,12 +946,12 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 564, ../scss/breakpoints/_768up.scss */
+/* line 572, ../scss/breakpoints/_768up.scss */
 .draftJsToolbar__toolbar__dNtBH button {
   margin: 0 0 0 0 !important;
 }
 
-/* line 572, ../scss/breakpoints/_768up.scss */
+/* line 580, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header {
   display: block;
   border-bottom: 1px solid #eaedf2;
@@ -958,7 +964,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 577, ../scss/breakpoints/_768up.scss */
+/* line 585, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .avatarWrap {
   float: left;
   display: block;
@@ -969,7 +975,7 @@ header.mainHeader .SizeSelector span.active {
 .userList .mapInfo header .avatarWrap:last-child {
   margin-right: 0;
 }
-/* line 579, ../scss/breakpoints/_768up.scss */
+/* line 587, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .avatarWrap .avatar {
   width: 100%;
   height: 0;
@@ -977,7 +983,7 @@ header.mainHeader .SizeSelector span.active {
   background-size: cover;
   background-position: center;
 }
-/* line 587, ../scss/breakpoints/_768up.scss */
+/* line 595, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .infoWrap {
   float: left;
   display: block;
@@ -990,7 +996,7 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 598, ../scss/breakpoints/_768up.scss */
+/* line 606, ../scss/breakpoints/_768up.scss */
 .admin .editVenue {
   display: block;
 }
@@ -1000,7 +1006,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 600, ../scss/breakpoints/_768up.scss */
+/* line 608, ../scss/breakpoints/_768up.scss */
 .admin .editVenue .venueEditing,
 .admin .editVenue .venueLocation {
   float: left;
@@ -1013,7 +1019,7 @@ header.mainHeader .SizeSelector span.active {
 .admin .editVenue .venueLocation:last-child {
   margin-right: 0;
 }
-/* line 606, ../scss/breakpoints/_768up.scss */
+/* line 614, ../scss/breakpoints/_768up.scss */
 .admin .allUsers {
   float: left;
   display: block;
@@ -1024,7 +1030,7 @@ header.mainHeader .SizeSelector span.active {
 .admin .allUsers:last-child {
   margin-right: 0;
 }
-/* line 608, ../scss/breakpoints/_768up.scss */
+/* line 616, ../scss/breakpoints/_768up.scss */
 .admin .allUsers .card {
   float: left;
   display: block;
@@ -1039,19 +1045,19 @@ header.mainHeader .SizeSelector span.active {
 .admin .allUsers .card:last-child {
   margin-right: 0;
 }
-/* line 614, ../scss/breakpoints/_768up.scss */
+/* line 622, ../scss/breakpoints/_768up.scss */
 .admin .allUsers .card:nth-of-type(3n) {
   margin-right: 0;
 }
-/* line 617, ../scss/breakpoints/_768up.scss */
+/* line 625, ../scss/breakpoints/_768up.scss */
 .admin .allUsers .card .card-img-top {
   height: 200px;
 }
-/* line 620, ../scss/breakpoints/_768up.scss */
+/* line 628, ../scss/breakpoints/_768up.scss */
 .admin .allUsers .card .card-block {
   padding: 20px;
 }
-/* line 625, ../scss/breakpoints/_768up.scss */
+/* line 633, ../scss/breakpoints/_768up.scss */
 .admin .allInfo {
   float: left;
   display: block;

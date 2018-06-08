@@ -128,11 +128,13 @@ header.mainHeader{
                             margin-right: 20px;
                             color: black;
                             border-bottom: 3px solid transparent;
+                            @include transition(0s);
                             &:hover{
                                 border-color: $green;
                             }
                             &.active{
                                 border-color: $green;
+                                color: $black;
                             }
                         }
                         &:hover{
@@ -290,6 +292,7 @@ header.mainHeader{
 .hoodNav{
     position: initial;
     padding: 0;
+    border-top: 0;
     ul{
         display: block;
     }
@@ -368,9 +371,6 @@ header.mainHeader{
         margin-top: 70px;
 		@include span-columns(3);
     }
-    .tabs__select{
-        display: none;
-    }
 	div.tabs__content{
         @include span-columns(9);
         .day{
@@ -400,6 +400,14 @@ header.mainHeader{
     cursor: pointer;
     &:hover{
         @include transform(scale(1.1));
+    }
+}
+
+//TABS
+
+.tabs{
+    .tabs__select{
+        display: none;
     }
 }
 

@@ -219,9 +219,6 @@ Main PAGES
         display: none;
     }
 }
-.mapInfo{
-
-}
 
 
 
@@ -333,6 +330,17 @@ LISTING ELEMENTS
         margin: 0 0 10px;
         font-size: 14px;
         white-space: pre-wrap;
+    }
+    .card{
+        margin-top: 5px;
+        .card-title{
+            background: $light-gray;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+        .card-block{
+            padding: 0 20px 10px;
+        }
     }
 }
 .condensed{
@@ -596,6 +604,9 @@ header.mainHeader{
                 a{
                     font-weight: 300;
                     color: $black;
+                    &.active{
+                        color: $green;
+                    }
                 }
                 .submenu{
                     padding-left: 20px;
@@ -623,9 +634,6 @@ header.mainHeader{
             a{
                 font-weight: 600px;
             }
-            &.active{
-                color: $green;
-            }
         }
     }
     &.active{
@@ -649,12 +657,7 @@ AT A GLANCE
 		}
     }
     div.tabs__select{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        padding: 10px;
-        background: $white;
-        width: 100%;
+
     }
 	div.tabs__content{
         .day{
@@ -704,7 +707,12 @@ CURRENT & FUTURE
         left: 0;
         background: white;
         margin-bottom: 0;
-        padding: 10px;
+        padding: 10px 20px;
+        z-index: 99;
+        border-top: 1px solid $gray;
+        h3{
+            font-size: 1em;
+        }
 		&.fixed{
 			position: fixed;
 			top: 100px;
@@ -1089,6 +1097,16 @@ option{
 }
 
 //ACCOUNT
+.SignIn{
+    padding: 20px;
+    h2{
+        font-size: 2em;
+    }
+    .loginForm, .signupForm {
+        margin: 30px 0px;
+        border-radius: 5px;
+    }
+}
 
 .account{
     .app-content{

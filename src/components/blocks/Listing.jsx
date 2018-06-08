@@ -4,7 +4,7 @@ import ListActions from '../../actions/ListActions';
 import moment from 'moment'
 //COMPONENTS
 import {Link} from 'react-router'
-import {Tooltip, Popover, PopoverTitle, PopoverContent} from 'reactstrap'
+import {Tooltip, Collapse, Card, CardTitle, CardBlock} from 'reactstrap'
 import Date from './DateBlock.jsx'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
@@ -47,29 +47,15 @@ export default class Listing extends React.Component {
     }
 
     _revealInfo(){
-        this.state.canToggle && this.setState({
-            canToggle: false,
+        this.setState({
             fullInfo: !this.state.fullInfo
         })
-        let that = this
-        setTimeout(function(){
-            that.setState({
-                canToggle: true
-            })
-        },10)
     }
 
     _revealEvents(){
-        this.state.canToggle && this.setState({
-            canToggle: false,
+        this.setState({
             fullEvents: !this.state.fullEvents
         })
-        let that = this
-        setTimeout(function(){
-            that.setState({
-                canToggle: true
-            })
-        },10)
     }
 
     eventsDisplay(events){
@@ -123,9 +109,6 @@ export default class Listing extends React.Component {
 
         const image = listing.image? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
         const style = {backgroundImage: 'url(' + image + ')'}
-
-        let popoverInfoID = "info-" + listing._id
-        let popoverEventsID = "events-" + listing._id
       
       
     return (
@@ -157,8 +140,8 @@ export default class Listing extends React.Component {
                     <span className="icons">
                         {this.props.onMap && <FontAwesomeIcon onClick={this.props.mapMouseEnter} icon={['fal', 'search']}/>}
                         {listing.review && <a alt="Review" target="_blank" href={listing.review}><FontAwesomeIcon icon={['fal', 'pencil-alt']}/></a>}
-                        {listing.description && <FontAwesomeIcon id={popoverInfoID} onClick={!this.state.fullInfo && this._revealInfo} icon={['fal', 'info-circle']}/>}
-                        {eventsPresence && <FontAwesomeIcon icon={['fal', 'glass-martini']} id={popoverEventsID} onClick={!this.state.fullEvents && this._revealEvents}/>}
+                        {listing.description && <FontAwesomeIcon onClick={this._revealInfo} icon={['fal', 'info-circle']}/>}
+                        {eventsPresence && <FontAwesomeIcon icon={['fal', 'glass-martini']} onClick={this._revealEvents}/>}
                         {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
                     </span>
 
@@ -171,16 +154,20 @@ export default class Listing extends React.Component {
                     
                 </div>
                 {listing.description && 
-                <Popover placement="top" isOpen={this.state.fullInfo} target={popoverInfoID} toggle={this._revealInfo}>
-                    <PopoverTitle>Notes</PopoverTitle>
-                    <PopoverContent>{listing.description}</PopoverContent>
-                </Popover>
+                <Collapse isOpen={this.state.fullInfo}>
+                    <Card>
+                        <CardTitle>Notes</CardTitle>
+                        <CardBlock>{listing.description}</CardBlock>
+                    </Card>
+                </Collapse>
                 }
                 {eventsPresence && 
-                <Popover placement="top" isOpen={this.state.fullEvents} target={popoverEventsID} toggle={this._revealEvents}>
-                    <PopoverTitle>Events</PopoverTitle>
-                    <PopoverContent>{this.eventsDisplay(listing.events)}</PopoverContent>
-                </Popover>
+                <Collapse isOpen={this.state.fullEvents}>
+                    <Card>
+                        <CardTitle>Events</CardTitle>
+                        <CardBlock>{this.eventsDisplay(listing.events)}</CardBlock>
+                    </Card>
+                </Collapse>
                 }
                 {isGroupShow && //Tooltip displaying all the artists' names
                 <Tooltip placement="top" isOpen={this.state.tooltipOpen} autohide={false} target={id} toggle={this.toggleTooltip}>{artists}</Tooltip>

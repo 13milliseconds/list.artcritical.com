@@ -45,8 +45,7 @@ export default class AccountForm extends React.Component {
         event.preventDefault();
         let newUser = this.props.user
         newUser.bio = this.state.text
-        console.log(newUser)
-        //AuthActions.updateUser(this.props.user)
+        AuthActions.updateUser(this.props.user)
     }
 
     render() {

@@ -28,6 +28,7 @@ export default class HoodNav extends React.Component {
               <li><a href="#320">New Jersey</a></li>
         <li><a href="#330">Philadelphia</a></li>
       </ul>
+      <h3>Jump to a neighborhood</h3>
       <Input type="select" name="select" onChange={this.scrollTo}>
           <option value="20">Lower East Side</option>
           <option value="30">Soho & Noho & East Village</option>

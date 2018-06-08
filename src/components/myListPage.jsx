@@ -17,7 +17,7 @@ export default class MyListPage extends React.Component {
                             :
                             <div className="SignIn">
                                 <div>
-                                    <h2>Register</h2>
+                                    <h2>Sign In</h2>
                                     <p>Sign in to start adding shows to your list.</p>
                                     <LogInForm 
                                         loading={this.props.loading.login} 

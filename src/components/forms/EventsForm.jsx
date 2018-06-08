@@ -36,9 +36,10 @@ export default class EventsForm extends React.Component {
                     <Input type="select"
                         name="type"
                         value={event.type? event.type : "opening"}
+                        defaultValue="Reception"
                         data-index={index}
                         onChange={this.onChange} >
-                        <option value="Reception" selected="selected">Reception</option>
+                        <option value="Reception">Reception</option>
                         <option value="Closing">Closing</option>
                         <option value="Other">Other</option>
                     </Input>

@@ -6937,6 +6937,11 @@ var HoodNav = function (_React$Component) {
           )
         ),
         _react2.default.createElement(
+          'h3',
+          null,
+          'Jump to a neighborhood'
+        ),
+        _react2.default.createElement(
           _reactstrap.Input,
           { type: 'select', name: 'select', onChange: this.scrollTo },
           _react2.default.createElement(
@@ -12605,30 +12610,16 @@ var Listing = function (_React$Component) {
     }, {
         key: '_revealInfo',
         value: function _revealInfo() {
-            this.state.canToggle && this.setState({
-                canToggle: false,
+            this.setState({
                 fullInfo: !this.state.fullInfo
             });
-            var that = this;
-            setTimeout(function () {
-                that.setState({
-                    canToggle: true
-                });
-            }, 10);
         }
     }, {
         key: '_revealEvents',
         value: function _revealEvents() {
-            this.state.canToggle && this.setState({
-                canToggle: false,
+            this.setState({
                 fullEvents: !this.state.fullEvents
             });
-            var that = this;
-            setTimeout(function () {
-                that.setState({
-                    canToggle: true
-                });
-            }, 10);
         }
     }, {
         key: 'eventsDisplay',
@@ -12712,9 +12703,6 @@ var Listing = function (_React$Component) {
             var image = listing.image ? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
             var style = { backgroundImage: 'url(' + image + ')' };
 
-            var popoverInfoID = "info-" + listing._id;
-            var popoverEventsID = "events-" + listing._id;
-
             return _react2.default.createElement(
                 'div',
                 { className: "listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected') },
@@ -12775,8 +12763,8 @@ var Listing = function (_React$Component) {
                                 { alt: 'Review', target: '_blank', href: listing.review },
                                 _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'pencil-alt'] })
                             ),
-                            listing.description && _react2.default.createElement(_reactFontawesome2.default, { id: popoverInfoID, onClick: !this.state.fullInfo && this._revealInfo, icon: ['fal', 'info-circle'] }),
-                            eventsPresence && _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'glass-martini'], id: popoverEventsID, onClick: !this.state.fullEvents && this._revealEvents }),
+                            listing.description && _react2.default.createElement(_reactFontawesome2.default, { onClick: this._revealInfo, icon: ['fal', 'info-circle'] }),
+                            eventsPresence && _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'glass-martini'], onClick: this._revealEvents }),
                             listing.popularity >= 5 && _react2.default.createElement(
                                 'span',
                                 { className: 'popular' },
@@ -12805,31 +12793,39 @@ var Listing = function (_React$Component) {
                         )
                     ),
                     listing.description && _react2.default.createElement(
-                        _reactstrap.Popover,
-                        { placement: 'top', isOpen: this.state.fullInfo, target: popoverInfoID, toggle: this._revealInfo },
+                        _reactstrap.Collapse,
+                        { isOpen: this.state.fullInfo },
                         _react2.default.createElement(
-                            _reactstrap.PopoverTitle,
+                            _reactstrap.Card,
                             null,
-                            'Notes'
-                        ),
-                        _react2.default.createElement(
-                            _reactstrap.PopoverContent,
-                            null,
-                            listing.description
+                            _react2.default.createElement(
+                                _reactstrap.CardTitle,
+                                null,
+                                'Notes'
+                            ),
+                            _react2.default.createElement(
+                                _reactstrap.CardBlock,
+                                null,
+                                listing.description
+                            )
                         )
                     ),
                     eventsPresence && _react2.default.createElement(
-                        _reactstrap.Popover,
-                        { placement: 'top', isOpen: this.state.fullEvents, target: popoverEventsID, toggle: this._revealEvents },
+                        _reactstrap.Collapse,
+                        { isOpen: this.state.fullEvents },
                         _react2.default.createElement(
-                            _reactstrap.PopoverTitle,
+                            _reactstrap.Card,
                             null,
-                            'Events'
-                        ),
-                        _react2.default.createElement(
-                            _reactstrap.PopoverContent,
-                            null,
-                            this.eventsDisplay(listing.events)
+                            _react2.default.createElement(
+                                _reactstrap.CardTitle,
+                                null,
+                                'Events'
+                            ),
+                            _react2.default.createElement(
+                                _reactstrap.CardBlock,
+                                null,
+                                this.eventsDisplay(listing.events)
+                            )
                         )
                     ),
                     isGroupShow && //Tooltip displaying all the artists' names
@@ -13618,8 +13614,7 @@ var AccountForm = function (_React$Component) {
             event.preventDefault();
             var newUser = this.props.user;
             newUser.bio = this.state.text;
-            console.log(newUser);
-            //AuthActions.updateUser(this.props.user)
+            _AuthActions2.default.updateUser(this.props.user);
         }
     }, {
         key: 'render',
@@ -13998,11 +13993,12 @@ var EventsForm = function (_React$Component) {
                                 { type: 'select',
                                     name: 'type',
                                     value: event.type ? event.type : "opening",
+                                    defaultValue: 'Reception',
                                     'data-index': index,
                                     onChange: _this2.onChange },
                                 _react2.default.createElement(
                                     'option',
-                                    { value: 'Reception', selected: 'selected' },
+                                    { value: 'Reception' },
                                     'Reception'
                                 ),
                                 _react2.default.createElement(
@@ -16458,6 +16454,18 @@ var MyList = function (_React$Component) {
                 { className: 'myList' },
                 _react2.default.createElement(
                     'div',
+                    { className: 'mapWrap', ref: 'mapWrap' },
+                    _react2.default.createElement(_myMap2.default, {
+                        markers: this.state.markers,
+                        viewport: this.state.viewport,
+                        updateViewport: this._updateViewport,
+                        listingHover: this.state.listingHover,
+                        onHover: this._onHover,
+                        onLeave: this._onLeave
+                    })
+                ),
+                _react2.default.createElement(
+                    'div',
                     { className: this.props.view + " mapInfo cf" },
                     _react2.default.createElement(
                         'div',
@@ -16517,18 +16525,6 @@ var MyList = function (_React$Component) {
                             'Reset Order'
                         )
                     )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'mapWrap', ref: 'mapWrap' },
-                    _react2.default.createElement(_myMap2.default, {
-                        markers: this.state.markers,
-                        viewport: this.state.viewport,
-                        updateViewport: this._updateViewport,
-                        listingHover: this.state.listingHover,
-                        onHover: this._onHover,
-                        onLeave: this._onLeave
-                    })
                 )
             );
         }
