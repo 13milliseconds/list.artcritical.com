@@ -41,7 +41,7 @@ export default class FeaturePage extends React.Component {
         }
         
         return ( 
-            <div className = "glance">
+            <div className = "featureAdmin">
               <h2>Featured Listings</h2>
               {this.props.loading.features 
                     ? <Loading />

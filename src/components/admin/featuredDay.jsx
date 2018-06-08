@@ -72,7 +72,7 @@ export default class FeaturedDay extends React.Component {
         
         return ( 
             <div>
-                <div className="column-2of3">
+                <div className="featureFormWrap">
                     <Select value={{label: list.name, value: list._id}} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
                     <FeaturedForm {...this.props.feature} 
                     number={this.props.dayNumber} 
@@ -82,7 +82,7 @@ export default class FeaturedDay extends React.Component {
                     error={this.props.error}
                     success={this.props.success}/>
                 </div>
-                <div className="column-1of3">
+                <div className="preview">
                     {this.props.feature.list ? <FeatureBlock feature={this.props.feature} user={this.props.user} /> : this.props.error }
                 </div>
             </div>

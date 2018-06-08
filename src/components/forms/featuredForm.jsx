@@ -77,7 +77,7 @@ export default class ListingForm extends React.Component {
                     </FormGroup>
                 </Form>
                 
-                <button onClick={this.onUpdate}>Submit</button>
+                <Button onClick={this.onUpdate}>Submit</Button>
                 {this.state.updatevisible && <ConfirmModal 
                                                         toggle={this.toggleModal}
                                                         modalVisible={this.state.updatevisible}

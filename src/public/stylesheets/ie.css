@@ -1074,60 +1074,47 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 /* line 636, ../scss/breakpoints/_768up.scss */
-.adminWrap .allUsers {
+.adminWrap #ListingList, .adminWrap #ListingInfo {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
-  width: 100%;
+  width: 48.8211739883%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
-.adminWrap .allUsers:last-child {
+.adminWrap #ListingList:last-child, .adminWrap #ListingInfo:last-child {
   margin-right: 0;
 }
-/* line 638, ../scss/breakpoints/_768up.scss */
-.adminWrap .allUsers .card {
+/* line 641, ../scss/breakpoints/_768up.scss */
+.adminWrap .usersWrap .allUsers .card {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
   width: 31.7615653177%;
   float: none;
   display: inline-block;
-  vertical-align: top;
   margin-top: 100px;
-  text-align: center;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
-.adminWrap .allUsers .card:last-child {
+.adminWrap .usersWrap .allUsers .card:last-child {
   margin-right: 0;
 }
-/* line 645, ../scss/breakpoints/_768up.scss */
-.adminWrap .allUsers .card:nth-of-type(3n) {
+/* line 646, ../scss/breakpoints/_768up.scss */
+.adminWrap .usersWrap .allUsers .card:nth-of-type(2n) {
+  margin-right: inherit;
+}
+/* line 649, ../scss/breakpoints/_768up.scss */
+.adminWrap .usersWrap .allUsers .card:nth-of-type(3n) {
   margin-right: 0;
 }
-/* line 648, ../scss/breakpoints/_768up.scss */
-.adminWrap .allUsers .card .avatarWrap {
-  width: 50%;
-  margin: auto;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-/* line 653, ../scss/breakpoints/_768up.scss */
-.adminWrap .allUsers .card .card-block {
-  padding: 20px;
+/* line 652, ../scss/breakpoints/_768up.scss */
+.adminWrap .usersWrap .allUsers .card .card-block {
   -webkit-transform: translateY(-30%);
   -moz-transform: translateY(-30%);
   -ms-transform: translateY(-30%);
   -o-transform: translateY(-30%);
   transform: translateY(-30%);
 }
-/* line 656, ../scss/breakpoints/_768up.scss */
-.adminWrap .allUsers .card .card-block button {
-  margin-top: 20px;
-}
-/* line 662, ../scss/breakpoints/_768up.scss */
+/* line 657, ../scss/breakpoints/_768up.scss */
 .adminWrap .allInfo {
   float: left;
   display: block;

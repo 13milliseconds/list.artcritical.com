@@ -12239,7 +12239,7 @@ var FeaturedDay = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                     'div',
-                    { className: 'column-2of3' },
+                    { className: 'featureFormWrap' },
                     _react2.default.createElement(_formSelect2.default, { value: { label: list.name, value: list._id }, handleSelectChange: this.handleSelectChange, getOptions: getOptions }),
                     _react2.default.createElement(_featuredForm2.default, _extends({}, this.props.feature, {
                         number: this.props.dayNumber,
@@ -12251,7 +12251,7 @@ var FeaturedDay = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'column-1of3' },
+                    { className: 'preview' },
                     this.props.feature.list ? _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user }) : this.props.error
                 )
             );
@@ -12361,7 +12361,7 @@ var FeaturePage = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'glance' },
+                { className: 'featureAdmin' },
                 _react2.default.createElement(
                     'h2',
                     null,
@@ -14858,7 +14858,7 @@ var ListingForm = function (_React$Component) {
                     )
                 ),
                 _react2.default.createElement(
-                    'button',
+                    _reactstrap.Button,
                     { onClick: this.onUpdate },
                     'Submit'
                 ),

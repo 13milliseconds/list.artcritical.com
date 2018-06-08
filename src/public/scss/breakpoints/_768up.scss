@@ -632,30 +632,25 @@ header.mainHeader{
             @include span-columns(6);
         }
     }
+    //LISTINGS
+    #ListingList, #ListingInfo{
+        @include span-columns(6);
+    }
     //USERS
-    .allUsers{
-        @include span-columns(12);
+    .usersWrap .allUsers{
         .card{
             @include span-columns(4);
             float: none;
             display: inline-block;
-            vertical-align: top;
             margin-top: 100px;
-            text-align: center;
+            &:nth-of-type(2n){
+                margin-right: inherit;
+            }
             &:nth-of-type(3n){
                 @include omega();
             }
-            .avatarWrap{
-                width: 50%;
-                margin: auto;
-                @include transform(translateY(-50%));
-            }
             .card-block{
-                padding: 20px;
                 @include transform(translateY(-30%));
-                button{
-                    margin-top: 20px;
-                }
             }
         }
     }

@@ -61,6 +61,10 @@ body {
             }
         }
     }
+    .form-check {
+        padding-left: 0;
+    }
+    
 }
 
 #thelist{
@@ -79,24 +83,6 @@ footer{
     padding: 0 20px;
     bottom: 10px;
 	font-size: .7em;
-}
-
-
-/*********************
-COLUMNS
-*********************/
-
-.column-1of4{
-    @include span-columns(3);
-}
-.column-3of4{
-    @include span-columns(9);
-}
-.column-1of3{
-    @include span-columns(4);
-}
-.column-2of3{
-    @include span-columns(8);
 }
 
 /*********************
@@ -881,7 +867,8 @@ Venue Page
 /*********************
 ADMIN
 *********************/
-.admin{
+.adminWrap{
+    padding: 20px;
     header{
         padding-left: 0;
 		a{
@@ -892,9 +879,23 @@ ADMIN
 			}
 		}
     }
-    .admin-content{
-        .tabs__content{ //Feature Admin
-            @include row();
+    .featureAdmin{
+        .preview{
+            display: none;
+        }
+        .tabs__labels{
+            display: none;
+        }
+        .featureFormWrap{
+            padding: 20px 0;
+            .featuredForm{
+                label{
+                    @include span-columns(12);
+                }
+                .formSection{
+                    @include span-columns(12);
+                }
+            }
         }
     }
     .overviewWrap{
@@ -931,6 +932,7 @@ ADMIN
             border-radius: 50%;
             margin-left: 10px;
             vertical-align: text-top;
+            padding: 0;
             &.current{
                 background-color: green;
             }
@@ -944,6 +946,34 @@ ADMIN
                 background-color: grey;
             }
         }
+    }
+    //USERS
+    .usersWrap{
+        .allUsers{
+            .card{
+                @include span-columns(6);
+                float: none;
+                display: inline-block;
+                vertical-align: top;
+                margin-top: 60px;
+                text-align: center;
+                &:nth-of-type(2n){
+                    @include omega();
+                }
+                .avatarWrap{
+                    width: 50%;
+                    margin: auto;
+                    @include transform(translateY(-50%));
+                }
+                .card-block{
+                    padding: 20px;
+                    @include transform(translateY(-20%));
+                    button{
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }   
     }
 }
 
@@ -980,29 +1010,6 @@ ADMIN
     p{
         padding-bottom: 20px;
     }
-}
-
-.usersWrap{
-	@include row();
-	.allUsers{
-		@include span-columns(6);
-		.user{
-			@include row();
-			border: 1px solid $black;
-			padding: 10px;
-			margin-bottom: 20px;
-			.image{
-				@include span-columns(2);
-				line-height: 0;
-				img{
-					max-width: 100%;
-				}
-			}
-			.info{
-				@include span-columns(10);
-			}
-		}
-	}
 }
 
 //User popover
@@ -1108,14 +1115,6 @@ input.invalid{
     }
 }
 
-#ListingList, #ListingInfo{
-    width: 50%;
-    float: left;
-}
-#ListingList{
-    padding-right: 50px;
-}
-
 .editVenue{
     .venueList{
         padding-bottom: 20px;
@@ -1207,11 +1206,3 @@ option{
     }
 }
 
-/*********************
-GRID
-*********************/
-
-.d-1of2{
-    float: left;
-    width: 50%;
-}
