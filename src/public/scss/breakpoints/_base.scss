@@ -957,9 +957,7 @@ ADMIN
                 vertical-align: top;
                 margin-top: 60px;
                 text-align: center;
-                &:nth-of-type(2n){
-                    @include omega();
-                }
+                @include omega(2n);
                 .avatarWrap{
                     width: 50%;
                     margin: auto;
@@ -1049,19 +1047,19 @@ ADMIN
     height: 100%;
     background-color: #eee;
     overflow: auto;
+    padding: 50px 20px 20px;
     &::-webkit-scrollbar { 
         display: none; 
     }
     a.close{
-        padding: 20px;
-        font-size: 20px;
-        float: none;
+        position: absolute;
+        left: 15px;
     }
     #listingForm{
         @include row();
         float: none;
         width: 100%;
-        padding: 20px;
+        padding: 0;
         label,
         .byline{
             @include span-columns(12);
@@ -1074,8 +1072,6 @@ label{
     @include span-columns(2);
 }
 .formSection{
-    @include span-columns(10);
-    @include omega();
     padding-bottom: 20px;
     textarea, input{
         width: 100%;

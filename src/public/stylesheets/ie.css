@@ -433,6 +433,11 @@ header.mainHeader .SizeSelector span.active {
   display: table;
 }
 
+/* line 222, ../scss/breakpoints/_768up.scss */
+.sideMenu {
+  padding: 130px 50px 50px;
+}
+
 /* line 226, ../scss/breakpoints/_768up.scss */
 #banner, #introPanel.active, #loginPanel, #sharePanel, #sortPanel {
   overflow: auto;
@@ -1100,13 +1105,17 @@ header.mainHeader .SizeSelector span.active {
 }
 /* line 646, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card:nth-of-type(2n) {
-  margin-right: inherit;
+  margin-right: 2.3576520234%;
 }
-/* line 649, ../scss/breakpoints/_768up.scss */
-.adminWrap .usersWrap .allUsers .card:nth-of-type(3n) {
+/* line 78, ../scss/neat/grid/_omega.scss */
+.adminWrap .usersWrap .allUsers .card:nth-child(3n) {
   margin-right: 0;
 }
-/* line 652, ../scss/breakpoints/_768up.scss */
+/* line 108, ../scss/neat/grid/_omega.scss */
+.adminWrap .usersWrap .allUsers .card:nth-child(3n+1) {
+  clear: left;
+}
+/* line 650, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card .card-block {
   -webkit-transform: translateY(-30%);
   -moz-transform: translateY(-30%);
@@ -1114,7 +1123,7 @@ header.mainHeader .SizeSelector span.active {
   -o-transform: translateY(-30%);
   transform: translateY(-30%);
 }
-/* line 657, ../scss/breakpoints/_768up.scss */
+/* line 655, ../scss/breakpoints/_768up.scss */
 .adminWrap .allInfo {
   float: left;
   display: block;
