@@ -32,15 +32,13 @@ export default class UserCard extends React.Component {
         
     return (
 		<Card>
-        <CardImg top width="100%" src={avatar} alt="Card image cap" />
+				<div className="avatarWrap">
+        	<div className="avatar" style={{backgroundImage: "url(" + avatar + ")"}} alt="avatar" ></div>
+				</div>
         <CardBlock>
-			<CardTitle>{user.firstname} {user.lastname}</CardTitle>
-			<CardSubtitle>{userAccess(user.userAccess)}</CardSubtitle>
-			<CardText>MyList: {user.mylist.length}
-			{user.createdOn &&  <span><br/>Created On <DateBlock date={user.createdOn} /></span>}
-			<br/>Last Connection: <DateBlock date={user.lastConnection ? user.lastConnection : user.createdOn} />
-			</CardText>
-			<Button color="primary" onClick={() => this.props.infoReveal(this.props.index)}>More Info</Button>
+					<CardTitle>{user.firstname} {user.lastname}</CardTitle>
+					<CardSubtitle>{userAccess(user.userAccess)}</CardSubtitle>
+					<Button color="primary" onClick={() => this.props.infoReveal(this.props.index)}>More Info</Button>
         </CardBlock>
       </Card>
     );

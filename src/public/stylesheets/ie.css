@@ -778,8 +778,21 @@ header.mainHeader .SizeSelector span.active {
   flex: 1 auto;
   margin-top: 50px;
 }
+/* line 453, ../scss/breakpoints/_768up.scss */
+.mapInfo .dragged {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #eaedf2;
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.mapInfo .dragged::after {
+  clear: both;
+  content: "";
+  display: block;
+}
 
-/* line 454, ../scss/breakpoints/_768up.scss */
+/* line 460, ../scss/breakpoints/_768up.scss */
 .mapWrap {
   float: left;
   display: block;
@@ -795,7 +808,7 @@ header.mainHeader .SizeSelector span.active {
 .mapWrap:last-child {
   margin-right: 0;
 }
-/* line 461, ../scss/breakpoints/_768up.scss */
+/* line 467, ../scss/breakpoints/_768up.scss */
 .mapWrap .label {
   display: block;
   position: absolute;
@@ -806,18 +819,22 @@ header.mainHeader .SizeSelector span.active {
   padding: 5px;
 }
 
-/* line 473, ../scss/breakpoints/_768up.scss */
+/* line 479, ../scss/breakpoints/_768up.scss */
 .mylist.app-container {
   padding: 0;
   max-width: none;
 }
 
-/* line 481, ../scss/breakpoints/_768up.scss */
+/* line 484, ../scss/breakpoints/_768up.scss */
+.myList .venue {
+  padding: 10px;
+}
+/* line 490, ../scss/breakpoints/_768up.scss */
 .myList .listing:hover .listingAdd span {
   background-color: #d70b00;
   color: white;
 }
-/* line 488, ../scss/breakpoints/_768up.scss */
+/* line 497, ../scss/breakpoints/_768up.scss */
 .myList .popupList {
   position: fixed;
   z-index: 99;
@@ -827,7 +844,7 @@ header.mainHeader .SizeSelector span.active {
   left: 0;
   background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 497, ../scss/breakpoints/_768up.scss */
+/* line 506, ../scss/breakpoints/_768up.scss */
 .myList .popupList div {
   background: #fff;
   position: absolute;
@@ -842,7 +859,7 @@ header.mainHeader .SizeSelector span.active {
   border-radius: 10px;
 }
 
-/* line 508, ../scss/breakpoints/_768up.scss */
+/* line 517, ../scss/breakpoints/_768up.scss */
 .SignIn {
   position: fixed;
   width: 100%;
@@ -854,7 +871,7 @@ header.mainHeader .SizeSelector span.active {
   background-position: center;
   background-repeat: no-repeat;
 }
-/* line 518, ../scss/breakpoints/_768up.scss */
+/* line 527, ../scss/breakpoints/_768up.scss */
 .SignIn > div {
   background-color: #fff;
   position: absolute;
@@ -871,7 +888,7 @@ header.mainHeader .SizeSelector span.active {
   border-radius: 10px;
 }
 
-/* line 534, ../scss/breakpoints/_768up.scss */
+/* line 543, ../scss/breakpoints/_768up.scss */
 .venuePage .mapInfo {
   float: left;
   display: block;
@@ -883,7 +900,7 @@ header.mainHeader .SizeSelector span.active {
 .venuePage .mapInfo:last-child {
   margin-right: 0;
 }
-/* line 538, ../scss/breakpoints/_768up.scss */
+/* line 547, ../scss/breakpoints/_768up.scss */
 .venuePage .mapWrap {
   float: left;
   display: block;
@@ -896,18 +913,18 @@ header.mainHeader .SizeSelector span.active {
 .venuePage .mapWrap:last-child {
   margin-right: 0;
 }
-/* line 542, ../scss/breakpoints/_768up.scss */
+/* line 551, ../scss/breakpoints/_768up.scss */
 .venuePage .mapWrap .map {
   height: 100%;
 }
 
-/* line 549, ../scss/breakpoints/_768up.scss */
+/* line 558, ../scss/breakpoints/_768up.scss */
 .loginForm, .signupForm {
   max-width: 500px;
   margin: 50px auto;
 }
 
-/* line 556, ../scss/breakpoints/_768up.scss */
+/* line 565, ../scss/breakpoints/_768up.scss */
 .account {
   display: block;
 }
@@ -917,7 +934,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 558, ../scss/breakpoints/_768up.scss */
+/* line 567, ../scss/breakpoints/_768up.scss */
 .account .left-col {
   float: left;
   display: block;
@@ -928,12 +945,12 @@ header.mainHeader .SizeSelector span.active {
 .account .left-col:last-child {
   margin-right: 0;
 }
-/* line 560, ../scss/breakpoints/_768up.scss */
+/* line 569, ../scss/breakpoints/_768up.scss */
 .account .left-col h1 {
   text-align: left;
   margin-top: 0;
 }
-/* line 565, ../scss/breakpoints/_768up.scss */
+/* line 574, ../scss/breakpoints/_768up.scss */
 .account .accountform {
   float: left;
   display: block;
@@ -946,12 +963,12 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 572, ../scss/breakpoints/_768up.scss */
+/* line 581, ../scss/breakpoints/_768up.scss */
 .draftJsToolbar__toolbar__dNtBH button {
   margin: 0 0 0 0 !important;
 }
 
-/* line 580, ../scss/breakpoints/_768up.scss */
+/* line 589, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header {
   display: block;
   border-bottom: 1px solid #eaedf2;
@@ -964,7 +981,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 585, ../scss/breakpoints/_768up.scss */
+/* line 594, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .avatarWrap {
   float: left;
   display: block;
@@ -975,15 +992,14 @@ header.mainHeader .SizeSelector span.active {
 .userList .mapInfo header .avatarWrap:last-child {
   margin-right: 0;
 }
-/* line 587, ../scss/breakpoints/_768up.scss */
+/* line 596, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .avatarWrap .avatar {
   width: 100%;
   height: 0;
-  padding-bottom: 100%;
   background-size: cover;
   background-position: center;
 }
-/* line 595, ../scss/breakpoints/_768up.scss */
+/* line 603, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .infoWrap {
   float: left;
   display: block;
@@ -996,42 +1012,80 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 606, ../scss/breakpoints/_768up.scss */
-.admin .editVenue {
+/* line 613, ../scss/breakpoints/_768up.scss */
+.adminWrap {
   display: block;
 }
 /* line 20, ../scss/neat/mixins/_clearfix.scss */
-.admin .editVenue::after {
+.adminWrap::after {
   clear: both;
   content: "";
   display: block;
 }
-/* line 608, ../scss/breakpoints/_768up.scss */
-.admin .editVenue .venueEditing,
-.admin .editVenue .venueLocation {
+/* line 615, ../scss/breakpoints/_768up.scss */
+.adminWrap .left-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .left-col:last-child {
+  margin-right: 0;
+}
+/* line 618, ../scss/breakpoints/_768up.scss */
+.adminWrap .left-col nav li {
+  display: block;
+  margin-bottom: 10px;
+}
+/* line 624, ../scss/breakpoints/_768up.scss */
+.adminWrap .admin-content {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .admin-content:last-child {
+  margin-right: 0;
+}
+/* line 628, ../scss/breakpoints/_768up.scss */
+.adminWrap .editVenue {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.adminWrap .editVenue::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 630, ../scss/breakpoints/_768up.scss */
+.adminWrap .editVenue .venueEditing,
+.adminWrap .editVenue .venueLocation {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
   width: 48.8211739883%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
-.admin .editVenue .venueEditing:last-child,
-.admin .editVenue .venueLocation:last-child {
+.adminWrap .editVenue .venueEditing:last-child,
+.adminWrap .editVenue .venueLocation:last-child {
   margin-right: 0;
 }
-/* line 614, ../scss/breakpoints/_768up.scss */
-.admin .allUsers {
+/* line 636, ../scss/breakpoints/_768up.scss */
+.adminWrap .allUsers {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
-  width: 48.8211739883%;
+  width: 100%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
-.admin .allUsers:last-child {
+.adminWrap .allUsers:last-child {
   margin-right: 0;
 }
-/* line 616, ../scss/breakpoints/_768up.scss */
-.admin .allUsers .card {
+/* line 638, ../scss/breakpoints/_768up.scss */
+.adminWrap .allUsers .card {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
@@ -1039,33 +1093,49 @@ header.mainHeader .SizeSelector span.active {
   float: none;
   display: inline-block;
   vertical-align: top;
-  margin-bottom: 20px;
+  margin-top: 100px;
+  text-align: center;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
-.admin .allUsers .card:last-child {
+.adminWrap .allUsers .card:last-child {
   margin-right: 0;
 }
-/* line 622, ../scss/breakpoints/_768up.scss */
-.admin .allUsers .card:nth-of-type(3n) {
+/* line 645, ../scss/breakpoints/_768up.scss */
+.adminWrap .allUsers .card:nth-of-type(3n) {
   margin-right: 0;
 }
-/* line 625, ../scss/breakpoints/_768up.scss */
-.admin .allUsers .card .card-img-top {
-  height: 200px;
+/* line 648, ../scss/breakpoints/_768up.scss */
+.adminWrap .allUsers .card .avatarWrap {
+  width: 50%;
+  margin: auto;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
-/* line 628, ../scss/breakpoints/_768up.scss */
-.admin .allUsers .card .card-block {
+/* line 653, ../scss/breakpoints/_768up.scss */
+.adminWrap .allUsers .card .card-block {
   padding: 20px;
+  -webkit-transform: translateY(-30%);
+  -moz-transform: translateY(-30%);
+  -ms-transform: translateY(-30%);
+  -o-transform: translateY(-30%);
+  transform: translateY(-30%);
 }
-/* line 633, ../scss/breakpoints/_768up.scss */
-.admin .allInfo {
+/* line 656, ../scss/breakpoints/_768up.scss */
+.adminWrap .allUsers .card .card-block button {
+  margin-top: 20px;
+}
+/* line 662, ../scss/breakpoints/_768up.scss */
+.adminWrap .allInfo {
   float: left;
   display: block;
   margin-right: 2.3576520234%;
   width: 48.8211739883%;
 }
 /* line 89, ../scss/neat/grid/_span-columns.scss */
-.admin .allInfo:last-child {
+.adminWrap .allInfo:last-child {
   margin-right: 0;
 }
 

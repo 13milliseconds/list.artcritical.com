@@ -31,7 +31,7 @@ export default class ReviewPage extends React.Component {
     	return(
     		<div>
 	    		<h4>Review New Listings</h4>
-	    		<div className="medium">
+	    		<div className={this.props.view}>
                         {thelistings(this.props.latestListings)}
 	            </div>
             </div>

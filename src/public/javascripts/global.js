@@ -20,7 +20,9 @@
             }
         });
     }
-    $(window).scroll(onScroll);
+    if (($('.current').length + $('.future').length) > 0){
+        $(window).scroll(onScroll);
+    }  
 
     // Select all links with hashes
     $('a[href*="#"]')

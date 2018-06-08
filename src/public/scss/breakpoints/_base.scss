@@ -50,6 +50,17 @@ body {
     button.btn-secondary{
         border: 0;
     }
+    nav{
+        a{
+            color: $black;
+            &:hover{
+                color: $green;
+            }
+            &.active{
+                color: $green;
+            }
+        }
+    }
 }
 
 #thelist{
@@ -529,21 +540,6 @@ VENUE ELEMENTS
 *********************/
 
 .venue{
-    &.expired{
-        a{
-            color: $red;   
-        }
-        &.old{
-            a{
-                color: $gray;
-            }
-        }
-        &.upcoming{
-            a{
-                color: orange;
-            }
-        }
-    }
     .venueInfo{
         margin-bottom: 5px;
         a{
@@ -733,6 +729,9 @@ ACCOUNT
     overflow: hidden;
     padding-top: 100%;
     position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     img{
         position: absolute;
         top: 0;
@@ -896,6 +895,54 @@ ADMIN
     .admin-content{
         .tabs__content{ //Feature Admin
             @include row();
+        }
+    }
+    .overviewWrap{
+        .allVenues{
+            margin-top: 20px;
+        }
+        .venue{
+            & > div{
+                padding-left: 20px;
+            }
+            a{
+                color: green;
+            }
+            &.expired{
+                a{
+                color: $red;   
+            }
+            &.old{
+                a{
+                    color: $gray;
+                }
+            }
+            &.upcoming{
+                a{
+                    color: orange;
+                }
+            }
+            }
+        }
+        span.legend{
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            border-radius: 50%;
+            margin-left: 10px;
+            vertical-align: text-top;
+            &.current{
+                background-color: green;
+            }
+            &.future{
+                background-color: orange;
+            }
+            &.nothing{
+                background-color: red;
+            }
+            &.dormant{
+                background-color: grey;
+            }
         }
     }
 }

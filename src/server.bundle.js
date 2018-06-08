@@ -11175,80 +11175,88 @@ var AdminPage = function (_React$Component) {
             var editor = 1;
             var subscriber = 0;
 
-            var adminRender = this.props.user.isLoggedIn && this.props.user.userAccess > 0 ? _react2.default.createElement(
-                'nav',
-                null,
-                _react2.default.createElement(
-                    _reactRouter.IndexLink,
-                    { to: '/admin/', activeClassName: 'active' },
-                    'Overview'
-                ),
-                _react2.default.createElement(
-                    _reactRouter.Link,
-                    { to: '/admin/listings', activeClassName: 'active' },
-                    'Listings'
-                ),
-                _react2.default.createElement(
-                    _reactRouter.Link,
-                    { to: '/admin/venues', activeClassName: 'active' },
-                    'Venues'
-                ),
-                _react2.default.createElement(
-                    _reactRouter.Link,
-                    { to: '/admin/featured', activeClassName: 'active' },
-                    'Featured Calendar'
-                ),
-                _react2.default.createElement(
-                    _reactRouter.Link,
-                    { to: '/admin/review', activeClassName: 'active' },
-                    'Review Events'
-                ),
-                this.props.user.userAccess >= 1 && _react2.default.createElement(
-                    _reactRouter.Link,
-                    { to: '/admin/users', activeClassName: 'active' },
-                    'User Admin'
-                )
-            ) : _react2.default.createElement(
+            var allowAccess = this.props.user.isLoggedIn && this.props.user.userAccess > 0 ? true : false;
+
+            return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'adminWrap cf' },
+                _react2.default.createElement(_Helmet2.default, { title: 'Admin' }),
                 _react2.default.createElement(
-                    'header',
-                    null,
+                    'div',
+                    { className: 'left-col' },
                     _react2.default.createElement(
                         'h2',
                         null,
                         'Admin'
                     ),
-                    _react2.default.createElement(
-                        'p',
+                    allowAccess && _react2.default.createElement(
+                        'nav',
                         null,
-                        'You do not have the necessary privileges to access this page.'
-                    ),
-                    _react2.default.createElement(_LogInForm2.default, {
-                        loading: this.props.loading.login,
-                        error: this.props.error })
-                )
-            );
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'admin cf' },
-                _react2.default.createElement(_Helmet2.default, { title: 'Admin' }),
-                _react2.default.createElement(
-                    'header',
-                    null,
-                    _react2.default.createElement(
-                        'h2',
-                        null,
-                        'Account page'
-                    ),
-                    adminRender
+                        _react2.default.createElement(
+                            'ul',
+                            null,
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouter.IndexLink,
+                                    { to: '/admin', activeClassName: 'active' },
+                                    'Overview'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    { to: '/admin/listings', activeClassName: 'active' },
+                                    'Listings'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    { to: '/admin/venues', activeClassName: 'active' },
+                                    'Venues'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    { to: '/admin/featured', activeClassName: 'active' },
+                                    'Featured Calendar'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    { to: '/admin/review', activeClassName: 'active' },
+                                    'Review Events'
+                                )
+                            ),
+                            this.props.user.userAccess >= 1 && _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    { to: '/admin/users', activeClassName: 'active' },
+                                    'User Admin'
+                                )
+                            )
+                        )
+                    )
                 ),
-                this.props.user.isLoggedIn && this.props.user.userAccess > 0 && _react2.default.createElement(
+                allowAccess ? _react2.default.createElement(
                     'div',
                     { className: 'admin-content' },
                     _react2.default.cloneElement(this.props.children, this.props)
-                )
+                ) : _react2.default.createElement(_LogInForm2.default, { loading: this.props.loading.login, error: this.props.error })
             );
         }
     }]);
@@ -11722,7 +11730,7 @@ var ReviewPage = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'medium' },
+                    { className: this.props.view },
                     thelistings(this.props.latestListings)
                 )
             );
@@ -11941,63 +11949,38 @@ var VenuesPage = function (_React$Component) {
             var title = '';
             var num = this.props.allVenues.length - 1;
 
-            var neighborhood = function neighborhood(name) {
-                return _react2.default.createElement(
-                    'h2',
-                    null,
-                    name
-                );
-            };
-
             var theVenuesRender = function theVenuesRender(venues) {
                 return venues.map(function (venue, index) {
 
-                    var result = _react2.default.createElement(_VenueItem2.default, _extends({ key: venue._id }, venue));
-
-                    newSecondaryNH = venue.neighborhood;
-
-                    if (newSecondaryNH !== secondaryNH) {
-
-                        //Add the result to the next export and reset the render
-                        var contentRender = _react2.default.createElement(
-                            'div',
-                            { key: index, className: 'neighborhood' },
-                            renderExport
-                        );
-                        var newExport = [title, contentRender];
-                        renderExport = [];
-
-                        // Update neighborhood
-                        secondaryNH = newSecondaryNH;
-                        newSecondaryNH = _displayActions2.default.displayNeighborhood(secondaryNH);
-                        title = neighborhood(newSecondaryNH);
-                        renderExport.push(result);
-
-                        // Export the last neighborhood
-                        return newExport;
-                    }
-
-                    renderExport.push(result);
-                    if (num == index) {
-                        var contentRender = _react2.default.createElement(
-                            'div',
-                            { key: index, className: 'neighborhood' },
-                            renderExport
-                        );
-                        var newExport = [title, contentRender];
-                        return newExport;
-                    }
-                    return true;
+                    return _react2.default.createElement(_VenueItem2.default, _extends({ key: venue._id }, venue));
                 });
             };
 
             return _react2.default.createElement(
                 'div',
-                { className: 'venuesWrap' },
+                { className: 'overviewWrap' },
                 _react2.default.createElement(
                     'h2',
                     null,
-                    'Venues'
+                    'Overview'
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Check on all venues listed on artcritical by neighborhood.'
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Legend:',
+                    _react2.default.createElement('span', { className: 'legend current' }),
+                    ' Up to date',
+                    _react2.default.createElement('span', { className: 'legend future' }),
+                    ' Event coming up',
+                    _react2.default.createElement('span', { className: 'legend nothing' }),
+                    ' Need update',
+                    _react2.default.createElement('span', { className: 'legend dormant' }),
+                    ' Dormant'
                 ),
                 _react2.default.createElement(_NeighborhoodSelect2.default, {
                     selected: this.state.venueAdminNeighborhood,
@@ -13199,7 +13182,7 @@ exports.default = Marker;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+		value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -13229,83 +13212,71 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var UserCard = function (_React$Component) {
-	_inherits(UserCard, _React$Component);
+		_inherits(UserCard, _React$Component);
 
-	function UserCard(props) {
-		_classCallCheck(this, UserCard);
+		function UserCard(props) {
+				_classCallCheck(this, UserCard);
 
-		var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
+				var _this = _possibleConstructorReturn(this, (UserCard.__proto__ || Object.getPrototypeOf(UserCard)).call(this, props));
 
-		_this.state = { collapse: false };
-		return _this;
-	}
-
-	_createClass(UserCard, [{
-		key: 'render',
-		value: function render() {
-			var _this2 = this;
-
-			var user = this.props.user;
-
-			var userAccess = function userAccess(accessCode) {
-				return {
-					3: 'Super Admin',
-					2: 'Admin',
-					1: 'Editor',
-					0: 'Subscriber'
-				}[accessCode];
-			};
-
-			var avatar = user.avatar ? "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg" : "https://qph.fs.quoracdn.net/main-qimg-87001d2ce810c2f48c97032cbc905939";
-
-			return _react2.default.createElement(
-				_reactstrap.Card,
-				null,
-				_react2.default.createElement(_reactstrap.CardImg, { top: true, width: '100%', src: avatar, alt: 'Card image cap' }),
-				_react2.default.createElement(
-					_reactstrap.CardBlock,
-					null,
-					_react2.default.createElement(
-						_reactstrap.CardTitle,
-						null,
-						user.firstname,
-						' ',
-						user.lastname
-					),
-					_react2.default.createElement(
-						_reactstrap.CardSubtitle,
-						null,
-						userAccess(user.userAccess)
-					),
-					_react2.default.createElement(
-						_reactstrap.CardText,
-						null,
-						'MyList: ',
-						user.mylist.length,
-						user.createdOn && _react2.default.createElement(
-							'span',
-							null,
-							_react2.default.createElement('br', null),
-							'Created On ',
-							_react2.default.createElement(_DateBlock2.default, { date: user.createdOn })
-						),
-						_react2.default.createElement('br', null),
-						'Last Connection: ',
-						_react2.default.createElement(_DateBlock2.default, { date: user.lastConnection ? user.lastConnection : user.createdOn })
-					),
-					_react2.default.createElement(
-						_reactstrap.Button,
-						{ color: 'primary', onClick: function onClick() {
-								return _this2.props.infoReveal(_this2.props.index);
-							} },
-						'More Info'
-					)
-				)
-			);
+				_this.state = { collapse: false };
+				return _this;
 		}
-	}]);
 
-	return UserCard;
+		_createClass(UserCard, [{
+				key: 'render',
+				value: function render() {
+						var _this2 = this;
+
+						var user = this.props.user;
+
+						var userAccess = function userAccess(accessCode) {
+								return {
+										3: 'Super Admin',
+										2: 'Admin',
+										1: 'Editor',
+										0: 'Subscriber'
+								}[accessCode];
+						};
+
+						var avatar = user.avatar ? "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg" : "https://qph.fs.quoracdn.net/main-qimg-87001d2ce810c2f48c97032cbc905939";
+
+						return _react2.default.createElement(
+								_reactstrap.Card,
+								null,
+								_react2.default.createElement(
+										'div',
+										{ className: 'avatarWrap' },
+										_react2.default.createElement('div', { className: 'avatar', style: { backgroundImage: "url(" + avatar + ")" }, alt: 'avatar' })
+								),
+								_react2.default.createElement(
+										_reactstrap.CardBlock,
+										null,
+										_react2.default.createElement(
+												_reactstrap.CardTitle,
+												null,
+												user.firstname,
+												' ',
+												user.lastname
+										),
+										_react2.default.createElement(
+												_reactstrap.CardSubtitle,
+												null,
+												userAccess(user.userAccess)
+										),
+										_react2.default.createElement(
+												_reactstrap.Button,
+												{ color: 'primary', onClick: function onClick() {
+																return _this2.props.infoReveal(_this2.props.index);
+														} },
+												'More Info'
+										)
+								)
+						);
+				}
+		}]);
+
+		return UserCard;
 }(_react2.default.Component);
 
 exports.default = UserCard;
@@ -15207,7 +15178,7 @@ var Layout = function (_React$Component) {
 
             var name = user.name;
             var mylistNum = user.mylist.length;
-            var connectedClass = user.isLoggedIn && ' connected';
+            var connectedClass = user.isLoggedIn ? ' connected' : '';
             var currentLocation = this.props.location.pathname.slice(1).replace("/", "-");
 
             var renderLogin = function renderLogin() {
@@ -16109,7 +16080,7 @@ var MyListPage = function (_React$Component) {
                     _react2.default.createElement(
                         'h2',
                         null,
-                        'Register'
+                        'Sign In'
                     ),
                     _react2.default.createElement(
                         'p',

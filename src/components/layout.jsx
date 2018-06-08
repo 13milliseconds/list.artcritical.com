@@ -96,7 +96,7 @@ export default class Layout extends React.Component {
         const { user } = this.state;
         const name = user.name;
         const mylistNum = user.mylist.length;
-        const connectedClass = user.isLoggedIn && ' connected'
+        const connectedClass = user.isLoggedIn ? ' connected' : ''
         var currentLocation = this.props.location.pathname.slice(1).replace("/", "-")
 
         const renderLogin = () => <Link to={'/login'} activeClassName="active">Login</Link>;
