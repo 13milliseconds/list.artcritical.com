@@ -29,12 +29,12 @@ export default class CurrentPage extends React.Component {
                     link="https://list.artcritical.com/current"
                 />
 				<div className="left-col">
-                    <h1>Current Listings</h1>
+                    <h1>Current Exhibitions</h1>
 					<NeighborhoodNav />
-					<p>See all <Link to={'/future'} activeClassName="active">future listings</Link>.</p>
+					<p>See <Link to={'/future'} activeClassName="active">Future Exhibitions</Link>.</p>
 				</div>
                 <div className={this.props.view + " listingsWrap main-col"}>
-                    <ListingsPerNeighbor listings={this.props.currentListings} user={this.props.user} view="current"/>
+                    <ListingsPerNeighbor listings={this.props.currentListings} user={this.props.user} dateView="current" />
                     {this.props.loading.current && <Loading />}
                 </div>
 				<div className="right-col">

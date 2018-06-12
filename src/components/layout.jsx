@@ -21,11 +21,13 @@ import ReactGA from 'react-ga';
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPlusCircle from '@fortawesome/fontawesome-pro-light/faPlusCircle'
-import faMinusCircle from '@fortawesome/fontawesome-pro-light/faMinusCircle'
 import faGlassMartini from '@fortawesome/fontawesome-pro-light/faGlassMartini'
 import faTimes from '@fortawesome/fontawesome-pro-light/faTimes'
 import faEdit from '@fortawesome/fontawesome-pro-light/faEdit'
+import faCalendar from '@fortawesome/fontawesome-pro-light/faCalendar'
 import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
+import faMap from '@fortawesome/fontawesome-pro-light/faMap'
+import faMapMarkerAlt from '@fortawesome/fontawesome-pro-light/faMapMarkerAlt'
 import faBars from '@fortawesome/fontawesome-pro-light/faBars'
 import faPencilAlt from '@fortawesome/fontawesome-pro-light/faPencilAlt'
 import faListUl from '@fortawesome/fontawesome-pro-light/faListUl'
@@ -40,7 +42,7 @@ import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
 import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
 
 
-fontawesome.library.add(faBars, faListUl, faTh, faPlusCircle, faPlusCircle, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
+fontawesome.library.add(faBars, faListUl, faTh, faMap, faCalendar, faPlusCircle, faPlusCircle, faMapMarkerAlt, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
 
 
 export default class Layout extends React.Component {
@@ -94,15 +96,15 @@ export default class Layout extends React.Component {
     render() {
 
         const { user } = this.state;
-        const name = user.name;
         const mylistNum = user.mylist.length;
         const connectedClass = user.isLoggedIn ? ' connected' : ''
         var currentLocation = this.props.location.pathname.slice(1).replace("/", "-")
 
-        const renderLogin = () => <Link to={'/login'} activeClassName="active">Login</Link>;
-        const renderGreeting = name => <div><Link to={'/account'} activeClassName="active">Account</Link><button onClick={AuthActions.attemptLogOut}>Log Out</button></div>;
+        //admin access
+        let allowAccess = user.isLoggedIn && user.userAccess > 0 ? true : false
+
         return (
-            <div className={currentLocation + connectedClass + " app-container"}>
+            <div className={currentLocation + connectedClass + "Page app-container"}>
                 <Helmet
                     title="The List"
                     link="https://list.artcritical.com"
@@ -110,7 +112,8 @@ export default class Layout extends React.Component {
                 <header className={"mainHeader" + (this.state.menuActive ? ' active' : '')}>
                     <div className="mainLogo">
                         <a href="http://artcritical.com">
-			                <img src="/images/artcritical-toplogo.png" />
+			                <h1>artcritical</h1>
+                            <h2>the online magazine of art and ideas</h2>
                         </a>
                     </div>
                     <nav>
@@ -119,8 +122,8 @@ export default class Layout extends React.Component {
                                 <a href="/">The List</a>
                                 <ul className="submenu">
                                     <li><IndexLink onClick={this.toggleMenu} to={'/'} activeClassName="active">Week at a Glance</IndexLink></li>
-                                    <li><Link onClick={this.toggleMenu} to={'/current'} activeClassName="active">Current</Link></li>
-                                    <li><Link onClick={this.toggleMenu} to={'/events'} activeClassName="active">Events</Link></li>
+                                    <li><Link onClick={this.toggleMenu} to={'/current'} activeClassName="active">All Shows</Link></li>
+                                    <li><Link onClick={this.toggleMenu} to={'/events'} activeClassName="active">Talks/Events</Link></li>
                                     <li><Link onClick={this.toggleMenu} to={'/map'} activeClassName="active">Map</Link></li>
                                     <li className="accountOptions">
                                         <Link onClick={this.toggleMenu} to={'/mylist'} activeClassName="active">My List {mylistNum > 0 && '(' + mylistNum + ')'}</Link>
@@ -131,7 +134,7 @@ export default class Layout extends React.Component {
                                             </ul>
                                         }
                                     </li>
-                                    {user.isLoggedIn &&  <li><Link onClick={this.toggleMenu} to={'/admin'} activeClassName="active">Admin</Link></li>}
+                                    {allowAccess && <li><Link onClick={this.toggleMenu} to={'/admin'} activeClassName="active">Admin</Link></li>}
                                 </ul>
                             </li>
                             <li><a href="http://www.artcritical.com">Magazine</a></li>
@@ -140,6 +143,22 @@ export default class Layout extends React.Component {
                     </nav>
                     <SizeSelector view={this.state.view} />
                 </header>
+                <div className="mobileMenu">
+                    <nav>
+                        <ul>
+                            <li><IndexLink to={'/'} activeClassName="active">
+                                <FontAwesomeIcon icon={['fal', 'calendar']} />Week</IndexLink></li>
+                            <li><Link to={'/current'} activeClassName="active">
+                                <FontAwesomeIcon icon={['fal', 'list-ul']} />All</Link></li>
+                            <li><Link to={'/events'} activeClassName="active">
+                                <FontAwesomeIcon icon={['fal', 'glass-martini']} />Events</Link></li>
+                            <li><Link to={'/map'} activeClassName="active">
+                                <FontAwesomeIcon icon={['fal', 'map']} />Map</Link></li>
+                            <li><Link  to={'/mylist'} activeClassName="active">
+                                <FontAwesomeIcon icon={['fal', 'map-marker-alt']} />My List</Link></li>
+                        </ul>
+                    </nav>
+                </div>
                 <Hamburger active={this.state.menuActive} />
                 <OffCanvas width={500} transitionDuration={300} isMenuOpened={this.state.sidebarOpen} position={"right"} className={"fullCanvas"}>
                     <OffCanvasBody className={"app-content cf"}>

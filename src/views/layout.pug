@@ -16,18 +16,10 @@ html
     link(rel="mask-icon", href="/images/safari-pinned-tab.svg", color="#770600")
     meta(name="msapplication-TileColor", content="#da532c")
     meta(name="theme-color", content="#770600")
-    //React
-    script(src="https://fb.me/react-15.0.0.js")
-    script(src="https://fb.me/react-dom-15.0.0.js")
     //FontAwesome
     script(defer, src="https://pro.fontawesome.com/releases/v5.0.8/js/all.js", integrity="sha384-816IUmmhAwCMonQiPZBO/PTgzgsjHtpb78rpsLzldhb4HZjFzBl06Z3eu4ZuwHTz", crossorigin="anonymous")
     //MapBox
     link(href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.css' rel='stylesheet')
-    //Typekit
-    script(src="https://use.typekit.net/csp0cwt.js")
-
-    script. 
-        try{Typekit.load({ async: true });}catch(e){}
   body
   div#fb-root
   script
@@ -36,4 +28,9 @@ html
     
   script(src='/javascripts/bundle.js')
   script(src='/javascripts/global.js')
+  //Typekit
+  script(src="https://use.typekit.net/csp0cwt.js")
+
+  script. 
+    try{Typekit.load({ async: true });}catch(e){}
     

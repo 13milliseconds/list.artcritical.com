@@ -23,7 +23,7 @@ GENERAL STYLES
     //max-width: 1400px;
     margin: 0 auto;
     .app-content{
-        padding: 130px 50px;
+        padding: 130px 20px;
         min-height: 100vh;
     }
 }
@@ -34,12 +34,9 @@ footer{
 
 body{
     a{
-        color: $green;
-        border-bottom: 1px transparent dotted;
         @include transition(.2s);
         &:hover{
-            color: $black;
-            border-color: $green;
+            color: $green;
             text-decoration: none;
         }
     }
@@ -87,20 +84,31 @@ header.mainHeader{
 	position: fixed;
     left: 0;
     height: 100px;
-    padding: 20px 50px;
+    padding: 20px;
 	border-bottom: 1px solid $gray;
     width: 100%;
     background: white;
     @include row();
     .mainLogo{
-        @include span-columns(3);
+        @include span-columns(4);
+        h1{
+            font-size: 2.6em;
+            margin-bottom: 10px;
+            line-height: .6em;
+        }
+        h2{
+            display: block;
+            color: $black;
+            font-size: .76em;
+            font-weight: 500;
+        }
     }
     nav{
         position: initial;
         padding: 0 0;
         top: 0;
         left: 0;
-        @include span-columns(9);
+        @include span-columns(8);
         @include omega();
         & > ul{
             text-align: left;
@@ -109,7 +117,7 @@ header.mainHeader{
                 display: inline-block; 
                 a{
                     display: inline-block;
-                    font-size: 1em;
+                    font-size: .88em;
                     padding: 5px 20px;
                     margin-right: 10px;
                     color: $white;
@@ -209,6 +217,10 @@ header.mainHeader{
     position: relative;
 }
 
+.mobileMenu{
+    display: none;
+}
+
 #sortPanel {
     width: 200px;
     top: 100px;
@@ -267,15 +279,39 @@ header.mainHeader{
 }
 
 
-.home, .glance, .current, .future{
+.home, .glance, .current, .events, .future{
     padding: 0 0;
 }
+
+.hoodNav{
+    position: initial;
+    padding: 0;
+    border-top: 0;
+}
+
 // CURRENT PAGE
 .mainList{
+    @include row();
     .left-col{
-        @include span-columns(3);
+        @include span-columns(12);
         position: fixed;
-        top: 130px;
+        top: 100px;
+        background: $white;
+        left: 0;
+        padding: 20px;
+        border-bottom: 1px solid $gray;
+        h1{
+            @include span-columns(4);
+        }
+        .hoodNav{
+            @include span-columns(8);
+            @include omega();
+        }
+        p{
+            margin-bottom: 0;
+            position: absolute;
+            top: 3.5em;
+        }
     }
     .right-col{
         @include span-columns(0);
@@ -284,21 +320,10 @@ header.mainHeader{
         right: 0;
 	}
 	.main-col{
-        @include span-columns(9);
-        @include shift(4);
+        @include span-columns(12);
+        @include omega();
+        padding-top: 100px;
 	}
-}
-
-.hoodNav{
-    position: initial;
-    padding: 0;
-    border-top: 0;
-    ul{
-        display: block;
-    }
-    select{
-        display: none;
-    }
 }
 
 // LISTINGS
@@ -361,14 +386,9 @@ header.mainHeader{
 
 //GLANCE
 .glance{
-    h1{
-        height: 0;
-        margin-bottom: 0;
-    }
     ul.tabs__labels{
         display: block;
         padding: 0;
-        margin-top: 70px;
 		@include span-columns(3);
     }
 	div.tabs__content{
@@ -378,6 +398,7 @@ header.mainHeader{
             .listingsWrap{
                 @include span-columns(8);
                 padding-right: 30px;
+                margin-top: 0;
                 float: right;
             }
             .featuredSection{
@@ -413,7 +434,7 @@ header.mainHeader{
 
 
 // MAPS
-.map.app-container, .mylist.connected.app-container{
+.map.app-container, .mylistPage.connected.app-container{
     min-height: 100%;
     padding: 0;
     max-width: none;
@@ -476,11 +497,9 @@ header.mainHeader{
 }   
 
 // MyList
-.mylist.app-container{
+.myListPage.app-container{
     padding: 0;
     max-width: none;
-}
-.myList{
     .venue{
         padding: 10px;
     }
@@ -654,5 +673,20 @@ header.mainHeader{
     }
     .allInfo{
         @include span-columns(6);
+    }
+    //FEATURES
+    .featureAdmin{
+        .tabs__labels{
+            display: block;
+            li{
+                display: inline-block;
+                margin-bottom: 10px;
+                a.active{
+                    button{
+                        background-color: $gray;
+                    }
+                }
+            }
+        }
     }
 }

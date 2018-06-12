@@ -20,9 +20,9 @@ export default class FuturePage extends React.Component {
         return ( 
             <div className = "future mainList">
                 <div className="left-col">
-                    <h1>Future Listings</h1>
+                    <h1>Future Exhibitions</h1>
 					<NeighborhoodNav />
-					<p>See all <Link to={'/current'} activeClassName="active">current listings</Link>.</p>
+					<p>See <Link to={'/current'} activeClassName="active">Current Exhibitions</Link>.</p>
 				</div>
                 <div className={this.props.view + " listingsWrap main-col"}>
                     <ListingsPerNeighbor listings={this.props.futureListings} user={this.props.user} />

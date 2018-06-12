@@ -56,6 +56,7 @@ export default class EventsPage extends React.Component {
                 title="Events"
                 link="https://list.artcritical.com/events"
             />
+            <h1>Events</h1>
             <div className="left-col">
 				<DayPicker events={this.props.eventsListings} scrollToDate={this.scrollToDate} />
 			</div>

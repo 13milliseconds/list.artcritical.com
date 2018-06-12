@@ -36,9 +36,9 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Futura", Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 18px!important;
     h1{
-        font-size: 2em;
+        font-size: 1.5em;
         color: $green;
         margin-bottom: 30px;
         font-weight: 400;
@@ -64,7 +64,18 @@ body {
     .form-check {
         padding-left: 0;
     }
-    
+    a{
+        color: $black;
+        border-bottom: 2px dotted $green;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+    li{
+        a{
+            border: 0;
+        }
+    }
 }
 
 #thelist{
@@ -102,6 +113,7 @@ a.facebookbutton{
     text-decoration: none;
     letter-spacing: .03em;
     margin-bottom: 50px;
+    border-bottom: 0;
     cursor: pointer;
     @include transition(.5s);
     &:hover{
@@ -229,11 +241,12 @@ LISTING ELEMENTS
     margin-bottom: 20px;
     @include row();
     a{
-        font-weight: 600;
+        font-weight: 500;
     }
 }
 .listing{
     .listingContent{
+        
         p{
             margin-bottom: 0;
             .title{
@@ -253,6 +266,20 @@ LISTING ELEMENTS
                         content: '';
                     }
                 }
+            }
+        }
+        .card{
+            h3{
+                font-size: 1em;
+                margin-bottom: 0;
+                text-transform: uppercase;
+                font-weight: 100;
+            }
+            .artists,
+            .notes,
+            .events{
+                padding: 0;
+                margin-bottom: 10px;
             }
         }
     }
@@ -287,6 +314,9 @@ LISTING ELEMENTS
     }
     .listingActions{
         text-align: right;
+        a{
+            border-bottom: 0;
+        }
         .delete, .edit{
             cursor: pointer;
             font-size: .8em;
@@ -344,6 +374,9 @@ LISTING ELEMENTS
     .venue{
         padding: 0;
         .venueInfo{
+            a{
+                border: 0;
+            }
             span{
                 color: $dark-gray;
                 font-weight: 100;
@@ -381,6 +414,7 @@ LISTING ELEMENTS
     .listingContent{
         display: inline-block;
         .title{
+            display: inline-block;
             margin-right: 10px;
         }
         .date, 
@@ -527,10 +561,9 @@ VENUE ELEMENTS
 
 .venue{
     .venueInfo{
-        margin-bottom: 5px;
         a{
             color: $black;
-            font-weight: 600;
+            font-weight: 500;
             text-decoration: none;
         }
         .address{
@@ -565,6 +598,16 @@ header.mainHeader{
     .mainLogo{
         img{
             max-height: 30px;
+        }
+        h1{
+            font-size: 2.1em;
+            color: $red;
+            margin-bottom: 0;
+            font-weight: 500;
+            letter-spacing: .1em;
+        }
+        h2{
+            display: none;
         }
     }
     nav{
@@ -614,7 +657,7 @@ header.mainHeader{
             font-size: 2em;
             display: block;
             a{
-                font-weight: 600px;
+                font-weight: 500px;
             }
         }
     }
@@ -624,6 +667,43 @@ header.mainHeader{
         }
     }
 } 
+
+.mobileMenu{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    @include transition(.3s);
+    nav{
+        ul{
+            margin-bottom: 0;
+        }
+        li{
+            display: inline-block;
+            width: 20%;
+            padding: 10px 0 0;
+            text-align: center;
+            background: $light-gray;
+            border-right: 1px solid $gray;
+            font-size: .8em;
+            line-height: 2em;
+            text-transform: uppercase;
+            &:last-child{
+                border-right: 0;
+            }
+            a{
+                &.active{
+                    text-decoration: none;
+                }
+            }
+            svg{
+                font-size: 1.5em;
+                display: block;
+                margin: auto;
+            }
+        }
+    }
+}
 
 
 /*********************
@@ -683,21 +763,19 @@ CURRENT & FUTURE
 
 	.hoodNav{
         @include leftNavStyle();
-        position: fixed;
         bottom: 0;
         width: 100%;
         left: 0;
         background: white;
-        margin-bottom: 0;
-        padding: 10px 20px;
+        margin-bottom: 10px;
         z-index: 99;
-        border-top: 1px solid $gray;
         h3{
             font-size: 1em;
         }
 		&.fixed{
 			position: fixed;
-			top: 100px;
+            top: 100px;
+            border-bottom: 1px solid $gray;
         }
         ul{
             display: none;

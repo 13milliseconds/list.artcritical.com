@@ -17,8 +17,6 @@ export default class VenueBlock extends React.Component {
     let displayListings = listings => listings.map((currentListing, index) => {
         return <Listing listing={currentListing} key={index} {...this.props}/>
     })
-        
-    let address = <span className="address">{listing.venue.address1} {listing.venue.address2}{(listing.venue.address2 !== '' && listing.venue.city !== '') && ', ' }{listing.venue.city}</span>
       
     return (
         <div className="venue">
