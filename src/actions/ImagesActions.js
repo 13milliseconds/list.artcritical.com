@@ -51,7 +51,7 @@ class ImagesActions {
           }
 
           if (response.body.secure_url !== '') {
-			  let image = response.body
+              let image = response.body
               this.thumbnailUploadSuccess({image, i});
           }
         });

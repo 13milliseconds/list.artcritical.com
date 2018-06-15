@@ -254,7 +254,7 @@ export default class ListingForm extends React.Component {
                             <ThumbnailInput {...listing} onChange={this.onThumbChange}/> 
 					</FormGroup>
                         <div className="byline">
-                        {listing.updated_by &&
+                        {listing.updated_by && 
                             <p>Edited by <UserLink user={listing.updated_by}/> on <Date date={listing.updated_at}/></p>
                         }
                         {listing.created_at &&

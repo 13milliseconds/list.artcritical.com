@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import AuthActions from '../../actions/AuthActions';
 import ListActions from '../../actions/ListActions';
 import {FlyToInterpolator} from 'react-map-gl';
@@ -10,6 +9,7 @@ import MyMap from './myMap';
 import FacebookShare from '../blocks/facebookShare';
 import {reorder} from 'react-reorder';
 import { Button} from 'reactstrap';
+import {Link} from 'react-router';
 
 var d3 = require('d3-ease');
 
@@ -165,9 +165,11 @@ export default class MyList extends React.Component {
     }
 
     render() {
+
+        let hasList = this.props.user.mylist && this.props.user.mylist.length > 0? true : false
         
         return ( 
-                <div className="myList">
+                <div className={hasList? "myList" : "mylist deactivated"}>
                 <div className="mapWrap" ref="mapWrap"> 
                         <MyMap 
                             markers={this.state.markers} 
@@ -177,7 +179,7 @@ export default class MyList extends React.Component {
                             onHover={this._onHover}
                             onLeave={this._onLeave}
                             />
-                    </div>
+                </div>
 				<div className={this.props.view + " mapInfo cf"}>
                     <div className="mapHeader">
                     <h2>My List</h2>
@@ -185,30 +187,27 @@ export default class MyList extends React.Component {
                     <FacebookShare url={this.state.publicUrl} />
                     </div>
                     <div className="content">
-                    {this.props.user.mylist && 
-                                this.props.user.mylist.length > 0 
-                                        ?<MyListings 
-                                            user={this.props.user}
-                                            view={this.props.view}
-                                            onHover={this._onHover}
-                                            onLeave={this._onLeave}
-                                            onReorder={this.onReorder}
-                                            onAutoReorder = {this.onAutoReorder}
-                                            listingHover={this.state.listingHover}/> 
-                                        :   <div className="popupList">
-                                                <div>
-                                                    <h2>You don't have any show in your list yet!</h2>
-                                                    <p>Add some listings to your list to enjoy this page.</p>
-                                                    <Button href="/current">Explore all shows</Button>
-                                                </div>
-                                            </div>
+                    {hasList && <MyListings 
+                                    user={this.props.user}
+                                    view={this.props.view}
+                                    onHover={this._onHover}
+                                    onLeave={this._onLeave}
+                                    onReorder={this.onReorder}
+                                    onAutoReorder = {this.onAutoReorder}
+                                    listingHover={this.state.listingHover}/> 
                     }
                     </div>
                     <div className="footer">
                         <Button onClick={this.onAutoReorder}>Reset Order</Button>
                     </div>
 				</div>
-                    
+                    {!hasList && <div className="popupList">
+                                    <div>
+                                        <h2>You don't have any show in your list yet!</h2>
+                                        <p>Add some listings to your list to enjoy this page.</p>
+                                        <Link to={'/current'}><Button>Explore all shows</Button></Link>
+                                    </div>
+                                </div>}
                 </div>
         );
     }

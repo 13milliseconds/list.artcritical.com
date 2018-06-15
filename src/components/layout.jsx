@@ -104,7 +104,7 @@ export default class Layout extends React.Component {
         let allowAccess = user.isLoggedIn && user.userAccess > 0 ? true : false
 
         return (
-            <div className={currentLocation + connectedClass + "Page app-container"}>
+            <div className={currentLocation + "Page app-container " + connectedClass}>
                 <Helmet
                     title="The List"
                     link="https://list.artcritical.com"

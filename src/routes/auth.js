@@ -341,10 +341,10 @@ router.post('/updateuser', function (req, res) {
     console.log('auth/deleteuser');
     var Userlist = req.userlist;
     var UserTrash = req.usertrash;
-    
-    var user = req.body;
 
-    Userlist.findOne({ _id: user._id }, function(err, result) {
+    var id = req.body;
+
+    Userlist.findOne({ _id: id }, function(err, result) {
 
         if (result) {
             let swap = new UserTrash(result);

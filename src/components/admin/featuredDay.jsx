@@ -23,7 +23,7 @@ export default class FeaturedDay extends React.Component {
     
     
     // Add the listing to the database
-    handleSubmit(event) {
+    handleSubmit() {
         const id = this.props.feature._id || null
         let newFeature = {
             _id:    id,
@@ -32,12 +32,8 @@ export default class FeaturedDay extends React.Component {
             list:   this.props.feature.list._id,
 			venue:  this.props.feature.list.venue._id
         }
-        let newThumbnail = {
-            _id:    this.props.feature.list._id,
-            image:  this.props.feature.list.image
-        }
         ListActions.updateFeature(newFeature)
-        ListActions.updateListing(newThumbnail, this.props.dayNumber)
+        ListActions.updateListing(this.props.feature.list)
       }
 	
 	handleChange (event) {
@@ -74,13 +70,15 @@ export default class FeaturedDay extends React.Component {
             <div>
                 <div className="featureFormWrap">
                     <Select value={{label: list.name, value: list._id}} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
-                    <FeaturedForm {...this.props.feature} 
-                    number={this.props.dayNumber} 
-                    handleChange={this.handleChange} 
-                    handleSubmit={this.handleSubmit} 
-                    onTextChange={this.onTextChange}
-                    error={this.props.error}
-                    success={this.props.success}/>
+                    {this.props.feature.list &&
+                        <FeaturedForm {...this.props.feature} 
+                            number={this.props.dayNumber} 
+                            handleChange={this.handleChange} 
+                            handleSubmit={this.handleSubmit} 
+                            onTextChange={this.onTextChange}
+                            error={this.props.error}
+                            success={this.props.success}/>
+                    }
                 </div>
                 <div className="preview">
                     {this.props.feature.list ? <FeatureBlock feature={this.props.feature} user={this.props.user} /> : this.props.error }

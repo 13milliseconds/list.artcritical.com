@@ -487,10 +487,10 @@ class ListStore {
     
     //FEATURED
     onUpdateFeatureSuccess(data){
-        this.success.feature = true
+        this.success.updateFeature = true
         var that = this;
         setTimeout(() => {
-            that.success.feature = false;
+            that.success.updateFeature = false;
         }, 1000);
     }
     onUpdateFeatureFailure(error){
@@ -615,6 +615,9 @@ class ListStore {
         console.log('Success!');
         this.loading.updateUser = false;
         this.success.updateUser = true;
+        setTimeout(function(){
+            this.success.updateUser = false;
+        }.bind(this), 1000)
     }
     onUpdateUserFailure(error){
         console.log('Failed Updating User', error);
@@ -630,7 +633,7 @@ class ListStore {
     onDeleteUserSuccess(info){
         console.log(info.data.slug)
         //Find user in current list of all users and delete it there for visualization
-        this.allUsers = this.allUsers.filter(user => {return user.slug !== info.data.slug})
+        this.allUsers = this.allUsers && this.allUsers.filter(user => {return user.slug !== info.data.slug})
         //Display Success
         this.success.deleteUser = true;
         setTimeout(function(){
@@ -770,10 +773,11 @@ class ListStore {
     }
     // UPLOAD A THUMBNAIL
     onThumbnailUploadSuccess(data){
-        this.isUploaded = true;
+        console.log('Uploaded!', data)
         this.listingEdit.image = data.image.public_id;
-		if (data.i){
-			this.features[data.i].list.image = data.image.public_id;	
+		if (Number.isInteger(data.i)){
+            this.features[data.i].list.image = data.image.public_id;
+            console.log(this.features[data.i].list)
 		}
     }
     onThumbnailUploadFailure(err){

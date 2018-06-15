@@ -36,8 +36,18 @@ export default class FeaturePage extends React.Component {
         let days = []
         
         for (var i=0; i < 14; i++) {
-            let label = <Button outline color={this.props.features[i] && this.props.features[i]._id? 'success' : 'danger'}><IntlProvider locale="en"><FormattedDate value={this.state.dates[i]} weekday="short" day="numeric" month="short" /></IntlProvider></Button>
-            days.push(<FeaturedDay key={i} dayNumber={i} date={this.state.dates[i]} user={this.props.user} feature={this.props.features[i] || {}} error={this.props.error.feature} success={this.props.success.feature} label={label} />);
+            let label = <Button outline color={this.props.features[i] && this.props.features[i]._id? 'success' : 'danger'}>
+                            <IntlProvider locale="en"><FormattedDate value={this.state.dates[i]} weekday="short" day="numeric" month="short" /></IntlProvider>
+                        </Button>
+
+            days.push(<FeaturedDay 
+                            key={i}
+                            dayNumber={i} 
+                            date={this.state.dates[i]} 
+                            user={this.props.user} 
+                            feature={this.props.features[i] || {}} 
+                            error={this.props.error.feature} 
+                            success={this.props.success.updateFeature} label={label} />);
         }
         
         return ( 

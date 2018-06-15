@@ -863,31 +863,47 @@ header.mainHeader .SizeSelector span.active {
 }
 
 /* line 500, ../scss/breakpoints/_768up.scss */
-.myListPage.app-container {
+.mylistPage.app-container {
   padding: 0;
   max-width: none;
 }
 /* line 503, ../scss/breakpoints/_768up.scss */
-.myListPage.app-container .venue {
+.mylistPage.app-container .venue {
   padding: 10px;
 }
 /* line 509, ../scss/breakpoints/_768up.scss */
-.myListPage.app-container .listing:hover .listingAdd span {
+.mylistPage.app-container .listing:hover .listingAdd span {
   background-color: #d70b00;
   color: white;
 }
-/* line 516, ../scss/breakpoints/_768up.scss */
-.myListPage.app-container .popupList {
+/* line 517, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .mapWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+  margin-left: 0%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mylistPage.app-container .mylist.deactivated .mapWrap:last-child {
+  margin-right: 0;
+}
+/* line 521, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .mapInfo {
+  display: none;
+}
+/* line 524, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .popupList {
   position: fixed;
-  z-index: 99;
+  z-index: 10;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   background-color: rgba(255, 255, 255, 0.5);
 }
-/* line 525, ../scss/breakpoints/_768up.scss */
-.myListPage.app-container .popupList div {
+/* line 533, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .popupList div {
   background: #fff;
   position: absolute;
   top: 50%;
@@ -900,8 +916,12 @@ header.mainHeader .SizeSelector span.active {
   padding: 50px;
   border-radius: 10px;
 }
+/* line 541, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .popupList div a {
+  border-bottom: 0;
+}
 
-/* line 536, ../scss/breakpoints/_768up.scss */
+/* line 548, ../scss/breakpoints/_768up.scss */
 .SignIn {
   position: fixed;
   width: 100%;
@@ -913,7 +933,7 @@ header.mainHeader .SizeSelector span.active {
   background-position: center;
   background-repeat: no-repeat;
 }
-/* line 546, ../scss/breakpoints/_768up.scss */
+/* line 558, ../scss/breakpoints/_768up.scss */
 .SignIn > div {
   background-color: #fff;
   position: absolute;
@@ -930,7 +950,7 @@ header.mainHeader .SizeSelector span.active {
   border-radius: 10px;
 }
 
-/* line 562, ../scss/breakpoints/_768up.scss */
+/* line 574, ../scss/breakpoints/_768up.scss */
 .venuePage .mapInfo {
   float: left;
   display: block;
@@ -942,7 +962,7 @@ header.mainHeader .SizeSelector span.active {
 .venuePage .mapInfo:last-child {
   margin-right: 0;
 }
-/* line 566, ../scss/breakpoints/_768up.scss */
+/* line 578, ../scss/breakpoints/_768up.scss */
 .venuePage .mapWrap {
   float: left;
   display: block;
@@ -955,18 +975,18 @@ header.mainHeader .SizeSelector span.active {
 .venuePage .mapWrap:last-child {
   margin-right: 0;
 }
-/* line 570, ../scss/breakpoints/_768up.scss */
+/* line 582, ../scss/breakpoints/_768up.scss */
 .venuePage .mapWrap .map {
   height: 100%;
 }
 
-/* line 577, ../scss/breakpoints/_768up.scss */
+/* line 589, ../scss/breakpoints/_768up.scss */
 .loginForm, .signupForm {
   max-width: 500px;
   margin: 50px auto;
 }
 
-/* line 584, ../scss/breakpoints/_768up.scss */
+/* line 596, ../scss/breakpoints/_768up.scss */
 .account {
   display: block;
 }
@@ -976,7 +996,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 586, ../scss/breakpoints/_768up.scss */
+/* line 598, ../scss/breakpoints/_768up.scss */
 .account .left-col {
   float: left;
   display: block;
@@ -987,12 +1007,12 @@ header.mainHeader .SizeSelector span.active {
 .account .left-col:last-child {
   margin-right: 0;
 }
-/* line 588, ../scss/breakpoints/_768up.scss */
+/* line 600, ../scss/breakpoints/_768up.scss */
 .account .left-col h1 {
   text-align: left;
   margin-top: 0;
 }
-/* line 593, ../scss/breakpoints/_768up.scss */
+/* line 605, ../scss/breakpoints/_768up.scss */
 .account .accountform {
   float: left;
   display: block;
@@ -1005,12 +1025,12 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 600, ../scss/breakpoints/_768up.scss */
+/* line 612, ../scss/breakpoints/_768up.scss */
 .draftJsToolbar__toolbar__dNtBH button {
   margin: 0 0 0 0 !important;
 }
 
-/* line 608, ../scss/breakpoints/_768up.scss */
+/* line 620, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header {
   display: block;
   border-bottom: 1px solid #eaedf2;
@@ -1023,7 +1043,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 613, ../scss/breakpoints/_768up.scss */
+/* line 625, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .avatarWrap {
   float: left;
   display: block;
@@ -1034,14 +1054,14 @@ header.mainHeader .SizeSelector span.active {
 .userList .mapInfo header .avatarWrap:last-child {
   margin-right: 0;
 }
-/* line 615, ../scss/breakpoints/_768up.scss */
+/* line 627, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .avatarWrap .avatar {
   width: 100%;
   height: 0;
   background-size: cover;
   background-position: center;
 }
-/* line 622, ../scss/breakpoints/_768up.scss */
+/* line 634, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .infoWrap {
   float: left;
   display: block;
@@ -1054,7 +1074,7 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 632, ../scss/breakpoints/_768up.scss */
+/* line 644, ../scss/breakpoints/_768up.scss */
 .adminWrap {
   display: block;
 }
@@ -1064,7 +1084,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 634, ../scss/breakpoints/_768up.scss */
+/* line 646, ../scss/breakpoints/_768up.scss */
 .adminWrap .left-col {
   float: left;
   display: block;
@@ -1075,12 +1095,12 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .left-col:last-child {
   margin-right: 0;
 }
-/* line 637, ../scss/breakpoints/_768up.scss */
+/* line 649, ../scss/breakpoints/_768up.scss */
 .adminWrap .left-col nav li {
   display: block;
   margin-bottom: 10px;
 }
-/* line 643, ../scss/breakpoints/_768up.scss */
+/* line 655, ../scss/breakpoints/_768up.scss */
 .adminWrap .admin-content {
   float: left;
   display: block;
@@ -1092,7 +1112,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .admin-content:last-child {
   margin-right: 0;
 }
-/* line 647, ../scss/breakpoints/_768up.scss */
+/* line 659, ../scss/breakpoints/_768up.scss */
 .adminWrap .editVenue {
   display: block;
 }
@@ -1102,7 +1122,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 649, ../scss/breakpoints/_768up.scss */
+/* line 661, ../scss/breakpoints/_768up.scss */
 .adminWrap .editVenue .venueEditing,
 .adminWrap .editVenue .venueLocation {
   float: left;
@@ -1115,7 +1135,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .editVenue .venueLocation:last-child {
   margin-right: 0;
 }
-/* line 655, ../scss/breakpoints/_768up.scss */
+/* line 667, ../scss/breakpoints/_768up.scss */
 .adminWrap #ListingList, .adminWrap #ListingInfo {
   float: left;
   display: block;
@@ -1126,7 +1146,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap #ListingList:last-child, .adminWrap #ListingInfo:last-child {
   margin-right: 0;
 }
-/* line 660, ../scss/breakpoints/_768up.scss */
+/* line 672, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card {
   float: left;
   display: block;
@@ -1140,7 +1160,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .usersWrap .allUsers .card:last-child {
   margin-right: 0;
 }
-/* line 665, ../scss/breakpoints/_768up.scss */
+/* line 677, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card:nth-of-type(2n) {
   margin-right: 2.3576520234%;
 }
@@ -1152,7 +1172,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .usersWrap .allUsers .card:nth-child(3n+1) {
   clear: left;
 }
-/* line 669, ../scss/breakpoints/_768up.scss */
+/* line 681, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card .card-block {
   -webkit-transform: translateY(-30%);
   -moz-transform: translateY(-30%);
@@ -1160,7 +1180,7 @@ header.mainHeader .SizeSelector span.active {
   -o-transform: translateY(-30%);
   transform: translateY(-30%);
 }
-/* line 674, ../scss/breakpoints/_768up.scss */
+/* line 686, ../scss/breakpoints/_768up.scss */
 .adminWrap .allInfo {
   float: left;
   display: block;
@@ -1171,18 +1191,27 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .allInfo:last-child {
   margin-right: 0;
 }
-/* line 679, ../scss/breakpoints/_768up.scss */
+/* line 691, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .tabs__labels {
   display: block;
 }
-/* line 681, ../scss/breakpoints/_768up.scss */
+/* line 693, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .tabs__labels li {
   display: inline-block;
   margin-bottom: 10px;
 }
-/* line 685, ../scss/breakpoints/_768up.scss */
+/* line 697, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .tabs__labels li a.active button {
   background-color: #eaedf2;
+}
+/* line 703, ../scss/breakpoints/_768up.scss */
+.adminWrap .featureAdmin .featureFormWrap {
+  max-width: 500px;
+}
+
+/* line 710, ../scss/breakpoints/_768up.scss */
+.avatar img {
+  max-width: 400px;
 }
 
 /******************************************************************

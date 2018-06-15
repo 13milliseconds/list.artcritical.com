@@ -8,6 +8,7 @@ import {createEditorStateWithText } from 'draft-js-plugins-editor';
 import {stateFromHTML} from 'draft-js-import-html';
 import {stateToHTML} from 'draft-js-export-html';
 import MyEditor from './MyEditor'
+import ConfirmModal from './confirmModal'
 
 export default class AccountForm extends React.Component {
     
@@ -17,13 +18,19 @@ export default class AccountForm extends React.Component {
         this.state = {
             text: '',
             updatevisible: false,
-            editorState: createEditorStateWithText(this.props.user.bio)
+            editorState: createEditorStateWithText(''),
+            updateModal: false,
+            deleteModal: false
         }
         
         //Function Binding
         this.handleChange = this.handleChange.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
         this.onEditorChange = this.onEditorChange.bind(this)
+        this.toggleModal = this.toggleModal.bind(this)
+        this.onSave = this.onSave.bind(this)
+        this.onDelete = this.onDelete.bind(this)
+        this.deleteAccount = this.deleteAccount.bind(this)
     }
     
 
@@ -35,11 +42,34 @@ export default class AccountForm extends React.Component {
 
     componentDidUpdate(){
         if (this.props.user.bio !== this.state.text) {
+            const bio = this.props.user.bio ? this.props.user.bio : ''
             this.setState({
                 text: this.props.user.bio,
-                editorState: EditorState.createWithContent(stateFromHTML(this.props.user.bio))
+                editorState: EditorState.createWithContent(stateFromHTML(bio))
             })
         }
+    }
+
+     //Save alert
+     onSave(event) {
+        event.preventDefault();
+        this.setState({ 
+            updateModal: true
+        })
+    }
+    //Delete alert
+    onDelete(event) {
+        event.preventDefault();
+        this.setState({ 
+            deleteModal: true
+        })
+    }
+
+    //ToggleModal
+    toggleModal(modalName) {
+        this.setState({
+            [modalName]: !this.state[modalName]
+        })
     }
     
     //Update values of inputs
@@ -54,11 +84,16 @@ export default class AccountForm extends React.Component {
         AuthActions.updateUser(this.props.user)
     }
 
+    deleteAccount(){
+        AuthActions.deleteUser({_id: this.props.user._id})
+        window.location.reload()
+    }
+
     render() {
         
         return ( 
             <div className = "accountform">
-                <form onSubmit={this.saveChanges}>
+                <form>
 
                     <div className="avatarWrap">
                         <Avatar {...this.props.user}/>
@@ -74,9 +109,29 @@ export default class AccountForm extends React.Component {
                         editorState={this.state.editorState}
                         onEditorChange={this.onEditorChange}/>
                         <Input name="website" placeholder="Website" type="website" value={this.props.user.website} onChange={this.handleChange} />  
-                        <Button type="submit">Save</Button>
+                        <Button type="submit" onClick={this.onSave}>Save</Button>
+                        <Button type="submit" outline color="danger" onClick={this.onDelete}>Delete</Button>
                     </div>
                  </form>
+
+                 {this.state.updateModal && <ConfirmModal 
+                                                        toggle={this.toggleModal}
+                                                        handleSubmit={this.saveChanges}
+                                                        name="updateModal"
+                                                        textTitle="Save"
+                                                        textAction="save your account information"
+                                                        textConfirm="Saved!"
+                                                        error={this.props.error.general}
+                                                        success={this.props.success.updateUser}/>}
+                {this.state.deleteModal && <ConfirmModal 
+                                                toggle={this.toggleModal}
+                                                handleSubmit={this.deleteAccount}
+                                                name="deleteModal"
+                                                textTitle="Delete"
+                                                textAction="delete your account"
+                                                textConfirm="Deleted!"
+                                                error={this.props.error.general}
+                                                success={this.props.success.deleteUser}/>}
             </div>
 
         );

@@ -30,16 +30,17 @@ export default class ListingForm extends React.Component {
 
     componentDidUpdate(){
         if (this.props.text !== this.state.text) {
+            var description = this.props.text ? this.props.text : ''
             this.setState({
                 text: this.props.text,
-                editorState: EditorState.createWithContent(stateFromHTML(this.props.text))
+                editorState: EditorState.createWithContent(stateFromHTML(description))
             })
         }
     }
 
     toggleModal() {
         this.setState({
-            updatevisible: !this.state.updatevisible
+            updatevisible: false
         })
     }
 
@@ -62,33 +63,32 @@ export default class ListingForm extends React.Component {
             <div className="featuredForm">
                 <Form>
                     <FormGroup check>
-                    <Label>Thumbnail</Label>
-                    <ThumbnailInput image={this.props.list && this.props.list.image} number={this.props.number} /> 
+                        <Label>Thumbnail</Label>
+                        <ThumbnailInput image={this.props.list && this.props.list.image} number={this.props.number} /> 
                     </FormGroup>
                     
                     <FormGroup check>
-                    <Label>Description</Label>
-                     <div className="formSection">
-                      <MyEditor
-                        name="text"
-                        editorState={this.state.editorState}
-                        onEditorChange={this.onEditorChange}/>
-                    </div>
+                        <Label>Description</Label>
+                        <div className="formSection">
+                            <MyEditor
+                                name="text"
+                                editorState={this.state.editorState}
+                                onEditorChange={this.onEditorChange}/>
+                        </div> 
                     </FormGroup>
                 </Form>
                 
                 <Button onClick={this.onUpdate}>Submit</Button>
+
                 {this.state.updatevisible && <ConfirmModal 
-                                                        toggle={this.toggleModal}
-                                                        modalVisible={this.state.updatevisible}
-                                                        handleSubmit={this.props.handleSubmit}
-                                                        textTitle="Save"
-                                                        textAction="save this Feature"
-                                                        textConfirm="Saved!"
-                                                        error={this.props.error}
-                                                        success={this.props.success}/>}
-                
+                                                toggle={this.toggleModal}
+                                                handleSubmit={this.props.handleSubmit}
+                                                textTitle="Save"
+                                                textAction="save this Feature"
+                                                textConfirm="Saved!"
+                                                error={this.props.error}
+                                                success={this.props.success}/>}
             </div>
-        );
+        )
     }
 }
