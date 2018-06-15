@@ -2,7 +2,6 @@ import React from 'react';
 import AuthActions from '../actions/AuthActions';
 //COMPONENTS
 import UserList from './mylist/userList';
-import LogInForm from './login/LogInForm';
 import Helmet from './blocks/Helmet'
 
 export default class MyListPage extends React.Component {

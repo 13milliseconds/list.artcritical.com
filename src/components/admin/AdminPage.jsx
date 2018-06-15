@@ -30,7 +30,7 @@ export default class AdminPage extends React.Component {
                                 <li><Link to={'/admin/listings'} activeClassName="active">Listings</Link></li>
                                 <li><Link to={'/admin/venues'} activeClassName="active">Venues</Link></li>
                                 <li><Link to={'/admin/featured'} activeClassName="active">Featured Calendar</Link></li>
-                                <li><Link to={'/admin/review'} activeClassName="active">Review Events</Link></li>
+                                <li><Link to={'/admin/review'} activeClassName="active">Review</Link></li>
                                 {this.props.user.userAccess >=1 && <li><Link to={'/admin/users'} activeClassName="active">User Admin</Link></li>}
                             </ul>
                         </nav>

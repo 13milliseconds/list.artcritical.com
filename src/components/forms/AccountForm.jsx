@@ -9,8 +9,6 @@ import {stateFromHTML} from 'draft-js-import-html';
 import {stateToHTML} from 'draft-js-export-html';
 import MyEditor from './MyEditor'
 
-var updateTimer;
-
 export default class AccountForm extends React.Component {
     
     constructor(props){
@@ -31,10 +29,18 @@ export default class AccountForm extends React.Component {
 
     onEditorChange(editorState){
         this.setState({
-            text: stateToHTML(editorState.getCurrentContent()),
             editorState
         })
       }
+
+    componentDidUpdate(){
+        if (this.props.user.bio !== this.state.text) {
+            this.setState({
+                text: this.props.user.bio,
+                editorState: EditorState.createWithContent(stateFromHTML(this.props.user.bio))
+            })
+        }
+    }
     
     //Update values of inputs
     handleChange (event) {
@@ -44,7 +50,7 @@ export default class AccountForm extends React.Component {
     saveChanges(event){
         event.preventDefault();
         let newUser = this.props.user
-        newUser.bio = this.state.text
+        newUser.bio = stateToHTML(this.state.editorState.getCurrentContent())
         AuthActions.updateUser(this.props.user)
     }
 

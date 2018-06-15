@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 export default class ImageUpload extends React.Component {
     
@@ -43,7 +44,7 @@ export default class ImageUpload extends React.Component {
 			onDragLeave={this.onDragLeave.bind(this)}
 			onClick={this.onAvatarClick}>
 			{ this.state.dropzoneActive && <div className="dragged">Drop files...</div> }
-              <p>Drop an image or click to select a file to upload.</p>
+              <p><FontAwesomeIcon icon={['fal', 'plus']} /></p>
         </Dropzone>
     );
   }

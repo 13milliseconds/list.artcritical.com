@@ -31,6 +31,7 @@ export default class CurrentMap extends React.Component {
             	transitionEasing: this.props.transitionEasing
 			  },
 			hoverPosition: [0,0],
+			revealOther: false
         }
 		
 		//Getting the cluster icons
@@ -42,8 +43,13 @@ export default class CurrentMap extends React.Component {
 		
 		
 		this.componentDidMount = this.componentDidMount.bind(this)
+		this._revealOther = this._revealOther.bind(this)
+		this._hideOther = this._hideOther.bind(this)
 		this._goToNYC = this._goToNYC.bind(this)
 		this._goToPhil = this._goToPhil.bind(this)
+		this._goToUpstate = this._goToUpstate.bind(this)
+		this._goToNJ = this._goToNJ.bind(this)
+		this._goToLI = this._goToLI.bind(this)
 		this._onViewportChange = this._onViewportChange.bind(this)
 		this._onHover = this._onHover.bind(this)
 		this._onClick = this._onClick.bind(this)
@@ -89,12 +95,58 @@ export default class CurrentMap extends React.Component {
         }
         this.setState({viewport})
 	}
+	_revealOther(){
+		this.setState({
+			revealOther: true
+		})
+	}
+	_hideOther(){
+		this.setState({
+			revealOther: false
+		})
+	}
 	_goToPhil() {
         const viewport = {
             ...this.state.viewport,
-            longitude: -75.2581144,
-            latitude: 40.0026767,
+            longitude: -75.161488,
+            latitude: 39.9373046,
             zoom: this.props.zoom,
+			transitionDuration: this.props.transitionDuration,
+			transitionInterpolator: this.props.transitionInterpolator,
+			transitionEasing: this.props.transitionEasing
+        }
+        this.setState({viewport})
+	}
+	_goToUpstate() {
+        const viewport = {
+            ...this.state.viewport,
+            longitude: -75.0738887,
+            latitude: 42.6291662,
+            zoom: 7,
+			transitionDuration: this.props.transitionDuration,
+			transitionInterpolator: this.props.transitionInterpolator,
+			transitionEasing: this.props.transitionEasing
+        }
+        this.setState({viewport})
+	}
+	_goToLI() {
+        const viewport = {
+            ...this.state.viewport,
+            longitude: -72.9371244,
+            latitude: 40.8286694,
+            zoom: 8.5,
+			transitionDuration: this.props.transitionDuration,
+			transitionInterpolator: this.props.transitionInterpolator,
+			transitionEasing: this.props.transitionEasing
+        }
+        this.setState({viewport})
+	}
+	_goToNJ() {
+        const viewport = {
+            ...this.state.viewport,
+            longitude: -74.6243706,
+            latitude: 40.5731734,
+            zoom: 9,
 			transitionDuration: this.props.transitionDuration,
 			transitionInterpolator: this.props.transitionInterpolator,
 			transitionEasing: this.props.transitionEasing
@@ -160,23 +212,33 @@ export default class CurrentMap extends React.Component {
 					</div> 
 					<div className={this.props.view + " mapInfo"}>
 						<div className="mapHeader">
-						<h2>Discover the latest shows and events that your friends and art experts love</h2>
+						<h2>Discover all current shows</h2>
+						<p>THE LIST prides itself on being the best, so if something's wrong or missing, please <a href="mailto:thelist@artcritical.com">let us know</a></p>
 						</div>
 						<div className="content">
 						{this.state.browseListings?
 							displayListings(this.state.browseListings)
 							:
 							<div className="intro">
-							<p>Click on markers to explore all the shows currently open in New York City and beyond.</p>
+							<p>Click on markers for neighborhood and exhibition details</p>
 							{this.props.loading.current && <div className="loading">Loading...</div>}
-							<p>There are currently {this.props.currentListings.length} shows open in NYC and around.</p>
+							<p>There are currently <strong>{this.props.currentListings.length} shows</strong> open in NYC and around.</p>
 							</div>
 						}
 						</div>
 						<div className="footer cityJump">
-							<h6>Navigate between Cities</h6>
 							<Button onClick={this._goToNYC}>New York City</Button>
-							<Button onClick={this._goToPhil}>Philadelphia</Button>
+							<div className="otherWrap" onMouseEnter={this._revealOther} onMouseLeave={this._hideOther}>
+								<Button>Other</Button>
+								{this.state.revealOther && 
+									<div>
+									<Button onClick={this._goToUpstate}>Upstate NY</Button>
+									<Button onClick={this._goToLI}>Long Island</Button>
+									<Button onClick={this._goToNJ}>New Jersey</Button>
+									<Button onClick={this._goToPhil}>Philadelphia</Button>
+									</div>
+								}
+							</div>
 						</div>
 					</div>
             </div>
@@ -185,7 +247,7 @@ export default class CurrentMap extends React.Component {
 }
 
 CurrentMap.defaultProps = {
-    center: {lat: 40.7238556, lng: -73.9221523},
+    center: {lat: 40.7321712, lng: -73.973286},
     zoom: 11,
     token: process.env.MapboxAccessToken,
 	transitionDuration: 1000,

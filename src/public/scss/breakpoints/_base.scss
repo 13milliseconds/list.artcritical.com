@@ -218,7 +218,19 @@ Main PAGES
     .cityJump{
         margin-top: 20px;
         button{
-            background-color: $green;
+            background-color: $dark-gray;
+            &:hover{
+                background-color: $green;
+            }
+        }
+        .otherWrap{
+            display: inline;
+            &:hover > button{
+                background-color: $green;
+            }
+            div{
+                padding-top: 10px;
+            }
         }
     }
 }
@@ -822,8 +834,13 @@ ACCOUNT
     h2{
         margin-top: 0;
     }
-    .DayPicker{
+    &.mainList .left-col{
         display: none;
+    }
+    .listing{
+        .header > .date{
+            display: none;
+        }
     }
 }
 
@@ -1196,12 +1213,30 @@ input.invalid{
 }
 
 .imageDrop{
-    width: 100%;
-    height: 70px;
-    border: 2px dotted $black;
+    width: 100px;
+    height: 100px;
+    border: 1px dotted $dark-gray;
     background: $gray;
-    border-radius: 20px;
-    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    p{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include transform(translate(-50%, -50%));
+        font-size: 20px;
+        color: $white;
+        @include transition(.2s);
+        &:hover {
+            @include transform(translate(-50%, -50%) scale(1.1));
+        }
+    }
+    .dragged{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include transform(translate(-50%, -50%));
+    }
     &.formSection{
         border-color: $green;
         p{
@@ -1232,10 +1267,6 @@ option{
     .app-content{
         background-color: $light-gray;
     }
-    h1{
-        text-align: center;
-        margin-top: 30px;
-    }
     .accountform{
         padding: 20px;
         background: white;
@@ -1248,7 +1279,40 @@ option{
             width: 30%;
             left: 50%;
             top: 0;
-            @include transform(translate(-50%, -50%))
+            @include transform(translate(-50%, -50%));
+            .avatar{
+                cursor: pointer;
+                .delete{
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    @include transform(translate(-50%, -50%));
+                    font-size: 100px;
+                    color: $white;
+                    opacity: 0;
+                    z-index: 2;
+                    @include transition(.2s);
+                }
+                &:hover {
+                    opacity: .8;
+                    .delete{
+                        opacity: 1;
+                    }
+                }
+            }
+            .imageDrop{
+                width: 100%;
+                padding-top: 100%;
+                border-radius: 100%;
+                border: 1px dotted $dark-gray;
+                background: $gray;
+                &.formSection{
+                    padding: 100% 0 0 0;
+                }
+                p{
+                    font-size: 100px;
+                }
+            }
         }
         .infoWrap{
             input{

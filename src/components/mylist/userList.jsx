@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import AuthActions from '../../actions/AuthActions';
 import ListActions from '../../actions/ListActions';
 import {FlyToInterpolator} from 'react-map-gl';
 var async = require('async');
@@ -9,6 +7,7 @@ import UserListings from './userListings';
 import MyMap from './myMap';
 import FacebookShare from '../blocks/facebookShare';
 import { Button} from 'reactstrap';
+import HtmlText from '../blocks/HtmlText'
 
 var d3 = require('d3-ease');
 
@@ -156,7 +155,7 @@ export default class UserList extends React.Component {
                         </div>
                         <div className="infoWrap">
                             <h2>{name}'s List</h2>
-                            <p className="bio">{user.bio}</p>
+                            <HtmlText content={user.bio} />
                             {user.website && <a className="button"
                                                         href={user.website}
                                                         target="_blank">Website</a>}

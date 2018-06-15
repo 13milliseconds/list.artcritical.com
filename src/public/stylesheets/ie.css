@@ -650,17 +650,9 @@ header.mainHeader .SizeSelector span.active {
 
 /* line 365, ../scss/breakpoints/_768up.scss */
 .events.mainList .left-col {
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 23.2317609825%;
   position: fixed;
   float: none;
   padding-right: 4%;
-}
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-.events.mainList .left-col:last-child {
-  margin-right: 0;
 }
 /* line 370, ../scss/breakpoints/_768up.scss */
 .events.mainList .left-col .DayPicker {

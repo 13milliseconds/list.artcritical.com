@@ -3,8 +3,7 @@ import AuthActions from '../../actions/AuthActions';
 //COMPONENTS
 import {IntlProvider, FormattedDate} from 'react-intl';
 import ImageBlock from './imageBlock';
-import $ from 'jquery'; 
-import HtmlText from './HtmlText'
+import HtmlText from './HtmlText' 
 
 export default class FeatureBlock extends React.Component {
     constructor(props) {

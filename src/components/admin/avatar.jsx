@@ -2,6 +2,7 @@ import React from 'react';
 import ImagesActions from '../../actions/ImagesActions';
 //COMPONENTS
 import ImageUpload from '../forms/imageUpload';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 export default class Avatar extends React.Component {
     
@@ -51,7 +52,7 @@ export default class Avatar extends React.Component {
         
         let avatarRender = (isUploaded || this.state.isUploading) && !this.state.resetAvatar ? 
             <div className={isUploaded? 'avatar loaded' : 'avatar loading'} onClick={this.changeAvatar}>
-				<div className="delete">Delete</div>
+				<div className="delete"><FontAwesomeIcon icon={['fal', 'times']} /></div>
                 <img src={isUploaded? fullURL : this.state.uploadedFile.preview}/>
             </div>
             :

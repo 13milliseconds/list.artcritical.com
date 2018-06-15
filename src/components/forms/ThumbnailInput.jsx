@@ -1,6 +1,7 @@
 import React from 'react';
-import ImageUpload from '../forms/imageUpload';
 import ImagesActions from '../../actions/ImagesActions';
+//Components
+import ImageUpload from '../forms/imageUpload';
 
 export default class Thumbnail extends React.Component {
     

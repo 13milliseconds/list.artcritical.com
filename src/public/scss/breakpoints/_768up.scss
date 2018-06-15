@@ -363,7 +363,7 @@ header.mainHeader{
 
 .events.mainList{
     .left-col{
-        @include span-columns(3);
+        //@include span-columns(3);
         position: fixed;
         float: none;
         padding-right: 4%;
