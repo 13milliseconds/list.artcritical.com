@@ -1,13 +1,13 @@
 import React from 'react';
-import { Alert } from 'reactstrap';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 export default class Loading extends React.Component {
 
   render() {
     return (
-      <Alert color="info">
-        Loading...
-      </Alert>
+      <div className="loading">
+        <FontAwesomeIcon icon={['fal', 'spinner-third']} spin />
+      </div>
     );
   }
 }

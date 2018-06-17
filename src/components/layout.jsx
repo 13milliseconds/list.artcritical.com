@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ListStore from '../stores/ListStore';
 import AuthActions from '../actions/AuthActions';
 import ListActions from '../actions/ListActions';
@@ -33,6 +32,7 @@ import faPencilAlt from '@fortawesome/fontawesome-pro-light/faPencilAlt'
 import faListUl from '@fortawesome/fontawesome-pro-light/faListUl'
 import faTh from '@fortawesome/fontawesome-pro-light/faTh'
 import faLink from '@fortawesome/fontawesome-pro-light/faLink'
+import faSpinnerThird from '@fortawesome/fontawesome-pro-light/faSpinnerThird'
 import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
 import faInfoCircle from '@fortawesome/fontawesome-pro-light/faInfoCircle'
 import faPlus from '@fortawesome/fontawesome-pro-regular/faPlus'
@@ -42,7 +42,7 @@ import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
 import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
 
 
-fontawesome.library.add(faBars, faListUl, faTh, faMap, faCalendar, faPlusCircle, faPlusCircle, faMapMarkerAlt, faPlus, faMinus, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
+fontawesome.library.add(faBars, faListUl, faTh, faMap, faCalendar, faPlusCircle, faPlusCircle, faMapMarkerAlt, faPlus, faMinus, faSpinnerThird, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
 
 
 export default class Layout extends React.Component {
@@ -108,6 +108,8 @@ export default class Layout extends React.Component {
                 <Helmet
                     title="The List"
                     link="https://list.artcritical.com"
+                    ogType="website"
+                    ogUrl="https://list.artcritical.com"
                 />
                 <header className={"mainHeader" + (this.state.menuActive ? ' active' : '')}>
                     <div className="mainLogo">

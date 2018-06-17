@@ -1,6 +1,4 @@
 import React from "react"
-import {IntlProvider, FormattedDate} from "react-intl"
-import ListActions from "../actions/ListActions"
 import moment from "moment"
 //COMPONENTS
 import VenueList from "./blocks/VenueList"

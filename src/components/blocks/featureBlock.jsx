@@ -4,6 +4,7 @@ import AuthActions from '../../actions/AuthActions';
 import {IntlProvider, FormattedDate} from 'react-intl';
 import ImageBlock from './imageBlock';
 import HtmlText from './HtmlText' 
+import Helmet from './Helmet'
 
 export default class FeatureBlock extends React.Component {
     constructor(props) {
@@ -63,7 +64,12 @@ export default class FeatureBlock extends React.Component {
       
     return (
         <div className="feature-wrap">
-            <div className="image">
+        <Helmet
+            ogTitle={listing.name + " at " + venue.name}
+            ogDescription={feature.text}
+            ogImage={"https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg"}
+                />
+            <div className="picture">
                 {listing.image? <ImageBlock image={listing.image} classes="feature" /> : ''}
             </div>
             <div className="info">
@@ -71,12 +77,16 @@ export default class FeatureBlock extends React.Component {
                 <HtmlText content={feature.text} />
                 <div className="dates">{start}{end? ' to ' : ''}{end}</div>
                 <div className="address">{venue.address1} {venue.address2}, {venue.city}</div>
-                {this.props.user._id
-                    ?this.state.inList
+                {this.props.user._id && this.state.inList
                         ?<a className='button inList' onClick={(e) => this.addToList(e, listing)}>Remove from your list</a>
                         :<a className='button' onClick={(e) => this.addToList(e, listing)}>Add to your list</a>
-                    :''
                 }
+                <div className="shareWrap">
+                    <div className="fb-share-button" 
+                        data-href="https://list.artcritical.com" 
+                        data-layout="button_count">
+                    </div>
+                </div>
             </div>
         </div>
     );

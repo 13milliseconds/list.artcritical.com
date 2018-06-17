@@ -49,7 +49,7 @@ export default class Thumbnail extends React.Component {
         let isUploaded = this.props.image ? true : false
         
         let avatarRender = (isUploaded || this.state.isUploading) && !this.state.resetThumbnail ? 
-            <div className={isUploaded? 'avatar loaded' : 'avatar loading'} onClick={this.resetThumbnail}>
+            <div className={isUploaded? 'picture loaded' : 'picture loading'} onClick={this.resetThumbnail}>
                 <img src={isUploaded? "http://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : this.state.uploadedFile.preview}/>
             </div>
             :

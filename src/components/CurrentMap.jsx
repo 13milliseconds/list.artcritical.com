@@ -212,7 +212,7 @@ export default class CurrentMap extends React.Component {
 					</div> 
 					<div className={this.props.view + " mapInfo"}>
 						<div className="mapHeader">
-						<h2>Discover all current shows</h2>
+						<h2>Explore art exhibitions in New York City and beyond. Create your person lists. See. Share.</h2>
 						<p>THE LIST prides itself on being the best, so if something's wrong or missing, please <a href="mailto:thelist@artcritical.com">let us know</a></p>
 						</div>
 						<div className="content">
