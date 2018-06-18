@@ -109,6 +109,7 @@ export default class Layout extends React.Component {
                     title="The List"
                     link="https://list.artcritical.com"
                     ogType="website"
+                    ogTitle="artcritical - The List"
                     ogUrl="https://list.artcritical.com"
                 />
                 <header className={"mainHeader" + (this.state.menuActive ? ' active' : '')}>
