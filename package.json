@@ -12,7 +12,8 @@
         "start:prod": "node src/server.bundle.js",
         "build:dev": "npm run build:server && webpack --config webpack.dev.config.js",
         "build:prod": "npm run build:server && webpack --config webpack.prod.config.js",
-        "build:server": "webpack --config webpack.server.config.js"
+        "build:server": "webpack --config webpack.server.config.js",
+        "postbuild": "react-snap"
     },
     "dependencies": {
         "@fortawesome/fontawesome": "^1.1.8",
@@ -109,6 +110,7 @@
         "react-router-dom": "^4.2.2",
         "react-scroll-to-component": "^1.0.2",
         "react-select": "^1.2.1",
+        "react-snap": "^1.14.0",
         "react-tag-input": "^5.0.2",
         "react-tagsinput": "^3.19.0",
         "react-toggle-button": "^2.2.0",

@@ -15427,6 +15427,7 @@ var Layout = function (_React$Component) {
                     title: 'The List',
                     link: 'https://list.artcritical.com',
                     ogType: 'website',
+                    ogTitle: 'artcritical - The List',
                     ogUrl: 'https://list.artcritical.com'
                 }),
                 _react2.default.createElement(
