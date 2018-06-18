@@ -72,6 +72,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Pre-Rendering for SEO
+app.use(require('prerender-node'));
+
 
 //Setup flash messages
 app.use(flash());
