@@ -60,13 +60,13 @@ export default class FeatureBlock extends React.Component {
                         <FormattedDate value={listing.end} day="numeric" month="short" />
                     </IntlProvider>
             : ''
-                    
+        let StrippedDescription = feature.text.replace(/(<([^>]+)>)/ig,"")
       
     return (
         <div className="feature-wrap">
         <Helmet
             ogTitle={listing.name + " at " + venue.name}
-            ogDescription={feature.text}
+            ogDescription={StrippedDescription}
             ogImage={"https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg"}
                 />
             <div className="picture">
@@ -77,9 +77,11 @@ export default class FeatureBlock extends React.Component {
                 <HtmlText content={feature.text} />
                 <div className="dates">{start}{end? ' to ' : ''}{end}</div>
                 <div className="address">{venue.address1} {venue.address2}, {venue.city}</div>
-                {this.props.user._id && this.state.inList
+                {this.props.user._id  
+                    ? this.state.inList
                         ?<a className='button inList' onClick={(e) => this.addToList(e, listing)}>Remove from your list</a>
                         :<a className='button' onClick={(e) => this.addToList(e, listing)}>Add to your list</a>
+                    : ''
                 }
                 <div className="shareWrap">
                     <div className="fb-share-button" 

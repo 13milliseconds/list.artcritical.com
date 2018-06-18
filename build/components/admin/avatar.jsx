@@ -44,10 +44,10 @@ export default class Avatar extends React.Component {
         
         if (this.props.avatar) {
             isUploaded = true
-            fullURL = "http://res.cloudinary.com/artcritical/image/upload/" + this.props.avatar + ".jpg";
+            fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + this.props.avatar + ".jpg";
         } else if (this.props.facebook){
             isUploaded = true
-            fullURL = "http://graph.facebook.com/" + this.props.facebook.id + "/picture?type=large";
+            fullURL = "https://graph.facebook.com/" + this.props.facebook.id + "/picture?type=large";
         }
         
         let avatarRender = (isUploaded || this.state.isUploading) && !this.state.resetAvatar ? 

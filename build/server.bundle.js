@@ -6468,13 +6468,14 @@ var FeatureBlock = function (_React$Component) {
                 { locale: 'en' },
                 _react2.default.createElement(_reactIntl.FormattedDate, { value: listing.end, day: 'numeric', month: 'short' })
             ) : '';
+            var StrippedDescription = feature.text.replace(/(<([^>]+)>)/ig, "");
 
             return _react2.default.createElement(
                 'div',
                 { className: 'feature-wrap' },
                 _react2.default.createElement(_Helmet2.default, {
                     ogTitle: listing.name + " at " + venue.name,
-                    ogDescription: feature.text,
+                    ogDescription: StrippedDescription,
                     ogImage: "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg"
                 }),
                 _react2.default.createElement(
@@ -6513,7 +6514,7 @@ var FeatureBlock = function (_React$Component) {
                         ', ',
                         venue.city
                     ),
-                    this.props.user._id && this.state.inList ? _react2.default.createElement(
+                    this.props.user._id ? this.state.inList ? _react2.default.createElement(
                         'a',
                         { className: 'button inList', onClick: function onClick(e) {
                                 return _this2.addToList(e, listing);
@@ -6525,7 +6526,7 @@ var FeatureBlock = function (_React$Component) {
                                 return _this2.addToList(e, listing);
                             } },
                         'Add to your list'
-                    ),
+                    ) : '',
                     _react2.default.createElement(
                         'div',
                         { className: 'shareWrap' },
@@ -7978,7 +7979,7 @@ var Thumbnail = function (_React$Component) {
             var avatarRender = (isUploaded || this.state.isUploading) && !this.state.resetThumbnail ? _react2.default.createElement(
                 'div',
                 { className: isUploaded ? 'picture loaded' : 'picture loading', onClick: this.resetThumbnail },
-                _react2.default.createElement('img', { src: isUploaded ? "http://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : this.state.uploadedFile.preview })
+                _react2.default.createElement('img', { src: isUploaded ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : this.state.uploadedFile.preview })
             ) : _react2.default.createElement(_imageUpload2.default, { onImageDrop: this.onImageDrop });
 
             return _react2.default.createElement(
@@ -8508,7 +8509,7 @@ module.exports = function (passport) {
   passport.use(new FacebookStrategy({
     clientID: "1154923567943109",
     clientSecret: "9ab1f837eabcc53aafadc9657eb65f19",
-    callbackURL: "/auth/facebook/callback",
+    callbackURL: "https://list.artcritical.com/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'email', 'first_name', 'last_name']
   }, function (accessToken, refreshToken, profile, done) {
 
@@ -8521,11 +8522,8 @@ module.exports = function (passport) {
       //No user was found
       if (!user) {
 
-        console.log("New user", user);
         // create the user
         var newUser = new User();
-
-        console.log(profile);
 
         // set the user's local credentials
         newUser.firstname = profile.name.givenName;
@@ -10020,7 +10018,7 @@ app.use(function (req, res, next) {
 });
 
 //Pre-Rendering for SEO
-app.use(__webpack_require__(77).set('prerenderServiceUrl', 'http://localhost:3000/').set('prerenderToken', 'xNgryV1QDytdnXWxSjza'));
+app.use(__webpack_require__(77).set('prerenderToken', 'xNgryV1QDytdnXWxSjza'));
 
 // Make our db accessible to our router
 app.use(function (req, res, next) {
@@ -12263,10 +12261,10 @@ var Avatar = function (_React$Component) {
 
             if (this.props.avatar) {
                 isUploaded = true;
-                fullURL = "http://res.cloudinary.com/artcritical/image/upload/" + this.props.avatar + ".jpg";
+                fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + this.props.avatar + ".jpg";
             } else if (this.props.facebook) {
                 isUploaded = true;
-                fullURL = "http://graph.facebook.com/" + this.props.facebook.id + "/picture?type=large";
+                fullURL = "https://graph.facebook.com/" + this.props.facebook.id + "/picture?type=large";
             }
 
             var avatarRender = (isUploaded || this.state.isUploading) && !this.state.resetAvatar ? _react2.default.createElement(

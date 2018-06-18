@@ -766,6 +766,12 @@ AT A GLANCE
             font-size: 1.2em;
         }
     } 
+    a.button{
+        cursor: pointer;
+        &:hover{
+            color: $green;
+        }
+    }
 }
 
 

@@ -177,7 +177,7 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy({
         clientID: "1154923567943109",
         clientSecret: "9ab1f837eabcc53aafadc9657eb65f19",
-        callbackURL: "/auth/facebook/callback",
+        callbackURL: "https://list.artcritical.com/auth/facebook/callback",
         profileFields: ['id', 'displayName', 'email', 'first_name', 'last_name']
       },
       function(accessToken, refreshToken, profile, done) {
@@ -193,11 +193,8 @@ module.exports = function(passport) {
             //No user was found
             if (!user) {
 				
-				console.log("New user", user);
 				// create the user
                 var newUser             = new User();
-
-                console.log(profile)
 
                 // set the user's local credentials
                 newUser.firstname      	= profile.name.givenName;
