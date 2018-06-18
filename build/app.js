@@ -72,9 +72,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Pre-Rendering for SEO
-app.use(require('prerender-node'));
-
 
 //Setup flash messages
 app.use(flash());
@@ -82,6 +79,10 @@ app.use(function(req, res, next) {
   res.locals.message = req.flash();
   next();
 });
+
+
+//Pre-Rendering for SEO
+app.use(require('prerender-node').set('prerenderToken', 'xNgryV1QDytdnXWxSjza'));
 
 
 // Make our db accessible to our router
@@ -141,6 +142,7 @@ module.exports = app;
 
 var port = process.env.PORT || 5000;
 app.set('port', port);
+
 
 /**
  * Create HTTP server.

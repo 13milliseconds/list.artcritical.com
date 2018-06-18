@@ -10012,15 +10012,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Pre-Rendering for SEO
-app.use(__webpack_require__(77));
-
 //Setup flash messages
 app.use(flash());
 app.use(function (req, res, next) {
   res.locals.message = req.flash();
   next();
 });
+
+//Pre-Rendering for SEO
+app.use(__webpack_require__(77).set('prerenderServiceUrl', 'http://localhost:3000/').set('prerenderToken', 'xNgryV1QDytdnXWxSjza'));
 
 // Make our db accessible to our router
 app.use(function (req, res, next) {
