@@ -5,9 +5,9 @@ const Dotenv = require('dotenv-webpack');
 
 
 module.exports = {
-    entry: path.join(__dirname, 'src/', 'app-client.jsx'),
+    entry: path.join(__dirname, 'build/', 'app-client.jsx'),
     output: {
-        path: path.join(__dirname, 'src/', 'public', 'javascripts'),
+        path: path.join(__dirname, 'build/', 'public', 'javascripts'),
         filename: 'bundle.js'
     },
     resolve: {

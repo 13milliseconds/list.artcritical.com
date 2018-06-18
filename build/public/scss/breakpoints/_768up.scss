@@ -1,0 +1,711 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Tablet & Small Desktop Stylesheet
+
+Here's where you can start getting into the good stuff.
+This size will work on iPads, other tablets, and desktops.
+So you can start working with more styles, background images,
+and other resources. You'll also notice the grid starts to
+come into play. Have fun!
+
+******************************************************************/
+
+
+/*********************
+GENERAL STYLES
+*********************/
+
+
+.app-container{
+    //padding: 50px 20px;
+    //max-width: 1400px;
+    margin: 0 auto;
+    .app-content{
+        padding: 130px 20px;
+        min-height: 100vh;
+    }
+}
+
+footer{
+    margin-top: -35px;
+}
+
+body{
+    a{
+        @include transition(.2s);
+        &:hover{
+            color: $green;
+            text-decoration: none;
+        }
+    }
+    h2{
+        font-size: 2em;
+    }
+}
+
+
+#banner{
+    width: auto;
+    padding: 20px;
+    a{
+        position: relative;
+        display: inline-block;
+        margin-right: 10px;
+        &:nth-of-type(1) {
+            left: auto;
+        }
+        &:nth-of-type(4) {
+            left: auto;
+        }
+        &:nth-of-type(2) {
+            right: auto;
+        }
+        &:nth-of-type(3) {
+            right: auto;
+        }
+    }
+}
+
+#topMenu{
+    left: 50px;
+    padding: 0;
+    background-color: transparent;
+    width: auto;
+    border-bottom: 0;
+}
+
+.hamburger{
+    display: none;
+}
+
+header.mainHeader{
+	position: fixed;
+    left: 0;
+    height: 100px;
+    padding: 20px;
+	border-bottom: 1px solid $gray;
+    width: 100%;
+    background: white;
+    @include row();
+    .mainLogo{
+        @include span-columns(4);
+        h1{
+            font-size: 2.6em;
+            margin-bottom: 10px;
+            line-height: .6em;
+        }
+        h2{
+            display: block;
+            color: $black;
+            font-size: .76em;
+            font-weight: 500;
+        }
+    }
+    nav{
+        position: initial;
+        padding: 0 0;
+        top: 0;
+        left: 0;
+        @include span-columns(8);
+        @include omega();
+        & > ul{
+            text-align: left;
+            li{
+                font-size: 1em;
+                display: inline-block; 
+                a{
+                    display: inline-block;
+                    font-size: .88em;
+                    padding: 5px 20px;
+                    margin-right: 10px;
+                    color: $white;
+                    text-transform: uppercase;
+                    font-weight: 100;
+                }
+                & > ul.submenu{
+                    display: block;
+                    position: absolute;
+                    top: 63px;
+                    li{
+                        font-size: 1em;
+                        padding-left: 0;
+                        a{
+                            padding: 5px 0;
+                            margin-right: 20px;
+                            color: black;
+                            border-bottom: 3px solid transparent;
+                            @include transition(0s);
+                            &:hover{
+                                border-color: $green;
+                            }
+                            &.active{
+                                border-color: $green;
+                                color: $black;
+                            }
+                        }
+                        &:hover{
+                            & > ul{
+                                display: block;
+                            }
+                        }
+                        & > ul{
+                            display: none;
+                            background: $white;
+                            top: 37px;
+                            padding: 10px;
+                            a{
+                                cursor: pointer;
+                                &:hover{
+                                    color: $green;
+                                    border-color: transparent;
+                                }
+                                &.active{
+                                    color: $green;
+                                    border-color: transparent;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            & > li:nth-child(1) > a{
+                background-color: $green;
+                color: $white;
+            }
+            & > li:nth-child(2) > a{
+                background-color: $red;
+                color: $white;
+            }
+            & > li:nth-child(3) > a{
+                background-color: $purple;
+                color: $white;
+            }
+        }
+    }
+    div{
+        display: inline-block;
+    }
+    .SizeSelector{
+        display: none;
+        float: right;
+        margin-top: -25px;
+        span{
+            display: inline-block;
+            color: $gray;
+            padding-right: 5px;
+            cursor: pointer;
+            svg{
+                pointer-events: none;
+            }
+            &.active{
+                color: $green;
+                cursor: default;
+            }
+        } 
+    }
+} 
+#header{
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+.menu{
+    position: relative;
+}
+
+.mobileMenu{
+    display: none;
+}
+
+#sortPanel {
+    width: 200px;
+    top: 100px;
+    .wrap{
+        width: auto;
+        a{
+            display: table;
+        }
+    }
+}
+.sideMenu{
+    padding: 130px 50px 50px;
+}
+
+#banner, #introPanel.active, #loginPanel, #sharePanel, #sortPanel{
+    overflow: auto;
+    position: relative;
+    top: auto;
+    @include transform(translateY(0));
+}
+
+#introPanel{
+    padding: 20px;
+}
+
+#aboutPanel{
+    display: none;
+}
+
+#thelist{
+    max-width: 100%;
+    margin: 0 auto;
+	padding: 0;
+}
+
+
+
+.edit-page{
+     .container{
+         @include row();
+        .header{
+            @include span-columns(3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 50px;
+            
+        }
+         .content{
+             @include shift(3);
+            @include span-columns(9);
+            
+        }
+
+    }   
+}
+
+
+.home, .glance, .current, .events, .future{
+    padding: 0 0;
+}
+
+.hoodNav{
+    position: initial;
+    padding: 0;
+    border-top: 0;
+}
+
+// CURRENT PAGE
+.mainList{
+    @include row();
+    .left-col{
+        @include span-columns(12);
+        position: fixed;
+        top: 100px;
+        background: $white;
+        left: 0;
+        padding: 20px;
+        border-bottom: 1px solid $gray;
+        h1{
+            @include span-columns(4);
+        }
+        .hoodNav{
+            @include span-columns(8);
+            @include omega();
+        }
+        p{
+            margin-bottom: 0;
+            position: absolute;
+            top: 3.5em;
+        }
+    }
+    .right-col{
+        @include span-columns(0);
+        position: fixed;
+        float: none;
+        right: 0;
+	}
+	.main-col{
+        @include span-columns(12);
+        @include omega();
+        padding-top: 100px;
+	}
+}
+
+// LISTINGS
+.listingsWrap{
+    @include span-columns(9);
+    .city{
+        margin-top: -100px;
+        padding-top: 100px;
+    }
+}
+.venue{
+    &:hover{
+        .address{
+            opacity: 1;
+        }
+    }
+}
+.listing{
+    p{
+        font-size: 16px;
+    }
+}
+
+.condensed{
+    .listing{
+        .listingAdd{
+            .addButton{
+                &:hover{
+                    color: $green;
+                }
+            }
+        }
+    }
+}
+
+// EVENTS
+
+.events.mainList{
+    .left-col{
+        //@include span-columns(3);
+        position: fixed;
+        float: none;
+        padding-right: 4%;
+        .DayPicker{
+            display: none;
+            @include transform(translate(-20%) scale(.8));
+        }
+    }
+	.main-col{
+        @include span-columns(9);
+        h2{
+            margin-top: 0;
+            border-bottom: 0;
+        }
+    }
+    .right-col{
+        display: none;
+    }
+}
+
+//GLANCE
+.glance{
+    ul.tabs__labels{
+        display: block;
+        padding: 0;
+		@include span-columns(3);
+    }
+	div.tabs__content{
+        @include span-columns(9);
+        .day{
+            @include row();
+            .listingsWrap{
+                @include span-columns(8);
+                padding-right: 30px;
+                margin-top: 0;
+                float: right;
+            }
+            .featuredSection{
+                @include span-columns(4);
+                float: right;
+                min-height: 1px;
+            }
+        }
+	}
+}
+.feature-wrap{
+    .info{
+        margin-top: 30px;
+    } 
+}
+
+.iconLink{
+    cursor: pointer;
+    &:hover{
+        @include transform(scale(1.1));
+    }
+}
+
+//TABS
+
+.tabs{
+    .tabs__select{
+        display: none;
+    }
+}
+
+
+// MAPS
+.map.app-container, .mylistPage.connected.app-container{
+    min-height: 100%;
+    padding: 0;
+    max-width: none;
+    position: absolute;
+    width: 100%;
+    .app-content{
+        min-height: 100%;
+        position: absolute;
+        width: 100%;
+    }
+}
+
+.mapInfo{
+    @include span-columns(4);
+    @include omega();
+    height: 100%;
+    padding: 0px 40px 50px 0;
+    display: flex;
+    flex-direction: column;
+    h2{
+        font-size: 2em;
+    }
+    .mapHeader{
+        order: 1;
+        flex: 1 auto;
+        position: relative;
+        margin-bottom: 30px;
+    }
+    .content{
+        order: 2;
+    }
+    .footer{
+        order: 3;
+        flex: 1 auto;
+        margin-top: 50px;;
+    }
+    .dragged{
+        background: $white;
+        border-radius: 10px;
+        box-shadow: 0 0 20px $gray;
+        @include row();
+    }
+}
+.mapWrap{
+    @include span-columns(8);
+    @include shift(4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    .label{
+        display: block;
+        position: absolute;
+        background-color: $black;
+        color: $white;
+        font-size: .7em;
+        margin-left: 5px;
+        padding: 5px;
+    }
+}   
+
+// MyList
+.mylistPage.app-container{
+    padding: 0;
+    max-width: none;
+    .venue{
+        padding: 10px;
+    }
+    .listing{
+        &:hover{
+            .listingAdd{
+                span{
+                    background-color: $green;
+                    color: white;
+                }
+            }
+        }
+    }
+    .mylist.deactivated{
+        .mapWrap{
+            @include span-columns(12);
+            @include shift(0);
+        }
+        .mapInfo{
+            display: none;
+        }
+        .popupList{
+            position: fixed;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(256, 256, 256, .5);
+            //background-image: url(../images/map-bg.png);
+            div{
+                background: $white;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                @include transform(translate(-50%, -50%));
+                padding: 50px;
+                border-radius: 10px;
+                a{
+                    border-bottom: 0;
+                }
+            }
+        }
+    }
+}
+.SignIn{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: url(../images/map-bg.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        & > div{
+            background-color: $white;
+            position: absolute;
+            width: 100%;
+            max-width: 500px;
+            top: 50%;
+            left: 50%;
+            @include transform(translate(-50%, -50%));
+            padding: 50px;
+            border-radius: 10px;
+        }
+}
+
+
+//VENUE PAGE
+.venuePage{
+    .mapInfo{
+        @include span-columns(6);
+        @include omega();
+    }
+    .mapWrap{
+        @include span-columns(6);
+        @include shift(6);
+        @include omega();
+        .map{
+            height: 100%;
+        }
+    }
+}
+
+//Login
+.loginForm, .signupForm {
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+
+//ACCOUNT
+.account{
+    @include row();
+    .left-col{
+        @include span-columns(3);
+        h1{
+            text-align: left;
+            margin-top: 0;
+        }
+    }
+    .accountform{
+        @include span-columns(6);
+        padding: 150px 50px 50px;
+    }
+}
+
+.draftJsToolbar__toolbar__dNtBH{
+    button{
+        margin: 0 0 0 0!important;
+    }
+}
+
+// PUBLIC USER LIST
+.userList{
+    .mapInfo{
+        header{
+            @include row();
+            border-bottom: 1px solid $gray;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+            .avatarWrap{
+                @include span-columns(3);
+                .avatar{
+                    width: 100%;
+                    height: 0;
+                    background-size: cover;
+                    background-position: center;
+                }
+            }
+            .infoWrap{
+                @include span-columns(9);
+                @include omega();
+            }
+        }
+    }
+}
+
+//ADMIN
+
+.adminWrap{
+    @include row();
+    .left-col{
+        @include span-columns(3);
+        nav{
+            li{
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    }
+    .admin-content{
+        @include span-columns(9);
+        @include omega();
+    }
+    .editVenue{
+        @include row();
+        .venueEditing,
+        .venueLocation{
+            @include span-columns(6);
+        }
+    }
+    //LISTINGS
+    #ListingList, #ListingInfo{
+        @include span-columns(6);
+    }
+    //USERS
+    .usersWrap .allUsers{
+        .card{
+            @include span-columns(4);
+            float: none;
+            display: inline-block;
+            margin-top: 100px;
+            &:nth-of-type(2n){
+                margin-right: 2.3576520234%;
+            }
+            @include omega(3n);
+            .card-block{
+                @include transform(translateY(-30%));
+            }
+        }
+    }
+    .allInfo{
+        @include span-columns(6);
+    }
+    //FEATURES
+    .featureAdmin{
+        .tabs__labels{
+            display: block;
+            li{
+                display: inline-block;
+                margin-bottom: 10px;
+                a.active{
+                    button{
+                        background-color: $gray;
+                    }
+                }
+            }
+        }
+        .featureFormWrap{
+            max-width: 500px;
+        }
+    }
+}
+
+.picture{
+    img{
+        max-width: 400px;
+    }
+}

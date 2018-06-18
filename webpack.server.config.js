@@ -3,10 +3,10 @@ var path = require('path')
 
 module.exports = {
 
-  entry: path.resolve(__dirname, 'src/' , 'app.js'),
+  entry: path.resolve(__dirname, 'build/' , 'app.js'),
 
   output: {
-      path: path.join(__dirname, 'src/'),
+      path: path.join(__dirname, 'build/'),
       filename: 'server.bundle.js'
   },
     resolve: {

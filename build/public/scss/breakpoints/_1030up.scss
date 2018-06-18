@@ -1,0 +1,82 @@
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Desktop Stylsheet
+
+This is the desktop size. It's larger than an iPad so it will only
+be seen on the Desktop.
+
+******************************************************************/
+
+
+body{
+    h1{
+        font-size: 2em;
+    }
+}
+
+.app-container{
+    .app-content{
+        padding: 130px 50px;
+    }
+}
+
+//HEADER
+header.mainHeader{
+    padding: 20px 50px;
+    .mainLogo{
+        @include span-columns(3);
+    }
+    nav{
+        @include span-columns(9);
+        @include omega();
+        & > ul li a{
+            font-size: 1em;
+        }
+    }
+}
+
+// CURRENT PAGE
+
+.hoodNav{
+    ul{
+        display: block;
+    }
+    select{
+        display: none;
+    }
+}
+
+.mainList{
+    .left-col{
+        @include span-columns(3);
+        border-bottom: 0;
+        padding-left: 50px;
+        h1{
+            @include span-columns(12);
+            @include omega();
+        }
+        .hoodNav{
+            @include span-columns(12);
+            @include omega();
+            h3{
+                display: none;
+            }
+        }
+        p{
+            @include span-columns(12);
+            @include omega();
+            position: relative;
+            top: auto;
+        }
+    }
+    .right-col{
+        @include span-columns(2);
+	}
+	.main-col{
+        @include span-columns(7);
+        @include shift(3);
+        padding-top: 0;
+	}
+}
