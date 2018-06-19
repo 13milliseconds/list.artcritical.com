@@ -512,25 +512,83 @@ class ListStore {
     }
     onFeatureLoadSuccess(data) {
         this.loading.features = false
+        const today = moment()
         if (data.json){
 			// Match all features with a day of the next week
             let features = []
             this.allFeatures = data.json
-            let dates = []
-			for (var i=0; i < data.days; i++) {
-				let d = new Date();
-				d.setHours(0,0,0,0)
-				d.setDate(d.getDate() + i );
-				dates.push(d)
-			}
+            
+			//Find element in features whose date == d
+				//For each day of the week
+				for (var i=0; i < data.days; i++) { 
+                    console.log('Day #' + i)
+                    let tempFeature = null
+					// Go through all the features
+					this.allFeatures.map((feature) => {
+                        // Check if it matches
+                        let d = moment().add(i, 'days');
+						if (moment(feature.date).isSame(d, 'day')){
+                            tempFeature = feature
+                        }
+					})
+					if (tempFeature){
+                        console.log('Found a dedicated feature')
+						features.push(tempFeature)
+						tempFeature = null
+					}  else {
+                        console.log('Looking for current feature')
+                        for (var y = 0; y < this.allFeatures.length; y++){
+                            console.log('Feature ' + y)
+						    var feature = this.allFeatures[y]
+                            // Find current feature
+                            if (!features.includes(feature) && feature.list){
+                                console.log('Maybe')
+                                if (moment(feature.list.end).isSameOrAfter(today)){
+                                    console.log('Its a match!', feature)
+                                    features.push(feature)
+                                    break
+                                }
+                            }
+                        }
+					}
+				}
+            this.features = features;
+            console.log(this.features)
+        } else {
+            this.error.feature = "No Features";
+        }
+    }
+    onFeatureLoadFailure(error) {
+        this.loading.features = false
+        console.log("Feature load error: ", error);
+        this.features= [];
+    }
+	onFeatureEdit(featureEdit){
+		this.feature = featureEdit;
+    }
+    onFeatureAdminAttempt() {
+        this.loading.features = true
+    }
+    onFeatureAdminFailure(error) {
+        this.loading.features = false
+        this.features= [];
+    }
+    onFeatureAdminSuccess(data) {
+        this.loading.features = false
+        if (data.json){
+			// Match all features with a day of the next week
+            let features = []
+            this.allFeatures = data.json
+
 			//Find element in features whose date == d
 				//For each day of the week
 				for (var i=0; i < data.days; i++) { 
                     let tempFeature = null
 					// Go through all the features
 					this.allFeatures.map((feature) => {
-						// Check if it matches
-						if (moment(feature.date).isSame(dates[i], 'day')){
+                        // Check if it matches
+                        let d = moment().add(i, 'days');
+						if (moment(feature.date).isSame(d, 'day')){
                             tempFeature = feature
                         }
 					})
@@ -547,14 +605,6 @@ class ListStore {
             this.error.feature = "No Features";
         }
     }
-    onFeatureLoadFailure(error) {
-        this.loading.features = false
-        console.log("Feature load error: ", error);
-        this.features= [];
-    }
-	onFeatureEdit(featureEdit){
-		this.feature = featureEdit;
-	}
     
     // Auth Reducers
     

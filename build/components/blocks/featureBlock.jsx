@@ -60,7 +60,7 @@ export default class FeatureBlock extends React.Component {
                         <FormattedDate value={listing.end} day="numeric" month="short" />
                     </IntlProvider>
             : ''
-        let StrippedDescription = feature.text.replace(/(<([^>]+)>)/ig,"")
+        let StrippedDescription = feature.text && feature.text.replace(/(<([^>]+)>)/ig,"")
       
     return (
         <div className="feature-wrap">

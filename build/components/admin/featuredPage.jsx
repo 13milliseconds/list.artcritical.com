@@ -28,7 +28,7 @@ export default class FeaturePage extends React.Component {
     }
 
     componentDidMount() {
-		ListActions.featureLoad(14)
+		ListActions.featureAdmin(14)
     }
 
     render() {

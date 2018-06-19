@@ -80,9 +80,6 @@ export default class FeaturedDay extends React.Component {
                             success={this.props.success}/>
                     }
                 </div>
-                <div className="preview">
-                    {this.props.feature.list ? <FeatureBlock feature={this.props.feature} user={this.props.user} /> : this.props.error }
-                </div>
             </div>
         );
     }

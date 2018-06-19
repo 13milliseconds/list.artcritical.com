@@ -46,6 +46,9 @@ class ListActions {
             'featureLoadAttempt',
             'featureLoadSuccess',
             'featureLoadFailure',
+            'featureAdminAttempt',
+            'featureAdminSuccess',
+            'featureAdminFailure',
             'deleteListingSuccess',
             'deleteListingFailure',
 			'deleteVenueSuccess',
@@ -374,7 +377,7 @@ class ListActions {
         this.featureLoadAttempt.defer()
         
         await fetch(
-          '/list/findfeatures/' + days,
+          '/list/findfeatures',
           {
             method: 'POST',
             credentials: 'same-origin',
@@ -395,6 +398,34 @@ class ListActions {
         })
         .catch((error) => {
             this.featureLoadFailure(error);
+        });
+    }
+    async featureAdmin(days){
+
+        this.featureAdminAttempt.defer()
+        
+        await fetch(
+          '/list/findfeatures',
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.featureAdminSuccess({json, days});
+            return true;
+        })
+        .catch((error) => {
+            this.featureAdminFailure(error);
         });
     }
     

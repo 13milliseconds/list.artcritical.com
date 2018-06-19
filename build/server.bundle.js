@@ -99,7 +99,7 @@ var ListActions = function () {
     function ListActions() {
         _classCallCheck(this, ListActions);
 
-        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'currentNotLoaded', 'currentLoaded', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsAttempt', 'getEventsSuccess', 'getEventsFail', 'getGlanceAttempt', 'getGlanceSuccess', 'getGlanceFail', 'getLatestListingsSuccess', 'getLatestListingsFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'saveVenueSuccess', 'saveVenueFailure', 'saveVenueAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadAttempt', 'featureLoadSuccess', 'featureLoadFailure', 'deleteListingSuccess', 'deleteListingFailure', 'deleteVenueSuccess', 'deleteVenueFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess');
+        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'currentNotLoaded', 'currentLoaded', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsAttempt', 'getEventsSuccess', 'getEventsFail', 'getGlanceAttempt', 'getGlanceSuccess', 'getGlanceFail', 'getLatestListingsSuccess', 'getLatestListingsFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'saveVenueSuccess', 'saveVenueFailure', 'saveVenueAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadAttempt', 'featureLoadSuccess', 'featureLoadFailure', 'featureAdminAttempt', 'featureAdminSuccess', 'featureAdminFailure', 'deleteListingSuccess', 'deleteListingFailure', 'deleteVenueSuccess', 'deleteVenueFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess');
     }
 
     _createClass(ListActions, [{
@@ -414,7 +414,7 @@ var ListActions = function () {
 
             this.featureLoadAttempt.defer();
 
-            await fetch('/list/findfeatures/' + days, {
+            await fetch('/list/findfeatures', {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
@@ -433,9 +433,34 @@ var ListActions = function () {
             });
         }
     }, {
+        key: 'featureAdmin',
+        value: async function featureAdmin(days) {
+            var _this13 = this;
+
+            this.featureAdminAttempt.defer();
+
+            await fetch('/list/findfeatures', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                return null;
+            }).then(function (json) {
+                _this13.featureAdminSuccess({ json: json, days: days });
+                return true;
+            }).catch(function (error) {
+                _this13.featureAdminFailure(error);
+            });
+        }
+    }, {
         key: 'getVenueInfo',
         value: async function getVenueInfo(id) {
-            var _this13 = this;
+            var _this14 = this;
 
             await fetch('/venues/getinfo/' + id, {
                 method: 'GET',
@@ -446,16 +471,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this13.getVenueInfoSuccess(json);
+                _this14.getVenueInfoSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this13.getVenueInfoFailure(error);
+                _this14.getVenueInfoFailure(error);
             });
         }
     }, {
         key: 'getVenueFullInfo',
         value: async function getVenueFullInfo(id) {
-            var _this14 = this;
+            var _this15 = this;
 
             await fetch('/venues/getfullinfo/' + id, {
                 method: 'GET',
@@ -466,16 +491,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this14.getVenueFullInfoSuccess(json);
+                _this15.getVenueFullInfoSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this14.getVenueFullInfoFailure(error);
+                _this15.getVenueFullInfoFailure(error);
             });
         }
     }, {
         key: 'getVenueListings',
         value: async function getVenueListings(id) {
-            var _this15 = this;
+            var _this16 = this;
 
             await fetch('/venues/getlistings/' + id, {
                 method: 'GET',
@@ -486,10 +511,10 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this15.getVenueListingsSuccess(json);
+                _this16.getVenueListingsSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this15.getVenueListingsFailure(error);
+                _this16.getVenueListingsFailure(error);
             });
         }
     }, {
@@ -505,7 +530,7 @@ var ListActions = function () {
     }, {
         key: 'getVenuesAdmin',
         value: function getVenuesAdmin(neighborhood) {
-            var _this16 = this;
+            var _this17 = this;
 
             this.getVenuesAdminAttempt();
             return function (dispatch) {
@@ -513,16 +538,16 @@ var ListActions = function () {
                 $.ajax({
                     url: '/venues/getadmin/' + neighborhood
                 }).done(function (data) {
-                    _this16.getVenuesAdminSuccess(data);
+                    _this17.getVenuesAdminSuccess(data);
                 }).fail(function (jqXhr) {
-                    _this16.getVenuesAdminFailure(jqXhr);
+                    _this17.getVenuesAdminFailure(jqXhr);
                 });
             };
         }
     }, {
         key: 'updateVenue',
         value: async function updateVenue(info) {
-            var _this17 = this;
+            var _this18 = this;
 
             this.updateVenueAttempt();
 
@@ -539,16 +564,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this17.updateVenueSuccess(info);
+                _this18.updateVenueSuccess(info);
                 return true;
             }).catch(function (error) {
-                _this17.updateVenueFailure(error);
+                _this18.updateVenueFailure(error);
             });
         }
     }, {
         key: 'saveVenue',
         value: async function saveVenue(newVenue) {
-            var _this18 = this;
+            var _this19 = this;
 
             this.saveVenueAttempt();
 
@@ -565,16 +590,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this18.saveVenueSuccess(json);
+                _this19.saveVenueSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this18.saveVenueFailure(error);
+                _this19.saveVenueFailure(error);
             });
         }
     }, {
         key: 'deleteVenue',
         value: async function deleteVenue(oldVenue) {
-            var _this19 = this;
+            var _this20 = this;
 
             await fetch('/venues/delete/' + oldVenue, {
                 method: 'POST',
@@ -588,11 +613,11 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this19.venueEditReset();
-                _this19.deleteVenueSuccess(json);
+                _this20.venueEditReset();
+                _this20.deleteVenueSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this19.deleteVenueFailure(error);
+                _this20.deleteVenueFailure(error);
             });
         }
     }, {
@@ -3539,45 +3564,49 @@ var ListStore = function () {
     }, {
         key: 'onFeatureLoadSuccess',
         value: function onFeatureLoadSuccess(data) {
-            var _this = this;
-
             this.loading.features = false;
+            var today = (0, _moment2.default)();
             if (data.json) {
-                var i;
-                var i;
+                // Match all features with a day of the next week
+                var features = [];
+                this.allFeatures = data.json;
 
-                (function () {
-                    // Match all features with a day of the next week
-                    var features = [];
-                    _this.allFeatures = data.json;
-                    var dates = [];
-                    for (i = 0; i < data.days; i++) {
-                        var d = new Date();
-                        d.setHours(0, 0, 0, 0);
-                        d.setDate(d.getDate() + i);
-                        dates.push(d);
-                    }
-                    //Find element in features whose date == d
-                    //For each day of the week
-                    for (i = 0; i < data.days; i++) {
-                        var tempFeature = null;
-                        // Go through all the features
-                        _this.allFeatures.map(function (feature) {
-                            // Check if it matches
-                            if ((0, _moment2.default)(feature.date).isSame(dates[i], 'day')) {
-                                tempFeature = feature;
+                //Find element in features whose date == d
+                //For each day of the week
+                for (var i = 0; i < data.days; i++) {
+                    console.log('Day #' + i);
+                    var tempFeature = null;
+                    // Go through all the features
+                    this.allFeatures.map(function (feature) {
+                        // Check if it matches
+                        var d = (0, _moment2.default)().add(i, 'days');
+                        if ((0, _moment2.default)(feature.date).isSame(d, 'day')) {
+                            tempFeature = feature;
+                        }
+                    });
+                    if (tempFeature) {
+                        console.log('Found a dedicated feature');
+                        features.push(tempFeature);
+                        tempFeature = null;
+                    } else {
+                        console.log('Looking for current feature');
+                        for (var y = 0; y < this.allFeatures.length; y++) {
+                            console.log('Feature ' + y);
+                            var feature = this.allFeatures[y];
+                            // Find current feature
+                            if (!features.includes(feature) && feature.list) {
+                                console.log('Maybe');
+                                if ((0, _moment2.default)(feature.list.end).isSameOrAfter(today)) {
+                                    console.log('Its a match!', feature);
+                                    features.push(feature);
+                                    break;
+                                }
                             }
-                        });
-                        if (tempFeature) {
-                            features.push(tempFeature);
-                            tempFeature = null;
-                        } else {
-                            features.push({});
                         }
                     }
-                    _this.features = features;
-                    console.log('Loaded all features: ', _this.features);
-                })();
+                }
+                this.features = features;
+                console.log(this.features);
             } else {
                 this.error.feature = "No Features";
             }
@@ -3593,6 +3622,51 @@ var ListStore = function () {
         key: 'onFeatureEdit',
         value: function onFeatureEdit(featureEdit) {
             this.feature = featureEdit;
+        }
+    }, {
+        key: 'onFeatureAdminAttempt',
+        value: function onFeatureAdminAttempt() {
+            this.loading.features = true;
+        }
+    }, {
+        key: 'onFeatureAdminFailure',
+        value: function onFeatureAdminFailure(error) {
+            this.loading.features = false;
+            this.features = [];
+        }
+    }, {
+        key: 'onFeatureAdminSuccess',
+        value: function onFeatureAdminSuccess(data) {
+            this.loading.features = false;
+            if (data.json) {
+                // Match all features with a day of the next week
+                var features = [];
+                this.allFeatures = data.json;
+
+                //Find element in features whose date == d
+                //For each day of the week
+                for (var i = 0; i < data.days; i++) {
+                    var tempFeature = null;
+                    // Go through all the features
+                    this.allFeatures.map(function (feature) {
+                        // Check if it matches
+                        var d = (0, _moment2.default)().add(i, 'days');
+                        if ((0, _moment2.default)(feature.date).isSame(d, 'day')) {
+                            tempFeature = feature;
+                        }
+                    });
+                    if (tempFeature) {
+                        features.push(tempFeature);
+                        tempFeature = null;
+                    } else {
+                        features.push({});
+                    }
+                }
+                this.features = features;
+                console.log('Loaded all features: ', this.features);
+            } else {
+                this.error.feature = "No Features";
+            }
         }
 
         // Auth Reducers
@@ -6410,7 +6484,7 @@ var FeatureBlock = function (_React$Component) {
                 { locale: 'en' },
                 _react2.default.createElement(_reactIntl.FormattedDate, { value: listing.end, day: 'numeric', month: 'short' })
             ) : '';
-            var StrippedDescription = feature.text.replace(/(<([^>]+)>)/ig, "");
+            var StrippedDescription = feature.text && feature.text.replace(/(<([^>]+)>)/ig, "");
 
             return _react2.default.createElement(
                 'div',
@@ -9417,17 +9491,10 @@ router.post('/feature', function (req, res) {
 // FIND a featured article
 //#######################
 
-router.post('/findfeatures/:days', function (req, res) {
+router.post('/findfeatures', function (req, res) {
     var Feature = req.feature;
 
     console.log("Find all features");
-
-    //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    var inaWeek = new Date();
-    inaWeek.setDate(inaWeek.getDate() + req.params.days);
-    inaWeek.setHours(0, 0, 0, 0);
 
     Feature.find().populate('list').populate('venue').exec(function (e, docs) {
         console.log('Found', e);
@@ -12396,11 +12463,6 @@ var FeaturedDay = function (_React$Component) {
                         onTextChange: this.onTextChange,
                         error: this.props.error,
                         success: this.props.success }))
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'preview' },
-                    this.props.feature.list ? _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user }) : this.props.error
                 )
             );
         }
@@ -12486,7 +12548,7 @@ var FeaturePage = function (_React$Component) {
     _createClass(FeaturePage, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            _ListActions2.default.featureLoad(14);
+            _ListActions2.default.featureAdmin(14);
         }
     }, {
         key: 'render',
