@@ -49,8 +49,7 @@ export default class ListingForm extends React.Component {
     }
 
     // Add the listing to the database
-    handleSubmit(event) {
-        event.preventDefault();
+    handleSubmit() {
         let newListing = this.props.listing
 
         //Make sure that the listing copies the venue's neighborhood

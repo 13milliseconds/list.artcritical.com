@@ -2534,13 +2534,7 @@ ADMIN
   max-height: 50px;
 }
 
-/* line 1150, ../scss/breakpoints/_base.scss */
-#listingForm, #newlistingDemo {
-  float: left;
-  width: 50%;
-}
-
-/* line 1157, ../scss/breakpoints/_base.scss */
+/* line 1151, ../scss/breakpoints/_base.scss */
 .sideMenu {
   padding-top: 100px;
   height: 100%;
@@ -2548,16 +2542,16 @@ ADMIN
   overflow: auto;
   padding: 50px 20px 20px;
 }
-/* line 1163, ../scss/breakpoints/_base.scss */
+/* line 1157, ../scss/breakpoints/_base.scss */
 .sideMenu::-webkit-scrollbar {
   display: none;
 }
-/* line 1166, ../scss/breakpoints/_base.scss */
+/* line 1160, ../scss/breakpoints/_base.scss */
 .sideMenu a.close {
   position: absolute;
   left: 15px;
 }
-/* line 1170, ../scss/breakpoints/_base.scss */
+/* line 1164, ../scss/breakpoints/_base.scss */
 .sideMenu #listingForm {
   display: block;
   float: none;
@@ -2570,7 +2564,7 @@ ADMIN
   content: "";
   display: block;
 }
-/* line 1175, ../scss/breakpoints/_base.scss */
+/* line 1169, ../scss/breakpoints/_base.scss */
 .sideMenu #listingForm label,
 .sideMenu #listingForm .byline {
   float: left;
@@ -2584,34 +2578,21 @@ ADMIN
   margin-right: 0;
 }
 
-/* line 1182, ../scss/breakpoints/_base.scss */
-label {
-  display: block !important;
-  float: left;
-  display: block;
-  margin-right: 2.3576520234%;
-  width: 14.7019566472%;
-}
-/* line 89, ../scss/neat/grid/_span-columns.scss */
-label:last-child {
-  margin-right: 0;
-}
-
-/* line 1186, ../scss/breakpoints/_base.scss */
+/* line 1180, ../scss/breakpoints/_base.scss */
 .formSection {
   padding-bottom: 20px;
 }
-/* line 1188, ../scss/breakpoints/_base.scss */
+/* line 1182, ../scss/breakpoints/_base.scss */
 .formSection textarea, .formSection input {
   width: 100%;
 }
 
-/* line 1192, ../scss/breakpoints/_base.scss */
+/* line 1186, ../scss/breakpoints/_base.scss */
 input.invalid {
   border: 1px solid #9f0900 !important;
 }
 
-/* line 1197, ../scss/breakpoints/_base.scss */
+/* line 1191, ../scss/breakpoints/_base.scss */
 .eventsform .event select {
   width: auto;
   padding: 0 30px 0 10px;
@@ -2619,12 +2600,12 @@ input.invalid {
   margin-right: 20px;
 }
 
-/* line 1205, ../scss/breakpoints/_base.scss */
+/* line 1199, ../scss/breakpoints/_base.scss */
 .iconLink {
   margin-right: 10px;
 }
 
-/* line 1210, ../scss/breakpoints/_base.scss */
+/* line 1204, ../scss/breakpoints/_base.scss */
 #listingForm {
   padding-right: 50px;
   display: block;
@@ -2636,23 +2617,23 @@ input.invalid {
   display: block;
 }
 
-/* line 1216, ../scss/breakpoints/_base.scss */
+/* line 1210, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing {
   width: 100%;
   border: 1px solid grey;
   padding-top: 20px;
 }
-/* line 1220, ../scss/breakpoints/_base.scss */
+/* line 1214, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing .moreInfo {
   display: block;
 }
 
-/* line 1227, ../scss/breakpoints/_base.scss */
+/* line 1221, ../scss/breakpoints/_base.scss */
 .editVenue .venueList {
   padding-bottom: 20px;
 }
 
-/* line 1232, ../scss/breakpoints/_base.scss */
+/* line 1226, ../scss/breakpoints/_base.scss */
 .imageDrop {
   width: 100px;
   height: 100px;
@@ -2661,7 +2642,7 @@ input.invalid {
   cursor: pointer;
   position: relative;
 }
-/* line 1239, ../scss/breakpoints/_base.scss */
+/* line 1233, ../scss/breakpoints/_base.scss */
 .imageDrop p {
   position: absolute;
   top: 50%;
@@ -2677,7 +2658,7 @@ input.invalid {
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 1247, ../scss/breakpoints/_base.scss */
+/* line 1241, ../scss/breakpoints/_base.scss */
 .imageDrop p:hover {
   -webkit-transform: translate(-50%, -50%) scale(1.1);
   -moz-transform: translate(-50%, -50%) scale(1.1);
@@ -2685,7 +2666,7 @@ input.invalid {
   -o-transform: translate(-50%, -50%) scale(1.1);
   transform: translate(-50%, -50%) scale(1.1);
 }
-/* line 1251, ../scss/breakpoints/_base.scss */
+/* line 1245, ../scss/breakpoints/_base.scss */
 .imageDrop .dragged {
   position: absolute;
   top: 50%;
@@ -2696,40 +2677,40 @@ input.invalid {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* line 1257, ../scss/breakpoints/_base.scss */
+/* line 1251, ../scss/breakpoints/_base.scss */
 .imageDrop.formSection {
   border-color: #d70b00;
 }
-/* line 1259, ../scss/breakpoints/_base.scss */
+/* line 1253, ../scss/breakpoints/_base.scss */
 .imageDrop.formSection p {
   display: none;
 }
 
-/* line 1266, ../scss/breakpoints/_base.scss */
+/* line 1260, ../scss/breakpoints/_base.scss */
 input::-webkit-input-placeholder,
 option {
   color: #C9C9C9;
 }
 
-/* line 1272, ../scss/breakpoints/_base.scss */
+/* line 1266, ../scss/breakpoints/_base.scss */
 .SignIn {
   padding: 20px;
 }
-/* line 1274, ../scss/breakpoints/_base.scss */
+/* line 1268, ../scss/breakpoints/_base.scss */
 .SignIn h2 {
   font-size: 2em;
 }
-/* line 1277, ../scss/breakpoints/_base.scss */
+/* line 1271, ../scss/breakpoints/_base.scss */
 .SignIn .loginForm, .SignIn .signupForm {
   margin: 30px 0px;
   border-radius: 5px;
 }
 
-/* line 1284, ../scss/breakpoints/_base.scss */
+/* line 1278, ../scss/breakpoints/_base.scss */
 .account .app-content {
   background-color: #F6F6f6;
 }
-/* line 1287, ../scss/breakpoints/_base.scss */
+/* line 1281, ../scss/breakpoints/_base.scss */
 .account .accountform {
   padding: 20px;
   background: white;
@@ -2738,7 +2719,7 @@ option {
   border-radius: 10px;
   position: relative;
 }
-/* line 1294, ../scss/breakpoints/_base.scss */
+/* line 1288, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap {
   position: absolute;
   width: 30%;
@@ -2750,18 +2731,18 @@ option {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* line 1300, ../scss/breakpoints/_base.scss */
+/* line 1294, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar {
   cursor: pointer;
 }
-/* line 1302, ../scss/breakpoints/_base.scss */
+/* line 1296, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar img {
   opacity: .5;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   transition: 0.5s;
 }
-/* line 1306, ../scss/breakpoints/_base.scss */
+/* line 1300, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar .delete {
   position: absolute;
   top: 50%;
@@ -2779,19 +2760,19 @@ option {
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 1318, ../scss/breakpoints/_base.scss */
+/* line 1312, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar.loaded img {
   opacity: 1;
 }
-/* line 1322, ../scss/breakpoints/_base.scss */
+/* line 1316, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar:hover {
   opacity: .8;
 }
-/* line 1324, ../scss/breakpoints/_base.scss */
+/* line 1318, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar:hover .delete {
   opacity: 1;
 }
-/* line 1329, ../scss/breakpoints/_base.scss */
+/* line 1323, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .imageDrop {
   width: 100%;
   padding-top: 100%;
@@ -2799,39 +2780,39 @@ option {
   border: 1px dotted #aaa;
   background: #eaedf2;
 }
-/* line 1335, ../scss/breakpoints/_base.scss */
+/* line 1329, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .imageDrop.formSection {
   padding: 100% 0 0 0;
 }
-/* line 1338, ../scss/breakpoints/_base.scss */
+/* line 1332, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .imageDrop p {
   font-size: 100px;
 }
-/* line 1344, ../scss/breakpoints/_base.scss */
+/* line 1338, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap input {
   background: #F6F6f6;
 }
-/* line 1346, ../scss/breakpoints/_base.scss */
+/* line 1340, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap input:nth-child(1) {
   width: 45%;
   margin-right: 5%;
   display: inline-block;
 }
-/* line 1351, ../scss/breakpoints/_base.scss */
+/* line 1345, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap input:nth-child(2) {
   width: 50%;
   display: inline-block;
 }
-/* line 1359, ../scss/breakpoints/_base.scss */
+/* line 1353, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap .DraftEditor-root {
   background: #F6F6f6;
   margin-bottom: 20px;
 }
-/* line 1363, ../scss/breakpoints/_base.scss */
+/* line 1357, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap .form-text {
   margin-bottom: 20px;
 }
-/* line 1366, ../scss/breakpoints/_base.scss */
+/* line 1360, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap button {
   margin-top: 20px;
 }
@@ -3855,18 +3836,18 @@ you can add resource intensive styles.
   .adminWrap .editVenue .venueLocation:last-child {
     margin-right: 0;
   }
-  /* line 665, ../scss/breakpoints/_768up.scss */
-  .adminWrap #ListingList, .adminWrap #ListingInfo {
-    float: left;
-    display: block;
-    margin-right: 2.3576520234%;
-    width: 48.8211739883%;
+  /* line 667, ../scss/breakpoints/_768up.scss */
+  .adminWrap .listingEdit #ListingList .Select {
+    width: 100%;
+    max-width: 500px;
+    display: inline-block;
+    margin-left: 10px;
   }
-  /* line 89, ../scss/neat/grid/_span-columns.scss */
-  .adminWrap #ListingList:last-child, .adminWrap #ListingInfo:last-child {
-    margin-right: 0;
+  /* line 673, ../scss/breakpoints/_768up.scss */
+  .adminWrap .listingEdit #ListingList button.btn {
+    vertical-align: top;
   }
-  /* line 670, ../scss/breakpoints/_768up.scss */
+  /* line 680, ../scss/breakpoints/_768up.scss */
   .adminWrap .usersWrap .allUsers .card {
     float: left;
     display: block;
@@ -3880,7 +3861,7 @@ you can add resource intensive styles.
   .adminWrap .usersWrap .allUsers .card:last-child {
     margin-right: 0;
   }
-  /* line 675, ../scss/breakpoints/_768up.scss */
+  /* line 685, ../scss/breakpoints/_768up.scss */
   .adminWrap .usersWrap .allUsers .card:nth-of-type(2n) {
     margin-right: 2.3576520234%;
   }
@@ -3892,7 +3873,7 @@ you can add resource intensive styles.
   .adminWrap .usersWrap .allUsers .card:nth-child(3n+1) {
     clear: left;
   }
-  /* line 679, ../scss/breakpoints/_768up.scss */
+  /* line 689, ../scss/breakpoints/_768up.scss */
   .adminWrap .usersWrap .allUsers .card .card-block {
     -webkit-transform: translateY(-30%);
     -moz-transform: translateY(-30%);
@@ -3900,7 +3881,7 @@ you can add resource intensive styles.
     -o-transform: translateY(-30%);
     transform: translateY(-30%);
   }
-  /* line 684, ../scss/breakpoints/_768up.scss */
+  /* line 694, ../scss/breakpoints/_768up.scss */
   .adminWrap .allInfo {
     float: left;
     display: block;
@@ -3911,25 +3892,25 @@ you can add resource intensive styles.
   .adminWrap .allInfo:last-child {
     margin-right: 0;
   }
-  /* line 689, ../scss/breakpoints/_768up.scss */
+  /* line 699, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .tabs__labels {
     display: block;
   }
-  /* line 691, ../scss/breakpoints/_768up.scss */
+  /* line 701, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .tabs__labels li {
     display: inline-block;
     margin-bottom: 10px;
   }
-  /* line 695, ../scss/breakpoints/_768up.scss */
+  /* line 705, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .tabs__labels li a.active button {
     background-color: #eaedf2;
   }
-  /* line 701, ../scss/breakpoints/_768up.scss */
+  /* line 711, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .featureFormWrap {
     max-width: 500px;
   }
 
-  /* line 708, ../scss/breakpoints/_768up.scss */
+  /* line 718, ../scss/breakpoints/_768up.scss */
   .picture img {
     max-width: 400px;
   }

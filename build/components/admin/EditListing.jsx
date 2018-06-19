@@ -1,10 +1,10 @@
 import React from 'react';
-import Display from '../../actions/displayActions';
 import ListActions from '../../actions/ListActions';
 //Components
 import VenueBlock from '../blocks/VenueBlock';
 import Select from '../forms/formSelect';
 import ListingForm from '../forms/ListingForm';
+import { Button } from 'reactstrap'
 
 
 
@@ -16,7 +16,8 @@ export default class ListingEdit extends React.Component {
             formDisplay: false,
         }
 
-        this.handleSelectChange = this.handleSelectChange.bind(this);        
+        this.handleSelectChange = this.handleSelectChange.bind(this)
+        this.onCreateNew = this.onCreateNew.bind(this)   
       }
     
     componentWillUnmount(){
@@ -46,6 +47,13 @@ export default class ListingEdit extends React.Component {
             })
 		}
     }
+
+    onCreateNew(){
+        ListActions.listingEditReset();
+        this.setState({
+            formDisplay: true
+        })
+    }
     
     render() {
         
@@ -64,9 +72,10 @@ export default class ListingEdit extends React.Component {
         }
         
         return ( 
-            <div>
-                <h3>Edit Listing</h3>
+            <div className="listingEdit">
+                <h3>Create or Edit Listings</h3>
                 <div id="ListingList">
+                        <Button onClick={this.onCreateNew}>New</Button>
                         <Select value={{
                             value: this.props.listingEdit._id, 
                             label: this.props.listingEdit.name}
@@ -76,21 +85,12 @@ export default class ListingEdit extends React.Component {
                         />
                 </div>
                 {this.state.formDisplay && 
-                    <div>
-                        <ListingForm 
-                            listing={this.props.listingEdit} 
-                            error={this.props.error.updatelisting} 
-                            loading={this.props.loading.updatelisting}
-                            success={this.props.success}
-                            allArtists={this.props.allArtists}/>
-                        <div id="ListingInfo">
-                            <div className="medium">
-                                {this.props.listingEdit.venue &&
-                                    <VenueBlock listings={[this.props.listingEdit]} user=""/>
-                                }
-                            </div>
-                        </div>
-                    </div>
+                    <ListingForm 
+                        listing={this.props.listingEdit} 
+                        error={this.props.error.updatelisting} 
+                        loading={this.props.loading.updatelisting}
+                        success={this.props.success}
+                        allArtists={this.props.allArtists}/>
                 }
             </div>
         );

@@ -662,8 +662,18 @@ header.mainHeader{
         }
     }
     //LISTINGS
-    #ListingList, #ListingInfo{
-        @include span-columns(6);
+    .listingEdit{
+        #ListingList{
+            .Select{
+                width: 100%;
+                max-width: 500px;
+                display: inline-block;
+                margin-left: 10px;
+            }
+            button.btn{
+                vertical-align: top;
+            }
+        }
     }
     //USERS
     .usersWrap .allUsers{

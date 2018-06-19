@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 
+import moment from 'moment';
+
 
 //#######################
 // GET ALL listings ===================
@@ -104,11 +106,8 @@ router.get('/glancelistings', function (req, res) {
     var List = req.list;
 
     //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    var inaWeek = new Date();
-    inaWeek.setDate(inaWeek.getDate() + 7);
-    inaWeek.setHours(0, 0, 0, 0);
+    var today = moment()
+    var inaWeek = moment().add(7, 'days');
 
     List.find({
         $or: [{
@@ -237,9 +236,10 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 
 router.post('/add', function (req, res) {
     var List = req.list;
+    var Artists = req.artists;
 
     // define a new entry
-    var newlisting = new List(req.body);
+    var newlisting = req.body;
 
     // Save when and who created it
 	var now = new Date();
@@ -265,10 +265,12 @@ router.post('/add', function (req, res) {
 
     var savedArtists = Promise.all(saving); // pass array of promises
 
-    savedArtists.then(data => {// or just .then(console.log)
+    savedArtists.then(data => {
         
         newlisting.artists = data;
         newlisting = new List(newlisting);
+
+        console.log(newlisting)
 
         //Save this new entry
         newlisting.save(function (err, newlisting) {
@@ -318,7 +320,7 @@ router.post('/update', function (req, res) {
 
     var savedArtists = Promise.all(saving); // pass array of promises
 
-    savedArtists.then(data => {// or just .then(console.log)
+    savedArtists.then(data => {
         
         thelisting.artists = data;
         thelisting = new List(thelisting);

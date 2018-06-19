@@ -1801,6 +1801,12 @@ module.exports = require("mongoose");
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("moment");
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1851,12 +1857,6 @@ var Date = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Date;
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("moment");
 
 /***/ }),
 /* 12 */
@@ -2202,7 +2202,7 @@ var formSelect = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            return _react2.default.createElement(_reactSelect.AsyncCreatable, {
+            return _react2.default.createElement(_reactSelect.Async, {
                 name: 'venue',
                 placeholder: 'Select venue',
                 value: this.props.value,
@@ -2890,7 +2890,7 @@ var _toastr = __webpack_require__(177);
 
 var _toastr2 = _interopRequireDefault(_toastr);
 
-var _moment = __webpack_require__(11);
+var _moment = __webpack_require__(10);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -7035,7 +7035,7 @@ var _formDateSingle = __webpack_require__(48);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
-var _DateBlock = __webpack_require__(10);
+var _DateBlock = __webpack_require__(11);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -7116,8 +7116,7 @@ var ListingForm = function (_React$Component) {
 
     }, {
         key: 'handleSubmit',
-        value: function handleSubmit(event) {
-            event.preventDefault();
+        value: function handleSubmit() {
             var newListing = this.props.listing;
 
             //Make sure that the listing copies the venue's neighborhood
@@ -7956,7 +7955,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDates = __webpack_require__(29);
 
-var _moment = __webpack_require__(11);
+var _moment = __webpack_require__(10);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -9100,6 +9099,12 @@ module.exports = router;
 "use strict";
 
 
+var _moment = __webpack_require__(10);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var express = __webpack_require__(12);
 var router = express.Router();
 var mongoose = __webpack_require__(9);
@@ -9179,11 +9184,8 @@ router.get('/glancelistings', function (req, res) {
     var List = req.list;
 
     //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    var inaWeek = new Date();
-    inaWeek.setDate(inaWeek.getDate() + 7);
-    inaWeek.setHours(0, 0, 0, 0);
+    var today = (0, _moment2.default)();
+    var inaWeek = (0, _moment2.default)().add(7, 'days');
 
     List.find({
         $or: [{
@@ -9277,9 +9279,10 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 
 router.post('/add', function (req, res) {
     var List = req.list;
+    var Artists = req.artists;
 
     // define a new entry
-    var newlisting = new List(req.body);
+    var newlisting = req.body;
 
     // Save when and who created it
     var now = new Date();
@@ -9307,10 +9310,11 @@ router.post('/add', function (req, res) {
     var savedArtists = Promise.all(saving); // pass array of promises
 
     savedArtists.then(function (data) {
-        // or just .then(console.log)
 
         newlisting.artists = data;
         newlisting = new List(newlisting);
+
+        console.log(newlisting);
 
         //Save this new entry
         newlisting.save(function (err, newlisting) {
@@ -9357,7 +9361,6 @@ router.post('/update', function (req, res) {
     var savedArtists = Promise.all(saving); // pass array of promises
 
     savedArtists.then(function (data) {
-        // or just .then(console.log)
 
         thelisting.artists = data;
         thelisting = new List(thelisting);
@@ -10610,7 +10613,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = __webpack_require__(11);
+var _moment = __webpack_require__(10);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -10820,7 +10823,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _moment = __webpack_require__(11);
+var _moment = __webpack_require__(10);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -10832,7 +10835,7 @@ var _VenueBlock = __webpack_require__(7);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _DateBlock = __webpack_require__(10);
+var _DateBlock = __webpack_require__(11);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -11445,10 +11448,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(13);
-
-var _displayActions2 = _interopRequireDefault(_displayActions);
-
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
@@ -11464,6 +11463,8 @@ var _formSelect2 = _interopRequireDefault(_formSelect);
 var _ListingForm = __webpack_require__(44);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
+
+var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11488,6 +11489,7 @@ var ListingEdit = function (_React$Component) {
         };
 
         _this.handleSelectChange = _this.handleSelectChange.bind(_this);
+        _this.onCreateNew = _this.onCreateNew.bind(_this);
         return _this;
     }
 
@@ -11522,6 +11524,14 @@ var ListingEdit = function (_React$Component) {
             }
         }
     }, {
+        key: 'onCreateNew',
+        value: function onCreateNew() {
+            _ListActions2.default.listingEditReset();
+            this.setState({
+                formDisplay: true
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
 
@@ -11540,15 +11550,20 @@ var ListingEdit = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'listingEdit' },
                 _react2.default.createElement(
                     'h3',
                     null,
-                    'Edit Listing'
+                    'Create or Edit Listings'
                 ),
                 _react2.default.createElement(
                     'div',
                     { id: 'ListingList' },
+                    _react2.default.createElement(
+                        _reactstrap.Button,
+                        { onClick: this.onCreateNew },
+                        'New'
+                    ),
                     _react2.default.createElement(_formSelect2.default, { value: {
                             value: this.props.listingEdit._id,
                             label: this.props.listingEdit.name },
@@ -11556,25 +11571,12 @@ var ListingEdit = function (_React$Component) {
                         getOptions: getOptions
                     })
                 ),
-                this.state.formDisplay && _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(_ListingForm2.default, {
-                        listing: this.props.listingEdit,
-                        error: this.props.error.updatelisting,
-                        loading: this.props.loading.updatelisting,
-                        success: this.props.success,
-                        allArtists: this.props.allArtists }),
-                    _react2.default.createElement(
-                        'div',
-                        { id: 'ListingInfo' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'medium' },
-                            this.props.listingEdit.venue && _react2.default.createElement(_VenueBlock2.default, { listings: [this.props.listingEdit], user: '' })
-                        )
-                    )
-                )
+                this.state.formDisplay && _react2.default.createElement(_ListingForm2.default, {
+                    listing: this.props.listingEdit,
+                    error: this.props.error.updatelisting,
+                    loading: this.props.loading.updatelisting,
+                    success: this.props.success,
+                    allArtists: this.props.allArtists })
             );
         }
     }]);
@@ -12626,7 +12628,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _moment = __webpack_require__(11);
+var _moment = __webpack_require__(10);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -12634,7 +12636,7 @@ var _reactRouter = __webpack_require__(3);
 
 var _reactstrap = __webpack_require__(2);
 
-var _DateBlock = __webpack_require__(10);
+var _DateBlock = __webpack_require__(11);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -13311,7 +13313,7 @@ var _imageBlock = __webpack_require__(23);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _DateBlock = __webpack_require__(10);
+var _DateBlock = __webpack_require__(11);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -13422,7 +13424,7 @@ var _imageBlock = __webpack_require__(23);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _DateBlock = __webpack_require__(10);
+var _DateBlock = __webpack_require__(11);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -13984,7 +13986,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = __webpack_require__(11);
+var _moment = __webpack_require__(10);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -14480,7 +14482,7 @@ var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
 var _reactstrap = __webpack_require__(2);
 
-var _DateBlock = __webpack_require__(10);
+var _DateBlock = __webpack_require__(11);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -15093,7 +15095,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDates = __webpack_require__(29);
 
-var _moment = __webpack_require__(11);
+var _moment = __webpack_require__(10);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -17354,7 +17356,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _DateBlock = __webpack_require__(10);
+var _DateBlock = __webpack_require__(11);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
