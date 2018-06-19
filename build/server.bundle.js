@@ -7305,6 +7305,9 @@ var ListingForm = function (_React$Component) {
     }, {
         key: 'handleSelectChange',
         value: function handleSelectChange(data) {
+            this.setState({
+                wasChanged: true
+            });
             if (data) {
                 if (data.label == data.value) {
                     // Create a new venue

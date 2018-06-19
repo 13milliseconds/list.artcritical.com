@@ -139,6 +139,9 @@ export default class ListingForm extends React.Component {
     
     //Search as the user types in select box
     handleSelectChange (data) {
+        this.setState({
+            wasChanged: true
+        })
         if (data) {
             if (data.label == data.value) {
                 // Create a new venue
