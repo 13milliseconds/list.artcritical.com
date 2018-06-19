@@ -71,8 +71,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
 //#######################
 
 router.get('/futurelistings/:offset_ratio', function (req, res) {
-    var List = req.list,
-        Venue = req.venue;
+    var List = req.list;
 
     //Find today's date
     var today = new Date();
@@ -102,8 +101,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
 //#######################
 
 router.get('/glancelistings', function (req, res) {
-    var List = req.list,
-        Venue = req.venue;
+    var List = req.list;
 
     //Find today's date
     var today = new Date();

@@ -1,12 +1,8 @@
 import React from 'react';
-import ListStore from '../../stores/ListStore';
 import ListActions from '../../actions/ListActions';
-import moment from 'moment';
 
 //COMPONENTS
 import VenueBlock from '../blocks/VenueBlock.jsx';
-import Date from '../blocks/DateBlock.jsx';
-import SizeSelector from '../blocks/sizeSelector';
 
 
 export default class ReviewPage extends React.Component {

@@ -75,23 +75,23 @@ export default class ListingEdit extends React.Component {
                         getOptions={getOptions} 
                         />
                 </div>
-                <div id="ListingInfo">
-                    <div className="medium">
-                        {this.props.listingEdit.venue &&
-                            <VenueBlock listings={[this.props.listingEdit]} user=""/>
-                        }
-                    </div>
-                </div>
-                <div className="listingForm">
-                    {this.state.formDisplay && 
+                {this.state.formDisplay && 
+                    <div>
                         <ListingForm 
                             listing={this.props.listingEdit} 
                             error={this.props.error.updatelisting} 
                             loading={this.props.loading.updatelisting}
                             success={this.props.success}
                             allArtists={this.props.allArtists}/>
-                    }
-                </div>
+                        <div id="ListingInfo">
+                            <div className="medium">
+                                {this.props.listingEdit.venue &&
+                                    <VenueBlock listings={[this.props.listingEdit]} user=""/>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         );
     }
