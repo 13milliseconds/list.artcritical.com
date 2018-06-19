@@ -1,6 +1,6 @@
 import React from 'react'
 import ListActions from '../../actions/ListActions'
-import {browserHistory} from 'react-router'; 
+import {Link, browserHistory} from 'react-router'; 
 import { Form, FormGroup, Label, Input, Alert, Button } from 'reactstrap';
 
 
@@ -208,6 +208,7 @@ export default class ListingForm extends React.Component {
                         <Label>Venue</Label>
                          <div className="formSection">
                           <Select value={venueData} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
+                          <Link to='/admin/venues'><Button>Create New</Button></Link>
                         </div>
                     </FormGroup>
                     <FormGroup check>

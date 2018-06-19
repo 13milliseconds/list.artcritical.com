@@ -192,9 +192,6 @@ Main PAGES
                 margin-top: 0;
             }
         }
-        &:first-of-type{
-            display: none;
-        }
     }
     h2{
         margin: 50px 0 20px;
@@ -1094,6 +1091,9 @@ ADMIN
         border-radius: 5px;
         background-color: $gray;
         margin-right: 10px;
+        white-space: nowrap;
+        display: inline-block;
+        margin-bottom: 10px;
         .react-tagsinput-remove{
             padding-left: 5px;
             &:after{

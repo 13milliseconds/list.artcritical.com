@@ -85,7 +85,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(14);
+var _alt = __webpack_require__(13);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -697,7 +697,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(14);
+var _alt = __webpack_require__(13);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -1692,6 +1692,66 @@ exports.default = HelmetBlock;
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactFontawesome = __webpack_require__(5);
+
+var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Loading = function (_React$Component) {
+  _inherits(Loading, _React$Component);
+
+  function Loading() {
+    _classCallCheck(this, Loading);
+
+    return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).apply(this, arguments));
+  }
+
+  _createClass(Loading, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'loading' },
+        _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'spinner-third'], spin: true })
+      );
+    }
+  }]);
+
+  return Loading;
+}(_react2.default.Component);
+
+exports.default = Loading;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -1765,66 +1825,6 @@ var VenueBlock = function (_React$Component) {
 exports.default = VenueBlock;
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactFontawesome = __webpack_require__(5);
-
-var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Loading = function (_React$Component) {
-  _inherits(Loading, _React$Component);
-
-  function Loading() {
-    _classCallCheck(this, Loading);
-
-    return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).apply(this, arguments));
-  }
-
-  _createClass(Loading, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'loading' },
-        _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'spinner-third'], spin: true })
-      );
-    }
-  }]);
-
-  return Loading;
-}(_react2.default.Component);
-
-exports.default = Loading;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
@@ -1891,6 +1891,139 @@ module.exports = require("express");
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _alt = __webpack_require__(154);
+
+var _alt2 = _interopRequireDefault(_alt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _alt2.default();
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactstrap = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpdateModal = function (_React$Component) {
+    _inherits(UpdateModal, _React$Component);
+
+    function UpdateModal(props) {
+        _classCallCheck(this, UpdateModal);
+
+        var _this = _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).call(this, props));
+
+        _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
+        return _this;
+    }
+
+    _createClass(UpdateModal, [{
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            this.props.success && setTimeout(function () {
+                this.props.toggle(this.props.name);
+            }.bind(this), 1000);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                _reactstrap.Modal,
+                { isOpen: true, backdrop: true },
+                _react2.default.createElement(
+                    _reactstrap.ModalHeader,
+                    null,
+                    this.props.textTitle
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalBody,
+                    null,
+                    !this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to " + this.props.textAction + ". Press Cancel to go back." : null,
+                    this.props.loading && _react2.default.createElement(
+                        'div',
+                        { className: 'loading' },
+                        'loading'
+                    ),
+                    this.props.success && _react2.default.createElement(
+                        'div',
+                        { className: 'success' },
+                        this.props.textConfirm
+                    ),
+                    this.props.error && _react2.default.createElement(
+                        'div',
+                        { className: 'error' },
+                        'Please Try Again'
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactstrap.ModalFooter,
+                    null,
+                    !this.props.success && _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: this.props.handleSubmit },
+                            'Confirm'
+                        ),
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'primary', onClick: function onClick() {
+                                    return _this2.props.toggle(_this2.props.name);
+                                } },
+                            'Cancel'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UpdateModal;
+}(_react2.default.Component);
+
+exports.default = UpdateModal;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-map-gl");
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2055,139 +2188,6 @@ module.exports = {
 };
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _alt = __webpack_require__(154);
-
-var _alt2 = _interopRequireDefault(_alt);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _alt2.default();
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactstrap = __webpack_require__(2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var UpdateModal = function (_React$Component) {
-    _inherits(UpdateModal, _React$Component);
-
-    function UpdateModal(props) {
-        _classCallCheck(this, UpdateModal);
-
-        var _this = _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).call(this, props));
-
-        _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
-        return _this;
-    }
-
-    _createClass(UpdateModal, [{
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate() {
-            this.props.success && setTimeout(function () {
-                this.props.toggle(this.props.name);
-            }.bind(this), 1000);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            return _react2.default.createElement(
-                _reactstrap.Modal,
-                { isOpen: true, backdrop: true },
-                _react2.default.createElement(
-                    _reactstrap.ModalHeader,
-                    null,
-                    this.props.textTitle
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalBody,
-                    null,
-                    !this.props.loading && !this.props.success && !this.props.error ? "Press Confirm to " + this.props.textAction + ". Press Cancel to go back." : null,
-                    this.props.loading && _react2.default.createElement(
-                        'div',
-                        { className: 'loading' },
-                        'loading'
-                    ),
-                    this.props.success && _react2.default.createElement(
-                        'div',
-                        { className: 'success' },
-                        this.props.textConfirm
-                    ),
-                    this.props.error && _react2.default.createElement(
-                        'div',
-                        { className: 'error' },
-                        'Please Try Again'
-                    )
-                ),
-                _react2.default.createElement(
-                    _reactstrap.ModalFooter,
-                    null,
-                    !this.props.success && _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: this.props.handleSubmit },
-                            'Confirm'
-                        ),
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { color: 'primary', onClick: function onClick() {
-                                    return _this2.props.toggle(_this2.props.name);
-                                } },
-                            'Cancel'
-                        )
-                    )
-                )
-            );
-        }
-    }]);
-
-    return UpdateModal;
-}(_react2.default.Component);
-
-exports.default = UpdateModal;
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-map-gl");
-
-/***/ }),
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2275,7 +2275,7 @@ var _FacebookButton = __webpack_require__(124);
 
 var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -2512,7 +2512,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(14);
+var _alt = __webpack_require__(13);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -2891,7 +2891,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(14);
+var _alt = __webpack_require__(13);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -4083,7 +4083,7 @@ module.exports = require("react-dom");
 "use strict";
 
 
-var mongoose = __webpack_require__(9),
+var mongoose = __webpack_require__(8),
     Schema = mongoose.Schema;
 var bcrypt = __webpack_require__(155); // encripts password
 
@@ -4135,7 +4135,7 @@ module.exports = {
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var mongoose = __webpack_require__(9);
+var mongoose = __webpack_require__(8);
 
 // Create the Listings table ==================================
 
@@ -6014,7 +6014,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(14);
+var _alt = __webpack_require__(13);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -6243,7 +6243,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueBlock = __webpack_require__(7);
+var _VenueBlock = __webpack_require__(9);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -6579,7 +6579,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(13);
+var _displayActions = __webpack_require__(16);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -6757,7 +6757,7 @@ var _singleMarker = __webpack_require__(123);
 
 var _singleMarker2 = _interopRequireDefault(_singleMarker);
 
-var _reactMapGl = __webpack_require__(16);
+var _reactMapGl = __webpack_require__(15);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -7125,7 +7125,7 @@ var _EventsForm = __webpack_require__(128);
 
 var _EventsForm2 = _interopRequireDefault(_EventsForm);
 
-var _confirmModal = __webpack_require__(15);
+var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -7404,7 +7404,16 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_formSelect2.default, { value: venueData, handleSelectChange: this.handleSelectChange, getOptions: getOptions })
+                            _react2.default.createElement(_formSelect2.default, { value: venueData, handleSelectChange: this.handleSelectChange, getOptions: getOptions }),
+                            _react2.default.createElement(
+                                _reactRouter.Link,
+                                { to: '/admin/venues' },
+                                _react2.default.createElement(
+                                    _reactstrap.Button,
+                                    null,
+                                    'Create New'
+                                )
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -8218,7 +8227,7 @@ var _MarkerDisplay = __webpack_require__(120);
 
 var _MarkerDisplay2 = _interopRequireDefault(_MarkerDisplay);
 
-var _reactMapGl = __webpack_require__(16);
+var _reactMapGl = __webpack_require__(15);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -8598,7 +8607,7 @@ module.exports = function (passport) {
 "use strict";
 
 
-var mongoose = __webpack_require__(9),
+var mongoose = __webpack_require__(8),
     Schema = mongoose.Schema;
 
 // Create the Artist table ==================================
@@ -8628,7 +8637,7 @@ module.exports = {
 "use strict";
 
 
-var mongoose = __webpack_require__(9);
+var mongoose = __webpack_require__(8);
 
 // Create the Listings table ==================================
 
@@ -8656,7 +8665,7 @@ module.exports = mongoose.model('Feature', featureSchema);
 "use strict";
 
 
-var mongoose = __webpack_require__(9),
+var mongoose = __webpack_require__(8),
     Schema = mongoose.Schema;
 
 // Create the Listings table ==================================
@@ -8770,7 +8779,7 @@ module.exports = router;
 var express = __webpack_require__(12);
 var router = express.Router();
 var passport = __webpack_require__(33);
-var mongoose = __webpack_require__(9);
+var mongoose = __webpack_require__(8);
 
 //###################################
 // SIGNUP
@@ -9184,7 +9193,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(12);
 var router = express.Router();
-var mongoose = __webpack_require__(9);
+var mongoose = __webpack_require__(8);
 
 //#######################
 // GET ALL listings ===================
@@ -9961,7 +9970,7 @@ __webpack_require__(58)(passport);
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(9);
+var mongoose = __webpack_require__(8);
 var url = process.env.MONGOLAB_URI;
 mongoose.Promise = global.Promise;
 mongoose.connect(url, { useMongoClient: true });
@@ -10178,7 +10187,7 @@ var _Helmet = __webpack_require__(6);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _reactMapGl = __webpack_require__(16);
+var _reactMapGl = __webpack_require__(15);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -10186,7 +10195,7 @@ var _MapCluster = __webpack_require__(119);
 
 var _MapCluster2 = _interopRequireDefault(_MapCluster);
 
-var _VenueBlock = __webpack_require__(7);
+var _VenueBlock = __webpack_require__(9);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -10583,7 +10592,7 @@ var _listingsPerNeighbor = __webpack_require__(41);
 
 var _listingsPerNeighbor2 = _interopRequireDefault(_listingsPerNeighbor);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -10691,7 +10700,7 @@ var _VenueList = __webpack_require__(38);
 
 var _VenueList2 = _interopRequireDefault(_VenueList);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -10901,7 +10910,7 @@ var _Helmet = __webpack_require__(6);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _VenueBlock = __webpack_require__(7);
+var _VenueBlock = __webpack_require__(9);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -10917,7 +10926,7 @@ var _DayPicker = __webpack_require__(127);
 
 var _DayPicker2 = _interopRequireDefault(_DayPicker);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -11068,7 +11077,7 @@ var _listingsPerNeighbor = __webpack_require__(41);
 
 var _listingsPerNeighbor2 = _interopRequireDefault(_listingsPerNeighbor);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -11181,7 +11190,7 @@ var _tabs = __webpack_require__(25);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -11522,7 +11531,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _VenueBlock = __webpack_require__(7);
+var _VenueBlock = __webpack_require__(9);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -11675,17 +11684,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(13);
-
-var _displayActions2 = _interopRequireDefault(_displayActions);
-
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
-
-var _VenueBlock = __webpack_require__(7);
-
-var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
 var _formSelect = __webpack_require__(17);
 
@@ -11730,6 +11731,7 @@ var VenueEdit = function (_React$Component) {
         _this.handleDelete = _this.handleDelete.bind(_this);
         _this.handleSelectChange = _this.handleSelectChange.bind(_this);
         _this.calculateCoords = _this.calculateCoords.bind(_this);
+        _this.onCreateNew = _this.onCreateNew.bind(_this);
         return _this;
     }
 
@@ -11793,6 +11795,14 @@ var VenueEdit = function (_React$Component) {
             }
         }
     }, {
+        key: 'onCreateNew',
+        value: function onCreateNew() {
+            _ListActions2.default.venueEditReset();
+            this.setState({
+                formDisplay: true
+            });
+        }
+    }, {
         key: 'calculateCoords',
         value: function calculateCoords(fullAdress) {
             var self = this;
@@ -11837,6 +11847,11 @@ var VenueEdit = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'venueList' },
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { onClick: this.onCreateNew },
+                            'New'
+                        ),
                         _react2.default.createElement(_formSelect2.default, {
                             value: { value: this.props.venueEdit._id, label: this.props.venueEdit.name },
                             handleSelectChange: this.handleSelectChange,
@@ -11896,7 +11911,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _VenueBlock = __webpack_require__(7);
+var _VenueBlock = __webpack_require__(9);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -11983,7 +11998,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -12102,7 +12117,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(13);
+var _displayActions = __webpack_require__(16);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -12114,7 +12129,7 @@ var _NeighborhoodSelect = __webpack_require__(46);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -12354,7 +12369,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(13);
+var _displayActions = __webpack_require__(16);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -12511,7 +12526,7 @@ var _tabs = __webpack_require__(25);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -13714,7 +13729,7 @@ var _MyEditor = __webpack_require__(45);
 
 var _MyEditor2 = _interopRequireDefault(_MyEditor);
 
-var _confirmModal = __webpack_require__(15);
+var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -14324,7 +14339,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _confirmModal = __webpack_require__(15);
+var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -14541,7 +14556,7 @@ var _reactToggleButton = __webpack_require__(21);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
-var _confirmModal = __webpack_require__(15);
+var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -15004,7 +15019,7 @@ var _draftJsExportHtml = __webpack_require__(53);
 
 var _draftJsPluginsEditor = __webpack_require__(28);
 
-var _confirmModal = __webpack_require__(15);
+var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -15873,7 +15888,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(13);
+var _displayActions = __webpack_require__(16);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -16538,7 +16553,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(16);
+var _reactMapGl = __webpack_require__(15);
 
 var _myListings = __webpack_require__(141);
 
@@ -16856,7 +16871,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueBlock = __webpack_require__(7);
+var _VenueBlock = __webpack_require__(9);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -16949,7 +16964,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(16);
+var _reactMapGl = __webpack_require__(15);
 
 var _userListings = __webpack_require__(143);
 
@@ -17227,7 +17242,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueBlock = __webpack_require__(7);
+var _VenueBlock = __webpack_require__(9);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -17557,7 +17572,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueBlock = __webpack_require__(7);
+var _VenueBlock = __webpack_require__(9);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 

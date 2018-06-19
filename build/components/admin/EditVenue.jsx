@@ -1,12 +1,10 @@
 import React from 'react';
-import Display from '../../actions/displayActions';
 import ListActions from '../../actions/ListActions';
 //Components
-import VenueBlock from '../blocks/VenueBlock';
 import Select from '../forms/formSelect';
 import VenueForm from '../forms/VenueForm';
 import MapBlock from '../blocks/mapBlock';
-import {Alert} from 'reactstrap';
+import {Button, Alert} from 'reactstrap';
 
 var MapboxClient = require('mapbox');
 var client = new MapboxClient(process.env.MapboxAccessToken);
@@ -24,6 +22,7 @@ export default class VenueEdit extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.calculateCoords = this.calculateCoords.bind(this)
+        this.onCreateNew = this.onCreateNew.bind(this)
       }
     
     componentWillUnmount(){
@@ -78,6 +77,13 @@ export default class VenueEdit extends React.Component {
         }
     }
 
+    onCreateNew(){
+        ListActions.venueEditReset();
+        this.setState({
+            formDisplay: true
+        })
+    }
+
     calculateCoords(fullAdress){
         var self = this
 		client.geocodeForward(fullAdress, function(err, data, res) {
@@ -112,6 +118,7 @@ export default class VenueEdit extends React.Component {
                 <h3>Edit Venue</h3>
                 <div className="venueEditing">
                 <div className="venueList">
+                        <Button onClick={this.onCreateNew}>New</Button>
                         <Select 
 							value={{value: this.props.venueEdit._id, label: this.props.venueEdit.name}} 
 							handleSelectChange={this.handleSelectChange} 
