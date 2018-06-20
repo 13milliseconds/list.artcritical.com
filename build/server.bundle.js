@@ -9274,19 +9274,19 @@ router.get('/glancelistings', function (req, res) {
     var List = req.list;
 
     //Find today's date
-    var today = (0, _moment2.default)();
-    var inaWeek = (0, _moment2.default)().add(7, 'days');
+    var today = (0, _moment2.default)().startOf('day');
+    var inaWeek = (0, _moment2.default)().add(7, 'days').endOf('day');
 
     List.find({
         $or: [{
             start: {
                 $gte: today,
-                $lt: inaWeek
+                $lte: inaWeek
             }
         }, {
             end: {
                 $gte: today,
-                $lt: inaWeek
+                $lte: inaWeek
             }
         }]
     }, {}).where('venue').ne('').sort('neighborhood').populate('venue').populate('artists').exec(function (e, docs) {
@@ -10732,7 +10732,7 @@ var DayPage = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (DayPage.__proto__ || Object.getPrototypeOf(DayPage)).call(this, props));
 
         _this.state = {
-            date: (0, _moment2.default)(_this.props.date).format().slice(0, 10)
+            date: (0, _moment2.default)(_this.props.date)
         };
         return _this;
     }
@@ -10750,15 +10750,16 @@ var DayPage = function (_React$Component) {
                 // Check if it is an event
                 if (listing.event == true) {
                     // it IS an event
-                    (0, _moment2.default)(listing.start).format().slice(0, 10) == _this2.state.date && events.push(listing);
+                    (0, _moment2.default)(listing.start).isSame(_this2.state.date, 'day') && events.push(listing);
                 } else {
                     //not an event
                     //Check if it starts on this day
-                    if ((0, _moment2.default)(listing.start).format().slice(0, 10) == _this2.state.date) {
+                    console.log(listing);
+                    if ((0, _moment2.default)(listing.start).isSame(_this2.state.date, 'day')) {
                         openings.push(listing);
                     }
                     //Check if it ends on this day
-                    if ((0, _moment2.default)(listing.end).format().slice(0, 10) == _this2.state.date) {
+                    if ((0, _moment2.default)(listing.end).isSame(_this2.state.date, 'day')) {
                         closings.push(listing);
                     }
                 }

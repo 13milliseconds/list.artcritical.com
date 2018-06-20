@@ -11,7 +11,7 @@ export default class DayPage extends React.Component {
         super(props)
 		
 		this.state={
-			date: moment(this.props.date).format().slice(0,10)
+			date: moment(this.props.date)
 		}
     }
 
@@ -24,15 +24,16 @@ export default class DayPage extends React.Component {
 		this.props.glanceListings.map((listing) => {
             // Check if it is an event
             if ( listing.event == true) {// it IS an event
-                moment(listing.start).format().slice(0,10) == this.state.date && events.push(listing)
+                moment(listing.start).isSame(this.state.date, 'day') && events.push(listing)
                 
             } else { //not an event
                 //Check if it starts on this day
-                if (moment(listing.start).format().slice(0,10) == this.state.date) {
+                console.log(listing)
+                if (moment(listing.start).isSame(this.state.date, 'day')) {
                     openings.push(listing) 
                 } 
                 //Check if it ends on this day
-                if (moment(listing.end).format().slice(0,10) == this.state.date) {
+                if (moment(listing.end).isSame(this.state.date, 'day')) {
                     closings.push(listing)  
                 } 
             }

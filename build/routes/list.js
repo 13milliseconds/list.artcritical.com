@@ -106,19 +106,19 @@ router.get('/glancelistings', function (req, res) {
     var List = req.list;
 
     //Find today's date
-    var today = moment()
-    var inaWeek = moment().add(7, 'days');
+    var today = moment().startOf('day')
+    var inaWeek = moment().add(7, 'days').endOf('day');
 
     List.find({
         $or: [{
             start: {
                 $gte: today,
-                $lt: inaWeek
+                $lte: inaWeek
             }
         }, {
             end: {
                 $gte: today,
-                $lt: inaWeek
+                $lte: inaWeek
             }
         }]
     }, {})
