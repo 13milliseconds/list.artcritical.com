@@ -81,6 +81,9 @@ export default class DeckGLOverlay extends Component {
     });
 
     data.forEach(p => {
+      if (!p.venue.coordinates){
+        console.log(p)
+      }
 	    const coordinates = [p.venue.coordinates.lat, p.venue.coordinates.long]
       const screenCoords = transform.project(coordinates)
       p.x = screenCoords[0];

@@ -190,16 +190,18 @@ router.get('/find/:regex_input', function (req, res, next) {
     
     List
     .find({name: regexp})
-	.where('venue').ne('')
+    .populate('artists')
     .exec(function (err, listings) {
     if (err)
         res.send(err);
         
     var results = [];
     listings.map(function (thelisting) {
+        console.log(thelisting.artists)
+        var artists = thelisting.artists && thelisting.artists.map(artist => {return artist.name + ' '})
         results.push({
             value: thelisting._id,
-            label: thelisting.name
+            label: thelisting.name + ' ' + artists
         });
     })
 

@@ -6659,7 +6659,7 @@ var ListingsPerNeighbor = function (_React$Component) {
                             // Create the last city
                             var cityRender = neighborExport.length > 0 && _react2.default.createElement(
                                 'div',
-                                { key: cityID, id: cityID, className: 'city' },
+                                { key: cityID, id: 'city' + cityID, className: 'city' },
                                 neighborExport
                             );
                             neighborExport = [];
@@ -6673,7 +6673,7 @@ var ListingsPerNeighbor = function (_React$Component) {
                                 //Add last neighborhood to the current City
                                 neighborExport = _react2.default.createElement(
                                     'div',
-                                    { key: city, id: cityID + 1, className: 'city' },
+                                    { key: city, id: 'city' + (cityID + 1), className: 'city' },
                                     _react2.default.createElement(_ListingsNeighborhood2.default, _extends({}, _this2.props, { listings: renderListings, title: title }))
                                 );
 
@@ -6700,7 +6700,7 @@ var ListingsPerNeighbor = function (_React$Component) {
 
                             var cityRender = neighborExport.length > 0 && _react2.default.createElement(
                                 'div',
-                                { key: cityID, id: cityID, className: 'city' },
+                                { key: cityID, id: 'city' + cityID, className: 'city' },
                                 neighborExport
                             );
                             return cityRender;
@@ -6917,7 +6917,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#10' },
+              { href: '#city10' },
               'Tribeca'
             )
           ),
@@ -6926,7 +6926,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#20' },
+              { href: '#city20' },
               'Lower East Side'
             )
           ),
@@ -6935,7 +6935,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#30' },
+              { href: '#city30' },
               'Soho & Noho & East Village'
             )
           ),
@@ -6944,7 +6944,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#60' },
+              { href: '#city60' },
               'West Village & Chelsea'
             )
           ),
@@ -6953,7 +6953,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#170' },
+              { href: '#city170' },
               'Midtown & Uptown & Harlem'
             )
           ),
@@ -6962,7 +6962,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#220' },
+              { href: '#city220' },
               'Brooklyn'
             )
           ),
@@ -6971,7 +6971,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#270' },
+              { href: '#city270' },
               'Queens & Bronx & Staten Island'
             )
           ),
@@ -6980,7 +6980,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#300' },
+              { href: '#city300' },
               'Long Island'
             )
           ),
@@ -6989,7 +6989,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#310' },
+              { href: '#city310' },
               'Upstate New York'
             )
           ),
@@ -6998,7 +6998,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#320' },
+              { href: '#city320' },
               'New Jersey'
             )
           ),
@@ -7007,7 +7007,7 @@ var HoodNav = function (_React$Component) {
             null,
             _react2.default.createElement(
               'a',
-              { href: '#330' },
+              { href: '#city330' },
               'Philadelphia'
             )
           )
@@ -7017,48 +7017,58 @@ var HoodNav = function (_React$Component) {
           { type: 'select', name: 'select', onChange: this.scrollTo },
           _react2.default.createElement(
             'option',
-            { value: '20' },
+            { value: 'city10' },
+            'Tribeca'
+          ),
+          _react2.default.createElement(
+            'option',
+            { value: 'city20' },
             'Lower East Side'
           ),
           _react2.default.createElement(
             'option',
-            { value: '30' },
+            { value: 'city30' },
             'Soho & Noho & East Village'
           ),
           _react2.default.createElement(
             'option',
-            { value: '60' },
+            { value: 'city60' },
             'West Village & Chelsea'
           ),
           _react2.default.createElement(
             'option',
-            { value: '170' },
+            { value: 'city170' },
             'Midtown & Uptown & Harlem'
           ),
           _react2.default.createElement(
             'option',
-            { value: '220' },
+            { value: 'city220' },
             'Brooklyn'
           ),
           _react2.default.createElement(
             'option',
-            { value: '270' },
+            { value: 'city270' },
             'Queens & Bronx & Staten Island'
           ),
           _react2.default.createElement(
             'option',
-            { value: '300' },
+            { value: 'city300' },
             'Long Island'
           ),
           _react2.default.createElement(
             'option',
-            { value: '310' },
+            { value: 'city310' },
             'Upstate New York'
           ),
           _react2.default.createElement(
             'option',
-            { value: '320' },
+            { value: 'city320' },
             'New Jersey'
+          ),
+          _react2.default.createElement(
+            'option',
+            { value: 'city330' },
+            'Philadelphia'
           )
         )
       );
@@ -9330,14 +9340,18 @@ router.get('/find/:regex_input', function (req, res, next) {
 
     var regexp = new RegExp(req.params.regex_input, "i");
 
-    List.find({ name: regexp }).where('venue').ne('').exec(function (err, listings) {
+    List.find({ name: regexp }).populate('artists').exec(function (err, listings) {
         if (err) res.send(err);
 
         var results = [];
         listings.map(function (thelisting) {
+            console.log(thelisting.artists);
+            var artists = thelisting.artists && thelisting.artists.map(function (artist) {
+                return artist.name + ' ';
+            });
             results.push({
                 value: thelisting._id,
-                label: thelisting.name
+                label: thelisting.name + ' ' + artists
             });
         });
 
@@ -13220,6 +13234,9 @@ var DeckGLOverlay = function (_Component) {
       });
 
       data.forEach(function (p) {
+        if (!p.venue.coordinates) {
+          console.log(p);
+        }
         var coordinates = [p.venue.coordinates.lat, p.venue.coordinates.long];
         var screenCoords = transform.project(coordinates);
         p.x = screenCoords[0];
