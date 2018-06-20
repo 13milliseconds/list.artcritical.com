@@ -2956,12 +2956,12 @@ var ListStore = function () {
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
-        this.listingEdit = {}, this.listingEdit.image = '';
         //New listing states
         this.listingEdit = {};
         this.listingEdit._id = '';
         this.listingEdit.artists = [];
         this.listingEdit.name = '';
+        this.listingEdit.image = '';
         this.listingEdit.description = '';
         this.listingEdit.text = '';
         this.listingEdit.event = false;
@@ -3160,6 +3160,7 @@ var ListStore = function () {
     }, {
         key: 'onEditListing',
         value: function onEditListing(listing) {
+            console.log('Editing a listing');
             this.listingEdit = listing;
         }
     }, {
@@ -4043,7 +4044,6 @@ var ListStore = function () {
     }, {
         key: 'onGetAllArtistsSuggestionsSuccess',
         value: function onGetAllArtistsSuggestionsSuccess(data) {
-            console.log('Success retrieving all artists', data);
             this.allArtists = data;
         }
     }, {
@@ -7388,7 +7388,21 @@ var ListingForm = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        { check: true },
+                        { check: true, className: 'group-venue' },
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            'Venue'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(_formSelect2.default, { value: venueData, handleSelectChange: this.handleSelectChange, getOptions: getOptions })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        { check: true, className: 'group-artists' },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
@@ -7402,11 +7416,11 @@ var ListingForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        { check: true },
+                        { check: true, className: 'group-name' },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
-                            'Name'
+                            'Show Name'
                         ),
                         _react2.default.createElement(
                             'div',
@@ -7416,30 +7430,7 @@ var ListingForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        { check: true },
-                        _react2.default.createElement(
-                            _reactstrap.Label,
-                            null,
-                            'Venue'
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'formSection' },
-                            _react2.default.createElement(_formSelect2.default, { value: venueData, handleSelectChange: this.handleSelectChange, getOptions: getOptions }),
-                            _react2.default.createElement(
-                                _reactRouter.Link,
-                                { to: '/admin/venues' },
-                                _react2.default.createElement(
-                                    _reactstrap.Button,
-                                    null,
-                                    'Create New'
-                                )
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        _reactstrap.FormGroup,
-                        { check: true },
+                        { check: true, className: 'group-event' },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
@@ -7457,7 +7448,7 @@ var ListingForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        { check: true },
+                        { check: true, className: 'group-dates' },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
@@ -7473,7 +7464,7 @@ var ListingForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        { check: true },
+                        { check: true, className: 'group-description' },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
@@ -7487,7 +7478,7 @@ var ListingForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        { check: true },
+                        { check: true, className: 'group-review' },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
@@ -7501,7 +7492,7 @@ var ListingForm = function (_React$Component) {
                     ),
                     !listing.event && _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        { check: true },
+                        { check: true, className: 'group-events' },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
@@ -7515,7 +7506,7 @@ var ListingForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        { check: true },
+                        { check: true, className: 'group-thumbnail' },
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
@@ -8750,10 +8741,7 @@ var router = express.Router();
 router.get('/allartists', function (req, res) {
     var Artists = req.artists;
 
-    console.log('the artist route ', Artists);
-
     Artists.find().exec(function (e, docs) {
-        console.log('the artist docs: ', docs);
         res.json(docs);
     });
 });

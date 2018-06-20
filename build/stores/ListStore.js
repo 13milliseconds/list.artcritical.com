@@ -37,13 +37,12 @@ class ListStore {
         // Image State
         this.isUploaded = false;
         this.uploadedFileCloudinaryUrl = '';
-        this.listingEdit = {},
-        this.listingEdit.image = ''
         //New listing states
         this.listingEdit = {};
         this.listingEdit._id = '';
         this.listingEdit.artists = [];
         this.listingEdit.name = '';
+        this.listingEdit.image = ''
         this.listingEdit.description = '';
         this.listingEdit.text = '';
         this.listingEdit.event = false;
@@ -197,6 +196,7 @@ class ListStore {
 
     //Load a specific listing into listing edit
     onEditListing(listing){
+        console.log('Editing a listing')
         this.listingEdit = listing;
     }
 	
@@ -880,7 +880,6 @@ class ListStore {
         console.log('Attempting to retrieve all artists')
     }
     onGetAllArtistsSuggestionsSuccess(data){
-        console.log('Success retrieving all artists', data)
         this.allArtists = data
     }
     onGetAllArtistsSuggestionsFailure(){

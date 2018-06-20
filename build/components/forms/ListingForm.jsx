@@ -197,26 +197,25 @@ export default class ListingForm extends React.Component {
             <div id="listingForm">
                 {!listing._id && <Alert color="primary">This is a draft listing.</Alert>}
                 <Form>
-                <FormGroup check>
+                    <FormGroup check  className="group-venue">
+                        <Label>Venue</Label>
+                         <div className="formSection">
+                          <Select value={venueData} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
+                        </div>
+                    </FormGroup>
+                    <FormGroup check className="group-artists">
                         <Label>Artists</Label>
                         <div className="formSection">
                             <ArtistTags allArtists={this.props.allArtists} onChange={this.handleArtistsChange} value={listing.artists}/>
                         </div>
                     </FormGroup>
-                    <FormGroup check>
-                        <Label>Name</Label>
+                    <FormGroup check className="group-name">
+                        <Label>Show Name</Label>
                         <div className="formSection">
                             <Input name="name" placeholder="Event name" type="text" value={listing.name} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
-                    <FormGroup check>
-                        <Label>Venue</Label>
-                         <div className="formSection">
-                          <Select value={venueData} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
-                          <Link to='/admin/venues'><Button>Create New</Button></Link>
-                        </div>
-                    </FormGroup>
-                    <FormGroup check>
+                    <FormGroup check className="group-event">
                         <Label>Event</Label>
                         <div className="formSection">
                             <ToggleButton
@@ -226,7 +225,7 @@ export default class ListingForm extends React.Component {
                               }} />
                         </div>
                     </FormGroup>
-                    <FormGroup check>
+                    <FormGroup check className="group-dates">
                         <Label> Dates </Label>
                         <div className="formSection">
                            {listing.event 
@@ -237,27 +236,27 @@ export default class ListingForm extends React.Component {
                            }
                         </div>  
                     </FormGroup>
-                     <FormGroup check>
+                     <FormGroup check className="group-description">
                         <Label>Description</Label>
                         <div className="formSection">
                             <Input type="textarea" name="description" value={listing.description} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
-                    <FormGroup check>
+                    <FormGroup check className="group-review">
                         <Label>Review Link</Label>
                         <div className="formSection">
                             <Input type="url"  name="review" placeholder="Link" type="text" value={listing.review} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
                     {!listing.event &&
-                        <FormGroup check>
+                        <FormGroup check  className="group-events">
                             <Label>Related Events</Label>
                             <div className="formSection">
                                 <EventsForm events={listing.events? listing.events : []} onChange={this.onEventsChange}/>
                             </div>
                         </FormGroup>
                     }
-                     <FormGroup check>
+                     <FormGroup check className="group-thumbnail">
                            <Label>Thumbnail</Label>
                             <ThumbnailInput {...listing} onChange={this.onThumbChange}/> 
 					</FormGroup>

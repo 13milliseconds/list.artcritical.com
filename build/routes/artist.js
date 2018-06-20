@@ -9,12 +9,9 @@ var router = express.Router();
 router.get('/allartists', function (req, res) {
     var Artists = req.artists
 
-    console.log('the artist route ', Artists)
-
     Artists
     .find()
     .exec(function (e, docs) {
-        console.log('the artist docs: ', docs)
         res.json(docs);
     });
 });

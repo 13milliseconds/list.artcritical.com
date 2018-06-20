@@ -1146,7 +1146,107 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .listingEdit #ListingList button.btn {
   vertical-align: top;
 }
+/* line 677, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm {
+  max-width: 600px;
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.adminWrap .listingEdit #listingForm::after {
+  clear: both;
+  content: "";
+  display: block;
+}
 /* line 680, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm label {
+  text-transform: uppercase;
+  font-size: .8em;
+}
+/* line 685, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm input::placeholder, .adminWrap .listingEdit #listingForm input::-webkit-input-placeholder, .adminWrap .listingEdit #listingForm input::-moz-placeholder, .adminWrap .listingEdit #listingForm input:-ms-input-placeholder, .adminWrap .listingEdit #listingForm input:-moz-placeholder {
+  color: pink !important;
+}
+/* line 693, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-venue {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-venue:last-child {
+  margin-right: 0;
+}
+/* line 695, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-venue button.btn {
+  margin-top: 10px;
+  background-color: #fff;
+  color: #323944;
+}
+/* line 701, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-artists,
+.adminWrap .listingEdit #listingForm .group-name,
+.adminWrap .listingEdit #listingForm .group-description,
+.adminWrap .listingEdit #listingForm .group-review {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-artists:last-child,
+.adminWrap .listingEdit #listingForm .group-name:last-child,
+.adminWrap .listingEdit #listingForm .group-description:last-child,
+.adminWrap .listingEdit #listingForm .group-review:last-child {
+  margin-right: 0;
+}
+/* line 707, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-event {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-event:last-child {
+  margin-right: 0;
+}
+/* line 710, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-thumbnail {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-thumbnail:last-child {
+  margin-right: 0;
+}
+/* line 714, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-events {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-events:last-child {
+  margin-right: 0;
+}
+/* line 717, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-dates {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-dates:last-child {
+  margin-right: 0;
+}
+/* line 725, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card {
   float: left;
   display: block;
@@ -1160,7 +1260,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .usersWrap .allUsers .card:last-child {
   margin-right: 0;
 }
-/* line 685, ../scss/breakpoints/_768up.scss */
+/* line 730, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card:nth-of-type(2n) {
   margin-right: 2.3576520234%;
 }
@@ -1172,7 +1272,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .usersWrap .allUsers .card:nth-child(3n+1) {
   clear: left;
 }
-/* line 689, ../scss/breakpoints/_768up.scss */
+/* line 734, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card .card-block {
   -webkit-transform: translateY(-30%);
   -moz-transform: translateY(-30%);
@@ -1180,7 +1280,7 @@ header.mainHeader .SizeSelector span.active {
   -o-transform: translateY(-30%);
   transform: translateY(-30%);
 }
-/* line 694, ../scss/breakpoints/_768up.scss */
+/* line 739, ../scss/breakpoints/_768up.scss */
 .adminWrap .allInfo {
   float: left;
   display: block;
@@ -1191,25 +1291,25 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .allInfo:last-child {
   margin-right: 0;
 }
-/* line 699, ../scss/breakpoints/_768up.scss */
+/* line 744, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .tabs__labels {
   display: block;
 }
-/* line 701, ../scss/breakpoints/_768up.scss */
+/* line 746, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .tabs__labels li {
   display: inline-block;
   margin-bottom: 10px;
 }
-/* line 705, ../scss/breakpoints/_768up.scss */
+/* line 750, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .tabs__labels li a.active button {
   background-color: #eaedf2;
 }
-/* line 711, ../scss/breakpoints/_768up.scss */
+/* line 756, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .featureFormWrap {
   max-width: 500px;
 }
 
-/* line 718, ../scss/breakpoints/_768up.scss */
+/* line 763, ../scss/breakpoints/_768up.scss */
 .picture img {
   max-width: 400px;
 }
