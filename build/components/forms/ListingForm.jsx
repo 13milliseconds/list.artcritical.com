@@ -43,8 +43,6 @@ export default class ListingForm extends React.Component {
       }
 
     toggleModal(modalName) {
-        console.log('Toggle ' + modalName)
-        console.log(this.state[modalName])
         this.setState({
             [modalName]: !this.state[modalName]
         })
@@ -164,9 +162,6 @@ export default class ListingForm extends React.Component {
 
     
     render() {
-
-        console.log('Deletesuccess ' + this.props.success.deletelisting)
-        console.log('Createsuccess ' + this.props.success.savelisting)
 
         let listing = this.props.listing
         

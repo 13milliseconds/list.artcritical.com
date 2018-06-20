@@ -2,10 +2,10 @@ import React from 'react';
 //COMPONENTS
 import {Link} from 'react-router';
 import DateBlock from '../blocks/DateBlock';
+import moment from 'moment'
 
 //Find today's date
-let today = new Date();
-today.setHours(0, 0, 0, 0);
+let today = moment()
 
 export default class VenueItem extends React.Component {
     
@@ -33,51 +33,57 @@ export default class VenueItem extends React.Component {
 			: this.setState({ old: true})
         //Check if it has a current listing
         if (!this.state.old && this.props.listings) {
-            this.props.listings.map(function (listing) {
+            var allCurrent = []
+            this.props.listings.map(function (listing, index) {
+                console.log('Listing #' + index)
+                let listingStart = moment(listing.start)
+                let listingEnd = moment(listing.end)
                 
-            let listingStart = new Date(listing.start)
-            let listingEnd = new Date(listing.end)
-            
-            if (listingEnd > today && listingStart < today){
-                this.setState({
-                    currentListings: this.state.currentListings.concat(listing)
-                })
-                this.setState({
-                    expired: false
-                })
-            }
-            if (listingStart > today){
-                this.setState({
-                    upcoming: true
-                })
-                if (!this.state.nextDate || this.state.nextDate <  listingStart){
+                if (listingEnd.isSameOrAfter(today, 'day') && listingStart.isSameOrBefore(today, 'day')){
+                    allCurrent.push(listing)
+                    console.log('Current')
+                    console.log(allCurrent)
                     this.setState({
-                        nextDate: listingStart
+                        expired: false
                     })
                 }
-                
-            }
+                if (listingStart.isAfter(today, 'day')){
+                    this.setState({
+                        upcoming: true
+                    })
+                    if (!this.state.nextDate || this.state.nextDate <  listingStart){
+                        this.setState({
+                            nextDate: listingStart
+                        })
+                    }
+                    
+                }
             }, this);   
+
+            this.setState({
+                currentListings: allCurrent
+            })
         }
         
     }
         
     render() {
+
         
         let classNames = ['venue']
         this.state.old && classNames.push('old')
         this.state.expired && classNames.push('expired') 
         this.state.upcoming && classNames.push('upcoming')
         
-        let currentListings = (listings) => listings.map((listing, index) =>
+        let currentListings = (listings) => listings.map((listing) =>
                 {
-            return <div className="venueListing" key='index'>{listing.name} - Expires <DateBlock date={listing.end} /></div>
+            return <div className="venueListing" key={listing._id}>{listing.name} - Expires <DateBlock date={listing.end} /></div>
         })
           
     return (
       <div className={classNames.join(' ')} id={this.props._id}>
         <Link to={"/venue/" + this.props.slug}>{this.props.name}</Link>
-            {currentListings(this.state.currentListings)}
+            {!this.state.old && currentListings(this.state.currentListings)}
             {this.state.nextDate && <div>Upcoming show: <DateBlock date={this.state.nextDate}/></div>}
       </div>
     );

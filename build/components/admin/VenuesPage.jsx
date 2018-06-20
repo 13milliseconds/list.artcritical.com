@@ -30,11 +30,6 @@ export default class VenuesPage extends React.Component {
 	}
 
     render() {
-        let secondaryNH = ''
-        let newSecondaryNH = ''
-        let renderExport = []
-        let title = ''
-        let num = this.props.allVenues.length - 1
         
         let theVenuesRender = venues => venues.map((venue, index) => {
             
