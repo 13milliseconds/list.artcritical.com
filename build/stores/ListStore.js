@@ -382,10 +382,10 @@ class ListStore {
         this.loading.savelisting = true;       
     }
     onSaveListingSuccess(data){
-        console.log('Saved: ', data);   
         this.loading.savelisting = false; 
         this.success.savelisting = true;
         this.listingEdit._id = data._id;
+        console.log(this.listingEdit, data);
         var that = this;
         setTimeout(function(){
             that.success.savelisting = false;
@@ -418,10 +418,17 @@ class ListStore {
     }
     
     //Update a listing
-    onDeleteListingSuccess(data){
+    onDeleteListingSuccess(){
         console.log('Deleted');  
 		//Reset the listing data
         this.success.deletelisting = true;
+        //Reset the listing
+        this.listingEdit = {
+            venue: {},
+            events: [],
+            artists: []
+        }
+        //Reset the success status
         var that = this;
         setTimeout(() => {
             that.success.deletelisting = false;

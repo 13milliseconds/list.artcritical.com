@@ -316,7 +316,7 @@ var ListActions = function () {
                 return null;
             }).then(function (json) {
                 _this8.deleteListingSuccess(json);
-                _this8.listingEditReset();
+                //this.listingEditReset();
                 return true;
             }).catch(function (error) {
                 _this8.deleteListingFailure(error);
@@ -3397,10 +3397,10 @@ var ListStore = function () {
     }, {
         key: 'onSaveListingSuccess',
         value: function onSaveListingSuccess(data) {
-            console.log('Saved: ', data);
             this.loading.savelisting = false;
             this.success.savelisting = true;
             this.listingEdit._id = data._id;
+            console.log(this.listingEdit, data);
             var that = this;
             setTimeout(function () {
                 that.success.savelisting = false;
@@ -3444,11 +3444,17 @@ var ListStore = function () {
 
     }, {
         key: 'onDeleteListingSuccess',
-        value: function onDeleteListingSuccess(data) {
+        value: function onDeleteListingSuccess() {
             console.log('Deleted');
             //Reset the listing data
             this.success.deletelisting = true;
-            var that = this;
+            //Reset the listing
+            this.listingEdit = {
+                venue: {},
+                events: [],
+                artists: []
+                //Reset the success status
+            };var that = this;
             setTimeout(function () {
                 that.success.deletelisting = false;
             }, 1000);
@@ -7193,6 +7199,8 @@ var ListingForm = function (_React$Component) {
     _createClass(ListingForm, [{
         key: 'toggleModal',
         value: function toggleModal(modalName) {
+            console.log('Toggle ' + modalName);
+            console.log(this.state[modalName]);
             this.setState(_defineProperty({}, modalName, !this.state[modalName]));
         }
 
@@ -7339,6 +7347,9 @@ var ListingForm = function (_React$Component) {
         value: function render() {
             var _this2 = this,
                 _React$createElement;
+
+            console.log('Deletesuccess ' + this.props.success.deletelisting);
+            console.log('Createsuccess ' + this.props.success.savelisting);
 
             var listing = this.props.listing;
 
@@ -9398,7 +9409,6 @@ router.post('/add', function (req, res) {
             var newArtist = new Artists(artist);
             return new Promise(function (resolve) {
                 newArtist.save(function (err, newArtist) {
-                    console.log(newArtist);
                     resolve(newArtist._id);
                 });
             });
@@ -9414,11 +9424,9 @@ router.post('/add', function (req, res) {
         newlisting.artists = data;
         newlisting = new List(newlisting);
 
-        console.log(newlisting);
-
         //Save this new entry
         newlisting.save(function (err, newlisting) {
-            res.send(err === null ? { data: newlisting } : { msg: err });
+            res.send(err === null ? newlisting : { msg: err });
         });
     });
 });

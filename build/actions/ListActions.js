@@ -276,7 +276,7 @@ class ListActions {
         })
         .then((json) => {
             this.deleteListingSuccess(json);
-			this.listingEditReset();
+			//this.listingEditReset();
             return true;
         })
         .catch((error) => {

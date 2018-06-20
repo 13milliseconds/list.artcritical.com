@@ -256,7 +256,6 @@ router.post('/add', function (req, res) {
             var newArtist = new Artists(artist);
             return new Promise(resolve => {
                 newArtist.save(function (err, newArtist) { 
-                    console.log(newArtist)
                     resolve(newArtist._id)
                 })
             })
@@ -272,12 +271,10 @@ router.post('/add', function (req, res) {
         newlisting.artists = data;
         newlisting = new List(newlisting);
 
-        console.log(newlisting)
-
         //Save this new entry
         newlisting.save(function (err, newlisting) {
             res.send(
-                (err === null) ? { data: newlisting } : { msg: err }
+                (err === null) ? newlisting : { msg: err }
             );
         });
     });
