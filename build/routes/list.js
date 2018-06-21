@@ -76,14 +76,13 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     var List = req.list;
 
     //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
+    var today = moment().endOf('day');
     
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 100; 
 
     List.find().
-    where('start').gte(today).
+    where('start').gt(today).
     where('event').ne(true).
 	where('venue').ne('').
     sort('neighborhood').

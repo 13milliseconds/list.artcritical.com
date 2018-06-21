@@ -1,6 +1,5 @@
 import React from 'react';
 import ListActions from '../../actions/ListActions';
-import Display from '../../actions/displayActions';
 // Components
 import VenueItem from '../venues/VenueItem';
 import NeighborhoodSelect from '../forms/NeighborhoodSelect';

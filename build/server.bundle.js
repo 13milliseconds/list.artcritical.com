@@ -1040,7 +1040,7 @@ exports.default = _alt2.default.createActions(AuthActions);
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -1847,7 +1847,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(20);
+var _reactIntl = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2029,171 +2029,6 @@ module.exports = require("react-map-gl");
 "use strict";
 
 
-module.exports = {
-    displayCity: function displayCity($numero) {
-        if ($numero < "20" && $numero >= "10") {
-            return "Tribeca";
-        } else if ($numero < "30" && $numero >= "20") {
-
-            return "Lower East Side";
-        } else if ($numero < "60" && $numero >= "30") {
-
-            return "Soho & Noho & East Village";
-        } else if ($numero < "170" && $numero >= "60") {
-
-            return "West Village & Chelsea";
-        } else if ($numero < "220" && $numero >= "170") {
-
-            return "Midtown & Uptown & Harlem";
-        } else if ($numero < "270" && $numero >= "220") {
-
-            return "Brooklyn";
-        } else if ($numero < "300" && $numero >= "270") {
-
-            return "Queens & Bronx & Staten Island";
-        } else if ($numero < "310" && $numero >= "300") {
-
-            return "Long Island";
-        } else if ($numero < "320" && $numero >= "310") {
-
-            return "Upstate New York";
-        } else if ($numero < "330" && $numero >= "320") {
-
-            return "New Jersey";
-        } else if ($numero < "370" && $numero >= "330") {
-
-            return "Philadelphia";
-        } else {
-            return "";
-        }
-    },
-    displayCityNum: function displayCityNum($num) {
-        var allCities = [10, 20, 30, 60, 170, 220, 270, 300, 310, 320, 330];
-        var winner = void 0;
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-            for (var _iterator = allCities[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var itt = _step.value;
-
-                var diff = $num - itt;
-                if (diff > 0) {
-                    winner = itt;
-                } else if (diff == 0) {
-                    return itt;
-                } else {
-                    return winner;
-                }
-            }
-        } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                    _iterator.return();
-                }
-            } finally {
-                if (_didIteratorError) {
-                    throw _iteratorError;
-                }
-            }
-        }
-    },
-    displayNeighborhood: function displayNeighborhood($numero) {
-
-        if ($numero < "20" && $numero >= "10") {
-            return "Tribeca and below";
-        } else if ($numero < "30" && $numero >= "20") {
-            return "Lower East Side";
-        } else if ($numero < "40" && $numero >= "30") {
-            return "Soho";
-        } else if ($numero < "60" && $numero >= "40") {
-            return "Noho/East Village";
-        } else if ($numero < "70" && $numero >= "60") {
-            return "West Village";
-        } else if ($numero < "80" && $numero >= "70") {
-            return "19th St and below";
-        } else if ($numero < "90" && $numero >= "80") {
-            return "20th St and nearby";
-        } else if ($numero < "100" && $numero >= "90") {
-            return "21st St and nearby";
-        } else if ($numero < "110" && $numero >= "100") {
-            return "22nd St and nearby";
-        } else if ($numero < "120" && $numero >= "110") {
-            return "23rd St and nearby";
-        } else if ($numero < "130" && $numero >= "120") {
-            return "24th St and nearby";
-        } else if ($numero < "140" && $numero >= "130") {
-            return "25th St and nearby";
-        } else if ($numero < "150" && $numero >= "140") {
-            return "26th St and nearby";
-        } else if ($numero < "160" && $numero >= "150") {
-            return "27th St and above";
-        } else if ($numero < "170" && $numero >= "160") {
-            return "Flatiron/Gramercy Park";
-        } else if ($numero < "180" && $numero >= "170") {
-            return "Midtown";
-        } else if ($numero < "190" && $numero >= "180") {
-            return "57th Street and nearby";
-        } else if ($numero < "200" && $numero >= "190") {
-            return "Upper East Side";
-        } else if ($numero < "210" && $numero >= "200") {
-            return "Upper West Side";
-        } else if ($numero < "220" && $numero >= "210") {
-            return "Harlem";
-        } else if ($numero < "230" && $numero >= "220") {
-            return "Brooklyn South";
-        } else if ($numero < "235" && $numero >= "230") {
-            return "Dumbo/Downtown";
-        } else if ($numero < "240" && $numero >= "235") {
-            return "Fort Greene";
-        } else if ($numero < "250" && $numero >= "240") {
-            return "Bushwick/Bed-stuy";
-        } else if ($numero < "260" && $numero >= "250") {
-            return "Williamsburg / Greenpoint";
-        } else if ($numero < "270" && $numero >= "260") {
-            return "Brooklyn (Other)";
-        } else if ($numero < "272" && $numero >= "270") {
-            return "Ridgewood";
-        } else if ($numero < "274" && $numero >= "272") {
-            return "Long Island City/Astoria";
-        } else if ($numero < "280" && $numero >= "274") {
-            return "Queens (Other)";
-        } else if ($numero < "290" && $numero >= "280") {
-            return "The Bronx";
-        } else if ($numero < "300" && $numero >= "290") {
-            return "Staten Island";
-        } else if ($numero < "310" && $numero >= "300") {
-            return "Long Island";
-        } else if ($numero < "320" && $numero >= "310") {
-            return "Upstate New York";
-        } else if ($numero < "330" && $numero >= "320") {
-            return "New Jersey";
-        } else if ($numero < "340" && $numero >= "330") {
-            return "Philadelphia";
-        } else if ($numero < "350" && $numero >= "340") {
-            return "Old City";
-        } else if ($numero < "360" && $numero >= "350") {
-            return "West Philadelphia";
-        } else if ($numero < "370" && $numero >= "360") {
-            return "North Philadelphia";
-        } else {
-            return "Other";
-        }
-    }
-
-};
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -2243,7 +2078,7 @@ var formSelect = function (_React$Component) {
 exports.default = formSelect;
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2482,25 +2317,25 @@ var LogInForm = function (_React$Component) {
 exports.default = LogInForm;
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-intl");
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-toggle-button");
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2586,6 +2421,171 @@ var ImagesActions = function () {
 }();
 
 exports.default = _alt2.default.createActions(ImagesActions);
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    displayCity: function displayCity($numero) {
+        if ($numero < "20" && $numero >= "10") {
+            return "Tribeca";
+        } else if ($numero < "30" && $numero >= "20") {
+
+            return "Lower East Side";
+        } else if ($numero < "60" && $numero >= "30") {
+
+            return "Soho & Noho & East Village";
+        } else if ($numero < "170" && $numero >= "60") {
+
+            return "West Village & Chelsea";
+        } else if ($numero < "220" && $numero >= "170") {
+
+            return "Midtown & Uptown & Harlem";
+        } else if ($numero < "270" && $numero >= "220") {
+
+            return "Brooklyn";
+        } else if ($numero < "300" && $numero >= "270") {
+
+            return "Queens & Bronx & Staten Island";
+        } else if ($numero < "310" && $numero >= "300") {
+
+            return "Long Island";
+        } else if ($numero < "320" && $numero >= "310") {
+
+            return "Upstate New York";
+        } else if ($numero < "330" && $numero >= "320") {
+
+            return "New Jersey";
+        } else if ($numero < "370" && $numero >= "330") {
+
+            return "Philadelphia";
+        } else {
+            return "";
+        }
+    },
+    displayCityNum: function displayCityNum($num) {
+        var allCities = [10, 20, 30, 60, 170, 220, 270, 300, 310, 320, 330];
+        var winner = void 0;
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = allCities[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var itt = _step.value;
+
+                var diff = $num - itt;
+                if (diff > 0) {
+                    winner = itt;
+                } else if (diff == 0) {
+                    return itt;
+                } else {
+                    return winner;
+                }
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+    },
+    displayNeighborhood: function displayNeighborhood($numero) {
+
+        if ($numero < "20" && $numero >= "10") {
+            return "Tribeca and below";
+        } else if ($numero < "30" && $numero >= "20") {
+            return "Lower East Side";
+        } else if ($numero < "40" && $numero >= "30") {
+            return "Soho";
+        } else if ($numero < "60" && $numero >= "40") {
+            return "Noho/East Village";
+        } else if ($numero < "70" && $numero >= "60") {
+            return "West Village";
+        } else if ($numero < "80" && $numero >= "70") {
+            return "19th St and below";
+        } else if ($numero < "90" && $numero >= "80") {
+            return "20th St and nearby";
+        } else if ($numero < "100" && $numero >= "90") {
+            return "21st St and nearby";
+        } else if ($numero < "110" && $numero >= "100") {
+            return "22nd St and nearby";
+        } else if ($numero < "120" && $numero >= "110") {
+            return "23rd St and nearby";
+        } else if ($numero < "130" && $numero >= "120") {
+            return "24th St and nearby";
+        } else if ($numero < "140" && $numero >= "130") {
+            return "25th St and nearby";
+        } else if ($numero < "150" && $numero >= "140") {
+            return "26th St and nearby";
+        } else if ($numero < "160" && $numero >= "150") {
+            return "27th St and above";
+        } else if ($numero < "170" && $numero >= "160") {
+            return "Flatiron/Gramercy Park";
+        } else if ($numero < "180" && $numero >= "170") {
+            return "Midtown";
+        } else if ($numero < "190" && $numero >= "180") {
+            return "57th Street and nearby";
+        } else if ($numero < "200" && $numero >= "190") {
+            return "Upper East Side";
+        } else if ($numero < "210" && $numero >= "200") {
+            return "Upper West Side";
+        } else if ($numero < "220" && $numero >= "210") {
+            return "Harlem";
+        } else if ($numero < "230" && $numero >= "220") {
+            return "Brooklyn South";
+        } else if ($numero < "235" && $numero >= "230") {
+            return "Dumbo/Downtown";
+        } else if ($numero < "240" && $numero >= "235") {
+            return "Fort Greene";
+        } else if ($numero < "250" && $numero >= "240") {
+            return "Bushwick/Bed-stuy";
+        } else if ($numero < "260" && $numero >= "250") {
+            return "Williamsburg / Greenpoint";
+        } else if ($numero < "270" && $numero >= "260") {
+            return "Brooklyn (Other)";
+        } else if ($numero < "272" && $numero >= "270") {
+            return "Ridgewood";
+        } else if ($numero < "274" && $numero >= "272") {
+            return "Long Island City/Astoria";
+        } else if ($numero < "280" && $numero >= "274") {
+            return "Queens (Other)";
+        } else if ($numero < "290" && $numero >= "280") {
+            return "The Bronx";
+        } else if ($numero < "300" && $numero >= "290") {
+            return "Staten Island";
+        } else if ($numero < "310" && $numero >= "300") {
+            return "Long Island";
+        } else if ($numero < "320" && $numero >= "310") {
+            return "Upstate New York";
+        } else if ($numero < "330" && $numero >= "320") {
+            return "New Jersey";
+        } else if ($numero < "340" && $numero >= "330") {
+            return "Philadelphia";
+        } else if ($numero < "350" && $numero >= "340") {
+            return "Old City";
+        } else if ($numero < "360" && $numero >= "350") {
+            return "West Philadelphia";
+        } else if ($numero < "370" && $numero >= "360") {
+            return "North Philadelphia";
+        } else {
+            return "Other";
+        }
+    }
+
+};
 
 /***/ }),
 /* 23 */
@@ -2742,7 +2742,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(19);
+var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -2907,7 +2907,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _ImagesActions = __webpack_require__(22);
+var _ImagesActions = __webpack_require__(21);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -6400,7 +6400,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactIntl = __webpack_require__(20);
+var _reactIntl = __webpack_require__(19);
 
 var _imageBlock = __webpack_require__(23);
 
@@ -6585,7 +6585,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(16);
+var _displayActions = __webpack_require__(22);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -7113,7 +7113,7 @@ var _reactRouter = __webpack_require__(3);
 
 var _reactstrap = __webpack_require__(2);
 
-var _reactToggleButton = __webpack_require__(21);
+var _reactToggleButton = __webpack_require__(20);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -7129,7 +7129,7 @@ var _DateBlock = __webpack_require__(11);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _formSelect = __webpack_require__(17);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -7941,7 +7941,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(22);
+var _ImagesActions = __webpack_require__(21);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -9255,13 +9255,12 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     var List = req.list;
 
     //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
+    var today = (0, _moment2.default)().endOf('day');
 
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 100;
 
-    List.find().where('start').gte(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(100).populate('venue').populate('artists').populate('updated_by').exec(function (e, docs) {
+    List.find().where('start').gt(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(100).populate('venue').populate('artists').populate('updated_by').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -11186,7 +11185,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(20);
+var _reactIntl = __webpack_require__(19);
 
 var _DayPage = __webpack_require__(101);
 
@@ -11311,7 +11310,7 @@ var _AccountForm = __webpack_require__(125);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
-var _LogInForm = __webpack_require__(18);
+var _LogInForm = __webpack_require__(17);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -11394,7 +11393,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _LogInForm = __webpack_require__(18);
+var _LogInForm = __webpack_require__(17);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -11541,7 +11540,7 @@ var _VenueBlock = __webpack_require__(10);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _formSelect = __webpack_require__(17);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -11694,7 +11693,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(17);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -12123,10 +12122,6 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _displayActions = __webpack_require__(16);
-
-var _displayActions2 = _interopRequireDefault(_displayActions);
-
 var _VenueItem = __webpack_require__(145);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
@@ -12252,7 +12247,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(22);
+var _ImagesActions = __webpack_require__(21);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -12370,7 +12365,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(16);
+var _displayActions = __webpack_require__(22);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -12378,7 +12373,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(17);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -12515,7 +12510,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(20);
+var _reactIntl = __webpack_require__(19);
 
 var _reactstrap = __webpack_require__(2);
 
@@ -14556,7 +14551,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactToggleButton = __webpack_require__(21);
+var _reactToggleButton = __webpack_require__(20);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -15007,7 +15002,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(21);
+var _reactToggleButton = __webpack_require__(20);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -15806,11 +15801,11 @@ var _reactRouter = __webpack_require__(3);
 
 var _reactRouterDom = __webpack_require__(172);
 
-var _propTypes = __webpack_require__(19);
+var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _LogInForm = __webpack_require__(18);
+var _LogInForm = __webpack_require__(17);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -15892,11 +15887,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(16);
+var _displayActions = __webpack_require__(22);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(21);
+var _reactToggleButton = __webpack_require__(20);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -15904,7 +15899,7 @@ var _validator = __webpack_require__(57);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _propTypes = __webpack_require__(19);
+var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -16376,7 +16371,7 @@ var _myList = __webpack_require__(140);
 
 var _myList2 = _interopRequireDefault(_myList);
 
-var _LogInForm = __webpack_require__(18);
+var _LogInForm = __webpack_require__(17);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
