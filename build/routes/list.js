@@ -42,27 +42,26 @@ router.get('/alllistings', function (req, res) {
 //#######################
 
 router.get('/currentlistings/:offset_ratio', function (req, res) {
-    var List = req.list,
-        Venue = req.venue;
+    var List = req.list;
 
     //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
+    var start = moment().startOf('day');
+    var end = moment().endOf('day');
+    console.log(start, end)
     
     //Count how many times we've fetched listings
-    var offset_ratio = parseInt(req.params.offset_ratio) * 500; 
+    var offset_ratio = parseInt(req.params.offset_ratio) * 100; 
 
     List.find().
-    where('start').lte(today).
-    where('end').gte(today).
+    where('start').lte(end).
+    where('end').gte(start).
 	where('event').ne(true).
 	where('venue').ne('').
     skip(offset_ratio).
-    limit(500).
+    limit(100).
     sort({neighborhood: 1, venue: 1}).
     populate('venue').
     populate('artists').
-    populate('updated_by').
     exec(function (e, docs) {
         res.json(docs);
     });
