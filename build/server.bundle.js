@@ -3401,7 +3401,6 @@ var ListStore = function () {
             this.loading.savelisting = false;
             this.success.savelisting = true;
             this.listingEdit._id = data._id;
-            console.log(this.listingEdit, data);
             var that = this;
             setTimeout(function () {
                 that.success.savelisting = false;
@@ -3454,8 +3453,10 @@ var ListStore = function () {
                 venue: {},
                 events: [],
                 artists: []
-                //Reset the success status
-            };var that = this;
+                //Close the sidebar
+            };this.sidebarOpen = false;
+            //Reset the success status
+            var that = this;
             setTimeout(function () {
                 that.success.deletelisting = false;
             }, 1000);
@@ -12788,12 +12789,12 @@ var Listing = function (_React$Component) {
                     _react2.default.createElement(
                         'span',
                         { className: 'type' },
-                        event.type || event.name
+                        event.type
                     ),
                     ': ',
                     _react2.default.createElement(_DateBlock2.default, { date: event.date }),
-                    ' 8pm ',
-                    event.description && " - " + event.description
+                    ' - ',
+                    event.description ? event.description : "8pm"
                 );
             });
         }
@@ -12861,8 +12862,12 @@ var Listing = function (_React$Component) {
                 );
             });
 
+            //Thumbnail
             var image = listing.image ? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
-            var style = { backgroundImage: 'url(' + image + ')' };
+            var style = { backgroundImage: 'url(' + image + ')'
+
+                //Defining the name
+            };var artistPresent = listing.artists.length > 0 ? true : false;
 
             return _react2.default.createElement(
                 'div',
@@ -12891,12 +12896,12 @@ var Listing = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'title' },
-                            listing.artists.length > 0 && _react2.default.createElement(
+                            artistPresent && _react2.default.createElement(
                                 'span',
                                 { className: 'artists' },
-                                isGroupShow ? 'Group Show' : artists,
-                                ': '
+                                isGroupShow ? 'Group Show' : artists
                             ),
+                            artistPresent && listing.name && ": ",
                             listing.name,
                             ' '
                         ),
@@ -14210,6 +14215,7 @@ var EventsForm = function (_React$Component) {
             //Update values of inputs
             _ListActions2.default.eventsInfoChange(e);
             this.props.onChange();
+            console.log(this.props.events);
         }
     }, {
         key: 'addEvent',
@@ -14238,23 +14244,23 @@ var EventsForm = function (_React$Component) {
                                 _reactstrap.Input,
                                 { type: 'select',
                                     name: 'type',
-                                    value: event.type ? event.type : "opening",
-                                    defaultValue: 'Reception',
+                                    value: event.type,
+                                    defaultValue: 'reception',
                                     'data-index': index,
                                     onChange: _this2.onChange },
                                 _react2.default.createElement(
                                     'option',
-                                    { value: 'Reception' },
+                                    { value: 'reception' },
                                     'Reception'
                                 ),
                                 _react2.default.createElement(
                                     'option',
-                                    { value: 'Closing' },
+                                    { value: 'closing' },
                                     'Closing'
                                 ),
                                 _react2.default.createElement(
                                     'option',
-                                    { value: 'Other' },
+                                    { value: 'other' },
                                     'Other'
                                 )
                             ),

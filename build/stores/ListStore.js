@@ -385,7 +385,6 @@ class ListStore {
         this.loading.savelisting = false; 
         this.success.savelisting = true;
         this.listingEdit._id = data._id;
-        console.log(this.listingEdit, data);
         var that = this;
         setTimeout(function(){
             that.success.savelisting = false;
@@ -428,6 +427,8 @@ class ListStore {
             events: [],
             artists: []
         }
+        //Close the sidebar
+        this.sidebarOpen = false;
         //Reset the success status
         var that = this;
         setTimeout(() => {

@@ -1859,18 +1859,19 @@ LISTING ELEMENTS
 /* line 565, ../scss/breakpoints/_base.scss */
 .listingEvent .type {
   font-weight: 500;
+  text-transform: capitalize;
 }
 
 /*********************
 VENUE ELEMENTS
 *********************/
-/* line 576, ../scss/breakpoints/_base.scss */
+/* line 577, ../scss/breakpoints/_base.scss */
 .venue .venueInfo a {
   color: #323944;
   font-weight: 500;
   text-decoration: none;
 }
-/* line 581, ../scss/breakpoints/_base.scss */
+/* line 582, ../scss/breakpoints/_base.scss */
 .venue .venueInfo .address {
   opacity: 0;
   display: inline-block;
@@ -1883,7 +1884,7 @@ VENUE ELEMENTS
 /*********************
 HEADER
 *********************/
-/* line 594, ../scss/breakpoints/_base.scss */
+/* line 595, ../scss/breakpoints/_base.scss */
 .hamburger {
   position: fixed;
   top: 10px;
@@ -1893,7 +1894,7 @@ HEADER
   z-index: 999;
 }
 
-/* line 603, ../scss/breakpoints/_base.scss */
+/* line 604, ../scss/breakpoints/_base.scss */
 header.mainHeader {
   position: fixed;
   top: 0;
@@ -1902,11 +1903,11 @@ header.mainHeader {
   z-index: 98;
   background-color: #fff;
 }
-/* line 611, ../scss/breakpoints/_base.scss */
+/* line 612, ../scss/breakpoints/_base.scss */
 header.mainHeader .mainLogo img {
   max-height: 30px;
 }
-/* line 614, ../scss/breakpoints/_base.scss */
+/* line 615, ../scss/breakpoints/_base.scss */
 header.mainHeader .mainLogo h1 {
   font-size: 2.1em;
   color: #9f0900;
@@ -1914,11 +1915,11 @@ header.mainHeader .mainLogo h1 {
   font-weight: 500;
   letter-spacing: .1em;
 }
-/* line 621, ../scss/breakpoints/_base.scss */
+/* line 622, ../scss/breakpoints/_base.scss */
 header.mainHeader .mainLogo h2 {
   display: none;
 }
-/* line 625, ../scss/breakpoints/_base.scss */
+/* line 626, ../scss/breakpoints/_base.scss */
 header.mainHeader nav {
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
@@ -1933,57 +1934,57 @@ header.mainHeader nav {
   background-color: #fff;
   overflow: auto;
 }
-/* line 637, ../scss/breakpoints/_base.scss */
+/* line 638, ../scss/breakpoints/_base.scss */
 header.mainHeader nav .submenu li {
   font-size: 25px;
   padding-left: 20px;
   padding-bottom: 5px;
 }
-/* line 641, ../scss/breakpoints/_base.scss */
+/* line 642, ../scss/breakpoints/_base.scss */
 header.mainHeader nav .submenu li a {
   font-weight: 300;
   color: #323944;
 }
-/* line 644, ../scss/breakpoints/_base.scss */
+/* line 645, ../scss/breakpoints/_base.scss */
 header.mainHeader nav .submenu li a.active {
   color: #d70b00;
 }
-/* line 648, ../scss/breakpoints/_base.scss */
+/* line 649, ../scss/breakpoints/_base.scss */
 header.mainHeader nav .submenu li .submenu {
   padding-left: 20px;
 }
-/* line 650, ../scss/breakpoints/_base.scss */
+/* line 651, ../scss/breakpoints/_base.scss */
 header.mainHeader nav .submenu li .submenu a {
   display: block;
 }
-/* line 657, ../scss/breakpoints/_base.scss */
+/* line 658, ../scss/breakpoints/_base.scss */
 header.mainHeader nav > ul > li:nth-child(1) > a {
   color: #d70b00;
 }
-/* line 660, ../scss/breakpoints/_base.scss */
+/* line 661, ../scss/breakpoints/_base.scss */
 header.mainHeader nav > ul > li:nth-child(2) > a {
   color: #9f0900;
 }
-/* line 663, ../scss/breakpoints/_base.scss */
+/* line 664, ../scss/breakpoints/_base.scss */
 header.mainHeader nav > ul > li:nth-child(3) > a {
   color: #770600;
 }
-/* line 667, ../scss/breakpoints/_base.scss */
+/* line 668, ../scss/breakpoints/_base.scss */
 header.mainHeader nav li {
   color: #323944;
   font-size: 2em;
   display: block;
 }
-/* line 671, ../scss/breakpoints/_base.scss */
+/* line 672, ../scss/breakpoints/_base.scss */
 header.mainHeader nav li a {
   font-weight: 500px;
 }
-/* line 677, ../scss/breakpoints/_base.scss */
+/* line 678, ../scss/breakpoints/_base.scss */
 header.mainHeader.active nav {
   left: 0;
 }
 
-/* line 683, ../scss/breakpoints/_base.scss */
+/* line 684, ../scss/breakpoints/_base.scss */
 .mobileMenu {
   position: fixed;
   bottom: 0;
@@ -1993,11 +1994,11 @@ header.mainHeader.active nav {
   -moz-transition: 0.3s;
   transition: 0.3s;
 }
-/* line 690, ../scss/breakpoints/_base.scss */
+/* line 691, ../scss/breakpoints/_base.scss */
 .mobileMenu nav ul {
   margin-bottom: 0;
 }
-/* line 693, ../scss/breakpoints/_base.scss */
+/* line 694, ../scss/breakpoints/_base.scss */
 .mobileMenu nav li {
   display: inline-block;
   width: 20%;
@@ -2009,15 +2010,15 @@ header.mainHeader.active nav {
   line-height: 2em;
   text-transform: uppercase;
 }
-/* line 703, ../scss/breakpoints/_base.scss */
+/* line 704, ../scss/breakpoints/_base.scss */
 .mobileMenu nav li:last-child {
   border-right: 0;
 }
-/* line 707, ../scss/breakpoints/_base.scss */
+/* line 708, ../scss/breakpoints/_base.scss */
 .mobileMenu nav li a.active {
   text-decoration: none;
 }
-/* line 711, ../scss/breakpoints/_base.scss */
+/* line 712, ../scss/breakpoints/_base.scss */
 .mobileMenu nav li svg {
   font-size: 1.5em;
   display: block;
@@ -2027,7 +2028,7 @@ header.mainHeader.active nav {
 /*********************
 AT A GLANCE
 *********************/
-/* line 726, ../scss/breakpoints/_base.scss */
+/* line 727, ../scss/breakpoints/_base.scss */
 .glance ul.tabs__labels {
   display: none;
   padding: 0;
@@ -2043,20 +2044,20 @@ AT A GLANCE
 .glance ul.tabs__labels li a.active {
   color: #d70b00;
 }
-/* line 738, ../scss/breakpoints/_base.scss */
+/* line 739, ../scss/breakpoints/_base.scss */
 .glance div.tabs__content .day .listingsWrap {
   margin-top: 20px;
 }
-/* line 740, ../scss/breakpoints/_base.scss */
+/* line 741, ../scss/breakpoints/_base.scss */
 .glance div.tabs__content .day .listingsWrap h2 {
   margin: 0 0 20px;
 }
-/* line 746, ../scss/breakpoints/_base.scss */
+/* line 747, ../scss/breakpoints/_base.scss */
 .glance .opening, .glance .closing {
   display: none;
 }
 
-/* line 750, ../scss/breakpoints/_base.scss */
+/* line 751, ../scss/breakpoints/_base.scss */
 .feature-wrap {
   display: block;
   padding: 20px 0;
@@ -2067,26 +2068,26 @@ AT A GLANCE
   content: "";
   display: block;
 }
-/* line 753, ../scss/breakpoints/_base.scss */
+/* line 754, ../scss/breakpoints/_base.scss */
 .feature-wrap h4 {
   font-size: 1em;
   font-style: italic;
 }
-/* line 758, ../scss/breakpoints/_base.scss */
+/* line 759, ../scss/breakpoints/_base.scss */
 .feature-wrap .picture img {
   max-height: 300px;
   max-width: 100%;
   margin-bottom: 30px;
 }
-/* line 765, ../scss/breakpoints/_base.scss */
+/* line 766, ../scss/breakpoints/_base.scss */
 .feature-wrap .info h3 {
   font-size: 1.2em;
 }
-/* line 769, ../scss/breakpoints/_base.scss */
+/* line 770, ../scss/breakpoints/_base.scss */
 .feature-wrap a.button {
   cursor: pointer;
 }
-/* line 771, ../scss/breakpoints/_base.scss */
+/* line 772, ../scss/breakpoints/_base.scss */
 .feature-wrap a.button:hover {
   color: #d70b00;
 }
@@ -2094,7 +2095,7 @@ AT A GLANCE
 /*********************
 CURRENT & FUTURE
 *********************/
-/* line 782, ../scss/breakpoints/_base.scss */
+/* line 783, ../scss/breakpoints/_base.scss */
 .hoodNav {
   bottom: 0;
   width: 100%;
@@ -2114,17 +2115,17 @@ CURRENT & FUTURE
 .hoodNav a.active {
   color: #d70b00;
 }
-/* line 790, ../scss/breakpoints/_base.scss */
+/* line 791, ../scss/breakpoints/_base.scss */
 .hoodNav h3 {
   font-size: 1em;
 }
-/* line 793, ../scss/breakpoints/_base.scss */
+/* line 794, ../scss/breakpoints/_base.scss */
 .hoodNav.fixed {
   position: fixed;
   top: 100px;
   border-bottom: 1px solid #eaedf2;
 }
-/* line 798, ../scss/breakpoints/_base.scss */
+/* line 799, ../scss/breakpoints/_base.scss */
 .hoodNav ul {
   display: none;
 }
@@ -2132,7 +2133,7 @@ CURRENT & FUTURE
 /*********************
 ACCOUNT
 *********************/
-/* line 807, ../scss/breakpoints/_base.scss */
+/* line 808, ../scss/breakpoints/_base.scss */
 .avatar {
   width: 100%;
   height: 0;
@@ -2144,7 +2145,7 @@ ACCOUNT
   background-size: cover;
   background-position: center;
 }
-/* line 817, ../scss/breakpoints/_base.scss */
+/* line 818, ../scss/breakpoints/_base.scss */
 .avatar img {
   position: absolute;
   top: 0;
@@ -2153,7 +2154,7 @@ ACCOUNT
   opacity: .5;
 }
 
-/* line 826, ../scss/breakpoints/_base.scss */
+/* line 827, ../scss/breakpoints/_base.scss */
 .picture {
   width: auto;
   height: auto;
@@ -2161,31 +2162,31 @@ ACCOUNT
   background-size: cover;
   background-position: center;
 }
-/* line 832, ../scss/breakpoints/_base.scss */
+/* line 833, ../scss/breakpoints/_base.scss */
 .picture img {
   max-width: 100%;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   transition: 0.5s;
 }
-/* line 837, ../scss/breakpoints/_base.scss */
+/* line 838, ../scss/breakpoints/_base.scss */
 .picture.loading img {
   filter: blur(3px);
 }
-/* line 842, ../scss/breakpoints/_base.scss */
+/* line 843, ../scss/breakpoints/_base.scss */
 .picture.loaded img {
   opacity: 1;
 }
 
-/* line 851, ../scss/breakpoints/_base.scss */
+/* line 852, ../scss/breakpoints/_base.scss */
 .events h2 {
   margin-top: 0;
 }
-/* line 854, ../scss/breakpoints/_base.scss */
+/* line 855, ../scss/breakpoints/_base.scss */
 .events.mainList .left-col {
   display: none;
 }
-/* line 858, ../scss/breakpoints/_base.scss */
+/* line 859, ../scss/breakpoints/_base.scss */
 .events .listing .header > .date {
   display: none;
 }
@@ -2193,24 +2194,24 @@ ACCOUNT
 /*********************
 My List
 *********************/
-/* line 869, ../scss/breakpoints/_base.scss */
+/* line 870, ../scss/breakpoints/_base.scss */
 .myList .fb-share-button {
   position: absolute;
   top: 0;
   right: 0;
 }
-/* line 874, ../scss/breakpoints/_base.scss */
+/* line 875, ../scss/breakpoints/_base.scss */
 .myList .mapWrap {
   margin-bottom: 20px;
 }
-/* line 878, ../scss/breakpoints/_base.scss */
+/* line 879, ../scss/breakpoints/_base.scss */
 .myList .listing .listingAdd {
   transition: .5s;
   vertical-align: top;
   padding-top: 5px;
   margin-right: 10px;
 }
-/* line 883, ../scss/breakpoints/_base.scss */
+/* line 884, ../scss/breakpoints/_base.scss */
 .myList .listing .listingAdd span {
   border: 1px solid #323944;
   padding: 10px;
@@ -2225,7 +2226,7 @@ My List
   -moz-transition: 0.3s;
   transition: 0.3s;
 }
-/* line 898, ../scss/breakpoints/_base.scss */
+/* line 899, ../scss/breakpoints/_base.scss */
 .myList .condensed .listing.selected {
   -webkit-transform: translateX(0);
   -moz-transform: translateX(0);
@@ -2233,27 +2234,27 @@ My List
   -o-transform: translateX(0);
   transform: translateX(0);
 }
-/* line 900, ../scss/breakpoints/_base.scss */
+/* line 901, ../scss/breakpoints/_base.scss */
 .myList .condensed .listing.selected .title {
   color: #323944;
 }
-/* line 905, ../scss/breakpoints/_base.scss */
+/* line 906, ../scss/breakpoints/_base.scss */
 .myList .listInfo {
   margin-bottom: 20px;
 }
-/* line 907, ../scss/breakpoints/_base.scss */
+/* line 908, ../scss/breakpoints/_base.scss */
 .myList .listInfo img.avatar {
   width: 100px;
   height: 100px;
   float: left;
   margin-right: 20px;
 }
-/* line 915, ../scss/breakpoints/_base.scss */
+/* line 916, ../scss/breakpoints/_base.scss */
 .myList .listingsWrap .listing {
   background-color: transparent;
 }
 
-/* line 922, ../scss/breakpoints/_base.scss */
+/* line 923, ../scss/breakpoints/_base.scss */
 .mapboxgl-marker .marker {
   background-color: beige;
   color: black;
@@ -2267,7 +2268,7 @@ My List
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 934, ../scss/breakpoints/_base.scss */
+/* line 935, ../scss/breakpoints/_base.scss */
 .mapboxgl-marker.active .marker {
   background-color: #9f0900;
   color: #fff;
@@ -2276,7 +2277,7 @@ My List
 /*********************
 Venue Page
 *********************/
-/* line 945, ../scss/breakpoints/_base.scss */
+/* line 946, ../scss/breakpoints/_base.scss */
 .venuePage {
   display: block;
 }
@@ -2286,36 +2287,36 @@ Venue Page
   content: "";
   display: block;
 }
-/* line 948, ../scss/breakpoints/_base.scss */
+/* line 949, ../scss/breakpoints/_base.scss */
 .venuePage .mapInfo h2 {
   margin-top: 0;
 }
-/* line 951, ../scss/breakpoints/_base.scss */
+/* line 952, ../scss/breakpoints/_base.scss */
 .venuePage .mapInfo section {
   margin-bottom: 50px;
 }
-/* line 954, ../scss/breakpoints/_base.scss */
+/* line 955, ../scss/breakpoints/_base.scss */
 .venuePage .mapInfo .tabs {
   border-top: 1px solid #323944;
   margin-top: 20px;
   padding-top: 20px;
 }
-/* line 958, ../scss/breakpoints/_base.scss */
+/* line 959, ../scss/breakpoints/_base.scss */
 .venuePage .mapInfo .tabs li {
   display: inline-block;
   text-align: left;
   padding-right: 20px;
 }
-/* line 962, ../scss/breakpoints/_base.scss */
+/* line 963, ../scss/breakpoints/_base.scss */
 .venuePage .mapInfo .tabs li a {
   color: #323944;
   text-decoration: none;
 }
-/* line 965, ../scss/breakpoints/_base.scss */
+/* line 966, ../scss/breakpoints/_base.scss */
 .venuePage .mapInfo .tabs li a.active, .venuePage .mapInfo .tabs li a:hover {
   color: #d70b00;
 }
-/* line 972, ../scss/breakpoints/_base.scss */
+/* line 973, ../scss/breakpoints/_base.scss */
 .venuePage .mapInfo .listingsWrap .venueInfo {
   display: none;
 }
@@ -2323,36 +2324,36 @@ Venue Page
 /*********************
 ADMIN
 *********************/
-/* line 982, ../scss/breakpoints/_base.scss */
+/* line 983, ../scss/breakpoints/_base.scss */
 .adminWrap {
   padding: 20px;
 }
-/* line 984, ../scss/breakpoints/_base.scss */
+/* line 985, ../scss/breakpoints/_base.scss */
 .adminWrap header {
   padding-left: 0;
 }
-/* line 986, ../scss/breakpoints/_base.scss */
+/* line 987, ../scss/breakpoints/_base.scss */
 .adminWrap header a {
   margin-right: 20px;
   color: #323944;
 }
-/* line 989, ../scss/breakpoints/_base.scss */
+/* line 990, ../scss/breakpoints/_base.scss */
 .adminWrap header a.active {
   color: #d70b00;
 }
-/* line 995, ../scss/breakpoints/_base.scss */
+/* line 996, ../scss/breakpoints/_base.scss */
 .adminWrap .featureAdmin .preview {
   display: none;
 }
-/* line 998, ../scss/breakpoints/_base.scss */
+/* line 999, ../scss/breakpoints/_base.scss */
 .adminWrap .featureAdmin .tabs__labels {
   display: none;
 }
-/* line 1001, ../scss/breakpoints/_base.scss */
+/* line 1002, ../scss/breakpoints/_base.scss */
 .adminWrap .featureAdmin .featureFormWrap {
   padding: 20px 0;
 }
-/* line 1004, ../scss/breakpoints/_base.scss */
+/* line 1005, ../scss/breakpoints/_base.scss */
 .adminWrap .featureAdmin .featureFormWrap .featuredForm label {
   float: left;
   display: block;
@@ -2363,7 +2364,7 @@ ADMIN
 .adminWrap .featureAdmin .featureFormWrap .featuredForm label:last-child {
   margin-right: 0;
 }
-/* line 1007, ../scss/breakpoints/_base.scss */
+/* line 1008, ../scss/breakpoints/_base.scss */
 .adminWrap .featureAdmin .featureFormWrap .featuredForm .formSection {
   float: left;
   display: block;
@@ -2374,32 +2375,32 @@ ADMIN
 .adminWrap .featureAdmin .featureFormWrap .featuredForm .formSection:last-child {
   margin-right: 0;
 }
-/* line 1014, ../scss/breakpoints/_base.scss */
+/* line 1015, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap .allVenues {
   margin-top: 20px;
 }
-/* line 1018, ../scss/breakpoints/_base.scss */
+/* line 1019, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap .venue > div {
   padding-left: 20px;
 }
-/* line 1021, ../scss/breakpoints/_base.scss */
+/* line 1022, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap .venue a {
   color: green;
   border-bottom: 0;
 }
-/* line 1026, ../scss/breakpoints/_base.scss */
+/* line 1027, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap .venue.expired a {
   color: #9f0900;
 }
-/* line 1030, ../scss/breakpoints/_base.scss */
+/* line 1031, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap .venue.expired.old a {
   color: #eaedf2;
 }
-/* line 1035, ../scss/breakpoints/_base.scss */
+/* line 1036, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap .venue.expired.upcoming a {
   color: orange;
 }
-/* line 1041, ../scss/breakpoints/_base.scss */
+/* line 1042, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap span.legend {
   display: inline-block;
   width: 1em;
@@ -2409,23 +2410,23 @@ ADMIN
   vertical-align: text-top;
   padding: 0;
 }
-/* line 1049, ../scss/breakpoints/_base.scss */
+/* line 1050, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap span.legend.current {
   background-color: green;
 }
-/* line 1052, ../scss/breakpoints/_base.scss */
+/* line 1053, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap span.legend.future {
   background-color: orange;
 }
-/* line 1055, ../scss/breakpoints/_base.scss */
+/* line 1056, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap span.legend.nothing {
   background-color: red;
 }
-/* line 1058, ../scss/breakpoints/_base.scss */
+/* line 1059, ../scss/breakpoints/_base.scss */
 .adminWrap .overviewWrap span.legend.dormant {
   background-color: grey;
 }
-/* line 1066, ../scss/breakpoints/_base.scss */
+/* line 1067, ../scss/breakpoints/_base.scss */
 .adminWrap .usersWrap .allUsers .card {
   float: left;
   display: block;
@@ -2449,7 +2450,7 @@ ADMIN
 .adminWrap .usersWrap .allUsers .card:nth-child(2n+1) {
   clear: left;
 }
-/* line 1074, ../scss/breakpoints/_base.scss */
+/* line 1075, ../scss/breakpoints/_base.scss */
 .adminWrap .usersWrap .allUsers .card .avatarWrap {
   width: 50%;
   margin: auto;
@@ -2459,7 +2460,7 @@ ADMIN
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-/* line 1079, ../scss/breakpoints/_base.scss */
+/* line 1080, ../scss/breakpoints/_base.scss */
 .adminWrap .usersWrap .allUsers .card .card-block {
   padding: 20px;
   -webkit-transform: translateY(-20%);
@@ -2468,12 +2469,12 @@ ADMIN
   -o-transform: translateY(-20%);
   transform: translateY(-20%);
 }
-/* line 1082, ../scss/breakpoints/_base.scss */
+/* line 1083, ../scss/breakpoints/_base.scss */
 .adminWrap .usersWrap .allUsers .card .card-block button {
   margin-top: 20px;
 }
 
-/* line 1093, ../scss/breakpoints/_base.scss */
+/* line 1094, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-tagsinput-tag {
   padding: 5px 10px;
   border-radius: 5px;
@@ -2483,62 +2484,62 @@ ADMIN
   display: inline-block;
   margin-bottom: 10px;
 }
-/* line 1101, ../scss/breakpoints/_base.scss */
+/* line 1102, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-tagsinput-tag .react-tagsinput-remove {
   padding-left: 5px;
 }
-/* line 1103, ../scss/breakpoints/_base.scss */
+/* line 1104, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-tagsinput-tag .react-tagsinput-remove:after {
   content: 'x';
 }
-/* line 1108, ../scss/breakpoints/_base.scss */
+/* line 1109, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-autosuggest__container {
   margin-top: 10px;
 }
-/* line 1113, ../scss/breakpoints/_base.scss */
+/* line 1114, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-autosuggest__suggestions-list .react-autosuggest__suggestion--highlighted {
   background-color: #eaedf2;
 }
 
-/* line 1120, ../scss/breakpoints/_base.scss */
+/* line 1121, ../scss/breakpoints/_base.scss */
 .DraftEditor-root {
   border: 1px solid #eee;
   padding: 10px;
   border-radius: 5px;
 }
-/* line 1124, ../scss/breakpoints/_base.scss */
+/* line 1125, ../scss/breakpoints/_base.scss */
 .DraftEditor-root p {
   padding-bottom: 20px;
 }
 
-/* line 1131, ../scss/breakpoints/_base.scss */
+/* line 1132, ../scss/breakpoints/_base.scss */
 .userLink a {
   border-bottom: 2px dotted #d70b00;
   cursor: pointer;
 }
 
-/* line 1136, ../scss/breakpoints/_base.scss */
+/* line 1137, ../scss/breakpoints/_base.scss */
 .popover.show {
   top: -5px !important;
   max-width: 500px;
 }
-/* line 1139, ../scss/breakpoints/_base.scss */
+/* line 1140, ../scss/breakpoints/_base.scss */
 .popover.show .popover-title, .popover.show .popover-content {
   padding: 10px 20px;
 }
-/* line 1142, ../scss/breakpoints/_base.scss */
+/* line 1143, ../scss/breakpoints/_base.scss */
 .popover.show .popover-title {
   background: #eaedf2;
   font-size: 1.2em;
 }
-/* line 1145, ../scss/breakpoints/_base.scss */
+/* line 1146, ../scss/breakpoints/_base.scss */
 .popover.show .popover-title img {
   display: inline-block;
   max-width: 50px;
   max-height: 50px;
 }
 
-/* line 1155, ../scss/breakpoints/_base.scss */
+/* line 1156, ../scss/breakpoints/_base.scss */
 .sideMenu {
   padding-top: 100px;
   height: 100%;
@@ -2546,16 +2547,16 @@ ADMIN
   overflow: auto;
   padding: 50px 20px 20px;
 }
-/* line 1161, ../scss/breakpoints/_base.scss */
+/* line 1162, ../scss/breakpoints/_base.scss */
 .sideMenu::-webkit-scrollbar {
   display: none;
 }
-/* line 1164, ../scss/breakpoints/_base.scss */
+/* line 1165, ../scss/breakpoints/_base.scss */
 .sideMenu a.close {
   position: absolute;
   left: 15px;
 }
-/* line 1168, ../scss/breakpoints/_base.scss */
+/* line 1169, ../scss/breakpoints/_base.scss */
 .sideMenu #listingForm {
   display: block;
   float: none;
@@ -2568,7 +2569,7 @@ ADMIN
   content: "";
   display: block;
 }
-/* line 1173, ../scss/breakpoints/_base.scss */
+/* line 1174, ../scss/breakpoints/_base.scss */
 .sideMenu #listingForm label,
 .sideMenu #listingForm .byline {
   float: left;
@@ -2582,21 +2583,21 @@ ADMIN
   margin-right: 0;
 }
 
-/* line 1184, ../scss/breakpoints/_base.scss */
+/* line 1185, ../scss/breakpoints/_base.scss */
 .formSection {
   padding-bottom: 20px;
 }
-/* line 1186, ../scss/breakpoints/_base.scss */
+/* line 1187, ../scss/breakpoints/_base.scss */
 .formSection textarea, .formSection input {
   width: 100%;
 }
 
-/* line 1190, ../scss/breakpoints/_base.scss */
+/* line 1191, ../scss/breakpoints/_base.scss */
 input.invalid {
   border: 1px solid #9f0900 !important;
 }
 
-/* line 1195, ../scss/breakpoints/_base.scss */
+/* line 1196, ../scss/breakpoints/_base.scss */
 .eventsform .event select {
   width: auto;
   padding: 0 30px 0 10px;
@@ -2604,12 +2605,12 @@ input.invalid {
   margin-right: 20px;
 }
 
-/* line 1203, ../scss/breakpoints/_base.scss */
+/* line 1204, ../scss/breakpoints/_base.scss */
 .iconLink {
   margin-right: 10px;
 }
 
-/* line 1208, ../scss/breakpoints/_base.scss */
+/* line 1209, ../scss/breakpoints/_base.scss */
 #listingForm {
   padding-right: 50px;
   display: block;
@@ -2621,23 +2622,23 @@ input.invalid {
   display: block;
 }
 
-/* line 1214, ../scss/breakpoints/_base.scss */
+/* line 1215, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing {
   width: 100%;
   border: 1px solid grey;
   padding-top: 20px;
 }
-/* line 1218, ../scss/breakpoints/_base.scss */
+/* line 1219, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing .moreInfo {
   display: block;
 }
 
-/* line 1225, ../scss/breakpoints/_base.scss */
+/* line 1226, ../scss/breakpoints/_base.scss */
 .editVenue .venueList {
   padding-bottom: 20px;
 }
 
-/* line 1230, ../scss/breakpoints/_base.scss */
+/* line 1231, ../scss/breakpoints/_base.scss */
 .imageDrop {
   width: 100px;
   height: 100px;
@@ -2646,7 +2647,7 @@ input.invalid {
   cursor: pointer;
   position: relative;
 }
-/* line 1237, ../scss/breakpoints/_base.scss */
+/* line 1238, ../scss/breakpoints/_base.scss */
 .imageDrop p {
   position: absolute;
   top: 50%;
@@ -2662,7 +2663,7 @@ input.invalid {
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 1245, ../scss/breakpoints/_base.scss */
+/* line 1246, ../scss/breakpoints/_base.scss */
 .imageDrop p:hover {
   -webkit-transform: translate(-50%, -50%) scale(1.1);
   -moz-transform: translate(-50%, -50%) scale(1.1);
@@ -2670,7 +2671,7 @@ input.invalid {
   -o-transform: translate(-50%, -50%) scale(1.1);
   transform: translate(-50%, -50%) scale(1.1);
 }
-/* line 1249, ../scss/breakpoints/_base.scss */
+/* line 1250, ../scss/breakpoints/_base.scss */
 .imageDrop .dragged {
   position: absolute;
   top: 50%;
@@ -2681,40 +2682,40 @@ input.invalid {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* line 1255, ../scss/breakpoints/_base.scss */
+/* line 1256, ../scss/breakpoints/_base.scss */
 .imageDrop.formSection {
   border-color: #d70b00;
 }
-/* line 1257, ../scss/breakpoints/_base.scss */
+/* line 1258, ../scss/breakpoints/_base.scss */
 .imageDrop.formSection p {
   display: none;
 }
 
-/* line 1264, ../scss/breakpoints/_base.scss */
+/* line 1265, ../scss/breakpoints/_base.scss */
 input::-webkit-input-placeholder,
 option {
   color: #C9C9C9;
 }
 
-/* line 1270, ../scss/breakpoints/_base.scss */
+/* line 1271, ../scss/breakpoints/_base.scss */
 .SignIn {
   padding: 20px;
 }
-/* line 1272, ../scss/breakpoints/_base.scss */
+/* line 1273, ../scss/breakpoints/_base.scss */
 .SignIn h2 {
   font-size: 2em;
 }
-/* line 1275, ../scss/breakpoints/_base.scss */
+/* line 1276, ../scss/breakpoints/_base.scss */
 .SignIn .loginForm, .SignIn .signupForm {
   margin: 30px 0px;
   border-radius: 5px;
 }
 
-/* line 1282, ../scss/breakpoints/_base.scss */
+/* line 1283, ../scss/breakpoints/_base.scss */
 .account .app-content {
   background-color: #F6F6f6;
 }
-/* line 1285, ../scss/breakpoints/_base.scss */
+/* line 1286, ../scss/breakpoints/_base.scss */
 .account .accountform {
   padding: 20px;
   background: white;
@@ -2723,7 +2724,7 @@ option {
   border-radius: 10px;
   position: relative;
 }
-/* line 1292, ../scss/breakpoints/_base.scss */
+/* line 1293, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap {
   position: absolute;
   width: 30%;
@@ -2735,18 +2736,18 @@ option {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* line 1298, ../scss/breakpoints/_base.scss */
+/* line 1299, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar {
   cursor: pointer;
 }
-/* line 1300, ../scss/breakpoints/_base.scss */
+/* line 1301, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar img {
   opacity: .5;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   transition: 0.5s;
 }
-/* line 1304, ../scss/breakpoints/_base.scss */
+/* line 1305, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar .delete {
   position: absolute;
   top: 50%;
@@ -2764,19 +2765,19 @@ option {
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 1316, ../scss/breakpoints/_base.scss */
+/* line 1317, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar.loaded img {
   opacity: 1;
 }
-/* line 1320, ../scss/breakpoints/_base.scss */
+/* line 1321, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar:hover {
   opacity: .8;
 }
-/* line 1322, ../scss/breakpoints/_base.scss */
+/* line 1323, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar:hover .delete {
   opacity: 1;
 }
-/* line 1327, ../scss/breakpoints/_base.scss */
+/* line 1328, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .imageDrop {
   width: 100%;
   padding-top: 100%;
@@ -2784,39 +2785,39 @@ option {
   border: 1px dotted #aaa;
   background: #eaedf2;
 }
-/* line 1333, ../scss/breakpoints/_base.scss */
+/* line 1334, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .imageDrop.formSection {
   padding: 100% 0 0 0;
 }
-/* line 1336, ../scss/breakpoints/_base.scss */
+/* line 1337, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .imageDrop p {
   font-size: 100px;
 }
-/* line 1342, ../scss/breakpoints/_base.scss */
+/* line 1343, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap input {
   background: #F6F6f6;
 }
-/* line 1344, ../scss/breakpoints/_base.scss */
+/* line 1345, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap input:nth-child(1) {
   width: 45%;
   margin-right: 5%;
   display: inline-block;
 }
-/* line 1349, ../scss/breakpoints/_base.scss */
+/* line 1350, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap input:nth-child(2) {
   width: 50%;
   display: inline-block;
 }
-/* line 1357, ../scss/breakpoints/_base.scss */
+/* line 1358, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap .DraftEditor-root {
   background: #F6F6f6;
   margin-bottom: 20px;
 }
-/* line 1361, ../scss/breakpoints/_base.scss */
+/* line 1362, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap .form-text {
   margin-bottom: 20px;
 }
-/* line 1364, ../scss/breakpoints/_base.scss */
+/* line 1365, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap button {
   margin-top: 20px;
 }

@@ -18,6 +18,7 @@ export default class EventsForm extends React.Component {
             //Update values of inputs
             ListActions.eventsInfoChange(e);
             this.props.onChange();
+            console.log(this.props.events)
     }
 
     addEvent() {
@@ -35,13 +36,13 @@ export default class EventsForm extends React.Component {
                 <div className="eventInfo">
                     <Input type="select"
                         name="type"
-                        value={event.type? event.type : "opening"}
-                        defaultValue="Reception"
+                        value={event.type}
+                        defaultValue="reception"
                         data-index={index}
                         onChange={this.onChange} >
-                        <option value="Reception">Reception</option>
-                        <option value="Closing">Closing</option>
-                        <option value="Other">Other</option>
+                        <option value="reception">Reception</option>
+                        <option value="closing">Closing</option>
+                        <option value="other">Other</option>
                     </Input>
                     <DateSingle event={index} startDate={event.date} onDatesChange={this.onChange}/>
                     {event.type === "other" &&

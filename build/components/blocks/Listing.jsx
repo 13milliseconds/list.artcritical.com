@@ -51,7 +51,7 @@ export default class Listing extends React.Component {
     eventsDisplay(events){
         return events.map((event, index) => {
             return <div className="listingEvent" key={index}>
-                    <span className="type">{event.type || event.name}</span>: <Date date={event.date} /> 8pm {event.description && " - " + event.description}
+                    <span className="type">{event.type}</span>: <Date date={event.date} /> - {event.description ? event.description : "8pm"}
             </div>
         })
 
@@ -94,8 +94,12 @@ export default class Listing extends React.Component {
             return <span key={index} className="artist" >{artist.name}</span>
         })
 
+        //Thumbnail
         const image = listing.image? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
         const style = {backgroundImage: 'url(' + image + ')'}
+
+        //Defining the name
+        let artistPresent = listing.artists.length > 0 ? true : false
       
       
     return (
@@ -116,8 +120,9 @@ export default class Listing extends React.Component {
                 <div className="header cf">
 
                     <div className="title">
-                        {listing.artists.length > 0 && <span className="artists">{isGroupShow ? 'Group Show' : artists}: </span>}
-                        {listing.name} </div>
+                        { artistPresent && <span className="artists">{isGroupShow ? 'Group Show' : artists}</span>}
+                        { artistPresent && listing.name && ": "}
+                        { listing.name } </div>
 
                     {dateDisplay}
 
