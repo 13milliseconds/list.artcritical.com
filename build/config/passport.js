@@ -78,7 +78,7 @@ module.exports = function(passport) {
 				newUser.lastname      	= req.body.lastname;
 				newUser.slug      		= req.body.firstname.replace(/\s+/g, '').toLowerCase() + 							  req.body.lastname.replace(/\s+/g, '').toLowerCase();
                 newUser.local.username  = req.body.username;
-				newUser.userAccess 		= 1;
+				newUser.userAccess 		= 0;
                 newUser.local.password  = newUser.generateHash(password);
 				newUser.facebook  		= {};
 				
@@ -92,7 +92,6 @@ module.exports = function(passport) {
 							console.log('Slug already exist');
 							count = count + 1;
 							newUser.slug = ogSlug + count;
-							console.log(newUser.slug);
 							checkSlug();
 						} else {
 							console.log('Slug is unique');
@@ -200,7 +199,7 @@ module.exports = function(passport) {
                 newUser.firstname      	= profile.name.givenName;
 				newUser.lastname      	= profile.name.familyName;
 				newUser.slug      		= profile.displayName.replace(/\s+/g, '').toLowerCase();
-				newUser.userAccess 		= 1;
+				newUser.userAccess 		= 0;
                 newUser.facebook.id  	= profile.id;
                 newUser.facebook.token  = accessToken;
 				newUser.local.username	= '';

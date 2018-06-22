@@ -232,8 +232,7 @@ router.post('/updatemylist', function (req, res) {
 
 router.get('/getmylist', (req, res) => {
     var List = req.list;
-    var Venue = req.venue;
-	
+    
 	//Find today's date
     var today = new Date();
     today.setHours(0, 0, 0, 0);
