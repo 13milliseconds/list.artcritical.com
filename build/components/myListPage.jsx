@@ -3,7 +3,6 @@ import MyList from './mylist/myList';
 import LogInForm from './login/LogInForm';
 import AuthActions from '../actions/AuthActions';
 //COMPONENTS
-import { Link } from 'react-router';
 import Helmet from './blocks/Helmet'
 
 export default class MyListPage extends React.Component {

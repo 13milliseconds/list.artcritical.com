@@ -38,7 +38,7 @@ export default class CurrentPage extends React.Component {
                     {this.props.loading.current && <Loading />}
                 </div>
 				<div className="right-col">
-					<img src="/images/ad-long.jpg" />
+					{//<img src="/images/ad-long.jpg" />}
 				</div>
             </div>
         );
