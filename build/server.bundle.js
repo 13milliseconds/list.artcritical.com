@@ -6568,8 +6568,6 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactRouter = __webpack_require__(3);
-
 var _reactstrap = __webpack_require__(2);
 
 var _formDateSingle = __webpack_require__(50);
@@ -17501,8 +17499,8 @@ var Layout = function (_React$Component) {
                             ),
                             _react2.default.createElement(_ListingForm2.default, {
                                 listing: this.state.listingEdit,
-                                error: this.state.error.updatelisting,
-                                loading: this.state.loading.updatelisting,
+                                error: this.state.error,
+                                loading: this.state.loading,
                                 success: this.state.success })
                         ),
                         this.state.eventEdit._id && _react2.default.createElement(
@@ -17515,8 +17513,8 @@ var Layout = function (_React$Component) {
                             ),
                             _react2.default.createElement(_EventForm2.default, {
                                 event: this.state.eventEdit,
-                                error: this.state.error.updateEvent,
-                                loading: this.state.loading.updateEvent,
+                                error: this.state.error,
+                                loading: this.state.loading,
                                 success: this.state.success })
                         ),
                         _react2.default.createElement('div', { className: 'overlay' })

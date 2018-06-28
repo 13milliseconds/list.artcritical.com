@@ -753,6 +753,13 @@ AT A GLANCE
                 h2{
                     margin: 0 0 20px;
                 }
+                .listing,
+                .event{
+                    .header .date{
+                        display: none;
+                    }
+                }
+
             }
         }
     }

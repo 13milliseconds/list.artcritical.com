@@ -1,7 +1,6 @@
 import React from 'react'
 import EventActions from '../../actions/EventActions'
 import ListActions from '../../actions/ListActions'
-import {browserHistory} from 'react-router'; 
 import { Form, FormGroup, Label, Input, Alert, Button } from 'reactstrap';
 
 

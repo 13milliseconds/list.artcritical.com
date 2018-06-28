@@ -177,8 +177,8 @@ export default class Layout extends React.Component {
                                 <h3>Edit Listing</h3>
                             <ListingForm
                                 listing={this.state.listingEdit}
-                                error={this.state.error.updatelisting}
-                                loading={this.state.loading.updatelisting}
+                                error={this.state.error}
+                                loading={this.state.loading}
                                 success={this.state.success} />
                                 </div>
                         }
@@ -187,8 +187,8 @@ export default class Layout extends React.Component {
                                 <h3>Edit Event</h3>
                             <EventForm
                                 event={this.state.eventEdit}
-                                error={this.state.error.updateEvent}
-                                loading={this.state.loading.updateEvent}
+                                error={this.state.error}
+                                loading={this.state.loading}
                                 success={this.state.success} />
                                 </div>
                         }
