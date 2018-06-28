@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
 module.exports = {
@@ -50,7 +51,7 @@ module.exports = {
                 'BASE_URI': JSON.stringify(process.env.BASE_URI),
                 'MapboxAccessToken': JSON.stringify(process.env.MapboxAccessToken),
             }
-        }),
+        })
   ],
     devtool: '#source-map'
 };

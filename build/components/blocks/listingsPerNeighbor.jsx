@@ -39,7 +39,7 @@ export default class ListingsPerNeighbor extends React.Component {
             if ( newSecondaryNH !== secondaryNH) {
                 
                 //Add the result to the next export and reset the render
-                var contentRender = <Neighborhood key={secondaryNH} {...this.props} listings={renderListings} title={title} />
+                var contentRender = <Neighborhood key={listing._id} {...this.props} listings={renderListings} title={title} />
                 renderListings = []; 
                 
                 // Update neighborhood
@@ -56,7 +56,7 @@ export default class ListingsPerNeighbor extends React.Component {
                 if (newCity !== city ){
 
                     // Create the last city
-                    var cityRender = neighborExport.length > 0 && <div key={cityID} id={'city' + cityID} className="city">{neighborExport}</div>
+                    var cityRender = neighborExport.length > 0 && <div key={listing._id} id={'city' + cityID} className="city">{neighborExport}</div>
                     neighborExport = []
 
                     //Update city
@@ -65,7 +65,7 @@ export default class ListingsPerNeighbor extends React.Component {
 
                     if (num == index){//If this is the last listing, we need to include it in the export
                         //Add last neighborhood to the current City
-                        neighborExport = <div key={city} id={'city' + (cityID + 1)} className="city"><Neighborhood {...this.props} listings={renderListings} title={title}/></div>
+                        neighborExport = <div key={listing._id} id={'city' + (cityID + 1)} className="city"><Neighborhood {...this.props} listings={renderListings} title={title}/></div>
         
                         cityRender = [cityRender] //Make cityRender a table so we can add a second <div>
                         cityRender.push(neighborExport)
@@ -83,12 +83,12 @@ export default class ListingsPerNeighbor extends React.Component {
 
                 if (num == index){
 
-                    var contentRender = <Neighborhood key={secondaryNH} {...this.props} listings={renderListings} title={title} />
+                    var contentRender = <Neighborhood key={listing._id} {...this.props} listings={renderListings} title={title} />
     
                     //Add last neighborhood to the current City
                     neighborExport.push(contentRender)
     
-                    var cityRender = neighborExport.length > 0 && <div key={cityID} id={'city' + cityID} className="city">{neighborExport}</div>
+                    var cityRender = neighborExport.length > 0 && <div key={listing._id} id={'city' + cityID} className="city">{neighborExport}</div>
                     return cityRender
                 }
             }

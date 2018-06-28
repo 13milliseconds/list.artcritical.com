@@ -40,12 +40,11 @@ export default class GlancePage extends React.Component {
                 let label = <IntlProvider locale="en"><FormattedDate value={this.state.dates[i]} weekday="long" day="numeric" month="short" /></IntlProvider>
                 days.push(<DayPage 
                               key={i} 
+                              {...this.props}
                               feature={this.props.features[i]? this.props.features[i] : {}} 
                               glanceListings={listings} 
-                              user={this.props.user} 
                               label={label} 
-                              date={this.state.dates[i]}
-                              view={this.props.view} />)
+                              date={this.state.dates[i]} />)
             }
             return days
         }

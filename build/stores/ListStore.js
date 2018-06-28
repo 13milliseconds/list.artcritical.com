@@ -3,6 +3,7 @@ import ListActions from '../actions/ListActions';
 import ArtistsActions from '../actions/ArtistsActions';
 import AuthActions from '../actions/AuthActions';
 import ImagesActions from '../actions/ImagesActions';
+import EventActions from '../actions/EventActions';
 import toastr from 'toastr';
 import moment from 'moment';
 
@@ -12,6 +13,7 @@ class ListStore {
         this.bindActions(ArtistsActions);
         this.bindActions(AuthActions);
         this.bindActions(ImagesActions);
+        this.bindActions(EventActions);
         //Display settings
         this.view = 'condensed';
         this.menuActive = false;
@@ -43,13 +45,13 @@ class ListStore {
         this.listingEdit.artists = [];
         this.listingEdit.name = '';
         this.listingEdit.image = ''
-        this.listingEdit.description = '';
         this.listingEdit.text = '';
         this.listingEdit.event = false;
         this.listingEdit.events = [];
         this.listingEdit.venue = {};
-        this.listingEdit.venue._id = '';
-        this.listingEdit.venue.address = '';
+        //New event states
+        this.eventEdit = {};
+        this.eventEdit.venue = {};
         //New venue states
         this.venueEdit = {
             popup: false,
@@ -87,16 +89,20 @@ class ListStore {
         //Error Messages
         this.error = {};
         this.error.feature = '';
+        this.error.general = '';
         this.error.login = '';
         this.error.updateUser = '';
         this.error.updatelisting = {};
-        this.error.updatevenue = {};
-        this.error.savelisting = {};
-        this.error.savevenue = {};
+        this.error.updatevenue = '';
+        this.error.savelisting = '';
+        this.error.savevenue = '';
         //Success
         this.success = {};
         this.success.updateUser = false;
         this.success.updatelisting = false;
+        this.success.updateEvent = false;
+        this.success.saveEvent = false;
+        this.success.deleteEvent = false;
         this.success.updatevenue = false;
 		this.success.deletelisting = false;
         this.success.deletevenue = false;
@@ -189,7 +195,7 @@ class ListStore {
             description: '',
             image: '',
             venue: {},
-            events: [],
+            relatedEvents: [],
             artists: []
         };
     }
@@ -239,18 +245,15 @@ class ListStore {
 		// Reset messages
 		this.success.updatevenue = false;
 		this.loading.updatevenue = false;
-		this.error.updatevenue = {
-			general: ''
-		};
-		
+		this.error.updatevenue = ''
     }
     
     // Get listing info
     onGetListingInfoSuccess(info){
 		console.log('Listing info loaded', info);
         this.listingEdit = info.data;
-        if (!this.listingEdit.events){
-            this.listingEdit.events = [];
+        if (!this.listingEdit.relatedEvents){
+            this.listingEdit.relatedEvents = [];
         }
 		// Need to explain this
 		if (Number.isInteger(info.i)){
@@ -274,6 +277,7 @@ class ListStore {
     // Get venue info
     onGetVenueInfoSuccess(data){
         this.listingEdit.venue = data;
+        this.eventEdit.venue = data;
         if (!data.coordinates){
             data.coordinates = {}
         }
@@ -305,7 +309,7 @@ class ListStore {
     onSaveVenueFailure(err){
         console.log('Problem saving venue', err)
         this.loading.savevenue = false; 
-        this.error.updatevenue.general = 'Error while saving changes'; 
+        this.error.saveVenue = 'Error while saving changes'; 
     }
 	// Update a venue
     onUpdateVenue(info){
@@ -329,7 +333,7 @@ class ListStore {
     onUpdateVenueFailure(error){
         console.log('Problem updating venue', error)
         this.loading.updatevenue = false;
-        this.error.updatevenue.general = error;
+        this.error.updateVenue = 'Error. ' + error;
     }
 	
 	//Delete a Venue
@@ -371,10 +375,7 @@ class ListStore {
     
     //Reset the venue in the form
     onResetVenue() {
-        this.listingEdit.venue = {
-            _id: '',
-            address: '',
-        }
+        this.listingEdit.venue = {}
     }
     
     //Save a new listing
@@ -391,9 +392,9 @@ class ListStore {
         }.bind(this), 1000)
     }
     onSaveListingFailure(err){
-        console.log('Error: ', err);
+        console.log('Error ', err);
         this.loading.savelisting = false; 
-        this.error.savelisting.general = 'Error while saving changes'; 
+        this.error.savelisting = 'Error ' + err; 
     }
     
     
@@ -412,7 +413,7 @@ class ListStore {
     }
     onUpdateListingFailure(err){
         this.loading.updatelisting = false; 
-        this.error.updatelisting.general = 'Error while saving changes'; 
+        this.error.updatelisting = 'Error: ' + err; 
         console.log('Error: ', err);
     }
     
@@ -424,7 +425,7 @@ class ListStore {
         //Reset the listing
         this.listingEdit = {
             venue: {},
-            events: [],
+            relatedEvents: [],
             artists: []
         }
         //Close the sidebar
@@ -529,7 +530,6 @@ class ListStore {
 			//Find element in features whose date == d
 				//For each day of the week
 				for (var i=0; i < data.days; i++) { 
-                    console.log('Day #' + i)
                     let tempFeature = null
 					// Go through all the features
 					this.allFeatures.map((feature) => {
@@ -540,19 +540,14 @@ class ListStore {
                         }
 					})
 					if (tempFeature){
-                        console.log('Found a dedicated feature')
 						features.push(tempFeature)
 						tempFeature = null
 					}  else {
-                        console.log('Looking for current feature')
                         for (var y = 0; y < this.allFeatures.length; y++){
-                            console.log('Feature ' + y)
 						    var feature = this.allFeatures[y]
                             // Find current feature
                             if (!features.includes(feature) && feature.list){
-                                console.log('Maybe')
                                 if (moment(feature.list.end).isSameOrAfter(today)){
-                                    console.log('Its a match!', feature)
                                     features.push(feature)
                                     break
                                 }
@@ -561,7 +556,6 @@ class ListStore {
 					}
 				}
             this.features = features;
-            console.log(this.features)
         } else {
             this.error.feature = "No Features";
         }
@@ -844,7 +838,7 @@ class ListStore {
 
     //EVENTS
     onAddEvent(){
-        this.listingEdit.events.push({
+        this.listingEdit.relatedEvents.push({
             name: "",
             description: "",
             type: "",
@@ -852,22 +846,123 @@ class ListStore {
         });
     }
     onRemoveEvent(index){
-        this.listingEdit.events.splice(index, 1);
+        this.listingEdit.relatedEvents.splice(index, 1);
     }
     onEventsInfoChange(event){
         if (event.target){
             const type = event.target.name;
             const index = event.target.dataset.index;
-            this.listingEdit.events[index][type] = event.target.value;
+            this.listingEdit.relatedEvents[index][type] = event.target.value;
         } else if (event.date){
-            this.listingEdit.events[event.index].date = event.date;
+            this.listingEdit.relatedEvents[event.index].date = event.date;
         }
         
+    }
+
+
+    //ACTUAL EVENTS
+
+    //Update info on event form
+    onEventInfoChange (info){
+        if (info.target) {
+            const value = info.target.value;
+            const name = info.target.name;   
+            this.eventEdit[name] = value;
+		} else if (info.date) {
+            this.eventEdit.date = info.date;
+            console.log(this.eventEdit)
+       }
+    }
+    onSaveEventSuccess(data){
+        this.eventEdit = data
+        console.log(data);
+        this.success.saveEvent = true;
+        var that = this;
+        setTimeout(() => {
+            that.success.saveEvent = false;
+        }, 1000);
+    }
+
+    onSaveEventFailure(error){
+        console.log('error: ' + error);
+        this.error.saveEvent = 'Error. ' + error;
+    }
+
+    onGetEventInfoSuccess(data){
+        console.log('Listing info loaded', data);
+        if (data){ 
+            this.eventEdit = data
+        }
+    }
+    //Update an event
+    onUpdateEventAttempt(){
+        this.loading.updateEvent = true;
+    }
+    onUpdateEventSuccess(data){
+        this.loading.updateEvent = false; 
+        this.success.updateEvent = true; 
+        this.sidebarOpen = false;
+        var that = this;
+        setTimeout(() => {
+            that.success.updateEvent = false;
+        }, 1000);
+    }
+    onUpdateEventFailure(err){
+        this.loading.updateEvent = false; 
+        this.error.updateEvent = 'Error while saving changes'; 
+        console.log('Error: ', err);
+    }
+    //Delete Event
+    onDeleteEventSuccess(){
+		//Reset the listing data
+        this.success.deleteEvent = true;
+        //Reset the listing
+        this.deleteEvent = {
+            venue: {},
+            events: [],
+            artists: []
+        }
+        //Close the sidebar
+        this.sidebarOpen = false;
+        //Reset the success status
+        var that = this;
+        setTimeout(() => {
+            that.success.deleteEvent = false;
+        }, 1000);
+    }
+    onDeleteEventFailure(err){
+        console.log('Error: ', err);
+		this.error.deleteEvent = 'Error deleting event'; 
+    }
+    onEventEditReset(){
+        this.eventEdit = {
+            venue: {},
+            list: null,
+            artists: null
+        };
+    }
+    //Load a specific event into listing edit
+    onEditEvent(event){
+        console.log('Editing an event')
+        this.eventEdit = event;
     }
 
     //Sidebar
     onToggleSideBar(){
         this.sidebarOpen = !this.sidebarOpen
+        if (!this.sidebarOpen){
+            this.eventEdit = {
+                venue: {},
+                list: null,
+                artists: null
+            }
+            this.listingEdit = {
+                events: [],
+                venue: {},
+                end: null,
+                start: null
+            };
+        }
     }
 
     //Menu

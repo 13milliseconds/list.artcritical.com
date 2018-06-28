@@ -1,14 +1,6 @@
-var mongoose = require('mongoose')
-	, Schema = mongoose.Schema;
+var mongoose = require('mongoose');
 
 // Create the Listings table ==================================
-
-var eventSchema = new Schema({ 
-    name: String,
-    type: String,
-    date: {type: Date},
-    description: String 
-});
 
 var listingSchema = mongoose.Schema({
     name: String,
@@ -35,7 +27,10 @@ var listingSchema = mongoose.Schema({
         type: String,
 		ref: 'User'
     },
-    events: [eventSchema]
+    relatedEvents: [{
+        type: String,
+		ref: 'Event'
+    }]
 });
 
 //compile the model

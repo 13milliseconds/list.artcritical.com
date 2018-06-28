@@ -3,6 +3,8 @@ var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
 
+import moment from 'moment';
+
 //###################################
 // SIGNUP
 //###################################
@@ -45,7 +47,7 @@ router.post('/login', async(req, res) => {
 			
 			console.log('Logged in', req.user.slug);
 			
-			var now = new Date();
+			var now = moment();
 			var newInfo = {lastConnection: now};
 			var update = { $set: newInfo};
 
@@ -195,14 +197,12 @@ router.post('/addtolist', function (req, res) {
 
 router.post('/updatemylist', function (req, res) {
     var Userlist = req.userlist;
-    var List = req.list;
 
     //CHECK IF USER IS CONNECTED
     if (req.user) {
 
         // define variables
         var userID = req.user._id;
-        var newListings = req.body;
         
         Userlist.findById(userID, function (err, user) {
 
@@ -234,18 +234,17 @@ router.get('/getmylist', (req, res) => {
     var List = req.list;
     
 	//Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
+    var today = moment().startOf('day');
     
     //CHECK IF USER IS CONNECTED
     if (req.user) {
-        const theirList = req.user.mylist;
-        
         List
 		.find()
-		.where('_id').in(theirList)
+		.where('_id').in(req.user.mylist)
 		.where('end').gte(today)
         .populate('venue')
+        .populate('relatedEvents')
+        .populate('artists')
         .exec(function (e, docs) {
             res.json(docs);
         });
@@ -286,7 +285,6 @@ router.get('/getusermylist/:user_slug', (req, res) => {
 
 router.get('/checksession', (req, res) => {
     var User = req.user;
-	var Userlist = req.userlist;
     
     if (User) {
 		res.send(JSON.stringify(User));
@@ -313,7 +311,6 @@ router.post('/updateuser', function (req, res) {
 
     console.log('auth/updateuser');
     var Userlist = req.userlist;
-    var User = req.user;
     
     var newInfo = req.body;
 

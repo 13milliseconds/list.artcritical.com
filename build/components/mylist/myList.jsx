@@ -44,12 +44,19 @@ export default class MyList extends React.Component {
     }
     
     componentWillMount(){
+        
+        AuthActions.getMylist()
+
         async.map(this.props.user.mylist, this.findCoord, function(err, results){
           // results is now an array
           this.setState({
               markers: results
           })
         }.bind(this))
+    }
+
+    componentDidUpdate(){
+        
     }
     
     componentDidMount(){

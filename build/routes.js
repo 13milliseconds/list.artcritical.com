@@ -1,5 +1,5 @@
 import React from 'react'
-import {Router, Route, IndexRoute, browserHistory } from 'react-router'
+import {Route, IndexRoute, browserHistory } from 'react-router'
 import Layout from './components/layout';
 import CurrentPage from './components/CurrentPage';
 import FuturePage from './components/FuturePage';
@@ -16,6 +16,7 @@ import AuthSuccess from './components/login/AuthSuccess';
 //Admin Components
 import AdminPage from './components/admin/AdminPage';
 import EditListing from './components/admin/EditListing';
+import EditEvents from './components/admin/EditEvents';
 import EditVenue from './components/admin/EditVenue';
 import FeaturedListings from './components/admin/featuredPage';
 import VenuesPage from './components/admin/VenuesPage';
@@ -41,6 +42,7 @@ const routes = (
         <Route path="admin" component={AdminPage}>
             <IndexRoute component={VenuesPage}/>
             <Route path="listings" component={EditListing}/>
+            <Route path="events" component={EditEvents}/>
             <Route path="venues" component={EditVenue}/>
             <Route path="featured" component={FeaturedListings}/>
 			<Route path="review" component={ReviewPage}/>

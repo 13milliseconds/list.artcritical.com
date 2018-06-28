@@ -5,9 +5,7 @@ import { Form, FormGroup, Label, Input, Alert, Button } from 'reactstrap';
 
 
 //Components
-import ToggleButton from 'react-toggle-button'
 import DateRange from './formDateRange'
-import DateSingle from './formDateSingle'
 import Date from '../blocks/DateBlock.jsx';
 import Select from './formSelect'
 import ThumbnailInput from './ThumbnailInput'
@@ -15,6 +13,7 @@ import EventsForm from './EventsForm'
 import ConfirmModal from './confirmModal'
 import UserLink from '../blocks/UserLink'
 import ArtistTags from './ArtistTags'
+import ListingNameDisplay from '../blocks/ListingNameDisplay'
 
 export default class ListingForm extends React.Component {
 
@@ -26,7 +25,8 @@ export default class ListingForm extends React.Component {
             updateModal: false,
             deleteModal: false,
             createModal: false,
-            wasChanged: false //check if any change was made to the listing
+            wasChanged: false, //check if any change was made to the listing
+            errorMessages:{}
         };
 
         this.handleChange = this.handleChange.bind(this)
@@ -40,6 +40,10 @@ export default class ListingForm extends React.Component {
         this.onEventsChange = this.onEventsChange.bind(this)
         this.onThumbChange = this.onThumbChange.bind(this)
         this.toggleModal = this.toggleModal.bind(this)
+        this._validateVenue = this._validateVenue.bind(this)
+        this._validateDates = this._validateDates.bind(this)
+        this._validateName = this._validateName.bind(this)
+        this._validateAll = this._validateAll.bind(this)
       }
 
     toggleModal(modalName) {
@@ -57,10 +61,10 @@ export default class ListingForm extends React.Component {
 
         //Check and save only events that have a date
         let allEvents = []
-        newListing.events.map(event => {
+        newListing.relatedEvents.map(event => {
             if (event.date){allEvents.push(event)}
         })
-        newListing.events = allEvents
+        newListing.relatedEvents = allEvents
 
 		if (this.props.listing._id){
 			//Edit the current listing
@@ -91,12 +95,15 @@ export default class ListingForm extends React.Component {
         ListActions.deleteListing(this.props.listing._id)
     }
 
-    //confirm alert
+    // Create/Update confirm alert
     onConfirm(event) {
         event.preventDefault();
-        this.setState({ 
-            updateModal: true
-        })
+        if (this._validateAll()) {
+        
+            this.setState({ 
+                updateModal: true
+            })
+        }
     }
 
     //Duplicate
@@ -105,7 +112,7 @@ export default class ListingForm extends React.Component {
         ListActions.listingDuplicate();
     }
 
-     //confirm alert
+     //Delete confirm alert
     onDeleteConfirm(event) {
         event.preventDefault();
         this.setState({ 
@@ -115,9 +122,68 @@ export default class ListingForm extends React.Component {
 
     onCreateConfirm(event) {
         event.preventDefault();
-        this.setState({ 
-            createModal: true
-        });
+        if (this._validateAll()) {
+            this.setState({ 
+                createModal: true
+            });
+        }
+    }
+
+    _validateAll(){
+        var validVenue = this._validateVenue()
+        var validDates = this._validateDates()
+        var validName = this._validateName()
+
+        var result = validVenue && validName && validDates ? true : false
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.general = result ? '' : 'Please review the error messages above.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
+    }
+
+    //Validate the venue
+    _validateVenue(){
+        let result = this.props.listing.venue._id ? true : false
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.venue = result ? '' : 'Please enter a venue.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
+    }
+
+    _validateName(){
+        let result = this.props.listing.name || (this.props.listing.artists && this.props.listing.artists.length > 0) ? true : false
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.name = result ? '' : 'Please enter a name or an artist.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
+    }
+
+    _validateDates(){
+        let result = this.props.listing.start && this.props.listing.end ? true : false 
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.dates = result ? '' : 'Both dates need to be defined.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
     }
 
 
@@ -130,6 +196,7 @@ export default class ListingForm extends React.Component {
     }
 
     handleArtistsChange (artists) {
+        console.log(artists)
         //Update values of inputs
         ListActions.listingInfoChange({target: {name: 'artists', value: artists}})
         this.setState({
@@ -181,7 +248,7 @@ export default class ListingForm extends React.Component {
 
           
         
-        let venueData = listing.venue ? { value: listing.venue._id, label: listing.venue.name} : {value:'', label:''}
+        let venueData = listing.venue._id && { value: listing.venue._id, label: listing.venue.name}
         
         // If the listing exists, offer to delete it
         let deleteButton = listing._id &&
@@ -196,6 +263,7 @@ export default class ListingForm extends React.Component {
                         <Label>Venue</Label>
                          <div className="formSection">
                           <Select value={venueData} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
+                          {this.state.errorMessages.venue && <Alert color="danger">{this.state.errorMessages.venue}</Alert>}
                         </div>
                     </FormGroup>
                     <FormGroup check className="group-artists">
@@ -208,27 +276,15 @@ export default class ListingForm extends React.Component {
                         <Label>Show Name</Label>
                         <div className="formSection">
                             <Input name="name" placeholder="Event name" type="text" value={listing.name} onChange={this.handleChange} />
-                        </div>
-                    </FormGroup>
-                    <FormGroup check className="group-event">
-                        <Label>Event</Label>
-                        <div className="formSection">
-                            <ToggleButton
-                              value={listing.event}
-                              onToggle={(value) => {
-                                this.handleChange({'event': value})
-                              }} />
+                            {this.state.errorMessages.name && <Alert color="danger">{this.state.errorMessages.name}</Alert>}
+                            <ListingNameDisplay {...listing} />
                         </div>
                     </FormGroup>
                     <FormGroup check className="group-dates">
                         <Label> Dates </Label>
                         <div className="formSection">
-                           {listing.event 
-                                ? //If an event
-                                <DateSingle startDate={listing.start} onDatesChange={this.handleChange}/>
-                                : // If not an event
-                                <DateRange startDate={listing.start} endDate={listing.end} onDatesChange={this.handleChange}/>
-                           }
+                            <DateRange startDate={listing.start} endDate={listing.end} onDatesChange={this.handleChange}/>
+                            {this.state.errorMessages.dates && <Alert color="danger">{this.state.errorMessages.dates}</Alert>}
                         </div>  
                     </FormGroup>
                      <FormGroup check className="group-description">
@@ -247,7 +303,7 @@ export default class ListingForm extends React.Component {
                         <FormGroup check  className="group-events">
                             <Label>Related Events</Label>
                             <div className="formSection">
-                                <EventsForm events={listing.events? listing.events : []} onChange={this.onEventsChange}/>
+                                <EventsForm events={listing.relatedEvents? listing.relatedEvents : []} onChange={this.onEventsChange}/>
                             </div>
                         </FormGroup>
                     }
@@ -264,10 +320,11 @@ export default class ListingForm extends React.Component {
                         }
                         </div>
 					
-					<FormGroup>
-                            {listing._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
-                            {deleteButton}
-                            {listing._id && <Button onClick={this.onDuplicate}>Duplicate</Button>}
+					<FormGroup className="group-buttons">
+                        {this.state.errorMessages.general && <Alert color="danger">{this.state.errorMessages.general}</Alert>}
+                        {listing._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
+                        {deleteButton}
+                        {listing._id && <Button onClick={this.onDuplicate}>Duplicate</Button>}
                     </FormGroup>
                 </Form>   
                        {this.state.updateModal && <ConfirmModal 
@@ -286,7 +343,7 @@ export default class ListingForm extends React.Component {
                                                         textTitle="Create"
                                                         textAction="create this Listing"
                                                         textConfirm="Created!"
-                                                        error={this.props.error.general}
+                                                        error={this.props.error.savelisting}
                                                         success={this.props.success.savelisting}/>}
                         {this.state.deleteModal && <ConfirmModal 
                                                         toggle={this.toggleModal}

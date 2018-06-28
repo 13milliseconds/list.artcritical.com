@@ -28,7 +28,7 @@ export default class UpdateModal extends React.Component {
                         <div className='success'>{this.props.textConfirm}</div>
                     }
                     {this.props.error && 
-                        <div className='error'>Please Try Again</div>
+                        <div className='error'>Technical problem. Please Try Again.</div>
                     }
                 </ModalBody>
                 <ModalFooter>

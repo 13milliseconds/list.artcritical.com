@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 98);
+/******/ 	return __webpack_require__(__webpack_require__.s = 105);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -205,7 +205,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (data) {
-                _this5.getGlanceSuccess(data);
+                data ? _this5.getGlanceSuccess(data) : _this5.getGlanceFail();
                 return true;
             }).catch(function (error) {
                 _this5.getGlanceFail(error);
@@ -292,7 +292,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this7.saveListingSuccess(json);
+                json ? _this7.saveListingSuccess(json) : _this7.saveListingFailure();
                 return true;
             }).catch(function (error) {
                 _this7.saveListingFailure(error);
@@ -342,7 +342,8 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this9.updateListingSuccess(json);
+                json ? _this9.updateListingSuccess(json) : _this9.updateListingFailure();
+
                 return true;
             }).catch(function (error) {
                 _this9.updateListingFailure(error);
@@ -564,7 +565,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this18.updateVenueSuccess(info);
+                json ? _this18.updateVenueSuccess(json) : _this18.updateVenueFailure();
                 return true;
             }).catch(function (error) {
                 _this18.updateVenueFailure(error);
@@ -590,7 +591,7 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this19.saveVenueSuccess(json);
+                json ? _this19.saveVenueSuccess(json) : _this19.saveVenueFailure();
                 return true;
             }).catch(function (error) {
                 _this19.saveVenueFailure(error);
@@ -701,7 +702,7 @@ var _alt = __webpack_require__(13);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(55);
+__webpack_require__(58);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1039,8 +1040,8 @@ exports.default = _alt2.default.createActions(AuthActions);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -1623,6 +1624,18 @@ __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__["default"].noAuto();
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("moment");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1638,7 +1651,60 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactHelmet = __webpack_require__(170);
+var _reactIntl = __webpack_require__(21);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Date = function (_React$Component) {
+    _inherits(Date, _React$Component);
+
+    function Date() {
+        _classCallCheck(this, Date);
+
+        return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
+    }
+
+    _createClass(Date, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                _reactIntl.IntlProvider,
+                { locale: 'en' },
+                _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.date, month: 'long', day: 'numeric' })
+            );
+        }
+    }]);
+
+    return Date;
+}(_react2.default.Component);
+
+exports.default = Date;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactHelmet = __webpack_require__(178);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1685,7 +1751,7 @@ var HelmetBlock = function (_React$Component) {
 exports.default = HelmetBlock;
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1739,19 +1805,13 @@ var Loading = function (_React$Component) {
 exports.default = Loading;
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("moment");
+module.exports = require("express");
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1771,9 +1831,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _Listing = __webpack_require__(117);
+var _Listing = __webpack_require__(125);
 
 var _Listing2 = _interopRequireDefault(_Listing);
+
+var _reactFontawesome = __webpack_require__(5);
+
+var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1800,6 +1864,7 @@ var VenueBlock = function (_React$Component) {
             var _this2 = this;
 
             var listing = this.props.listings[0];
+            var allowAccess = this.props.user.isLoggedIn && this.props.user.userAccess > 0 ? true : false;
 
             //display the listings
             var displayListings = function displayListings(listings) {
@@ -1818,6 +1883,12 @@ var VenueBlock = function (_React$Component) {
                         _reactRouter.Link,
                         { className: 'venueName', to: "/venue/" + listing.venue.slug },
                         listing.venue.name
+                    ),
+                    listing.venue.website && allowAccess && _react2.default.createElement(
+                        'a',
+                        { href: listing.venue.website, target: '_blank', className: 'external' },
+                        ' ',
+                        _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'external-link-square'] })
                     )
                 ),
                 displayListings(this.props.listings)
@@ -1831,65 +1902,6 @@ var VenueBlock = function (_React$Component) {
 exports.default = VenueBlock;
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactIntl = __webpack_require__(19);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Date = function (_React$Component) {
-    _inherits(Date, _React$Component);
-
-    function Date() {
-        _classCallCheck(this, Date);
-
-        return _possibleConstructorReturn(this, (Date.__proto__ || Object.getPrototypeOf(Date)).apply(this, arguments));
-    }
-
-    _createClass(Date, [{
-        key: 'render',
-        value: function render() {
-
-            return _react2.default.createElement(
-                _reactIntl.IntlProvider,
-                { locale: 'en' },
-                _react2.default.createElement(_reactIntl.FormattedDate, { value: this.props.date, month: 'long', day: 'numeric' })
-            );
-        }
-    }]);
-
-    return Date;
-}(_react2.default.Component);
-
-exports.default = Date;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = require("express");
-
-/***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1900,7 +1912,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _alt = __webpack_require__(154);
+var _alt = __webpack_require__(162);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -1984,7 +1996,7 @@ var UpdateModal = function (_React$Component) {
                     this.props.error && _react2.default.createElement(
                         'div',
                         { className: 'error' },
-                        'Please Try Again'
+                        'Technical problem. Please Try Again.'
                     )
                 ),
                 _react2.default.createElement(
@@ -2018,12 +2030,6 @@ exports.default = UpdateModal;
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-map-gl");
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2039,7 +2045,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(174);
+var _reactSelect = __webpack_require__(182);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2064,7 +2070,7 @@ var formSelect = function (_React$Component) {
 
             return _react2.default.createElement(_reactSelect.Async, {
                 name: 'venue',
-                placeholder: 'Select venue',
+                placeholder: 'Search',
                 value: this.props.value,
                 loadOptions: this.props.getOptions,
                 onChange: this.props.handleSelectChange
@@ -2078,7 +2084,219 @@ var formSelect = function (_React$Component) {
 exports.default = formSelect;
 
 /***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _alt = __webpack_require__(13);
+
+var _alt2 = _interopRequireDefault(_alt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var offset = 0;
+
+var EventActions = function () {
+    function EventActions() {
+        _classCallCheck(this, EventActions);
+
+        this.generateActions('getAllSuccess', 'getAllFail', 'getEventsAttempt', 'getEventsSuccess', 'getEventsFail', 'getLatestEventsSuccess', 'getLatestEventsFail', 'getEventInfoSuccess', 'getEventInfoFailure', 'saveEventSuccess', 'saveEventFailure', 'saveEventAttempt', 'updateEventSuccess', 'updateEventFailure', 'updateEventAttempt', 'deleteEventSuccess', 'deleteEventFailure');
+    }
+
+    _createClass(EventActions, [{
+        key: 'getAll',
+        value: function getAll() {
+            var _this = this;
+
+            return function (dispatch) {
+                dispatch();
+                $.ajax({
+                    url: '/event/allevents'
+                }).done(function (data) {
+                    _this.getAllSuccess(data);
+                }).fail(function (jqXhr) {
+                    _this.getAllFail(jqXhr);
+                });
+            };
+        }
+    }, {
+        key: 'getEvents',
+        value: function getEvents() {
+            var _this2 = this;
+
+            return function (dispatch) {
+                dispatch();
+                $.ajax({
+                    url: '/event/upcoming'
+                }).done(function (data) {
+                    _this2.getEventsSuccess(data);
+                }).fail(function (jqXhr) {
+                    _this2.getEventsFail(jqXhr);
+                });
+            };
+        }
+    }, {
+        key: 'getLatestEvents',
+        value: function getLatestEvents() {
+            var _this3 = this;
+
+            return function (dispatch) {
+                dispatch();
+                $.ajax({
+                    url: '/event/latestevents'
+                }).done(function (data) {
+                    _this3.getLatestEventsSuccess(data);
+                }).fail(function (error) {
+                    _this3.getLatestEventsFail(error);
+                });
+            };
+        }
+    }, {
+        key: 'eventEditReset',
+        value: function eventEditReset() {
+            return true;
+        }
+
+        // When new event info is entered
+
+    }, {
+        key: 'eventInfoChange',
+        value: function eventInfoChange(event) {
+            return event;
+        }
+        // When new event info is entered
+
+    }, {
+        key: 'eventDuplicate',
+        value: function eventDuplicate() {
+            return true;
+        }
+    }, {
+        key: 'saveEvent',
+        value: async function saveEvent(newEvent) {
+            var _this4 = this;
+
+            this.saveEventAttempt();
+
+            await fetch('/event/add', {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: JSON.stringify(newEvent),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                return null;
+            }).then(function (json) {
+                json ? _this4.saveEventSuccess(json) : _this4.saveEventFailure();
+                return true;
+            }).catch(function (error) {
+                _this4.saveEventFailure(error);
+            });
+        }
+    }, {
+        key: 'deleteEvent',
+        value: async function deleteEvent(oldEvent) {
+            var _this5 = this;
+
+            await fetch('/event/delete/' + oldEvent, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                return null;
+            }).then(function (json) {
+                _this5.deleteEventSuccess(json);
+                return true;
+            }).catch(function (error) {
+                _this5.deleteEventFailure(error);
+            });
+        }
+    }, {
+        key: 'updateEvent',
+        value: async function updateEvent(newInfo) {
+            var _this6 = this;
+
+            this.updateEventAttempt();
+
+            await fetch('/event/update', {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: JSON.stringify(newInfo),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                return null;
+            }).then(function (json) {
+                json ? _this6.updateEventSuccess(json) : _this6.updateEventFailure();
+
+                return true;
+            }).catch(function (error) {
+                _this6.updateEventFailure(error);
+            });
+        }
+
+        //When you want to edit a specific event, and are being redirected to the event Edit page
+
+    }, {
+        key: 'editEvent',
+        value: function editEvent(event) {
+            return event;
+        }
+    }, {
+        key: 'getEventInfo',
+        value: function getEventInfo(id) {
+            var _this7 = this;
+
+            console.log('Getting the info for ' + id);
+            return function (dispatch) {
+                dispatch();
+                $.ajax({
+                    url: '/event/getinfo/' + id
+                }).done(function (data) {
+                    _this7.getEventInfoSuccess(data);
+                }).fail(function (jqXhr) {
+                    _this7.getEventInfoFailure(jqXhr);
+                });
+            };
+        }
+    }]);
+
+    return EventActions;
+}();
+
+exports.default = _alt2.default.createActions(EventActions);
+
+/***/ }),
 /* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-map-gl");
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2094,7 +2312,73 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(57);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ListingNameDisplay = function (_React$Component) {
+    _inherits(ListingNameDisplay, _React$Component);
+
+    function ListingNameDisplay() {
+        _classCallCheck(this, ListingNameDisplay);
+
+        return _possibleConstructorReturn(this, (ListingNameDisplay.__proto__ || Object.getPrototypeOf(ListingNameDisplay)).apply(this, arguments));
+    }
+
+    _createClass(ListingNameDisplay, [{
+        key: 'render',
+        value: function render() {
+
+            var listing = this.props;
+            var artistPresent = listing.artists && listing.artists.length > 0 && true;
+            var isGroupShow = listing.artists && listing.artists.length > 3 ? true : false;
+
+            var artistBlock = '';
+            if (listing.artists) {
+                var i;
+                for (i = 0; i < listing.artists.length; i++) {
+                    var comma = i < listing.artists.length - 1 ? ', ' : '';
+                    artistBlock = artistBlock + listing.artists[i].name + comma;
+                }
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'title' },
+                isGroupShow ? 'Group Show' : artistBlock,
+                artistPresent && listing.name ? ': ' : '',
+                listing.name
+            );
+        }
+    }]);
+
+    return ListingNameDisplay;
+}(_react2.default.Component);
+
+exports.default = ListingNameDisplay;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _validator = __webpack_require__(61);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -2106,11 +2390,11 @@ var _reactstrap = __webpack_require__(2);
 
 var _reactRouter = __webpack_require__(3);
 
-var _FacebookButton = __webpack_require__(124);
+var _FacebookButton = __webpack_require__(132);
 
 var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 
-var _loading = __webpack_require__(7);
+var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -2317,25 +2601,19 @@ var LogInForm = function (_React$Component) {
 exports.default = LogInForm;
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-intl");
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-toggle-button");
-
-/***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2351,9 +2629,9 @@ var _alt = __webpack_require__(13);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(55);
+__webpack_require__(58);
 
-var _superagent = __webpack_require__(176);
+var _superagent = __webpack_require__(184);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -2423,7 +2701,7 @@ var ImagesActions = function () {
 exports.default = _alt2.default.createActions(ImagesActions);
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2588,7 +2866,126 @@ module.exports = {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactstrap = __webpack_require__(2);
+
+var _reactRouter = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
+
+var UserLink = function (_React$Component) {
+    _inherits(UserLink, _React$Component);
+
+    function UserLink(props) {
+        _classCallCheck(this, UserLink);
+
+        var _this = _possibleConstructorReturn(this, (UserLink.__proto__ || Object.getPrototypeOf(UserLink)).call(this, props));
+
+        _this.toggle = _this.toggle.bind(_this);
+        _this.state = {
+            popoverOpen: false
+        };
+        return _this;
+    }
+
+    _createClass(UserLink, [{
+        key: 'toggle',
+        value: function toggle() {
+            this.setState({
+                popoverOpen: !this.state.popoverOpen
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            var user = this.props.user;
+
+            //Get the user's avatar
+            var fullURL = '';
+            var hasAvatar = false;
+
+            if (user.avatar) {
+                hasAvatar = true;
+                fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg";
+            } else if (user.facebook) {
+                hasAvatar = true;
+                fullURL = "https://graph.facebook.com/" + user.facebook.id + "/picture?type=large";
+            }
+
+            return _react2.default.createElement(
+                'span',
+                { className: 'userLink' },
+                _react2.default.createElement(
+                    'a',
+                    { onClick: this.toggle,
+                        id: 'Popover-' + user._id,
+                        target: '_blank' },
+                    user.firstname,
+                    ' ',
+                    user.lastname
+                ),
+                _react2.default.createElement(
+                    _reactstrap.Popover,
+                    { placement: 'top', target: 'Popover-' + user._id, toggle: this.toggle, isOpen: this.state.popoverOpen },
+                    _react2.default.createElement(
+                        _reactstrap.PopoverTitle,
+                        null,
+                        hasAvatar && _react2.default.createElement('img', { className: 'avatar', src: fullURL }),
+                        ' ',
+                        user.firstname,
+                        ' ',
+                        user.lastname
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.PopoverContent,
+                        null,
+                        user.bio,
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            { to: '/mylist/' + user.slug },
+                            _react2.default.createElement(
+                                _reactstrap.Button,
+                                null,
+                                'Profile'
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UserLink;
+}(_react2.default.Component);
+
+exports.default = UserLink;
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2636,7 +3033,7 @@ var imageBlock = function (_React$Component) {
 exports.default = imageBlock;
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2652,13 +3049,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListActions = __webpack_require__(1);
+var _ImagesActions = __webpack_require__(22);
 
-var _ListActions2 = _interopRequireDefault(_ListActions);
+var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _reactFontawesome = __webpack_require__(5);
+var _imageUpload = __webpack_require__(51);
 
-var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2670,63 +3067,78 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //Components
 
 
-var SizeSelector = function (_React$Component) {
-    _inherits(SizeSelector, _React$Component);
+var Thumbnail = function (_React$Component) {
+    _inherits(Thumbnail, _React$Component);
 
-    function SizeSelector(props) {
-        _classCallCheck(this, SizeSelector);
+    function Thumbnail(props) {
+        _classCallCheck(this, Thumbnail);
 
-        var _this = _possibleConstructorReturn(this, (SizeSelector.__proto__ || Object.getPrototypeOf(SizeSelector)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Thumbnail.__proto__ || Object.getPrototypeOf(Thumbnail)).call(this, props));
 
-        _this.viewChange = _this.viewChange.bind(_this);
+        _this.state = {
+            isUploading: false,
+            resetThumbnail: false
+        };
+
+        _this.onImageDrop = _this.onImageDrop.bind(_this);
+        _this.resetThumbnail = _this.resetThumbnail.bind(_this);
+
         return _this;
     }
 
-    _createClass(SizeSelector, [{
-        key: 'viewChange',
-        value: function viewChange(e) {
-            var size = $(e.target).data('size');
-            console.log(e.target, size);
-            _ListActions2.default.sizeChange(size);
+    _createClass(Thumbnail, [{
+        key: 'onImageDrop',
+        value: function onImageDrop(accepted, rejected) {
+            if (accepted.length) {
+                this.setState({
+                    uploadedFile: accepted[0],
+                    isUploading: true
+                });
+                this.props.onChange && this.props.onChange();
+
+                _ImagesActions2.default.handleThumbnailUpload(accepted[0], this.props.number);
+
+                this.setState({
+                    resetThumbnail: false
+                });
+            } else {
+                console.log('Wrong file type!');
+            }
+        }
+    }, {
+        key: 'resetThumbnail',
+        value: function resetThumbnail() {
+            this.setState({
+                resetThumbnail: true
+            });
         }
     }, {
         key: 'render',
         value: function render() {
+
+            var isUploaded = this.props.image ? true : false;
+
+            var avatarRender = (isUploaded || this.state.isUploading) && !this.state.resetThumbnail ? _react2.default.createElement(
+                'div',
+                { className: isUploaded ? 'picture loaded' : 'picture loading', onClick: this.resetThumbnail },
+                _react2.default.createElement('img', { src: isUploaded ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : this.state.uploadedFile.preview })
+            ) : _react2.default.createElement(_imageUpload2.default, { onImageDrop: this.onImageDrop });
+
             return _react2.default.createElement(
                 'div',
-                { className: 'SizeSelector' },
-                _react2.default.createElement(
-                    'span',
-                    { onClick: this.viewChange,
-                        className: this.props.view == 'condensed' && 'active',
-                        'data-size': 'condensed' },
-                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'bars'] })
-                ),
-                _react2.default.createElement(
-                    'span',
-                    { onClick: this.viewChange,
-                        'data-size': 'medium',
-                        className: this.props.view == 'medium' && 'active' },
-                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'bars'] })
-                ),
-                _react2.default.createElement(
-                    'span',
-                    { onClick: this.viewChange,
-                        'data-size': 'large',
-                        className: this.props.view == 'large' && 'active' },
-                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'th'] })
-                )
+                { className: 'formSection' },
+                avatarRender
             );
         }
     }]);
 
-    return SizeSelector;
+    return Thumbnail;
 }(_react2.default.Component);
 
-exports.default = SizeSelector;
+exports.default = Thumbnail;
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2742,7 +3154,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(18);
+var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -2879,1220 +3291,39 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _alt = __webpack_require__(13);
-
-var _alt2 = _interopRequireDefault(_alt);
-
-var _ListActions = __webpack_require__(1);
-
-var _ListActions2 = _interopRequireDefault(_ListActions);
-
-var _ArtistsActions = __webpack_require__(35);
-
-var _ArtistsActions2 = _interopRequireDefault(_ArtistsActions);
-
-var _AuthActions = __webpack_require__(4);
-
-var _AuthActions2 = _interopRequireDefault(_AuthActions);
-
-var _ImagesActions = __webpack_require__(21);
-
-var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
-
-var _toastr = __webpack_require__(177);
-
-var _toastr2 = _interopRequireDefault(_toastr);
-
-var _moment = __webpack_require__(8);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ListStore = function () {
-    function ListStore() {
-        _classCallCheck(this, ListStore);
-
-        this.bindActions(_ListActions2.default);
-        this.bindActions(_ArtistsActions2.default);
-        this.bindActions(_AuthActions2.default);
-        this.bindActions(_ImagesActions2.default);
-        //Display settings
-        this.view = 'condensed';
-        this.menuActive = false;
-        //List states
-        this.currentListings = [];
-        this.currentLoaded = false;
-        this.futureListings = [];
-        this.allListings = [];
-        this.eventsListings = [];
-        this.glanceListings = [];
-        this.latestListings = [];
-        // Auth states
-        this.user = {};
-        this.user.isLoggedIn = false;
-        this.user.facebook = {};
-        this.user.local = {};
-        this.user.mylist = [];
-        this.currentUser = {};
-        this.user.userAccess = 0;
-        this.allUsers = [];
-        //SideBar states
-        this.sidebarOpen = false;
-        // Image State
-        this.isUploaded = false;
-        this.uploadedFileCloudinaryUrl = '';
-        //New listing states
-        this.listingEdit = {};
-        this.listingEdit._id = '';
-        this.listingEdit.artists = [];
-        this.listingEdit.name = '';
-        this.listingEdit.image = '';
-        this.listingEdit.description = '';
-        this.listingEdit.text = '';
-        this.listingEdit.event = false;
-        this.listingEdit.events = [];
-        this.listingEdit.venue = {};
-        this.listingEdit.venue._id = '';
-        this.listingEdit.venue.address = '';
-        //New venue states
-        this.venueEdit = {
-            popup: false,
-            coordinates: {}
-        };
-        // Featured listings
-        this.features = [];
-        this.allFeatures = [];
-        //Venues
-        this.allVenues = [];
-        this.venue = {};
-        this.venue.likeList = 0;
-        this.venue.currentListings = [];
-        this.venue.upcomingListings = [];
-        this.venue.pastListings = [];
-        //Artists
-        this.allArtists = [{ name: 'The test artist' }];
-        //Loadings
-        this.loading = {};
-        this.loading.login = false;
-        this.loading.register = false;
-        this.loading.updateUser = false;
-        this.loading.updatelisting = false;
-        this.loading.deletelisting = false;
-        this.loading.updatevenue = false;
-        this.loading.deletevenue = false;
-        this.loading.savelisting = false;
-        this.loading.savevenue = false;
-        this.loading.current = false;
-        this.loading.future = false;
-        this.loading.events = true;
-        this.loading.allVenues = false;
-        this.loading.features = false;
-        this.loading.glance = false;
-        //Error Messages
-        this.error = {};
-        this.error.feature = '';
-        this.error.login = '';
-        this.error.updateUser = '';
-        this.error.updatelisting = {};
-        this.error.updatevenue = {};
-        this.error.savelisting = {};
-        this.error.savevenue = {};
-        //Success
-        this.success = {};
-        this.success.updateUser = false;
-        this.success.updatelisting = false;
-        this.success.updatevenue = false;
-        this.success.deletelisting = false;
-        this.success.deletevenue = false;
-        this.success.savelisting = false;
-        this.success.savevenue = false;
-        this.success.feature = false;
-        this.success.deleteUser = false;
-    }
-
-    //List Reducers
-
-
-    _createClass(ListStore, [{
-        key: 'onGetCurrentAttempt',
-        value: function onGetCurrentAttempt() {
-            this.loading.current = true;
-        }
-    }, {
-        key: 'onGetCurrentSuccess',
-        value: function onGetCurrentSuccess(data) {
-            this.loading.current = false;
-            this.currentListings = this.currentListings.concat(data);
-        }
-    }, {
-        key: 'onCurrentNotLoaded',
-        value: function onCurrentNotLoaded() {
-            this.currentLoaded = false;
-        }
-    }, {
-        key: 'onCurrentLoaded',
-        value: function onCurrentLoaded() {
-            this.currentLoaded = true;
-        }
-    }, {
-        key: 'onGetFutureAttempt',
-        value: function onGetFutureAttempt() {
-            this.loading.future = true;
-        }
-    }, {
-        key: 'onGetFutureSuccess',
-        value: function onGetFutureSuccess(data) {
-            this.loading.future = false;
-            this.futureListings = this.futureListings.concat(data);
-        }
-    }, {
-        key: 'onGetAllSuccess',
-        value: function onGetAllSuccess(data) {
-            this.allListings = data;
-        }
-    }, {
-        key: 'onGetEventsAttempt',
-        value: function onGetEventsAttempt() {
-            this.loading.events = true;
-        }
-    }, {
-        key: 'onGetEventsSuccess',
-        value: function onGetEventsSuccess(data) {
-            this.eventsListings = data;
-            this.loading.events = false;
-        }
-    }, {
-        key: 'onGetGlanceAttempt',
-        value: function onGetGlanceAttempt() {
-            this.loading.glance = true;
-        }
-    }, {
-        key: 'onGetGlanceSuccess',
-        value: function onGetGlanceSuccess(data) {
-            this.loading.glance = false;
-            this.glanceListings = data;
-        }
-    }, {
-        key: 'getLatestListingsSuccess',
-        value: function getLatestListingsSuccess(data) {
-            this.latestListings = data;
-        }
-    }, {
-        key: 'getLatestListingsFail',
-        value: function getLatestListingsFail(error) {
-            console.log(error);
-        }
-    }, {
-        key: 'onGetCurrentFail',
-        value: function onGetCurrentFail(jqXhr) {
-            this.loading.current = false;
-            // Handle multiple response formats, fallback to HTTP status code number.
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-    }, {
-        key: 'onGetFutureFail',
-        value: function onGetFutureFail(jqXhr) {
-            this.loading.future = false;
-            // Handle multiple response formats, fallback to HTTP status code number.
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-    }, {
-        key: 'onGetAllFail',
-        value: function onGetAllFail(jqXhr) {
-            // Handle multiple response formats, fallback to HTTP status code number.
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-    }, {
-        key: 'onGetEventsFail',
-        value: function onGetEventsFail(jqXhr) {
-            this.loading.events = false;
-            // Handle multiple response formats, fallback to HTTP status code number.
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-    }, {
-        key: 'onGetGlanceFail',
-        value: function onGetGlanceFail(jqXhr) {
-            this.loading.glance = false;
-            // Handle multiple response formats, fallback to HTTP status code number.
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-
-        //Listing size change
-
-    }, {
-        key: 'onSizeChange',
-        value: function onSizeChange(size) {
-            this.view = size;
-        }
-
-        // Reset listing edit
-
-    }, {
-        key: 'onListingEditReset',
-        value: function onListingEditReset() {
-            this.listingEdit = {
-                name: '',
-                description: '',
-                image: '',
-                venue: {},
-                events: [],
-                artists: []
-            };
-        }
-
-        //Load a specific listing into listing edit
-
-    }, {
-        key: 'onEditListing',
-        value: function onEditListing(listing) {
-            console.log('Editing a listing');
-            this.listingEdit = listing;
-        }
-    }, {
-        key: 'onAdminReset',
-        value: function onAdminReset() {
-            //Reset the Venue Admin
-            this.allVenues = [];
-            //Reset the Listing Edit
-            this.listingEdit = {
-                image: '',
-                name: '',
-                _id: '',
-                description: '',
-                text: '',
-                events: [],
-                venue: {},
-                end: null,
-                start: null
-            };
-            //Reset the Venue Edit
-        }
-    }, {
-        key: 'onVenueEditReset',
-        value: function onVenueEditReset() {
-            this.venueEdit = {
-                _id: '',
-                name: '',
-                slug: '',
-                address1: '',
-                address2: '',
-                city: '',
-                zipcode: '',
-                state: '',
-                email: '',
-                phone: '',
-                coordinates: {
-                    lat: '',
-                    long: ''
-                }
-            };
-            console.log("reset");
-            // Reset messages
-            this.success.updatevenue = false;
-            this.loading.updatevenue = false;
-            this.error.updatevenue = {
-                general: ''
-            };
-        }
-
-        // Get listing info
-
-    }, {
-        key: 'onGetListingInfoSuccess',
-        value: function onGetListingInfoSuccess(info) {
-            console.log('Listing info loaded', info);
-            this.listingEdit = info.data;
-            if (!this.listingEdit.events) {
-                this.listingEdit.events = [];
-            }
-            // Need to explain this
-            if (Number.isInteger(info.i)) {
-                console.log('Feature listing', this.features);
-                this.features[info.i].list = info.data;
-                console.log('Feature #' + info.i, this.features[info.i].list);
-            }
-        }
-    }, {
-        key: 'onGetListingInfoFailure',
-        value: function onGetListingInfoFailure(jqXhr) {
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-
-        // Get venue info
-
-    }, {
-        key: 'onGetVenueFullInfoSuccess',
-        value: function onGetVenueFullInfoSuccess(data) {
-            this.listingEdit.venue = data.venue;
-            this.venue = data.venue;
-            this.venue.currentListings = data.currentListings;
-            this.venue.upcomingListings = data.upcomingListings;
-            this.venue.pastListings = data.pastListings;
-        }
-        // Get venue info
-
-    }, {
-        key: 'onGetVenueInfoSuccess',
-        value: function onGetVenueInfoSuccess(data) {
-            this.listingEdit.venue = data;
-            if (!data.coordinates) {
-                data.coordinates = {};
-            }
-            this.venueEdit = data;
-            //Create a slug automatically if there is none
-            if (!data.slug) {
-                this.venueEdit.slug = data.name.replace(/\s+/g, '-').toLowerCase();
-            }
-        }
-    }, {
-        key: 'onGetVenueFullInfoFailure',
-        value: function onGetVenueFullInfoFailure(jqXhr) {}
-    }, {
-        key: 'onGetVenueInfoFailure',
-        value: function onGetVenueInfoFailure(jqXhr) {}
-        //Add a venue
-
-    }, {
-        key: 'onSaveVenueAttempt',
-        value: function onSaveVenueAttempt() {
-            this.loading.savevenue = true;
-        }
-    }, {
-        key: 'onSaveVenueSuccess',
-        value: function onSaveVenueSuccess(data) {
-            console.log('Venue saved');
-            this.venueEdit._id = data._id;
-            this.loading.savevenue = false;
-            this.success.savevenue = true;
-            setTimeout(function () {
-                this.success.savevenue = false;
-            }.bind(this), 1000);
-        }
-    }, {
-        key: 'onSaveVenueFailure',
-        value: function onSaveVenueFailure(err) {
-            console.log('Problem saving venue', err);
-            this.loading.savevenue = false;
-            this.error.updatevenue.general = 'Error while saving changes';
-        }
-        // Update a venue
-
-    }, {
-        key: 'onUpdateVenue',
-        value: function onUpdateVenue(info) {
-            this.venue.coordinates = {
-                lat: info[1],
-                long: info[0]
-            };
-        }
-    }, {
-        key: 'onUpdateVenueAttempt',
-        value: function onUpdateVenueAttempt() {
-            this.loading.updatevenue = true;
-        }
-    }, {
-        key: 'onUpdateVenueSuccess',
-        value: function onUpdateVenueSuccess(data) {
-            console.log('Venue updated', data);
-            this.venueEdit = data;
-            this.loading.updatevenue = false;
-            this.success.updatevenue = true;
-            setTimeout(function () {
-                this.success.updatevenue = false;
-            }.bind(this), 1000);
-        }
-    }, {
-        key: 'onUpdateVenueFailure',
-        value: function onUpdateVenueFailure(error) {
-            console.log('Problem updating venue', error);
-            this.loading.updatevenue = false;
-            this.error.updatevenue.general = error;
-        }
-
-        //Delete a Venue
-
-    }, {
-        key: 'onDeleteVenueAttempt',
-        value: function onDeleteVenueAttempt() {
-            this.loading.deletevenue = true;
-            this.success.deletevenue = false;
-        }
-    }, {
-        key: 'onDeleteVenueSuccess',
-        value: function onDeleteVenueSuccess() {
-            console.log('Deleted');
-            this.loading.deletevenue = false;
-            this.success.deletevenue = true;
-            setTimeout(function () {
-                this.success.deletevenue = false;
-            }.bind(this), 1000);
-        }
-    }, {
-        key: 'onDeleteVenueFailure',
-        value: function onDeleteVenueFailure(err) {
-            console.log('Error deleting: ', err);
-            this.loading.deletevenue = false;
-        }
-    }, {
-        key: 'onGetVenueListingsSuccess',
-        value: function onGetVenueListingsSuccess(data) {
-            this.venue.listings = data;
-        }
-    }, {
-        key: 'onGetVenueListingsFailure',
-        value: function onGetVenueListingsFailure(error) {
-            console.log(error);
-        }
-    }, {
-        key: 'onGetVenuesAdminAttempt',
-        value: function onGetVenuesAdminAttempt() {
-            this.allVenues = [];
-            this.loading.allVenues = true;
-        }
-    }, {
-        key: 'onGetVenuesAdminSuccess',
-        value: function onGetVenuesAdminSuccess(data) {
-            this.loading.allVenues = false;
-            //this.allVenues = this.allVenues.concat(data);
-            this.allVenues = data;
-        }
-    }, {
-        key: 'onGetVenuesAdminFailure',
-        value: function onGetVenuesAdminFailure(error) {
-            console.log(error);
-        }
-
-        //Reset the venue in the form
-
-    }, {
-        key: 'onResetVenue',
-        value: function onResetVenue() {
-            this.listingEdit.venue = {
-                _id: '',
-                address: ''
-            };
-        }
-
-        //Save a new listing
-
-    }, {
-        key: 'onSaveListingAttempt',
-        value: function onSaveListingAttempt() {
-            this.loading.savelisting = true;
-        }
-    }, {
-        key: 'onSaveListingSuccess',
-        value: function onSaveListingSuccess(data) {
-            this.loading.savelisting = false;
-            this.success.savelisting = true;
-            this.listingEdit._id = data._id;
-            var that = this;
-            setTimeout(function () {
-                that.success.savelisting = false;
-            }.bind(this), 1000);
-        }
-    }, {
-        key: 'onSaveListingFailure',
-        value: function onSaveListingFailure(err) {
-            console.log('Error: ', err);
-            this.loading.savelisting = false;
-            this.error.savelisting.general = 'Error while saving changes';
-        }
-
-        //Update a listing
-
-    }, {
-        key: 'onUpdateListingAttempt',
-        value: function onUpdateListingAttempt() {
-            this.loading.updatelisting = true;
-        }
-    }, {
-        key: 'onUpdateListingSuccess',
-        value: function onUpdateListingSuccess(data) {
-            this.loading.updatelisting = false;
-            this.success.updatelisting = true;
-            this.sidebarOpen = false;
-            var that = this;
-            setTimeout(function () {
-                that.success.updatelisting = false;
-            }, 1000);
-        }
-    }, {
-        key: 'onUpdateListingFailure',
-        value: function onUpdateListingFailure(err) {
-            this.loading.updatelisting = false;
-            this.error.updatelisting.general = 'Error while saving changes';
-            console.log('Error: ', err);
-        }
-
-        //Update a listing
-
-    }, {
-        key: 'onDeleteListingSuccess',
-        value: function onDeleteListingSuccess() {
-            console.log('Deleted');
-            //Reset the listing data
-            this.success.deletelisting = true;
-            //Reset the listing
-            this.listingEdit = {
-                venue: {},
-                events: [],
-                artists: []
-                //Close the sidebar
-            };this.sidebarOpen = false;
-            //Reset the success status
-            var that = this;
-            setTimeout(function () {
-                that.success.deletelisting = false;
-            }, 1000);
-        }
-    }, {
-        key: 'onDeleteListingFailure',
-        value: function onDeleteListingFailure(err) {
-            console.log('Error: ', err);
-            this.error.deletelisting = 'Error deleting listing';
-        }
-
-        //Update info on listing page
-
-    }, {
-        key: 'onListingInfoChange',
-        value: function onListingInfoChange(info) {
-            if (info.target) {
-                var value = info.target.value;
-                var name = info.target.name;
-                this.listingEdit[name] = value;
-            } else if (info.startDate) {
-                this.listingEdit.start = info.startDate;
-                if (info.endDate) {
-                    this.listingEdit.end = info.endDate;
-                }
-            } else if (info.date) {
-                this.listingEdit.start = info.date;
-            } else {
-                this.listingEdit.event = !info.event;
-            }
-        }
-
-        //Duplicate the current listing
-
-    }, {
-        key: 'onListingDuplicate',
-        value: function onListingDuplicate() {
-            this.listingEdit._id = '';
-        }
-
-        //Update info on feature page
-
-    }, {
-        key: 'onFeatureInfoChange',
-        value: function onFeatureInfoChange(data) {
-            var value = data.event.target.value;
-            var name = data.event.target.name;
-            this.features[data.i][name] = value;
-        }
-
-        //Update info on venue page
-
-    }, {
-        key: 'onVenueInfoChange',
-        value: function onVenueInfoChange(info) {
-            var value = info.value;
-            var name = info.name;
-            if (name === 'lat') {
-                this.venueEdit.coordinates.lat = parseFloat(value);
-            } else if (name === 'long') {
-                this.venueEdit.coordinates.long = parseFloat(value);
-            } else {
-                this.venueEdit[name] = value;
-            }
-            //Keep the slug synced with the name
-            this.venueEdit.slug = this.venueEdit.name.replace(/\s+/g, '-').toLowerCase();
-        }
-        //Update coordinates on venue page
-
-    }, {
-        key: 'onCoordinatesChange',
-        value: function onCoordinatesChange(coord) {
-            this.venueEdit.coordinates = {
-                lat: coord[1],
-                long: coord[0]
-            };
-        }
-
-        //FEATURED
-
-    }, {
-        key: 'onUpdateFeatureSuccess',
-        value: function onUpdateFeatureSuccess(data) {
-            this.success.updateFeature = true;
-            var that = this;
-            setTimeout(function () {
-                that.success.updateFeature = false;
-            }, 1000);
-        }
-    }, {
-        key: 'onUpdateFeatureFailure',
-        value: function onUpdateFeatureFailure(error) {
-            this.error.feature = 'Error updating the feature: ' + error;
-            console.log(error);
-        }
-    }, {
-        key: 'onFeatureReset',
-        value: function onFeatureReset(day) {
-            if (Number.isInteger(day)) {
-                this.features[day] = {
-                    text: '',
-                    list: {},
-                    venue: {}
-                };
-            }
-            this.success.feature = false;
-        }
-    }, {
-        key: 'onFeatureLoadAttempt',
-        value: function onFeatureLoadAttempt() {
-            this.loading.features = true;
-        }
-    }, {
-        key: 'onFeatureLoadSuccess',
-        value: function onFeatureLoadSuccess(data) {
-            this.loading.features = false;
-            var today = (0, _moment2.default)();
-            if (data.json) {
-                // Match all features with a day of the next week
-                var features = [];
-                this.allFeatures = data.json;
-
-                //Find element in features whose date == d
-                //For each day of the week
-                for (var i = 0; i < data.days; i++) {
-                    console.log('Day #' + i);
-                    var tempFeature = null;
-                    // Go through all the features
-                    this.allFeatures.map(function (feature) {
-                        // Check if it matches
-                        var d = (0, _moment2.default)().add(i, 'days');
-                        if ((0, _moment2.default)(feature.date).isSame(d, 'day')) {
-                            tempFeature = feature;
-                        }
-                    });
-                    if (tempFeature) {
-                        console.log('Found a dedicated feature');
-                        features.push(tempFeature);
-                        tempFeature = null;
-                    } else {
-                        console.log('Looking for current feature');
-                        for (var y = 0; y < this.allFeatures.length; y++) {
-                            console.log('Feature ' + y);
-                            var feature = this.allFeatures[y];
-                            // Find current feature
-                            if (!features.includes(feature) && feature.list) {
-                                console.log('Maybe');
-                                if ((0, _moment2.default)(feature.list.end).isSameOrAfter(today)) {
-                                    console.log('Its a match!', feature);
-                                    features.push(feature);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                this.features = features;
-                console.log(this.features);
-            } else {
-                this.error.feature = "No Features";
-            }
-        }
-    }, {
-        key: 'onFeatureLoadFailure',
-        value: function onFeatureLoadFailure(error) {
-            this.loading.features = false;
-            console.log("Feature load error: ", error);
-            this.features = [];
-        }
-    }, {
-        key: 'onFeatureEdit',
-        value: function onFeatureEdit(featureEdit) {
-            this.feature = featureEdit;
-        }
-    }, {
-        key: 'onFeatureAdminAttempt',
-        value: function onFeatureAdminAttempt() {
-            this.loading.features = true;
-        }
-    }, {
-        key: 'onFeatureAdminFailure',
-        value: function onFeatureAdminFailure(error) {
-            this.loading.features = false;
-            this.features = [];
-        }
-    }, {
-        key: 'onFeatureAdminSuccess',
-        value: function onFeatureAdminSuccess(data) {
-            this.loading.features = false;
-            if (data.json) {
-                // Match all features with a day of the next week
-                var features = [];
-                this.allFeatures = data.json;
-
-                //Find element in features whose date == d
-                //For each day of the week
-                for (var i = 0; i < data.days; i++) {
-                    var tempFeature = null;
-                    // Go through all the features
-                    this.allFeatures.map(function (feature) {
-                        // Check if it matches
-                        var d = (0, _moment2.default)().add(i, 'days');
-                        if ((0, _moment2.default)(feature.date).isSame(d, 'day')) {
-                            tempFeature = feature;
-                        }
-                    });
-                    if (tempFeature) {
-                        features.push(tempFeature);
-                        tempFeature = null;
-                    } else {
-                        features.push({});
-                    }
-                }
-                this.features = features;
-                console.log('Loaded all features: ', this.features);
-            } else {
-                this.error.feature = "No Features";
-            }
-        }
-
-        // Auth Reducers
-
-        // LOGIN ATTEMPT
-
-    }, {
-        key: 'onLoginAttempt',
-        value: function onLoginAttempt() {
-            this.loginRedirect = false;
-            this.loading.login = true;
-            this.error.login = '';
-        }
-    }, {
-        key: 'onLoginFailure',
-        value: function onLoginFailure(error) {
-            console.log('Login error: ', error);
-            this.error.login = 'Wrong username or password.';
-            this.loading.login = false;
-        }
-    }, {
-        key: 'onLoginSuccess',
-        value: function onLoginSuccess(json) {
-            console.log('Logged in: ', json);
-            this.user = json;
-            this.user.isLoggedIn = true;
-            this.user.userAccess = 3;
-            this.loading.login = false;
-        }
-
-        // REGISTER ATTEMPT
-
-    }, {
-        key: 'onRegisterAttempt',
-        value: function onRegisterAttempt() {
-            console.log('onRegisterAttempt');
-            this.isRegistering = true;
-        }
-    }, {
-        key: 'onRegisterFailure',
-        value: function onRegisterFailure(error) {
-            console.log(error);
-            this.user.firstname = '';
-            this.user.lastname = '';
-            this.user._id = '';
-            this.user.local.username = '';
-            this.isRegistering = false;
-        }
-    }, {
-        key: 'onRegisterSuccess',
-        value: function onRegisterSuccess(user) {
-            console.log('Logged in: ', user);
-            this.user = user;
-            this.user.isLoggedIn = true;
-            this.isRegistering = false;
-        }
-
-        //Facebook Login
-
-    }, {
-        key: 'onFacebookLogin',
-        value: function onFacebookLogin(user) {
-            console.log("Logged in via Facebook");
-            this.user = user;
-            this.isRegistering = false;
-            this.user.isLoggedIn = true;
-        }
-
-        //UPDATE USER
-
-    }, {
-        key: 'onUpdateUserAttempt',
-        value: function onUpdateUserAttempt() {
-            this.loading.updateUser = true;
-            this.success.updateUser = false;
-            this.error.updateUser = '';
-        }
-    }, {
-        key: 'onUpdateUserSuccess',
-        value: function onUpdateUserSuccess(data) {
-            console.log('Success!');
-            this.loading.updateUser = false;
-            this.success.updateUser = true;
-            setTimeout(function () {
-                this.success.updateUser = false;
-            }.bind(this), 1000);
-        }
-    }, {
-        key: 'onUpdateUserFailure',
-        value: function onUpdateUserFailure(error) {
-            console.log('Failed Updating User', error);
-            this.loading.updateUser = false;
-            this.error.updateUser = 'Error Saving';
-        }
-
-        //DELETE USER
-
-    }, {
-        key: 'onDeleteUserAttempt',
-        value: function onDeleteUserAttempt() {
-            this.success.deleteUser = false;
-            this.error.updateUser = '';
-        }
-    }, {
-        key: 'onDeleteUserSuccess',
-        value: function onDeleteUserSuccess(info) {
-            console.log(info.data.slug);
-            //Find user in current list of all users and delete it there for visualization
-            this.allUsers = this.allUsers && this.allUsers.filter(function (user) {
-                return user.slug !== info.data.slug;
-            });
-            //Display Success
-            this.success.deleteUser = true;
-            setTimeout(function () {
-                this.success.deleteUser = false;
-            }.bind(this), 1000);
-        }
-    }, {
-        key: 'onDeleteUserFailure',
-        value: function onDeleteUserFailure(error) {
-            console.log('Failed Deleting User', error);
-            this.error.deleteUser = 'Error Saving';
-        }
-
-        //USERS ADMIN PAGE
-
-    }, {
-        key: 'onGetAllUserAttempt',
-        value: function onGetAllUserAttempt() {
-            console.log('Attempting to get all users');
-            this.loading.allUsers = true;
-        }
-    }, {
-        key: 'onGetAllUserFailure',
-        value: function onGetAllUserFailure(error) {
-            console.log('Failed to get all users', error);
-            this.allUsers = [];
-            this.loading.allUsers = false;
-        }
-    }, {
-        key: 'onGetAllUserSuccess',
-        value: function onGetAllUserSuccess(users) {
-            console.log('Managed to get all users');
-            this.loading.allUsers = false;
-            this.allUsers = users;
-        }
-
-        // LOGOUT ATTEMPT
-
-    }, {
-        key: 'onLogoutFailure',
-        value: function onLogoutFailure(error) {
-            console.log("Failed to log out");
-            console.log(error);
-        }
-    }, {
-        key: 'onLogoutSuccess',
-        value: function onLogoutSuccess(action) {
-            console.log("Logged out");
-            this.user = {};
-            this.user.local = {};
-            this.user.facebook = {};
-            this.user.mylist = [];
-            this.user.isLoggedIn = false;
-        }
-
-        // CHECK SESSION
-
-    }, {
-        key: 'onSessionCheckFailure',
-        value: function onSessionCheckFailure() {
-            this.user = {};
-            this.user.local = {};
-            this.user.facebook = {};
-            this.user.mylist = [];
-            this.user.isLoggedIn = false;
-        }
-    }, {
-        key: 'onSessionCheckSuccess',
-        value: function onSessionCheckSuccess(action) {
-            this.user = action;
-            if (!this.user.local) {
-                this.user.local = {};
-            }
-            if (!this.user.facebook) {
-                this.user.facebook = {};
-            }
-            this.user.isLoggedIn = true;
-        }
-
-        // ADD TO MYLIST
-
-    }, {
-        key: 'onAddToMyListSuccess',
-        value: function onAddToMyListSuccess(data) {
-            console.log('Added to the list');
-            if (data) {
-                this.user.mylist = data;
-            } else {
-                this.user.mylist = [];
-            }
-        }
-    }, {
-        key: 'onAddToMyListFailure',
-        value: function onAddToMyListFailure(error) {
-            console.log('Error adding to the list', this.user);
-            console.log(error);
-        }
-
-        // GET MYLIST
-
-    }, {
-        key: 'onGetMylistSuccess',
-        value: function onGetMylistSuccess(data) {
-            console.log('onGetMylistSuccess');
-            if (data) {
-                this.user.mylist = data;
-            } else {
-                this.user.mylist = [];
-            }
-        }
-    }, {
-        key: 'onGetMylistFailure',
-        value: function onGetMylistFailure(jqXhr) {
-            // Handle multiple response formats, fallback to HTTP status code number.
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
-        //Get a user's list
-
-    }, {
-        key: 'onGetUserMylistSuccess',
-        value: function onGetUserMylistSuccess(data) {
-            console.log('onGetUserMylistSuccess', data);
-            this.currentUser = data;
-        }
-    }, {
-        key: 'onGetUserMylistFailure',
-        value: function onGetUserMylistFailure(error) {
-            console.log('onGetUserMylistFailure', error);
-        }
-        // REORDER MYLIST
-
-    }, {
-        key: 'onReorderMyListAttempt',
-        value: function onReorderMyListAttempt(data) {
-            this.user.mylist = data;
-        }
-    }, {
-        key: 'onReorderMyListSuccess',
-        value: function onReorderMyListSuccess(data) {
-            console.log('saved!');
-        }
-    }, {
-        key: 'onReorderMyListFailure',
-        value: function onReorderMyListFailure() {
-            console.log('problem!');
-        }
-
-        // INFO CHANGE ON ACCOUNT PAGE
-
-    }, {
-        key: 'onUserInfoChange',
-        value: function onUserInfoChange(data) {
-
-            var target = data.event.target;
-            var value = target.value;
-            var name = target.name;
-            if (data.index == null) {
-                //Means we're in the account edit page
-                if (name == "email") {
-                    this.user.local.username = value;
-                } else {
-                    this.user[name] = value;
-                }
-            } else {
-                //Means we're in the user admin page
-                if (name == "email") {
-                    this.allUsers[data.index].username = value;
-                } else {
-                    this.allUsers[data.index][name] = value;
-                }
-            }
-        }
-
-        // UPLOAD AN AVATAR
-
-    }, {
-        key: 'onAvatarUploadSuccess',
-        value: function onAvatarUploadSuccess(image) {
-            this.isUploaded = true;
-            this.user.avatar = image.public_id;
-        }
-    }, {
-        key: 'onAvatarUploadFailure',
-        value: function onAvatarUploadFailure(err) {
-            console.log('Error: ', err);
-        }
-        // UPLOAD A THUMBNAIL
-
-    }, {
-        key: 'onThumbnailUploadSuccess',
-        value: function onThumbnailUploadSuccess(data) {
-            console.log('Uploaded!', data);
-            this.listingEdit.image = data.image.public_id;
-            if (Number.isInteger(data.i)) {
-                this.features[data.i].list.image = data.image.public_id;
-                console.log(this.features[data.i].list);
-            }
-        }
-    }, {
-        key: 'onThumbnailUploadFailure',
-        value: function onThumbnailUploadFailure(err) {
-            console.log('Error: ', err);
-        }
-
-        //EVENTS
-
-    }, {
-        key: 'onAddEvent',
-        value: function onAddEvent() {
-            this.listingEdit.events.push({
-                name: "",
-                description: "",
-                type: "",
-                date: ""
-            });
-        }
-    }, {
-        key: 'onRemoveEvent',
-        value: function onRemoveEvent(index) {
-            this.listingEdit.events.splice(index, 1);
-        }
-    }, {
-        key: 'onEventsInfoChange',
-        value: function onEventsInfoChange(event) {
-            if (event.target) {
-                var type = event.target.name;
-                var index = event.target.dataset.index;
-                this.listingEdit.events[index][type] = event.target.value;
-            } else if (event.date) {
-                this.listingEdit.events[event.index].date = event.date;
-            }
-        }
-
-        //Sidebar
-
-    }, {
-        key: 'onToggleSideBar',
-        value: function onToggleSideBar() {
-            this.sidebarOpen = !this.sidebarOpen;
-        }
-
-        //Menu
-
-    }, {
-        key: 'onToggleMenu',
-        value: function onToggleMenu() {
-            this.menuActive = !this.menuActive;
-        }
-
-        // ARTISTS
-
-    }, {
-        key: 'onGetAllArtistsSuggestionsAttempt',
-        value: function onGetAllArtistsSuggestionsAttempt() {
-            console.log('Attempting to retrieve all artists');
-        }
-    }, {
-        key: 'onGetAllArtistsSuggestionsSuccess',
-        value: function onGetAllArtistsSuggestionsSuccess(data) {
-            this.allArtists = data;
-        }
-    }, {
-        key: 'onGetAllArtistsSuggestionsFailure',
-        value: function onGetAllArtistsSuggestionsFailure() {
-            console.log('Error retrieving all artists');
-        }
-    }]);
-
-    return ListStore;
-}();
-
-exports.default = _alt2.default.createStore(ListStore);
-
-/***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("d3-ease");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("draft-js-plugins-editor");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dates");
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-dom");
+module.exports = require("react-toggle-button");
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(9),
+var mongoose = __webpack_require__(7),
     Schema = mongoose.Schema;
-var bcrypt = __webpack_require__(155); // encripts password
+var bcrypt = __webpack_require__(163); // encripts password
 
 // Create the Listings table ==================================
 
@@ -4134,7 +3365,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4142,7 +3373,7 @@ module.exports = {
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var mongoose = __webpack_require__(9);
+var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
 
@@ -4181,13 +3412,13 @@ var venueSchema = mongoose.Schema(_defineProperty({
 module.exports = mongoose.model('Venue', venueSchema);
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6009,7 +5240,7 @@ var config = api$1.config;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6066,7 +5297,259 @@ var ArtistsActions = function () {
 exports.default = _alt2.default.createActions(ArtistsActions);
 
 /***/ }),
-/* 36 */
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ListActions = __webpack_require__(1);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _EventActions = __webpack_require__(16);
+
+var _EventActions2 = _interopRequireDefault(_EventActions);
+
+var _reactRouter = __webpack_require__(3);
+
+var _reactstrap = __webpack_require__(2);
+
+var _DateBlock = __webpack_require__(8);
+
+var _DateBlock2 = _interopRequireDefault(_DateBlock);
+
+var _reactFontawesome = __webpack_require__(5);
+
+var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+
+var _ListingNameDisplay = __webpack_require__(18);
+
+var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//import AuthActions from '../../actions/AuthActions';
+
+//import moment from 'moment'
+//COMPONENTS
+
+
+var Event = function (_React$Component) {
+    _inherits(Event, _React$Component);
+
+    function Event(props) {
+        _classCallCheck(this, Event);
+
+        var _this = _possibleConstructorReturn(this, (Event.__proto__ || Object.getPrototypeOf(Event)).call(this, props));
+
+        _this.state = {
+            fullInfo: false,
+            fullEvents: false,
+            canToggle: true
+
+            // Function binding
+        };_this._revealInfo = _this._revealInfo.bind(_this);
+        //this.addToList = this.addToList.bind(this)
+        return _this;
+    }
+
+    //Function to add a listing to the personal list
+    /* addToList(e, listing){
+        if (this.props.user._id){
+            //Select this listing
+            var thislisting = $(e.target).closest('.listing');
+             //Add or remove the listing to the user's list
+            AuthActions.addToUserList(listing);
+             thislisting.toggleClass('selected');
+        }
+    } */
+
+    _createClass(Event, [{
+        key: '_editEvent',
+        value: function _editEvent(event) {
+            _EventActions2.default.editEvent(event);
+            _ListActions2.default.toggleSideBar();
+        }
+    }, {
+        key: '_revealInfo',
+        value: function _revealInfo() {
+            this.setState({
+                fullInfo: !this.state.fullInfo
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var event = this.props.event;
+
+            var address = event.venue && _react2.default.createElement(
+                'span',
+                { className: 'address' },
+                event.venue.address1,
+                ' ',
+                event.venue.address2,
+                event.venue.city !== '' && ', ',
+                event.venue.city
+            );
+
+            var fullDates = _react2.default.createElement(
+                'span',
+                { className: 'date' },
+                _react2.default.createElement(_DateBlock2.default, { date: event.date })
+            );
+
+            var name = event.list ? event.type == "closing" ? _react2.default.createElement(
+                'span',
+                null,
+                'Closing Reception: ',
+                _react2.default.createElement(_ListingNameDisplay2.default, _extends({}, event.list, { artists: event.artists }))
+            ) : event.type == "reception" ? _react2.default.createElement(
+                'span',
+                null,
+                'Opening Reception: ',
+                _react2.default.createElement(_ListingNameDisplay2.default, _extends({}, event.list, { artists: event.artists }))
+            ) : _react2.default.createElement(
+                'span',
+                null,
+                event.name && event.name + ': ',
+                _react2.default.createElement(_ListingNameDisplay2.default, _extends({}, event.list, { artists: event.artists }))
+            ) : event.name;
+
+            // Check if the listing is in mylist
+            /* let mylistIndex = 0
+            if (this.props.user.mylist) {
+                mylistIndex = this.props.user.mylist.filter(function(v) {
+                    return v._id === event._id
+                }).length;   
+            } */
+
+            //let mylistingIcon = mylistIndex > 0 ? ["far", "minus"] : ["far", "plus"]
+
+            //Thumbnail
+            //const image = listing.image? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg'
+            //const style = {backgroundImage: 'url(' + image + ')'}
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'venue' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'venueInfo' },
+                    _react2.default.createElement(
+                        _reactRouter.Link,
+                        { className: 'venueName', to: "/venue/" + event.venue.slug },
+                        event.venue.name
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: "event " + (this.state.fullInfo ? 'active ' : '') },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'listingContent' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'header cf' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'title' },
+                                name,
+                                ' '
+                            ),
+                            fullDates,
+                            _react2.default.createElement(
+                                'span',
+                                { className: 'icons' },
+                                _react2.default.createElement(_reactFontawesome2.default, { onClick: this._revealInfo, icon: ['fal', 'info-circle'] }),
+                                this.props.onMap && _react2.default.createElement(_reactFontawesome2.default, { onClick: this.props.mapMouseEnter, icon: ['fal', 'search'] })
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'listingActions' },
+                                this.props.user.userAccess > 0 && //If you are seeing this as an editor
+                                _react2.default.createElement(
+                                    'a',
+                                    { onClick: function onClick(e) {
+                                            return _this2._editEvent(event);
+                                        }, className: 'edit' },
+                                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'edit'] })
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _reactstrap.Collapse,
+                            { isOpen: this.state.fullInfo },
+                            _react2.default.createElement(
+                                _reactstrap.Card,
+                                null,
+                                _react2.default.createElement(
+                                    _reactstrap.CardTitle,
+                                    null,
+                                    'Information'
+                                ),
+                                _react2.default.createElement(
+                                    _reactstrap.CardBlock,
+                                    null,
+                                    event.description && _react2.default.createElement(
+                                        'div',
+                                        { className: 'notes' },
+                                        _react2.default.createElement(
+                                            'h3',
+                                            null,
+                                            'Notes'
+                                        ),
+                                        ' ',
+                                        event.description
+                                    ),
+                                    fullDates,
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'venueFullInfo' },
+                                        _react2.default.createElement(
+                                            _reactRouter.Link,
+                                            { className: 'venueName', to: "/venue/" + event.venue.slug },
+                                            event.venue.name
+                                        ),
+                                        _react2.default.createElement('br', null),
+                                        address
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Event;
+}(_react2.default.Component);
+
+exports.default = Event;
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6113,126 +5596,7 @@ var htmlText = function (_React$Component) {
 exports.default = htmlText;
 
 /***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactstrap = __webpack_require__(2);
-
-var _reactRouter = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//COMPONENTS
-
-
-var UserLink = function (_React$Component) {
-    _inherits(UserLink, _React$Component);
-
-    function UserLink(props) {
-        _classCallCheck(this, UserLink);
-
-        var _this = _possibleConstructorReturn(this, (UserLink.__proto__ || Object.getPrototypeOf(UserLink)).call(this, props));
-
-        _this.toggle = _this.toggle.bind(_this);
-        _this.state = {
-            popoverOpen: false
-        };
-        return _this;
-    }
-
-    _createClass(UserLink, [{
-        key: 'toggle',
-        value: function toggle() {
-            this.setState({
-                popoverOpen: !this.state.popoverOpen
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-
-            var user = this.props.user;
-
-            //Get the user's avatar
-            var fullURL = '';
-            var hasAvatar = false;
-
-            if (user.avatar) {
-                hasAvatar = true;
-                fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg";
-            } else if (user.facebook) {
-                hasAvatar = true;
-                fullURL = "https://graph.facebook.com/" + user.facebook.id + "/picture?type=large";
-            }
-
-            return _react2.default.createElement(
-                'span',
-                { className: 'userLink' },
-                _react2.default.createElement(
-                    'a',
-                    { onClick: this.toggle,
-                        id: 'Popover-' + user._id,
-                        target: '_blank' },
-                    user.firstname,
-                    ' ',
-                    user.lastname
-                ),
-                _react2.default.createElement(
-                    _reactstrap.Popover,
-                    { placement: 'top', target: 'Popover-' + user._id, toggle: this.toggle, isOpen: this.state.popoverOpen },
-                    _react2.default.createElement(
-                        _reactstrap.PopoverTitle,
-                        null,
-                        hasAvatar && _react2.default.createElement('img', { className: 'avatar', src: fullURL }),
-                        ' ',
-                        user.firstname,
-                        ' ',
-                        user.lastname
-                    ),
-                    _react2.default.createElement(
-                        _reactstrap.PopoverContent,
-                        null,
-                        user.bio,
-                        _react2.default.createElement(
-                            _reactRouter.Link,
-                            { to: '/mylist/' + user.slug },
-                            _react2.default.createElement(
-                                _reactstrap.Button,
-                                null,
-                                'Profile'
-                            )
-                        )
-                    )
-                )
-            );
-        }
-    }]);
-
-    return UserLink;
-}(_react2.default.Component);
-
-exports.default = UserLink;
-
-/***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6250,7 +5614,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueBlock = __webpack_require__(10);
+var _VenueBlock = __webpack_require__(12);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -6331,7 +5695,7 @@ var VenueList = function (_React$Component) {
 exports.default = VenueList;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6381,7 +5745,7 @@ var facebookShare = function (_React$Component) {
 exports.default = facebookShare;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6401,17 +5765,17 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactIntl = __webpack_require__(19);
+var _reactIntl = __webpack_require__(21);
 
-var _imageBlock = __webpack_require__(23);
+var _imageBlock = __webpack_require__(25);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _HtmlText = __webpack_require__(36);
+var _HtmlText = __webpack_require__(38);
 
 var _HtmlText2 = _interopRequireDefault(_HtmlText);
 
-var _Helmet = __webpack_require__(6);
+var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
@@ -6568,7 +5932,7 @@ var FeatureBlock = function (_React$Component) {
 exports.default = FeatureBlock;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6586,11 +5950,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(22);
+var _displayActions = __webpack_require__(23);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _ListingsNeighborhood = __webpack_require__(118);
+var _ListingsNeighborhood = __webpack_require__(126);
 
 var _ListingsNeighborhood2 = _interopRequireDefault(_ListingsNeighborhood);
 
@@ -6647,7 +6011,7 @@ var ListingsPerNeighbor = function (_React$Component) {
                     if (newSecondaryNH !== secondaryNH) {
 
                         //Add the result to the next export and reset the render
-                        var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({ key: secondaryNH }, _this2.props, { listings: renderListings, title: title }));
+                        var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({ key: listing._id }, _this2.props, { listings: renderListings, title: title }));
                         renderListings = [];
 
                         // Update neighborhood
@@ -6666,7 +6030,7 @@ var ListingsPerNeighbor = function (_React$Component) {
                             // Create the last city
                             var cityRender = neighborExport.length > 0 && _react2.default.createElement(
                                 'div',
-                                { key: cityID, id: 'city' + cityID, className: 'city' },
+                                { key: listing._id, id: 'city' + cityID, className: 'city' },
                                 neighborExport
                             );
                             neighborExport = [];
@@ -6680,7 +6044,7 @@ var ListingsPerNeighbor = function (_React$Component) {
                                 //Add last neighborhood to the current City
                                 neighborExport = _react2.default.createElement(
                                     'div',
-                                    { key: city, id: 'city' + (cityID + 1), className: 'city' },
+                                    { key: listing._id, id: 'city' + (cityID + 1), className: 'city' },
                                     _react2.default.createElement(_ListingsNeighborhood2.default, _extends({}, _this2.props, { listings: renderListings, title: title }))
                                 );
 
@@ -6700,14 +6064,14 @@ var ListingsPerNeighbor = function (_React$Component) {
 
                         if (num == index) {
 
-                            var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({ key: secondaryNH }, _this2.props, { listings: renderListings, title: title }));
+                            var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({ key: listing._id }, _this2.props, { listings: renderListings, title: title }));
 
                             //Add last neighborhood to the current City
                             neighborExport.push(contentRender);
 
                             var cityRender = neighborExport.length > 0 && _react2.default.createElement(
                                 'div',
-                                { key: cityID, id: 'city' + cityID, className: 'city' },
+                                { key: listing._id, id: 'city' + cityID, className: 'city' },
                                 neighborExport
                             );
                             return cityRender;
@@ -6730,7 +6094,7 @@ var ListingsPerNeighbor = function (_React$Component) {
 exports.default = ListingsPerNeighbor;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6748,11 +6112,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(59);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _googleMapReact = __webpack_require__(160);
+var _googleMapReact = __webpack_require__(168);
 
 var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
 
@@ -6760,11 +6124,11 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _singleMarker = __webpack_require__(123);
+var _singleMarker = __webpack_require__(131);
 
 var _singleMarker2 = _interopRequireDefault(_singleMarker);
 
-var _reactMapGl = __webpack_require__(15);
+var _reactMapGl = __webpack_require__(17);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -6862,7 +6226,7 @@ var MapBlock = function (_React$Component) {
 exports.default = MapBlock;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7088,7 +6452,570 @@ var HoodNav = function (_React$Component) {
 exports.default = HoodNav;
 
 /***/ }),
-/* 44 */
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ListActions = __webpack_require__(1);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _reactFontawesome = __webpack_require__(5);
+
+var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//Components
+
+
+var SizeSelector = function (_React$Component) {
+    _inherits(SizeSelector, _React$Component);
+
+    function SizeSelector(props) {
+        _classCallCheck(this, SizeSelector);
+
+        var _this = _possibleConstructorReturn(this, (SizeSelector.__proto__ || Object.getPrototypeOf(SizeSelector)).call(this, props));
+
+        _this.viewChange = _this.viewChange.bind(_this);
+        return _this;
+    }
+
+    _createClass(SizeSelector, [{
+        key: 'viewChange',
+        value: function viewChange(e) {
+            var size = $(e.target).data('size');
+            console.log(e.target, size);
+            _ListActions2.default.sizeChange(size);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'SizeSelector' },
+                _react2.default.createElement(
+                    'span',
+                    { onClick: this.viewChange,
+                        className: this.props.view == 'condensed' && 'active',
+                        'data-size': 'condensed' },
+                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'bars'] })
+                ),
+                _react2.default.createElement(
+                    'span',
+                    { onClick: this.viewChange,
+                        'data-size': 'medium',
+                        className: this.props.view == 'medium' && 'active' },
+                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'bars'] })
+                ),
+                _react2.default.createElement(
+                    'span',
+                    { onClick: this.viewChange,
+                        'data-size': 'large',
+                        className: this.props.view == 'large' && 'active' },
+                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'th'] })
+                )
+            );
+        }
+    }]);
+
+    return SizeSelector;
+}(_react2.default.Component);
+
+exports.default = SizeSelector;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _EventActions = __webpack_require__(16);
+
+var _EventActions2 = _interopRequireDefault(_EventActions);
+
+var _ListActions = __webpack_require__(1);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _reactRouter = __webpack_require__(3);
+
+var _reactstrap = __webpack_require__(2);
+
+var _formDateSingle = __webpack_require__(50);
+
+var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
+
+var _DateBlock = __webpack_require__(8);
+
+var _DateBlock2 = _interopRequireDefault(_DateBlock);
+
+var _formSelect = __webpack_require__(15);
+
+var _formSelect2 = _interopRequireDefault(_formSelect);
+
+var _ThumbnailInput = __webpack_require__(26);
+
+var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
+
+var _confirmModal = __webpack_require__(14);
+
+var _confirmModal2 = _interopRequireDefault(_confirmModal);
+
+var _UserLink = __webpack_require__(24);
+
+var _UserLink2 = _interopRequireDefault(_UserLink);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+//Components
+
+
+var EventForm = function (_React$Component) {
+    _inherits(EventForm, _React$Component);
+
+    function EventForm(props) {
+        _classCallCheck(this, EventForm);
+
+        var _this = _possibleConstructorReturn(this, (EventForm.__proto__ || Object.getPrototypeOf(EventForm)).call(this, props));
+
+        _this.state = {
+            event: _this.props.event,
+            updateModal: false,
+            deleteModal: false,
+            createModal: false,
+            wasChanged: false, //check if any change was made to the event
+            errorMessages: {}
+        };
+
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSelectChange = _this.handleSelectChange.bind(_this);
+        _this.onConfirm = _this.onConfirm.bind(_this);
+        _this.onDeleteConfirm = _this.onDeleteConfirm.bind(_this);
+        _this.onCreateConfirm = _this.onCreateConfirm.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleDelete = _this.handleDelete.bind(_this);
+        _this.onThumbChange = _this.onThumbChange.bind(_this);
+        _this.toggleModal = _this.toggleModal.bind(_this);
+        _this._validateVenue = _this._validateVenue.bind(_this);
+        _this._validateDate = _this._validateDates.bind(_this);
+        _this._validateName = _this._validateName.bind(_this);
+        _this._validateAll = _this._validateAll.bind(_this);
+        return _this;
+    }
+
+    _createClass(EventForm, [{
+        key: 'toggleModal',
+        value: function toggleModal(modalName) {
+            this.setState(_defineProperty({}, modalName, !this.state[modalName]));
+        }
+
+        // Add the event to the database
+
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit() {
+            var newEvent = this.props.event;
+
+            if (this.props.event._id) {
+                //Edit the current event
+                _EventActions2.default.updateEvent(newEvent);
+            } else {
+                //Create a new Event
+                delete newEvent._id;
+                _EventActions2.default.saveEvent(newEvent);
+            }
+        }
+
+        //If thumbnail are edited
+
+    }, {
+        key: 'onThumbChange',
+        value: function onThumbChange() {
+            this.setState({
+                wasChanged: true
+            });
+        }
+
+        //Delete the event
+
+    }, {
+        key: 'handleDelete',
+        value: function handleDelete() {
+            _EventActions2.default.deleteEvent(this.props.event._id);
+        }
+
+        //confirm alert
+
+    }, {
+        key: 'onConfirm',
+        value: function onConfirm(event) {
+            event.preventDefault();
+            if (this._validateAll()) {
+
+                this.setState({
+                    updateModal: true
+                });
+            }
+        }
+
+        //Duplicate
+
+    }, {
+        key: 'onDuplicate',
+        value: function onDuplicate(event) {
+            event.preventDefault();
+            _EventActions2.default.eventDuplicate();
+        }
+
+        //confirm alert
+
+    }, {
+        key: 'onDeleteConfirm',
+        value: function onDeleteConfirm(event) {
+            event.preventDefault();
+            this.setState({
+                deleteModal: true
+            });
+        }
+    }, {
+        key: 'onCreateConfirm',
+        value: function onCreateConfirm(event) {
+            event.preventDefault();
+
+            if (this._validateAll()) {
+
+                this.setState({
+                    createModal: true
+                });
+            }
+        }
+    }, {
+        key: 'handleChange',
+        value: function handleChange(event) {
+            //Update values of inputs
+            _EventActions2.default.eventInfoChange(event);
+            this.setState({
+                wasChanged: true
+            });
+        }
+    }, {
+        key: '_validateAll',
+        value: function _validateAll() {
+            var validVenue = this._validateVenue();
+            var validDate = this._validateDate();
+            var validName = this._validateName();
+
+            var result = validVenue && validName && validDate ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.general = result ? '' : 'Please review the error messages above.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+
+        //Validate the venue
+
+    }, {
+        key: '_validateVenue',
+        value: function _validateVenue() {
+            var result = this.props.event.venue._id ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.venue = result ? '' : 'Please enter a venue.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+    }, {
+        key: '_validateName',
+        value: function _validateName() {
+            var result = this.props.event.name ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.name = result ? '' : 'Please enter a name or an artist.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+    }, {
+        key: '_validateDates',
+        value: function _validateDates() {
+            var result = this.props.event.date ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.date = result ? '' : 'A date need to be defined.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+
+        //Search as the user types in select box
+
+    }, {
+        key: 'handleSelectChange',
+        value: function handleSelectChange(data) {
+            this.setState({
+                wasChanged: true
+            });
+            if (data) {
+                _ListActions2.default.getVenueInfo(data.value);
+            } else {
+                _ListActions2.default.resetVenue();
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            var event = this.props.event;
+
+            //how to get option for select element
+            var getOptions = function getOptions(input) {
+                if (input) {
+                    return fetch('/venues/find/' + input).then(function (response) {
+                        return response.json();
+                    }).then(function (json) {
+                        return { options: json };
+                    });
+                } else {
+                    return Promise.resolve({ options: [] });
+                }
+            };
+
+            var venueData = event.venue._id && { value: event.venue._id, label: event.venue.name
+
+                // If the event exists, offer to delete it
+            };var deleteButton = event._id && _react2.default.createElement(
+                _reactstrap.Button,
+                { className: 'delete', color: 'danger', onClick: this.onDeleteConfirm },
+                'Delete'
+            );
+
+            return _react2.default.createElement(
+                'div',
+                { id: 'eventForm' },
+                !event._id && _react2.default.createElement(
+                    _reactstrap.Alert,
+                    { color: 'primary' },
+                    'This is a draft event.'
+                ),
+                _react2.default.createElement(
+                    _reactstrap.Form,
+                    null,
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        { check: true, className: 'group-venue' },
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            'Venue'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(_formSelect2.default, { value: venueData, handleSelectChange: this.handleSelectChange, getOptions: getOptions }),
+                            this.state.errorMessages.venue && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.venue
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        { check: true, className: 'group-name' },
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            'Name'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'Event name', type: 'text', value: event.name, onChange: this.handleChange }),
+                            this.state.errorMessages.name && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.name
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        { check: true, className: 'group-dates' },
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            ' Date '
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(_formDateSingle2.default, { startDate: event.date, onDatesChange: this.handleChange }),
+                            this.state.errorMessages.date && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.date
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        { check: true, className: 'group-description' },
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            'Description'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(_reactstrap.Input, { type: 'textarea', name: 'description', value: event.description, onChange: this.handleChange })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        { check: true, className: 'group-thumbnail' },
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            'Thumbnail'
+                        ),
+                        _react2.default.createElement(_ThumbnailInput2.default, _extends({}, event, { onChange: this.onThumbChange }))
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'byline' },
+                        event.updated_by && _react2.default.createElement(
+                            'p',
+                            null,
+                            'Edited by ',
+                            _react2.default.createElement(_UserLink2.default, { user: event.updated_by }),
+                            ' on ',
+                            _react2.default.createElement(_DateBlock2.default, { date: event.updated_at })
+                        ),
+                        event.created_at && _react2.default.createElement(
+                            'p',
+                            null,
+                            'Created on ',
+                            _react2.default.createElement(_DateBlock2.default, { date: event.created_at })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        { className: 'group-buttons' },
+                        this.state.errorMessages.general && _react2.default.createElement(
+                            _reactstrap.Alert,
+                            { color: 'danger' },
+                            this.state.errorMessages.general
+                        ),
+                        event._id ? _react2.default.createElement(
+                            _reactstrap.Button,
+                            { onClick: this.onConfirm, disabled: !this.state.wasChanged },
+                            'Update'
+                        ) : _react2.default.createElement(
+                            _reactstrap.Button,
+                            { onClick: this.onCreateConfirm },
+                            'Create'
+                        ),
+                        deleteButton,
+                        event._id && _react2.default.createElement(
+                            _reactstrap.Button,
+                            { onClick: this.onDuplicate },
+                            'Duplicate'
+                        )
+                    )
+                ),
+                this.state.updateModal && _react2.default.createElement(_confirmModal2.default, {
+                    toggle: this.toggleModal,
+                    handleSubmit: this.handleSubmit,
+                    name: 'updateModal',
+                    textTitle: 'Update',
+                    textAction: 'save this Event',
+                    textConfirm: 'Saved!',
+                    error: this.props.error.updateEvent,
+                    success: this.props.success.updateEvent }),
+                this.state.createModal && _react2.default.createElement(_confirmModal2.default, {
+                    toggle: this.toggleModal,
+                    handleSubmit: this.handleSubmit,
+                    name: 'createModal',
+                    textTitle: 'Create',
+                    textAction: 'create this Event',
+                    textConfirm: 'Created!',
+                    error: this.props.error.saveEvent,
+                    success: this.props.success.saveEvent }),
+                this.state.deleteModal && _react2.default.createElement(_confirmModal2.default, {
+                    toggle: this.toggleModal,
+                    handleSubmit: this.handleDelete,
+                    name: 'deleteModal',
+                    textTitle: 'Delete',
+                    textAction: 'delete this Event',
+                    textConfirm: 'Deleted!',
+                    error: this.props.error.deleteEvent,
+                    success: this.props.success.deleteEvent })
+            );
+        }
+    }]);
+
+    return EventForm;
+}(_react2.default.Component);
+
+exports.default = EventForm;
+
+/***/ }),
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7114,31 +7041,23 @@ var _reactRouter = __webpack_require__(3);
 
 var _reactstrap = __webpack_require__(2);
 
-var _reactToggleButton = __webpack_require__(20);
-
-var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
-
-var _formDateRange = __webpack_require__(132);
+var _formDateRange = __webpack_require__(140);
 
 var _formDateRange2 = _interopRequireDefault(_formDateRange);
 
-var _formDateSingle = __webpack_require__(48);
-
-var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
-
-var _DateBlock = __webpack_require__(11);
+var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ThumbnailInput = __webpack_require__(47);
+var _ThumbnailInput = __webpack_require__(26);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
-var _EventsForm = __webpack_require__(128);
+var _EventsForm = __webpack_require__(136);
 
 var _EventsForm2 = _interopRequireDefault(_EventsForm);
 
@@ -7146,13 +7065,17 @@ var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _UserLink = __webpack_require__(37);
+var _UserLink = __webpack_require__(24);
 
 var _UserLink2 = _interopRequireDefault(_UserLink);
 
-var _ArtistTags = __webpack_require__(126);
+var _ArtistTags = __webpack_require__(134);
 
 var _ArtistTags2 = _interopRequireDefault(_ArtistTags);
+
+var _ListingNameDisplay = __webpack_require__(18);
+
+var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7180,7 +7103,8 @@ var ListingForm = function (_React$Component) {
             updateModal: false,
             deleteModal: false,
             createModal: false,
-            wasChanged: false //check if any change was made to the listing
+            wasChanged: false, //check if any change was made to the listing
+            errorMessages: {}
         };
 
         _this.handleChange = _this.handleChange.bind(_this);
@@ -7194,6 +7118,10 @@ var ListingForm = function (_React$Component) {
         _this.onEventsChange = _this.onEventsChange.bind(_this);
         _this.onThumbChange = _this.onThumbChange.bind(_this);
         _this.toggleModal = _this.toggleModal.bind(_this);
+        _this._validateVenue = _this._validateVenue.bind(_this);
+        _this._validateDates = _this._validateDates.bind(_this);
+        _this._validateName = _this._validateName.bind(_this);
+        _this._validateAll = _this._validateAll.bind(_this);
         return _this;
     }
 
@@ -7215,12 +7143,12 @@ var ListingForm = function (_React$Component) {
 
             //Check and save only events that have a date
             var allEvents = [];
-            newListing.events.map(function (event) {
+            newListing.relatedEvents.map(function (event) {
                 if (event.date) {
                     allEvents.push(event);
                 }
             });
-            newListing.events = allEvents;
+            newListing.relatedEvents = allEvents;
 
             if (this.props.listing._id) {
                 //Edit the current listing
@@ -7260,15 +7188,18 @@ var ListingForm = function (_React$Component) {
             _ListActions2.default.deleteListing(this.props.listing._id);
         }
 
-        //confirm alert
+        // Create/Update confirm alert
 
     }, {
         key: 'onConfirm',
         value: function onConfirm(event) {
             event.preventDefault();
-            this.setState({
-                updateModal: true
-            });
+            if (this._validateAll()) {
+
+                this.setState({
+                    updateModal: true
+                });
+            }
         }
 
         //Duplicate
@@ -7280,7 +7211,7 @@ var ListingForm = function (_React$Component) {
             _ListActions2.default.listingDuplicate();
         }
 
-        //confirm alert
+        //Delete confirm alert
 
     }, {
         key: 'onDeleteConfirm',
@@ -7294,9 +7225,74 @@ var ListingForm = function (_React$Component) {
         key: 'onCreateConfirm',
         value: function onCreateConfirm(event) {
             event.preventDefault();
+            if (this._validateAll()) {
+                this.setState({
+                    createModal: true
+                });
+            }
+        }
+    }, {
+        key: '_validateAll',
+        value: function _validateAll() {
+            var validVenue = this._validateVenue();
+            var validDates = this._validateDates();
+            var validName = this._validateName();
+
+            var result = validVenue && validName && validDates ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.general = result ? '' : 'Please review the error messages above.';
+
             this.setState({
-                createModal: true
+                errorMessages: errorMessages
             });
+
+            return result;
+        }
+
+        //Validate the venue
+
+    }, {
+        key: '_validateVenue',
+        value: function _validateVenue() {
+            var result = this.props.listing.venue._id ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.venue = result ? '' : 'Please enter a venue.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+    }, {
+        key: '_validateName',
+        value: function _validateName() {
+            var result = this.props.listing.name || this.props.listing.artists && this.props.listing.artists.length > 0 ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.name = result ? '' : 'Please enter a name or an artist.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+    }, {
+        key: '_validateDates',
+        value: function _validateDates() {
+            var result = this.props.listing.start && this.props.listing.end ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.dates = result ? '' : 'Both dates need to be defined.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
         }
     }, {
         key: 'handleChange',
@@ -7310,6 +7306,7 @@ var ListingForm = function (_React$Component) {
     }, {
         key: 'handleArtistsChange',
         value: function handleArtistsChange(artists) {
+            console.log(artists);
             //Update values of inputs
             _ListActions2.default.listingInfoChange({ target: { name: 'artists', value: artists } });
             this.setState({
@@ -7344,8 +7341,7 @@ var ListingForm = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this,
-                _React$createElement;
+            var _React$createElement;
 
             var listing = this.props.listing;
 
@@ -7362,7 +7358,7 @@ var ListingForm = function (_React$Component) {
                 }
             };
 
-            var venueData = listing.venue ? { value: listing.venue._id, label: listing.venue.name } : { value: '', label: ''
+            var venueData = listing.venue._id && { value: listing.venue._id, label: listing.venue.name
 
                 // If the listing exists, offer to delete it
             };var deleteButton = listing._id && _react2.default.createElement(
@@ -7393,7 +7389,12 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_formSelect2.default, { value: venueData, handleSelectChange: this.handleSelectChange, getOptions: getOptions })
+                            _react2.default.createElement(_formSelect2.default, { value: venueData, handleSelectChange: this.handleSelectChange, getOptions: getOptions }),
+                            this.state.errorMessages.venue && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.venue
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -7421,25 +7422,13 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'Event name', type: 'text', value: listing.name, onChange: this.handleChange })
-                        )
-                    ),
-                    _react2.default.createElement(
-                        _reactstrap.FormGroup,
-                        { check: true, className: 'group-event' },
-                        _react2.default.createElement(
-                            _reactstrap.Label,
-                            null,
-                            'Event'
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'formSection' },
-                            _react2.default.createElement(_reactToggleButton2.default, {
-                                value: listing.event,
-                                onToggle: function onToggle(value) {
-                                    _this2.handleChange({ 'event': value });
-                                } })
+                            _react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'Event name', type: 'text', value: listing.name, onChange: this.handleChange }),
+                            this.state.errorMessages.name && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.name
+                            ),
+                            _react2.default.createElement(_ListingNameDisplay2.default, listing)
                         )
                     ),
                     _react2.default.createElement(
@@ -7453,9 +7442,12 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            listing.event ? //If an event
-                            _react2.default.createElement(_formDateSingle2.default, { startDate: listing.start, onDatesChange: this.handleChange }) : // If not an event
-                            _react2.default.createElement(_formDateRange2.default, { startDate: listing.start, endDate: listing.end, onDatesChange: this.handleChange })
+                            _react2.default.createElement(_formDateRange2.default, { startDate: listing.start, endDate: listing.end, onDatesChange: this.handleChange }),
+                            this.state.errorMessages.dates && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.dates
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -7497,7 +7489,7 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_EventsForm2.default, { events: listing.events ? listing.events : [], onChange: this.onEventsChange })
+                            _react2.default.createElement(_EventsForm2.default, { events: listing.relatedEvents ? listing.relatedEvents : [], onChange: this.onEventsChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -7530,7 +7522,12 @@ var ListingForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        null,
+                        { className: 'group-buttons' },
+                        this.state.errorMessages.general && _react2.default.createElement(
+                            _reactstrap.Alert,
+                            { color: 'danger' },
+                            this.state.errorMessages.general
+                        ),
                         listing._id ? _react2.default.createElement(
                             _reactstrap.Button,
                             { onClick: this.onConfirm, disabled: !this.state.wasChanged },
@@ -7564,7 +7561,7 @@ var ListingForm = function (_React$Component) {
                     textTitle: 'Create',
                     textAction: 'create this Listing',
                     textConfirm: 'Created!',
-                    error: this.props.error.general,
+                    error: this.props.error.savelisting,
                     success: this.props.success.savelisting }),
                 this.state.deleteModal && _react2.default.createElement(_confirmModal2.default, {
                     toggle: this.toggleModal,
@@ -7585,7 +7582,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7601,15 +7598,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
+var _reactDom = __webpack_require__(59);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _draftJsPluginsEditor = __webpack_require__(28);
+var _draftJsPluginsEditor = __webpack_require__(29);
 
 var _draftJsPluginsEditor2 = _interopRequireDefault(_draftJsPluginsEditor);
 
-var _draftJsInlineToolbarPlugin = __webpack_require__(159);
+var _draftJsInlineToolbarPlugin = __webpack_require__(167);
 
 var _draftJsInlineToolbarPlugin2 = _interopRequireDefault(_draftJsInlineToolbarPlugin);
 
@@ -7641,7 +7638,7 @@ var MyEditor = function (_React$Component) {
     _createClass(MyEditor, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            __webpack_require__(151);
+            __webpack_require__(159);
         }
     }, {
         key: 'render',
@@ -7670,7 +7667,7 @@ var MyEditor = function (_React$Component) {
 exports.default = MyEditor;
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7926,7 +7923,7 @@ var NeighborhoodSelect = function (_React$Component) {
 exports.default = NeighborhoodSelect;
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7942,114 +7939,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(21);
+var _reactDates = __webpack_require__(30);
 
-var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
-
-var _imageUpload = __webpack_require__(49);
-
-var _imageUpload2 = _interopRequireDefault(_imageUpload);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//Components
-
-
-var Thumbnail = function (_React$Component) {
-    _inherits(Thumbnail, _React$Component);
-
-    function Thumbnail(props) {
-        _classCallCheck(this, Thumbnail);
-
-        var _this = _possibleConstructorReturn(this, (Thumbnail.__proto__ || Object.getPrototypeOf(Thumbnail)).call(this, props));
-
-        _this.state = {
-            isUploading: false,
-            resetThumbnail: false
-        };
-
-        _this.onImageDrop = _this.onImageDrop.bind(_this);
-        _this.resetThumbnail = _this.resetThumbnail.bind(_this);
-
-        return _this;
-    }
-
-    _createClass(Thumbnail, [{
-        key: 'onImageDrop',
-        value: function onImageDrop(accepted, rejected) {
-            if (accepted.length) {
-                this.setState({
-                    uploadedFile: accepted[0],
-                    isUploading: true
-                });
-                this.props.onChange && this.props.onChange();
-
-                _ImagesActions2.default.handleThumbnailUpload(accepted[0], this.props.number);
-
-                this.setState({
-                    resetThumbnail: false
-                });
-            } else {
-                console.log('Wrong file type!');
-            }
-        }
-    }, {
-        key: 'resetThumbnail',
-        value: function resetThumbnail() {
-            this.setState({
-                resetThumbnail: true
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-
-            var isUploaded = this.props.image ? true : false;
-
-            var avatarRender = (isUploaded || this.state.isUploading) && !this.state.resetThumbnail ? _react2.default.createElement(
-                'div',
-                { className: isUploaded ? 'picture loaded' : 'picture loading', onClick: this.resetThumbnail },
-                _react2.default.createElement('img', { src: isUploaded ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : this.state.uploadedFile.preview })
-            ) : _react2.default.createElement(_imageUpload2.default, { onImageDrop: this.onImageDrop });
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'formSection' },
-                avatarRender
-            );
-        }
-    }]);
-
-    return Thumbnail;
-}(_react2.default.Component);
-
-exports.default = Thumbnail;
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDates = __webpack_require__(29);
-
-var _moment = __webpack_require__(8);
+var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -8104,7 +7996,7 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8120,7 +8012,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDropzone = __webpack_require__(168);
+var _reactDropzone = __webpack_require__(176);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
@@ -8213,7 +8105,7 @@ var ImageUpload = function (_React$Component) {
 exports.default = ImageUpload;
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8231,11 +8123,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _MarkerDisplay = __webpack_require__(120);
+var _MarkerDisplay = __webpack_require__(128);
 
 var _MarkerDisplay2 = _interopRequireDefault(_MarkerDisplay);
 
-var _reactMapGl = __webpack_require__(15);
+var _reactMapGl = __webpack_require__(17);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -8323,49 +8215,1357 @@ var MyMap = function (_React$Component) {
 exports.default = MyMap;
 
 /***/ }),
-/* 51 */
-/***/ (function(module, exports) {
-
-module.exports = require("async");
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-module.exports = require("draft-js");
-
-/***/ }),
 /* 53 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("draft-js-export-html");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _alt = __webpack_require__(13);
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _ListActions = __webpack_require__(1);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _ArtistsActions = __webpack_require__(36);
+
+var _ArtistsActions2 = _interopRequireDefault(_ArtistsActions);
+
+var _AuthActions = __webpack_require__(4);
+
+var _AuthActions2 = _interopRequireDefault(_AuthActions);
+
+var _ImagesActions = __webpack_require__(22);
+
+var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
+
+var _EventActions = __webpack_require__(16);
+
+var _EventActions2 = _interopRequireDefault(_EventActions);
+
+var _toastr = __webpack_require__(185);
+
+var _toastr2 = _interopRequireDefault(_toastr);
+
+var _moment = __webpack_require__(6);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ListStore = function () {
+    function ListStore() {
+        _classCallCheck(this, ListStore);
+
+        this.bindActions(_ListActions2.default);
+        this.bindActions(_ArtistsActions2.default);
+        this.bindActions(_AuthActions2.default);
+        this.bindActions(_ImagesActions2.default);
+        this.bindActions(_EventActions2.default);
+        //Display settings
+        this.view = 'condensed';
+        this.menuActive = false;
+        //List states
+        this.currentListings = [];
+        this.currentLoaded = false;
+        this.futureListings = [];
+        this.allListings = [];
+        this.eventsListings = [];
+        this.glanceListings = [];
+        this.latestListings = [];
+        // Auth states
+        this.user = {};
+        this.user.isLoggedIn = false;
+        this.user.facebook = {};
+        this.user.local = {};
+        this.user.mylist = [];
+        this.currentUser = {};
+        this.user.userAccess = 0;
+        this.allUsers = [];
+        //SideBar states
+        this.sidebarOpen = false;
+        // Image State
+        this.isUploaded = false;
+        this.uploadedFileCloudinaryUrl = '';
+        //New listing states
+        this.listingEdit = {};
+        this.listingEdit._id = '';
+        this.listingEdit.artists = [];
+        this.listingEdit.name = '';
+        this.listingEdit.image = '';
+        this.listingEdit.text = '';
+        this.listingEdit.event = false;
+        this.listingEdit.events = [];
+        this.listingEdit.venue = {};
+        //New event states
+        this.eventEdit = {};
+        this.eventEdit.venue = {};
+        //New venue states
+        this.venueEdit = {
+            popup: false,
+            coordinates: {}
+        };
+        // Featured listings
+        this.features = [];
+        this.allFeatures = [];
+        //Venues
+        this.allVenues = [];
+        this.venue = {};
+        this.venue.likeList = 0;
+        this.venue.currentListings = [];
+        this.venue.upcomingListings = [];
+        this.venue.pastListings = [];
+        //Artists
+        this.allArtists = [{ name: 'The test artist' }];
+        //Loadings
+        this.loading = {};
+        this.loading.login = false;
+        this.loading.register = false;
+        this.loading.updateUser = false;
+        this.loading.updatelisting = false;
+        this.loading.deletelisting = false;
+        this.loading.updatevenue = false;
+        this.loading.deletevenue = false;
+        this.loading.savelisting = false;
+        this.loading.savevenue = false;
+        this.loading.current = false;
+        this.loading.future = false;
+        this.loading.events = true;
+        this.loading.allVenues = false;
+        this.loading.features = false;
+        this.loading.glance = false;
+        //Error Messages
+        this.error = {};
+        this.error.feature = '';
+        this.error.general = '';
+        this.error.login = '';
+        this.error.updateUser = '';
+        this.error.updatelisting = {};
+        this.error.updatevenue = '';
+        this.error.savelisting = '';
+        this.error.savevenue = '';
+        //Success
+        this.success = {};
+        this.success.updateUser = false;
+        this.success.updatelisting = false;
+        this.success.updateEvent = false;
+        this.success.saveEvent = false;
+        this.success.deleteEvent = false;
+        this.success.updatevenue = false;
+        this.success.deletelisting = false;
+        this.success.deletevenue = false;
+        this.success.savelisting = false;
+        this.success.savevenue = false;
+        this.success.feature = false;
+        this.success.deleteUser = false;
+    }
+
+    //List Reducers
+
+
+    _createClass(ListStore, [{
+        key: 'onGetCurrentAttempt',
+        value: function onGetCurrentAttempt() {
+            this.loading.current = true;
+        }
+    }, {
+        key: 'onGetCurrentSuccess',
+        value: function onGetCurrentSuccess(data) {
+            this.loading.current = false;
+            this.currentListings = this.currentListings.concat(data);
+        }
+    }, {
+        key: 'onCurrentNotLoaded',
+        value: function onCurrentNotLoaded() {
+            this.currentLoaded = false;
+        }
+    }, {
+        key: 'onCurrentLoaded',
+        value: function onCurrentLoaded() {
+            this.currentLoaded = true;
+        }
+    }, {
+        key: 'onGetFutureAttempt',
+        value: function onGetFutureAttempt() {
+            this.loading.future = true;
+        }
+    }, {
+        key: 'onGetFutureSuccess',
+        value: function onGetFutureSuccess(data) {
+            this.loading.future = false;
+            this.futureListings = this.futureListings.concat(data);
+        }
+    }, {
+        key: 'onGetAllSuccess',
+        value: function onGetAllSuccess(data) {
+            this.allListings = data;
+        }
+    }, {
+        key: 'onGetEventsAttempt',
+        value: function onGetEventsAttempt() {
+            this.loading.events = true;
+        }
+    }, {
+        key: 'onGetEventsSuccess',
+        value: function onGetEventsSuccess(data) {
+            this.eventsListings = data;
+            this.loading.events = false;
+        }
+    }, {
+        key: 'onGetGlanceAttempt',
+        value: function onGetGlanceAttempt() {
+            this.loading.glance = true;
+        }
+    }, {
+        key: 'onGetGlanceSuccess',
+        value: function onGetGlanceSuccess(data) {
+            this.loading.glance = false;
+            this.glanceListings = data;
+        }
+    }, {
+        key: 'getLatestListingsSuccess',
+        value: function getLatestListingsSuccess(data) {
+            this.latestListings = data;
+        }
+    }, {
+        key: 'getLatestListingsFail',
+        value: function getLatestListingsFail(error) {
+            console.log(error);
+        }
+    }, {
+        key: 'onGetCurrentFail',
+        value: function onGetCurrentFail(jqXhr) {
+            this.loading.current = false;
+            // Handle multiple response formats, fallback to HTTP status code number.
+            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+    }, {
+        key: 'onGetFutureFail',
+        value: function onGetFutureFail(jqXhr) {
+            this.loading.future = false;
+            // Handle multiple response formats, fallback to HTTP status code number.
+            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+    }, {
+        key: 'onGetAllFail',
+        value: function onGetAllFail(jqXhr) {
+            // Handle multiple response formats, fallback to HTTP status code number.
+            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+    }, {
+        key: 'onGetEventsFail',
+        value: function onGetEventsFail(jqXhr) {
+            this.loading.events = false;
+            // Handle multiple response formats, fallback to HTTP status code number.
+            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+    }, {
+        key: 'onGetGlanceFail',
+        value: function onGetGlanceFail(jqXhr) {
+            this.loading.glance = false;
+            // Handle multiple response formats, fallback to HTTP status code number.
+            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+
+        //Listing size change
+
+    }, {
+        key: 'onSizeChange',
+        value: function onSizeChange(size) {
+            this.view = size;
+        }
+
+        // Reset listing edit
+
+    }, {
+        key: 'onListingEditReset',
+        value: function onListingEditReset() {
+            this.listingEdit = {
+                name: '',
+                description: '',
+                image: '',
+                venue: {},
+                relatedEvents: [],
+                artists: []
+            };
+        }
+
+        //Load a specific listing into listing edit
+
+    }, {
+        key: 'onEditListing',
+        value: function onEditListing(listing) {
+            console.log('Editing a listing');
+            this.listingEdit = listing;
+        }
+    }, {
+        key: 'onAdminReset',
+        value: function onAdminReset() {
+            //Reset the Venue Admin
+            this.allVenues = [];
+            //Reset the Listing Edit
+            this.listingEdit = {
+                image: '',
+                name: '',
+                _id: '',
+                description: '',
+                text: '',
+                events: [],
+                venue: {},
+                end: null,
+                start: null
+            };
+            //Reset the Venue Edit
+        }
+    }, {
+        key: 'onVenueEditReset',
+        value: function onVenueEditReset() {
+            this.venueEdit = {
+                _id: '',
+                name: '',
+                slug: '',
+                address1: '',
+                address2: '',
+                city: '',
+                zipcode: '',
+                state: '',
+                email: '',
+                phone: '',
+                coordinates: {
+                    lat: '',
+                    long: ''
+                }
+            };
+            console.log("reset");
+            // Reset messages
+            this.success.updatevenue = false;
+            this.loading.updatevenue = false;
+            this.error.updatevenue = '';
+        }
+
+        // Get listing info
+
+    }, {
+        key: 'onGetListingInfoSuccess',
+        value: function onGetListingInfoSuccess(info) {
+            console.log('Listing info loaded', info);
+            this.listingEdit = info.data;
+            if (!this.listingEdit.relatedEvents) {
+                this.listingEdit.relatedEvents = [];
+            }
+            // Need to explain this
+            if (Number.isInteger(info.i)) {
+                console.log('Feature listing', this.features);
+                this.features[info.i].list = info.data;
+                console.log('Feature #' + info.i, this.features[info.i].list);
+            }
+        }
+    }, {
+        key: 'onGetListingInfoFailure',
+        value: function onGetListingInfoFailure(jqXhr) {
+            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+
+        // Get venue info
+
+    }, {
+        key: 'onGetVenueFullInfoSuccess',
+        value: function onGetVenueFullInfoSuccess(data) {
+            this.listingEdit.venue = data.venue;
+            this.venue = data.venue;
+            this.venue.currentListings = data.currentListings;
+            this.venue.upcomingListings = data.upcomingListings;
+            this.venue.pastListings = data.pastListings;
+        }
+        // Get venue info
+
+    }, {
+        key: 'onGetVenueInfoSuccess',
+        value: function onGetVenueInfoSuccess(data) {
+            this.listingEdit.venue = data;
+            this.eventEdit.venue = data;
+            if (!data.coordinates) {
+                data.coordinates = {};
+            }
+            this.venueEdit = data;
+            //Create a slug automatically if there is none
+            if (!data.slug) {
+                this.venueEdit.slug = data.name.replace(/\s+/g, '-').toLowerCase();
+            }
+        }
+    }, {
+        key: 'onGetVenueFullInfoFailure',
+        value: function onGetVenueFullInfoFailure(jqXhr) {}
+    }, {
+        key: 'onGetVenueInfoFailure',
+        value: function onGetVenueInfoFailure(jqXhr) {}
+        //Add a venue
+
+    }, {
+        key: 'onSaveVenueAttempt',
+        value: function onSaveVenueAttempt() {
+            this.loading.savevenue = true;
+        }
+    }, {
+        key: 'onSaveVenueSuccess',
+        value: function onSaveVenueSuccess(data) {
+            console.log('Venue saved');
+            this.venueEdit._id = data._id;
+            this.loading.savevenue = false;
+            this.success.savevenue = true;
+            setTimeout(function () {
+                this.success.savevenue = false;
+            }.bind(this), 1000);
+        }
+    }, {
+        key: 'onSaveVenueFailure',
+        value: function onSaveVenueFailure(err) {
+            console.log('Problem saving venue', err);
+            this.loading.savevenue = false;
+            this.error.saveVenue = 'Error while saving changes';
+        }
+        // Update a venue
+
+    }, {
+        key: 'onUpdateVenue',
+        value: function onUpdateVenue(info) {
+            this.venue.coordinates = {
+                lat: info[1],
+                long: info[0]
+            };
+        }
+    }, {
+        key: 'onUpdateVenueAttempt',
+        value: function onUpdateVenueAttempt() {
+            this.loading.updatevenue = true;
+        }
+    }, {
+        key: 'onUpdateVenueSuccess',
+        value: function onUpdateVenueSuccess(data) {
+            console.log('Venue updated', data);
+            this.venueEdit = data;
+            this.loading.updatevenue = false;
+            this.success.updatevenue = true;
+            setTimeout(function () {
+                this.success.updatevenue = false;
+            }.bind(this), 1000);
+        }
+    }, {
+        key: 'onUpdateVenueFailure',
+        value: function onUpdateVenueFailure(error) {
+            console.log('Problem updating venue', error);
+            this.loading.updatevenue = false;
+            this.error.updateVenue = 'Error. ' + error;
+        }
+
+        //Delete a Venue
+
+    }, {
+        key: 'onDeleteVenueAttempt',
+        value: function onDeleteVenueAttempt() {
+            this.loading.deletevenue = true;
+            this.success.deletevenue = false;
+        }
+    }, {
+        key: 'onDeleteVenueSuccess',
+        value: function onDeleteVenueSuccess() {
+            console.log('Deleted');
+            this.loading.deletevenue = false;
+            this.success.deletevenue = true;
+            setTimeout(function () {
+                this.success.deletevenue = false;
+            }.bind(this), 1000);
+        }
+    }, {
+        key: 'onDeleteVenueFailure',
+        value: function onDeleteVenueFailure(err) {
+            console.log('Error deleting: ', err);
+            this.loading.deletevenue = false;
+        }
+    }, {
+        key: 'onGetVenueListingsSuccess',
+        value: function onGetVenueListingsSuccess(data) {
+            this.venue.listings = data;
+        }
+    }, {
+        key: 'onGetVenueListingsFailure',
+        value: function onGetVenueListingsFailure(error) {
+            console.log(error);
+        }
+    }, {
+        key: 'onGetVenuesAdminAttempt',
+        value: function onGetVenuesAdminAttempt() {
+            this.allVenues = [];
+            this.loading.allVenues = true;
+        }
+    }, {
+        key: 'onGetVenuesAdminSuccess',
+        value: function onGetVenuesAdminSuccess(data) {
+            this.loading.allVenues = false;
+            //this.allVenues = this.allVenues.concat(data);
+            this.allVenues = data;
+        }
+    }, {
+        key: 'onGetVenuesAdminFailure',
+        value: function onGetVenuesAdminFailure(error) {
+            console.log(error);
+        }
+
+        //Reset the venue in the form
+
+    }, {
+        key: 'onResetVenue',
+        value: function onResetVenue() {
+            this.listingEdit.venue = {};
+        }
+
+        //Save a new listing
+
+    }, {
+        key: 'onSaveListingAttempt',
+        value: function onSaveListingAttempt() {
+            this.loading.savelisting = true;
+        }
+    }, {
+        key: 'onSaveListingSuccess',
+        value: function onSaveListingSuccess(data) {
+            this.loading.savelisting = false;
+            this.success.savelisting = true;
+            this.listingEdit._id = data._id;
+            var that = this;
+            setTimeout(function () {
+                that.success.savelisting = false;
+            }.bind(this), 1000);
+        }
+    }, {
+        key: 'onSaveListingFailure',
+        value: function onSaveListingFailure(err) {
+            console.log('Error ', err);
+            this.loading.savelisting = false;
+            this.error.savelisting = 'Error ' + err;
+        }
+
+        //Update a listing
+
+    }, {
+        key: 'onUpdateListingAttempt',
+        value: function onUpdateListingAttempt() {
+            this.loading.updatelisting = true;
+        }
+    }, {
+        key: 'onUpdateListingSuccess',
+        value: function onUpdateListingSuccess(data) {
+            this.loading.updatelisting = false;
+            this.success.updatelisting = true;
+            this.sidebarOpen = false;
+            var that = this;
+            setTimeout(function () {
+                that.success.updatelisting = false;
+            }, 1000);
+        }
+    }, {
+        key: 'onUpdateListingFailure',
+        value: function onUpdateListingFailure(err) {
+            this.loading.updatelisting = false;
+            this.error.updatelisting = 'Error: ' + err;
+            console.log('Error: ', err);
+        }
+
+        //Update a listing
+
+    }, {
+        key: 'onDeleteListingSuccess',
+        value: function onDeleteListingSuccess() {
+            console.log('Deleted');
+            //Reset the listing data
+            this.success.deletelisting = true;
+            //Reset the listing
+            this.listingEdit = {
+                venue: {},
+                relatedEvents: [],
+                artists: []
+                //Close the sidebar
+            };this.sidebarOpen = false;
+            //Reset the success status
+            var that = this;
+            setTimeout(function () {
+                that.success.deletelisting = false;
+            }, 1000);
+        }
+    }, {
+        key: 'onDeleteListingFailure',
+        value: function onDeleteListingFailure(err) {
+            console.log('Error: ', err);
+            this.error.deletelisting = 'Error deleting listing';
+        }
+
+        //Update info on listing page
+
+    }, {
+        key: 'onListingInfoChange',
+        value: function onListingInfoChange(info) {
+            if (info.target) {
+                var value = info.target.value;
+                var name = info.target.name;
+                this.listingEdit[name] = value;
+            } else if (info.startDate) {
+                this.listingEdit.start = info.startDate;
+                if (info.endDate) {
+                    this.listingEdit.end = info.endDate;
+                }
+            } else if (info.date) {
+                this.listingEdit.start = info.date;
+            } else {
+                this.listingEdit.event = !info.event;
+            }
+        }
+
+        //Duplicate the current listing
+
+    }, {
+        key: 'onListingDuplicate',
+        value: function onListingDuplicate() {
+            this.listingEdit._id = '';
+        }
+
+        //Update info on feature page
+
+    }, {
+        key: 'onFeatureInfoChange',
+        value: function onFeatureInfoChange(data) {
+            var value = data.event.target.value;
+            var name = data.event.target.name;
+            this.features[data.i][name] = value;
+        }
+
+        //Update info on venue page
+
+    }, {
+        key: 'onVenueInfoChange',
+        value: function onVenueInfoChange(info) {
+            var value = info.value;
+            var name = info.name;
+            if (name === 'lat') {
+                this.venueEdit.coordinates.lat = parseFloat(value);
+            } else if (name === 'long') {
+                this.venueEdit.coordinates.long = parseFloat(value);
+            } else {
+                this.venueEdit[name] = value;
+            }
+            //Keep the slug synced with the name
+            this.venueEdit.slug = this.venueEdit.name.replace(/\s+/g, '-').toLowerCase();
+        }
+        //Update coordinates on venue page
+
+    }, {
+        key: 'onCoordinatesChange',
+        value: function onCoordinatesChange(coord) {
+            this.venueEdit.coordinates = {
+                lat: coord[1],
+                long: coord[0]
+            };
+        }
+
+        //FEATURED
+
+    }, {
+        key: 'onUpdateFeatureSuccess',
+        value: function onUpdateFeatureSuccess(data) {
+            this.success.updateFeature = true;
+            var that = this;
+            setTimeout(function () {
+                that.success.updateFeature = false;
+            }, 1000);
+        }
+    }, {
+        key: 'onUpdateFeatureFailure',
+        value: function onUpdateFeatureFailure(error) {
+            this.error.feature = 'Error updating the feature: ' + error;
+            console.log(error);
+        }
+    }, {
+        key: 'onFeatureReset',
+        value: function onFeatureReset(day) {
+            if (Number.isInteger(day)) {
+                this.features[day] = {
+                    text: '',
+                    list: {},
+                    venue: {}
+                };
+            }
+            this.success.feature = false;
+        }
+    }, {
+        key: 'onFeatureLoadAttempt',
+        value: function onFeatureLoadAttempt() {
+            this.loading.features = true;
+        }
+    }, {
+        key: 'onFeatureLoadSuccess',
+        value: function onFeatureLoadSuccess(data) {
+            this.loading.features = false;
+            var today = (0, _moment2.default)();
+            if (data.json) {
+                // Match all features with a day of the next week
+                var features = [];
+                this.allFeatures = data.json;
+
+                //Find element in features whose date == d
+                //For each day of the week
+                for (var i = 0; i < data.days; i++) {
+                    var tempFeature = null;
+                    // Go through all the features
+                    this.allFeatures.map(function (feature) {
+                        // Check if it matches
+                        var d = (0, _moment2.default)().add(i, 'days');
+                        if ((0, _moment2.default)(feature.date).isSame(d, 'day')) {
+                            tempFeature = feature;
+                        }
+                    });
+                    if (tempFeature) {
+                        features.push(tempFeature);
+                        tempFeature = null;
+                    } else {
+                        for (var y = 0; y < this.allFeatures.length; y++) {
+                            var feature = this.allFeatures[y];
+                            // Find current feature
+                            if (!features.includes(feature) && feature.list) {
+                                if ((0, _moment2.default)(feature.list.end).isSameOrAfter(today)) {
+                                    features.push(feature);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                this.features = features;
+            } else {
+                this.error.feature = "No Features";
+            }
+        }
+    }, {
+        key: 'onFeatureLoadFailure',
+        value: function onFeatureLoadFailure(error) {
+            this.loading.features = false;
+            console.log("Feature load error: ", error);
+            this.features = [];
+        }
+    }, {
+        key: 'onFeatureEdit',
+        value: function onFeatureEdit(featureEdit) {
+            this.feature = featureEdit;
+        }
+    }, {
+        key: 'onFeatureAdminAttempt',
+        value: function onFeatureAdminAttempt() {
+            this.loading.features = true;
+        }
+    }, {
+        key: 'onFeatureAdminFailure',
+        value: function onFeatureAdminFailure(error) {
+            this.loading.features = false;
+            this.features = [];
+        }
+    }, {
+        key: 'onFeatureAdminSuccess',
+        value: function onFeatureAdminSuccess(data) {
+            this.loading.features = false;
+            if (data.json) {
+                // Match all features with a day of the next week
+                var features = [];
+                this.allFeatures = data.json;
+
+                //Find element in features whose date == d
+                //For each day of the week
+                for (var i = 0; i < data.days; i++) {
+                    var tempFeature = null;
+                    // Go through all the features
+                    this.allFeatures.map(function (feature) {
+                        // Check if it matches
+                        var d = (0, _moment2.default)().add(i, 'days');
+                        if ((0, _moment2.default)(feature.date).isSame(d, 'day')) {
+                            tempFeature = feature;
+                        }
+                    });
+                    if (tempFeature) {
+                        features.push(tempFeature);
+                        tempFeature = null;
+                    } else {
+                        features.push({});
+                    }
+                }
+                this.features = features;
+                console.log('Loaded all features: ', this.features);
+            } else {
+                this.error.feature = "No Features";
+            }
+        }
+
+        // Auth Reducers
+
+        // LOGIN ATTEMPT
+
+    }, {
+        key: 'onLoginAttempt',
+        value: function onLoginAttempt() {
+            this.loginRedirect = false;
+            this.loading.login = true;
+            this.error.login = '';
+        }
+    }, {
+        key: 'onLoginFailure',
+        value: function onLoginFailure(error) {
+            console.log('Login error: ', error);
+            this.error.login = 'Wrong username or password.';
+            this.loading.login = false;
+        }
+    }, {
+        key: 'onLoginSuccess',
+        value: function onLoginSuccess(json) {
+            console.log('Logged in: ', json);
+            this.user = json;
+            this.user.isLoggedIn = true;
+            this.user.userAccess = 3;
+            this.loading.login = false;
+        }
+
+        // REGISTER ATTEMPT
+
+    }, {
+        key: 'onRegisterAttempt',
+        value: function onRegisterAttempt() {
+            console.log('onRegisterAttempt');
+            this.isRegistering = true;
+        }
+    }, {
+        key: 'onRegisterFailure',
+        value: function onRegisterFailure(error) {
+            console.log(error);
+            this.user.firstname = '';
+            this.user.lastname = '';
+            this.user._id = '';
+            this.user.local.username = '';
+            this.isRegistering = false;
+        }
+    }, {
+        key: 'onRegisterSuccess',
+        value: function onRegisterSuccess(user) {
+            console.log('Logged in: ', user);
+            this.user = user;
+            this.user.isLoggedIn = true;
+            this.isRegistering = false;
+        }
+
+        //Facebook Login
+
+    }, {
+        key: 'onFacebookLogin',
+        value: function onFacebookLogin(user) {
+            console.log("Logged in via Facebook");
+            this.user = user;
+            this.isRegistering = false;
+            this.user.isLoggedIn = true;
+        }
+
+        //UPDATE USER
+
+    }, {
+        key: 'onUpdateUserAttempt',
+        value: function onUpdateUserAttempt() {
+            this.loading.updateUser = true;
+            this.success.updateUser = false;
+            this.error.updateUser = '';
+        }
+    }, {
+        key: 'onUpdateUserSuccess',
+        value: function onUpdateUserSuccess(data) {
+            console.log('Success!');
+            this.loading.updateUser = false;
+            this.success.updateUser = true;
+            setTimeout(function () {
+                this.success.updateUser = false;
+            }.bind(this), 1000);
+        }
+    }, {
+        key: 'onUpdateUserFailure',
+        value: function onUpdateUserFailure(error) {
+            console.log('Failed Updating User', error);
+            this.loading.updateUser = false;
+            this.error.updateUser = 'Error Saving';
+        }
+
+        //DELETE USER
+
+    }, {
+        key: 'onDeleteUserAttempt',
+        value: function onDeleteUserAttempt() {
+            this.success.deleteUser = false;
+            this.error.updateUser = '';
+        }
+    }, {
+        key: 'onDeleteUserSuccess',
+        value: function onDeleteUserSuccess(info) {
+            console.log(info.data.slug);
+            //Find user in current list of all users and delete it there for visualization
+            this.allUsers = this.allUsers && this.allUsers.filter(function (user) {
+                return user.slug !== info.data.slug;
+            });
+            //Display Success
+            this.success.deleteUser = true;
+            setTimeout(function () {
+                this.success.deleteUser = false;
+            }.bind(this), 1000);
+        }
+    }, {
+        key: 'onDeleteUserFailure',
+        value: function onDeleteUserFailure(error) {
+            console.log('Failed Deleting User', error);
+            this.error.deleteUser = 'Error Saving';
+        }
+
+        //USERS ADMIN PAGE
+
+    }, {
+        key: 'onGetAllUserAttempt',
+        value: function onGetAllUserAttempt() {
+            console.log('Attempting to get all users');
+            this.loading.allUsers = true;
+        }
+    }, {
+        key: 'onGetAllUserFailure',
+        value: function onGetAllUserFailure(error) {
+            console.log('Failed to get all users', error);
+            this.allUsers = [];
+            this.loading.allUsers = false;
+        }
+    }, {
+        key: 'onGetAllUserSuccess',
+        value: function onGetAllUserSuccess(users) {
+            console.log('Managed to get all users');
+            this.loading.allUsers = false;
+            this.allUsers = users;
+        }
+
+        // LOGOUT ATTEMPT
+
+    }, {
+        key: 'onLogoutFailure',
+        value: function onLogoutFailure(error) {
+            console.log("Failed to log out");
+            console.log(error);
+        }
+    }, {
+        key: 'onLogoutSuccess',
+        value: function onLogoutSuccess(action) {
+            console.log("Logged out");
+            this.user = {};
+            this.user.local = {};
+            this.user.facebook = {};
+            this.user.mylist = [];
+            this.user.isLoggedIn = false;
+        }
+
+        // CHECK SESSION
+
+    }, {
+        key: 'onSessionCheckFailure',
+        value: function onSessionCheckFailure() {
+            this.user = {};
+            this.user.local = {};
+            this.user.facebook = {};
+            this.user.mylist = [];
+            this.user.isLoggedIn = false;
+        }
+    }, {
+        key: 'onSessionCheckSuccess',
+        value: function onSessionCheckSuccess(action) {
+            this.user = action;
+            if (!this.user.local) {
+                this.user.local = {};
+            }
+            if (!this.user.facebook) {
+                this.user.facebook = {};
+            }
+            this.user.isLoggedIn = true;
+        }
+
+        // ADD TO MYLIST
+
+    }, {
+        key: 'onAddToMyListSuccess',
+        value: function onAddToMyListSuccess(data) {
+            console.log('Added to the list');
+            if (data) {
+                this.user.mylist = data;
+            } else {
+                this.user.mylist = [];
+            }
+        }
+    }, {
+        key: 'onAddToMyListFailure',
+        value: function onAddToMyListFailure(error) {
+            console.log('Error adding to the list', this.user);
+            console.log(error);
+        }
+
+        // GET MYLIST
+
+    }, {
+        key: 'onGetMylistSuccess',
+        value: function onGetMylistSuccess(data) {
+            console.log('onGetMylistSuccess');
+            if (data) {
+                this.user.mylist = data;
+            } else {
+                this.user.mylist = [];
+            }
+        }
+    }, {
+        key: 'onGetMylistFailure',
+        value: function onGetMylistFailure(jqXhr) {
+            // Handle multiple response formats, fallback to HTTP status code number.
+            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
+        }
+        //Get a user's list
+
+    }, {
+        key: 'onGetUserMylistSuccess',
+        value: function onGetUserMylistSuccess(data) {
+            console.log('onGetUserMylistSuccess', data);
+            this.currentUser = data;
+        }
+    }, {
+        key: 'onGetUserMylistFailure',
+        value: function onGetUserMylistFailure(error) {
+            console.log('onGetUserMylistFailure', error);
+        }
+        // REORDER MYLIST
+
+    }, {
+        key: 'onReorderMyListAttempt',
+        value: function onReorderMyListAttempt(data) {
+            this.user.mylist = data;
+        }
+    }, {
+        key: 'onReorderMyListSuccess',
+        value: function onReorderMyListSuccess(data) {
+            console.log('saved!');
+        }
+    }, {
+        key: 'onReorderMyListFailure',
+        value: function onReorderMyListFailure() {
+            console.log('problem!');
+        }
+
+        // INFO CHANGE ON ACCOUNT PAGE
+
+    }, {
+        key: 'onUserInfoChange',
+        value: function onUserInfoChange(data) {
+
+            var target = data.event.target;
+            var value = target.value;
+            var name = target.name;
+            if (data.index == null) {
+                //Means we're in the account edit page
+                if (name == "email") {
+                    this.user.local.username = value;
+                } else {
+                    this.user[name] = value;
+                }
+            } else {
+                //Means we're in the user admin page
+                if (name == "email") {
+                    this.allUsers[data.index].username = value;
+                } else {
+                    this.allUsers[data.index][name] = value;
+                }
+            }
+        }
+
+        // UPLOAD AN AVATAR
+
+    }, {
+        key: 'onAvatarUploadSuccess',
+        value: function onAvatarUploadSuccess(image) {
+            this.isUploaded = true;
+            this.user.avatar = image.public_id;
+        }
+    }, {
+        key: 'onAvatarUploadFailure',
+        value: function onAvatarUploadFailure(err) {
+            console.log('Error: ', err);
+        }
+        // UPLOAD A THUMBNAIL
+
+    }, {
+        key: 'onThumbnailUploadSuccess',
+        value: function onThumbnailUploadSuccess(data) {
+            console.log('Uploaded!', data);
+            this.listingEdit.image = data.image.public_id;
+            if (Number.isInteger(data.i)) {
+                this.features[data.i].list.image = data.image.public_id;
+                console.log(this.features[data.i].list);
+            }
+        }
+    }, {
+        key: 'onThumbnailUploadFailure',
+        value: function onThumbnailUploadFailure(err) {
+            console.log('Error: ', err);
+        }
+
+        //EVENTS
+
+    }, {
+        key: 'onAddEvent',
+        value: function onAddEvent() {
+            this.listingEdit.relatedEvents.push({
+                name: "",
+                description: "",
+                type: "",
+                date: ""
+            });
+        }
+    }, {
+        key: 'onRemoveEvent',
+        value: function onRemoveEvent(index) {
+            this.listingEdit.relatedEvents.splice(index, 1);
+        }
+    }, {
+        key: 'onEventsInfoChange',
+        value: function onEventsInfoChange(event) {
+            if (event.target) {
+                var type = event.target.name;
+                var index = event.target.dataset.index;
+                this.listingEdit.relatedEvents[index][type] = event.target.value;
+            } else if (event.date) {
+                this.listingEdit.relatedEvents[event.index].date = event.date;
+            }
+        }
+
+        //ACTUAL EVENTS
+
+        //Update info on event form
+
+    }, {
+        key: 'onEventInfoChange',
+        value: function onEventInfoChange(info) {
+            if (info.target) {
+                var value = info.target.value;
+                var name = info.target.name;
+                this.eventEdit[name] = value;
+            } else if (info.date) {
+                this.eventEdit.date = info.date;
+                console.log(this.eventEdit);
+            }
+        }
+    }, {
+        key: 'onSaveEventSuccess',
+        value: function onSaveEventSuccess(data) {
+            this.eventEdit = data;
+            console.log(data);
+            this.success.saveEvent = true;
+            var that = this;
+            setTimeout(function () {
+                that.success.saveEvent = false;
+            }, 1000);
+        }
+    }, {
+        key: 'onSaveEventFailure',
+        value: function onSaveEventFailure(error) {
+            console.log('error: ' + error);
+            this.error.saveEvent = 'Error. ' + error;
+        }
+    }, {
+        key: 'onGetEventInfoSuccess',
+        value: function onGetEventInfoSuccess(data) {
+            console.log('Listing info loaded', data);
+            if (data) {
+                this.eventEdit = data;
+            }
+        }
+        //Update an event
+
+    }, {
+        key: 'onUpdateEventAttempt',
+        value: function onUpdateEventAttempt() {
+            this.loading.updateEvent = true;
+        }
+    }, {
+        key: 'onUpdateEventSuccess',
+        value: function onUpdateEventSuccess(data) {
+            this.loading.updateEvent = false;
+            this.success.updateEvent = true;
+            this.sidebarOpen = false;
+            var that = this;
+            setTimeout(function () {
+                that.success.updateEvent = false;
+            }, 1000);
+        }
+    }, {
+        key: 'onUpdateEventFailure',
+        value: function onUpdateEventFailure(err) {
+            this.loading.updateEvent = false;
+            this.error.updateEvent = 'Error while saving changes';
+            console.log('Error: ', err);
+        }
+        //Delete Event
+
+    }, {
+        key: 'onDeleteEventSuccess',
+        value: function onDeleteEventSuccess() {
+            //Reset the listing data
+            this.success.deleteEvent = true;
+            //Reset the listing
+            this.deleteEvent = {
+                venue: {},
+                events: [],
+                artists: []
+                //Close the sidebar
+            };this.sidebarOpen = false;
+            //Reset the success status
+            var that = this;
+            setTimeout(function () {
+                that.success.deleteEvent = false;
+            }, 1000);
+        }
+    }, {
+        key: 'onDeleteEventFailure',
+        value: function onDeleteEventFailure(err) {
+            console.log('Error: ', err);
+            this.error.deleteEvent = 'Error deleting event';
+        }
+    }, {
+        key: 'onEventEditReset',
+        value: function onEventEditReset() {
+            this.eventEdit = {
+                venue: {},
+                list: null,
+                artists: null
+            };
+        }
+        //Load a specific event into listing edit
+
+    }, {
+        key: 'onEditEvent',
+        value: function onEditEvent(event) {
+            console.log('Editing an event');
+            this.eventEdit = event;
+        }
+
+        //Sidebar
+
+    }, {
+        key: 'onToggleSideBar',
+        value: function onToggleSideBar() {
+            this.sidebarOpen = !this.sidebarOpen;
+            if (!this.sidebarOpen) {
+                this.eventEdit = {
+                    venue: {},
+                    list: null,
+                    artists: null
+                };
+                this.listingEdit = {
+                    events: [],
+                    venue: {},
+                    end: null,
+                    start: null
+                };
+            }
+        }
+
+        //Menu
+
+    }, {
+        key: 'onToggleMenu',
+        value: function onToggleMenu() {
+            this.menuActive = !this.menuActive;
+        }
+
+        // ARTISTS
+
+    }, {
+        key: 'onGetAllArtistsSuggestionsAttempt',
+        value: function onGetAllArtistsSuggestionsAttempt() {
+            console.log('Attempting to retrieve all artists');
+        }
+    }, {
+        key: 'onGetAllArtistsSuggestionsSuccess',
+        value: function onGetAllArtistsSuggestionsSuccess(data) {
+            this.allArtists = data;
+        }
+    }, {
+        key: 'onGetAllArtistsSuggestionsFailure',
+        value: function onGetAllArtistsSuggestionsFailure() {
+            console.log('Error retrieving all artists');
+        }
+    }]);
+
+    return ListStore;
+}();
+
+exports.default = _alt2.default.createStore(ListStore);
 
 /***/ }),
 /* 54 */
 /***/ (function(module, exports) {
 
-module.exports = require("draft-js-import-html");
+module.exports = require("async");
 
 /***/ }),
 /* 55 */
 /***/ (function(module, exports) {
 
-module.exports = require("isomorphic-fetch");
+module.exports = require("draft-js");
 
 /***/ }),
 /* 56 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-reorder");
+module.exports = require("draft-js-export-html");
 
 /***/ }),
 /* 57 */
 /***/ (function(module, exports) {
 
-module.exports = require("validator");
+module.exports = require("draft-js-import-html");
 
 /***/ }),
 /* 58 */
+/***/ (function(module, exports) {
+
+module.exports = require("isomorphic-fetch");
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom");
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-reorder");
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
+
+/***/ }),
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8380,14 +9580,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // config/passport.js
 
 // load all the things we need
-var LocalStrategy = __webpack_require__(164).Strategy;
-var FacebookStrategy = __webpack_require__(163).Strategy;
+var LocalStrategy = __webpack_require__(172).Strategy;
+var FacebookStrategy = __webpack_require__(171).Strategy;
 
 
 // load up the user model
-var UserModels = __webpack_require__(31);
+var UserModels = __webpack_require__(32);
 var User = UserModels.user;
-var Venue = __webpack_require__(32);
+var Venue = __webpack_require__(33);
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -8608,13 +9808,13 @@ module.exports = function (passport) {
 };
 
 /***/ }),
-/* 59 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(9),
+var mongoose = __webpack_require__(7),
     Schema = mongoose.Schema;
 
 // Create the Artist table ==================================
@@ -8638,13 +9838,58 @@ module.exports = {
 };
 
 /***/ }),
-/* 60 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(9);
+var mongoose = __webpack_require__(7);
+
+// Create the Listings table ==================================
+
+var eventSchema = mongoose.Schema({
+    name: String,
+    date: Date,
+    description: String,
+    type: String,
+    venue: {
+        type: String,
+        ref: 'Venue'
+    },
+    list: {
+        type: String,
+        ref: 'List'
+    },
+    artists: [{
+        type: String,
+        ref: 'Artist'
+    }],
+    image: String,
+    popularity: Number,
+    created_at: Date,
+    updated_at: Date,
+    updated_by: {
+        type: String,
+        ref: 'User'
+    }
+});
+
+//compile the model
+module.exports = {
+    event: mongoose.model('Event', eventSchema),
+    trash: mongoose.model('EventTrash', eventSchema),
+    archive: mongoose.model('EventArchive', eventSchema)
+};
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
 
@@ -8666,23 +9911,15 @@ var featureSchema = mongoose.Schema({
 module.exports = mongoose.model('Feature', featureSchema);
 
 /***/ }),
-/* 61 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(9),
-    Schema = mongoose.Schema;
+var mongoose = __webpack_require__(7);
 
 // Create the Listings table ==================================
-
-var eventSchema = new Schema({
-    name: String,
-    type: String,
-    date: { type: Date },
-    description: String
-});
 
 var listingSchema = mongoose.Schema({
     name: String,
@@ -8709,7 +9946,10 @@ var listingSchema = mongoose.Schema({
         type: String,
         ref: 'User'
     },
-    events: [eventSchema]
+    relatedEvents: [{
+        type: String,
+        ref: 'Event'
+    }]
 });
 
 //compile the model
@@ -8720,13 +9960,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 62 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var express = __webpack_require__(12);
+var express = __webpack_require__(11);
 var router = express.Router();
 
 //#######################
@@ -8774,16 +10014,22 @@ router.post('/add', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 63 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var express = __webpack_require__(12);
+var _moment = __webpack_require__(6);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var express = __webpack_require__(11);
 var router = express.Router();
-var passport = __webpack_require__(33);
-var mongoose = __webpack_require__(9);
+var passport = __webpack_require__(34);
+var mongoose = __webpack_require__(7);
 
 //###################################
 // SIGNUP
@@ -8826,7 +10072,7 @@ router.post('/login', async function (req, res) {
 
             console.log('Logged in', req.user.slug);
 
-            var now = new Date();
+            var now = (0, _moment2.default)();
             var newInfo = { lastConnection: now };
             var update = { $set: newInfo };
 
@@ -8956,14 +10202,12 @@ router.post('/addtolist', function (req, res) {
 
 router.post('/updatemylist', function (req, res) {
     var Userlist = req.userlist;
-    var List = req.list;
 
     //CHECK IF USER IS CONNECTED
     if (req.user) {
 
         // define variables
         var userID = req.user._id;
-        var newListings = req.body;
 
         Userlist.findById(userID, function (err, user) {
 
@@ -8990,17 +10234,13 @@ router.post('/updatemylist', function (req, res) {
 
 router.get('/getmylist', function (req, res) {
     var List = req.list;
-    var Venue = req.venue;
 
     //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
+    var today = (0, _moment2.default)().startOf('day');
 
     //CHECK IF USER IS CONNECTED
     if (req.user) {
-        var theirList = req.user.mylist;
-
-        List.find().where('_id').in(theirList).where('end').gte(today).populate('venue').exec(function (e, docs) {
+        List.find().where('_id').in(req.user.mylist).where('end').gte(today).populate('venue').populate('relatedEvents').populate('artists').exec(function (e, docs) {
             res.json(docs);
         });
     } else {
@@ -9035,7 +10275,6 @@ router.get('/getusermylist/:user_slug', function (req, res) {
 
 router.get('/checksession', function (req, res) {
     var User = req.user;
-    var Userlist = req.userlist;
 
     if (User) {
         res.send(JSON.stringify(User));
@@ -9058,7 +10297,6 @@ router.post('/updateuser', function (req, res) {
 
     console.log('auth/updateuser');
     var Userlist = req.userlist;
-    var User = req.user;
 
     var newInfo = req.body;
 
@@ -9124,7 +10362,163 @@ router.get('/getallusers', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 64 */
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _moment = __webpack_require__(6);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var express = __webpack_require__(11);
+var router = express.Router();
+var mongoose = __webpack_require__(7);
+
+//#######################
+// GET ALL UPCOMING EVENTS
+//#######################
+
+router.get('/upcoming', function (req, res) {
+    var Event = req.event;
+
+    //Find today's date
+    var today = (0, _moment2.default)().startOf('day');
+
+    Event.find().where('date').gte(today).where('venue').exists().where('type').ne('reception').sort('date').populate('venue').populate('list').populate('artists').exec(function (e, docs) {
+        console.log(docs);
+        res.json(docs);
+    });
+});
+
+//#######################
+/* FIND listings based on text */
+//#######################
+
+router.get('/find/:regex_input', function (req, res, next) {
+    var Event = req.event;
+
+    var regexp = new RegExp(req.params.regex_input, "i");
+
+    Event.find({ name: regexp }).exec(function (err, listings) {
+        if (err) res.send(err);
+
+        var results = [];
+        listings.map(function (theevent) {
+            results.push({
+                value: theevent._id,
+                label: theevent.name
+            });
+        });
+
+        res.json(results);
+    });
+});
+
+//#######################
+// GET ONE listing 
+//#######################
+router.get('/getinfo/:id', function (req, res, next) {
+    var Event = req.event;
+
+    Event.findOne({
+        _id: req.params.id
+    }).where('venue').ne('').populate('venue').populate('updated_by').exec(function (e, docs) {
+        if (e) res.send(e);
+        res.json(docs);
+    });
+});
+
+//############################
+// POST a new event.
+//############################
+
+router.post('/add', function (req, res) {
+    var Event = req.event;
+
+    // define a new entry
+    var newevent = req.body;
+
+    // Save when and who created it
+    var now = (0, _moment2.default)();
+    newevent.created_at = now;
+    newevent.updated_at = now;
+    newevent.updated_by = req.user._id;
+
+    newevent = new Event(newevent);
+
+    //Save this new entry
+    newevent.save(function (err, savedEvent) {
+        res.send(err === null ? savedEvent : { msg: err });
+    });
+});
+
+//#######################
+// UPDATE a listing.
+//#######################
+
+router.post('/update', function (req, res) {
+    var Event = req.event;
+
+    // define a new entry
+    var theevent = req.body;
+
+    // Save when and who updated it
+    var now = (0, _moment2.default)();
+    theevent.updated_at = now;
+    theevent.updated_by = req.user._id;
+
+    theevent = new Event(theevent);
+
+    Event.update({
+        _id: theevent._id
+    }, {
+        $set: theevent
+    }, function (err, data) {
+        console.log('success: ', data);
+        res.send(err === null ? {
+            msg: ''
+        } : {
+            msg: err
+        });
+    });
+});
+
+//#######################
+// DELETE an event.
+//#######################
+
+router.post('/delete/:event_id', function (req, res) {
+    var Event = req.event;
+    var EventTrash = req.eventTrash;
+
+    var eventToDelete = req.params.event_id;
+
+    Event.findOne({ _id: eventToDelete }, function (err, result) {
+
+        var swap = new EventTrash(result);
+        swap._id = mongoose.Types.ObjectId();
+        swap.isNew = true;
+
+        swap.save(function (err, newevent) {
+            res.send(err === null ? {
+                data: newevent
+            } : {
+                msg: err
+            });
+        });
+
+        result.remove();
+    });
+});
+
+module.exports = router;
+
+/***/ }),
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9134,23 +10528,23 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(167);
+var _server = __webpack_require__(175);
 
 var _reactRouter = __webpack_require__(3);
 
-var _routes = __webpack_require__(148);
+var _routes = __webpack_require__(156);
 
 var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var express = __webpack_require__(12);
+var express = __webpack_require__(11);
 var router = express.Router();
 // we'll use this to render our app to an html string
 
 // and these to match the url to routes and then render
 
-var history = __webpack_require__(161);
+var history = __webpack_require__(169);
 var historyObj = history.createMemoryHistory();
 
 // Check if user is connected
@@ -9183,21 +10577,21 @@ router.get('*', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 65 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _moment = __webpack_require__(8);
+var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var express = __webpack_require__(12);
+var express = __webpack_require__(11);
 var router = express.Router();
-var mongoose = __webpack_require__(9);
+var mongoose = __webpack_require__(7);
 
 //#######################
 // GET ALL listings ===================
@@ -9237,12 +10631,11 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     //Find today's date
     var start = (0, _moment2.default)().startOf('day');
     var end = (0, _moment2.default)().endOf('day');
-    console.log(start, end);
 
     //Count how many times we've fetched listings
-    var offset_ratio = parseInt(req.params.offset_ratio) * 100;
+    var offset_ratio = parseInt(req.params.offset_ratio) * 500;
 
-    List.find().where('start').lte(end).where('end').gte(start).where('event').ne(true).where('venue').ne('').skip(offset_ratio).limit(100).sort({ neighborhood: 1, venue: 1 }).populate('venue').populate('artists').exec(function (e, docs) {
+    List.find().where('start').lte(end).where('end').gte(start).where('event').ne(true).where('venue').ne('').skip(offset_ratio).limit(500).sort({ neighborhood: 1, venue: 1 }).populate('venue').populate('artists').populate('relatedEvents').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -9260,7 +10653,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 100;
 
-    List.find().where('start').gt(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(100).populate('venue').populate('artists').populate('updated_by').exec(function (e, docs) {
+    List.find().where('start').gt(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(100).populate('venue').populate('artists').populate('relatedEvents').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -9271,6 +10664,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
 
 router.get('/glancelistings', function (req, res) {
     var List = req.list;
+    var Event = req.event;
 
     //Find today's date
     var today = (0, _moment2.default)().startOf('day');
@@ -9288,27 +10682,14 @@ router.get('/glancelistings', function (req, res) {
                 $lte: inaWeek
             }
         }]
-    }, {}).where('venue').ne('').sort('neighborhood').populate('venue').populate('artists').exec(function (e, docs) {
+    }, {}).where('venue').ne('').sort('neighborhood').populate('venue').populate('artists').populate('relatedEvents').exec(function (e, listings) {
         if (e) {
             console.log('Error: ', e);
             res.send(e);
-        } else res.json(docs);
-    });
-});
-
-//#######################
-// GET EVENTS list to display.
-//#######################
-
-router.get('/eventslistings', function (req, res) {
-    var List = req.list;
-
-    //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    List.find().where('start').gte(today).where('event').equals(true).where('venue').ne('').sort('start').populate('venue').populate('artists').exec(function (e, docs) {
-        res.json(docs);
+        } else Event.find({ date: { $gte: today, $lte: inaWeek } }, {}).populate('venue').populate('list').populate('artists').exec(function (e, events) {
+            var docs = { listings: listings, events: events };
+            res.json(docs);
+        });
     });
 });
 
@@ -9319,7 +10700,7 @@ router.get('/eventslistings', function (req, res) {
 router.get('/latestlistings', function (req, res) {
     var List = req.list;
 
-    List.find().where('venue').ne('').where('updated_at').ne('').sort({ updated_at: -1 }).limit(20).populate('venue').populate('artists').exec(function (e, docs) {
+    List.find().where('venue').ne('').where('updated_at').ne('').sort({ updated_at: -1 }).limit(20).populate('venue').populate('artists').populate('relatedEvents').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -9338,13 +10719,14 @@ router.get('/find/:regex_input', function (req, res, next) {
 
         var results = [];
         listings.map(function (thelisting) {
-            console.log(thelisting.artists);
-            var artists = thelisting.artists && thelisting.artists.map(function (artist) {
-                return artist.name + ' ';
-            });
+            var artists = thelisting.artists ? thelisting.artists.map(function (artist, index) {
+                var comma = index < thelisting.artists.length - 1 ? ', ' : '';return artist.name + comma;
+            }) : '';
+            var colon = thelisting.artists.length && thelisting.name ? ': ' : '';
+            var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : '';
             results.push({
                 value: thelisting._id,
-                label: thelisting.name + ' ' + artists
+                label: artists + groupShow + colon + thelisting.name
             });
         });
 
@@ -9360,7 +10742,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 
     List.findOne({
         _id: req.params.listing_id
-    }).where('venue').ne('').populate('venue').populate('artists').populate('updated_by').exec(function (e, docs) {
+    }).where('venue').ne('').populate('venue').populate('artists').populate('relatedEvents').populate('updated_by').exec(function (e, docs) {
         if (e) res.send(e);
         res.json(docs);
     });
@@ -9373,17 +10755,19 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 router.post('/add', function (req, res) {
     var List = req.list;
     var Artists = req.artists;
+    var Event = req.event;
 
     // define a new entry
     var newlisting = req.body;
 
     // Save when and who created it
-    var now = new Date();
+    var now = new _moment2.default();
     newlisting.created_at = now;
     newlisting.updated_at = now;
     newlisting.updated_by = req.user._id;
 
-    var fn = function saveArtists(artist) {
+    //SAVE ALL THE ARTISTS
+    var artistsfn = function saveArtists(artist) {
         // Save artist async
         if (artist._id) {
             return artist._id;
@@ -9397,18 +10781,44 @@ router.post('/add', function (req, res) {
         }
     };
 
-    var saving = newlisting.artists.map(fn); // run the function over all items
+    var saving = newlisting.artists.map(artistsfn); // run the function over all items
 
     var savedArtists = Promise.all(saving); // pass array of promises
 
     savedArtists.then(function (data) {
 
         newlisting.artists = data;
-        newlisting = new List(newlisting);
 
-        //Save this new entry
-        newlisting.save(function (err, newlisting) {
-            res.send(err === null ? newlisting : { msg: err });
+        //SAVE ALL THE EVENTS
+        var eventsfn = function saveEvents(event) {
+            // Save artist async
+
+            var newEvent = event;
+            newEvent.venue = newlisting.venue._id;
+            newEvent.list = newlisting._id;
+            newEvent.artists = newlisting.artists;
+            var readyEvent = new Event(newEvent);
+
+            return new Promise(function (resolve) {
+                readyEvent.save(function (err, savedEvent) {
+                    resolve(savedEvent._id);
+                });
+            });
+        };
+
+        var savingEvents = newlisting.relatedEvents.map(eventsfn); // run the function over all items
+
+        var savedEvents = Promise.all(savingEvents); // pass array of promises
+
+        savedEvents.then(function (data) {
+
+            newlisting.relatedEvents = data;
+            newlisting = new List(newlisting);
+
+            //Save this new entry
+            newlisting.save(function (err, newlisting) {
+                res.send(err === null ? newlisting : { msg: err });
+            });
         });
     });
 });
@@ -9420,18 +10830,18 @@ router.post('/add', function (req, res) {
 router.post('/update', function (req, res) {
     var List = req.list;
     var Artists = req.artists;
-
-    console.log("Update one listing");
+    var Event = req.event;
 
     // define a new entry
     var thelisting = req.body;
 
     // Save when and who updated it
-    var now = new Date();
+    var now = (0, _moment2.default)();
     thelisting.updated_at = now;
     thelisting.updated_by = req.user._id;
 
-    var fn = function saveArtists(artist) {
+    //SAVE ALL THE ARTISTS
+    var artistsfn = function saveArtists(artist) {
         // Save artist async
         if (artist._id) {
             return artist._id;
@@ -9439,33 +10849,76 @@ router.post('/update', function (req, res) {
             var newArtist = new Artists(artist);
             return new Promise(function (resolve) {
                 newArtist.save(function (err, newArtist) {
-                    console.log(newArtist);
                     resolve(newArtist._id);
                 });
             });
         }
     };
 
-    var saving = thelisting.artists.map(fn); // run the function over all items
+    var saving = thelisting.artists.map(artistsfn); // run the function over all items
 
     var savedArtists = Promise.all(saving); // pass array of promises
 
     savedArtists.then(function (data) {
 
         thelisting.artists = data;
-        thelisting = new List(thelisting);
-        console.log('Before saving: ', thelisting);
 
-        List.update({
-            _id: thelisting._id
-        }, {
-            $set: thelisting
-        }, function (err, newlisting) {
-            console.log('After saving: ', newlisting);
-            res.send(err === null ? {
-                msg: ''
-            } : {
-                msg: err
+        //SAVE ALL THE EVENTS
+        var eventsfn = function saveEvents(event) {
+            // Save artist async
+            if (event._id) {
+
+                var newEvent = event;
+                newEvent.venue = thelisting.venue._id;
+                newEvent.list = thelisting._id;
+                newEvent.artists = thelisting.artists;
+
+                return new Promise(function (resolve) {
+                    Event.update({
+                        _id: event._id
+                    }, {
+                        $set: newEvent
+                    }, function (err, savedEvent) {
+                        console.log(savedEvent);
+                        resolve(savedEvent._id);
+                    });
+                });
+            } else {
+                var _newEvent = event;
+                _newEvent.venue = thelisting.venue._id;
+                _newEvent.list = thelisting._id;
+                _newEvent.artists = thelisting.artists;
+                var readyEvent = new Event(_newEvent);
+
+                return new Promise(function (resolve) {
+                    readyEvent.save(function (err, savedEvent) {
+                        console.log(savedEvent);
+                        resolve(savedEvent._id);
+                    });
+                });
+            }
+        };
+
+        var savingEvents = thelisting.relatedEvents.map(eventsfn); // run the function over all items
+
+        var savedEvents = Promise.all(savingEvents); // pass array of promises
+
+        savedEvents.then(function (data) {
+
+            thelisting.relatedEvents = data;
+            thelisting = new List(thelisting);
+
+            List.update({
+                _id: thelisting._id
+            }, {
+                $set: thelisting
+            }, function (err, newlisting) {
+                console.log(newlisting);
+                res.send(err === null ? {
+                    msg: ''
+                } : {
+                    msg: err
+                });
             });
         });
     });
@@ -9551,15 +11004,15 @@ router.post('/delete/:listing_id', function (req, res) {
 module.exports = router;
 
 /***/ }),
-/* 66 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var express = __webpack_require__(12);
+var express = __webpack_require__(11);
 var router = express.Router();
-var Promise = __webpack_require__(156);
+var Promise = __webpack_require__(164);
 
 /* GET All Venues */
 router.get('/', function (req, res, next) {
@@ -9761,220 +11214,226 @@ router.get('/:venue_id', function (req, res, next) {
 module.exports = router;
 
 /***/ }),
-/* 67 */
+/* 73 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 68 */
+/* 74 */
 /***/ (function(module, exports) {
 
 module.exports = require("connect-flash");
 
 /***/ }),
-/* 69 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 70 */
+/* 76 */
 /***/ (function(module, exports) {
 
 module.exports = require("debug");
 
 /***/ }),
-/* 71 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-session");
 
 /***/ }),
-/* 72 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-validator");
 
 /***/ }),
-/* 73 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 74 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 75 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 76 */
+/* 82 */
 /***/ (function(module, exports) {
 
 module.exports = require("prerender-node");
 
 /***/ }),
-/* 77 */
+/* 83 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fab', iconName: 'facebook', icon: [448, 512, [], "f09a", "M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"] };
 
 /***/ }),
-/* 78 */
+/* 84 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'bars', icon: [448, 512, [], "f0c9", "M442 114H6a6 6 0 0 1-6-6V84a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6z"] };
 
 /***/ }),
-/* 79 */
+/* 85 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'calendar', icon: [448, 512, [], "f133", "M400 64h-48V12c0-6.627-5.373-12-12-12h-8c-6.627 0-12 5.373-12 12v52H128V12c0-6.627-5.373-12-12-12h-8c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zM48 96h352c8.822 0 16 7.178 16 16v48H32v-48c0-8.822 7.178-16 16-16zm352 384H48c-8.822 0-16-7.178-16-16V192h384v272c0 8.822-7.178 16-16 16z"] };
 
 /***/ }),
-/* 80 */
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fal', iconName: 'edit', icon: [576, 512, [], "f044", "M417.8 315.5l20-20c3.8-3.8 10.2-1.1 10.2 4.2V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h292.3c5.3 0 8 6.5 4.2 10.2l-20 20c-1.1 1.1-2.7 1.8-4.2 1.8H48c-8.8 0-16 7.2-16 16v352c0 8.8 7.2 16 16 16h352c8.8 0 16-7.2 16-16V319.7c0-1.6.6-3.1 1.8-4.2zm145.9-191.2L251.2 436.8l-99.9 11.1c-13.4 1.5-24.7-9.8-23.2-23.2l11.1-99.9L451.7 12.3c16.4-16.4 43-16.4 59.4 0l52.6 52.6c16.4 16.4 16.4 43 0 59.4zm-93.6 48.4L403.4 106 169.8 339.5l-8.3 75.1 75.1-8.3 233.5-233.6zm71-85.2l-52.6-52.6c-3.8-3.8-10.2-4-14.1 0L426 83.3l66.7 66.7 48.4-48.4c3.9-3.8 3.9-10.2 0-14.1z"] };
 
 /***/ }),
-/* 81 */
-/***/ (function(module, exports) {
-
-module.exports = { prefix: 'fal', iconName: 'glass-martini', icon: [512, 512, [], "f000", "M508 26.6C517.1 16.3 509.7 0 496 0H16C2.3 0-5.1 16.3 4 26.6L240 294v186H122c-14.4 0-26 11.6-26 26 0 3.3 2.7 6 6 6h308c3.3 0 6-2.7 6-6 0-14.4-11.6-26-26-26H272V294L508 26.6zM460.5 32L256 263.8 51.5 32h409z"] };
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports) {
-
-module.exports = { prefix: 'fal', iconName: 'info-circle', icon: [512, 512, [], "f05a", "M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"] };
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports) {
-
-module.exports = { prefix: 'fal', iconName: 'link', icon: [512, 512, [], "f0c1", "M301.148 394.702l-79.2 79.19c-50.778 50.799-133.037 50.824-183.84 0-50.799-50.778-50.824-133.037 0-183.84l79.19-79.2a132.833 132.833 0 0 1 3.532-3.403c7.55-7.005 19.795-2.004 20.208 8.286.193 4.807.598 9.607 1.216 14.384.481 3.717-.746 7.447-3.397 10.096-16.48 16.469-75.142 75.128-75.3 75.286-36.738 36.759-36.731 96.188 0 132.94 36.759 36.738 96.188 36.731 132.94 0l79.2-79.2.36-.36c36.301-36.672 36.14-96.07-.37-132.58-8.214-8.214-17.577-14.58-27.585-19.109-4.566-2.066-7.426-6.667-7.134-11.67a62.197 62.197 0 0 1 2.826-15.259c2.103-6.601 9.531-9.961 15.919-7.28 15.073 6.324 29.187 15.62 41.435 27.868 50.688 50.689 50.679 133.17 0 183.851zm-90.296-93.554c12.248 12.248 26.362 21.544 41.435 27.868 6.388 2.68 13.816-.68 15.919-7.28a62.197 62.197 0 0 0 2.826-15.259c.292-5.003-2.569-9.604-7.134-11.67-10.008-4.528-19.371-10.894-27.585-19.109-36.51-36.51-36.671-95.908-.37-132.58l.36-.36 79.2-79.2c36.752-36.731 96.181-36.738 132.94 0 36.731 36.752 36.738 96.181 0 132.94-.157.157-58.819 58.817-75.3 75.286-2.651 2.65-3.878 6.379-3.397 10.096a163.156 163.156 0 0 1 1.216 14.384c.413 10.291 12.659 15.291 20.208 8.286a131.324 131.324 0 0 0 3.532-3.403l79.19-79.2c50.824-50.803 50.799-133.062 0-183.84-50.802-50.824-133.062-50.799-183.84 0l-79.2 79.19c-50.679 50.682-50.688 133.163 0 183.851z"] };
-
-/***/ }),
-/* 84 */
-/***/ (function(module, exports) {
-
-module.exports = { prefix: 'fal', iconName: 'list-ul', icon: [512, 512, [], "f0ca", "M506 114H134a6 6 0 0 1-6-6V84a6 6 0 0 1 6-6h372a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm6 154v-24a6 6 0 0 0-6-6H134a6 6 0 0 0-6 6v24a6 6 0 0 0 6 6h372a6 6 0 0 0 6-6zm0 160v-24a6 6 0 0 0-6-6H134a6 6 0 0 0-6 6v24a6 6 0 0 0 6 6h372a6 6 0 0 0 6-6zM48 60c-19.882 0-36 16.118-36 36s16.118 36 36 36 36-16.118 36-36-16.118-36-36-36zm0 160c-19.882 0-36 16.118-36 36s16.118 36 36 36 36-16.118 36-36-16.118-36-36-36zm0 160c-19.882 0-36 16.118-36 36s16.118 36 36 36 36-16.118 36-36-16.118-36-36-36z"] };
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports) {
-
-module.exports = { prefix: 'fal', iconName: 'map', icon: [576, 512, [], "f279", "M531.004 34.78L397.62 94.04 184.791 33.231a31.997 31.997 0 0 0-21.788 1.527l-144 64A32 32 0 0 0 0 128v319.978c0 23.291 23.994 38.577 44.996 29.242l133.384-59.26 212.829 60.808a31.997 31.997 0 0 0 21.788-1.527l144-64A31.997 31.997 0 0 0 576 384V64.022c0-23.291-23.994-38.577-44.996-29.242zM192 68.571l192 54.857v320l-192-54.857v-320zM32 448V128l128-56.889v320L32 448zm512-64l-128 56.889v-320L544 64v320z"] };
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports) {
-
-module.exports = { prefix: 'fal', iconName: 'map-marker-alt', icon: [384, 512, [], "f3c5", "M192 96c-52.935 0-96 43.065-96 96s43.065 96 96 96 96-43.065 96-96-43.065-96-96-96zm0 160c-35.29 0-64-28.71-64-64s28.71-64 64-64 64 28.71 64 64-28.71 64-64 64zm0-256C85.961 0 0 85.961 0 192c0 77.413 26.97 99.031 172.268 309.67 9.534 13.772 29.929 13.774 39.465 0C357.03 291.031 384 269.413 384 192 384 85.961 298.039 0 192 0zm0 473.931C52.705 272.488 32 256.494 32 192c0-42.738 16.643-82.917 46.863-113.137S149.262 32 192 32s82.917 16.643 113.137 46.863S352 149.262 352 192c0 64.49-20.692 80.47-160 281.931z"] };
-
-/***/ }),
 /* 87 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fal', iconName: 'pencil-alt', icon: [512, 512, [], "f303", "M493.255 56.236l-37.49-37.49c-24.993-24.993-65.515-24.994-90.51 0L12.838 371.162.151 485.346c-1.698 15.286 11.22 28.203 26.504 26.504l114.184-12.687 352.417-352.417c24.992-24.994 24.992-65.517-.001-90.51zM164.686 347.313c6.249 6.249 16.379 6.248 22.627 0L368 166.627l30.059 30.059L174 420.745V386h-48v-48H91.255l224.059-224.059L345.373 144 164.686 324.687c-6.249 6.248-6.249 16.378 0 22.626zm-38.539 121.285l-58.995 6.555-30.305-30.305 6.555-58.995L63.255 366H98v48h48v34.745l-19.853 19.853zm344.48-344.48l-49.941 49.941-82.745-82.745 49.941-49.941c12.505-12.505 32.748-12.507 45.255 0l37.49 37.49c12.506 12.506 12.507 32.747 0 45.255z"] };
+module.exports = { prefix: 'fal', iconName: 'external-link-square', icon: [448, 512, [], "f14c", "M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm16 400c0 8.822-7.178 16-16 16H48c-8.822 0-16-7.178-16-16V80c0-8.822 7.178-16 16-16h352c8.822 0 16 7.178 16 16v352zM99.515 374.828c-4.686-4.686-4.686-12.284 0-16.971l195.15-195.15-.707-.707-89.958.342c-6.627 0-12-5.373-12-12v-9.999c0-6.628 5.372-12 12-12L340 128c6.627 0 12 5.372 12 12l-.343 136c0 6.627-5.373 12-12 12h-9.999c-6.627 0-12-5.373-12-12l.342-89.958-.707-.707-195.15 195.15c-4.686 4.686-12.284 4.686-16.971 0l-5.657-5.657z"] };
 
 /***/ }),
 /* 88 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fal', iconName: 'plus-circle', icon: [512, 512, [], "f055", "M384 250v12c0 6.6-5.4 12-12 12h-98v98c0 6.6-5.4 12-12 12h-12c-6.6 0-12-5.4-12-12v-98h-98c-6.6 0-12-5.4-12-12v-12c0-6.6 5.4-12 12-12h98v-98c0-6.6 5.4-12 12-12h12c6.6 0 12 5.4 12 12v98h98c6.6 0 12 5.4 12 12zm120 6c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-32 0c0-119.9-97.3-216-216-216-119.9 0-216 97.3-216 216 0 119.9 97.3 216 216 216 119.9 0 216-97.3 216-216z"] };
+module.exports = { prefix: 'fal', iconName: 'glass-martini', icon: [512, 512, [], "f000", "M508 26.6C517.1 16.3 509.7 0 496 0H16C2.3 0-5.1 16.3 4 26.6L240 294v186H122c-14.4 0-26 11.6-26 26 0 3.3 2.7 6 6 6h308c3.3 0 6-2.7 6-6 0-14.4-11.6-26-26-26H272V294L508 26.6zM460.5 32L256 263.8 51.5 32h409z"] };
 
 /***/ }),
 /* 89 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fal', iconName: 'search', icon: [512, 512, [], "f002", "M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"] };
+module.exports = { prefix: 'fal', iconName: 'info-circle', icon: [512, 512, [], "f05a", "M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"] };
 
 /***/ }),
 /* 90 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fal', iconName: 'spinner-third', icon: [512, 512, [], "f3f4", "M460.115 373.846l-6.941-4.008c-5.546-3.202-7.564-10.177-4.661-15.886 32.971-64.838 31.167-142.731-5.415-205.954-36.504-63.356-103.118-103.876-175.8-107.701C260.952 39.963 256 34.676 256 28.321v-8.012c0-6.904 5.808-12.337 12.703-11.982 83.552 4.306 160.157 50.861 202.106 123.67 42.069 72.703 44.083 162.322 6.034 236.838-3.14 6.149-10.75 8.462-16.728 5.011z"] };
+module.exports = { prefix: 'fal', iconName: 'link', icon: [512, 512, [], "f0c1", "M301.148 394.702l-79.2 79.19c-50.778 50.799-133.037 50.824-183.84 0-50.799-50.778-50.824-133.037 0-183.84l79.19-79.2a132.833 132.833 0 0 1 3.532-3.403c7.55-7.005 19.795-2.004 20.208 8.286.193 4.807.598 9.607 1.216 14.384.481 3.717-.746 7.447-3.397 10.096-16.48 16.469-75.142 75.128-75.3 75.286-36.738 36.759-36.731 96.188 0 132.94 36.759 36.738 96.188 36.731 132.94 0l79.2-79.2.36-.36c36.301-36.672 36.14-96.07-.37-132.58-8.214-8.214-17.577-14.58-27.585-19.109-4.566-2.066-7.426-6.667-7.134-11.67a62.197 62.197 0 0 1 2.826-15.259c2.103-6.601 9.531-9.961 15.919-7.28 15.073 6.324 29.187 15.62 41.435 27.868 50.688 50.689 50.679 133.17 0 183.851zm-90.296-93.554c12.248 12.248 26.362 21.544 41.435 27.868 6.388 2.68 13.816-.68 15.919-7.28a62.197 62.197 0 0 0 2.826-15.259c.292-5.003-2.569-9.604-7.134-11.67-10.008-4.528-19.371-10.894-27.585-19.109-36.51-36.51-36.671-95.908-.37-132.58l.36-.36 79.2-79.2c36.752-36.731 96.181-36.738 132.94 0 36.731 36.752 36.738 96.181 0 132.94-.157.157-58.819 58.817-75.3 75.286-2.651 2.65-3.878 6.379-3.397 10.096a163.156 163.156 0 0 1 1.216 14.384c.413 10.291 12.659 15.291 20.208 8.286a131.324 131.324 0 0 0 3.532-3.403l79.19-79.2c50.824-50.803 50.799-133.062 0-183.84-50.802-50.824-133.062-50.799-183.84 0l-79.2 79.19c-50.679 50.682-50.688 133.163 0 183.851z"] };
 
 /***/ }),
 /* 91 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fal', iconName: 'th', icon: [512, 512, [], "f00a", "M0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48H48C21.49 32 0 53.49 0 80zm320-16v106.667H192V64h128zm160 245.333H352V202.667h128v106.666zm-160 0H192V202.667h128v106.666zM32 202.667h128v106.667H32V202.667zM160 64v106.667H32V80c0-8.837 7.163-16 16-16h112zM32 432v-90.667h128V448H48c-8.837 0-16-7.163-16-16zm160 16V341.333h128V448H192zm160 0V341.333h128V432c0 8.837-7.163 16-16 16H352zm128-277.333H352V64h112c8.837 0 16 7.163 16 16v90.667z"] };
+module.exports = { prefix: 'fal', iconName: 'list-ul', icon: [512, 512, [], "f0ca", "M506 114H134a6 6 0 0 1-6-6V84a6 6 0 0 1 6-6h372a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm6 154v-24a6 6 0 0 0-6-6H134a6 6 0 0 0-6 6v24a6 6 0 0 0 6 6h372a6 6 0 0 0 6-6zm0 160v-24a6 6 0 0 0-6-6H134a6 6 0 0 0-6 6v24a6 6 0 0 0 6 6h372a6 6 0 0 0 6-6zM48 60c-19.882 0-36 16.118-36 36s16.118 36 36 36 36-16.118 36-36-16.118-36-36-36zm0 160c-19.882 0-36 16.118-36 36s16.118 36 36 36 36-16.118 36-36-16.118-36-36-36zm0 160c-19.882 0-36 16.118-36 36s16.118 36 36 36 36-16.118 36-36-16.118-36-36-36z"] };
 
 /***/ }),
 /* 92 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fal', iconName: 'times', icon: [320, 512, [], "f00d", "M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"] };
+module.exports = { prefix: 'fal', iconName: 'map', icon: [576, 512, [], "f279", "M531.004 34.78L397.62 94.04 184.791 33.231a31.997 31.997 0 0 0-21.788 1.527l-144 64A32 32 0 0 0 0 128v319.978c0 23.291 23.994 38.577 44.996 29.242l133.384-59.26 212.829 60.808a31.997 31.997 0 0 0 21.788-1.527l144-64A31.997 31.997 0 0 0 576 384V64.022c0-23.291-23.994-38.577-44.996-29.242zM192 68.571l192 54.857v320l-192-54.857v-320zM32 448V128l128-56.889v320L32 448zm512-64l-128 56.889v-320L544 64v320z"] };
 
 /***/ }),
 /* 93 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fal', iconName: 'trash', icon: [512, 512, [], "f1f8", "M368 64l-33.6-44.8C325.3 7.1 311.1 0 296 0h-80c-15.1 0-29.3 7.1-38.4 19.2L144 64H40c-13.3 0-24 10.7-24 24v2c0 3.3 2.7 6 6 6h20.9l33.2 372.3C78.3 493 99 512 123.9 512h264.2c24.9 0 45.6-19 47.8-43.7L469.1 96H490c3.3 0 6-2.7 6-6v-2c0-13.3-10.7-24-24-24H368zM216 32h80c5 0 9.8 2.4 12.8 6.4L328 64H184l19.2-25.6c3-4 7.8-6.4 12.8-6.4zm188 433.4c-.7 8.3-7.6 14.6-15.9 14.6H123.9c-8.3 0-15.2-6.3-15.9-14.6L75 96h362l-33 369.4z"] };
+module.exports = { prefix: 'fal', iconName: 'map-marker-alt', icon: [384, 512, [], "f3c5", "M192 96c-52.935 0-96 43.065-96 96s43.065 96 96 96 96-43.065 96-96-43.065-96-96-96zm0 160c-35.29 0-64-28.71-64-64s28.71-64 64-64 64 28.71 64 64-28.71 64-64 64zm0-256C85.961 0 0 85.961 0 192c0 77.413 26.97 99.031 172.268 309.67 9.534 13.772 29.929 13.774 39.465 0C357.03 291.031 384 269.413 384 192 384 85.961 298.039 0 192 0zm0 473.931C52.705 272.488 32 256.494 32 192c0-42.738 16.643-82.917 46.863-113.137S149.262 32 192 32s82.917 16.643 113.137 46.863S352 149.262 352 192c0 64.49-20.692 80.47-160 281.931z"] };
 
 /***/ }),
 /* 94 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'far', iconName: 'minus', icon: [384, 512, [], "f068", "M368 224H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h352c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"] };
+module.exports = { prefix: 'fal', iconName: 'pencil-alt', icon: [512, 512, [], "f303", "M493.255 56.236l-37.49-37.49c-24.993-24.993-65.515-24.994-90.51 0L12.838 371.162.151 485.346c-1.698 15.286 11.22 28.203 26.504 26.504l114.184-12.687 352.417-352.417c24.992-24.994 24.992-65.517-.001-90.51zM164.686 347.313c6.249 6.249 16.379 6.248 22.627 0L368 166.627l30.059 30.059L174 420.745V386h-48v-48H91.255l224.059-224.059L345.373 144 164.686 324.687c-6.249 6.248-6.249 16.378 0 22.626zm-38.539 121.285l-58.995 6.555-30.305-30.305 6.555-58.995L63.255 366H98v48h48v34.745l-19.853 19.853zm344.48-344.48l-49.941 49.941-82.745-82.745 49.941-49.941c12.505-12.505 32.748-12.507 45.255 0l37.49 37.49c12.506 12.506 12.507 32.747 0 45.255z"] };
 
 /***/ }),
 /* 95 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'far', iconName: 'phone', icon: [512, 512, [], "f095", "M476.5 22.9L382.3 1.2c-21.6-5-43.6 6.2-52.3 26.6l-43.5 101.5c-8 18.6-2.6 40.6 13.1 53.4l40 32.7C311 267.8 267.8 311 215.4 339.5l-32.7-40c-12.8-15.7-34.8-21.1-53.4-13.1L27.7 329.9c-20.4 8.7-31.5 30.7-26.6 52.3l21.7 94.2c4.8 20.9 23.2 35.5 44.6 35.5C312.3 512 512 313.7 512 67.5c0-21.4-14.6-39.8-35.5-44.6zM69.3 464l-20.9-90.7 98.2-42.1 55.7 68.1c98.8-46.4 150.6-98 197-197l-68.1-55.7 42.1-98.2L464 69.3C463 286.9 286.9 463 69.3 464z"] };
+module.exports = { prefix: 'fal', iconName: 'plus-circle', icon: [512, 512, [], "f055", "M384 250v12c0 6.6-5.4 12-12 12h-98v98c0 6.6-5.4 12-12 12h-12c-6.6 0-12-5.4-12-12v-98h-98c-6.6 0-12-5.4-12-12v-12c0-6.6 5.4-12 12-12h98v-98c0-6.6 5.4-12 12-12h12c6.6 0 12 5.4 12 12v98h98c6.6 0 12 5.4 12 12zm120 6c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-32 0c0-119.9-97.3-216-216-216-119.9 0-216 97.3-216 216 0 119.9 97.3 216 216 216 119.9 0 216-97.3 216-216z"] };
 
 /***/ }),
 /* 96 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'far', iconName: 'plus', icon: [384, 512, [], "f067", "M368 224H224V80c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v144H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h144v144c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V288h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"] };
+module.exports = { prefix: 'fal', iconName: 'search', icon: [512, 512, [], "f002", "M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"] };
 
 /***/ }),
 /* 97 */
 /***/ (function(module, exports) {
 
-module.exports = { prefix: 'fas', iconName: 'star', icon: [576, 512, [], "f005", "M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"] };
+module.exports = { prefix: 'fal', iconName: 'spinner-third', icon: [512, 512, [], "f3f4", "M460.115 373.846l-6.941-4.008c-5.546-3.202-7.564-10.177-4.661-15.886 32.971-64.838 31.167-142.731-5.415-205.954-36.504-63.356-103.118-103.876-175.8-107.701C260.952 39.963 256 34.676 256 28.321v-8.012c0-6.904 5.808-12.337 12.703-11.982 83.552 4.306 160.157 50.861 202.106 123.67 42.069 72.703 44.083 162.322 6.034 236.838-3.14 6.149-10.75 8.462-16.728 5.011z"] };
 
 /***/ }),
 /* 98 */
+/***/ (function(module, exports) {
+
+module.exports = { prefix: 'fal', iconName: 'th', icon: [512, 512, [], "f00a", "M0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48H48C21.49 32 0 53.49 0 80zm320-16v106.667H192V64h128zm160 245.333H352V202.667h128v106.666zm-160 0H192V202.667h128v106.666zM32 202.667h128v106.667H32V202.667zM160 64v106.667H32V80c0-8.837 7.163-16 16-16h112zM32 432v-90.667h128V448H48c-8.837 0-16-7.163-16-16zm160 16V341.333h128V448H192zm160 0V341.333h128V432c0 8.837-7.163 16-16 16H352zm128-277.333H352V64h112c8.837 0 16 7.163 16 16v90.667z"] };
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports) {
+
+module.exports = { prefix: 'fal', iconName: 'times', icon: [320, 512, [], "f00d", "M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"] };
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports) {
+
+module.exports = { prefix: 'fal', iconName: 'trash', icon: [512, 512, [], "f1f8", "M368 64l-33.6-44.8C325.3 7.1 311.1 0 296 0h-80c-15.1 0-29.3 7.1-38.4 19.2L144 64H40c-13.3 0-24 10.7-24 24v2c0 3.3 2.7 6 6 6h20.9l33.2 372.3C78.3 493 99 512 123.9 512h264.2c24.9 0 45.6-19 47.8-43.7L469.1 96H490c3.3 0 6-2.7 6-6v-2c0-13.3-10.7-24-24-24H368zM216 32h80c5 0 9.8 2.4 12.8 6.4L328 64H184l19.2-25.6c3-4 7.8-6.4 12.8-6.4zm188 433.4c-.7 8.3-7.6 14.6-15.9 14.6H123.9c-8.3 0-15.2-6.3-15.9-14.6L75 96h362l-33 369.4z"] };
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports) {
+
+module.exports = { prefix: 'far', iconName: 'minus', icon: [384, 512, [], "f068", "M368 224H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h352c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"] };
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports) {
+
+module.exports = { prefix: 'far', iconName: 'phone', icon: [512, 512, [], "f095", "M476.5 22.9L382.3 1.2c-21.6-5-43.6 6.2-52.3 26.6l-43.5 101.5c-8 18.6-2.6 40.6 13.1 53.4l40 32.7C311 267.8 267.8 311 215.4 339.5l-32.7-40c-12.8-15.7-34.8-21.1-53.4-13.1L27.7 329.9c-20.4 8.7-31.5 30.7-26.6 52.3l21.7 94.2c4.8 20.9 23.2 35.5 44.6 35.5C312.3 512 512 313.7 512 67.5c0-21.4-14.6-39.8-35.5-44.6zM69.3 464l-20.9-90.7 98.2-42.1 55.7 68.1c98.8-46.4 150.6-98 197-197l-68.1-55.7 42.1-98.2L464 69.3C463 286.9 286.9 463 69.3 464z"] };
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports) {
+
+module.exports = { prefix: 'far', iconName: 'plus', icon: [384, 512, [], "f067", "M368 224H224V80c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v144H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h144v144c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V288h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"] };
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports) {
+
+module.exports = { prefix: 'fas', iconName: 'star', icon: [576, 512, [], "f005", "M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"] };
+
+/***/ }),
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var express = __webpack_require__(12);
-var path = __webpack_require__(75);
-var logger = __webpack_require__(74);
-var cookieParser = __webpack_require__(69);
-var bodyParser = __webpack_require__(67);
-var http = __webpack_require__(73);
-var debug = __webpack_require__(70)('artcritical-list:server');
+var express = __webpack_require__(11);
+var path = __webpack_require__(81);
+var logger = __webpack_require__(80);
+var cookieParser = __webpack_require__(75);
+var bodyParser = __webpack_require__(73);
+var http = __webpack_require__(79);
+var debug = __webpack_require__(76)('artcritical-list:server');
 
-var expressValidator = __webpack_require__(72);
+var expressValidator = __webpack_require__(78);
 
 //Authentification
-var passport = __webpack_require__(33);
-var flash = __webpack_require__(68);
-var session = __webpack_require__(71);
+var passport = __webpack_require__(34);
+var flash = __webpack_require__(74);
+var session = __webpack_require__(77);
 
 // Get the User Atuhentification model
-__webpack_require__(58)(passport);
+__webpack_require__(62)(passport);
 
 var app = express();
 
 // MongoDB
-var mongoose = __webpack_require__(9);
+var mongoose = __webpack_require__(7);
 var url = process.env.MONGOLAB_URI;
 mongoose.Promise = global.Promise;
 mongoose.connect(url, { useMongoClient: true });
@@ -9986,18 +11445,22 @@ db.once('open', function () {
 });
 
 // Import the Mongoose models
-var ListModels = __webpack_require__(61);
+var ListModels = __webpack_require__(66);
 var List = ListModels.list;
 var Archive = ListModels.archive;
 var Trash = ListModels.trash;
-var ArtistModels = __webpack_require__(59);
+var EventModels = __webpack_require__(64);
+var EventSchema = EventModels.event;
+var EventTrash = EventModels.archive;
+var EventArchive = EventModels.trash;
+var ArtistModels = __webpack_require__(63);
 var Artist = ArtistModels.artist;
 var ArtistTrash = ArtistModels.artistTrash;
-var Venue = __webpack_require__(32);
-var UserModels = __webpack_require__(31);
+var Venue = __webpack_require__(33);
+var UserModels = __webpack_require__(32);
 var User = UserModels.user;
 var UserTrash = UserModels.userTrash;
-var Feature = __webpack_require__(60);
+var Feature = __webpack_require__(65);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -10034,13 +11497,16 @@ app.use(function (req, res, next) {
 });
 
 //Pre-Rendering for SEO
-app.use(__webpack_require__(76).set('prerenderToken', 'xNgryV1QDytdnXWxSjza'));
+app.use(__webpack_require__(82).set('prerenderToken', 'xNgryV1QDytdnXWxSjza'));
 
 // Make our db accessible to our router
 app.use(function (req, res, next) {
   req.list = List;
   req.archive = Archive;
   req.trash = Trash;
+  req.event = EventSchema;
+  req.eventTrash = EventTrash;
+  req.eventArchive = EventArchive;
   req.artists = Artist;
   req.artistTrash = ArtistTrash;
   req.venue = Venue;
@@ -10050,14 +11516,16 @@ app.use(function (req, res, next) {
   next();
 });
 
-var index = __webpack_require__(64);
-var venues = __webpack_require__(66);
-var listings = __webpack_require__(65);
-var artists = __webpack_require__(62);
-var auth = __webpack_require__(63);
+var index = __webpack_require__(70);
+var venues = __webpack_require__(72);
+var listings = __webpack_require__(71);
+var event = __webpack_require__(69);
+var artists = __webpack_require__(67);
+var auth = __webpack_require__(68);
 
 app.use('/venues', venues);
 app.use('/list', listings);
+app.use('/event', event);
 app.use('/artist', artists);
 app.use('/auth', auth);
 app.use('/', index);
@@ -10161,7 +11629,7 @@ function onListening() {
 /* WEBPACK VAR INJECTION */}.call(exports, "build"))
 
 /***/ }),
-/* 99 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10179,33 +11647,33 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(30);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _Helmet = __webpack_require__(6);
+var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _reactMapGl = __webpack_require__(15);
+var _reactMapGl = __webpack_require__(17);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
-var _MapCluster = __webpack_require__(119);
+var _MapCluster = __webpack_require__(127);
 
 var _MapCluster2 = _interopRequireDefault(_MapCluster);
 
-var _VenueBlock = __webpack_require__(10);
+var _VenueBlock = __webpack_require__(12);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _d3Request = __webpack_require__(157);
+var _d3Request = __webpack_require__(165);
 
 var _reactstrap = __webpack_require__(2);
+
+var _ListingNameDisplay = __webpack_require__(18);
+
+var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10217,7 +11685,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //COMPONENTS
 
 
-var d3 = __webpack_require__(27);
+var d3 = __webpack_require__(28);
 
 var CurrentMap = function (_React$Component) {
 	_inherits(CurrentMap, _React$Component);
@@ -10402,12 +11870,8 @@ var CurrentMap = function (_React$Component) {
 			};
 
 			var showLabels = function showLabels(listings) {
-				return listings.map(function (listing, index) {
-					return _react2.default.createElement(
-						'div',
-						{ key: index },
-						listing.name
-					);
+				return listings.map(function (listing) {
+					return _react2.default.createElement(_ListingNameDisplay2.default, _extends({}, listing, { key: listing._id }));
 				});
 			};
 
@@ -10456,7 +11920,7 @@ var CurrentMap = function (_React$Component) {
 						_react2.default.createElement(
 							'h2',
 							null,
-							'Explore art exhibitions in New York City and beyond. Create your person lists. See. Share.'
+							'Explore art exhibitions in New York City and beyond. Create your personal lists. See. Share.'
 						),
 						_react2.default.createElement(
 							'p',
@@ -10562,7 +12026,7 @@ CurrentMap.defaultProps = {
 };
 
 /***/ }),
-/* 100 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10584,19 +12048,19 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _Helmet = __webpack_require__(6);
+var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _neighborhoodNav = __webpack_require__(43);
+var _neighborhoodNav = __webpack_require__(44);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
-var _listingsPerNeighbor = __webpack_require__(41);
+var _listingsPerNeighbor = __webpack_require__(42);
 
 var _listingsPerNeighbor2 = _interopRequireDefault(_listingsPerNeighbor);
 
-var _loading = __webpack_require__(7);
+var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -10665,11 +12129,7 @@ var CurrentPage = function (_React$Component) {
                     _react2.default.createElement(_listingsPerNeighbor2.default, { listings: this.props.currentListings, user: this.props.user, dateView: 'current' }),
                     this.props.loading.current && _react2.default.createElement(_loading2.default, null)
                 ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'right-col' },
-                    _react2.default.createElement('img', { src: '/images/ad-long.jpg' })
-                )
+                _react2.default.createElement('div', { className: 'right-col' })
             );
         }
     }]);
@@ -10680,7 +12140,7 @@ var CurrentPage = function (_React$Component) {
 exports.default = CurrentPage;
 
 /***/ }),
-/* 101 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10696,19 +12156,23 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = __webpack_require__(8);
+var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _VenueList = __webpack_require__(38);
+var _VenueList = __webpack_require__(39);
 
 var _VenueList2 = _interopRequireDefault(_VenueList);
 
-var _loading = __webpack_require__(7);
+var _Event = __webpack_require__(37);
+
+var _Event2 = _interopRequireDefault(_Event);
+
+var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _featureBlock = __webpack_require__(40);
+var _featureBlock = __webpack_require__(41);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -10745,26 +12209,46 @@ var DayPage = function (_React$Component) {
             var openings = [];
             var closings = [];
 
-            this.props.glanceListings.map(function (listing) {
-                // Check if it is an event
-                if (listing.event == true) {
-                    // it IS an event
-                    (0, _moment2.default)(listing.start).isSame(_this2.state.date, 'day') && events.push(listing);
-                } else {
-                    //not an event
-                    //Check if it starts on this day
-                    console.log(listing);
-                    if ((0, _moment2.default)(listing.start).isSame(_this2.state.date, 'day')) {
+            this.props.glanceListings.events && this.props.glanceListings.events.map(function (event) {
+                if ((0, _moment2.default)(event.date).isSame(_this2.state.date, 'day')) {
+                    if (event.type === 'reception') {
+                        var listing = event.list ? event.list : event;
+                        listing.venue = event.venue;
+                        listing.artists = event.artists;
+                        listing.relatedEvents = null;
+                        listing.description = 'Opening Reception. ' + listing.description + ' ' + event.description;
                         openings.push(listing);
-                    }
-                    //Check if it ends on this day
-                    if ((0, _moment2.default)(listing.end).isSame(_this2.state.date, 'day')) {
-                        closings.push(listing);
+                    } else {
+                        events.push(event);
                     }
                 }
             });
 
+            this.props.glanceListings.listings && this.props.glanceListings.listings.map(function (listing) {
+                //Check if it starts on this day
+                if ((0, _moment2.default)(listing.start).isSame(_this2.state.date, 'day')) {
+                    openings.push(listing);
+                }
+                //Check if it ends on this day
+                if ((0, _moment2.default)(listing.end).isSame(_this2.state.date, 'day')) {
+                    closings.push(listing);
+                }
+            });
+
+            //Sorting all openings by neighborhood
+            function compareNeighborhood(a, b) {
+                if (a.venue.neighborhood < b.venue.neighborhood) return -1;
+                if (a.venue.neighborhood > b.venue.neighborhood) return 1;
+                return 0;
+            }
+
+            openings.sort(compareNeighborhood);
+
             var totalListings = closings.length + events.length + openings.length;
+
+            var displayEvents = events.map(function (event) {
+                return _react2.default.createElement(_Event2.default, { event: event, key: event._id, user: _this2.props.user });
+            });
 
             return _react2.default.createElement(
                 "div",
@@ -10774,7 +12258,7 @@ var DayPage = function (_React$Component) {
                     { className: "featuredSection" },
                     this.props.feature.list && _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
                 ),
-                this.props.glanceListings.length > 0 ? _react2.default.createElement(
+                !this.props.loading.glance ? _react2.default.createElement(
                     "div",
                     { className: this.props.view + " listingsWrap" },
                     openings.length > 0 && _react2.default.createElement(
@@ -10795,7 +12279,7 @@ var DayPage = function (_React$Component) {
                             null,
                             "Events"
                         ),
-                        _react2.default.createElement(_VenueList2.default, { listings: events, user: this.props.user, dateView: "nodate" })
+                        displayEvents
                     ),
                     closings.length > 0 && _react2.default.createElement(
                         "div",
@@ -10823,7 +12307,7 @@ var DayPage = function (_React$Component) {
 exports.default = DayPage;
 
 /***/ }),
-/* 102 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10839,7 +12323,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Helmet = __webpack_require__(6);
+var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
@@ -10881,7 +12365,7 @@ var ErrorPage = function (_React$Component) {
 exports.default = ErrorPage;
 
 /***/ }),
-/* 103 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10899,39 +12383,31 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _ListStore = __webpack_require__(26);
+var _EventActions = __webpack_require__(16);
 
-var _ListStore2 = _interopRequireDefault(_ListStore);
+var _EventActions2 = _interopRequireDefault(_EventActions);
 
-var _ListActions = __webpack_require__(1);
-
-var _ListActions2 = _interopRequireDefault(_ListActions);
-
-var _moment = __webpack_require__(8);
+var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _Helmet = __webpack_require__(6);
+var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _VenueBlock = __webpack_require__(10);
+var _Event = __webpack_require__(37);
 
-var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
+var _Event2 = _interopRequireDefault(_Event);
 
-var _DateBlock = __webpack_require__(11);
+var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _sizeSelector = __webpack_require__(24);
-
-var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
-
-var _DayPicker = __webpack_require__(127);
+var _DayPicker = __webpack_require__(135);
 
 var _DayPicker2 = _interopRequireDefault(_DayPicker);
 
-var _loading = __webpack_require__(7);
+var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -10962,8 +12438,8 @@ var EventsPage = function (_React$Component) {
     _createClass(EventsPage, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            _ListActions2.default.getEvents();
-            scrollToComponent = __webpack_require__(173);
+            _EventActions2.default.getEvents();
+            scrollToComponent = __webpack_require__(181);
         }
     }, {
         key: 'scrollToDate',
@@ -10977,22 +12453,22 @@ var EventsPage = function (_React$Component) {
             var _this2 = this;
 
             var oldDate = void 0;
-            var thelist = this.props.eventsListings.map(function (listing) {
-                var newDate = listing.start;
+            var thelist = this.props.eventsListings.map(function (event) {
+                var newDate = event.date;
                 if (newDate !== oldDate) {
                     oldDate = newDate;
                     return _react2.default.createElement(
                         'div',
-                        { className: 'date', key: listing._id },
+                        { className: 'date', key: event._id },
                         _react2.default.createElement(
                             'h2',
                             null,
                             _react2.default.createElement(_DateBlock2.default, { date: newDate, ref: (0, _moment2.default)(newDate).format('YYYY MM DD') })
                         ),
-                        _react2.default.createElement(_VenueBlock2.default, { listings: [listing], user: _this2.props.user })
+                        _react2.default.createElement(_Event2.default, { event: event, user: _this2.props.user })
                     );
                 } else {
-                    return _react2.default.createElement(_VenueBlock2.default, { listings: [listing], key: listing._id, user: _this2.props.user });
+                    return _react2.default.createElement(_Event2.default, { event: event, key: event._id, user: _this2.props.user });
                 }
             });
 
@@ -11052,7 +12528,7 @@ var EventsPage = function (_React$Component) {
 exports.default = EventsPage;
 
 /***/ }),
-/* 104 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11074,15 +12550,15 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _neighborhoodNav = __webpack_require__(43);
+var _neighborhoodNav = __webpack_require__(44);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
-var _listingsPerNeighbor = __webpack_require__(41);
+var _listingsPerNeighbor = __webpack_require__(42);
 
 var _listingsPerNeighbor2 = _interopRequireDefault(_listingsPerNeighbor);
 
-var _loading = __webpack_require__(7);
+var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -11159,7 +12635,7 @@ var FuturePage = function (_React$Component) {
 exports.default = FuturePage;
 
 /***/ }),
-/* 105 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11169,6 +12645,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -11177,7 +12655,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _ListStore = __webpack_require__(26);
+var _ListStore = __webpack_require__(53);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -11185,17 +12663,17 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(19);
+var _reactIntl = __webpack_require__(21);
 
-var _DayPage = __webpack_require__(101);
+var _DayPage = __webpack_require__(108);
 
 var _DayPage2 = _interopRequireDefault(_DayPage);
 
-var _tabs = __webpack_require__(25);
+var _tabs = __webpack_require__(27);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
-var _loading = __webpack_require__(7);
+var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -11251,14 +12729,13 @@ var GlancePage = function (_React$Component) {
                         { locale: 'en' },
                         _react2.default.createElement(_reactIntl.FormattedDate, { value: _this2.state.dates[i], weekday: 'long', day: 'numeric', month: 'short' })
                     );
-                    days.push(_react2.default.createElement(_DayPage2.default, {
-                        key: i,
+                    days.push(_react2.default.createElement(_DayPage2.default, _extends({
+                        key: i
+                    }, _this2.props, {
                         feature: _this2.props.features[i] ? _this2.props.features[i] : {},
                         glanceListings: listings,
-                        user: _this2.props.user,
                         label: label,
-                        date: _this2.state.dates[i],
-                        view: _this2.props.view }));
+                        date: _this2.state.dates[i] })));
                 }
                 return days;
             };
@@ -11286,7 +12763,7 @@ var GlancePage = function (_React$Component) {
 exports.default = GlancePage;
 
 /***/ }),
-/* 106 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11306,11 +12783,11 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _AccountForm = __webpack_require__(125);
+var _AccountForm = __webpack_require__(133);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
-var _LogInForm = __webpack_require__(17);
+var _LogInForm = __webpack_require__(19);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -11375,7 +12852,7 @@ var AccountPage = function (_React$Component) {
 exports.default = AccountPage;
 
 /***/ }),
-/* 107 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11393,11 +12870,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _LogInForm = __webpack_require__(17);
+var _LogInForm = __webpack_require__(19);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
-var _Helmet = __webpack_require__(6);
+var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
@@ -11467,6 +12944,15 @@ var AdminPage = function (_React$Component) {
                                 null,
                                 _react2.default.createElement(
                                     _reactRouter.Link,
+                                    { to: '/admin/events', activeClassName: 'active' },
+                                    'Events'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
                                     { to: '/admin/venues', activeClassName: 'active' },
                                     'Venues'
                                 )
@@ -11516,7 +13002,156 @@ var AdminPage = function (_React$Component) {
 exports.default = AdminPage;
 
 /***/ }),
-/* 108 */
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _EventActions = __webpack_require__(16);
+
+var _EventActions2 = _interopRequireDefault(_EventActions);
+
+var _formSelect = __webpack_require__(15);
+
+var _formSelect2 = _interopRequireDefault(_formSelect);
+
+var _EventForm = __webpack_require__(46);
+
+var _EventForm2 = _interopRequireDefault(_EventForm);
+
+var _reactstrap = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//Components
+
+
+var EventEdit = function (_React$Component) {
+    _inherits(EventEdit, _React$Component);
+
+    function EventEdit(props) {
+        _classCallCheck(this, EventEdit);
+
+        var _this = _possibleConstructorReturn(this, (EventEdit.__proto__ || Object.getPrototypeOf(EventEdit)).call(this, props));
+
+        _this.state = {
+            formDisplay: false
+
+            //Function Binding
+        };_this.handleSelectChange = _this.handleSelectChange.bind(_this);
+        _this.onCreateNew = _this.onCreateNew.bind(_this);
+        return _this;
+    }
+
+    _createClass(EventEdit, [{
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            _EventActions2.default.eventEditReset();
+        }
+    }, {
+        key: 'handleSelectChange',
+        value: function handleSelectChange(data) {
+            if (data) {
+                this.setState({
+                    formDisplay: true
+                });
+                //Fetch all the venue info
+                _EventActions2.default.getEventInfo(data.value);
+            } else {
+                //Reset
+                _EventActions2.default.eventEditReset();
+                this.setState({
+                    formDisplay: false
+                });
+            }
+        }
+    }, {
+        key: 'onCreateNew',
+        value: function onCreateNew() {
+            _EventActions2.default.eventEditReset();
+            this.setState({
+                formDisplay: true
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            //how to get option for select element
+            var getOptions = function getOptions(input) {
+                if (input) {
+                    return fetch('/event/find/' + input).then(function (response) {
+                        return response.json();
+                    }).then(function (json) {
+                        return { options: json };
+                    });
+                } else {
+                    return Promise.resolve({ options: [] });
+                }
+            };
+
+            //Have a select value only if editing an existing event
+            var selectValue = this.props.eventEdit._id && {
+                value: this.props.eventEdit._id,
+                label: this.props.eventEdit.name
+            };
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'eventEdit' },
+                _react2.default.createElement(
+                    'h3',
+                    null,
+                    'Create or Edit Events'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'editHeader' },
+                    _react2.default.createElement(
+                        _reactstrap.Button,
+                        { onClick: this.onCreateNew },
+                        'New'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'search' },
+                        _react2.default.createElement(_formSelect2.default, { value: selectValue,
+                            handleSelectChange: this.handleSelectChange,
+                            getOptions: getOptions })
+                    )
+                ),
+                this.state.formDisplay && _react2.default.createElement(_EventForm2.default, {
+                    event: this.props.eventEdit,
+                    error: this.props.error,
+                    success: this.props.success,
+                    allArtists: this.props.allArtists })
+            );
+        }
+    }]);
+
+    return EventEdit;
+}(_react2.default.Component);
+
+exports.default = EventEdit;
+
+/***/ }),
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11536,15 +13171,15 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _VenueBlock = __webpack_require__(10);
+var _VenueBlock = __webpack_require__(12);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ListingForm = __webpack_require__(44);
+var _ListingForm = __webpack_require__(47);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -11632,6 +13267,9 @@ var ListingEdit = function (_React$Component) {
                 }
             };
 
+            //Have a select value only if editing an existing venue
+            var selectValue = this.props.listingEdit._id && { value: this.props.listingEdit._id, label: this.props.listingEdit.name };
+
             return _react2.default.createElement(
                 'div',
                 { className: 'listingEdit' },
@@ -11642,23 +13280,25 @@ var ListingEdit = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { id: 'ListingList' },
+                    { className: 'editHeader' },
                     _react2.default.createElement(
                         _reactstrap.Button,
                         { onClick: this.onCreateNew },
                         'New'
                     ),
-                    _react2.default.createElement(_formSelect2.default, { value: {
-                            value: this.props.listingEdit._id,
-                            label: this.props.listingEdit.name },
-                        handleSelectChange: this.handleSelectChange,
-                        getOptions: getOptions
-                    })
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'search' },
+                        _react2.default.createElement(_formSelect2.default, { value: selectValue,
+                            handleSelectChange: this.handleSelectChange,
+                            getOptions: getOptions
+                        })
+                    )
                 ),
                 this.state.formDisplay && _react2.default.createElement(_ListingForm2.default, {
                     listing: this.props.listingEdit,
-                    error: this.props.error.updatelisting,
-                    loading: this.props.loading.updatelisting,
+                    error: this.props.error,
+                    loading: this.props.loading,
                     success: this.props.success,
                     allArtists: this.props.allArtists })
             );
@@ -11671,7 +13311,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 109 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11693,15 +13333,15 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _VenueForm = __webpack_require__(130);
+var _VenueForm = __webpack_require__(138);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
 
-var _mapBlock = __webpack_require__(42);
+var _mapBlock = __webpack_require__(43);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
@@ -11717,7 +13357,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //Components
 
 
-var MapboxClient = __webpack_require__(162);
+var MapboxClient = __webpack_require__(170);
 var client = new MapboxClient(process.env.MapboxAccessToken);
 
 var VenueEdit = function (_React$Component) {
@@ -11751,10 +13391,14 @@ var VenueEdit = function (_React$Component) {
     }, {
         key: 'handleSubmit',
         value: function handleSubmit() {
-            if (this.props.venueEdit._id) {
-                _ListActions2.default.updateVenue(this.props.venueEdit);
+            var newVenue = this.props.venueEdit;
+            //Format the website URL
+            if (!/^https?:\/\//i.test(newVenue.website)) {
+                newVenue.website = 'http://' + newVenue.website;
+            }
+            if (newVenue._id) {
+                _ListActions2.default.updateVenue(newVenue);
             } else {
-                var newVenue = this.props.venueEdit;
                 delete newVenue._id;
                 _ListActions2.default.saveVenue(newVenue);
             }
@@ -11838,6 +13482,9 @@ var VenueEdit = function (_React$Component) {
                 }
             };
 
+            //Have a select value only if editing an existing venue
+            var selectValue = this.props.venueEdit._id && { value: this.props.venueEdit._id, label: this.props.venueEdit.name };
+
             return _react2.default.createElement(
                 'div',
                 { className: 'editVenue cf' },
@@ -11848,20 +13495,24 @@ var VenueEdit = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'venueEditing' },
+                    { className: 'editHeader' },
+                    _react2.default.createElement(
+                        _reactstrap.Button,
+                        { onClick: this.onCreateNew },
+                        'New'
+                    ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'venueList' },
-                        _react2.default.createElement(
-                            _reactstrap.Button,
-                            { onClick: this.onCreateNew },
-                            'New'
-                        ),
+                        { className: 'search' },
                         _react2.default.createElement(_formSelect2.default, {
-                            value: { value: this.props.venueEdit._id, label: this.props.venueEdit.name },
+                            value: selectValue,
                             handleSelectChange: this.handleSelectChange,
                             getOptions: getOptions })
-                    ),
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'venueEditing' },
                     _react2.default.createElement(
                         'div',
                         { className: 'listingForm' },
@@ -11875,7 +13526,7 @@ var VenueEdit = function (_React$Component) {
                             success: this.props.success }))
                     )
                 ),
-                _react2.default.createElement(
+                this.state.formDisplay && _react2.default.createElement(
                     'div',
                     { className: 'venueLocation' },
                     _react2.default.createElement(_mapBlock2.default, this.props.venueEdit),
@@ -11896,7 +13547,7 @@ var VenueEdit = function (_React$Component) {
 exports.default = VenueEdit;
 
 /***/ }),
-/* 110 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11916,7 +13567,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _VenueBlock = __webpack_require__(10);
+var _VenueBlock = __webpack_require__(12);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -11981,7 +13632,7 @@ var ReviewPage = function (_React$Component) {
 exports.default = ReviewPage;
 
 /***/ }),
-/* 111 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12003,15 +13654,15 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _loading = __webpack_require__(7);
+var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _UserCard = __webpack_require__(121);
+var _UserCard = __webpack_require__(129);
 
 var _UserCard2 = _interopRequireDefault(_UserCard);
 
-var _UserFullInfo = __webpack_require__(122);
+var _UserFullInfo = __webpack_require__(130);
 
 var _UserFullInfo2 = _interopRequireDefault(_UserFullInfo);
 
@@ -12100,7 +13751,7 @@ var UsersPage = function (_React$Component) {
 exports.default = UsersPage;
 
 /***/ }),
-/* 112 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12122,15 +13773,15 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _VenueItem = __webpack_require__(145);
+var _VenueItem = __webpack_require__(153);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
-var _NeighborhoodSelect = __webpack_require__(46);
+var _NeighborhoodSelect = __webpack_require__(49);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
-var _loading = __webpack_require__(7);
+var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -12231,7 +13882,7 @@ var VenuesPage = function (_React$Component) {
 exports.default = VenuesPage;
 
 /***/ }),
-/* 113 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12247,11 +13898,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(21);
+var _ImagesActions = __webpack_require__(22);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _imageUpload = __webpack_require__(49);
+var _imageUpload = __webpack_require__(51);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
@@ -12347,7 +13998,7 @@ var Avatar = function (_React$Component) {
 exports.default = Avatar;
 
 /***/ }),
-/* 114 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12365,7 +14016,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(22);
+var _displayActions = __webpack_require__(23);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -12373,15 +14024,15 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _featuredForm = __webpack_require__(131);
+var _featuredForm = __webpack_require__(139);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
-var _featureBlock = __webpack_require__(40);
+var _featureBlock = __webpack_require__(41);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -12488,7 +14139,7 @@ var FeaturedDay = function (_React$Component) {
 exports.default = FeaturedDay;
 
 /***/ }),
-/* 115 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12510,19 +14161,19 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(19);
+var _reactIntl = __webpack_require__(21);
 
 var _reactstrap = __webpack_require__(2);
 
-var _featuredDay = __webpack_require__(114);
+var _featuredDay = __webpack_require__(122);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
-var _tabs = __webpack_require__(25);
+var _tabs = __webpack_require__(27);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
-var _loading = __webpack_require__(7);
+var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -12614,7 +14265,7 @@ var FeaturePage = function (_React$Component) {
 exports.default = FeaturePage;
 
 /***/ }),
-/* 116 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12680,7 +14331,7 @@ var Hamburger = function (_React$Component) {
 exports.default = Hamburger;
 
 /***/ }),
-/* 117 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12704,7 +14355,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _moment = __webpack_require__(8);
+var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -12712,13 +14363,17 @@ var _reactRouter = __webpack_require__(3);
 
 var _reactstrap = __webpack_require__(2);
 
-var _DateBlock = __webpack_require__(11);
+var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
 var _reactFontawesome = __webpack_require__(5);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+
+var _ListingNameDisplay = __webpack_require__(18);
+
+var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12803,6 +14458,7 @@ var Listing = function (_React$Component) {
             var _this2 = this;
 
             var listing = this.props.listing;
+            var id = listing._id;
 
             var address = _react2.default.createElement(
                 'span',
@@ -12815,7 +14471,12 @@ var Listing = function (_React$Component) {
             );
 
             //let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
-            var eventsPresence = listing.events && listing.events.length > 0 ? true : false;
+            var eventsPresence = false;
+            listing.relatedEvents && listing.relatedEvents.map(function (event) {
+                if ((0, _moment2.default)(event.date).isAfter((0, _moment2.default)().startOf('day'))) {
+                    eventsPresence = true;
+                }
+            });
 
             //Display date according to type of listing and view
             var dateDisplay;
@@ -12831,7 +14492,7 @@ var Listing = function (_React$Component) {
                 )
             );
 
-            listing.event == true && this.props.dateView !== "nodate" ? dateDisplay = listing.start && _react2.default.createElement(
+            this.props.dateView !== "nodate" ? dateDisplay = listing.start && _react2.default.createElement(
                 'span',
                 { className: 'date' },
                 _react2.default.createElement(_DateBlock2.default, { date: listing.start })
@@ -12842,7 +14503,6 @@ var Listing = function (_React$Component) {
                 _react2.default.createElement(_DateBlock2.default, { date: listing.end })
             ) : this.props.dateView == "nodate" ? dateDisplay = '' : dateDisplay = fullDates;
 
-            var id = listing._id;
             // Check if the listing is in mylist
             var mylistIndex = 0;
             if (this.props.user.mylist) {
@@ -12852,8 +14512,8 @@ var Listing = function (_React$Component) {
             }
             var mylistingIcon = mylistIndex > 0 ? ["far", "minus"] : ["far", "plus"];
 
-            var isGroupShow = listing.artists.length > 3 ? true : false;
-            var artists = listing.artists.map(function (artist, index) {
+            var isGroupShow = listing.artists && listing.artists.length > 3 ? true : false;
+            var artists = listing.artists && listing.artists.map(function (artist, index) {
                 return _react2.default.createElement(
                     'span',
                     { key: index, className: 'artist' },
@@ -12865,8 +14525,8 @@ var Listing = function (_React$Component) {
             var image = listing.image ? "https://res.cloudinary.com/artcritical/image/upload/" + listing.image + ".jpg" : 'https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg';
             var style = { backgroundImage: 'url(' + image + ')'
 
-                //Defining the name
-            };var artistPresent = listing.artists.length > 0 ? true : false;
+                //Make info button black
+            };var hasInfo = isGroupShow || listing.description ? true : false;
 
             return _react2.default.createElement(
                 'div',
@@ -12892,18 +14552,8 @@ var Listing = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'header cf' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'title' },
-                            artistPresent && _react2.default.createElement(
-                                'span',
-                                { className: 'artists' },
-                                isGroupShow ? 'Group Show' : artists
-                            ),
-                            artistPresent && listing.name && ": ",
-                            listing.name,
-                            ' '
-                        ),
+                        _react2.default.createElement(_ListingNameDisplay2.default, listing),
+                        ' ',
                         dateDisplay,
                         this.props.dateView == "current" && (0, _moment2.default)(listing.start).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
                             'div',
@@ -12918,7 +14568,11 @@ var Listing = function (_React$Component) {
                         _react2.default.createElement(
                             'span',
                             { className: 'icons' },
-                            _react2.default.createElement(_reactFontawesome2.default, { onClick: this._revealInfo, icon: ['fal', 'info-circle'] }),
+                            _react2.default.createElement(
+                                'span',
+                                { className: hasInfo ? 'active' : 'inactive' },
+                                _react2.default.createElement(_reactFontawesome2.default, { onClick: this._revealInfo, icon: ['fal', 'info-circle'] })
+                            ),
                             this.props.onMap && _react2.default.createElement(_reactFontawesome2.default, { onClick: this.props.mapMouseEnter, icon: ['fal', 'search'] }),
                             listing.review && _react2.default.createElement(
                                 'a',
@@ -12998,7 +14652,7 @@ var Listing = function (_React$Component) {
                                         'Events'
                                     ),
                                     ' ',
-                                    this.eventsDisplay(listing.events)
+                                    this.eventsDisplay(listing.relatedEvents)
                                 ),
                                 fullDates,
                                 _react2.default.createElement(
@@ -13026,7 +14680,7 @@ var Listing = function (_React$Component) {
 exports.default = Listing;
 
 /***/ }),
-/* 118 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13044,7 +14698,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueList = __webpack_require__(38);
+var _VenueList = __webpack_require__(39);
 
 var _VenueList2 = _interopRequireDefault(_VenueList);
 
@@ -13099,7 +14753,7 @@ var ListingsHood = function (_React$Component) {
 exports.default = ListingsHood;
 
 /***/ }),
-/* 119 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13117,11 +14771,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _deck = __webpack_require__(158);
+var _deck = __webpack_require__(166);
 
 var _deck2 = _interopRequireDefault(_deck);
 
-var _rbush = __webpack_require__(165);
+var _rbush = __webpack_require__(173);
 
 var _rbush2 = _interopRequireDefault(_rbush);
 
@@ -13326,7 +14980,7 @@ var DeckGLOverlay = function (_Component) {
 exports.default = DeckGLOverlay;
 
 /***/ }),
-/* 120 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13376,7 +15030,7 @@ var Marker = function (_React$Component) {
 exports.default = Marker;
 
 /***/ }),
-/* 121 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13392,11 +15046,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _imageBlock = __webpack_require__(23);
+var _imageBlock = __webpack_require__(25);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _DateBlock = __webpack_require__(11);
+var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
@@ -13483,7 +15137,7 @@ var UserCard = function (_React$Component) {
 exports.default = UserCard;
 
 /***/ }),
-/* 122 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13503,15 +15157,15 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _imageBlock = __webpack_require__(23);
+var _imageBlock = __webpack_require__(25);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _DateBlock = __webpack_require__(11);
+var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _UserEdit = __webpack_require__(129);
+var _UserEdit = __webpack_require__(137);
 
 var _UserEdit2 = _interopRequireDefault(_UserEdit);
 
@@ -13584,7 +15238,7 @@ var UserFullInfo = function (_React$Component) {
 exports.default = UserFullInfo;
 
 /***/ }),
-/* 123 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13630,7 +15284,7 @@ var SingleMarker = function (_React$Component) {
 exports.default = SingleMarker;
 
 /***/ }),
-/* 124 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13694,7 +15348,7 @@ var FacebookButton = function (_React$Component) {
 exports.default = FacebookButton;
 
 /***/ }),
-/* 125 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13714,21 +15368,21 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _avatar = __webpack_require__(113);
+var _avatar = __webpack_require__(121);
 
 var _avatar2 = _interopRequireDefault(_avatar);
 
 var _reactstrap = __webpack_require__(2);
 
-var _draftJs = __webpack_require__(52);
+var _draftJs = __webpack_require__(55);
 
-var _draftJsPluginsEditor = __webpack_require__(28);
+var _draftJsPluginsEditor = __webpack_require__(29);
 
-var _draftJsImportHtml = __webpack_require__(54);
+var _draftJsImportHtml = __webpack_require__(57);
 
-var _draftJsExportHtml = __webpack_require__(53);
+var _draftJsExportHtml = __webpack_require__(56);
 
-var _MyEditor = __webpack_require__(45);
+var _MyEditor = __webpack_require__(48);
 
 var _MyEditor2 = _interopRequireDefault(_MyEditor);
 
@@ -13925,7 +15579,7 @@ var AccountForm = function (_React$Component) {
 exports.default = AccountForm;
 
 /***/ }),
-/* 126 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13943,15 +15597,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactTagsinput = __webpack_require__(175);
+var _reactTagsinput = __webpack_require__(183);
 
 var _reactTagsinput2 = _interopRequireDefault(_reactTagsinput);
 
-var _reactAutosuggest = __webpack_require__(166);
+var _reactAutosuggest = __webpack_require__(174);
 
 var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
 
-var _ArtistsActions = __webpack_require__(35);
+var _ArtistsActions = __webpack_require__(36);
 
 var _ArtistsActions2 = _interopRequireDefault(_ArtistsActions);
 
@@ -14053,7 +15707,7 @@ var ArtistTags = function (_React$Component) {
 exports.default = ArtistTags;
 
 /***/ }),
-/* 127 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14069,11 +15723,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = __webpack_require__(8);
+var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactDates = __webpack_require__(29);
+var _reactDates = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14155,7 +15809,7 @@ var DayPicker = function (_React$Component) {
 exports.default = DayPicker;
 
 /***/ }),
-/* 128 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14175,7 +15829,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formDateSingle = __webpack_require__(48);
+var _formDateSingle = __webpack_require__(50);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
@@ -14214,7 +15868,6 @@ var EventsForm = function (_React$Component) {
             //Update values of inputs
             _ListActions2.default.eventsInfoChange(e);
             this.props.onChange();
-            console.log(this.props.events);
         }
     }, {
         key: 'addEvent',
@@ -14264,7 +15917,7 @@ var EventsForm = function (_React$Component) {
                                 )
                             ),
                             _react2.default.createElement(_formDateSingle2.default, { event: index, startDate: event.date, onDatesChange: _this2.onChange }),
-                            event.type === "other" && _react2.default.createElement('input', {
+                            event.type === "" && _react2.default.createElement('input', {
                                 type: 'text',
                                 name: 'name',
                                 'data-index': index,
@@ -14319,7 +15972,7 @@ var EventsForm = function (_React$Component) {
 exports.default = EventsForm;
 
 /***/ }),
-/* 129 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14534,7 +16187,7 @@ var UserEdit = function (_React$Component) {
 exports.default = UserEdit;
 
 /***/ }),
-/* 130 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14556,7 +16209,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactToggleButton = __webpack_require__(20);
+var _reactToggleButton = __webpack_require__(31);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -14566,15 +16219,15 @@ var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
 var _reactstrap = __webpack_require__(2);
 
-var _DateBlock = __webpack_require__(11);
+var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _NeighborhoodSelect = __webpack_require__(46);
+var _NeighborhoodSelect = __webpack_require__(49);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
-var _UserLink = __webpack_require__(37);
+var _UserLink = __webpack_require__(24);
 
 var _UserLink2 = _interopRequireDefault(_UserLink);
 
@@ -14605,7 +16258,8 @@ var VenueForm = function (_React$Component) {
             disableModal: false,
             deleteModal: false,
             createvisible: false,
-            wasChanged: false
+            wasChanged: false,
+            errorMessages: {}
         };
 
         _this.handleChange = _this.handleChange.bind(_this);
@@ -14615,6 +16269,14 @@ var VenueForm = function (_React$Component) {
         _this.onDeleteConfirm = _this.onDeleteConfirm.bind(_this);
         _this.onDisableConfirm = _this.onDisableConfirm.bind(_this);
         _this.toggleModal = _this.toggleModal.bind(_this);
+        //Validation
+        _this._validateAll = _this._validateAll.bind(_this);
+        _this._validateName = _this._validateName.bind(_this);
+        _this._validateAddress = _this._validateAddress.bind(_this);
+        _this._validateCity = _this._validateCity.bind(_this);
+        _this._validateNeighborhood = _this._validateNeighborhood.bind(_this);
+        _this._validateZipcode = _this._validateZipcode.bind(_this);
+
         return _this;
     }
 
@@ -14650,17 +16312,23 @@ var VenueForm = function (_React$Component) {
         key: 'onConfirm',
         value: function onConfirm(event) {
             event.preventDefault();
-            this.setState({
-                updateModal: true
-            });
+            if (this._validateAll()) {
+
+                this.setState({
+                    updateModal: true
+                });
+            }
         }
     }, {
         key: 'onCreateConfirm',
         value: function onCreateConfirm(event) {
             event.preventDefault();
-            this.setState({
-                createModal: true
-            });
+            if (this._validateAll()) {
+
+                this.setState({
+                    createModal: true
+                });
+            }
         }
     }, {
         key: 'onDeleteConfirm',
@@ -14679,6 +16347,99 @@ var VenueForm = function (_React$Component) {
             });
         }
     }, {
+        key: '_validateAll',
+        value: function _validateAll() {
+            var validName = this._validateName();
+            var validAddress = this._validateAddress();
+            var validCity = this._validateCity();
+            var validZipcode = this._validateZipcode();
+            var validNeighborhood = this._validateNeighborhood();
+
+            var result = validAddress && validName && validCity && validZipcode && validNeighborhood ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.general = result ? '' : 'Please review the error messages above.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+    }, {
+        key: '_validateName',
+        value: function _validateName() {
+            var result = this.props.name ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.name = result ? '' : 'Please enter a name.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+
+        //Validate the Address
+
+    }, {
+        key: '_validateAddress',
+        value: function _validateAddress() {
+            var result = this.props.address1 ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.address = result ? '' : 'Please enter an address.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+    }, {
+        key: '_validateCity',
+        value: function _validateCity() {
+            var result = this.props.city ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.city = result ? '' : 'Please enter a city.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+    }, {
+        key: '_validateZipcode',
+        value: function _validateZipcode() {
+            var result = this.props.zipcode ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.zipcode = result ? '' : 'Please enter a zipcode.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+    }, {
+        key: '_validateNeighborhood',
+        value: function _validateNeighborhood() {
+            var result = this.props.neighborhood ? true : false;
+
+            var errorMessages = this.state.errorMessages;
+            errorMessages.neighborhood = result ? '' : 'Please select a neighborhood.';
+
+            this.setState({
+                errorMessages: errorMessages
+            });
+
+            return result;
+        }
+    }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
             //Define the full address
@@ -14689,7 +16450,7 @@ var VenueForm = function (_React$Component) {
     }, {
         key: 'componentWillUpdate',
         value: function componentWillUpdate(nextProps, nextState) {
-            var nextFullAdress = nextProps.address1 !== '' && nextProps.address1 ? nextProps.address1 + (nextProps.address2 ? ' ' + nextProps.address2 : '') + (nextProps.city ? ' ' + nextProps.city : '') + (nextProps.state ? ', ' + nextProps.state : '') + (nextProps.zipcode ? ' ' + nextProps.zipcode : '') : null;
+            var nextFullAdress = nextProps.address1 !== '' && nextProps.address1 ? nextProps.address1 + (nextProps.city ? ' ' + nextProps.city : '') + (nextProps.state ? ', ' + nextProps.state : '') + (nextProps.zipcode ? ' ' + nextProps.zipcode : '') : null;
             if (nextFullAdress !== this.state.fullAdress && nextFullAdress !== null) {
                 this.setState({
                     fullAdress: nextFullAdress
@@ -14744,7 +16505,12 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'name', placeholder: 'Name', type: 'text', value: this.props.name, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'name', placeholder: 'Name', type: 'text', value: venue.name, onChange: this.handleChange }),
+                            this.state.errorMessages.name && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.name
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -14791,7 +16557,12 @@ var VenueForm = function (_React$Component) {
                             'div',
                             { className: 'formSection' },
                             _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'address1', placeholder: 'Line 1', type: 'text', value: venue.address1, onChange: this.handleChange }),
-                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'address2', placeholder: 'Line 2', type: 'text', value: venue.address2, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'address2', placeholder: 'Line 2', type: 'text', value: venue.address2, onChange: this.handleChange }),
+                            this.state.errorMessages.address && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.address
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -14805,7 +16576,12 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'city', placeholder: 'City', type: 'text', value: venue.city, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'city', placeholder: 'City', type: 'text', value: venue.city, onChange: this.handleChange }),
+                            this.state.errorMessages.city && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.city
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -14819,7 +16595,12 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_NeighborhoodSelect2.default, { disabled: venue.disabled, selected: venue.neighborhood, onChange: this.handleChange })
+                            _react2.default.createElement(_NeighborhoodSelect2.default, { disabled: venue.disabled, selected: venue.neighborhood, onChange: this.handleChange }),
+                            this.state.errorMessages.neighborhood && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.neighborhood
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -14847,7 +16628,12 @@ var VenueForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'zipcode', placeholder: 'Zipcode', type: 'number', value: this.props.zipcode, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { disabled: venue.disabled, name: 'zipcode', placeholder: 'Zipcode', type: 'number', value: this.props.zipcode, onChange: this.handleChange }),
+                            this.state.errorMessages.zipcode && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessages.zipcode
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -14926,7 +16712,12 @@ var VenueForm = function (_React$Component) {
                     ) : '',
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
-                        null,
+                        { className: 'group-buttons' },
+                        this.state.errorMessages.general && _react2.default.createElement(
+                            _reactstrap.Alert,
+                            { color: 'danger' },
+                            this.state.errorMessages.general
+                        ),
                         venue._id ? _react2.default.createElement(
                             _reactstrap.Button,
                             { onClick: this.onConfirm, disabled: !this.state.wasChanged },
@@ -14991,7 +16782,7 @@ var VenueForm = function (_React$Component) {
 exports.default = VenueForm;
 
 /***/ }),
-/* 131 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15007,7 +16798,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(20);
+var _reactToggleButton = __webpack_require__(31);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -15015,23 +16806,23 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _draftJs = __webpack_require__(52);
+var _draftJs = __webpack_require__(55);
 
-var _draftJsImportHtml = __webpack_require__(54);
+var _draftJsImportHtml = __webpack_require__(57);
 
-var _draftJsExportHtml = __webpack_require__(53);
+var _draftJsExportHtml = __webpack_require__(56);
 
-var _draftJsPluginsEditor = __webpack_require__(28);
+var _draftJsPluginsEditor = __webpack_require__(29);
 
 var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _ThumbnailInput = __webpack_require__(47);
+var _ThumbnailInput = __webpack_require__(26);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
-var _MyEditor = __webpack_require__(45);
+var _MyEditor = __webpack_require__(48);
 
 var _MyEditor2 = _interopRequireDefault(_MyEditor);
 
@@ -15161,7 +16952,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 132 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15177,9 +16968,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(29);
+var _reactDates = __webpack_require__(30);
 
-var _moment = __webpack_require__(8);
+var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -15235,7 +17026,7 @@ var DateRange = function (_React$Component) {
 exports.default = DateRange;
 
 /***/ }),
-/* 133 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15251,7 +17042,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListStore = __webpack_require__(26);
+var _ListStore = __webpack_require__(53);
 
 var _ListStore2 = _interopRequireDefault(_ListStore);
 
@@ -15265,29 +17056,33 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactRouter = __webpack_require__(3);
 
-var _sizeSelector = __webpack_require__(24);
+var _sizeSelector = __webpack_require__(45);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
-var _Hamburger = __webpack_require__(116);
+var _Hamburger = __webpack_require__(124);
 
 var _Hamburger2 = _interopRequireDefault(_Hamburger);
 
-var _Helmet = __webpack_require__(6);
+var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _reactOffcanvas = __webpack_require__(171);
+var _reactOffcanvas = __webpack_require__(179);
 
-var _ListingForm = __webpack_require__(44);
+var _ListingForm = __webpack_require__(47);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
-var _reactGa = __webpack_require__(169);
+var _EventForm = __webpack_require__(46);
+
+var _EventForm2 = _interopRequireDefault(_EventForm);
+
+var _reactGa = __webpack_require__(177);
 
 var _reactGa2 = _interopRequireDefault(_reactGa);
 
-var _fontawesome = __webpack_require__(34);
+var _fontawesome = __webpack_require__(35);
 
 var _fontawesome2 = _interopRequireDefault(_fontawesome);
 
@@ -15295,87 +17090,91 @@ var _reactFontawesome = __webpack_require__(5);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _faPlusCircle = __webpack_require__(88);
+var _faPlusCircle = __webpack_require__(95);
 
 var _faPlusCircle2 = _interopRequireDefault(_faPlusCircle);
 
-var _faGlassMartini = __webpack_require__(81);
+var _faGlassMartini = __webpack_require__(88);
 
 var _faGlassMartini2 = _interopRequireDefault(_faGlassMartini);
 
-var _faTimes = __webpack_require__(92);
+var _faTimes = __webpack_require__(99);
 
 var _faTimes2 = _interopRequireDefault(_faTimes);
 
-var _faEdit = __webpack_require__(80);
+var _faEdit = __webpack_require__(86);
 
 var _faEdit2 = _interopRequireDefault(_faEdit);
 
-var _faCalendar = __webpack_require__(79);
+var _faCalendar = __webpack_require__(85);
 
 var _faCalendar2 = _interopRequireDefault(_faCalendar);
 
-var _faTrash = __webpack_require__(93);
+var _faTrash = __webpack_require__(100);
 
 var _faTrash2 = _interopRequireDefault(_faTrash);
 
-var _faMap = __webpack_require__(85);
+var _faMap = __webpack_require__(92);
 
 var _faMap2 = _interopRequireDefault(_faMap);
 
-var _faMapMarkerAlt = __webpack_require__(86);
+var _faExternalLinkSquare = __webpack_require__(87);
+
+var _faExternalLinkSquare2 = _interopRequireDefault(_faExternalLinkSquare);
+
+var _faMapMarkerAlt = __webpack_require__(93);
 
 var _faMapMarkerAlt2 = _interopRequireDefault(_faMapMarkerAlt);
 
-var _faBars = __webpack_require__(78);
+var _faBars = __webpack_require__(84);
 
 var _faBars2 = _interopRequireDefault(_faBars);
 
-var _faPencilAlt = __webpack_require__(87);
+var _faPencilAlt = __webpack_require__(94);
 
 var _faPencilAlt2 = _interopRequireDefault(_faPencilAlt);
 
-var _faListUl = __webpack_require__(84);
+var _faListUl = __webpack_require__(91);
 
 var _faListUl2 = _interopRequireDefault(_faListUl);
 
-var _faTh = __webpack_require__(91);
+var _faTh = __webpack_require__(98);
 
 var _faTh2 = _interopRequireDefault(_faTh);
 
-var _faLink = __webpack_require__(83);
+var _faLink = __webpack_require__(90);
 
 var _faLink2 = _interopRequireDefault(_faLink);
 
-var _faSpinnerThird = __webpack_require__(90);
+var _faSpinnerThird = __webpack_require__(97);
 
 var _faSpinnerThird2 = _interopRequireDefault(_faSpinnerThird);
 
-var _faSearch = __webpack_require__(89);
+var _faSearch = __webpack_require__(96);
 
 var _faSearch2 = _interopRequireDefault(_faSearch);
 
-var _faInfoCircle = __webpack_require__(82);
+var _faInfoCircle = __webpack_require__(89);
 
 var _faInfoCircle2 = _interopRequireDefault(_faInfoCircle);
 
-var _faPlus = __webpack_require__(96);
+var _faPlus = __webpack_require__(103);
 
 var _faPlus2 = _interopRequireDefault(_faPlus);
 
-var _faMinus = __webpack_require__(94);
+var _faMinus = __webpack_require__(101);
 
 var _faMinus2 = _interopRequireDefault(_faMinus);
 
-var _faPhone = __webpack_require__(95);
+var _faPhone = __webpack_require__(102);
 
 var _faPhone2 = _interopRequireDefault(_faPhone);
 
-var _faStar = __webpack_require__(97);
+var _faStar = __webpack_require__(104);
 
 var _faStar2 = _interopRequireDefault(_faStar);
 
-var _faFacebook = __webpack_require__(77);
+var _faFacebook = __webpack_require__(83);
 
 var _faFacebook2 = _interopRequireDefault(_faFacebook);
 
@@ -15399,7 +17198,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //FontAwesome
 
 
-_fontawesome2.default.library.add(_faBars2.default, _faListUl2.default, _faTh2.default, _faMap2.default, _faCalendar2.default, _faPlusCircle2.default, _faPlusCircle2.default, _faMapMarkerAlt2.default, _faPlus2.default, _faMinus2.default, _faSpinnerThird2.default, _faGlassMartini2.default, _faStar2.default, _faTimes2.default, _faFacebook2.default, _faInfoCircle2.default, _faSearch2.default, _faEdit2.default, _faTrash2.default, _faPhone2.default, _faLink2.default, _faPencilAlt2.default);
+_fontawesome2.default.library.add(_faBars2.default, _faListUl2.default, _faExternalLinkSquare2.default, _faTh2.default, _faMap2.default, _faCalendar2.default, _faPlusCircle2.default, _faPlusCircle2.default, _faMapMarkerAlt2.default, _faPlus2.default, _faMinus2.default, _faSpinnerThird2.default, _faGlassMartini2.default, _faStar2.default, _faTimes2.default, _faFacebook2.default, _faInfoCircle2.default, _faSearch2.default, _faEdit2.default, _faTrash2.default, _faPhone2.default, _faLink2.default, _faPencilAlt2.default);
 
 var Layout = function (_React$Component) {
     _inherits(Layout, _React$Component);
@@ -15692,7 +17491,7 @@ var Layout = function (_React$Component) {
                             { className: 'close', onClick: this.toggleAdminMenu },
                             _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'times'] })
                         ),
-                        this.state.sidebarOpen && _react2.default.createElement(
+                        this.state.listingEdit._id && _react2.default.createElement(
                             'div',
                             null,
                             _react2.default.createElement(
@@ -15704,6 +17503,20 @@ var Layout = function (_React$Component) {
                                 listing: this.state.listingEdit,
                                 error: this.state.error.updatelisting,
                                 loading: this.state.loading.updatelisting,
+                                success: this.state.success })
+                        ),
+                        this.state.eventEdit._id && _react2.default.createElement(
+                            'div',
+                            null,
+                            _react2.default.createElement(
+                                'h3',
+                                null,
+                                'Edit Event'
+                            ),
+                            _react2.default.createElement(_EventForm2.default, {
+                                event: this.state.eventEdit,
+                                error: this.state.error.updateEvent,
+                                loading: this.state.loading.updateEvent,
                                 success: this.state.success })
                         ),
                         _react2.default.createElement('div', { className: 'overlay' })
@@ -15728,7 +17541,7 @@ var Layout = function (_React$Component) {
 exports.default = Layout;
 
 /***/ }),
-/* 134 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15786,7 +17599,7 @@ var AuthSuccess = function (_Component) {
 exports.default = AuthSuccess;
 
 /***/ }),
-/* 135 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15804,13 +17617,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _reactRouterDom = __webpack_require__(172);
+var _reactRouterDom = __webpack_require__(180);
 
-var _propTypes = __webpack_require__(18);
+var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _LogInForm = __webpack_require__(17);
+var _LogInForm = __webpack_require__(19);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -15876,7 +17689,7 @@ LogInPage.contextTypes = {
 };
 
 /***/ }),
-/* 136 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15892,19 +17705,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(22);
+var _displayActions = __webpack_require__(23);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(20);
+var _reactToggleButton = __webpack_require__(31);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
-var _validator = __webpack_require__(57);
+var _validator = __webpack_require__(61);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _propTypes = __webpack_require__(18);
+var _propTypes = __webpack_require__(20);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -16275,7 +18088,7 @@ SignUpForm.contextTypes = {
 exports.default = SignUpForm;
 
 /***/ }),
-/* 137 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16293,7 +18106,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _SignUpForm = __webpack_require__(136);
+var _SignUpForm = __webpack_require__(144);
 
 var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
 
@@ -16356,7 +18169,7 @@ var SignUpPage = function (_React$Component) {
 exports.default = SignUpPage;
 
 /***/ }),
-/* 138 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16372,11 +18185,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _myList = __webpack_require__(140);
+var _myList = __webpack_require__(148);
 
 var _myList2 = _interopRequireDefault(_myList);
 
-var _LogInForm = __webpack_require__(17);
+var _LogInForm = __webpack_require__(19);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -16384,9 +18197,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactRouter = __webpack_require__(3);
-
-var _Helmet = __webpack_require__(6);
+var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
@@ -16451,7 +18262,7 @@ var MyListPage = function (_React$Component) {
 exports.default = MyListPage;
 
 /***/ }),
-/* 139 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16471,11 +18282,11 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _userList = __webpack_require__(142);
+var _userList = __webpack_require__(150);
 
 var _userList2 = _interopRequireDefault(_userList);
 
-var _Helmet = __webpack_require__(6);
+var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
@@ -16529,7 +18340,7 @@ var MyListPage = function (_React$Component) {
 exports.default = MyListPage;
 
 /***/ }),
-/* 140 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16557,21 +18368,21 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(15);
+var _reactMapGl = __webpack_require__(17);
 
-var _myListings = __webpack_require__(141);
+var _myListings = __webpack_require__(149);
 
 var _myListings2 = _interopRequireDefault(_myListings);
 
-var _myMap = __webpack_require__(50);
+var _myMap = __webpack_require__(52);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _facebookShare = __webpack_require__(39);
+var _facebookShare = __webpack_require__(40);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
-var _reactReorder = __webpack_require__(56);
+var _reactReorder = __webpack_require__(60);
 
 var _reactstrap = __webpack_require__(2);
 
@@ -16585,11 +18396,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var async = __webpack_require__(51);
+var async = __webpack_require__(54);
 // Components
 
 
-var d3 = __webpack_require__(27);
+var d3 = __webpack_require__(28);
 
 var MyList = function (_React$Component) {
     _inherits(MyList, _React$Component);
@@ -16630,6 +18441,9 @@ var MyList = function (_React$Component) {
     _createClass(MyList, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+
+            _AuthActions2.default.getMylist();
+
             async.map(this.props.user.mylist, this.findCoord, function (err, results) {
                 // results is now an array
                 this.setState({
@@ -16637,6 +18451,9 @@ var MyList = function (_React$Component) {
                 });
             }.bind(this));
         }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {}
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
@@ -16859,7 +18676,7 @@ MyList.defaultProps = {
 };
 
 /***/ }),
-/* 141 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16875,13 +18692,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueBlock = __webpack_require__(10);
+var _VenueBlock = __webpack_require__(12);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _reactstrap = __webpack_require__(2);
-
-var _reactReorder = __webpack_require__(56);
+var _reactReorder = __webpack_require__(60);
 
 var _reactReorder2 = _interopRequireDefault(_reactReorder);
 
@@ -16930,7 +18745,8 @@ var MyListings = function (_React$Component) {
                             listings: [listing], number: index + 1,
                             user: _this2.props.user, mylisting: true,
                             mapMouseEnter: _this2.props.onHover.bind(_this2, listing),
-                            mapMouseLeave: _this2.props.onLeave.bind(_this2, listing)
+                            mapMouseLeave: _this2.props.onLeave.bind(_this2, listing),
+                            onMap: true
                         })
                     );
                 })
@@ -16944,7 +18760,7 @@ var MyListings = function (_React$Component) {
 exports.default = MyListings;
 
 /***/ }),
-/* 142 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16968,23 +18784,23 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(15);
+var _reactMapGl = __webpack_require__(17);
 
-var _userListings = __webpack_require__(143);
+var _userListings = __webpack_require__(151);
 
 var _userListings2 = _interopRequireDefault(_userListings);
 
-var _myMap = __webpack_require__(50);
+var _myMap = __webpack_require__(52);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _facebookShare = __webpack_require__(39);
+var _facebookShare = __webpack_require__(40);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
 var _reactstrap = __webpack_require__(2);
 
-var _HtmlText = __webpack_require__(36);
+var _HtmlText = __webpack_require__(38);
 
 var _HtmlText2 = _interopRequireDefault(_HtmlText);
 
@@ -16996,11 +18812,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var async = __webpack_require__(51);
+var async = __webpack_require__(54);
 // Components
 
 
-var d3 = __webpack_require__(27);
+var d3 = __webpack_require__(28);
 
 var UserList = function (_React$Component) {
     _inherits(UserList, _React$Component);
@@ -17228,7 +19044,7 @@ UserList.defaultProps = {
 };
 
 /***/ }),
-/* 143 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17246,7 +19062,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueBlock = __webpack_require__(10);
+var _VenueBlock = __webpack_require__(12);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
@@ -17304,7 +19120,7 @@ var UserListings = function (_React$Component) {
 exports.default = UserListings;
 
 /***/ }),
-/* 144 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17320,11 +19136,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _tabs = __webpack_require__(25);
+var _tabs = __webpack_require__(27);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
-var _VenueListings = __webpack_require__(146);
+var _VenueListings = __webpack_require__(154);
 
 var _VenueListings2 = _interopRequireDefault(_VenueListings);
 
@@ -17422,7 +19238,7 @@ var VenuePage = function (_React$Component) {
 exports.default = VenuePage;
 
 /***/ }),
-/* 145 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17440,11 +19256,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _DateBlock = __webpack_require__(11);
+var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _moment = __webpack_require__(8);
+var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -17568,7 +19384,7 @@ var VenueItem = function (_React$Component) {
 exports.default = VenueItem;
 
 /***/ }),
-/* 146 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17584,11 +19400,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueBlock = __webpack_require__(10);
+var _VenueBlock = __webpack_require__(12);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _sizeSelector = __webpack_require__(24);
+var _sizeSelector = __webpack_require__(45);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
@@ -17634,7 +19450,7 @@ var VenueListings = function (_React$Component) {
 exports.default = VenueListings;
 
 /***/ }),
-/* 147 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17654,11 +19470,11 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _mapBlock = __webpack_require__(42);
+var _mapBlock = __webpack_require__(43);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
-var _VenueContent = __webpack_require__(144);
+var _VenueContent = __webpack_require__(152);
 
 var _VenueContent2 = _interopRequireDefault(_VenueContent);
 
@@ -17724,7 +19540,7 @@ var VenuePage = function (_React$Component) {
 exports.default = VenuePage;
 
 /***/ }),
-/* 148 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17740,93 +19556,97 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _layout = __webpack_require__(133);
+var _layout = __webpack_require__(141);
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _CurrentPage = __webpack_require__(100);
+var _CurrentPage = __webpack_require__(107);
 
 var _CurrentPage2 = _interopRequireDefault(_CurrentPage);
 
-var _FuturePage = __webpack_require__(104);
+var _FuturePage = __webpack_require__(111);
 
 var _FuturePage2 = _interopRequireDefault(_FuturePage);
 
-var _GlancePage = __webpack_require__(105);
+var _GlancePage = __webpack_require__(112);
 
 var _GlancePage2 = _interopRequireDefault(_GlancePage);
 
-var _CurrentMap = __webpack_require__(99);
+var _CurrentMap = __webpack_require__(106);
 
 var _CurrentMap2 = _interopRequireDefault(_CurrentMap);
 
-var _EventsPage = __webpack_require__(103);
+var _EventsPage = __webpack_require__(110);
 
 var _EventsPage2 = _interopRequireDefault(_EventsPage);
 
-var _VenuePage = __webpack_require__(147);
+var _VenuePage = __webpack_require__(155);
 
 var _VenuePage2 = _interopRequireDefault(_VenuePage);
 
-var _SignUpPage = __webpack_require__(137);
+var _SignUpPage = __webpack_require__(145);
 
 var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
-var _LogInPage = __webpack_require__(135);
+var _LogInPage = __webpack_require__(143);
 
 var _LogInPage2 = _interopRequireDefault(_LogInPage);
 
-var _myListPage = __webpack_require__(138);
+var _myListPage = __webpack_require__(146);
 
 var _myListPage2 = _interopRequireDefault(_myListPage);
 
-var _myListPublicPage = __webpack_require__(139);
+var _myListPublicPage = __webpack_require__(147);
 
 var _myListPublicPage2 = _interopRequireDefault(_myListPublicPage);
 
-var _AuthSuccess = __webpack_require__(134);
+var _AuthSuccess = __webpack_require__(142);
 
 var _AuthSuccess2 = _interopRequireDefault(_AuthSuccess);
 
-var _AdminPage = __webpack_require__(107);
+var _AdminPage = __webpack_require__(114);
 
 var _AdminPage2 = _interopRequireDefault(_AdminPage);
 
-var _EditListing = __webpack_require__(108);
+var _EditListing = __webpack_require__(116);
 
 var _EditListing2 = _interopRequireDefault(_EditListing);
 
-var _EditVenue = __webpack_require__(109);
+var _EditEvents = __webpack_require__(115);
+
+var _EditEvents2 = _interopRequireDefault(_EditEvents);
+
+var _EditVenue = __webpack_require__(117);
 
 var _EditVenue2 = _interopRequireDefault(_EditVenue);
 
-var _featuredPage = __webpack_require__(115);
+var _featuredPage = __webpack_require__(123);
 
 var _featuredPage2 = _interopRequireDefault(_featuredPage);
 
-var _VenuesPage = __webpack_require__(112);
+var _VenuesPage = __webpack_require__(120);
 
 var _VenuesPage2 = _interopRequireDefault(_VenuesPage);
 
-var _UsersPage = __webpack_require__(111);
+var _UsersPage = __webpack_require__(119);
 
 var _UsersPage2 = _interopRequireDefault(_UsersPage);
 
-var _ReviewPage = __webpack_require__(110);
+var _ReviewPage = __webpack_require__(118);
 
 var _ReviewPage2 = _interopRequireDefault(_ReviewPage);
 
-var _Account = __webpack_require__(106);
+var _Account = __webpack_require__(113);
 
 var _Account2 = _interopRequireDefault(_Account);
 
-var _ErrorPage = __webpack_require__(102);
+var _ErrorPage = __webpack_require__(109);
 
 var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//Signin Components
+//Admin Components
 var routes = _react2.default.createElement(
       _reactRouter.Route,
       { path: '/', component: _layout2.default, history: _reactRouter.browserHistory },
@@ -17846,6 +19666,7 @@ var routes = _react2.default.createElement(
             { path: 'admin', component: _AdminPage2.default },
             _react2.default.createElement(_reactRouter.IndexRoute, { component: _VenuesPage2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'listings', component: _EditListing2.default }),
+            _react2.default.createElement(_reactRouter.Route, { path: 'events', component: _EditEvents2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'venues', component: _EditVenue2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'featured', component: _featuredPage2.default }),
             _react2.default.createElement(_reactRouter.Route, { path: 'review', component: _ReviewPage2.default }),
@@ -17856,14 +19677,14 @@ var routes = _react2.default.createElement(
 );
 // Error Components
 
-//Admin Components
+//Signin Components
 exports.default = routes;
 
 /***/ }),
-/* 149 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(150)(false);
+exports = module.exports = __webpack_require__(158)(false);
 // imports
 
 
@@ -17874,7 +19695,7 @@ exports.push([module.i, ".draftJsToolbar__buttonWrapper__1Dmqh {\n  display: inl
 
 
 /***/ }),
-/* 150 */
+/* 158 */
 /***/ (function(module, exports) {
 
 /*
@@ -17956,13 +19777,13 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 151 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(149);
+var content = __webpack_require__(157);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -17970,7 +19791,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(152)(content, options);
+var update = __webpack_require__(160)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -17987,7 +19808,7 @@ if(false) {
 }
 
 /***/ }),
-/* 152 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -18033,7 +19854,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(153);
+var	fixUrls = __webpack_require__(161);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -18346,7 +20167,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 153 */
+/* 161 */
 /***/ (function(module, exports) {
 
 
@@ -18441,145 +20262,145 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 154 */
+/* 162 */
 /***/ (function(module, exports) {
 
 module.exports = require("alt");
 
 /***/ }),
-/* 155 */
+/* 163 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 156 */
+/* 164 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 157 */
+/* 165 */
 /***/ (function(module, exports) {
 
 module.exports = require("d3-request");
 
 /***/ }),
-/* 158 */
+/* 166 */
 /***/ (function(module, exports) {
 
 module.exports = require("deck.gl");
 
 /***/ }),
-/* 159 */
+/* 167 */
 /***/ (function(module, exports) {
 
 module.exports = require("draft-js-inline-toolbar-plugin");
 
 /***/ }),
-/* 160 */
+/* 168 */
 /***/ (function(module, exports) {
 
 module.exports = require("google-map-react");
 
 /***/ }),
-/* 161 */
+/* 169 */
 /***/ (function(module, exports) {
 
 module.exports = require("history");
 
 /***/ }),
-/* 162 */
+/* 170 */
 /***/ (function(module, exports) {
 
 module.exports = require("mapbox");
 
 /***/ }),
-/* 163 */
+/* 171 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-facebook");
 
 /***/ }),
-/* 164 */
+/* 172 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 165 */
+/* 173 */
 /***/ (function(module, exports) {
 
 module.exports = require("rbush");
 
 /***/ }),
-/* 166 */
+/* 174 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-autosuggest");
 
 /***/ }),
-/* 167 */
+/* 175 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 168 */
+/* 176 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 169 */
+/* 177 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-ga");
 
 /***/ }),
-/* 170 */
+/* 178 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-helmet");
 
 /***/ }),
-/* 171 */
+/* 179 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-offcanvas");
 
 /***/ }),
-/* 172 */
+/* 180 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
 
 /***/ }),
-/* 173 */
+/* 181 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-scroll-to-component");
 
 /***/ }),
-/* 174 */
+/* 182 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-select");
 
 /***/ }),
-/* 175 */
+/* 183 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-tagsinput");
 
 /***/ }),
-/* 176 */
+/* 184 */
 /***/ (function(module, exports) {
 
 module.exports = require("superagent");
 
 /***/ }),
-/* 177 */
+/* 185 */
 /***/ (function(module, exports) {
 
 module.exports = require("toastr");

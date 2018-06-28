@@ -31,10 +31,14 @@ export default class VenueEdit extends React.Component {
     
     // Add the listing to the database
     handleSubmit() {
-		if (this.props.venueEdit._id){
-            ListActions.updateVenue(this.props.venueEdit)
+        let newVenue = this.props.venueEdit
+        //Format the website URL
+        if (!/^https?:\/\//i.test(newVenue.website)) {
+            newVenue.website = 'http://' + newVenue.website;
+        }
+		if (newVenue._id){
+            ListActions.updateVenue(newVenue)
 		} else {
-			let newVenue = this.props.venueEdit
 			delete newVenue._id
 			ListActions.saveVenue(newVenue)
 		}
@@ -112,18 +116,23 @@ export default class VenueEdit extends React.Component {
                 return Promise.resolve({ options: [] });
             }
         }
+
+        //Have a select value only if editing an existing venue
+        let selectValue = this.props.venueEdit._id && { value: this.props.venueEdit._id, label: this.props.venueEdit.name }
         
         return ( 
             <div className="editVenue cf">
                 <h3>Edit Venue</h3>
-                <div className="venueEditing">
-                <div className="venueList">
+                <div className="editHeader">
                         <Button onClick={this.onCreateNew}>New</Button>
-                        <Select 
-							value={{value: this.props.venueEdit._id, label: this.props.venueEdit.name}} 
-							handleSelectChange={this.handleSelectChange} 
-							getOptions={getOptions} />
+                        <div className="search">
+                            <Select 
+                                value={selectValue} 
+                                handleSelectChange={this.handleSelectChange} 
+                                getOptions={getOptions} />
+                        </div>
                 </div>
+                <div className="venueEditing">
 					<div className="listingForm">
 					{this.state.formDisplay && 
                         <VenueForm {...this.props.venueEdit} 
@@ -137,11 +146,13 @@ export default class VenueEdit extends React.Component {
 						}
 					</div>
                 </div>
-                <div className="venueLocation">
-						<MapBlock {...this.props.venueEdit} />
-                        {this.state.foundAddress && this.props.address1 &&
-                                        <Alert color="secondary">Found by GPS: {this.state.foundAddress}</Alert>}
-                </div>
+                {this.state.formDisplay && 
+                    <div className="venueLocation">
+                            <MapBlock {...this.props.venueEdit} />
+                            {this.state.foundAddress && this.props.address1 &&
+                                            <Alert color="secondary">Found by GPS: {this.state.foundAddress}</Alert>}
+                    </div>
+                }
             </div>
         );
     }

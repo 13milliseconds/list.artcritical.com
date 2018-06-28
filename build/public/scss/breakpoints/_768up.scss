@@ -341,14 +341,14 @@ header.mainHeader{
         }
     }
 }
-.listing{
-    p{
-        font-size: 16px;
-    }
-}
+
 
 .condensed{
-    .listing{
+    .listing,
+    .event{
+        p{
+            font-size: 16px;
+        }
         .listingAdd{
             .addButton{
                 &:hover{
@@ -501,7 +501,8 @@ header.mainHeader{
     .venue{
         padding: 10px;
     }
-    .listing{
+    .listing, 
+    .event{
         &:hover{
             .listingAdd{
                 span{
@@ -654,6 +655,21 @@ header.mainHeader{
         @include span-columns(9);
         @include omega();
     }
+    //Header of the show edit forms
+    .editHeader{
+        @include row();
+        padding-bottom: 20px;
+        button{
+            vertical-align: top;
+        }
+        .search{
+            float: right;
+            .Select{
+                width: 400px;
+                display: inline-block;
+            }
+        }
+    }
     .editVenue{
         @include row();
         .venueEditing,
@@ -701,11 +717,10 @@ header.mainHeader{
             .group-artists,
             .group-name,
             .group-description,
-            .group-review{
+            .group-review,
+            .group-buttons,
+            .group-dates{
                 @include span-columns(12);
-            }
-            .group-event{
-                @include span-columns(3);
             }
             .group-thumbnail{
                 @include span-columns(6);
@@ -714,11 +729,11 @@ header.mainHeader{
             .group-events{
                 @include span-columns(6);
             }
-            .group-dates{
-                @include span-columns(9);
-                @include omega();
-            }
         }
+    }
+    //EVENTS
+    .eventEdit{
+        
     }
     //USERS
     .usersWrap .allUsers{

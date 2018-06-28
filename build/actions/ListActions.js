@@ -175,8 +175,10 @@ class ListActions {
             return null;
           })
           .then((data) => {
-            this.getGlanceSuccess(data)
-              return true;
+            data
+                ? this.getGlanceSuccess(data)
+                : this.getGlanceFail()
+                return true;
           })
           .catch((error) => {
             this.getGlanceFail(error)
@@ -247,7 +249,9 @@ class ListActions {
           return null;
         })
         .then((json) => {
-            this.saveListingSuccess(json);
+            json
+                ? this.saveListingSuccess(json)
+                : this.saveListingFailure()
             return true;
         })
         .catch((error) => {
@@ -307,7 +311,10 @@ class ListActions {
           return null;
         })
         .then((json) => {
-            this.updateListingSuccess(json);
+            json
+                ? this.updateListingSuccess(json)
+                : this.updateListingFailure()
+
             return true;
         })
         .catch((error) => {
@@ -544,7 +551,9 @@ class ListActions {
           return null;
         })
         .then((json) => {
-            this.updateVenueSuccess(info);
+            json
+                ? this.updateVenueSuccess(json)
+                : this.updateVenueFailure()
             return true;
         })
         .catch((error) => {
@@ -574,7 +583,9 @@ class ListActions {
           return null;
         })
         .then((json) => {
-            this.saveVenueSuccess(json);
+            json
+                ? this.saveVenueSuccess(json)
+                : this.saveVenueFailure()
             return true;
         })
         .catch((error) => {

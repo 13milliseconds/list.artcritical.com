@@ -1,13 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ListActions from '../actions/ListActions';
 //COMPONENTS
 import Helmet from './blocks/Helmet'
-import ReactMapGL, {LinearInterpolator, FlyToInterpolator} from 'react-map-gl';
+import ReactMapGL, {FlyToInterpolator} from 'react-map-gl';
 import DeckGLOverlay from './blocks/MapCluster';
 import VenueBlock from './blocks/VenueBlock'
 import {json as requestJson} from 'd3-request';
 import {Button} from 'reactstrap';
+import ListingNameDisplay from './blocks/ListingNameDisplay'
 
 var d3 = require('d3-ease');
 
@@ -174,8 +174,8 @@ export default class CurrentMap extends React.Component {
 			return <VenueBlock key={index} listings={[listing]} user={this.props.user} dateView="current"/>
 		})
 
-		let showLabels = (listings) => listings.map((listing, index) => {
-			return <div key={index}>{listing.name}</div>
+		let showLabels = (listings) => listings.map((listing) => {
+			return <ListingNameDisplay {...listing} key={listing._id} />
 		})
 
 		let labelStyles = {

@@ -12,7 +12,7 @@ export default class formSelect extends React.Component {
         return (
             <Async 
                 name="venue"
-                placeholder="Select venue"
+                placeholder="Search"
                 value={this.props.value}  
                 loadOptions={this.props.getOptions} 
                 onChange={this.props.handleSelectChange} 

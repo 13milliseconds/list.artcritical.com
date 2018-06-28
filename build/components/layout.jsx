@@ -12,6 +12,7 @@ import Helmet from './blocks/Helmet'
 //Sidebar
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'
 import ListingForm from './forms/ListingForm';
+import EventForm from './forms/EventForm';
 
 //Google Analytics
 import ReactGA from 'react-ga';
@@ -26,6 +27,7 @@ import faEdit from '@fortawesome/fontawesome-pro-light/faEdit'
 import faCalendar from '@fortawesome/fontawesome-pro-light/faCalendar'
 import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
 import faMap from '@fortawesome/fontawesome-pro-light/faMap'
+import faExternalLinkSquare from '@fortawesome/fontawesome-pro-light/faExternalLinkSquare'
 import faMapMarkerAlt from '@fortawesome/fontawesome-pro-light/faMapMarkerAlt'
 import faBars from '@fortawesome/fontawesome-pro-light/faBars'
 import faPencilAlt from '@fortawesome/fontawesome-pro-light/faPencilAlt'
@@ -42,7 +44,7 @@ import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
 import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
 
 
-fontawesome.library.add(faBars, faListUl, faTh, faMap, faCalendar, faPlusCircle, faPlusCircle, faMapMarkerAlt, faPlus, faMinus, faSpinnerThird, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
+fontawesome.library.add(faBars, faListUl, faExternalLinkSquare, faTh, faMap, faCalendar, faPlusCircle, faPlusCircle, faMapMarkerAlt, faPlus, faMinus, faSpinnerThird, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
 
 
 export default class Layout extends React.Component {
@@ -170,13 +172,23 @@ export default class Layout extends React.Component {
                     </OffCanvasBody>
                     <OffCanvasMenu className={"sideMenu"}>
                         <a className="close" onClick={this.toggleAdminMenu}><FontAwesomeIcon icon={['fal', 'times']} /></a>
-                        {this.state.sidebarOpen &&
+                        {this.state.listingEdit._id &&
                             <div>
                                 <h3>Edit Listing</h3>
                             <ListingForm
                                 listing={this.state.listingEdit}
                                 error={this.state.error.updatelisting}
                                 loading={this.state.loading.updatelisting}
+                                success={this.state.success} />
+                                </div>
+                        }
+                        {this.state.eventEdit._id &&
+                            <div>
+                                <h3>Edit Event</h3>
+                            <EventForm
+                                event={this.state.eventEdit}
+                                error={this.state.error.updateEvent}
+                                loading={this.state.loading.updateEvent}
                                 success={this.state.success} />
                                 </div>
                         }

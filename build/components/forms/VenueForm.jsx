@@ -22,7 +22,8 @@ export default class VenueForm extends React.Component {
             disableModal: false,
             deleteModal: false,
             createvisible: false,
-            wasChanged: false 
+            wasChanged: false,
+            errorMessages: {}
 		}
 
         this.handleChange = this.handleChange.bind(this)
@@ -32,6 +33,14 @@ export default class VenueForm extends React.Component {
         this.onDeleteConfirm = this.onDeleteConfirm.bind(this)
         this.onDisableConfirm = this.onDisableConfirm.bind(this)
         this.toggleModal = this.toggleModal.bind(this)
+        //Validation
+        this._validateAll = this._validateAll.bind(this)
+        this._validateName = this._validateName.bind(this)
+        this._validateAddress = this._validateAddress.bind(this)
+        this._validateCity = this._validateCity.bind(this)
+        this._validateNeighborhood = this._validateNeighborhood.bind(this)
+        this._validateZipcode = this._validateZipcode.bind(this)
+
       }
 
       toggleModal(modalName) {
@@ -63,16 +72,22 @@ export default class VenueForm extends React.Component {
 
     onConfirm(event) {
         event.preventDefault();
-        this.setState({ 
-            updateModal: true
-        })
+        if (this._validateAll()) {
+        
+            this.setState({ 
+                updateModal: true
+            })
+        }
     }
 
     onCreateConfirm(event) {
         event.preventDefault();
-        this.setState({ 
-            createModal: true
-        })
+        if (this._validateAll()) {
+        
+            this.setState({ 
+                createModal: true
+            })
+        }
     }
 
     onDeleteConfirm(event) {
@@ -87,6 +102,91 @@ export default class VenueForm extends React.Component {
         this.setState({ 
             disableModal: true
         });
+    }
+
+    _validateAll(){
+        var validName = this._validateName()
+        var validAddress = this._validateAddress()
+        var validCity = this._validateCity()
+        var validZipcode = this._validateZipcode()
+        var validNeighborhood = this._validateNeighborhood()
+
+        var result = validAddress && validName && validCity && validZipcode && validNeighborhood ? true : false
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.general = result ? '' : 'Please review the error messages above.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
+    }
+
+    _validateName(){
+        let result = this.props.name ? true : false
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.name = result ? '' : 'Please enter a name.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
+    }
+
+    //Validate the Address
+    _validateAddress(){
+        let result = this.props.address1 ? true : false
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.address = result ? '' : 'Please enter an address.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
+    }
+
+    _validateCity(){
+        let result = this.props.city ? true : false
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.city = result ? '' : 'Please enter a city.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
+    }
+
+    _validateZipcode(){
+        let result = this.props.zipcode ? true : false
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.zipcode = result ? '' : 'Please enter a zipcode.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
+    }
+
+    _validateNeighborhood(){
+        let result = this.props.neighborhood ? true : false 
+
+        let errorMessages = this.state.errorMessages
+        errorMessages.neighborhood = result ? '' : 'Please select a neighborhood.'
+
+        this.setState({
+            errorMessages: errorMessages
+        })
+
+        return result
     }
 
 
@@ -106,7 +206,6 @@ export default class VenueForm extends React.Component {
 	componentWillUpdate(nextProps, nextState){
 		const nextFullAdress = nextProps.address1 !== '' && nextProps.address1
                                 ? nextProps.address1
-                                    + (nextProps.address2? ' ' + nextProps.address2 : '')
                                     + (nextProps.city? ' ' + nextProps.city : '')
                                     + (nextProps.state? ', ' + nextProps.state : '') 
                                     + (nextProps.zipcode? ' ' + nextProps.zipcode : '')
@@ -140,7 +239,8 @@ export default class VenueForm extends React.Component {
                     <FormGroup>
                         <Label>Name</Label>
                         <div className="formSection">
-                          <Input disabled={venue.disabled} name="name" placeholder="Name" type="text" value={this.props.name} onChange={this.handleChange} />
+                          <Input disabled={venue.disabled} name="name" placeholder="Name" type="text" value={venue.name} onChange={this.handleChange} />
+                          {this.state.errorMessages.name && <Alert color="danger">{this.state.errorMessages.name}</Alert>}
                         </div> 
                     </FormGroup>
                     
@@ -166,6 +266,7 @@ export default class VenueForm extends React.Component {
                         <div className="formSection">
                           <Input disabled={venue.disabled} name="address1" placeholder="Line 1" type="text" value={venue.address1} onChange={this.handleChange} />
                           <Input disabled={venue.disabled} name="address2" placeholder="Line 2" type="text" value={venue.address2} onChange={this.handleChange} />
+                          {this.state.errorMessages.address && <Alert color="danger">{this.state.errorMessages.address}</Alert>}
                         </div>
                     </FormGroup>
 
@@ -173,6 +274,7 @@ export default class VenueForm extends React.Component {
                         <Label>City</Label>
                         <div className="formSection">
                           <Input disabled={venue.disabled} name="city" placeholder="City" type="text" value={venue.city} onChange={this.handleChange} />
+                          {this.state.errorMessages.city && <Alert color="danger">{this.state.errorMessages.city}</Alert>}
                         </div>
                     </FormGroup>
 
@@ -180,6 +282,7 @@ export default class VenueForm extends React.Component {
                         <Label>Neighborhood</Label>
                         <div className="formSection">
                           <NeighborhoodSelect disabled={venue.disabled} selected={venue.neighborhood} onChange={this.handleChange}/>
+                          {this.state.errorMessages.neighborhood && <Alert color="danger">{this.state.errorMessages.neighborhood}</Alert>}
                         </div>
                     </FormGroup>
 
@@ -194,6 +297,7 @@ export default class VenueForm extends React.Component {
                         <Label>Zipcode</Label>
                         <div className="formSection">
                           <Input disabled={venue.disabled} name="zipcode" placeholder="Zipcode" type="number" value={this.props.zipcode} onChange={this.handleChange} />
+                          {this.state.errorMessages.zipcode && <Alert color="danger">{this.state.errorMessages.zipcode}</Alert>}
                         </div>
                     </FormGroup>
 
@@ -234,9 +338,10 @@ export default class VenueForm extends React.Component {
 				   		: ''
 				   	}
   
-                    <FormGroup>
-                            {venue._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
-                            {disableButton}{deleteButton}
+                    <FormGroup className="group-buttons">
+                        {this.state.errorMessages.general && <Alert color="danger">{this.state.errorMessages.general}</Alert>}
+                        {venue._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
+                        {disableButton}{deleteButton}
                     </FormGroup>
                     {this.state.updateModal && <ConfirmModal 
                                                         toggle={this.toggleModal}

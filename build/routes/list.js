@@ -47,7 +47,6 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     //Find today's date
     var start = moment().startOf('day');
     var end = moment().endOf('day');
-    console.log(start, end)
     
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 500; 
@@ -62,6 +61,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     sort({neighborhood: 1, venue: 1}).
     populate('venue').
     populate('artists').
+    populate('relatedEvents').
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -89,7 +89,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     limit(100).
     populate('venue').
     populate('artists').
-    populate('updated_by').
+    populate('relatedEvents').
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -102,6 +102,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
 
 router.get('/glancelistings', function (req, res) {
     var List = req.list;
+    var Event = req.event;
 
     //Find today's date
     var today = moment().startOf('day')
@@ -124,36 +125,20 @@ router.get('/glancelistings', function (req, res) {
     .sort('neighborhood')
     .populate('venue')
     .populate('artists')
-    .exec(function (e, docs) {
+    .populate('relatedEvents')
+    .exec(function (e, listings) {
         if (e)
             {console.log('Error: ', e)
             res.send(e);}
         else 
-            res.json(docs);
-    });
-});
-
-
-//#######################
-// GET EVENTS list to display.
-//#######################
-
-router.get('/eventslistings', function (req, res) {
-    var List = req.list;
-
-    //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    List.find().
-	where('start').gte(today).
-    where('event').equals(true).
-	where('venue').ne('').
-    sort('start').
-    populate('venue').
-    populate('artists').
-    exec(function (e, docs) {
-        res.json(docs);
+            Event.find({date: { $gte: today, $lte: inaWeek}}, {})
+            .populate('venue')
+            .populate('list')
+            .populate('artists')
+            .exec(function (e, events) {
+                var docs = {listings: listings, events: events}
+                res.json(docs);
+            })
     });
 });
 
@@ -172,6 +157,7 @@ router.get('/latestlistings', function (req, res) {
     limit(20).
     populate('venue').
     populate('artists').
+    populate('relatedEvents').
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -195,11 +181,12 @@ router.get('/find/:regex_input', function (req, res, next) {
         
     var results = [];
     listings.map(function (thelisting) {
-        console.log(thelisting.artists)
-        var artists = thelisting.artists && thelisting.artists.map(artist => {return artist.name + ' '})
+        var artists = thelisting.artists ? thelisting.artists.map((artist, index) => { var comma = index < (thelisting.artists.length - 1) ? ', ' : ''; return artist.name + comma}) : ''
+        var colon = thelisting.artists.length && thelisting.name ? ': ' : ''
+        var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : ''
         results.push({
             value: thelisting._id,
-            label: thelisting.name + ' ' + artists
+            label: artists + groupShow + colon + thelisting.name
         });
     })
 
@@ -220,6 +207,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 	where('venue').ne('').
     populate('venue').
     populate('artists').
+    populate('relatedEvents').
     populate('updated_by').
     exec(function (e, docs) {
         if (e)
@@ -237,17 +225,19 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 router.post('/add', function (req, res) {
     var List = req.list;
     var Artists = req.artists;
+    var Event = req.event
 
     // define a new entry
     var newlisting = req.body;
 
     // Save when and who created it
-	var now = new Date();
+	var now = new moment();
 	newlisting.created_at = now;
 	newlisting.updated_at = now;
     newlisting.updated_by = req.user._id;
     
-    var fn = function saveArtists(artist){ // Save artist async
+    //SAVE ALL THE ARTISTS
+    var artistsfn = function saveArtists(artist){ // Save artist async
         if (artist._id){
             return artist._id
         } else {
@@ -260,20 +250,45 @@ router.post('/add', function (req, res) {
         }
     };
 
-    var saving = newlisting.artists.map(fn); // run the function over all items
+    var saving = newlisting.artists.map(artistsfn); // run the function over all items
 
     var savedArtists = Promise.all(saving); // pass array of promises
 
     savedArtists.then(data => {
-        
-        newlisting.artists = data;
-        newlisting = new List(newlisting);
 
-        //Save this new entry
-        newlisting.save(function (err, newlisting) {
-            res.send(
-                (err === null) ? newlisting : { msg: err }
-            );
+        newlisting.artists = data;
+
+        //SAVE ALL THE EVENTS
+        var eventsfn = function saveEvents(event){ // Save artist async
+
+                var newEvent = event
+                newEvent.venue = newlisting.venue._id
+                newEvent.list = newlisting._id
+                newEvent.artists = newlisting.artists
+                var readyEvent = new Event(newEvent)
+
+                return new Promise(resolve => {
+                    readyEvent.save(function (err, savedEvent) { 
+                        resolve(savedEvent._id)
+                    })
+                })
+        };
+    
+        var savingEvents = newlisting.relatedEvents.map(eventsfn); // run the function over all items
+    
+        var savedEvents = Promise.all(savingEvents); // pass array of promises
+    
+        savedEvents.then(data => {
+
+            newlisting.relatedEvents = data;
+            newlisting = new List(newlisting);
+
+            //Save this new entry
+            newlisting.save(function (err, newlisting) {
+                res.send(
+                    err === null ? newlisting : { msg: err }
+                );
+            });
         });
     });
 
@@ -287,56 +302,100 @@ router.post('/add', function (req, res) {
 router.post('/update', function (req, res) {
     var List = req.list;
     var Artists = req.artists;
-
-    console.log("Update one listing");
+    var Event = req.event;
 
     // define a new entry
     var thelisting = req.body;
 
     // Save when and who updated it
-	var now = new Date();
+	var now = moment();
 	thelisting.updated_at = now;
     thelisting.updated_by = req.user._id;
 
-
-    var fn = function saveArtists(artist){ // Save artist async
+    //SAVE ALL THE ARTISTS
+    var artistsfn = function saveArtists(artist){ // Save artist async
         if (artist._id){
             return artist._id
         } else {
             var newArtist = new Artists(artist);
             return new Promise(resolve => {
                 newArtist.save(function (err, newArtist) { 
-                    console.log(newArtist)
                     resolve(newArtist._id)
                 })
             })
         }
     };
 
-    var saving = thelisting.artists.map(fn); // run the function over all items
+    var saving = thelisting.artists.map(artistsfn); // run the function over all items
 
     var savedArtists = Promise.all(saving); // pass array of promises
 
     savedArtists.then(data => {
-        
-        thelisting.artists = data;
-        thelisting = new List(thelisting);
-        console.log('Before saving: ', thelisting)
 
-        List.update({
-            _id: thelisting._id
-            }, {
-                $set: thelisting
-            }, function (err, newlisting) {
-                console.log('After saving: ', newlisting);
-                res.send(
-                    (err === null) ? {
-                        msg: ''
-                    } : {
-                        msg: err
-                    }
-                );
-        });
+        thelisting.artists = data;
+
+        //SAVE ALL THE EVENTS
+        var eventsfn = function saveEvents(event){ // Save artist async
+            if (event._id){
+
+                let newEvent = event
+                newEvent.venue = thelisting.venue._id
+                newEvent.list = thelisting._id
+                newEvent.artists = thelisting.artists
+
+                return new Promise(resolve => {
+                    Event.update({
+                        _id: event._id
+                        }, {
+                            $set: newEvent
+                        }, function (err, savedEvent) {
+                            console.log(savedEvent)
+                            resolve(savedEvent._id)
+                    });
+                })
+
+            } else {
+                let newEvent = event
+                newEvent.venue = thelisting.venue._id
+                newEvent.list = thelisting._id
+                newEvent.artists = thelisting.artists
+                let readyEvent = new Event(newEvent)
+
+                return new Promise(resolve => {
+                    readyEvent.save(function (err, savedEvent) { 
+                        console.log(savedEvent)
+                        resolve(savedEvent._id)
+                    })
+                })
+            }
+        };
+    
+        var savingEvents = thelisting.relatedEvents.map(eventsfn); // run the function over all items
+    
+        var savedEvents = Promise.all(savingEvents); // pass array of promises
+    
+        savedEvents.then(data => {
+
+            thelisting.relatedEvents = data;
+            thelisting = new List(thelisting);
+
+            List.update({
+                _id: thelisting._id
+                }, {
+                    $set: thelisting
+                }, function (err, newlisting) {
+                    console.log(newlisting)
+                    res.send(
+                        (err === null) ? {
+                            msg: ''
+                        } : {
+                            msg: err
+                        }
+                    );
+            });
+
+        })
+
     });
 
 });

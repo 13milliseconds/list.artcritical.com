@@ -1,13 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router';
-import ListStore from '../stores/ListStore';
-import ListActions from '../actions/ListActions';
+import EventActions from '../actions/EventActions';
 import moment from 'moment';
 //COMPONENTS
 import Helmet from './blocks/Helmet'
-import VenueBlock from './blocks/VenueBlock';
+import Event from './blocks/Event';
 import Date from './blocks/DateBlock';
-import SizeSelector from './blocks/sizeSelector';
 import DayPicker from './forms/DayPicker';
 import Loading from './blocks/loading'
 
@@ -22,7 +20,7 @@ export default class EventsPage extends React.Component {
     }
 
     componentDidMount() {
-        ListActions.getEvents();
+        EventActions.getEvents();
         scrollToComponent = require('react-scroll-to-component')
     }
 
@@ -33,20 +31,18 @@ export default class EventsPage extends React.Component {
 
     render() {
         let oldDate
-        let thelist = this.props.eventsListings.map((listing) => {
-          let newDate = listing.start;
+        let thelist = this.props.eventsListings.map((event) => {
+          let newDate = event.date;
             if ( newDate !== oldDate) {
                 oldDate = newDate
                 return (
-                    <div className="date" key={listing._id}>
+                    <div className="date" key={event._id}>
                         <h2><Date date={newDate} ref={moment(newDate).format('YYYY MM DD')} /></h2>
-                        <VenueBlock listings={[listing]} user={this.props.user}/>
+                        <Event event={event} user={this.props.user}/>
                     </div>
                 )
             } else {
-                return (
-                  <VenueBlock listings={[listing]} key={listing._id} user={this.props.user}/>
-              )   
+                return (<Event event={event} key={event._id} user={this.props.user}/>)
             }
         })
         

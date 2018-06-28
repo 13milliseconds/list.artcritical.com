@@ -2,7 +2,7 @@ import React from 'react';
 import validator from 'validator';
 import AuthActions from '../../actions/AuthActions';
 //COMPONENTS
-import { Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Input } from 'reactstrap';
 import {Link } from 'react-router';
 import FacebookButton from '../buttons/FacebookButton.jsx';
 import Loading from '../blocks/loading'

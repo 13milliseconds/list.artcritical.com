@@ -21,6 +21,7 @@ export default class AdminPage extends React.Component {
                             <ul>
                                 <li><IndexLink to={'/admin'} activeClassName="active">Overview</IndexLink></li>
                                 <li><Link to={'/admin/listings'} activeClassName="active">Listings</Link></li>
+                                <li><Link to={'/admin/events'} activeClassName="active">Events</Link></li>
                                 <li><Link to={'/admin/venues'} activeClassName="active">Venues</Link></li>
                                 <li><Link to={'/admin/featured'} activeClassName="active">Featured Calendar</Link></li>
                                 <li><Link to={'/admin/review'} activeClassName="active">Review</Link></li>

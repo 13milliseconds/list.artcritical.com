@@ -2,6 +2,7 @@ import React from "react"
 import moment from "moment"
 //COMPONENTS
 import VenueList from "./blocks/VenueList"
+import Event from "./blocks/Event"
 import Loading from "./blocks/loading"
 import FeatureBlock from "./blocks/featureBlock"
 
@@ -19,35 +20,57 @@ export default class DayPage extends React.Component {
 
         let events = []
 		let openings = []
-		let closings = []
-		
-		this.props.glanceListings.map((listing) => {
-            // Check if it is an event
-            if ( listing.event == true) {// it IS an event
-                moment(listing.start).isSame(this.state.date, 'day') && events.push(listing)
-                
-            } else { //not an event
-                //Check if it starts on this day
-                console.log(listing)
-                if (moment(listing.start).isSame(this.state.date, 'day')) {
-                    openings.push(listing) 
-                } 
-                //Check if it ends on this day
-                if (moment(listing.end).isSame(this.state.date, 'day')) {
-                    closings.push(listing)  
-                } 
+        let closings = []
+
+        this.props.glanceListings.events && this.props.glanceListings.events.map((event) => {
+            if(moment(event.date).isSame(this.state.date, 'day')){
+                if (event.type === 'reception'){
+                    var listing = event.list ? event.list : event
+                    listing.venue = event.venue
+                    listing.artists = event.artists
+                    listing.relatedEvents = null
+                    listing.description = 'Opening Reception. ' + listing.description + ' ' + event.description
+                    openings.push(listing)
+                } else {
+                    events.push(event)
+                }
             }
-                  
+        })
+		
+		this.props.glanceListings.listings && this.props.glanceListings.listings.map((listing) => {
+            //Check if it starts on this day
+            if (moment(listing.start).isSame(this.state.date, 'day')) {
+                openings.push(listing) 
+            } 
+            //Check if it ends on this day
+            if (moment(listing.end).isSame(this.state.date, 'day')) {
+                closings.push(listing)  
+            } 
         })
 
+        //Sorting all openings by neighborhood
+        function compareNeighborhood(a,b) {
+            if (a.venue.neighborhood < b.venue.neighborhood)
+              return -1;
+            if (a.venue.neighborhood > b.venue.neighborhood)
+              return 1;
+            return 0;
+          }
+          
+          openings.sort(compareNeighborhood);
+
         let totalListings = closings.length + events.length + openings.length
+
+        var displayEvents = events.map(event => {
+                return <Event event={event} key={event._id} user={this.props.user}/>
+            })
         
         return (
             <div className="day">
                 <div className="featuredSection">
                     {this.props.feature.list && <FeatureBlock feature={this.props.feature} user={this.props.user}/>}
                 </div>   
-                {this.props.glanceListings.length > 0 
+                {!this.props.loading.glance
                 ? <div className={this.props.view + " listingsWrap"}>
 
                         { openings.length > 0 && <div className="openingWrap">
@@ -58,7 +81,7 @@ export default class DayPage extends React.Component {
 
                         { events.length > 0 && <div className="eventsWrap">
                                 <h2>Events</h2> 
-                                <VenueList listings={events}  user={this.props.user} dateView="nodate"/>
+                                {displayEvents}
                             </div>
                         }
 

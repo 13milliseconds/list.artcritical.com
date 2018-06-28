@@ -70,25 +70,27 @@ export default class ListingEdit extends React.Component {
                 return Promise.resolve({ options: [] });
             }
         }
+
+        //Have a select value only if editing an existing venue
+        let selectValue = this.props.listingEdit._id && { value: this.props.listingEdit._id, label: this.props.listingEdit.name }
         
         return ( 
             <div className="listingEdit">
                 <h3>Create or Edit Listings</h3>
-                <div id="ListingList">
+                <div className="editHeader">
                         <Button onClick={this.onCreateNew}>New</Button>
-                        <Select value={{
-                            value: this.props.listingEdit._id, 
-                            label: this.props.listingEdit.name}
-                        } 
-                        handleSelectChange={this.handleSelectChange} 
-                        getOptions={getOptions} 
-                        />
+                        <div className="search">
+                            <Select value={selectValue} 
+                            handleSelectChange={this.handleSelectChange} 
+                            getOptions={getOptions} 
+                            />
+                        </div>
                 </div>
                 {this.state.formDisplay && 
                     <ListingForm 
                         listing={this.props.listingEdit} 
-                        error={this.props.error.updatelisting} 
-                        loading={this.props.loading.updatelisting}
+                        error={this.props.error} 
+                        loading={this.props.loading}
                         success={this.props.success}
                         allArtists={this.props.allArtists}/>
                 }

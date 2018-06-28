@@ -256,7 +256,8 @@ LISTING ELEMENTS
         font-weight: 500;
     }
 }
-.listing{
+.listing,
+.event{
     .listingContent{
         
         p{
@@ -296,6 +297,9 @@ LISTING ELEMENTS
         }
     }
     .icons{
+        .inactive{
+            color: $dark-gray;
+        }
         & > *{
             cursor: pointer;
             color: $black;
@@ -388,6 +392,13 @@ LISTING ELEMENTS
         .venueInfo{
             a{
                 border: 0;
+                &.external{
+                    font-size: .8em;
+                    padding-left: 5px;
+                    &:hover{
+                        color: $green;
+                    }
+                }
             }
             span{
                 color: $dark-gray;
@@ -395,7 +406,8 @@ LISTING ELEMENTS
             }
         }
     }
-    .listing{
+    .listing, 
+    .event{
         padding: 0 0 5px;
         @include transition(.2s);
         white-space: nowrap;
@@ -855,7 +867,7 @@ ACCOUNT
     &.mainList .left-col{
         display: none;
     }
-    .listing{
+    .event{
         .header > .date{
             display: none;
         }
@@ -1202,6 +1214,7 @@ input.invalid{
     }
 }
 .iconLink{
+    border-bottom: 0;
     margin-right: 10px;
 }
 

@@ -1,13 +1,7 @@
 import React from 'react'
 // Components
 import VenueBlock from '../blocks/VenueBlock'
-import {Button} from 'reactstrap'
-import Reorder, {
-  reorder,
-  reorderImmutable,
-  reorderFromTo,
-  reorderFromToImmutable
-} from 'react-reorder';
+import Reorder from 'react-reorder';
 
 export default class MyListings extends React.Component {
     constructor(props) {
@@ -36,6 +30,7 @@ export default class MyListings extends React.Component {
                                 user={this.props.user} mylisting={true}
                                 mapMouseEnter={this.props.onHover.bind(this, listing)}
                                 mapMouseLeave={this.props.onLeave.bind(this, listing)}
+                                onMap={true}
                             />
                         </div>
                         ))}
