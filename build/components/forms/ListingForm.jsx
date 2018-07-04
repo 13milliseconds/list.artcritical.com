@@ -1,6 +1,6 @@
 import React from 'react'
 import ListActions from '../../actions/ListActions'
-import {Link, browserHistory} from 'react-router'; 
+import {browserHistory} from 'react-router'; 
 import { Form, FormGroup, Label, Input, Alert, Button } from 'reactstrap';
 
 
@@ -196,7 +196,6 @@ export default class ListingForm extends React.Component {
     }
 
     handleArtistsChange (artists) {
-        console.log(artists)
         //Update values of inputs
         ListActions.listingInfoChange({target: {name: 'artists', value: artists}})
         this.setState({

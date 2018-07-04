@@ -7306,7 +7306,6 @@ var ListingForm = function (_React$Component) {
     }, {
         key: 'handleArtistsChange',
         value: function handleArtistsChange(artists) {
-            console.log(artists);
             //Update values of inputs
             _ListActions2.default.listingInfoChange({ target: { name: 'artists', value: artists } });
             this.setState({
@@ -9348,8 +9347,16 @@ var ListStore = function () {
                 var type = event.target.name;
                 var index = event.target.dataset.index;
                 this.listingEdit.relatedEvents[index][type] = event.target.value;
+                //Make sure events have a type
+                if (this.listingEdit.relatedEvents[index].type === "") {
+                    this.listingEdit.relatedEvents[index].type = "reception";
+                }
             } else if (event.date) {
                 this.listingEdit.relatedEvents[event.index].date = event.date;
+                //Make sure events have a type
+                if (this.listingEdit.relatedEvents[event.index].type === "") {
+                    this.listingEdit.relatedEvents[event.index].type = "reception";
+                }
             }
         }
 
@@ -14443,7 +14450,7 @@ var Listing = function (_React$Component) {
                     _react2.default.createElement(
                         'span',
                         { className: 'type' },
-                        event.type
+                        event.type === "other" ? event.name : event.type
                     ),
                     ': ',
                     _react2.default.createElement(_DateBlock2.default, { date: event.date }),
@@ -15897,7 +15904,6 @@ var EventsForm = function (_React$Component) {
                                 { type: 'select',
                                     name: 'type',
                                     value: event.type,
-                                    defaultValue: 'reception',
                                     'data-index': index,
                                     onChange: _this2.onChange },
                                 _react2.default.createElement(
@@ -15917,9 +15923,10 @@ var EventsForm = function (_React$Component) {
                                 )
                             ),
                             _react2.default.createElement(_formDateSingle2.default, { event: index, startDate: event.date, onDatesChange: _this2.onChange }),
-                            event.type === "" && _react2.default.createElement('input', {
+                            event.type === "other" && _react2.default.createElement('input', {
                                 type: 'text',
                                 name: 'name',
+                                placeholder: 'Name',
                                 'data-index': index,
                                 value: event.name,
                                 onChange: _this2.onChange }),

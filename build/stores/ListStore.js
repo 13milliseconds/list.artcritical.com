@@ -845,16 +845,26 @@ class ListStore {
             date: ""
         });
     }
+
     onRemoveEvent(index){
         this.listingEdit.relatedEvents.splice(index, 1);
     }
+
     onEventsInfoChange(event){
         if (event.target){
             const type = event.target.name;
             const index = event.target.dataset.index;
             this.listingEdit.relatedEvents[index][type] = event.target.value;
+            //Make sure events have a type
+            if (this.listingEdit.relatedEvents[index].type === ""){
+                this.listingEdit.relatedEvents[index].type = "reception"
+            }
         } else if (event.date){
             this.listingEdit.relatedEvents[event.index].date = event.date;
+            //Make sure events have a type
+            if (this.listingEdit.relatedEvents[event.index].type === ""){
+                this.listingEdit.relatedEvents[event.index].type = "reception"
+            }
         }
         
     }

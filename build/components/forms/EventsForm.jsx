@@ -36,7 +36,6 @@ export default class EventsForm extends React.Component {
                     <Input type="select"
                         name="type"
                         value={event.type}
-                        defaultValue="reception"
                         data-index={index}
                         onChange={this.onChange} >
                         <option value="reception">Reception</option>
@@ -44,10 +43,11 @@ export default class EventsForm extends React.Component {
                         <option value="other">Other</option>
                     </Input>
                     <DateSingle event={index} startDate={event.date} onDatesChange={this.onChange}/>
-                    {event.type === "" &&
+                    {event.type === "other" &&
                         <input 
                         type="text" 
                         name="name"
+                        placeholder="Name"
                         data-index={index}
                         value={event.name}
                         onChange={this.onChange} />

@@ -52,7 +52,7 @@ export default class Listing extends React.Component {
     eventsDisplay(events){
         return events.map((event, index) => {
             return <div className="listingEvent" key={index}>
-                    <span className="type">{event.type}</span>: <Date date={event.date} /> - {event.description ? event.description : "8pm"}
+                    <span className="type">{event.type === "other" ? event.name : event.type}</span>: <Date date={event.date} /> - {event.description ? event.description : "8pm"}
             </div>
         })
 
