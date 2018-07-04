@@ -121,7 +121,8 @@ router.get('/glancelistings', function (req, res) {
             }
         }]
     }, {})
-    .where('venue').ne('')
+    .where('venue').type('string')
+    .where('event').ne(true)
     .sort('neighborhood')
     .populate('venue')
     .populate('artists')

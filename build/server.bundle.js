@@ -5996,6 +5996,8 @@ var ListingsPerNeighbor = function (_React$Component) {
             var thelistRender = function thelistRender(listings) {
                 return listings.map(function (listing, index) {
 
+                    console.log(listing);
+
                     listing.key = listing._id;
 
                     newSecondaryNH = listing.venue.neighborhood;
@@ -10680,7 +10682,7 @@ router.get('/glancelistings', function (req, res) {
                 $lte: inaWeek
             }
         }]
-    }, {}).where('venue').ne('').sort('neighborhood').populate('venue').populate('artists').populate('relatedEvents').exec(function (e, listings) {
+    }, {}).where('venue').type('string').where('event').ne(true).sort('neighborhood').populate('venue').populate('artists').populate('relatedEvents').exec(function (e, listings) {
         if (e) {
             console.log('Error: ', e);
             res.send(e);
