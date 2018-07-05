@@ -24,8 +24,6 @@ export default class ListingsPerNeighbor extends React.Component {
         
         let thelistRender = listings => listings.map((listing, index) => {
 
-            console.log(listing)
-
             listing.key = listing._id
                 
             newSecondaryNH = listing.venue.neighborhood

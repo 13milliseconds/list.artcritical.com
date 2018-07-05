@@ -182,7 +182,7 @@ router.get('/find/:regex_input', function (req, res, next) {
         
     var results = [];
     listings.map(function (thelisting) {
-        var artists = thelisting.artists ? thelisting.artists.map((artist, index) => { var comma = index < (thelisting.artists.length - 1) ? ', ' : ''; return artist.name + comma}) : ''
+        var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map((artist, index) => { var comma = index < (thelisting.artists.length - 1) ? ', ' : ''; return artist.name + comma}) : ''
         var colon = thelisting.artists.length && thelisting.name ? ': ' : ''
         var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : ''
         results.push({

@@ -172,7 +172,7 @@ export default class Layout extends React.Component {
                     </OffCanvasBody>
                     <OffCanvasMenu className={"sideMenu"}>
                         <a className="close" onClick={this.toggleAdminMenu}><FontAwesomeIcon icon={['fal', 'times']} /></a>
-                        {this.state.listingEdit._id &&
+                        {typeof this.state.listingEdit._id === "string" &&
                             <div>
                                 <h3>Edit Listing</h3>
                             <ListingForm
@@ -182,7 +182,7 @@ export default class Layout extends React.Component {
                                 success={this.state.success} />
                                 </div>
                         }
-                        {this.state.eventEdit._id &&
+                        {typeof this.state.eventEdit._id === "string" &&
                             <div>
                                 <h3>Edit Event</h3>
                             <EventForm
@@ -196,7 +196,7 @@ export default class Layout extends React.Component {
                     </OffCanvasMenu>
                 </OffCanvas>
                 <footer>
-                    <p>"artcritical," "artcritical.com" and "The Review Panel" ©2018 artcritical, LLC 2003-2010</p>
+                    <p>"artcritical," "artcritical.com" and "The Review Panel" ©2018 artcritical, LLC 2003-2018</p>
                 </footer>
             </div>
         );

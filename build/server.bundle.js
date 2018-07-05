@@ -5996,8 +5996,6 @@ var ListingsPerNeighbor = function (_React$Component) {
             var thelistRender = function thelistRender(listings) {
                 return listings.map(function (listing, index) {
 
-                    console.log(listing);
-
                     listing.key = listing._id;
 
                     newSecondaryNH = listing.venue.neighborhood;
@@ -10726,7 +10724,7 @@ router.get('/find/:regex_input', function (req, res, next) {
 
         var results = [];
         listings.map(function (thelisting) {
-            var artists = thelisting.artists ? thelisting.artists.map(function (artist, index) {
+            var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map(function (artist, index) {
                 var comma = index < thelisting.artists.length - 1 ? ', ' : '';return artist.name + comma;
             }) : '';
             var colon = thelisting.artists.length && thelisting.name ? ': ' : '';
@@ -17498,7 +17496,7 @@ var Layout = function (_React$Component) {
                             { className: 'close', onClick: this.toggleAdminMenu },
                             _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'times'] })
                         ),
-                        this.state.listingEdit._id && _react2.default.createElement(
+                        typeof this.state.listingEdit._id === "string" && _react2.default.createElement(
                             'div',
                             null,
                             _react2.default.createElement(
@@ -17512,7 +17510,7 @@ var Layout = function (_React$Component) {
                                 loading: this.state.loading,
                                 success: this.state.success })
                         ),
-                        this.state.eventEdit._id && _react2.default.createElement(
+                        typeof this.state.eventEdit._id === "string" && _react2.default.createElement(
                             'div',
                             null,
                             _react2.default.createElement(
@@ -17535,7 +17533,7 @@ var Layout = function (_React$Component) {
                     _react2.default.createElement(
                         'p',
                         null,
-                        '"artcritical," "artcritical.com" and "The Review Panel" \xA92018 artcritical, LLC 2003-2010'
+                        '"artcritical," "artcritical.com" and "The Review Panel" \xA92018 artcritical, LLC 2003-2018'
                     )
                 )
             );
