@@ -38,12 +38,19 @@ export default class DayPage extends React.Component {
         })
 		
 		this.props.glanceListings.listings && this.props.glanceListings.listings.map((listing) => {
+            var relatedEventPresent = false
+            //Check if a related event is today
+            listing.relatedEvents.map(event => {
+                if (moment(event.date).isSame(this.state.date, 'day')) {
+                    relatedEventPresent = true
+                }
+            })
             //Check if it starts on this day
-            if (moment(listing.start).isSame(this.state.date, 'day')) {
+            if (!relatedEventPresent && moment(listing.start).isSame(this.state.date, 'day')) {
                 openings.push(listing) 
             } 
             //Check if it ends on this day
-            if (moment(listing.end).isSame(this.state.date, 'day')) {
+            if (!relatedEventPresent && moment(listing.end).isSame(this.state.date, 'day')) {
                 closings.push(listing)  
             } 
         })

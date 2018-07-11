@@ -77,7 +77,7 @@ export default class Listing extends React.Component {
     var dateDisplay
     let fullDates = <div className="date">{listing.start && <Date date={listing.start} /> }{listing.end && <span> to <Date date={listing.end} /></span>}</div>
         
-    this.props.dateView !== "nodate"
+    !this.props.dateView
         ? dateDisplay = listing.start && <span className="date"><Date date={listing.start} /></span>
         : this.props.dateView == "current"
             ? dateDisplay = <span className="date">Until <Date date={listing.end}/></span>

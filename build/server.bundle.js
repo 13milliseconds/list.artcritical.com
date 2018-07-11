@@ -1869,7 +1869,7 @@ var VenueBlock = function (_React$Component) {
             //display the listings
             var displayListings = function displayListings(listings) {
                 return listings.map(function (currentListing, index) {
-                    return _react2.default.createElement(_Listing2.default, _extends({ listing: currentListing, key: index }, _this2.props));
+                    return _react2.default.createElement(_Listing2.default, _extends({}, _this2.props, { listing: currentListing, key: index }));
                 });
             };
 
@@ -10687,7 +10687,7 @@ router.get('/glancelistings', function (req, res) {
                 $lte: inaWeek
             }
         }]
-    }, {}).where('venue').type('string').where('event').ne(true).sort('neighborhood').populate('venue').populate('artists').populate('relatedEvents').exec(function (e, listings) {
+    }, {}).exists('venue').where('event').ne(true).sort('neighborhood').populate('venue').populate('artists').populate('relatedEvents').exec(function (e, listings) {
         if (e) {
             console.log('Error: ', e);
             res.send(e);
@@ -12230,12 +12230,19 @@ var DayPage = function (_React$Component) {
             });
 
             this.props.glanceListings.listings && this.props.glanceListings.listings.map(function (listing) {
+                var relatedEventPresent = false;
+                //Check if a related event is today
+                listing.relatedEvents.map(function (event) {
+                    if ((0, _moment2.default)(event.date).isSame(_this2.state.date, 'day')) {
+                        relatedEventPresent = true;
+                    }
+                });
                 //Check if it starts on this day
-                if ((0, _moment2.default)(listing.start).isSame(_this2.state.date, 'day')) {
+                if (!relatedEventPresent && (0, _moment2.default)(listing.start).isSame(_this2.state.date, 'day')) {
                     openings.push(listing);
                 }
                 //Check if it ends on this day
-                if ((0, _moment2.default)(listing.end).isSame(_this2.state.date, 'day')) {
+                if (!relatedEventPresent && (0, _moment2.default)(listing.end).isSame(_this2.state.date, 'day')) {
                     closings.push(listing);
                 }
             });
@@ -14509,7 +14516,7 @@ var Listing = function (_React$Component) {
                 )
             );
 
-            this.props.dateView !== "nodate" ? dateDisplay = listing.start && _react2.default.createElement(
+            !this.props.dateView ? dateDisplay = listing.start && _react2.default.createElement(
                 'span',
                 { className: 'date' },
                 _react2.default.createElement(_DateBlock2.default, { date: listing.start })

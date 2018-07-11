@@ -17,7 +17,7 @@ export default class VenueBlock extends React.Component {
 
     //display the listings
     let displayListings = listings => listings.map((currentListing, index) => {
-        return <Listing listing={currentListing} key={index} {...this.props}/>
+        return <Listing {...this.props} listing={currentListing} key={index}/>
     })
       
     return (

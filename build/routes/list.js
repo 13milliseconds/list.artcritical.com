@@ -121,7 +121,7 @@ router.get('/glancelistings', function (req, res) {
             }
         }]
     }, {})
-    .where('venue').type('string')
+    .exists('venue')
     .where('event').ne(true)
     .sort('neighborhood')
     .populate('venue')
