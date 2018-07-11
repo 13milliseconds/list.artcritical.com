@@ -44,7 +44,7 @@ export default class ImageUpload extends React.Component {
 			onDragLeave={this.onDragLeave.bind(this)}
 			onClick={this.onAvatarClick}>
 			{ this.state.dropzoneActive && <div className="dragged">Drop files...</div> }
-              <p><FontAwesomeIcon icon={['fal', 'plus']} /></p>
+              <p><FontAwesomeIcon icon={['far', 'plus']} /></p>
         </Dropzone>
     );
   }

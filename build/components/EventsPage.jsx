@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import EventActions from '../actions/EventActions';
-import moment from 'moment';
+import moment, { parseTwoDigitYear } from 'moment';
 //COMPONENTS
 import Helmet from './blocks/Helmet'
 import Event from './blocks/Event';
@@ -30,10 +30,20 @@ export default class EventsPage extends React.Component {
     }
 
     render() {
-        let oldDate
-        let thelist = this.props.eventsListings.map((event) => {
-          let newDate = event.date;
-            if ( newDate !== oldDate) {
+        let oldDate = moment()
+        let thelist = this.props.eventsListings.map((event, index) => {
+          let newDate = moment(event.date);
+            if ( newDate.isSame(oldDate, 'day')) {
+                if (index === 0) {
+                    return (
+                        <div className="date" key={event._id}>
+                            <h2>Today</h2>
+                            <Event event={event} user={this.props.user}/>
+                        </div>
+                    )
+                }
+                return (<Event event={event} key={event._id} user={this.props.user}/>)
+            } else {
                 oldDate = newDate
                 return (
                     <div className="date" key={event._id}>
@@ -41,8 +51,6 @@ export default class EventsPage extends React.Component {
                         <Event event={event} user={this.props.user}/>
                     </div>
                 )
-            } else {
-                return (<Event event={event} key={event._id} user={this.props.user}/>)
             }
         })
         

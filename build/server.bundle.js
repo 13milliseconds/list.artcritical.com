@@ -8090,7 +8090,7 @@ var ImageUpload = function (_React$Component) {
                 _react2.default.createElement(
                     'p',
                     null,
-                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'plus'] })
+                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['far', 'plus'] })
                 )
             );
         }
@@ -12457,10 +12457,24 @@ var EventsPage = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var oldDate = void 0;
-            var thelist = this.props.eventsListings.map(function (event) {
-                var newDate = event.date;
-                if (newDate !== oldDate) {
+            var oldDate = (0, _moment2.default)();
+            var thelist = this.props.eventsListings.map(function (event, index) {
+                var newDate = (0, _moment2.default)(event.date);
+                if (newDate.isSame(oldDate, 'day')) {
+                    if (index === 0) {
+                        return _react2.default.createElement(
+                            'div',
+                            { className: 'date', key: event._id },
+                            _react2.default.createElement(
+                                'h2',
+                                null,
+                                'Today'
+                            ),
+                            _react2.default.createElement(_Event2.default, { event: event, user: _this2.props.user })
+                        );
+                    }
+                    return _react2.default.createElement(_Event2.default, { event: event, key: event._id, user: _this2.props.user });
+                } else {
                     oldDate = newDate;
                     return _react2.default.createElement(
                         'div',
@@ -12472,8 +12486,6 @@ var EventsPage = function (_React$Component) {
                         ),
                         _react2.default.createElement(_Event2.default, { event: event, user: _this2.props.user })
                     );
-                } else {
-                    return _react2.default.createElement(_Event2.default, { event: event, key: event._id, user: _this2.props.user });
                 }
             });
 
