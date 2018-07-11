@@ -1,12 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router';
-import ListStore from '../stores/ListStore';
 import ListActions from '../actions/ListActions';
+import moment from "moment"
+
 //COMPONENTS
 import {IntlProvider, FormattedDate} from 'react-intl';
 import DayPage from './DayPage';
 import Tabs from './tabs.jsx'; 
-import Loading from './blocks/loading'
 
 
 export default class GlancePage extends React.Component {
@@ -16,9 +15,7 @@ export default class GlancePage extends React.Component {
 		//Get the next 7 dates
 		let dates = []
 		for (var i=0; i < 7; i++) {
-			let d = new Date();
-			d.setHours(0,0,0,0)
-            d.setDate(d.getDate() + i );
+            let d = moment().add(i, 'days').startOf('day')
 			dates.push(d)
 		}
 		
