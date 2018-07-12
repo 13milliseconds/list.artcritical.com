@@ -26,7 +26,7 @@ export default class DayPage extends React.Component {
                     listing.artists = event.artists
                     listing.relatedEvents = null
                     listing.description = event.description
-                    openings.push(listing)
+                    openings.push(event)
                 } else {
                     events.push(event)
                 }
@@ -53,6 +53,10 @@ export default class DayPage extends React.Component {
 
         let totalListings = closings.length + events.length + openings.length
 
+        var displayOpenings = openings.map(event => {
+            return <Event event={event} key={event._id} user={this.props.user}/>
+        })
+
         var displayEvents = events.map(event => {
                 return <Event event={event} key={event._id} user={this.props.user}/>
             })
@@ -67,7 +71,7 @@ export default class DayPage extends React.Component {
 
                         { openings.length > 0 && <div className="openingWrap">
                                 <h2>Openings</h2>
-                                <VenueList listings={openings} user={this.props.user} dateView="current"/>
+                                {displayOpenings}
                             </div>
                         }
 

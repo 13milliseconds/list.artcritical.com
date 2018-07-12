@@ -5431,7 +5431,6 @@ var Event = function (_React$Component) {
             ) : event.type == "reception" ? _react2.default.createElement(
                 'span',
                 null,
-                'Opening Reception: ',
                 _react2.default.createElement(_ListingNameDisplay2.default, _extends({}, event.list, { artists: event.artists }))
             ) : _react2.default.createElement(
                 'span',
@@ -10906,7 +10905,7 @@ var DayPage = function (_React$Component) {
                         listing.artists = event.artists;
                         listing.relatedEvents = null;
                         listing.description = event.description;
-                        openings.push(listing);
+                        openings.push(event);
                     } else {
                         events.push(event);
                     }
@@ -10931,6 +10930,10 @@ var DayPage = function (_React$Component) {
 
             var totalListings = closings.length + events.length + openings.length;
 
+            var displayOpenings = openings.map(function (event) {
+                return _react2.default.createElement(_Event2.default, { event: event, key: event._id, user: _this2.props.user });
+            });
+
             var displayEvents = events.map(function (event) {
                 return _react2.default.createElement(_Event2.default, { event: event, key: event._id, user: _this2.props.user });
             });
@@ -10954,7 +10957,7 @@ var DayPage = function (_React$Component) {
                             null,
                             "Openings"
                         ),
-                        _react2.default.createElement(_VenueList2.default, { listings: openings, user: this.props.user, dateView: "current" })
+                        displayOpenings
                     ),
                     events.length > 0 && _react2.default.createElement(
                         "div",
@@ -18470,11 +18473,7 @@ var ListStore = function () {
         this.uploadedFileCloudinaryUrl = '';
         //New listing states
         this.listingEdit = {};
-        this.listingEdit._id = '';
         this.listingEdit.artists = [];
-        this.listingEdit.name = '';
-        this.listingEdit.image = '';
-        this.listingEdit.text = '';
         this.listingEdit.event = false;
         this.listingEdit.events = [];
         this.listingEdit.venue = {};

@@ -41,11 +41,7 @@ class ListStore {
         this.uploadedFileCloudinaryUrl = '';
         //New listing states
         this.listingEdit = {};
-        this.listingEdit._id = '';
         this.listingEdit.artists = [];
-        this.listingEdit.name = '';
-        this.listingEdit.image = ''
-        this.listingEdit.text = '';
         this.listingEdit.event = false;
         this.listingEdit.events = [];
         this.listingEdit.venue = {};

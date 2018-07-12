@@ -61,7 +61,7 @@ export default class Event extends React.Component {
         let name = event.list   ? event.type == "closing"
                                     ? <span>Closing Reception: <ListingNameDisplay {...event.list} artists={event.artists} /></span>
                                     : event.type == "reception"
-                                        ? <span>Opening Reception: <ListingNameDisplay {...event.list} artists={event.artists} /></span>
+                                        ? <span><ListingNameDisplay {...event.list} artists={event.artists} /></span>
                                         : <span>{event.name && event.name + ': '}<ListingNameDisplay {...event.list} artists={event.artists} /></span>
                                 : event.name
 
