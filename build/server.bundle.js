@@ -7347,6 +7347,8 @@ var ListingForm = function (_React$Component) {
 
             var listing = this.props.listing;
 
+            console.log(listing.updated_by);
+
             //how to get option for select element
             var getOptions = function getOptions(input) {
                 if (input) {
@@ -9335,7 +9337,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 500;
 
-    List.find().where('start').lte(end).where('end').gte(start).where('event').ne(true).where('venue').ne('').skip(offset_ratio).limit(500).sort({ neighborhood: 1, venue: 1 }).populate('venue').populate('artists').populate('relatedEvents').exec(function (e, docs) {
+    List.find().where('start').lte(end).where('end').gte(start).where('event').ne(true).where('venue').ne('').skip(offset_ratio).limit(500).sort({ neighborhood: 1, venue: 1 }).populate('venue').populate('artists').populate('relatedEvents').populate('updated_by').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -9353,7 +9355,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 100;
 
-    List.find().where('start').gt(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(100).populate('venue').populate('artists').populate('relatedEvents').exec(function (e, docs) {
+    List.find().where('start').gt(today).where('event').ne(true).where('venue').ne('').sort('neighborhood').skip(offset_ratio).limit(100).populate('venue').populate('artists').populate('relatedEvents').populate('updated_by').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -9375,7 +9377,7 @@ router.get('/glancelistings', function (req, res) {
             $gte: today,
             $lte: inaWeek
         }
-    }, {}).exists('venue').where('event').ne(true).sort('neighborhood').populate('venue').populate('artists').populate('relatedEvents').exec(function (e, listings) {
+    }, {}).exists('venue').where('event').ne(true).sort('neighborhood').populate('venue').populate('artists').populate('relatedEvents').populate('updated_by').exec(function (e, listings) {
         if (e) {
             console.log('Error: ', e);
             res.send(e);
@@ -9437,6 +9439,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
         _id: req.params.listing_id
     }).where('venue').ne('').populate('venue').populate('artists').populate('relatedEvents').populate('updated_by').exec(function (e, docs) {
         if (e) res.send(e);
+        console.log(docs);
         res.json(docs);
     });
 });

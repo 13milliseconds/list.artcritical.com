@@ -230,6 +230,8 @@ export default class ListingForm extends React.Component {
     render() {
 
         let listing = this.props.listing
+
+        console.log(listing.updated_by)
         
         //how to get option for select element
         const getOptions = (input) => {

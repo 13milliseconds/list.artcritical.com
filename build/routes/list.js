@@ -62,6 +62,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     populate('venue').
     populate('artists').
     populate('relatedEvents').
+    populate('updated_by').
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -90,6 +91,7 @@ router.get('/futurelistings/:offset_ratio', function (req, res) {
     populate('venue').
     populate('artists').
     populate('relatedEvents').
+    populate('updated_by').
     exec(function (e, docs) {
         res.json(docs);
     });
@@ -120,6 +122,7 @@ router.get('/glancelistings', function (req, res) {
     .populate('venue')
     .populate('artists')
     .populate('relatedEvents')
+    .populate('updated_by')
     .exec(function (e, listings) {
         if (e)
             {console.log('Error: ', e)
@@ -206,6 +209,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     exec(function (e, docs) {
         if (e)
             res.send(e);
+            console.log(docs)
         res.json(docs);
     });
 
