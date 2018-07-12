@@ -109,17 +109,10 @@ router.get('/glancelistings', function (req, res) {
     var inaWeek = moment().add(7, 'days').endOf('day');
 
     List.find({
-        $or: [{
-            start: {
-                $gte: today,
-                $lte: inaWeek
-            }
-        }, {
             end: {
                 $gte: today,
                 $lte: inaWeek
             }
-        }]
     }, {})
     .exists('venue')
     .where('event').ne(true)

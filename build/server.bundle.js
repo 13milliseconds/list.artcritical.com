@@ -9372,17 +9372,10 @@ router.get('/glancelistings', function (req, res) {
     var inaWeek = (0, _moment2.default)().add(7, 'days').endOf('day');
 
     List.find({
-        $or: [{
-            start: {
-                $gte: today,
-                $lte: inaWeek
-            }
-        }, {
-            end: {
-                $gte: today,
-                $lte: inaWeek
-            }
-        }]
+        end: {
+            $gte: today,
+            $lte: inaWeek
+        }
     }, {}).exists('venue').where('event').ne(true).sort('neighborhood').populate('venue').populate('artists').populate('relatedEvents').exec(function (e, listings) {
         if (e) {
             console.log('Error: ', e);
@@ -10908,11 +10901,11 @@ var DayPage = function (_React$Component) {
             this.props.glanceListings.events && this.props.glanceListings.events.map(function (event) {
                 if ((0, _moment2.default)(event.date).isSame(_this2.props.date, 'day')) {
                     if (event.type === 'reception') {
-                        var listing = event.list ? event.list : event;
+                        var listing = event.list;
                         listing.venue = event.venue;
                         listing.artists = event.artists;
                         listing.relatedEvents = null;
-                        listing.description = 'Opening Reception. ' + listing.description + ' ' + event.description;
+                        listing.description = event.description;
                         openings.push(listing);
                     } else {
                         events.push(event);
@@ -10921,19 +10914,8 @@ var DayPage = function (_React$Component) {
             });
 
             this.props.glanceListings.listings && this.props.glanceListings.listings.map(function (listing) {
-                var relatedEventPresent = false;
-                //Check if a related event is today
-                listing.relatedEvents.map(function (event) {
-                    if ((0, _moment2.default)(event.date).isSame(_this2.props.date, 'day')) {
-                        relatedEventPresent = true;
-                    }
-                });
-                //Check if it starts on this day
-                if (!relatedEventPresent && (0, _moment2.default)(listing.start).isSame(_this2.props.date, 'day')) {
-                    openings.push(listing);
-                }
                 //Check if it ends on this day
-                if (!relatedEventPresent && (0, _moment2.default)(listing.end).isSame(_this2.props.date, 'day')) {
+                if ((0, _moment2.default)(listing.end).isSame(_this2.props.date, 'day')) {
                     closings.push(listing);
                 }
             });
@@ -19600,7 +19582,6 @@ var ListStore = function () {
     }, {
         key: 'onGetEventInfoSuccess',
         value: function onGetEventInfoSuccess(data) {
-            console.log('Listing info loaded', data);
             if (data) {
                 this.eventEdit = data;
             }

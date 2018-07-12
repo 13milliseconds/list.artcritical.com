@@ -907,7 +907,6 @@ class ListStore {
     }
 
     onGetEventInfoSuccess(data){
-        console.log('Listing info loaded', data);
         if (data){ 
             this.eventEdit = data
         }

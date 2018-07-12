@@ -21,11 +21,11 @@ export default class DayPage extends React.Component {
         this.props.glanceListings.events && this.props.glanceListings.events.map((event) => {
             if(moment(event.date).isSame(this.props.date, 'day')){
                 if (event.type === 'reception'){
-                    var listing = event.list ? event.list : event
+                    var listing = event.list
                     listing.venue = event.venue
                     listing.artists = event.artists
                     listing.relatedEvents = null
-                    listing.description = 'Opening Reception. ' + listing.description + ' ' + event.description
+                    listing.description = event.description
                     openings.push(listing)
                 } else {
                     events.push(event)
@@ -34,19 +34,8 @@ export default class DayPage extends React.Component {
         })
 		
 		this.props.glanceListings.listings && this.props.glanceListings.listings.map((listing) => {
-            var relatedEventPresent = false
-            //Check if a related event is today
-            listing.relatedEvents.map(event => {
-                if (moment(event.date).isSame(this.props.date, 'day')) {
-                    relatedEventPresent = true
-                }
-            })
-            //Check if it starts on this day
-            if (!relatedEventPresent && moment(listing.start).isSame(this.props.date, 'day')) {
-                openings.push(listing) 
-            } 
             //Check if it ends on this day
-            if (!relatedEventPresent && moment(listing.end).isSame(this.props.date, 'day')) {
+            if (moment(listing.end).isSame(this.props.date, 'day')) {
                 closings.push(listing)  
             } 
         })
