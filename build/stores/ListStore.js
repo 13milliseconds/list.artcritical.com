@@ -463,6 +463,14 @@ class ListStore {
     onListingDuplicate(){
         this.listingEdit._id = ''
     }
+    //Duplicate the current venue
+    onVenueDuplicate(){
+        this.venueEdit._id = ''
+    }
+    //Duplicate the current event
+    onEventDuplicate(){
+        this.eventEdit._id = ''
+    }
     
     //Update info on feature page
     onFeatureInfoChange (data){

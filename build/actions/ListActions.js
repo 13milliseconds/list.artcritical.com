@@ -222,6 +222,9 @@ class ListActions {
     venueInfoChange(info){
         return info;
     }
+     venueDuplicate(){
+        return true;
+    }
     // When new coordinates are fetched automatically
     coordinatesChange(coord){
         return coord;

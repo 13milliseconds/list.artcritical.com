@@ -23,7 +23,7 @@ export default class ListingsPerNeighbor extends React.Component {
         let num = this.props.listings.length - 1
         
         let thelistRender = listings => listings.map((listing, index) => {
-
+            if (listing) {
             listing.key = listing._id
                 
             newSecondaryNH = listing.venue.neighborhood
@@ -92,8 +92,7 @@ export default class ListingsPerNeighbor extends React.Component {
                     return cityRender
                 }
             }
-
-        })
+        }})
 
         return ( 
             <div>

@@ -104,6 +104,12 @@ export default class VenueForm extends React.Component {
         });
     }
 
+    //Duplicate
+    _duplicate(event) {
+        event.preventDefault();
+        ListActions.venueDuplicate();
+    }
+
     _validateAll(){
         var validName = this._validateName()
         var validAddress = this._validateAddress()
@@ -226,6 +232,8 @@ export default class VenueForm extends React.Component {
 
         let deleteButton = this.props._id &&
                 <Button className="delete" color="danger" onClick={this.onDeleteConfirm}>Delete</Button>
+        let duplicateButton = this.props._id &&
+                <Button className="duplicate" color="danger" onClick={this._duplicate}>Duplicate</Button>
         let disableButton = this.props._id &&
                 <Button className="disable" color="info" onClick={this.onDisableConfirm}>{this.props.disabled? "Enable" : "Disable"}</Button>
 		
@@ -341,8 +349,9 @@ export default class VenueForm extends React.Component {
                     <FormGroup className="group-buttons">
                         {this.state.errorMessages.general && <Alert color="danger">{this.state.errorMessages.general}</Alert>}
                         {venue._id ? <Button onClick={this.onConfirm} disabled={!this.state.wasChanged}>Update</Button> : <Button onClick={this.onCreateConfirm}>Create</Button>}
-                        {disableButton}{deleteButton}
+                        {disableButton}{duplicateButton}{deleteButton}
                     </FormGroup>
+
                     {this.state.updateModal && <ConfirmModal 
                                                         toggle={this.toggleModal}
                                                         handleSubmit={this.props.handleSubmit}

@@ -265,6 +265,11 @@ var ListActions = function () {
         value: function venueInfoChange(info) {
             return info;
         }
+    }, {
+        key: 'venueDuplicate',
+        value: function venueDuplicate() {
+            return true;
+        }
         // When new coordinates are fetched automatically
 
     }, {
@@ -5995,86 +6000,87 @@ var ListingsPerNeighbor = function (_React$Component) {
 
             var thelistRender = function thelistRender(listings) {
                 return listings.map(function (listing, index) {
+                    if (listing) {
+                        listing.key = listing._id;
 
-                    listing.key = listing._id;
+                        newSecondaryNH = listing.venue.neighborhood;
+                        newCity = _displayActions2.default.displayCity(listing.venue.neighborhood);
 
-                    newSecondaryNH = listing.venue.neighborhood;
-                    newCity = _displayActions2.default.displayCity(listing.venue.neighborhood);
-
-                    //Define the new city ID
-                    if (cityChange) {
-                        cityID = _displayActions2.default.displayCityNum(secondaryNH);
-                        cityChange = false;
-                    }
-
-                    //If the new neighborhood is different
-                    if (newSecondaryNH !== secondaryNH) {
-
-                        //Add the result to the next export and reset the render
-                        var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({ key: listing._id }, _this2.props, { listings: renderListings, title: title }));
-                        renderListings = [];
-
-                        // Update neighborhood
-                        secondaryNH = newSecondaryNH;
-                        newSecondaryNH = _displayActions2.default.displayNeighborhood(secondaryNH);
-                        title = newSecondaryNH;
-
-                        //Add listing to next batch
-                        renderListings.push(listing);
-
-                        //Add last neighborhood to the current City
-                        neighborExport.push(contentRender);
-
-                        if (newCity !== city) {
-
-                            // Create the last city
-                            var cityRender = neighborExport.length > 0 && _react2.default.createElement(
-                                'div',
-                                { key: listing._id, id: 'city' + cityID, className: 'city' },
-                                neighborExport
-                            );
-                            neighborExport = [];
-
-                            //Update city
-                            city = newCity;
-                            cityChange = true;
-
-                            if (num == index) {
-                                //If this is the last listing, we need to include it in the export
-                                //Add last neighborhood to the current City
-                                neighborExport = _react2.default.createElement(
-                                    'div',
-                                    { key: listing._id, id: 'city' + (cityID + 1), className: 'city' },
-                                    _react2.default.createElement(_ListingsNeighborhood2.default, _extends({}, _this2.props, { listings: renderListings, title: title }))
-                                );
-
-                                cityRender = [cityRender]; //Make cityRender a table so we can add a second <div>
-                                cityRender.push(neighborExport);
-
-                                return cityRender;
-                            }
-
-                            // Export the last city
-                            if (index !== 1) {
-                                return cityRender;
-                            }
+                        //Define the new city ID
+                        if (cityChange) {
+                            cityID = _displayActions2.default.displayCityNum(secondaryNH);
+                            cityChange = false;
                         }
-                    } else {
-                        renderListings.push(listing);
 
-                        if (num == index) {
+                        //If the new neighborhood is different
+                        if (newSecondaryNH !== secondaryNH) {
 
+                            //Add the result to the next export and reset the render
                             var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({ key: listing._id }, _this2.props, { listings: renderListings, title: title }));
+                            renderListings = [];
+
+                            // Update neighborhood
+                            secondaryNH = newSecondaryNH;
+                            newSecondaryNH = _displayActions2.default.displayNeighborhood(secondaryNH);
+                            title = newSecondaryNH;
+
+                            //Add listing to next batch
+                            renderListings.push(listing);
 
                             //Add last neighborhood to the current City
                             neighborExport.push(contentRender);
 
-                            var cityRender = neighborExport.length > 0 && _react2.default.createElement(
-                                'div',
-                                { key: listing._id, id: 'city' + cityID, className: 'city' },
-                                neighborExport
-                            );
-                            return cityRender;
+                            if (newCity !== city) {
+
+                                // Create the last city
+                                var cityRender = neighborExport.length > 0 && _react2.default.createElement(
+                                    'div',
+                                    { key: listing._id, id: 'city' + cityID, className: 'city' },
+                                    neighborExport
+                                );
+                                neighborExport = [];
+
+                                //Update city
+                                city = newCity;
+                                cityChange = true;
+
+                                if (num == index) {
+                                    //If this is the last listing, we need to include it in the export
+                                    //Add last neighborhood to the current City
+                                    neighborExport = _react2.default.createElement(
+                                        'div',
+                                        { key: listing._id, id: 'city' + (cityID + 1), className: 'city' },
+                                        _react2.default.createElement(_ListingsNeighborhood2.default, _extends({}, _this2.props, { listings: renderListings, title: title }))
+                                    );
+
+                                    cityRender = [cityRender]; //Make cityRender a table so we can add a second <div>
+                                    cityRender.push(neighborExport);
+
+                                    return cityRender;
+                                }
+
+                                // Export the last city
+                                if (index !== 1) {
+                                    return cityRender;
+                                }
+                            }
+                        } else {
+                            renderListings.push(listing);
+
+                            if (num == index) {
+
+                                var contentRender = _react2.default.createElement(_ListingsNeighborhood2.default, _extends({ key: listing._id }, _this2.props, { listings: renderListings, title: title }));
+
+                                //Add last neighborhood to the current City
+                                neighborExport.push(contentRender);
+
+                                var cityRender = neighborExport.length > 0 && _react2.default.createElement(
+                                    'div',
+                                    { key: listing._id, id: 'city' + cityID, className: 'city' },
+                                    neighborExport
+                                );
+                                return cityRender;
+                            }
                         }
                     }
                 });
@@ -10887,12 +10893,7 @@ var DayPage = function (_React$Component) {
     function DayPage(props) {
         _classCallCheck(this, DayPage);
 
-        var _this = _possibleConstructorReturn(this, (DayPage.__proto__ || Object.getPrototypeOf(DayPage)).call(this, props));
-
-        _this.state = {
-            date: (0, _moment2.default)(_this.props.date)
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (DayPage.__proto__ || Object.getPrototypeOf(DayPage)).call(this, props));
     }
 
     _createClass(DayPage, [{
@@ -10905,7 +10906,7 @@ var DayPage = function (_React$Component) {
             var closings = [];
 
             this.props.glanceListings.events && this.props.glanceListings.events.map(function (event) {
-                if ((0, _moment2.default)(event.date).isSame(_this2.state.date, 'day')) {
+                if ((0, _moment2.default)(event.date).isSame(_this2.props.date, 'day')) {
                     if (event.type === 'reception') {
                         var listing = event.list ? event.list : event;
                         listing.venue = event.venue;
@@ -10923,16 +10924,16 @@ var DayPage = function (_React$Component) {
                 var relatedEventPresent = false;
                 //Check if a related event is today
                 listing.relatedEvents.map(function (event) {
-                    if ((0, _moment2.default)(event.date).isSame(_this2.state.date, 'day')) {
+                    if ((0, _moment2.default)(event.date).isSame(_this2.props.date, 'day')) {
                         relatedEventPresent = true;
                     }
                 });
                 //Check if it starts on this day
-                if (!relatedEventPresent && (0, _moment2.default)(listing.start).isSame(_this2.state.date, 'day')) {
+                if (!relatedEventPresent && (0, _moment2.default)(listing.start).isSame(_this2.props.date, 'day')) {
                     openings.push(listing);
                 }
                 //Check if it ends on this day
-                if (!relatedEventPresent && (0, _moment2.default)(listing.end).isSame(_this2.state.date, 'day')) {
+                if (!relatedEventPresent && (0, _moment2.default)(listing.end).isSame(_this2.props.date, 'day')) {
                     closings.push(listing);
                 }
             });
@@ -11407,8 +11408,7 @@ var GlancePage = function (_React$Component) {
 
         var dates = [];
         for (var i = 0; i < 7; i++) {
-            var d = (0, _moment2.default)().add(i, 'days').startOf('day');
-            console.log(d);
+            var d = (0, _moment2.default)().add(i, 'days');
             dates.push(d);
         }
 
@@ -15054,6 +15054,15 @@ var VenueForm = function (_React$Component) {
                 disableModal: true
             });
         }
+
+        //Duplicate
+
+    }, {
+        key: '_duplicate',
+        value: function _duplicate(event) {
+            event.preventDefault();
+            _ListActions2.default.venueDuplicate();
+        }
     }, {
         key: '_validateAll',
         value: function _validateAll() {
@@ -15177,6 +15186,11 @@ var VenueForm = function (_React$Component) {
                 _reactstrap.Button,
                 { className: 'delete', color: 'danger', onClick: this.onDeleteConfirm },
                 'Delete'
+            );
+            var duplicateButton = this.props._id && _react2.default.createElement(
+                _reactstrap.Button,
+                { className: 'duplicate', color: 'danger', onClick: this._duplicate },
+                'Duplicate'
             );
             var disableButton = this.props._id && _react2.default.createElement(
                 _reactstrap.Button,
@@ -15436,6 +15450,7 @@ var VenueForm = function (_React$Component) {
                             'Create'
                         ),
                         disableButton,
+                        duplicateButton,
                         deleteButton
                     ),
                     this.state.updateModal && _react2.default.createElement(_confirmModal2.default, {
@@ -19010,6 +19025,20 @@ var ListStore = function () {
         key: 'onListingDuplicate',
         value: function onListingDuplicate() {
             this.listingEdit._id = '';
+        }
+        //Duplicate the current venue
+
+    }, {
+        key: 'onVenueDuplicate',
+        value: function onVenueDuplicate() {
+            this.venueEdit._id = '';
+        }
+        //Duplicate the current event
+
+    }, {
+        key: 'onEventDuplicate',
+        value: function onEventDuplicate() {
+            this.eventEdit._id = '';
         }
 
         //Update info on feature page

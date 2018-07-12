@@ -15,7 +15,7 @@ export default class GlancePage extends React.Component {
 		//Get the next 7 dates
 		let dates = []
 		for (var i=0; i < 7; i++) {
-            let d = moment().add(i, 'days').startOf('day')
+            let d = moment().add(i, 'days')
 			dates.push(d)
 		}
 		
