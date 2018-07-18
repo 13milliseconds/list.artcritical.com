@@ -21,12 +21,14 @@ export default class DayPage extends React.Component {
         this.props.glanceListings.events && this.props.glanceListings.events.map((event) => {
             if(moment(event.date).isSame(this.props.date, 'day')){
                 if (event.type === 'reception'){
-                    var listing = event.list
-                    listing.venue = event.venue
-                    listing.artists = event.artists
-                    listing.relatedEvents = null
-                    listing.description = event.description
-                    openings.push(event)
+                    if (event.list){
+                        var listing = event.list
+                        listing.venue = event.venue
+                        listing.artists = event.artists
+                        listing.relatedEvents = null
+                        listing.description = event.description
+                        openings.push(event)
+                    }
                 } else {
                     events.push(event)
                 }
@@ -60,6 +62,7 @@ export default class DayPage extends React.Component {
         var displayEvents = events.map(event => {
                 return <Event event={event} key={event._id} user={this.props.user}/>
             })
+
         
         return (
             <div className="day">

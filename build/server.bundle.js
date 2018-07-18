@@ -10896,6 +10896,8 @@ var DayPage = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            console.log(this.props.glanceListings);
+
             var events = [];
             var openings = [];
             var closings = [];
@@ -10903,12 +10905,14 @@ var DayPage = function (_React$Component) {
             this.props.glanceListings.events && this.props.glanceListings.events.map(function (event) {
                 if ((0, _moment2.default)(event.date).isSame(_this2.props.date, 'day')) {
                     if (event.type === 'reception') {
-                        var listing = event.list;
-                        listing.venue = event.venue;
-                        listing.artists = event.artists;
-                        listing.relatedEvents = null;
-                        listing.description = event.description;
-                        openings.push(event);
+                        if (event.list) {
+                            var listing = event.list;
+                            listing.venue = event.venue;
+                            listing.artists = event.artists;
+                            listing.relatedEvents = null;
+                            listing.description = event.description;
+                            openings.push(event);
+                        }
                     } else {
                         events.push(event);
                     }
