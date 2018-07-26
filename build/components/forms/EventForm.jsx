@@ -230,21 +230,21 @@ export default class EventForm extends React.Component {
                     <FormGroup check className="group-name">
                         <Label>Name</Label>
                         <div className="formSection">
-                            <Input name="name" placeholder="Event name" type="text" value={event.name} onChange={this.handleChange} />
+                            <Input name="name" placeholder="Event name" type="text" value={event.name ? event.name : ''} onChange={this.handleChange} />
                             {this.state.errorMessages.name && <Alert color="danger">{this.state.errorMessages.name}</Alert>}
                         </div>
                     </FormGroup>
                     <FormGroup check className="group-dates">
                         <Label> Date </Label>
                         <div className="formSection">
-                                <DateSingle startDate={event.date} onDatesChange={this.handleChange}/>
+                                <DateSingle startDate={event.date ? event.date : null} onDatesChange={this.handleChange}/>
                                 {this.state.errorMessages.date && <Alert color="danger">{this.state.errorMessages.date}</Alert>}
                         </div>  
                     </FormGroup>
                      <FormGroup check className="group-description">
                         <Label>Description</Label>
                         <div className="formSection">
-                            <Input type="textarea" name="description" value={event.description} onChange={this.handleChange} />
+                            <Input type="textarea" name="description" value={event.description ? event.description : ''} onChange={this.handleChange} />
                         </div>
                     </FormGroup>
                      <FormGroup check className="group-thumbnail">

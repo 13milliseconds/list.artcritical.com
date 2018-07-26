@@ -319,7 +319,6 @@ class ListStore {
     }
     onUpdateVenueSuccess(data){
         console.log('Venue updated', data)
-        this.venueEdit = data
         this.loading.updatevenue = false;
         this.success.updatevenue = true;
         setTimeout(function(){
@@ -884,12 +883,10 @@ class ListStore {
             this.eventEdit[name] = value;
 		} else if (info.date) {
             this.eventEdit.date = info.date;
-            console.log(this.eventEdit)
        }
     }
     onSaveEventSuccess(data){
-        this.eventEdit = data
-        console.log(data);
+        this.eventEdit._id = data._id
         this.success.saveEvent = true;
         var that = this;
         setTimeout(() => {
@@ -953,6 +950,7 @@ class ListStore {
             list: null,
             artists: null
         };
+        console.log(this.eventEdit);
     }
     //Load a specific event into listing edit
     onEditEvent(event){

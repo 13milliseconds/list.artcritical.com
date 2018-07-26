@@ -80,3 +80,18 @@ header.mainHeader{
         padding-top: 0;
 	}
 }
+
+.adminWrap{
+    .featureAdmin{
+        @include row();
+        .featureFormWrap{
+            @include span-columns(6);
+            max-width: none;
+        }
+        .preview{
+            @include span-columns(6);
+            padding-left: 50px;
+            display: block;
+        }
+    }
+}

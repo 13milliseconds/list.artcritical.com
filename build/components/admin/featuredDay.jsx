@@ -1,5 +1,4 @@
 import React from 'react';
-import Display from '../../actions/displayActions';
 import ListActions from '../../actions/ListActions';
 //Components
 import Select from '../forms/formSelect';
@@ -79,6 +78,10 @@ export default class FeaturedDay extends React.Component {
                             error={this.props.error}
                             success={this.props.success}/>
                     }
+                </div>
+                <div className="preview">
+                <h4>Preview</h4>
+                    { this.props.feature.list && <FeatureBlock feature={this.props.feature} user={this.props.user}/> }
                 </div>
             </div>
         );

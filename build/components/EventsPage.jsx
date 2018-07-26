@@ -31,7 +31,7 @@ export default class EventsPage extends React.Component {
 
     render() {
         let oldDate = moment()
-        let thelist = this.props.eventsListings.map((event, index) => {
+        let thelist = this.props.eventsListings && this.props.eventsListings.map((event, index) => {
           let newDate = moment(event.date);
             if ( newDate.isSame(oldDate, 'day')) {
                 if (index === 0) {

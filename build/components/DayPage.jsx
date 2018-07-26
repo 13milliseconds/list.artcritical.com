@@ -73,7 +73,7 @@ export default class DayPage extends React.Component {
                 ? <div className={this.props.view + " listingsWrap"}>
 
                         { openings.length > 0 && <div className="openingWrap">
-                                <h2>Openings</h2>
+                                <h2>Opening Receptions</h2>
                                 {displayOpenings}
                             </div>
                         }

@@ -1462,6 +1462,42 @@ header.mainHeader nav > ul li a {
   margin-right: 0;
 }
 
+/* line 85, ../scss/breakpoints/_1030up.scss */
+.adminWrap .featureAdmin {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.adminWrap .featureAdmin::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 87, ../scss/breakpoints/_1030up.scss */
+.adminWrap .featureAdmin .featureFormWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  max-width: none;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .featureAdmin .featureFormWrap:last-child {
+  margin-right: 0;
+}
+/* line 91, ../scss/breakpoints/_1030up.scss */
+.adminWrap .featureAdmin .preview {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  padding-left: 50px;
+  display: block;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .featureAdmin .preview:last-child {
+  margin-right: 0;
+}
+
 /*
 you can call the larger styles if you want, but there's really no need
 */

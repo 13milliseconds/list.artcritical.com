@@ -230,8 +230,6 @@ export default class ListingForm extends React.Component {
     render() {
 
         let listing = this.props.listing
-
-        console.log(listing.updated_by)
         
         //how to get option for select element
         const getOptions = (input) => {
@@ -264,6 +262,9 @@ export default class ListingForm extends React.Component {
                         <Label>Venue</Label>
                          <div className="formSection">
                           <Select value={venueData} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
+                            <div className="info">
+                                {listing.venue._id && listing.venue.address1 + ' ' + listing.venue.address2 + ' ' + listing.venue.city}
+                            </div>
                           {this.state.errorMessages.venue && <Alert color="danger">{this.state.errorMessages.venue}</Alert>}
                         </div>
                     </FormGroup>
@@ -274,7 +275,7 @@ export default class ListingForm extends React.Component {
                         </div>
                     </FormGroup>
                     <FormGroup check className="group-name">
-                        <Label>Show Name</Label>
+                        <Label>Show Title</Label>
                         <div className="formSection">
                             <Input name="name" placeholder="Event name" type="text" value={listing.name} onChange={this.handleChange} />
                             {this.state.errorMessages.name && <Alert color="danger">{this.state.errorMessages.name}</Alert>}
@@ -289,7 +290,7 @@ export default class ListingForm extends React.Component {
                         </div>  
                     </FormGroup>
                      <FormGroup check className="group-description">
-                        <Label>Description</Label>
+                        <Label>Notes</Label>
                         <div className="formSection">
                             <Input type="textarea" name="description" value={listing.description} onChange={this.handleChange} />
                         </div>

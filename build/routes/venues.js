@@ -198,7 +198,7 @@ router.post('/delete/:venue_id', function (req, res) {
 
 
 //########################
-// UPDATE a new venue.
+// UPDATE a venue.
 //########################
 
 router.post('/update', function (req, res) {
@@ -216,10 +216,10 @@ router.post('/update', function (req, res) {
         _id: thevenue._id
     }, {
         $set: thevenue
-    }, function (err, newvenue) {
+    }, function (err, data) {
         if (err)
             res.send(err);
-        res.json(newvenue);
+        res.json(data);
     });
 
 });

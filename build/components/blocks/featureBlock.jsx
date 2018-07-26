@@ -64,17 +64,26 @@ export default class FeatureBlock extends React.Component {
       
     return (
         <div className="feature-wrap">
+        <h5>Featured</h5>
+
         <Helmet
             ogTitle={listing.name + " at " + venue.name}
             ogDescription={StrippedDescription}
             ogImage={"https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg"}
                 />
+
+
             <div className="picture">
                 {listing.image? <ImageBlock image={listing.image} classes="feature" /> : ''}
             </div>
             <div className="info">
                 <h3>{listing.name} at <a className="venueName" href={"/venue/" + venue.slug}>{venue.name}</a></h3>
                 <HtmlText content={feature.text} />
+                {listing.description && 
+                    <div className="notes">
+                        <h6>Notes</h6>
+                        {listing.description}
+                    </div>}
                 <div className="dates">{start}{end? ' to ' : ''}{end}</div>
                 <div className="address">{venue.address1} {venue.address2}, {venue.city}</div>
                 {this.props.user._id  

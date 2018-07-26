@@ -11,6 +11,7 @@ var listingSchema = mongoose.Schema({
     start: Date,
     end: Date,
     description: String,
+    blurb: String,
     venue: {
         type: String,
 		ref: 'Venue'

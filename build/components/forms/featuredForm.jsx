@@ -68,7 +68,7 @@ export default class ListingForm extends React.Component {
                     </FormGroup>
                     
                     <FormGroup check>
-                        <Label>Description</Label>
+                        <Label>Blurb</Label>
                         <div className="formSection">
                             <MyEditor
                                 name="text"

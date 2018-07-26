@@ -35,14 +35,11 @@ export default class VenueItem extends React.Component {
         if (!this.state.old && this.props.listings) {
             var allCurrent = []
             this.props.listings.map(function (listing, index) {
-                console.log('Listing #' + index)
                 let listingStart = moment(listing.start)
                 let listingEnd = moment(listing.end)
                 
                 if (listingEnd.isSameOrAfter(today, 'day') && listingStart.isSameOrBefore(today, 'day')){
                     allCurrent.push(listing)
-                    console.log('Current')
-                    console.log(allCurrent)
                     this.setState({
                         expired: false
                     })
@@ -51,9 +48,9 @@ export default class VenueItem extends React.Component {
                     this.setState({
                         upcoming: true
                     })
-                    if (!this.state.nextDate || this.state.nextDate <  listingStart){
+                    if (!this.state.nextDate || moment(this.state.nextListing.start) <  listingStart){
                         this.setState({
-                            nextDate: listingStart
+                            nextListing: listing
                         })
                     }
                     

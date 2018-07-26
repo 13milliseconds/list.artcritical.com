@@ -1045,7 +1045,7 @@ exports.default = _alt2.default.createActions(AuthActions);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
@@ -2712,171 +2712,6 @@ exports.default = _alt2.default.createActions(ImagesActions);
 "use strict";
 
 
-module.exports = {
-    displayCity: function displayCity($numero) {
-        if ($numero < "20" && $numero >= "10") {
-            return "Tribeca";
-        } else if ($numero < "30" && $numero >= "20") {
-
-            return "Lower East Side";
-        } else if ($numero < "60" && $numero >= "30") {
-
-            return "Soho & Noho & East Village";
-        } else if ($numero < "170" && $numero >= "60") {
-
-            return "West Village & Chelsea";
-        } else if ($numero < "220" && $numero >= "170") {
-
-            return "Midtown & Uptown & Harlem";
-        } else if ($numero < "270" && $numero >= "220") {
-
-            return "Brooklyn";
-        } else if ($numero < "300" && $numero >= "270") {
-
-            return "Queens & Bronx & Staten Island";
-        } else if ($numero < "310" && $numero >= "300") {
-
-            return "Long Island";
-        } else if ($numero < "320" && $numero >= "310") {
-
-            return "Upstate New York";
-        } else if ($numero < "330" && $numero >= "320") {
-
-            return "New Jersey";
-        } else if ($numero < "370" && $numero >= "330") {
-
-            return "Philadelphia";
-        } else {
-            return "";
-        }
-    },
-    displayCityNum: function displayCityNum($num) {
-        var allCities = [10, 20, 30, 60, 170, 220, 270, 300, 310, 320, 330];
-        var winner = void 0;
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-            for (var _iterator = allCities[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var itt = _step.value;
-
-                var diff = $num - itt;
-                if (diff > 0) {
-                    winner = itt;
-                } else if (diff == 0) {
-                    return itt;
-                } else {
-                    return winner;
-                }
-            }
-        } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                    _iterator.return();
-                }
-            } finally {
-                if (_didIteratorError) {
-                    throw _iteratorError;
-                }
-            }
-        }
-    },
-    displayNeighborhood: function displayNeighborhood($numero) {
-
-        if ($numero < "20" && $numero >= "10") {
-            return "Tribeca and below";
-        } else if ($numero < "30" && $numero >= "20") {
-            return "Lower East Side";
-        } else if ($numero < "40" && $numero >= "30") {
-            return "Soho";
-        } else if ($numero < "60" && $numero >= "40") {
-            return "Noho/East Village";
-        } else if ($numero < "70" && $numero >= "60") {
-            return "West Village";
-        } else if ($numero < "80" && $numero >= "70") {
-            return "19th St and below";
-        } else if ($numero < "90" && $numero >= "80") {
-            return "20th St and nearby";
-        } else if ($numero < "100" && $numero >= "90") {
-            return "21st St and nearby";
-        } else if ($numero < "110" && $numero >= "100") {
-            return "22nd St and nearby";
-        } else if ($numero < "120" && $numero >= "110") {
-            return "23rd St and nearby";
-        } else if ($numero < "130" && $numero >= "120") {
-            return "24th St and nearby";
-        } else if ($numero < "140" && $numero >= "130") {
-            return "25th St and nearby";
-        } else if ($numero < "150" && $numero >= "140") {
-            return "26th St and nearby";
-        } else if ($numero < "160" && $numero >= "150") {
-            return "27th St and above";
-        } else if ($numero < "170" && $numero >= "160") {
-            return "Flatiron/Gramercy Park";
-        } else if ($numero < "180" && $numero >= "170") {
-            return "Midtown";
-        } else if ($numero < "190" && $numero >= "180") {
-            return "57th Street and nearby";
-        } else if ($numero < "200" && $numero >= "190") {
-            return "Upper East Side";
-        } else if ($numero < "210" && $numero >= "200") {
-            return "Upper West Side";
-        } else if ($numero < "220" && $numero >= "210") {
-            return "Harlem";
-        } else if ($numero < "230" && $numero >= "220") {
-            return "Brooklyn South";
-        } else if ($numero < "235" && $numero >= "230") {
-            return "Dumbo/Downtown";
-        } else if ($numero < "240" && $numero >= "235") {
-            return "Fort Greene";
-        } else if ($numero < "250" && $numero >= "240") {
-            return "Bushwick/Bed-stuy";
-        } else if ($numero < "260" && $numero >= "250") {
-            return "Williamsburg / Greenpoint";
-        } else if ($numero < "270" && $numero >= "260") {
-            return "Brooklyn (Other)";
-        } else if ($numero < "272" && $numero >= "270") {
-            return "Ridgewood";
-        } else if ($numero < "274" && $numero >= "272") {
-            return "Long Island City/Astoria";
-        } else if ($numero < "280" && $numero >= "274") {
-            return "Queens (Other)";
-        } else if ($numero < "290" && $numero >= "280") {
-            return "The Bronx";
-        } else if ($numero < "300" && $numero >= "290") {
-            return "Staten Island";
-        } else if ($numero < "310" && $numero >= "300") {
-            return "Long Island";
-        } else if ($numero < "320" && $numero >= "310") {
-            return "Upstate New York";
-        } else if ($numero < "330" && $numero >= "320") {
-            return "New Jersey";
-        } else if ($numero < "340" && $numero >= "330") {
-            return "Philadelphia";
-        } else if ($numero < "350" && $numero >= "340") {
-            return "Old City";
-        } else if ($numero < "360" && $numero >= "350") {
-            return "West Philadelphia";
-        } else if ($numero < "370" && $numero >= "360") {
-            return "North Philadelphia";
-        } else {
-            return "Other";
-        }
-    }
-
-};
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -2990,7 +2825,7 @@ var UserLink = function (_React$Component) {
 exports.default = UserLink;
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3038,7 +2873,7 @@ var imageBlock = function (_React$Component) {
 exports.default = imageBlock;
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3143,7 +2978,7 @@ var Thumbnail = function (_React$Component) {
 exports.default = Thumbnail;
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3296,31 +3131,31 @@ Tabs.propTypes = {
 };
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("d3-ease");
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("draft-js-plugins-editor");
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dates");
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-toggle-button");
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3370,7 +3205,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3417,13 +3252,13 @@ var venueSchema = mongoose.Schema(_defineProperty({
 module.exports = mongoose.model('Venue', venueSchema);
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5245,7 +5080,7 @@ var config = api$1.config;
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5300,6 +5135,171 @@ var ArtistsActions = function () {
 }();
 
 exports.default = _alt2.default.createActions(ArtistsActions);
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    displayCity: function displayCity($numero) {
+        if ($numero < "20" && $numero >= "10") {
+            return "Tribeca";
+        } else if ($numero < "30" && $numero >= "20") {
+
+            return "Lower East Side";
+        } else if ($numero < "60" && $numero >= "30") {
+
+            return "Soho & Noho & East Village";
+        } else if ($numero < "170" && $numero >= "60") {
+
+            return "West Village & Chelsea";
+        } else if ($numero < "220" && $numero >= "170") {
+
+            return "Midtown & Uptown & Harlem";
+        } else if ($numero < "270" && $numero >= "220") {
+
+            return "Brooklyn";
+        } else if ($numero < "300" && $numero >= "270") {
+
+            return "Queens & Bronx & Staten Island";
+        } else if ($numero < "310" && $numero >= "300") {
+
+            return "Long Island";
+        } else if ($numero < "320" && $numero >= "310") {
+
+            return "Upstate New York";
+        } else if ($numero < "330" && $numero >= "320") {
+
+            return "New Jersey";
+        } else if ($numero < "370" && $numero >= "330") {
+
+            return "Philadelphia";
+        } else {
+            return "";
+        }
+    },
+    displayCityNum: function displayCityNum($num) {
+        var allCities = [10, 20, 30, 60, 170, 220, 270, 300, 310, 320, 330];
+        var winner = void 0;
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = allCities[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var itt = _step.value;
+
+                var diff = $num - itt;
+                if (diff > 0) {
+                    winner = itt;
+                } else if (diff == 0) {
+                    return itt;
+                } else {
+                    return winner;
+                }
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+    },
+    displayNeighborhood: function displayNeighborhood($numero) {
+
+        if ($numero < "20" && $numero >= "10") {
+            return "Tribeca and below";
+        } else if ($numero < "30" && $numero >= "20") {
+            return "Lower East Side";
+        } else if ($numero < "40" && $numero >= "30") {
+            return "Soho";
+        } else if ($numero < "60" && $numero >= "40") {
+            return "Noho/East Village";
+        } else if ($numero < "70" && $numero >= "60") {
+            return "West Village";
+        } else if ($numero < "80" && $numero >= "70") {
+            return "19th St and below";
+        } else if ($numero < "90" && $numero >= "80") {
+            return "20th St and nearby";
+        } else if ($numero < "100" && $numero >= "90") {
+            return "21st St and nearby";
+        } else if ($numero < "110" && $numero >= "100") {
+            return "22nd St and nearby";
+        } else if ($numero < "120" && $numero >= "110") {
+            return "23rd St and nearby";
+        } else if ($numero < "130" && $numero >= "120") {
+            return "24th St and nearby";
+        } else if ($numero < "140" && $numero >= "130") {
+            return "25th St and nearby";
+        } else if ($numero < "150" && $numero >= "140") {
+            return "26th St and nearby";
+        } else if ($numero < "160" && $numero >= "150") {
+            return "27th St and above";
+        } else if ($numero < "170" && $numero >= "160") {
+            return "Flatiron/Gramercy Park";
+        } else if ($numero < "180" && $numero >= "170") {
+            return "Midtown";
+        } else if ($numero < "190" && $numero >= "180") {
+            return "57th Street and nearby";
+        } else if ($numero < "200" && $numero >= "190") {
+            return "Upper East Side";
+        } else if ($numero < "210" && $numero >= "200") {
+            return "Upper West Side";
+        } else if ($numero < "220" && $numero >= "210") {
+            return "Harlem";
+        } else if ($numero < "230" && $numero >= "220") {
+            return "Brooklyn South";
+        } else if ($numero < "235" && $numero >= "230") {
+            return "Dumbo/Downtown";
+        } else if ($numero < "240" && $numero >= "235") {
+            return "Fort Greene";
+        } else if ($numero < "250" && $numero >= "240") {
+            return "Bushwick/Bed-stuy";
+        } else if ($numero < "260" && $numero >= "250") {
+            return "Williamsburg / Greenpoint";
+        } else if ($numero < "270" && $numero >= "260") {
+            return "Brooklyn (Other)";
+        } else if ($numero < "272" && $numero >= "270") {
+            return "Ridgewood";
+        } else if ($numero < "274" && $numero >= "272") {
+            return "Long Island City/Astoria";
+        } else if ($numero < "280" && $numero >= "274") {
+            return "Queens (Other)";
+        } else if ($numero < "290" && $numero >= "280") {
+            return "The Bronx";
+        } else if ($numero < "300" && $numero >= "290") {
+            return "Staten Island";
+        } else if ($numero < "310" && $numero >= "300") {
+            return "Long Island";
+        } else if ($numero < "320" && $numero >= "310") {
+            return "Upstate New York";
+        } else if ($numero < "330" && $numero >= "320") {
+            return "New Jersey";
+        } else if ($numero < "340" && $numero >= "330") {
+            return "Philadelphia";
+        } else if ($numero < "350" && $numero >= "340") {
+            return "Old City";
+        } else if ($numero < "360" && $numero >= "350") {
+            return "West Philadelphia";
+        } else if ($numero < "370" && $numero >= "360") {
+            return "North Philadelphia";
+        } else {
+            return "Other";
+        }
+    }
+
+};
 
 /***/ }),
 /* 37 */
@@ -5771,7 +5771,7 @@ var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 var _reactIntl = __webpack_require__(21);
 
-var _imageBlock = __webpack_require__(25);
+var _imageBlock = __webpack_require__(24);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -5864,6 +5864,11 @@ var FeatureBlock = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'feature-wrap' },
+                _react2.default.createElement(
+                    'h3',
+                    null,
+                    'Featured'
+                ),
                 _react2.default.createElement(_Helmet2.default, {
                     ogTitle: listing.name + " at " + venue.name,
                     ogDescription: StrippedDescription,
@@ -5889,6 +5894,16 @@ var FeatureBlock = function (_React$Component) {
                         )
                     ),
                     _react2.default.createElement(_HtmlText2.default, { content: feature.text }),
+                    listing.description && _react2.default.createElement(
+                        'div',
+                        { className: 'notes' },
+                        _react2.default.createElement(
+                            'h6',
+                            null,
+                            'Notes'
+                        ),
+                        listing.description
+                    ),
                     _react2.default.createElement(
                         'div',
                         { className: 'dates' },
@@ -5954,7 +5969,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(23);
+var _displayActions = __webpack_require__(36);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -6587,7 +6602,7 @@ var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ThumbnailInput = __webpack_require__(26);
+var _ThumbnailInput = __webpack_require__(25);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
@@ -6595,7 +6610,7 @@ var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _UserLink = __webpack_require__(24);
+var _UserLink = __webpack_require__(23);
 
 var _UserLink2 = _interopRequireDefault(_UserLink);
 
@@ -6887,7 +6902,7 @@ var EventForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'Event name', type: 'text', value: event.name, onChange: this.handleChange }),
+                            _react2.default.createElement(_reactstrap.Input, { name: 'name', placeholder: 'Event name', type: 'text', value: event.name ? event.name : '', onChange: this.handleChange }),
                             this.state.errorMessages.name && _react2.default.createElement(
                                 _reactstrap.Alert,
                                 { color: 'danger' },
@@ -6906,7 +6921,7 @@ var EventForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_formDateSingle2.default, { startDate: event.date, onDatesChange: this.handleChange }),
+                            _react2.default.createElement(_formDateSingle2.default, { startDate: event.date ? event.date : null, onDatesChange: this.handleChange }),
                             this.state.errorMessages.date && _react2.default.createElement(
                                 _reactstrap.Alert,
                                 { color: 'danger' },
@@ -6925,7 +6940,7 @@ var EventForm = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'formSection' },
-                            _react2.default.createElement(_reactstrap.Input, { type: 'textarea', name: 'description', value: event.description, onChange: this.handleChange })
+                            _react2.default.createElement(_reactstrap.Input, { type: 'textarea', name: 'description', value: event.description ? event.description : '', onChange: this.handleChange })
                         )
                     ),
                     _react2.default.createElement(
@@ -7056,7 +7071,7 @@ var _formSelect = __webpack_require__(15);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ThumbnailInput = __webpack_require__(26);
+var _ThumbnailInput = __webpack_require__(25);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
@@ -7068,7 +7083,7 @@ var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _UserLink = __webpack_require__(24);
+var _UserLink = __webpack_require__(23);
 
 var _UserLink2 = _interopRequireDefault(_UserLink);
 
@@ -7347,8 +7362,6 @@ var ListingForm = function (_React$Component) {
 
             var listing = this.props.listing;
 
-            console.log(listing.updated_by);
-
             //how to get option for select element
             var getOptions = function getOptions(input) {
                 if (input) {
@@ -7394,6 +7407,11 @@ var ListingForm = function (_React$Component) {
                             'div',
                             { className: 'formSection' },
                             _react2.default.createElement(_formSelect2.default, { value: venueData, handleSelectChange: this.handleSelectChange, getOptions: getOptions }),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'info' },
+                                listing.venue._id && listing.venue.address1 + ' ' + listing.venue.address2 + ' ' + listing.venue.city
+                            ),
                             this.state.errorMessages.venue && _react2.default.createElement(
                                 _reactstrap.Alert,
                                 { color: 'danger' },
@@ -7421,7 +7439,7 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
-                            'Show Name'
+                            'Show Title'
                         ),
                         _react2.default.createElement(
                             'div',
@@ -7460,7 +7478,7 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
-                            'Description'
+                            'Notes'
                         ),
                         _react2.default.createElement(
                             'div',
@@ -7606,7 +7624,7 @@ var _reactDom = __webpack_require__(58);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _draftJsPluginsEditor = __webpack_require__(29);
+var _draftJsPluginsEditor = __webpack_require__(28);
 
 var _draftJsPluginsEditor2 = _interopRequireDefault(_draftJsPluginsEditor);
 
@@ -7943,7 +7961,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(30);
+var _reactDates = __webpack_require__(29);
 
 var _moment = __webpack_require__(6);
 
@@ -8287,9 +8305,9 @@ var FacebookStrategy = __webpack_require__(171).Strategy;
 
 
 // load up the user model
-var UserModels = __webpack_require__(32);
+var UserModels = __webpack_require__(31);
 var User = UserModels.user;
-var Venue = __webpack_require__(33);
+var Venue = __webpack_require__(32);
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -8632,6 +8650,7 @@ var listingSchema = mongoose.Schema({
     start: Date,
     end: Date,
     description: String,
+    blurb: String,
     venue: {
         type: String,
         ref: 'Venue'
@@ -8730,7 +8749,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(11);
 var router = express.Router();
-var passport = __webpack_require__(34);
+var passport = __webpack_require__(33);
 var mongoose = __webpack_require__(7);
 
 //###################################
@@ -9869,7 +9888,7 @@ router.post('/delete/:venue_id', function (req, res) {
 });
 
 //########################
-// UPDATE a new venue.
+// UPDATE a venue.
 //########################
 
 router.post('/update', function (req, res) {
@@ -9887,9 +9906,9 @@ router.post('/update', function (req, res) {
         _id: thevenue._id
     }, {
         $set: thevenue
-    }, function (err, newvenue) {
+    }, function (err, data) {
         if (err) res.send(err);
-        res.json(newvenue);
+        res.json(data);
     });
 });
 
@@ -10119,7 +10138,7 @@ var debug = __webpack_require__(75)('artcritical-list:server');
 var expressValidator = __webpack_require__(77);
 
 //Authentification
-var passport = __webpack_require__(34);
+var passport = __webpack_require__(33);
 var flash = __webpack_require__(73);
 var session = __webpack_require__(76);
 
@@ -10152,8 +10171,8 @@ var EventArchive = EventModels.trash;
 var ArtistModels = __webpack_require__(62);
 var Artist = ArtistModels.artist;
 var ArtistTrash = ArtistModels.artistTrash;
-var Venue = __webpack_require__(33);
-var UserModels = __webpack_require__(32);
+var Venue = __webpack_require__(32);
+var UserModels = __webpack_require__(31);
 var User = UserModels.user;
 var UserTrash = UserModels.userTrash;
 var Feature = __webpack_require__(64);
@@ -10381,7 +10400,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //COMPONENTS
 
 
-var d3 = __webpack_require__(28);
+var d3 = __webpack_require__(27);
 
 var CurrentMap = function (_React$Component) {
 	_inherits(CurrentMap, _React$Component);
@@ -10896,8 +10915,6 @@ var DayPage = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            console.log(this.props.glanceListings);
-
             var events = [];
             var openings = [];
             var closings = [];
@@ -10962,7 +10979,7 @@ var DayPage = function (_React$Component) {
                         _react2.default.createElement(
                             "h2",
                             null,
-                            "Openings"
+                            "Opening Receptions"
                         ),
                         displayOpenings
                     ),
@@ -11148,7 +11165,7 @@ var EventsPage = function (_React$Component) {
             var _this2 = this;
 
             var oldDate = (0, _moment2.default)();
-            var thelist = this.props.eventsListings.map(function (event, index) {
+            var thelist = this.props.eventsListings && this.props.eventsListings.map(function (event, index) {
                 var newDate = (0, _moment2.default)(event.date);
                 if (newDate.isSame(oldDate, 'day')) {
                     if (index === 0) {
@@ -11374,7 +11391,7 @@ var _DayPage = __webpack_require__(107);
 
 var _DayPage2 = _interopRequireDefault(_DayPage);
 
-var _tabs = __webpack_require__(27);
+var _tabs = __webpack_require__(26);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -12716,10 +12733,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(23);
-
-var _displayActions2 = _interopRequireDefault(_displayActions);
-
 var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
@@ -12828,6 +12841,16 @@ var FeaturedDay = function (_React$Component) {
                         onTextChange: this.onTextChange,
                         error: this.props.error,
                         success: this.props.success }))
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'preview' },
+                    _react2.default.createElement(
+                        'h4',
+                        null,
+                        'Preview'
+                    ),
+                    this.props.feature.list && _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
                 )
             );
         }
@@ -12869,7 +12892,7 @@ var _featuredDay = __webpack_require__(121);
 
 var _featuredDay2 = _interopRequireDefault(_featuredDay);
 
-var _tabs = __webpack_require__(27);
+var _tabs = __webpack_require__(26);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -13746,7 +13769,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _imageBlock = __webpack_require__(25);
+var _imageBlock = __webpack_require__(24);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -13857,7 +13880,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _imageBlock = __webpack_require__(25);
+var _imageBlock = __webpack_require__(24);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -14076,7 +14099,7 @@ var _reactstrap = __webpack_require__(2);
 
 var _draftJs = __webpack_require__(54);
 
-var _draftJsPluginsEditor = __webpack_require__(29);
+var _draftJsPluginsEditor = __webpack_require__(28);
 
 var _draftJsImportHtml = __webpack_require__(56);
 
@@ -14305,7 +14328,7 @@ var _reactAutosuggest = __webpack_require__(174);
 
 var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
 
-var _ArtistsActions = __webpack_require__(36);
+var _ArtistsActions = __webpack_require__(35);
 
 var _ArtistsActions2 = _interopRequireDefault(_ArtistsActions);
 
@@ -14427,7 +14450,7 @@ var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactDates = __webpack_require__(30);
+var _reactDates = __webpack_require__(29);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14909,7 +14932,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactToggleButton = __webpack_require__(31);
+var _reactToggleButton = __webpack_require__(30);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -14927,7 +14950,7 @@ var _NeighborhoodSelect = __webpack_require__(49);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
-var _UserLink = __webpack_require__(24);
+var _UserLink = __webpack_require__(23);
 
 var _UserLink2 = _interopRequireDefault(_UserLink);
 
@@ -15513,7 +15536,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(31);
+var _reactToggleButton = __webpack_require__(30);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -15527,13 +15550,13 @@ var _draftJsImportHtml = __webpack_require__(56);
 
 var _draftJsExportHtml = __webpack_require__(55);
 
-var _draftJsPluginsEditor = __webpack_require__(29);
+var _draftJsPluginsEditor = __webpack_require__(28);
 
 var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _ThumbnailInput = __webpack_require__(26);
+var _ThumbnailInput = __webpack_require__(25);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
@@ -15632,7 +15655,7 @@ var ListingForm = function (_React$Component) {
                         _react2.default.createElement(
                             _reactstrap.Label,
                             null,
-                            'Description'
+                            'Blurb'
                         ),
                         _react2.default.createElement(
                             'div',
@@ -15683,7 +15706,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDates = __webpack_require__(30);
+var _reactDates = __webpack_require__(29);
 
 var _moment = __webpack_require__(6);
 
@@ -15797,7 +15820,7 @@ var _reactGa = __webpack_require__(177);
 
 var _reactGa2 = _interopRequireDefault(_reactGa);
 
-var _fontawesome = __webpack_require__(35);
+var _fontawesome = __webpack_require__(34);
 
 var _fontawesome2 = _interopRequireDefault(_fontawesome);
 
@@ -16420,11 +16443,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(23);
+var _displayActions = __webpack_require__(36);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(31);
+var _reactToggleButton = __webpack_require__(30);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -17115,7 +17138,7 @@ var async = __webpack_require__(53);
 // Components
 
 
-var d3 = __webpack_require__(28);
+var d3 = __webpack_require__(27);
 
 var MyList = function (_React$Component) {
     _inherits(MyList, _React$Component);
@@ -17531,7 +17554,7 @@ var async = __webpack_require__(53);
 // Components
 
 
-var d3 = __webpack_require__(28);
+var d3 = __webpack_require__(27);
 
 var UserList = function (_React$Component) {
     _inherits(UserList, _React$Component);
@@ -17851,7 +17874,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _tabs = __webpack_require__(27);
+var _tabs = __webpack_require__(26);
 
 var _tabs2 = _interopRequireDefault(_tabs);
 
@@ -18416,7 +18439,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _ArtistsActions = __webpack_require__(36);
+var _ArtistsActions = __webpack_require__(35);
 
 var _ArtistsActions2 = _interopRequireDefault(_ArtistsActions);
 
@@ -18830,7 +18853,6 @@ var ListStore = function () {
         key: 'onUpdateVenueSuccess',
         value: function onUpdateVenueSuccess(data) {
             console.log('Venue updated', data);
-            this.venueEdit = data;
             this.loading.updatevenue = false;
             this.success.updatevenue = true;
             setTimeout(function () {
@@ -19565,14 +19587,12 @@ var ListStore = function () {
                 this.eventEdit[name] = value;
             } else if (info.date) {
                 this.eventEdit.date = info.date;
-                console.log(this.eventEdit);
             }
         }
     }, {
         key: 'onSaveEventSuccess',
         value: function onSaveEventSuccess(data) {
-            this.eventEdit = data;
-            console.log(data);
+            this.eventEdit._id = data._id;
             this.success.saveEvent = true;
             var that = this;
             setTimeout(function () {
@@ -19651,6 +19671,7 @@ var ListStore = function () {
                 list: null,
                 artists: null
             };
+            console.log(this.eventEdit);
         }
         //Load a specific event into listing edit
 

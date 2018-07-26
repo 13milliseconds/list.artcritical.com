@@ -776,12 +776,12 @@ AT A GLANCE
     }
     .picture{
         img{
-            max-height: 300px;
+            max-height: 500px;
             max-width: 100%;
-            margin-bottom: 30px;
         }  
     }
     .info{
+        margin-top: 20px;
         h3{
             font-size: 1.2em;
         }
@@ -1141,7 +1141,7 @@ ADMIN
     border: 1px solid #eee;
     padding: 10px;
     border-radius: 5px;
-    p{
+    div[data-block="true"]{
         padding-bottom: 20px;
     }
 }
@@ -1229,6 +1229,11 @@ input.invalid{
 #listingForm{
     padding-right: 50px;
     @include row();
+    .info{
+        padding-top: 10px;
+        font-style: italic;
+        font-size: .9em;
+    }
 }
 
 #newlistingDemo{
@@ -1378,6 +1383,7 @@ option{
             .DraftEditor-root{
                 background: $light-gray;
                 margin-bottom: 20px;
+
             }
             .form-text{
                 margin-bottom: 20px;
