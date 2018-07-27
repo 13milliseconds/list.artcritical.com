@@ -386,12 +386,24 @@ header.mainHeader{
 
 //GLANCE
 .glance{
+    h1{
+        display: none;
+    }
     ul.tabs__labels{
         display: block;
         padding: 0;
-		@include span-columns(3);
+        position: fixed;
+        @include span-columns(3);
+        &:before{
+            content: 'Week at a Glance';
+            color: $green;
+            font-size: 2em;
+            margin-bottom: 30px;
+            display: block;
+        }
     }
 	div.tabs__content{
+        @include shift(3);
         @include span-columns(9);
         .day{
             @include row();
@@ -643,6 +655,7 @@ header.mainHeader{
 .adminWrap{
     @include row();
     .left-col{
+        position: fixed;
         @include span-columns(3);
         nav{
             li{
@@ -652,6 +665,7 @@ header.mainHeader{
         }
     }
     .admin-content{
+        @include shift(3);
         @include span-columns(9);
         @include omega();
     }

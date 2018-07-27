@@ -5865,7 +5865,7 @@ var FeatureBlock = function (_React$Component) {
                 'div',
                 { className: 'feature-wrap' },
                 _react2.default.createElement(
-                    'h3',
+                    'h5',
                     null,
                     'Featured'
                 ),
@@ -14607,6 +14607,8 @@ var EventsForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            console.log('Events: ', this.props.events);
+
             var eventsList = function eventsList(events) {
                 return events.map(function (event, index) {
                     return _react2.default.createElement(
@@ -14619,7 +14621,7 @@ var EventsForm = function (_React$Component) {
                                 _reactstrap.Input,
                                 { type: 'select',
                                     name: 'type',
-                                    value: event.type,
+                                    value: event && event.type,
                                     'data-index': index,
                                     onChange: _this2.onChange },
                                 _react2.default.createElement(
@@ -14638,18 +14640,18 @@ var EventsForm = function (_React$Component) {
                                     'Other'
                                 )
                             ),
-                            _react2.default.createElement(_formDateSingle2.default, { event: index, startDate: event.date, onDatesChange: _this2.onChange }),
-                            event.type === "other" && _react2.default.createElement('input', {
+                            _react2.default.createElement(_formDateSingle2.default, { event: index, startDate: event && event.date, onDatesChange: _this2.onChange }),
+                            event && event.type === "other" && _react2.default.createElement('input', {
                                 type: 'text',
                                 name: 'name',
                                 placeholder: 'Name',
                                 'data-index': index,
-                                value: event.name,
+                                value: event && event.name,
                                 onChange: _this2.onChange }),
                             _react2.default.createElement(_reactstrap.Input, {
                                 type: 'textarea',
                                 name: 'description',
-                                value: event.description,
+                                value: event && event.description,
                                 'data-index': index,
                                 onChange: _this2.onChange })
                         ),
@@ -18047,14 +18049,11 @@ var VenueItem = function (_React$Component) {
             if (!this.state.old && this.props.listings) {
                 var allCurrent = [];
                 this.props.listings.map(function (listing, index) {
-                    console.log('Listing #' + index);
                     var listingStart = (0, _moment2.default)(listing.start);
                     var listingEnd = (0, _moment2.default)(listing.end);
 
                     if (listingEnd.isSameOrAfter(today, 'day') && listingStart.isSameOrBefore(today, 'day')) {
                         allCurrent.push(listing);
-                        console.log('Current');
-                        console.log(allCurrent);
                         this.setState({
                             expired: false
                         });
@@ -18063,9 +18062,9 @@ var VenueItem = function (_React$Component) {
                         this.setState({
                             upcoming: true
                         });
-                        if (!this.state.nextDate || this.state.nextDate < listingStart) {
+                        if (!this.state.nextDate || (0, _moment2.default)(this.state.nextListing.start) < listingStart) {
                             this.setState({
-                                nextDate: listingStart
+                                nextListing: listing
                             });
                         }
                     }

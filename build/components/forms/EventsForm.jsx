@@ -30,32 +30,34 @@ export default class EventsForm extends React.Component {
         
     render() {
 
+        console.log('Events: ', this.props.events)
+
         let eventsList = events => events.map((event, index) => {
             return <div className="event" key={index}>
                 <div className="eventInfo">
                     <Input type="select"
                         name="type"
-                        value={event.type}
+                        value={event && event.type}
                         data-index={index}
                         onChange={this.onChange} >
                         <option value="reception">Reception</option>
                         <option value="closing">Closing</option>
                         <option value="other">Other</option>
                     </Input>
-                    <DateSingle event={index} startDate={event.date} onDatesChange={this.onChange}/>
-                    {event.type === "other" &&
+                    <DateSingle event={index} startDate={event && event.date} onDatesChange={this.onChange}/>
+                    {event && event.type === "other" &&
                         <input 
                         type="text" 
                         name="name"
                         placeholder="Name"
                         data-index={index}
-                        value={event.name}
+                        value={event && event.name}
                         onChange={this.onChange} />
                     }
                     <Input 
                         type="textarea"
                         name="description" 
-                        value={event.description} 
+                        value={event && event.description} 
                         data-index={index}
                         onChange={this.onChange} />
                 </div>
