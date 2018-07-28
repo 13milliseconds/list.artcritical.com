@@ -85,7 +85,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(13);
+var _alt = __webpack_require__(15);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -703,7 +703,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(13);
+var _alt = __webpack_require__(15);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -820,7 +820,10 @@ var AuthActions = function () {
         return null;
       }).then(function (data) {
         if (data) {
-          _this4.getMylistSuccess(data);
+          _this4.getMylistSuccess(data.list);
+          var newUser = data.user;
+          newUser.mylist = data.list;
+          _this4.updateUser(newUser);
           return true;
         }
         _this4.getMylistFailure(data.error);
@@ -871,6 +874,7 @@ var AuthActions = function () {
         return null;
       }).then(function (json) {
         if (json._id) {
+          console.log(json);
           _this6.sessionCheckSuccess(json);
           return true;
         }
@@ -898,6 +902,7 @@ var AuthActions = function () {
           'Content-Type': 'application/json'
         }
       }).then(function (response) {
+        console.log(response);
         if (response.status === 200) {
           return response.json();
         }
@@ -947,6 +952,8 @@ var AuthActions = function () {
     value: async function updateUser(newUserInfo) {
       var _this9 = this;
 
+      console.log('Updating ', newUserInfo);
+
       this.updateUserAttempt();
 
       await fetch('/auth/updateuser', {
@@ -962,6 +969,7 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
+        console.log(json);
         _this9.updateUserSuccess(json);
         return true;
       }).catch(function (error) {
@@ -1914,25 +1922,6 @@ exports.default = VenueBlock;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _alt = __webpack_require__(162);
-
-var _alt2 = _interopRequireDefault(_alt);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = new _alt2.default();
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -2034,7 +2023,7 @@ var UpdateModal = function (_React$Component) {
 exports.default = UpdateModal;
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2046,62 +2035,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactSelect = __webpack_require__(182);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var formSelect = function (_React$Component) {
-    _inherits(formSelect, _React$Component);
-
-    function formSelect(props) {
-        _classCallCheck(this, formSelect);
-
-        return _possibleConstructorReturn(this, (formSelect.__proto__ || Object.getPrototypeOf(formSelect)).call(this, props));
-    }
-
-    _createClass(formSelect, [{
-        key: 'render',
-        value: function render() {
-
-            return _react2.default.createElement(_reactSelect.Async, {
-                name: 'venue',
-                placeholder: 'Search',
-                value: this.props.value,
-                loadOptions: this.props.getOptions,
-                onChange: this.props.handleSelectChange
-            });
-        }
-    }]);
-
-    return formSelect;
-}(_react2.default.Component);
-
-exports.default = formSelect;
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _alt = __webpack_require__(13);
+var _alt = __webpack_require__(15);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -2293,6 +2227,80 @@ var EventActions = function () {
 }();
 
 exports.default = _alt2.default.createActions(EventActions);
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _alt = __webpack_require__(162);
+
+var _alt2 = _interopRequireDefault(_alt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = new _alt2.default();
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSelect = __webpack_require__(182);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var formSelect = function (_React$Component) {
+    _inherits(formSelect, _React$Component);
+
+    function formSelect(props) {
+        _classCallCheck(this, formSelect);
+
+        return _possibleConstructorReturn(this, (formSelect.__proto__ || Object.getPrototypeOf(formSelect)).call(this, props));
+    }
+
+    _createClass(formSelect, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(_reactSelect.Async, {
+                name: 'venue',
+                placeholder: 'Search',
+                value: this.props.value,
+                loadOptions: this.props.getOptions,
+                onChange: this.props.handleSelectChange
+            });
+        }
+    }]);
+
+    return formSelect;
+}(_react2.default.Component);
+
+exports.default = formSelect;
 
 /***/ }),
 /* 17 */
@@ -2630,7 +2638,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(13);
+var _alt = __webpack_require__(15);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -3188,6 +3196,10 @@ var userSchema = mongoose.Schema({
     createdOn: { type: Date, default: Date.now },
     lastConnection: { type: Date },
     mylist: [{ type: String, ref: 'List' }]
+}, {
+    //Options
+    usePushEach: true,
+    versionKey: false
 });
 
 userSchema.methods.generateHash = function (password) {
@@ -5092,7 +5104,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(13);
+var _alt = __webpack_require__(15);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -5324,7 +5336,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _EventActions = __webpack_require__(16);
+var _EventActions = __webpack_require__(14);
 
 var _EventActions2 = _interopRequireDefault(_EventActions);
 
@@ -5390,7 +5402,7 @@ var Event = function (_React$Component) {
     _createClass(Event, [{
         key: '_editEvent',
         value: function _editEvent(event) {
-            _EventActions2.default.editEvent(event);
+            event.type === 'reception' ? _ListActions2.default.getListingInfo(event.list._id) : _EventActions2.default.editEvent(event);
             _ListActions2.default.toggleSideBar();
         }
     }, {
@@ -6580,7 +6592,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _EventActions = __webpack_require__(16);
+var _EventActions = __webpack_require__(14);
 
 var _EventActions2 = _interopRequireDefault(_EventActions);
 
@@ -6598,7 +6610,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _formSelect = __webpack_require__(15);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -6606,7 +6618,7 @@ var _ThumbnailInput = __webpack_require__(25);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
-var _confirmModal = __webpack_require__(14);
+var _confirmModal = __webpack_require__(13);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -7067,7 +7079,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _formSelect = __webpack_require__(15);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -7079,7 +7091,7 @@ var _EventsForm = __webpack_require__(135);
 
 var _EventsForm2 = _interopRequireDefault(_EventsForm);
 
-var _confirmModal = __webpack_require__(14);
+var _confirmModal = __webpack_require__(13);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -8752,6 +8764,10 @@ var router = express.Router();
 var passport = __webpack_require__(33);
 var mongoose = __webpack_require__(7);
 
+var handleError = function handleError(string) {
+    return { msg: string };
+};
+
 //###################################
 // SIGNUP
 //###################################
@@ -8905,6 +8921,7 @@ router.post('/addtolist', function (req, res) {
             // Save user with new listing
             user.save(function (err, updatedUser) {
                 if (err) return handleError(err);
+
                 List.find({
                     '_id': { $in: updatedUser.mylist }
                 }).sort('neighborhood').populate('venue').exec(function (e, docs) {
@@ -8962,7 +8979,7 @@ router.get('/getmylist', function (req, res) {
     //CHECK IF USER IS CONNECTED
     if (req.user) {
         List.find().where('_id').in(req.user.mylist).where('end').gte(today).populate('venue').populate('relatedEvents').populate('artists').exec(function (e, docs) {
-            res.json(docs);
+            res.json({ list: docs, user: req.user });
         });
     } else {
         var docs = [];
@@ -9453,13 +9470,18 @@ router.get('/find/:regex_input', function (req, res, next) {
 //#######################
 router.get('/getinfo/:listing_id', function (req, res, next) {
     var List = req.list;
+    var Event = req.event;
 
     List.findOne({
         _id: req.params.listing_id
-    }).where('venue').ne('').populate('venue').populate('artists').populate('relatedEvents').populate('updated_by').exec(function (e, docs) {
+    }).where('venue').ne('').populate('venue').populate('artists').populate('relatedEvents').populate('updated_by').exec(function (e, listing) {
         if (e) res.send(e);
-        console.log(docs);
-        res.json(docs);
+        Event.find({ list: listing._id }).exec(function (e, docs) {
+            var fullListing = listing;
+            fullListing.relatedEvents = docs;
+            res.json(fullListing);
+        });
+        //res.json(docs);
     });
 });
 
@@ -9607,7 +9629,6 @@ router.post('/update', function (req, res) {
 
                 return new Promise(function (resolve) {
                     readyEvent.save(function (err, savedEvent) {
-                        console.log(savedEvent);
                         resolve(savedEvent._id);
                     });
                 });
@@ -10151,7 +10172,7 @@ var app = express();
 var mongoose = __webpack_require__(7);
 var url = process.env.MONGOLAB_URI;
 mongoose.Promise = global.Promise;
-mongoose.connect(url, { useMongoClient: true });
+mongoose.connect(url);
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -11095,7 +11116,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _EventActions = __webpack_require__(16);
+var _EventActions = __webpack_require__(14);
 
 var _EventActions2 = _interopRequireDefault(_EventActions);
 
@@ -11735,11 +11756,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _EventActions = __webpack_require__(16);
+var _EventActions = __webpack_require__(14);
 
 var _EventActions2 = _interopRequireDefault(_EventActions);
 
-var _formSelect = __webpack_require__(15);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -11892,7 +11913,7 @@ var _VenueBlock = __webpack_require__(12);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _formSelect = __webpack_require__(15);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -12050,7 +12071,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(15);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -12737,7 +12758,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(15);
+var _formSelect = __webpack_require__(16);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -13169,7 +13190,7 @@ var Listing = function (_React$Component) {
                         event.type === "other" ? event.name : event.type
                     ),
                     ': ',
-                    _react2.default.createElement(_DateBlock2.default, { date: event.date }),
+                    event.date && _react2.default.createElement(_DateBlock2.default, { date: event.date }),
                     ' - ',
                     event.description ? event.description : "8pm"
                 );
@@ -13219,7 +13240,7 @@ var Listing = function (_React$Component) {
                 'span',
                 { className: 'date' },
                 _react2.default.createElement(_DateBlock2.default, { date: listing.start })
-            ) : this.props.dateView == "current" ? dateDisplay = _react2.default.createElement(
+            ) : this.props.dateView == "current" ? dateDisplay = listing.end && _react2.default.createElement(
                 'span',
                 { className: 'date' },
                 'Until ',
@@ -14109,7 +14130,7 @@ var _MyEditor = __webpack_require__(48);
 
 var _MyEditor2 = _interopRequireDefault(_MyEditor);
 
-var _confirmModal = __webpack_require__(14);
+var _confirmModal = __webpack_require__(13);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -14552,6 +14573,10 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
+var _EventActions = __webpack_require__(14);
+
+var _EventActions2 = _interopRequireDefault(_EventActions);
+
 var _formDateSingle = __webpack_require__(50);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
@@ -14560,9 +14585,15 @@ var _reactFontawesome = __webpack_require__(5);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
+var _confirmModal = __webpack_require__(13);
+
+var _confirmModal2 = _interopRequireDefault(_confirmModal);
+
 var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -14580,12 +14611,49 @@ var EventsForm = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (EventsForm.__proto__ || Object.getPrototypeOf(EventsForm)).call(this, props));
 
+        _this.state = {
+            deleteModal: false,
+            eventToDelete: '',
+            error: '',
+            success: false
+        };
+
         _this.addEvent = _this.addEvent.bind(_this);
         _this.onChange = _this.onChange.bind(_this);
+        _this.removeEvent = _this.removeEvent.bind(_this);
+        _this.handleDelete = _this.handleDelete.bind(_this);
+        _this.toggleModal = _this.toggleModal.bind(_this);
         return _this;
     }
 
     _createClass(EventsForm, [{
+        key: 'toggleModal',
+        value: function toggleModal(modalName) {
+            this.setState(_defineProperty({}, modalName, !this.state[modalName]));
+        }
+
+        //Delete the listing
+
+    }, {
+        key: 'handleDelete',
+        value: function handleDelete() {
+            var id = this.props.events[this.state.eventToDelete]._id;
+            console.log('deleting ' + id);
+            _EventActions2.default.deleteEvent(id);
+            _ListActions2.default.removeEvent(this.state.eventToDelete);
+            this.setState({
+                success: true,
+                eventToDelete: ''
+            });
+            var that = this;
+            setTimeout(function () {
+                that.setState({
+                    deleteModal: false,
+                    success: false
+                });
+            }, 1000);
+        }
+    }, {
         key: 'onChange',
         value: function onChange(e) {
             //Update values of inputs
@@ -14600,14 +14668,20 @@ var EventsForm = function (_React$Component) {
     }, {
         key: 'removeEvent',
         value: function removeEvent(index) {
-            _ListActions2.default.removeEvent(index);
+            if (this.props.events[index]._id) {
+                console.log('Deleting an event');
+                this.setState({
+                    eventToDelete: index,
+                    deleteModal: true
+                });
+            } else {
+                _ListActions2.default.removeEvent(index);
+            }
         }
     }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
-
-            console.log('Events: ', this.props.events);
 
             var eventsList = function eventsList(events) {
                 return events.map(function (event, index) {
@@ -14686,7 +14760,16 @@ var EventsForm = function (_React$Component) {
                         { className: 'iconLink', onClick: this.addEvent },
                         _react2.default.createElement(_reactFontawesome2.default, { icon: ["fal", "plus-circle"] })
                     )
-                )
+                ),
+                this.state.deleteModal && _react2.default.createElement(_confirmModal2.default, {
+                    toggle: this.toggleModal,
+                    handleSubmit: this.handleDelete,
+                    name: 'deleteModal',
+                    textTitle: 'Delete',
+                    textAction: 'delete this Listing',
+                    textConfirm: 'Deleted!',
+                    error: this.state.error,
+                    success: this.state.success })
             );
         }
     }]);
@@ -14721,7 +14804,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _confirmModal = __webpack_require__(14);
+var _confirmModal = __webpack_require__(13);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -14938,7 +15021,7 @@ var _reactToggleButton = __webpack_require__(30);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
-var _confirmModal = __webpack_require__(14);
+var _confirmModal = __webpack_require__(13);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -15554,7 +15637,7 @@ var _draftJsExportHtml = __webpack_require__(55);
 
 var _draftJsPluginsEditor = __webpack_require__(28);
 
-var _confirmModal = __webpack_require__(14);
+var _confirmModal = __webpack_require__(13);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
@@ -16932,10 +17015,6 @@ var _myList2 = _interopRequireDefault(_myList);
 var _LogInForm = __webpack_require__(19);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
-
-var _AuthActions = __webpack_require__(4);
-
-var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
 var _Helmet = __webpack_require__(9);
 
@@ -18430,7 +18509,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _alt = __webpack_require__(13);
+var _alt = __webpack_require__(15);
 
 var _alt2 = _interopRequireDefault(_alt);
 
@@ -18450,7 +18529,7 @@ var _ImagesActions = __webpack_require__(22);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _EventActions = __webpack_require__(16);
+var _EventActions = __webpack_require__(14);
 
 var _EventActions2 = _interopRequireDefault(_EventActions);
 
@@ -18744,10 +18823,8 @@ var ListStore = function () {
                     lat: '',
                     long: ''
                 }
-            };
-            console.log("reset");
-            // Reset messages
-            this.success.updatevenue = false;
+                // Reset messages
+            };this.success.updatevenue = false;
             this.loading.updatevenue = false;
             this.error.updatevenue = '';
         }
@@ -19416,9 +19493,10 @@ var ListStore = function () {
     }, {
         key: 'onAddToMyListSuccess',
         value: function onAddToMyListSuccess(data) {
-            console.log('Added to the list');
+            console.log('Added to the list', data);
             if (data) {
                 this.user.mylist = data;
+                console.log(this.user);
             } else {
                 this.user.mylist = [];
             }

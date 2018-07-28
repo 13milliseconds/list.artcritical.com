@@ -5,6 +5,10 @@ var mongoose = require('mongoose');
 
 import moment from 'moment';
 
+var handleError = (string) => {
+    return {msg: string}
+}
+
 //###################################
 // SIGNUP
 //###################################
@@ -155,7 +159,7 @@ router.post('/addtolist', function (req, res) {
 					listing.save(function (err, updatedListing) {
 						console.log('Saved the popularity: ', updatedListing.popularity);
 					});
-				});
+                });
                 
             } else {
                 
@@ -171,11 +175,11 @@ router.post('/addtolist', function (req, res) {
 					});
 				});
             }
-            
 
             // Save user with new listing
             user.save(function (err, updatedUser) {
                 if (err) return handleError(err);
+
                 List.find({
                     '_id': { $in: updatedUser.mylist}
                 }).
@@ -246,7 +250,7 @@ router.get('/getmylist', (req, res) => {
         .populate('relatedEvents')
         .populate('artists')
         .exec(function (e, docs) {
-            res.json(docs);
+            res.json({list: docs, user: req.user});
         });
     } else {
         var docs = [];

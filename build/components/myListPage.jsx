@@ -1,7 +1,6 @@
 import React from 'react';
 import MyList from './mylist/myList';
 import LogInForm from './login/LogInForm';
-import AuthActions from '../actions/AuthActions';
 //COMPONENTS
 import Helmet from './blocks/Helmet'
 

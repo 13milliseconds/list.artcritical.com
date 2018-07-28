@@ -52,7 +52,7 @@ export default class Listing extends React.Component {
     eventsDisplay(events){
         return events.map((event, index) => {
             return <div className="listingEvent" key={index}>
-                    <span className="type">{event.type === "other" ? event.name : event.type}</span>: <Date date={event.date} /> - {event.description ? event.description : "8pm"}
+                    <span className="type">{event.type === "other" ? event.name : event.type}</span>: {event.date && <Date date={event.date} />} - {event.description ? event.description : "8pm"}
             </div>
         })
 
@@ -80,7 +80,7 @@ export default class Listing extends React.Component {
     !this.props.dateView
         ? dateDisplay = listing.start && <span className="date"><Date date={listing.start} /></span>
         : this.props.dateView == "current"
-            ? dateDisplay = <span className="date">Until <Date date={listing.end}/></span>
+            ? dateDisplay = listing.end &&<span className="date">Until <Date date={listing.end}/></span>
             : this.props.dateView == "nodate"
                 ? dateDisplay = ''
                 : dateDisplay = fullDates

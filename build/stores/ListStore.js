@@ -237,7 +237,6 @@ class ListStore {
                 long: ''
             }
         }
-        console.log("reset")
 		// Reset messages
 		this.success.updatevenue = false;
 		this.loading.updatevenue = false;
@@ -751,9 +750,10 @@ class ListStore {
     
     // ADD TO MYLIST
     onAddToMyListSuccess(data){
-		console.log('Added to the list');
+		console.log('Added to the list', data);
 		if (data) {
-			this.user.mylist = data;	
+            this.user.mylist = data;	
+            console.log(this.user);
 		} else {
 			this.user.mylist = [];
 		}

@@ -40,7 +40,9 @@ export default class Event extends React.Component {
     } */
 
     _editEvent(event){
-        EventActions.editEvent(event)
+        event.type === 'reception'
+            ? ListActions.getListingInfo(event.list._id)
+            : EventActions.editEvent(event)
         ListActions.toggleSideBar()
     }
 

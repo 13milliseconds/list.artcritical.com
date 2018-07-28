@@ -145,7 +145,10 @@ class AuthActions {
         })
         .then((data) => {
             if (data) {
-                this.getMylistSuccess(data)
+                this.getMylistSuccess(data.list)
+                var newUser = data.user
+                newUser.mylist = data.list
+                this.updateUser(newUser)
                 return true;
             } 
             this.getMylistFailure(data.error);
@@ -202,7 +205,8 @@ class AuthActions {
         })
         .then((json) => {
             if (json._id) {
-            this.sessionCheckSuccess(json);
+              console.log(json)
+              this.sessionCheckSuccess(json);
               return true;
             } 
             this.sessionCheckFailure(json.error);
@@ -231,6 +235,7 @@ class AuthActions {
             }
           },
         ).then((response) => {
+          console.log(response)
           if (response.status === 200) {
               return response.json();
           }
@@ -282,6 +287,8 @@ class AuthActions {
     
     async updateUser(newUserInfo) {
 
+        console.log('Updating ', newUserInfo)
+
         this.updateUserAttempt();
         
         await fetch(
@@ -302,6 +309,7 @@ class AuthActions {
             return null;
         })
         .then((json) => {
+          console.log(json)
             this.updateUserSuccess(json);
             return true;
         })

@@ -22,7 +22,7 @@ var app = express();
 var mongoose = require("mongoose");
 var url = process.env.MONGOLAB_URI;
 mongoose.Promise = global.Promise;
-mongoose.connect(url, { useMongoClient: true });
+mongoose.connect(url);
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));

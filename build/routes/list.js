@@ -197,6 +197,7 @@ router.get('/find/:regex_input', function (req, res, next) {
 //#######################
 router.get('/getinfo/:listing_id', function (req, res, next) {
     var List = req.list;
+    var Event = req.event;
 
     List.findOne({
         _id: req.params.listing_id
@@ -206,11 +207,16 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     populate('artists').
     populate('relatedEvents').
     populate('updated_by').
-    exec(function (e, docs) {
+    exec(function (e, listing) {
         if (e)
             res.send(e);
-            console.log(docs)
-        res.json(docs);
+        Event.find({ list: listing._id }).
+        exec(function (e, docs) {
+            var fullListing = listing
+            fullListing.relatedEvents = docs
+            res.json(fullListing);
+        });
+        //res.json(docs);
     });
 
 });
@@ -360,8 +366,7 @@ router.post('/update', function (req, res) {
                 let readyEvent = new Event(newEvent)
 
                 return new Promise(resolve => {
-                    readyEvent.save(function (err, savedEvent) { 
-                        console.log(savedEvent)
+                    readyEvent.save(function (err, savedEvent) {
                         resolve(savedEvent._id)
                     })
                 })

@@ -25,6 +25,10 @@ var userSchema = mongoose.Schema({
 	createdOn: {type: Date, default: Date.now},
 	lastConnection: {type: Date},
     mylist: [{type: String, ref: 'List'}]
+},{
+    //Options
+    usePushEach: true,
+    versionKey: false
 });
 
 userSchema.methods.generateHash = function(password) {  
