@@ -20,7 +20,7 @@ export default class VenueItem extends React.Component {
             upcoming: false,
             currentListings: [],
             expiredDate: '',
-            nextDate: ''
+            nextListing: ''
         }
         
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -48,7 +48,7 @@ export default class VenueItem extends React.Component {
                     this.setState({
                         upcoming: true
                     })
-                    if (!this.state.nextDate || moment(this.state.nextListing.start) <  listingStart){
+                    if (!this.state.nextListing || moment(this.state.nextListing.start) <  listingStart){
                         this.setState({
                             nextListing: listing
                         })
@@ -71,6 +71,8 @@ export default class VenueItem extends React.Component {
         this.state.old && classNames.push('old')
         this.state.expired && classNames.push('expired') 
         this.state.upcoming && classNames.push('upcoming')
+
+        let nextListing = this.state.nextListing
         
         let currentListings = (listings) => listings.map((listing) =>
                 {
@@ -81,7 +83,7 @@ export default class VenueItem extends React.Component {
       <div className={classNames.join(' ')} id={this.props._id}>
         <Link to={"/venue/" + this.props.slug}>{this.props.name}</Link>
             {!this.state.old && currentListings(this.state.currentListings)}
-            {this.state.nextDate && <div>Upcoming show: <DateBlock date={this.state.nextDate}/></div>}
+            {nextListing && <div>Upcoming: {nextListing.name} - Starting <DateBlock date={nextListing.start}/></div>}
       </div>
     );
   }

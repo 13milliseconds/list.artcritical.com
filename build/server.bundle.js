@@ -18112,7 +18112,7 @@ var VenueItem = function (_React$Component) {
             upcoming: false,
             currentListings: [],
             expiredDate: '',
-            nextDate: ''
+            nextListing: ''
         };
 
         _this.componentDidMount = _this.componentDidMount.bind(_this);
@@ -18141,7 +18141,7 @@ var VenueItem = function (_React$Component) {
                         this.setState({
                             upcoming: true
                         });
-                        if (!this.state.nextDate || (0, _moment2.default)(this.state.nextListing.start) < listingStart) {
+                        if (!this.state.nextListing || (0, _moment2.default)(this.state.nextListing.start) < listingStart) {
                             this.setState({
                                 nextListing: listing
                             });
@@ -18162,6 +18162,8 @@ var VenueItem = function (_React$Component) {
             this.state.old && classNames.push('old');
             this.state.expired && classNames.push('expired');
             this.state.upcoming && classNames.push('upcoming');
+
+            var nextListing = this.state.nextListing;
 
             var currentListings = function currentListings(listings) {
                 return listings.map(function (listing) {
@@ -18184,11 +18186,13 @@ var VenueItem = function (_React$Component) {
                     this.props.name
                 ),
                 !this.state.old && currentListings(this.state.currentListings),
-                this.state.nextDate && _react2.default.createElement(
+                nextListing && _react2.default.createElement(
                     'div',
                     null,
                     'Upcoming show: ',
-                    _react2.default.createElement(_DateBlock2.default, { date: this.state.nextDate })
+                    nextListing.name,
+                    ' - Starting ',
+                    _react2.default.createElement(_DateBlock2.default, { date: nextListing.start })
                 )
             );
         }
