@@ -1041,6 +1041,9 @@ ADMIN
             a{
                 color: green;
                 border-bottom: 0;
+                &:nth-child(2){
+                    font-size: .8em;
+                }
             }
             &.expired{
                 a{

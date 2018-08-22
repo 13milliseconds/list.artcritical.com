@@ -9407,6 +9407,7 @@ router.get('/glancelistings', function (req, res) {
     //Find today's date
     var today = (0, _moment2.default)().startOf('day');
     var inaWeek = (0, _moment2.default)().add(7, 'days').endOf('day');
+    console.log((0, _moment2.default)());
 
     List.find({
         end: {
@@ -9746,6 +9747,12 @@ module.exports = router;
 "use strict";
 
 
+var _moment = __webpack_require__(6);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var express = __webpack_require__(11);
 var router = express.Router();
 var Promise = __webpack_require__(164);
@@ -9784,17 +9791,20 @@ router.get('/getadmin/:neighborhood', function (req, res, next) {
 /*  GET  a set of venues  */
 ////////////////////////////
 
-router.get('/find/:venue_id', function (req, res, next) {
+router.get('/find/:regex', function (req, res, next) {
     var Venue = req.venue;
 
-    var regexp = new RegExp(req.params.venue_id, "i");
-    Venue.find({ name: regexp }, function (err, venue) {
+    var regexp = new RegExp(req.params.regex, "i");
+    Venue.find({
+        name: regexp
+    }, function (err, venue) {
         if (err) res.send(err);
         var venues = [];
         venue.map(function (thevenue) {
+            var name = thevenue.disabled ? 'DORMANT - ' + thevenue.name : thevenue.name;
             venues.push({
                 value: thevenue._id,
-                label: thevenue.name
+                label: name
             });
         });
 
@@ -9825,18 +9835,17 @@ router.get('/getfullinfo/:venue_slug', function (req, res, next) {
     var List = req.list;
 
     //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
+    var today = (0, _moment2.default)().startOf('day');
 
     Venue.findOne({ slug: req.params.venue_slug }, function (err, venue) {
         if (err) res.send(err);
 
         if (venue) {
-            List.find({ venue: venue._id }).where('start').lte(today).where('end').gte(today).populate('venue').exec(function (e, current) {
+            List.find({ venue: venue._id }).where('start').lte(today).where('end').gte(today).populate('venue').populate('artists').populate('relatedEvents').exec(function (e, current) {
 
-                List.find({ venue: venue._id }).where('start').gte(today).limit(4).populate('venue').exec(function (e, upcoming) {
+                List.find({ venue: venue._id }).where('start').gte(today).limit(4).populate('venue').populate('artists').populate('relatedEvents').exec(function (e, upcoming) {
 
-                    List.find({ venue: venue._id }).where('end').lte(today).sort('-end').limit(4).populate('venue').exec(function (e, past) {
+                    List.find({ venue: venue._id }).where('end').lte(today).sort('-end').limit(4).populate('venue').populate('artists').populate('relatedEvents').exec(function (e, past) {
                         var data = {
                             venue: venue,
                             currentListings: current,
@@ -9876,7 +9885,7 @@ router.post('/add', function (req, res) {
     var newvenue = new Venue(req.body);
 
     // Save when and who created it
-    var now = new Date();
+    var now = (0, _moment2.default)();
     newvenue.created_at = now;
     newvenue.updated_at = now;
     newvenue.updated_by = req.user._id;
@@ -9919,15 +9928,16 @@ router.post('/update', function (req, res) {
     var thevenue = new Venue(req.body);
 
     // Save when and who created it
-    var now = new Date();
+    var now = (0, _moment2.default)();
     thevenue.updated_at = now;
     thevenue.updated_by = req.user._id;
 
-    Venue.update({
+    Venue.findOneAndUpdate({
         _id: thevenue._id
     }, {
         $set: thevenue
-    }, function (err, data) {
+    }, { new: true }, //Sends back the new updated document
+    function (err, data) {
         if (err) res.send(err);
         res.json(data);
     });
@@ -14440,7 +14450,8 @@ var ArtistTags = function (_React$Component) {
         onChange: this.props.onChange,
         tagDisplayProp: "name",
         placeholder: 'Add an artist',
-        renderInput: this.autoSuggestRenderInput
+        renderInput: this.autoSuggestRenderInput,
+        addKeys: [188, 9, 13]
       });
     }
   }]);
@@ -18083,6 +18094,10 @@ var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _reactFontawesome = __webpack_require__(5);
+
+var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18122,10 +18137,11 @@ var VenueItem = function (_React$Component) {
     _createClass(VenueItem, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            //Check if it has been used recently
+            //Check if it has been used recently and is not disabled
             this.props.listings ? this.props.listings.length == 0 && this.setState({ old: true }) : this.setState({ old: true });
+            this.props.disabled && this.setState({ old: true, expired: true });
             //Check if it has a current listing
-            if (!this.state.old && this.props.listings) {
+            if (!this.props.disabled && this.props.listings) {
                 var allCurrent = [];
                 this.props.listings.map(function (listing, index) {
                     var listingStart = (0, _moment2.default)(listing.start);
@@ -18185,11 +18201,16 @@ var VenueItem = function (_React$Component) {
                     { to: "/venue/" + this.props.slug },
                     this.props.name
                 ),
+                this.props.website && _react2.default.createElement(
+                    'a',
+                    { href: this.props.website, target: '_blank' },
+                    _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'external-link-square'] })
+                ),
                 !this.state.old && currentListings(this.state.currentListings),
                 nextListing && _react2.default.createElement(
                     'div',
                     null,
-                    'Upcoming show: ',
+                    'Upcoming: ',
                     nextListing.name,
                     ' - Starting ',
                     _react2.default.createElement(_DateBlock2.default, { date: nextListing.start })
@@ -18323,7 +18344,6 @@ var VenuePage = function (_React$Component) {
     _createClass(VenuePage, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-            console.log('made it to the venue page');
             _ListActions2.default.getVenueFullInfo(this.props.params.slug);
         }
     }, {
@@ -18933,6 +18953,7 @@ var ListStore = function () {
         key: 'onUpdateVenueSuccess',
         value: function onUpdateVenueSuccess(data) {
             console.log('Venue updated', data);
+            this.venueEdit = data;
             this.loading.updatevenue = false;
             this.success.updatevenue = true;
             setTimeout(function () {
@@ -19096,7 +19117,23 @@ var ListStore = function () {
             if (info.target) {
                 var value = info.target.value;
                 var name = info.target.name;
-                this.listingEdit[name] = value;
+                if (name === 'artists') {
+                    var splitArtists = new Array();
+                    value.map(function (artist) {
+                        var split = artist.name.split(',');
+                        if (split.length > 1) {
+                            split.map(function (newArtist) {
+
+                                splitArtists.push({ name: $.trim(newArtist) });
+                            });
+                        } else {
+                            splitArtists.push(artist);
+                        }
+                    });
+                    this.listingEdit[name] = splitArtists;
+                } else {
+                    this.listingEdit[name] = value;
+                }
             } else if (info.startDate) {
                 this.listingEdit.start = info.startDate;
                 if (info.endDate) {

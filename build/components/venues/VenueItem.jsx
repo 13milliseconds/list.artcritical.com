@@ -3,6 +3,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import DateBlock from '../blocks/DateBlock';
 import moment from 'moment'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 //Find today's date
 let today = moment()
@@ -27,12 +28,14 @@ export default class VenueItem extends React.Component {
     }
     
     componentDidMount(){
-        //Check if it has been used recently
-        this.props.listings 
+        //Check if it has been used recently and is not disabled
+        this.props.listings
 			? this.props.listings.length == 0 && this.setState({ old: true})
-			: this.setState({ old: true})
+            : this.setState({ old: true})
+        this.props.disabled 
+            && this.setState({ old: true, expired: true})
         //Check if it has a current listing
-        if (!this.state.old && this.props.listings) {
+        if (!this.props.disabled && this.props.listings) {
             var allCurrent = []
             this.props.listings.map(function (listing, index) {
                 let listingStart = moment(listing.start)
@@ -81,7 +84,10 @@ export default class VenueItem extends React.Component {
           
     return (
       <div className={classNames.join(' ')} id={this.props._id}>
-        <Link to={"/venue/" + this.props.slug}>{this.props.name}</Link>
+        <Link to={"/venue/" + this.props.slug}>{this.props.name}</Link> 
+        {this.props.website &&
+            <a href={this.props.website} target="_blank"><FontAwesomeIcon icon={['fal', 'external-link-square']} /></a>}
+
             {!this.state.old && currentListings(this.state.currentListings)}
             {nextListing && <div>Upcoming: {nextListing.name} - Starting <DateBlock date={nextListing.start}/></div>}
       </div>

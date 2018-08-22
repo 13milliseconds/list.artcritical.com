@@ -59,6 +59,7 @@ export default class ArtistTags extends React.Component {
                     tagDisplayProp={"name"}
                     placeholder={'Add an artist'}
                     renderInput={this.autoSuggestRenderInput}
+                    addKeys={[188, 9, 13]}
          />
       }
 }

@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var Promise = require("bluebird");
 
+import moment from 'moment';
+
 /* GET All Venues */
 router.get('/', function (req, res, next) {
     var Venue = req.venue;
@@ -45,18 +47,21 @@ router.get('/getadmin/:neighborhood', function (req, res, next) {
 /*  GET  a set of venues  */
 ////////////////////////////
 
-router.get('/find/:venue_id', function (req, res, next) {
+router.get('/find/:regex', function (req, res, next) {
     var Venue = req.venue;
     
-    var regexp = new RegExp(req.params.venue_id, "i");
-    Venue.find({ name: regexp}, function(err, venue) {
+    var regexp = new RegExp(req.params.regex, "i");
+    Venue.find({ 
+        name: regexp
+    }, function(err, venue) {
             if (err)
                 res.send(err);
             var venues = [];
             venue.map(function (thevenue) {
+                let name = thevenue.disabled ? 'DORMANT - ' + thevenue.name : thevenue.name
                 venues.push({
                     value: thevenue._id,
-                    label: thevenue.name
+                    label: name
                 });    
             })
         
@@ -93,8 +98,7 @@ router.get('/getfullinfo/:venue_slug', function (req, res, next) {
     var List = req.list;
     
     //Find today's date
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
+    var today = moment().startOf('day');
 	
     Venue.findOne({ slug: req.params.venue_slug}, function(err, venue) {
             if (err)
@@ -104,20 +108,26 @@ router.get('/getfullinfo/:venue_slug', function (req, res, next) {
 				List.find({ venue: venue._id}).
 				where('start').lte(today).
 				where('end').gte(today).
-				populate('venue').
+                populate('venue').
+                populate('artists').
+                populate('relatedEvents').
 				exec(function (e, current) {
 
 					List.find({ venue: venue._id}).
 					where('start').gte(today).
 					limit(4).
-					populate('venue').
+                    populate('venue').
+                    populate('artists').
+                    populate('relatedEvents').
 					exec(function (e, upcoming) {
 
 						List.find({ venue: venue._id}).
 						where('end').lte(today).
 						sort('-end').
 						limit(4).
-						populate('venue').
+                        populate('venue').
+                        populate('artists').
+                        populate('relatedEvents').
 						exec(function (e, past) {
 							var data = {
 								venue: venue,
@@ -162,7 +172,7 @@ router.post('/add', function (req, res) {
     var newvenue = new Venue(req.body);
 	
 	// Save when and who created it
-	var now = new Date();
+	var now = moment();
 	newvenue.created_at = now;
 	newvenue.updated_at = now;
 	newvenue.updated_by = req.user._id;
@@ -208,15 +218,17 @@ router.post('/update', function (req, res) {
     var thevenue = new Venue(req.body);
 	
 	// Save when and who created it
-	var now = new Date();
+	var now = moment();
 	thevenue.updated_at = now;
 	thevenue.updated_by = req.user._id;
 
-    Venue.update({
+    Venue.findOneAndUpdate({
         _id: thevenue._id
     }, {
         $set: thevenue
-    }, function (err, data) {
+    },
+    {new: true}, //Sends back the new updated document
+    function (err, data) {
         if (err)
             res.send(err);
         res.json(data);

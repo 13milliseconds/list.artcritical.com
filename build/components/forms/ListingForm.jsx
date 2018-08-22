@@ -197,7 +197,7 @@ export default class ListingForm extends React.Component {
 
     handleArtistsChange (artists) {
         //Update values of inputs
-        ListActions.listingInfoChange({target: {name: 'artists', value: artists}})
+        ListActions.listingInfoChange({target: {name: 'artists', value: artists}}) 
         this.setState({
             wasChanged: true
         })

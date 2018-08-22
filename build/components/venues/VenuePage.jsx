@@ -13,7 +13,6 @@ export default class VenuePage extends React.Component {
     }
     
     componentWillMount(){
-		console.log('made it to the venue page')
         ListActions.getVenueFullInfo(this.props.params.slug);
     }
 

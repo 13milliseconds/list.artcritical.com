@@ -109,6 +109,7 @@ router.get('/glancelistings', function (req, res) {
     //Find today's date
     var today = moment().startOf('day')
     var inaWeek = moment().add(7, 'days').endOf('day');
+    console.log(moment());
 
     List.find({
             end: {
@@ -191,6 +192,8 @@ router.get('/find/:regex_input', function (req, res, next) {
     });
 
 });
+
+
 
 //#######################
 // GET ONE listing 

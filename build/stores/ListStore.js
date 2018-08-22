@@ -318,6 +318,7 @@ class ListStore {
     }
     onUpdateVenueSuccess(data){
         console.log('Venue updated', data)
+        this.venueEdit = data;
         this.loading.updatevenue = false;
         this.success.updatevenue = true;
         setTimeout(function(){
@@ -436,11 +437,27 @@ class ListStore {
     }
     
     //Update info on listing page
-    onListingInfoChange (info){
+    onListingInfoChange (info){ 
         if (info.target) {
             const value = info.target.value;
-            const name = info.target.name;   
-            this.listingEdit[name] = value;
+            const name = info.target.name;
+            if (name === 'artists') {
+                var splitArtists = new Array()
+                value.map(artist => {
+                    let split = artist.name.split(',')
+                    if (split.length > 1){
+                        split.map(newArtist => {
+
+                            splitArtists.push({name: $.trim(newArtist)})
+                        })
+                    } else {
+                        splitArtists.push(artist)
+                    }
+                })
+                this.listingEdit[name] = splitArtists;
+            } else {
+                this.listingEdit[name] = value;
+            }
         } else if (info.startDate) {
             this.listingEdit.start = info.startDate;
             if (info.endDate){
