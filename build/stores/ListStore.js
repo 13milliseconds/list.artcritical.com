@@ -82,6 +82,7 @@ class ListStore {
         this.loading.allVenues = false;
         this.loading.features = false;
         this.loading.glance = false
+        this.loading.certifyReset = false
         //Error Messages
         this.error = {};
         this.error.feature = '';
@@ -92,6 +93,7 @@ class ListStore {
         this.error.updatevenue = '';
         this.error.savelisting = '';
         this.error.savevenue = '';
+        this.error.reset = ''
         //Success
         this.success = {};
         this.success.updateUser = false;
@@ -714,6 +716,52 @@ class ListStore {
     onDeleteUserFailure(error){
         console.log('Failed Deleting User', error);
         this.error.deleteUser = 'Error Saving';
+    }
+
+    //RESET THE PASSWORD
+    onForgotPasswordAttempt(){
+        this.loading.forgot = true;
+        this.success.forgot = ''
+        this.error.forgot = ''
+    }
+    onForgotPasswordSuccess(){
+        this.loading.forgot = false;
+        this.success.forgot = 'An email was sent to your inbox'
+        console.log('Email sent!')
+    }
+    onForgotPasswordFailure(){
+        this.error.forgot = "This email doesn't match any account"
+        this.loading.forgot = false;
+    }
+    onCertifyPasswordAttempt(){
+        console.log('Trying to certify token')
+        this.error.reset = ''
+        this.resetUser = null
+        this.loading.certifyReset = true
+    }
+    onCertifyPasswordSuccess(user){
+        console.log('Success')
+        this.resetUser = user
+        this.loading.certifyReset = false
+    }
+    onCertifyPasswordFailure(){
+        console.log('Failure')
+        this.error.resetUser = 'The reset link expired. Please try again.'
+        this.resetUser = null
+        this.loading.certifyReset = false
+    }
+    onResetPasswordAttempt(){
+        this.loading.reset = true;
+        this.error.reset = ''
+        this.success.reset = ''
+    }
+    onResetPasswordSuccess(){
+        this.loading.reset = false;
+        this.success.reset = 'Password was successfully changed! <a href="/login">Login</a>';
+    }
+    onResetPasswordFailure(){
+        this.loading.reset = false;
+        this.error.reset = 'There was a problem changing the password.';
     }
 	
 	//USERS ADMIN PAGE

@@ -1370,6 +1370,8 @@ option{
         .infoWrap{
             input{
                 background: $light-gray;
+            }
+            & > input{
                 &:nth-child(1){
                     width: 45%;
                     margin-right: 5%;
@@ -1378,9 +1380,6 @@ option{
                 &:nth-child(2){
                     width: 50%;
                     display: inline-block;
-                }
-                &:nth-child(3){
-
                 }
             }
             .DraftEditor-root{

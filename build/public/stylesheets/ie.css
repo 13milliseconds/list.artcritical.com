@@ -997,7 +997,7 @@ header.mainHeader .SizeSelector span.active {
 }
 
 /* line 600, ../scss/breakpoints/_768up.scss */
-.loginForm, .signupForm {
+.loginForm, .signupForm, .resetForm {
   max-width: 500px;
   margin: 50px auto;
 }

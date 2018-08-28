@@ -3,7 +3,7 @@ import validator from 'validator';
 import AuthActions from '../../actions/AuthActions';
 //COMPONENTS
 import { Alert, Button, Form, FormGroup, Input } from 'reactstrap';
-import {Link } from 'react-router';
+import {Link} from 'react-router';
 import FacebookButton from '../buttons/FacebookButton.jsx';
 import Loading from '../blocks/loading'
 
@@ -148,6 +148,7 @@ export default class LogInForm extends React.Component {
                         }
                     <Button>Log In</Button>
 					<p>Don't have an account? <Link to={'/signup'} activeClassName="active">Register</Link></p>
+                    <p><Link to={'/forgot'} activeClassName="active">Forgot your password?</Link></p>
 
                 </Form>
             </div>

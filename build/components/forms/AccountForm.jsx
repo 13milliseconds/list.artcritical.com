@@ -108,9 +108,14 @@ export default class AccountForm extends React.Component {
                         name="bio"
                         editorState={this.state.editorState}
                         onEditorChange={this.onEditorChange}/>
-                        <Input name="website" placeholder="Website" type="website" value={this.props.user.website} onChange={this.handleChange} />  
+                        <Input name="website" placeholder="Website" type="website" value={this.props.user.website} onChange={this.handleChange} />
+                        { this.props.user.local.password && <div>
+                            <label>Change your password</label>
+                            <Input name="password1" placeholder="New Password" type="password" value={this.props.user.password1} onChange={this.handleChange} />
+                            <Input name="password2" placeholder="Re-Type the new password" type="password" value={this.props.user.password2} onChange={this.handleChange} />
+                        </div>}
                         <Button type="submit" onClick={this.onSave}>Save</Button>
-                        <Button type="submit" outline color="danger" onClick={this.onDelete}>Delete</Button>
+                        <Button type="submit" outline color="danger" onClick={this.onDelete}>Delete your Account</Button>
                     </div>
                  </form>
 

@@ -1,6 +1,4 @@
 import React from 'react';
-import {Link, browserHistory} from 'react-router';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 //COMPONENTS
 import LogInForm from './LogInForm.jsx';

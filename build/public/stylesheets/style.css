@@ -2866,27 +2866,27 @@ option {
 .account .accountform .infoWrap input {
   background: #F6F6f6;
 }
-/* line 1373, ../scss/breakpoints/_base.scss */
-.account .accountform .infoWrap input:nth-child(1) {
+/* line 1375, ../scss/breakpoints/_base.scss */
+.account .accountform .infoWrap > input:nth-child(1) {
   width: 45%;
   margin-right: 5%;
   display: inline-block;
 }
-/* line 1378, ../scss/breakpoints/_base.scss */
-.account .accountform .infoWrap input:nth-child(2) {
+/* line 1380, ../scss/breakpoints/_base.scss */
+.account .accountform .infoWrap > input:nth-child(2) {
   width: 50%;
   display: inline-block;
 }
-/* line 1386, ../scss/breakpoints/_base.scss */
+/* line 1385, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap .DraftEditor-root {
   background: #F6F6f6;
   margin-bottom: 20px;
 }
-/* line 1391, ../scss/breakpoints/_base.scss */
+/* line 1390, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap .form-text {
   margin-bottom: 20px;
 }
-/* line 1394, ../scss/breakpoints/_base.scss */
+/* line 1393, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap button {
   margin-top: 20px;
 }
@@ -3772,7 +3772,7 @@ you can add resource intensive styles.
   }
 
   /* line 600, ../scss/breakpoints/_768up.scss */
-  .loginForm, .signupForm {
+  .loginForm, .signupForm, .resetForm {
     max-width: 500px;
     margin: 50px auto;
   }

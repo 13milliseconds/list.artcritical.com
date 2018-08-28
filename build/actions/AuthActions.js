@@ -30,7 +30,16 @@ class AuthActions {
             'getUserMylistFailure',
             'getAllUserAttempt',
             'getAllUserSuccess',
-            'getAllUserFailure'
+            'getAllUserFailure',
+            'forgotPasswordAttempt',
+            'forgotPasswordSuccess',
+            'forgotPasswordFailure',
+            'resetPasswordAttempt',
+            'resetPasswordSuccess',
+            'resetPasswordFailure',
+            'certifyPasswordAttempt',
+            'certifyPasswordSuccess',
+            'certifyPasswordFailure'
         );
     }
     
@@ -383,6 +392,109 @@ class AuthActions {
             return true;
         });
     }
+
+    async forgotPassword(email) {
+		
+      console.log("Sending an email");
+  
+          this.forgotPasswordAttempt.defer()
+          
+          await fetch(
+            '/auth/forgot',
+            {
+              method: 'POST',
+              body: JSON.stringify({email: email}),
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+              }
+            },
+          )
+          .then((response) => {
+            if (response.status === 200) {
+                return response.json();
+            }
+              return null;
+          })
+          .then((json) => {
+              this.forgotPasswordSuccess(json);
+              return true;
+          })
+          .catch((error) => {
+              this.forgotPasswordFailure(error);
+              return true;
+          });
+      }
+
+      async certifyReset(token) {
+		
+        console.log("Checking the token");
+    
+            this.certifyPasswordAttempt()
+            
+            await fetch(
+              '/auth/resettoken',
+              {
+                method: 'POST',
+                body: JSON.stringify({token: token}),
+                credentials: 'same-origin',
+                headers: {
+                  'Content-Type': 'application/json',
+                }
+              },
+            )
+            .then((response) => {
+              if (response.status === 200) {
+                  return response.json();
+              }
+                return null;
+            })
+            .then((json) => {
+                json 
+                  ? this.certifyPasswordSuccess(json)
+                  : this.certifyPasswordFailure()
+                return true;
+            })
+            .catch((error) => {
+                this.certifyPasswordFailure();
+                return true;
+            });
+        }
+
+        async resetPassword(password, token) {
+		
+          console.log("Resetting the password");
+      
+              this.resetPasswordAttempt()
+              
+              await fetch(
+                '/auth/reset',
+                {
+                  method: 'POST',
+                  body: JSON.stringify({password: password, token: token}),
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  }
+                },
+              )
+              .then((response) => {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                  return null;
+              })
+              .then((json) => {
+                  json 
+                    ? this.resetPasswordSuccess(json)
+                    : this.resetPasswordFailure()
+                  return true;
+              })
+              .catch((error) => {
+                  this.resetPasswordFailure();
+                  return true;
+              });
+          }
     
     // When a user type new info in the account page
     userInfoChange(event, index){

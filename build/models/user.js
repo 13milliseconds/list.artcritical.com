@@ -24,7 +24,9 @@ var userSchema = mongoose.Schema({
     subscribed: Boolean,
 	createdOn: {type: Date, default: Date.now},
 	lastConnection: {type: Date},
-    mylist: [{type: String, ref: 'List'}]
+    mylist: [{type: String, ref: 'List'}],
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 },{
     //Options
     usePushEach: true,

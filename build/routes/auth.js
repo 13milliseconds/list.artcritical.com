@@ -2,8 +2,11 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
+var crypto = require('crypto');
+var sgMail = require('@sendgrid/mail');
+import async from 'async'
+import moment from 'moment'
 
-import moment from 'moment';
 
 var handleError = (string) => {
     return {msg: string}
@@ -56,7 +59,6 @@ router.post('/login', async(req, res) => {
 			var update = { $set: newInfo};
 
 			Userlist.update({ _id: req.user._id }, update, {upsert:true}, function (err, updatedUser) {
-				console.log(updatedUser);
 				return res.send(
 					(err === null) ? 
 						JSON.stringify(req.user)
@@ -126,6 +128,124 @@ router.get('/logout', (req, res) => {
 
 });
 
+//###################################
+// FORGOT THE PASSWORD
+//###################################
+
+router.post('/forgot', function (req, res) {
+
+    var Userlist = req.userlist;
+
+    async.waterfall([
+        function(done) {
+          crypto.randomBytes(20, function(err, buf) {
+            var token = buf.toString('hex');
+            done(err, token);
+          });
+        },
+        function(token, done) {
+          Userlist.findOne({ 'local.username': req.body.email }, function(err, user) {
+            if (!user) {
+              console.log('error', 'No account with that email address exists.');
+              return res.redirect('/reset');
+            }
+    
+            user.resetPasswordToken = token;
+            user.resetPasswordExpires = moment().add(1, 'hours');
+
+            user.save(function(err) {
+              done(err, token, user);
+            });
+          });
+        },
+        function(token, user, done) {
+
+            // using SendGrid's v3 Node.js Library
+            // https://github.com/sendgrid/sendgrid-nodejs
+            
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+            const msg = {
+            to: user.local.username,
+            from: 'hello@artcritical.com',
+            subject: 'Password Reset',
+            text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account at artcritical.\n\n' +
+            'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+            'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+            'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            //html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            };
+
+            sgMail.send(msg);
+
+            done();
+        }
+      ], function(err) {
+        if (err) return next(err);
+        return res.json({result: true})
+      });
+});
+
+/*//###################################
+ * Check the Reset TOKEN
+ *///###################################
+
+router.post('/resettoken', function(req, res) {
+    var Userlist = req.userlist;
+
+    Userlist.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: moment() } }, function(err, user) {
+      return res.json(user)
+    });
+  });
+
+
+  /*//###################################
+ * RESET the password
+ *///###################################
+
+ router.post('/reset', function(req, res){
+
+    var Userlist = req.userlist;
+
+    console.log(req.body)
+    
+    async.waterfall([
+        function(done) {
+            Userlist.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+            if (!user) {
+              console.log('No User')
+              return res.json({err: 'No User Found'})
+            }
+
+            user.local.password = user.generateHash(req.body.password)
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+    
+            user.save(function(err, newUser) {
+                done(err, newUser);
+            });
+          });
+        },
+        function(user, done) {
+
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+            const msg = {
+            to: user.local.username,
+            from: 'hello@artcritical.com',
+            subject: 'Your password has been changed',
+            text: 'Hello,\n\n' +
+              'This is a confirmation that the password for your account ' + user.local.username + ' has just been changed.\n'
+            };
+
+            sgMail.send(msg);
+
+            done();
+        }
+      ], function(err) {
+        return res.json({err: ''})
+      });
+ })
 
 /*//###################################
  * UPDATE the user's list

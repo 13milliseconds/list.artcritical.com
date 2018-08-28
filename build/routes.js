@@ -10,6 +10,8 @@ import VenuePage from './components/venues/VenuePage';
 //Signin Components
 import SignUpPage from './components/login/SignUpPage';
 import LogInPage from './components/login/LogInPage';
+import ResetPage from './components/login/ResetPage';
+import ForgotPage from './components/login/ForgotPage';
 import MyListPage from './components/myListPage';
 import MyListPublicPage from './components/myListPublicPage';
 import AuthSuccess from './components/login/AuthSuccess';
@@ -37,6 +39,8 @@ const routes = (
         <Route path="mylist" component={MyListPage}/>
 		<Route path="mylist/:slug" component={MyListPublicPage}/>
         <Route path="login" component={LogInPage}/>
+        <Route path="reset/:token" component={ResetPage}/>
+        <Route path="forgot" component={ForgotPage}/>
         <Route path="venue/:slug" component={VenuePage}/>
 		<Route path="account" component={Account}/>
         <Route path="admin" component={AdminPage}>

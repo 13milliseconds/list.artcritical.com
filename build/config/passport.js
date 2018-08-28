@@ -34,9 +34,12 @@ module.exports = function(passport) {
                     path: 'mylist.venue',
                     model: Venue
                   }, function(err, fullUser) {
-
-                //found user
-                return done(null, fullUser);
+                    if(err){
+                        console.log(err);
+                        return done(null,err);
+                    }
+                    //found user
+                    return done(null, fullUser);
                 });
             });
     });
