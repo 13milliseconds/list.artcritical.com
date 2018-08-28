@@ -15918,7 +15918,7 @@ var DeckGLOverlay = function (_Component) {
         if (!p.venue.coordinates) {
           console.log(p);
         }
-        var coordinates = [p.venue.coordinates.lat, p.venue.coordinates.long];
+        var coordinates = p.venue.coordinates ? [p.venue.coordinates.lat, p.venue.coordinates.long] : [0, 0];
         var screenCoords = transform.project(coordinates);
         p.x = screenCoords[0];
         p.y = screenCoords[1];
@@ -15995,7 +15995,7 @@ var DeckGLOverlay = function (_Component) {
         iconMapping: iconMapping,
         sizeScale: ICON_SIZE * size * this.state.windowSize,
         getPosition: function getPosition(d) {
-          return [d.venue.coordinates.long, d.venue.coordinates.lat, 0];
+          return d.venue.coordinates ? [d.venue.coordinates.long, d.venue.coordinates.lat, 0] : [0, 0, 0];
         },
         getIcon: function getIcon(d) {
           return showCluster ? d.zoomLevels[z] && d.zoomLevels[z].icon : 'marker';
@@ -16466,6 +16466,8 @@ var AccountForm = function (_React$Component) {
         _this.onSave = _this.onSave.bind(_this);
         _this.onDelete = _this.onDelete.bind(_this);
         _this.deleteAccount = _this.deleteAccount.bind(_this);
+        _this._validatePassword1 = _this._validatePassword1.bind(_this);
+        _this._validatePassword2 = _this._validatePassword2.bind(_this);
         return _this;
     }
 
@@ -16494,9 +16496,19 @@ var AccountForm = function (_React$Component) {
         key: 'onSave',
         value: function onSave(event) {
             event.preventDefault();
-            this.setState({
-                updateModal: true
-            });
+
+            //If a new password is entered
+            if (password1 || password2) {
+                if (this._validatePassword1(password1) && this._validatePassword2(password1, password2)) {
+                    this.setState({
+                        updateModal: true
+                    });
+                }
+            } else {
+                this.setState({
+                    updateModal: true
+                });
+            }
         }
         //Delete alert
 
@@ -16515,6 +16527,47 @@ var AccountForm = function (_React$Component) {
         key: 'toggleModal',
         value: function toggleModal(modalName) {
             this.setState(_defineProperty({}, modalName, !this.state[modalName]));
+        }
+
+        //VALIDATORS
+
+    }, {
+        key: '_validatePassword1',
+        value: function _validatePassword1(value) {
+            var valid = validator.isLength(value.trim(), 5, 50);
+            var errorMessage = this.state.errorMessage;
+
+            if (valid) {
+                errorMessage.password1 = '';
+                this.setState({ errorMessage: errorMessage });
+            } else {
+                errorMessage.password1 = 'Please enter a password. 5 characters min.';
+                this.setState({ errorMessage: errorMessage });
+            }
+            return valid;
+        }
+    }, {
+        key: '_validatePassword2',
+        value: function _validatePassword2(password1, password2) {
+            var pwValid = this._validatePassword1(this.state.password1);
+            var valid = validator.equals(password1, password2);
+            var errorMessage = this.state.errorMessage;
+
+            //Check if password is valid
+            if (pwValid) {
+                //Check if passwords match
+                if (valid) {
+                    errorMessage.password2 = '';
+                    this.setState({ errorMessage: errorMessage });
+                } else {
+                    errorMessage.password2 = 'Passwords need to match';
+                    this.setState({ errorMessage: errorMessage });
+                }
+
+                return valid;
+            } else {
+                return pwValid;
+            }
         }
 
         //Update values of inputs

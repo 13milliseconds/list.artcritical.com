@@ -31,6 +31,8 @@ export default class AccountForm extends React.Component {
         this.onSave = this.onSave.bind(this)
         this.onDelete = this.onDelete.bind(this)
         this.deleteAccount = this.deleteAccount.bind(this)
+        this._validatePassword1 = this._validatePassword1.bind(this)
+        this._validatePassword2 = this._validatePassword2.bind(this)
     }
     
 
@@ -53,9 +55,19 @@ export default class AccountForm extends React.Component {
      //Save alert
      onSave(event) {
         event.preventDefault();
-        this.setState({ 
-            updateModal: true
-        })
+
+        //If a new password is entered
+        if (password1 || password2){
+            if (this._validatePassword1(password1) && this._validatePassword2(password1, password2)) {
+                this.setState({ 
+                    updateModal: true
+                })
+            }
+        } else {
+            this.setState({ 
+                updateModal: true
+            })
+        }
     }
     //Delete alert
     onDelete(event) {
@@ -71,6 +83,44 @@ export default class AccountForm extends React.Component {
             [modalName]: !this.state[modalName]
         })
     }
+
+    //VALIDATORS
+    _validatePassword1(value) {
+        const valid = validator.isLength(value.trim(), 5, 50);
+        const errorMessage = this.state.errorMessage
+       
+        if (valid) {
+            errorMessage.password1 = ''
+            this.setState({errorMessage: errorMessage})
+        } else {
+            errorMessage.password1 = 'Please enter a password. 5 characters min.'
+            this.setState({errorMessage: errorMessage})
+        }
+        return valid
+      }
+    
+    _validatePassword2(password1, password2) {
+        const pwValid = this._validatePassword1(this.state.password1)
+        const valid = (validator.equals(password1, password2));
+        const errorMessage = this.state.errorMessage
+        
+        //Check if password is valid
+        if (pwValid){
+            //Check if passwords match
+            if (valid) {
+                errorMessage.password2 = ''
+                this.setState({errorMessage: errorMessage})
+            } else {
+                errorMessage.password2 = 'Passwords need to match'
+                this.setState({errorMessage: errorMessage})
+            }
+            
+            return valid
+            
+        } else {
+            return pwValid
+        }
+      }
     
     //Update values of inputs
     handleChange (event) {

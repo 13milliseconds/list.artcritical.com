@@ -84,7 +84,7 @@ export default class DeckGLOverlay extends Component {
       if (!p.venue.coordinates){
         console.log(p)
       }
-	    const coordinates = [p.venue.coordinates.lat, p.venue.coordinates.long]
+	    const coordinates = p.venue.coordinates ? [p.venue.coordinates.lat, p.venue.coordinates.long] : [0,0]
       const screenCoords = transform.project(coordinates)
       p.x = screenCoords[0];
       p.y = screenCoords[1];
@@ -147,7 +147,7 @@ export default class DeckGLOverlay extends Component {
       iconAtlas,
       iconMapping,
       sizeScale: ICON_SIZE * size * this.state.windowSize,
-      getPosition: d => [d.venue.coordinates.long, d.venue.coordinates.lat, 0],
+      getPosition: d => (d.venue.coordinates ? [d.venue.coordinates.long, d.venue.coordinates.lat, 0] : [0,0,0]),
       getIcon: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].icon : 'marker'),
       getSize: d => (showCluster ? d.zoomLevels[z] && d.zoomLevels[z].size : 1),
       onHover: this.props.onHover,
