@@ -1751,7 +1751,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(24);
+var _reactIntl = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2403,6 +2403,12 @@ module.exports = require("react-map-gl");
 
 /***/ }),
 /* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2417,7 +2423,7 @@ module.exports = function deepClone(obj) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2438,7 +2444,7 @@ module.exports = function toCamelCase(obj, ignored) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2459,7 +2465,7 @@ module.exports = function toSnakeCase(obj, ignored) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2525,7 +2531,7 @@ var ListingNameDisplay = function (_React$Component) {
 exports.default = ListingNameDisplay;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2541,7 +2547,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(25);
+var _validator = __webpack_require__(19);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -2773,16 +2779,10 @@ var LogInForm = function (_React$Component) {
 exports.default = LogInForm;
 
 /***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-intl");
-
-/***/ }),
 /* 25 */
 /***/ (function(module, exports) {
 
-module.exports = require("validator");
+module.exports = require("react-intl");
 
 /***/ }),
 /* 26 */
@@ -5610,9 +5610,9 @@ module.exports = Client;
  * Dependencies
  */
 const EmailAddress = __webpack_require__(26);
-const toCamelCase = __webpack_require__(20);
-const toSnakeCase = __webpack_require__(21);
-const deepClone = __webpack_require__(19);
+const toCamelCase = __webpack_require__(21);
+const toSnakeCase = __webpack_require__(22);
+const deepClone = __webpack_require__(20);
 const merge = __webpack_require__(198);
 const wrapSubstitutions = __webpack_require__(46);
 
@@ -6464,7 +6464,7 @@ var _reactFontawesome = __webpack_require__(5);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _ListingNameDisplay = __webpack_require__(22);
+var _ListingNameDisplay = __webpack_require__(23);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -6893,7 +6893,7 @@ var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactIntl = __webpack_require__(24);
+var _reactIntl = __webpack_require__(25);
 
 var _imageBlock = __webpack_require__(30);
 
@@ -8215,7 +8215,7 @@ var _ArtistTags = __webpack_require__(158);
 
 var _ArtistTags2 = _interopRequireDefault(_ArtistTags);
 
-var _ListingNameDisplay = __webpack_require__(22);
+var _ListingNameDisplay = __webpack_require__(23);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -10254,16 +10254,29 @@ router.post('/updateuser', function (req, res) {
 
     var newInfo = req.body;
 
-    console.log('New user info: ', newInfo);
-    var update = { $set: newInfo };
+    Userlist.findOne({ _id: newInfo._id }, function (err, user) {
+        if (user) {
 
-    Userlist.update({ _id: newInfo._id }, update, { upsert: true }, function (err, updatedUser) {
-        console.log('boom', updatedUser, newInfo._id);
-        res.send(err === null ? {
-            newuser: updatedUser
-        } : {
-            msg: err
-        });
+            //If the password is changed
+            if (newInfo.password1) {
+                console.log('Hasing the password ' + newInfo.password1);
+                newInfo.local.password = user.generateHash(newInfo.password1);
+                console.log('Result: ' + newInfo.local.password);
+            }
+
+            console.log('New user info: ', newInfo);
+
+            Userlist.update({ _id: newInfo._id }, { $set: newInfo }, { upsert: true }, function (err, updatedUser) {
+                console.log('boom', updatedUser, newInfo._id);
+                res.send(err === null ? {
+                    newuser: updatedUser
+                } : {
+                    msg: err
+                });
+            });
+        } else {
+            res.send('No User Found');
+        }
     });
 });
 
@@ -11413,9 +11426,9 @@ module.exports = new Client();
 /**
  * Dependencies
  */
-const toCamelCase = __webpack_require__(20);
-const toSnakeCase = __webpack_require__(21);
-const deepClone = __webpack_require__(19);
+const toCamelCase = __webpack_require__(21);
+const toSnakeCase = __webpack_require__(22);
+const deepClone = __webpack_require__(20);
 
 /**
  * Attachment class
@@ -11595,9 +11608,9 @@ module.exports = {
  */
 const EmailAddress = __webpack_require__(26);
 const Personalization = __webpack_require__(43);
-const toCamelCase = __webpack_require__(20);
-const toSnakeCase = __webpack_require__(21);
-const deepClone = __webpack_require__(19);
+const toCamelCase = __webpack_require__(21);
+const toSnakeCase = __webpack_require__(22);
+const deepClone = __webpack_require__(20);
 const arrayToJSON = __webpack_require__(44);
 
 /**
@@ -12295,11 +12308,11 @@ module.exports = ResponseError;
  */
 const arrayToJSON = __webpack_require__(44);
 const convertKeys = __webpack_require__(27);
-const deepClone = __webpack_require__(19);
+const deepClone = __webpack_require__(20);
 const mergeData = __webpack_require__(124);
 const splitNameEmail = __webpack_require__(45);
-const toCamelCase = __webpack_require__(20);
-const toSnakeCase = __webpack_require__(21);
+const toCamelCase = __webpack_require__(21);
+const toSnakeCase = __webpack_require__(22);
 const wrapSubstitutions = __webpack_require__(46);
 
 /**
@@ -12704,7 +12717,7 @@ var _d3Request = __webpack_require__(196);
 
 var _reactstrap = __webpack_require__(2);
 
-var _ListingNameDisplay = __webpack_require__(22);
+var _ListingNameDisplay = __webpack_require__(23);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -13703,7 +13716,7 @@ var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactIntl = __webpack_require__(24);
+var _reactIntl = __webpack_require__(25);
 
 var _DayPage = __webpack_require__(132);
 
@@ -13822,7 +13835,7 @@ var _AccountForm = __webpack_require__(157);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
-var _LogInForm = __webpack_require__(23);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -13905,7 +13918,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(4);
 
-var _LogInForm = __webpack_require__(23);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -15202,7 +15215,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(24);
+var _reactIntl = __webpack_require__(25);
 
 var _reactstrap = __webpack_require__(2);
 
@@ -15412,7 +15425,7 @@ var _reactFontawesome = __webpack_require__(5);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _ListingNameDisplay = __webpack_require__(22);
+var _ListingNameDisplay = __webpack_require__(23);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -16409,6 +16422,10 @@ var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
+var _validator = __webpack_require__(19);
+
+var _validator2 = _interopRequireDefault(_validator);
+
 var _avatar = __webpack_require__(145);
 
 var _avatar2 = _interopRequireDefault(_avatar);
@@ -16454,6 +16471,7 @@ var AccountForm = function (_React$Component) {
         _this.state = {
             text: '',
             updatevisible: false,
+            errorMessage: {},
             editorState: (0, _draftJsPluginsEditor.createEditorStateWithText)(''),
             updateModal: false,
             deleteModal: false
@@ -16497,6 +16515,9 @@ var AccountForm = function (_React$Component) {
         value: function onSave(event) {
             event.preventDefault();
 
+            console.log(this.props.user);
+            var password1 = this.props.user.password1;
+            var password2 = this.props.user.password2;
             //If a new password is entered
             if (password1 || password2) {
                 if (this._validatePassword1(password1) && this._validatePassword2(password1, password2)) {
@@ -16534,7 +16555,7 @@ var AccountForm = function (_React$Component) {
     }, {
         key: '_validatePassword1',
         value: function _validatePassword1(value) {
-            var valid = validator.isLength(value.trim(), 5, 50);
+            var valid = _validator2.default.isLength(value.trim(), 5, 50);
             var errorMessage = this.state.errorMessage;
 
             if (valid) {
@@ -16549,8 +16570,8 @@ var AccountForm = function (_React$Component) {
     }, {
         key: '_validatePassword2',
         value: function _validatePassword2(password1, password2) {
-            var pwValid = this._validatePassword1(this.state.password1);
-            var valid = validator.equals(password1, password2);
+            var pwValid = this._validatePassword1(password1);
+            var valid = _validator2.default.equals(password1, password2);
             var errorMessage = this.state.errorMessage;
 
             //Check if password is valid
@@ -16642,7 +16663,17 @@ var AccountForm = function (_React$Component) {
                                 'Change your password'
                             ),
                             _react2.default.createElement(_reactstrap.Input, { name: 'password1', placeholder: 'New Password', type: 'password', value: this.props.user.password1, onChange: this.handleChange }),
-                            _react2.default.createElement(_reactstrap.Input, { name: 'password2', placeholder: 'Re-Type the new password', type: 'password', value: this.props.user.password2, onChange: this.handleChange })
+                            this.state.errorMessage.password1 && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessage.password1
+                            ),
+                            _react2.default.createElement(_reactstrap.Input, { name: 'password2', placeholder: 'Re-Type the new password', type: 'password', value: this.props.user.password2, onChange: this.handleChange }),
+                            this.state.errorMessage.password2 && _react2.default.createElement(
+                                _reactstrap.Alert,
+                                { color: 'danger' },
+                                this.state.errorMessage.password2
+                            )
                         ),
                         _react2.default.createElement(
                             _reactstrap.Button,
@@ -18800,7 +18831,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(25);
+var _validator = __webpack_require__(19);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -19033,7 +19064,7 @@ var _propTypes = __webpack_require__(17);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _LogInForm = __webpack_require__(23);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -19115,7 +19146,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(25);
+var _validator = __webpack_require__(19);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -19412,7 +19443,7 @@ var _reactToggleButton = __webpack_require__(37);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
-var _validator = __webpack_require__(25);
+var _validator = __webpack_require__(19);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -19888,7 +19919,7 @@ var _myList = __webpack_require__(176);
 
 var _myList2 = _interopRequireDefault(_myList);
 
-var _LogInForm = __webpack_require__(23);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 

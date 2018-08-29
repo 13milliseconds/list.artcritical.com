@@ -1,8 +1,9 @@
 import React from 'react'
 import AuthActions from '../../actions/AuthActions'
+import validator from 'validator';
 //Components
 import Avatar from '../admin/avatar'
-import {Input, FormText, Button} from 'reactstrap'
+import {Alert, Input, FormText, Button} from 'reactstrap'
 import {EditorState } from 'draft-js'
 import {createEditorStateWithText } from 'draft-js-plugins-editor';
 import {stateFromHTML} from 'draft-js-import-html';
@@ -18,6 +19,7 @@ export default class AccountForm extends React.Component {
         this.state = {
             text: '',
             updatevisible: false,
+            errorMessage: {},
             editorState: createEditorStateWithText(''),
             updateModal: false,
             deleteModal: false
@@ -56,6 +58,9 @@ export default class AccountForm extends React.Component {
      onSave(event) {
         event.preventDefault();
 
+        console.log(this.props.user)
+        let password1 = this.props.user.password1
+        let password2 = this.props.user.password2
         //If a new password is entered
         if (password1 || password2){
             if (this._validatePassword1(password1) && this._validatePassword2(password1, password2)) {
@@ -100,7 +105,7 @@ export default class AccountForm extends React.Component {
       }
     
     _validatePassword2(password1, password2) {
-        const pwValid = this._validatePassword1(this.state.password1)
+        const pwValid = this._validatePassword1(password1)
         const valid = (validator.equals(password1, password2));
         const errorMessage = this.state.errorMessage
         
@@ -162,7 +167,9 @@ export default class AccountForm extends React.Component {
                         { this.props.user.local.password && <div>
                             <label>Change your password</label>
                             <Input name="password1" placeholder="New Password" type="password" value={this.props.user.password1} onChange={this.handleChange} />
+                                {this.state.errorMessage.password1 && <Alert color="danger">{this.state.errorMessage.password1}</Alert>}
                             <Input name="password2" placeholder="Re-Type the new password" type="password" value={this.props.user.password2} onChange={this.handleChange} />
+                                {this.state.errorMessage.password2 && <Alert color="danger">{this.state.errorMessage.password2}</Alert>}
                         </div>}
                         <Button type="submit" onClick={this.onSave}>Save</Button>
                         <Button type="submit" outline color="danger" onClick={this.onDelete}>Delete your Account</Button>

@@ -438,19 +438,35 @@ router.post('/updateuser', function (req, res) {
     
     var newInfo = req.body;
 
-    console.log('New user info: ', newInfo);
-    var update = { $set: newInfo};
+    Userlist.findOne({ _id: newInfo._id }, function(err, user){
+        if (user) {
 
-    Userlist.update({ _id: newInfo._id }, update, {upsert:true}, function (err, updatedUser) {
-        console.log('boom', updatedUser, newInfo._id)
-        res.send(
-            (err === null) ? {
-                newuser: updatedUser
-            } : {
-                msg: err
+            //If the password is changed
+            if (newInfo.password1) {
+                console.log('Hasing the password ' + newInfo.password1)
+                newInfo.local.password = user.generateHash(newInfo.password1)
+                console.log('Result: ' + newInfo.local.password)
             }
-        );
-    });
+
+            console.log('New user info: ', newInfo);
+
+            Userlist.update({ _id: newInfo._id }, { $set: newInfo}, {upsert:true}, function(err, updatedUser) {
+                console.log('boom', updatedUser, newInfo._id)
+                res.send(
+                    (err === null) ? {
+                        newuser: updatedUser
+                    } : {
+                        msg: err
+                    }
+                );
+            });
+
+        } else {
+            res.send('No User Found');
+        }
+
+    })
+   
 });
 
 //###################################
