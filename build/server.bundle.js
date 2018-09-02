@@ -420,7 +420,7 @@ var ListActions = function () {
 
             this.featureLoadAttempt.defer();
 
-            await fetch('/list/findfeatures', {
+            await fetch('/list/findcurrentfeatures', {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
@@ -10636,7 +10636,6 @@ router.get('/glancelistings', function (req, res) {
     //Find today's date
     var today = (0, _moment2.default)().startOf('day');
     var inaWeek = (0, _moment2.default)().add(7, 'days').endOf('day');
-    console.log((0, _moment2.default)());
 
     List.find({
         end: {
@@ -10923,7 +10922,7 @@ router.post('/feature', function (req, res) {
 });
 
 //#######################
-// FIND a featured article
+// FIND all featured articles
 //#######################
 
 router.post('/findfeatures', function (req, res) {
@@ -10932,8 +10931,32 @@ router.post('/findfeatures', function (req, res) {
     console.log("Find all features");
 
     Feature.find().populate('list').populate('venue').exec(function (e, docs) {
-        console.log('Found', e);
         res.json(docs);
+    });
+});
+
+//#######################
+// FIND the current featured article
+//#######################
+
+router.post('/findcurrentfeatures', function (req, res) {
+    var Feature = req.feature;
+
+    console.log("Find all current features");
+
+    Feature.find().populate('list').populate('venue').exec(function (e, docs) {
+
+        var now = (0, _moment2.default)();
+        var currentFeatures = [];
+
+        //Check that all listings are current or future
+        docs.map(function (feature) {
+            feature.list && feature.list.end && (0, _moment2.default)(feature.list.end).isSameOrAfter(now, 'day') && currentFeatures.push(feature);
+        });
+
+        //Return the current feature listings
+        console.log('Returned ' + currentFeatures.length + ' features');
+        res.json(currentFeatures);
     });
 });
 

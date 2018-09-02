@@ -109,7 +109,7 @@ router.get('/glancelistings', function (req, res) {
     //Find today's date
     var today = moment().startOf('day')
     var inaWeek = moment().add(7, 'days').endOf('day');
-    console.log(moment());
+
 
     List.find({
             end: {
@@ -443,7 +443,7 @@ router.post('/feature', function (req, res) {
 });
 
 //#######################
-// FIND a featured article
+// FIND all featured articles
 //#######################
 
 router.post('/findfeatures', function (req, res) {
@@ -455,8 +455,37 @@ router.post('/findfeatures', function (req, res) {
     .populate('list')
     .populate('venue')
     .exec(function (e, docs) {
-        console.log('Found', e)
         res.json(docs)
+    });
+
+});
+
+//#######################
+// FIND the current featured article
+//#######################
+
+router.post('/findcurrentfeatures', function (req, res) {
+    var Feature = req.feature;
+
+    console.log("Find all current features");
+
+    Feature.find()
+    .populate('list')
+    .populate('venue')
+    .exec(function (e, docs) {
+
+        let now = moment()
+        let currentFeatures = []
+
+        //Check that all listings are current or future
+        docs.map(feature => {
+            feature.list && feature.list.end && moment(feature.list.end).isSameOrAfter(now, 'day') && currentFeatures.push(feature)
+        })
+
+        //Return the current feature listings
+        console.log('Returned ' + currentFeatures.length + ' features')
+        res.json(currentFeatures)
+
     });
 
 });

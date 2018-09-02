@@ -387,7 +387,7 @@ class ListActions {
         this.featureLoadAttempt.defer()
         
         await fetch(
-          '/list/findfeatures',
+          '/list/findcurrentfeatures',
           {
             method: 'POST',
             credentials: 'same-origin',
