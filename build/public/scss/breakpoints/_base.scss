@@ -1045,9 +1045,13 @@ ADMIN
                     font-size: .8em;
                 }
             }
+            .title{
+                display: inline;
+            }
             &.expired{
                 a{
                 color: $red;   
+                }
             }
             &.old{
                 a{
@@ -1058,7 +1062,6 @@ ADMIN
                 a{
                     color: orange;
                 }
-            }
             }
         }
         span.legend{

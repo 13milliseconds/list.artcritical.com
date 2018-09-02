@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
 //COMPONENTS
-import {Link} from 'react-router';
-import DateBlock from '../blocks/DateBlock';
+import {Link} from 'react-router'
+import DateBlock from '../blocks/DateBlock'
+import ListingNameDisplay from '../blocks/ListingNameDisplay'
 import moment from 'moment'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
@@ -79,7 +80,7 @@ export default class VenueItem extends React.Component {
         
         let currentListings = (listings) => listings.map((listing) =>
                 {
-            return <div className="venueListing" key={listing._id}>{listing.name} - Expires <DateBlock date={listing.end} /></div>
+            return <div className="venueListing" key={listing._id}><ListingNameDisplay {...listing} /> - Expires <DateBlock date={listing.end} /></div>
         })
           
     return (
@@ -89,7 +90,7 @@ export default class VenueItem extends React.Component {
             <a href={this.props.website} target="_blank"><FontAwesomeIcon icon={['fal', 'external-link-square']} /></a>}
 
             {!this.state.old && currentListings(this.state.currentListings)}
-            {nextListing && <div>Upcoming: {nextListing.name} - Starting <DateBlock date={nextListing.start}/></div>}
+            {nextListing && <div>Upcoming: <ListingNameDisplay {...nextListing} /> - Starting <DateBlock date={nextListing.start}/></div>}
       </div>
     );
   }

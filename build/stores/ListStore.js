@@ -568,10 +568,8 @@ class ListStore {
 						    var feature = this.allFeatures[y]
                             // Find current feature
                             if (!features.includes(feature) && feature.list){
-                                if (moment(feature.list.end).isSameOrAfter(today)){
-                                    features.push(feature)
-                                    break
-                                }
+                                features.push(feature)
+                                break
                             }
                         }
 					}

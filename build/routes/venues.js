@@ -27,7 +27,8 @@ router.get('/getadmin/:neighborhood', function (req, res, next) {
         return Promise.map(venues, function(venue) {
             // Promise.map awaits for returned promises as well.
             return List.find({ venue: venue._id})
-				.exec()
+                .populate('artists')
+                .exec()
 				.then(function (current) {
 					let newvenue = {};
 					newvenue = venue.toObject();

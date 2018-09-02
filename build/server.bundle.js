@@ -2397,75 +2397,6 @@ module.exports = require("prop-types");
 
 /***/ }),
 /* 18 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-map-gl");
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-module.exports = require("validator");
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Deep cloning helper for objects
- */
-module.exports = function deepClone(obj) {
-  return JSON.parse(JSON.stringify(obj));
-};
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Dependencies
- */
-const convertKeys = __webpack_require__(27);
-const strToCamelCase = __webpack_require__(125);
-
-/**
- * Convert object keys to camel case
- */
-module.exports = function toCamelCase(obj, ignored) {
-  return convertKeys(obj, strToCamelCase, ignored);
-};
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Dependencies
- */
-const convertKeys = __webpack_require__(27);
-const strToSnakeCase = __webpack_require__(126);
-
-/**
- * Convert object keys to snake case
- */
-module.exports = function toSnakeCase(obj, ignored) {
-  return convertKeys(obj, strToSnakeCase, ignored);
-};
-
-
-/***/ }),
-/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2531,6 +2462,75 @@ var ListingNameDisplay = function (_React$Component) {
 exports.default = ListingNameDisplay;
 
 /***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-map-gl");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Deep cloning helper for objects
+ */
+module.exports = function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+};
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Dependencies
+ */
+const convertKeys = __webpack_require__(27);
+const strToCamelCase = __webpack_require__(125);
+
+/**
+ * Convert object keys to camel case
+ */
+module.exports = function toCamelCase(obj, ignored) {
+  return convertKeys(obj, strToCamelCase, ignored);
+};
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Dependencies
+ */
+const convertKeys = __webpack_require__(27);
+const strToSnakeCase = __webpack_require__(126);
+
+/**
+ * Convert object keys to snake case
+ */
+module.exports = function toSnakeCase(obj, ignored) {
+  return convertKeys(obj, strToSnakeCase, ignored);
+};
+
+
+/***/ }),
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2547,7 +2547,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(19);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -5610,9 +5610,9 @@ module.exports = Client;
  * Dependencies
  */
 const EmailAddress = __webpack_require__(26);
-const toCamelCase = __webpack_require__(21);
-const toSnakeCase = __webpack_require__(22);
-const deepClone = __webpack_require__(20);
+const toCamelCase = __webpack_require__(22);
+const toSnakeCase = __webpack_require__(23);
+const deepClone = __webpack_require__(21);
 const merge = __webpack_require__(198);
 const wrapSubstitutions = __webpack_require__(46);
 
@@ -6464,7 +6464,7 @@ var _reactFontawesome = __webpack_require__(5);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _ListingNameDisplay = __webpack_require__(23);
+var _ListingNameDisplay = __webpack_require__(18);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -7272,7 +7272,7 @@ var _singleMarker = __webpack_require__(155);
 
 var _singleMarker2 = _interopRequireDefault(_singleMarker);
 
-var _reactMapGl = __webpack_require__(18);
+var _reactMapGl = __webpack_require__(19);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -8215,7 +8215,7 @@ var _ArtistTags = __webpack_require__(158);
 
 var _ArtistTags2 = _interopRequireDefault(_ArtistTags);
 
-var _ListingNameDisplay = __webpack_require__(23);
+var _ListingNameDisplay = __webpack_require__(18);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -9273,7 +9273,7 @@ var _MarkerDisplay = __webpack_require__(152);
 
 var _MarkerDisplay2 = _interopRequireDefault(_MarkerDisplay);
 
-var _reactMapGl = __webpack_require__(18);
+var _reactMapGl = __webpack_require__(19);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -11026,7 +11026,7 @@ router.get('/getadmin/:neighborhood', function (req, res, next) {
     Venue.find({ neighborhood: req.params.neighborhood }).sort('name').exec().then(function (venues) {
         return Promise.map(venues, function (venue) {
             // Promise.map awaits for returned promises as well.
-            return List.find({ venue: venue._id }).exec().then(function (current) {
+            return List.find({ venue: venue._id }).populate('artists').exec().then(function (current) {
                 var newvenue = {};
                 newvenue = venue.toObject();
                 newvenue['listings'] = current;
@@ -11449,9 +11449,9 @@ module.exports = new Client();
 /**
  * Dependencies
  */
-const toCamelCase = __webpack_require__(21);
-const toSnakeCase = __webpack_require__(22);
-const deepClone = __webpack_require__(20);
+const toCamelCase = __webpack_require__(22);
+const toSnakeCase = __webpack_require__(23);
+const deepClone = __webpack_require__(21);
 
 /**
  * Attachment class
@@ -11631,9 +11631,9 @@ module.exports = {
  */
 const EmailAddress = __webpack_require__(26);
 const Personalization = __webpack_require__(43);
-const toCamelCase = __webpack_require__(21);
-const toSnakeCase = __webpack_require__(22);
-const deepClone = __webpack_require__(20);
+const toCamelCase = __webpack_require__(22);
+const toSnakeCase = __webpack_require__(23);
+const deepClone = __webpack_require__(21);
 const arrayToJSON = __webpack_require__(44);
 
 /**
@@ -12331,11 +12331,11 @@ module.exports = ResponseError;
  */
 const arrayToJSON = __webpack_require__(44);
 const convertKeys = __webpack_require__(27);
-const deepClone = __webpack_require__(20);
+const deepClone = __webpack_require__(21);
 const mergeData = __webpack_require__(124);
 const splitNameEmail = __webpack_require__(45);
-const toCamelCase = __webpack_require__(21);
-const toSnakeCase = __webpack_require__(22);
+const toCamelCase = __webpack_require__(22);
+const toSnakeCase = __webpack_require__(23);
 const wrapSubstitutions = __webpack_require__(46);
 
 /**
@@ -12724,7 +12724,7 @@ var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _reactMapGl = __webpack_require__(18);
+var _reactMapGl = __webpack_require__(19);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -12740,7 +12740,7 @@ var _d3Request = __webpack_require__(196);
 
 var _reactstrap = __webpack_require__(2);
 
-var _ListingNameDisplay = __webpack_require__(23);
+var _ListingNameDisplay = __webpack_require__(18);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -15448,7 +15448,7 @@ var _reactFontawesome = __webpack_require__(5);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _ListingNameDisplay = __webpack_require__(23);
+var _ListingNameDisplay = __webpack_require__(18);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -16445,7 +16445,7 @@ var _AuthActions = __webpack_require__(3);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _validator = __webpack_require__(19);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -18854,7 +18854,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(19);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -19169,7 +19169,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(19);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -19466,7 +19466,7 @@ var _reactToggleButton = __webpack_require__(37);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
-var _validator = __webpack_require__(19);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -20117,7 +20117,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(18);
+var _reactMapGl = __webpack_require__(19);
 
 var _myListings = __webpack_require__(177);
 
@@ -20533,7 +20533,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(18);
+var _reactMapGl = __webpack_require__(19);
 
 var _userListings = __webpack_require__(179);
 
@@ -21009,6 +21009,10 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
+var _ListingNameDisplay = __webpack_require__(18);
+
+var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
+
 var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
@@ -21105,7 +21109,7 @@ var VenueItem = function (_React$Component) {
                     return _react2.default.createElement(
                         'div',
                         { className: 'venueListing', key: listing._id },
-                        listing.name,
+                        _react2.default.createElement(_ListingNameDisplay2.default, listing),
                         ' - Expires ',
                         _react2.default.createElement(_DateBlock2.default, { date: listing.end })
                     );
@@ -21130,7 +21134,7 @@ var VenueItem = function (_React$Component) {
                     'div',
                     null,
                     'Upcoming: ',
-                    nextListing.name,
+                    _react2.default.createElement(_ListingNameDisplay2.default, nextListing),
                     ' - Starting ',
                     _react2.default.createElement(_DateBlock2.default, { date: nextListing.start })
                 )
@@ -22201,10 +22205,8 @@ var ListStore = function () {
                             var feature = this.allFeatures[y];
                             // Find current feature
                             if (!features.includes(feature) && feature.list) {
-                                if ((0, _moment2.default)(feature.list.end).isSameOrAfter(today)) {
-                                    features.push(feature);
-                                    break;
-                                }
+                                features.push(feature);
+                                break;
                             }
                         }
                     }
