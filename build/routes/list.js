@@ -169,26 +169,33 @@ router.get('/find/:regex_input', function (req, res, next) {
     var List = req.list;
 
     var regexp = new RegExp(req.params.regex_input, "i");
+
+    var results = [];
     
     List
-    .find({name: regexp})
-    .populate('artists')
+    .find( {$or:[ {title: regexp}, {name: regexp}]})
     .exec(function (err, listings) {
-    if (err)
-        res.send(err);
-        
-    var results = [];
-    listings.map(function (thelisting) {
-        var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map((artist, index) => { var comma = index < (thelisting.artists.length - 1) ? ', ' : ''; return artist.name + comma}) : ''
-        var colon = thelisting.artists.length && thelisting.name ? ': ' : ''
-        var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : ''
-        results.push({
-            value: thelisting._id,
-            label: artists + groupShow + colon + thelisting.name
-        });
-    })
+        if (err) res.send(err);
 
-    res.json(results);
+        listings.map(thelisting => {
+            if (thelisting.title){
+                results.push({
+                    value: thelisting._id,
+                    label: thelisting.title
+                });
+            } else {
+                var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map((artist, index) => { var comma = index < (thelisting.artists.length - 1) ? ', ' : ''; return artist.name + comma}) : ''
+                var colon = thelisting.artists.length && thelisting.name ? ': ' : ''
+                var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : ''
+                results.push({
+                    value: thelisting._id,
+                    label: artists + groupShow + colon + thelisting.name
+                });
+            }
+        })
+            
+        res.json(results);
+
     });
 
 });
@@ -242,6 +249,19 @@ router.post('/add', function (req, res) {
 	newlisting.created_at = now;
 	newlisting.updated_at = now;
     newlisting.updated_by = req.user._id;
+
+    //Create the full show title
+    let artistBlock = ''
+    if (newlisting.artists){
+        var i
+        for (i =0; i < newlisting.artists.length; i++) {
+            var comma = i < (newlisting.artists.length - 1) ? ', ' : ''
+            artistBlock = artistBlock + newlisting.artists[i].name + comma
+        }
+    }
+    let firstPart = newlisting.artists && newlisting.artists.length > 3 ? 'Group Show' : artistBlock
+    let colon =  newlisting.artists && newlisting.artists.length > 0 && newlisting.name ? ': ' : ''
+    newlisting.title = firstPart + colon + newlisting.name
     
     //SAVE ALL THE ARTISTS
     var artistsfn = function saveArtists(artist){ // Save artist async
@@ -318,6 +338,19 @@ router.post('/update', function (req, res) {
 	var now = moment();
 	thelisting.updated_at = now;
     thelisting.updated_by = req.user._id;
+
+    //Create the full show title
+    let artistBlock = ''
+    if (thelisting.artists){
+        var i
+        for (i =0; i < thelisting.artists.length; i++) {
+            var comma = i < (thelisting.artists.length - 1) ? ', ' : ''
+            artistBlock = artistBlock + thelisting.artists[i].name + comma
+        }
+    }
+    let firstPart = thelisting.artists && thelisting.artists.length > 3 ? 'Group Show' : artistBlock
+    let colon =  thelisting.artists && thelisting.artists.length > 0 && thelisting.name ? ': ' : ''
+    thelisting.title = firstPart + colon + thelisting.name
 
     //SAVE ALL THE ARTISTS
     var artistsfn = function saveArtists(artist){ // Save artist async

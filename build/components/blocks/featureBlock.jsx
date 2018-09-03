@@ -5,6 +5,7 @@ import {IntlProvider, FormattedDate} from 'react-intl';
 import ImageBlock from './imageBlock';
 import HtmlText from './HtmlText' 
 import Helmet from './Helmet'
+import ListingNameDisplay from './ListingNameDisplay'
 
 export default class FeatureBlock extends React.Component {
     constructor(props) {
@@ -77,7 +78,7 @@ export default class FeatureBlock extends React.Component {
                 {listing.image? <ImageBlock image={listing.image} classes="feature" /> : ''}
             </div>
             <div className="info">
-                <h3>{listing.name} at <a className="venueName" href={"/venue/" + venue.slug}>{venue.name}</a></h3>
+                <h3>{listing.title ? listing.title : <ListingNameDisplay {...listing} />} at <a className="venueName" href={"/venue/" + venue.slug}>{venue.name}</a></h3>
                 <HtmlText content={feature.text} />
                 {listing.description && 
                     <div className="notes">

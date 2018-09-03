@@ -60,6 +60,7 @@ export default class Listing extends React.Component {
         
     render() {
 
+
         let listing = this.props.listing
         const id = listing._id;
 
@@ -124,7 +125,7 @@ export default class Listing extends React.Component {
             <div className = "listingContent">
                 <div className="header cf">
 
-                    <ListingNameDisplay {...listing} /> {dateDisplay}
+                    {listing.title ? listing.title : <ListingNameDisplay {...listing} />} {dateDisplay}
 
                     {this.props.dateView == "current" && moment(listing.start).isSame(moment(), 'day') && <div className="opening"> Opening Today </div>}
                     {this.props.dateView == "current" && moment(listing.end).isSame(moment(), 'day') && <div className="closing"> Closing Today </div>}

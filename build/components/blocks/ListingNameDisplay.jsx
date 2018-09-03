@@ -18,11 +18,11 @@ export default class ListingNameDisplay extends React.Component {
         }
       
     return (
-        <div className="title">
+        <span className="title">
             {isGroupShow ? 'Group Show' : artistBlock}
             { artistPresent && listing.name ? ': ' : ''}
             { listing.name } 
-        </div>
+        </span>
     )
   }
 }

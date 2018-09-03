@@ -533,6 +533,9 @@ var ListActions = function () {
         value: function sizeChange(size) {
             return size;
         }
+
+        //OVERVIEW
+
     }, {
         key: 'getVenuesAdmin',
         value: function getVenuesAdmin(neighborhood) {
@@ -629,7 +632,7 @@ var ListActions = function () {
     }, {
         key: 'adminReset',
         value: function adminReset() {
-            return;
+            return true;
         }
 
         ////////////////////
@@ -1141,7 +1144,7 @@ module.exports = require("react-router");
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -2351,6 +2354,72 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ListingNameDisplay = function (_React$Component) {
+    _inherits(ListingNameDisplay, _React$Component);
+
+    function ListingNameDisplay() {
+        _classCallCheck(this, ListingNameDisplay);
+
+        return _possibleConstructorReturn(this, (ListingNameDisplay.__proto__ || Object.getPrototypeOf(ListingNameDisplay)).apply(this, arguments));
+    }
+
+    _createClass(ListingNameDisplay, [{
+        key: 'render',
+        value: function render() {
+
+            var listing = this.props;
+            var artistPresent = listing.artists && listing.artists.length > 0 && true;
+            var isGroupShow = listing.artists && listing.artists.length > 3 ? true : false;
+
+            var artistBlock = '';
+            if (listing.artists) {
+                var i;
+                for (i = 0; i < listing.artists.length; i++) {
+                    var comma = i < listing.artists.length - 1 ? ', ' : '';
+                    artistBlock = artistBlock + listing.artists[i].name + comma;
+                }
+            }
+
+            return _react2.default.createElement(
+                'span',
+                { className: 'title' },
+                isGroupShow ? 'Group Show' : artistBlock,
+                artistPresent && listing.name ? ': ' : '',
+                listing.name
+            );
+        }
+    }]);
+
+    return ListingNameDisplay;
+}(_react2.default.Component);
+
+exports.default = ListingNameDisplay;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
 var _reactSelect = __webpack_require__(213);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -2390,76 +2459,10 @@ var formSelect = function (_React$Component) {
 exports.default = formSelect;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ListingNameDisplay = function (_React$Component) {
-    _inherits(ListingNameDisplay, _React$Component);
-
-    function ListingNameDisplay() {
-        _classCallCheck(this, ListingNameDisplay);
-
-        return _possibleConstructorReturn(this, (ListingNameDisplay.__proto__ || Object.getPrototypeOf(ListingNameDisplay)).apply(this, arguments));
-    }
-
-    _createClass(ListingNameDisplay, [{
-        key: 'render',
-        value: function render() {
-
-            var listing = this.props;
-            var artistPresent = listing.artists && listing.artists.length > 0 && true;
-            var isGroupShow = listing.artists && listing.artists.length > 3 ? true : false;
-
-            var artistBlock = '';
-            if (listing.artists) {
-                var i;
-                for (i = 0; i < listing.artists.length; i++) {
-                    var comma = i < listing.artists.length - 1 ? ', ' : '';
-                    artistBlock = artistBlock + listing.artists[i].name + comma;
-                }
-            }
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'title' },
-                isGroupShow ? 'Group Show' : artistBlock,
-                artistPresent && listing.name ? ': ' : '',
-                listing.name
-            );
-        }
-    }]);
-
-    return ListingNameDisplay;
-}(_react2.default.Component);
-
-exports.default = ListingNameDisplay;
 
 /***/ }),
 /* 19 */
@@ -3345,7 +3348,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(17);
+var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -6464,7 +6467,7 @@ var _reactFontawesome = __webpack_require__(5);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _ListingNameDisplay = __webpack_require__(18);
+var _ListingNameDisplay = __webpack_require__(16);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -6907,6 +6910,10 @@ var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
+var _ListingNameDisplay = __webpack_require__(16);
+
+var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7009,7 +7016,7 @@ var FeatureBlock = function (_React$Component) {
                     _react2.default.createElement(
                         'h3',
                         null,
-                        listing.name,
+                        listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing),
                         ' at ',
                         _react2.default.createElement(
                             'a',
@@ -7722,7 +7729,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -8191,7 +8198,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -8215,7 +8222,7 @@ var _ArtistTags = __webpack_require__(158);
 
 var _ArtistTags2 = _interopRequireDefault(_ArtistTags);
 
-var _ListingNameDisplay = __webpack_require__(18);
+var _ListingNameDisplay = __webpack_require__(16);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -9766,6 +9773,8 @@ var listingSchema = mongoose.Schema({
     end: Date,
     description: String,
     blurb: String,
+    title: String,
+    tags: [String],
     venue: {
         type: String,
         ref: 'Venue'
@@ -10674,20 +10683,28 @@ router.get('/find/:regex_input', function (req, res, next) {
 
     var regexp = new RegExp(req.params.regex_input, "i");
 
-    List.find({ name: regexp }).populate('artists').exec(function (err, listings) {
+    var results = [];
+
+    List.find({ $or: [{ title: regexp }, { name: regexp }] }).exec(function (err, listings) {
         if (err) res.send(err);
 
-        var results = [];
         listings.map(function (thelisting) {
-            var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map(function (artist, index) {
-                var comma = index < thelisting.artists.length - 1 ? ', ' : '';return artist.name + comma;
-            }) : '';
-            var colon = thelisting.artists.length && thelisting.name ? ': ' : '';
-            var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : '';
-            results.push({
-                value: thelisting._id,
-                label: artists + groupShow + colon + thelisting.name
-            });
+            if (thelisting.title) {
+                results.push({
+                    value: thelisting._id,
+                    label: thelisting.title
+                });
+            } else {
+                var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map(function (artist, index) {
+                    var comma = index < thelisting.artists.length - 1 ? ', ' : '';return artist.name + comma;
+                }) : '';
+                var colon = thelisting.artists.length && thelisting.name ? ': ' : '';
+                var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : '';
+                results.push({
+                    value: thelisting._id,
+                    label: artists + groupShow + colon + thelisting.name
+                });
+            }
         });
 
         res.json(results);
@@ -10731,6 +10748,19 @@ router.post('/add', function (req, res) {
     newlisting.created_at = now;
     newlisting.updated_at = now;
     newlisting.updated_by = req.user._id;
+
+    //Create the full show title
+    var artistBlock = '';
+    if (newlisting.artists) {
+        var i;
+        for (i = 0; i < newlisting.artists.length; i++) {
+            var comma = i < newlisting.artists.length - 1 ? ', ' : '';
+            artistBlock = artistBlock + newlisting.artists[i].name + comma;
+        }
+    }
+    var firstPart = newlisting.artists && newlisting.artists.length > 3 ? 'Group Show' : artistBlock;
+    var colon = newlisting.artists && newlisting.artists.length > 0 && newlisting.name ? ': ' : '';
+    newlisting.title = firstPart + colon + newlisting.name;
 
     //SAVE ALL THE ARTISTS
     var artistsfn = function saveArtists(artist) {
@@ -10805,6 +10835,19 @@ router.post('/update', function (req, res) {
     var now = (0, _moment2.default)();
     thelisting.updated_at = now;
     thelisting.updated_by = req.user._id;
+
+    //Create the full show title
+    var artistBlock = '';
+    if (thelisting.artists) {
+        var i;
+        for (i = 0; i < thelisting.artists.length; i++) {
+            var comma = i < thelisting.artists.length - 1 ? ', ' : '';
+            artistBlock = artistBlock + thelisting.artists[i].name + comma;
+        }
+    }
+    var firstPart = thelisting.artists && thelisting.artists.length > 3 ? 'Group Show' : artistBlock;
+    var colon = thelisting.artists && thelisting.artists.length > 0 && thelisting.name ? ': ' : '';
+    thelisting.title = firstPart + colon + thelisting.name;
 
     //SAVE ALL THE ARTISTS
     var artistsfn = function saveArtists(artist) {
@@ -12740,7 +12783,7 @@ var _d3Request = __webpack_require__(196);
 
 var _reactstrap = __webpack_require__(2);
 
-var _ListingNameDisplay = __webpack_require__(18);
+var _ListingNameDisplay = __webpack_require__(16);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -14093,7 +14136,7 @@ var _EventActions = __webpack_require__(14);
 
 var _EventActions2 = _interopRequireDefault(_EventActions);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -14246,7 +14289,7 @@ var _VenueBlock = __webpack_require__(12);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -14404,7 +14447,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -15091,7 +15134,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _formSelect = __webpack_require__(16);
+var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
@@ -15448,7 +15491,7 @@ var _reactFontawesome = __webpack_require__(5);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _ListingNameDisplay = __webpack_require__(18);
+var _ListingNameDisplay = __webpack_require__(16);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
@@ -15629,7 +15672,7 @@ var Listing = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'header cf' },
-                        _react2.default.createElement(_ListingNameDisplay2.default, listing),
+                        listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing),
                         ' ',
                         dateDisplay,
                         this.props.dateView == "current" && (0, _moment2.default)(listing.start).isSame((0, _moment2.default)(), 'day') && _react2.default.createElement(
@@ -16851,7 +16894,7 @@ var ArtistTags = function (_React$Component) {
     value: function render() {
 
       return _react2.default.createElement(_reactTagsinput2.default, {
-        value: this.props.value,
+        value: this.props.value ? this.props.value : [],
         onChange: this.props.onChange,
         tagDisplayProp: "name",
         placeholder: 'Add an artist',
@@ -18858,7 +18901,7 @@ var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _propTypes = __webpack_require__(17);
+var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -19083,7 +19126,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(17);
+var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -19173,7 +19216,7 @@ var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _propTypes = __webpack_require__(17);
+var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -19470,7 +19513,7 @@ var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _propTypes = __webpack_require__(17);
+var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -21009,7 +21052,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _ListingNameDisplay = __webpack_require__(18);
+var _ListingNameDisplay = __webpack_require__(16);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 

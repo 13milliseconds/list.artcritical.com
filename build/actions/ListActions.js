@@ -516,6 +516,7 @@ class ListActions {
         return size;
     }
     
+    //OVERVIEW
     getVenuesAdmin(neighborhood) {
         this.getVenuesAdminAttempt();
         return dispatch => {
@@ -627,7 +628,7 @@ class ListActions {
     }
 	
 	adminReset(){
-		return;
+		return true;
     }
 
     ////////////////////
