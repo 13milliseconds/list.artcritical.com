@@ -13,7 +13,7 @@ var listingSchema = mongoose.Schema({
     description: String,
     blurb: String,
     title: String,
-    tags: [String],
+    tags: String,
     venue: {
         type: String,
 		ref: 'Venue'

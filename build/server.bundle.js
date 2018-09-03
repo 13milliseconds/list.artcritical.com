@@ -9774,7 +9774,7 @@ var listingSchema = mongoose.Schema({
     description: String,
     blurb: String,
     title: String,
-    tags: [String],
+    tags: String,
     venue: {
         type: String,
         ref: 'Venue'
@@ -10681,11 +10681,12 @@ router.get('/latestlistings', function (req, res) {
 router.get('/find/:regex_input', function (req, res, next) {
     var List = req.list;
 
-    var regexp = new RegExp(req.params.regex_input, "i");
+    var regexp = new RegExp(req.params.regex_input, "gi");
 
     var results = [];
 
-    List.find({ $or: [{ title: regexp }, { name: regexp }] }).exec(function (err, listings) {
+    List.find({ $or: [{ tags: regexp }, { name: regexp }] }).populate('artists') //get rid of this when all shows have titles
+    .exec(function (err, listings) {
         if (err) res.send(err);
 
         listings.map(function (thelisting) {
@@ -10720,7 +10721,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
 
     List.findOne({
         _id: req.params.listing_id
-    }).where('venue').ne('').populate('venue').populate('artists').populate('relatedEvents').populate('updated_by').exec(function (e, listing) {
+    }).where('venue').ne('').populate('venue').populate('artists').populate('relatedEvents').populate('updated_by').populate('created_by').exec(function (e, listing) {
         if (e) res.send(e);
         Event.find({ list: listing._id }).exec(function (e, docs) {
             var fullListing = listing;
@@ -10752,7 +10753,7 @@ router.post('/add', function (req, res) {
     //Create the full show title
     var artistBlock = '';
     if (newlisting.artists) {
-        var i;
+        var ij;
         for (i = 0; i < newlisting.artists.length; i++) {
             var comma = i < newlisting.artists.length - 1 ? ', ' : '';
             artistBlock = artistBlock + newlisting.artists[i].name + comma;
@@ -10761,6 +10762,7 @@ router.post('/add', function (req, res) {
     var firstPart = newlisting.artists && newlisting.artists.length > 3 ? 'Group Show' : artistBlock;
     var colon = newlisting.artists && newlisting.artists.length > 0 && newlisting.name ? ': ' : '';
     newlisting.title = firstPart + colon + newlisting.name;
+    newlisting.tags = artistBlock + ' ' + newlisting.name;
 
     //SAVE ALL THE ARTISTS
     var artistsfn = function saveArtists(artist) {
@@ -10848,6 +10850,7 @@ router.post('/update', function (req, res) {
     var firstPart = thelisting.artists && thelisting.artists.length > 3 ? 'Group Show' : artistBlock;
     var colon = thelisting.artists && thelisting.artists.length > 0 && thelisting.name ? ': ' : '';
     thelisting.title = firstPart + colon + thelisting.name;
+    thelisting.tags = artistBlock + ' ' + thelisting.name;
 
     //SAVE ALL THE ARTISTS
     var artistsfn = function saveArtists(artist) {
@@ -10920,8 +10923,7 @@ router.post('/update', function (req, res) {
                 _id: thelisting._id
             }, {
                 $set: thelisting
-            }, function (err, newlisting) {
-                console.log(newlisting);
+            }, function (err) {
                 res.send(err === null ? {
                     msg: ''
                 } : {

@@ -168,12 +168,13 @@ router.get('/latestlistings', function (req, res) {
 router.get('/find/:regex_input', function (req, res, next) {
     var List = req.list;
 
-    var regexp = new RegExp(req.params.regex_input, "i");
+    var regexp = new RegExp(req.params.regex_input, "gi");
 
     var results = [];
     
     List
-    .find( {$or:[ {title: regexp}, {name: regexp}]})
+    .find( {$or:[ {tags: regexp}, {name: regexp}]})
+    .populate('artists') //get rid of this when all shows have titles
     .exec(function (err, listings) {
         if (err) res.send(err);
 
@@ -183,10 +184,10 @@ router.get('/find/:regex_input', function (req, res, next) {
                     value: thelisting._id,
                     label: thelisting.title
                 });
-            } else {
+            } else { //get rid of this when all shows have titles
                 var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map((artist, index) => { var comma = index < (thelisting.artists.length - 1) ? ', ' : ''; return artist.name + comma}) : ''
-                var colon = thelisting.artists.length && thelisting.name ? ': ' : ''
                 var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : ''
+                var colon = thelisting.artists.length && thelisting.name ? ': ' : ''
                 results.push({
                     value: thelisting._id,
                     label: artists + groupShow + colon + thelisting.name
@@ -217,6 +218,7 @@ router.get('/getinfo/:listing_id', function (req, res, next) {
     populate('artists').
     populate('relatedEvents').
     populate('updated_by').
+    populate('created_by').
     exec(function (e, listing) {
         if (e)
             res.send(e);
@@ -253,8 +255,8 @@ router.post('/add', function (req, res) {
     //Create the full show title
     let artistBlock = ''
     if (newlisting.artists){
-        var i
-        for (i =0; i < newlisting.artists.length; i++) {
+        var ij
+        for (i = 0; i < newlisting.artists.length; i++) {
             var comma = i < (newlisting.artists.length - 1) ? ', ' : ''
             artistBlock = artistBlock + newlisting.artists[i].name + comma
         }
@@ -262,6 +264,7 @@ router.post('/add', function (req, res) {
     let firstPart = newlisting.artists && newlisting.artists.length > 3 ? 'Group Show' : artistBlock
     let colon =  newlisting.artists && newlisting.artists.length > 0 && newlisting.name ? ': ' : ''
     newlisting.title = firstPart + colon + newlisting.name
+    newlisting.tags = artistBlock +  ' ' + newlisting.name
     
     //SAVE ALL THE ARTISTS
     var artistsfn = function saveArtists(artist){ // Save artist async
@@ -351,6 +354,7 @@ router.post('/update', function (req, res) {
     let firstPart = thelisting.artists && thelisting.artists.length > 3 ? 'Group Show' : artistBlock
     let colon =  thelisting.artists && thelisting.artists.length > 0 && thelisting.name ? ': ' : ''
     thelisting.title = firstPart + colon + thelisting.name
+    thelisting.tags = artistBlock +  ' ' + thelisting.name
 
     //SAVE ALL THE ARTISTS
     var artistsfn = function saveArtists(artist){ // Save artist async
@@ -422,8 +426,7 @@ router.post('/update', function (req, res) {
                 _id: thelisting._id
                 }, {
                     $set: thelisting
-                }, function (err, newlisting) {
-                    console.log(newlisting)
+                }, function (err) {
                     res.send(
                         (err === null) ? {
                             msg: ''
