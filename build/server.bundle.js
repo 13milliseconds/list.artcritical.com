@@ -2039,6 +2039,10 @@ var UpdateModal = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).call(this, props));
 
+        _this.state = {
+            newSuccess: false
+        };
+
         _this.componentDidUpdate = _this.componentDidUpdate.bind(_this);
         return _this;
     }
@@ -2046,9 +2050,20 @@ var UpdateModal = function (_React$Component) {
     _createClass(UpdateModal, [{
         key: 'componentDidUpdate',
         value: function componentDidUpdate() {
-            this.props.success && setTimeout(function () {
-                this.props.toggle(this.props.name);
-            }.bind(this), 1000);
+            if (this.props.success && !this.state.newSuccess) {
+                //Make sure it's the first time it updates
+                this.setState({
+                    newSuccess: true
+                });
+                var that = this;
+                setTimeout(function () {
+                    console.log('Update and Success');
+                    this.props.toggle(this.props.name);
+                    that.setState({
+                        newSuccess: false
+                    });
+                }.bind(this), 1000);
+            }
         }
     }, {
         key: 'render',
@@ -10696,11 +10711,12 @@ router.get('/find/:regex_input', function (req, res, next) {
                     label: thelisting.title
                 });
             } else {
+                //get rid of this when all shows have titles
                 var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map(function (artist, index) {
                     var comma = index < thelisting.artists.length - 1 ? ', ' : '';return artist.name + comma;
                 }) : '';
-                var colon = thelisting.artists.length && thelisting.name ? ': ' : '';
                 var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : '';
+                var colon = thelisting.artists.length && thelisting.name ? ': ' : '';
                 results.push({
                     value: thelisting._id,
                     label: artists + groupShow + colon + thelisting.name
@@ -10753,7 +10769,7 @@ router.post('/add', function (req, res) {
     //Create the full show title
     var artistBlock = '';
     if (newlisting.artists) {
-        var ij;
+        var i;
         for (i = 0; i < newlisting.artists.length; i++) {
             var comma = i < newlisting.artists.length - 1 ? ', ' : '';
             artistBlock = artistBlock + newlisting.artists[i].name + comma;
@@ -21905,7 +21921,7 @@ var ListStore = function () {
             this.success.savevenue = true;
             setTimeout(function () {
                 this.success.savevenue = false;
-            }.bind(this), 1000);
+            }.bind(this), 2000);
         }
     }, {
         key: 'onSaveVenueFailure',
@@ -21938,7 +21954,7 @@ var ListStore = function () {
             this.success.updatevenue = true;
             setTimeout(function () {
                 this.success.updatevenue = false;
-            }.bind(this), 1000);
+            }.bind(this), 2000);
         }
     }, {
         key: 'onUpdateVenueFailure',
@@ -21964,7 +21980,7 @@ var ListStore = function () {
             this.success.deletevenue = true;
             setTimeout(function () {
                 this.success.deletevenue = false;
-            }.bind(this), 1000);
+            }.bind(this), 2000);
         }
     }, {
         key: 'onDeleteVenueFailure',
@@ -22014,18 +22030,19 @@ var ListStore = function () {
     }, {
         key: 'onSaveListingAttempt',
         value: function onSaveListingAttempt() {
+            this.success.savelisting = false;
             this.loading.savelisting = true;
         }
     }, {
         key: 'onSaveListingSuccess',
         value: function onSaveListingSuccess(data) {
-            this.loading.savelisting = false;
             this.success.savelisting = true;
+            this.loading.savelisting = false;
             this.listingEdit._id = data._id;
             var that = this;
             setTimeout(function () {
                 that.success.savelisting = false;
-            }.bind(this), 1000);
+            }.bind(this), 2000);
         }
     }, {
         key: 'onSaveListingFailure',
@@ -22051,7 +22068,7 @@ var ListStore = function () {
             var that = this;
             setTimeout(function () {
                 that.success.updatelisting = false;
-            }, 1000);
+            }, 2000);
         }
     }, {
         key: 'onUpdateListingFailure',
@@ -22073,7 +22090,9 @@ var ListStore = function () {
             this.listingEdit = {
                 venue: {},
                 relatedEvents: [],
-                artists: []
+                artists: [],
+                name: '',
+                description: ''
                 //Close the sidebar
             };this.sidebarOpen = false;
             //Reset the success status
@@ -22402,7 +22421,7 @@ var ListStore = function () {
             this.success.updateUser = true;
             setTimeout(function () {
                 this.success.updateUser = false;
-            }.bind(this), 1000);
+            }.bind(this), 2000);
         }
     }, {
         key: 'onUpdateUserFailure',
@@ -22432,7 +22451,7 @@ var ListStore = function () {
             this.success.deleteUser = true;
             setTimeout(function () {
                 this.success.deleteUser = false;
-            }.bind(this), 1000);
+            }.bind(this), 2000);
         }
     }, {
         key: 'onDeleteUserFailure',

@@ -301,7 +301,7 @@ class ListStore {
         this.success.savevenue = true
         setTimeout(function(){
             this.success.savevenue = false;
-        }.bind(this), 1000)
+        }.bind(this), 2000)
     }
     onSaveVenueFailure(err){
         console.log('Problem saving venue', err)
@@ -325,7 +325,7 @@ class ListStore {
         this.success.updatevenue = true;
         setTimeout(function(){
             this.success.updatevenue = false;
-        }.bind(this), 1000)
+        }.bind(this), 2000)
     }
     onUpdateVenueFailure(error){
         console.log('Problem updating venue', error)
@@ -344,7 +344,7 @@ class ListStore {
         this.success.deletevenue = true;
         setTimeout(function(){
             this.success.deletevenue = false;
-        }.bind(this), 1000)
+        }.bind(this), 2000)
     }
     onDeleteVenueFailure(err){
         console.log('Error deleting: ', err);
@@ -377,16 +377,17 @@ class ListStore {
     
     //Save a new listing
     onSaveListingAttempt(){
+        this.success.savelisting = false;
         this.loading.savelisting = true;       
     }
     onSaveListingSuccess(data){
-        this.loading.savelisting = false; 
         this.success.savelisting = true;
+        this.loading.savelisting = false; 
         this.listingEdit._id = data._id;
         var that = this;
         setTimeout(function(){
             that.success.savelisting = false;
-        }.bind(this), 1000)
+        }.bind(this), 2000)
     }
     onSaveListingFailure(err){
         console.log('Error ', err);
@@ -406,7 +407,7 @@ class ListStore {
         var that = this;
         setTimeout(() => {
             that.success.updatelisting = false;
-        }, 1000);
+        }, 2000);
     }
     onUpdateListingFailure(err){
         this.loading.updatelisting = false; 
@@ -423,7 +424,9 @@ class ListStore {
         this.listingEdit = {
             venue: {},
             relatedEvents: [],
-            artists: []
+            artists: [],
+            name: '',
+            description: ''
         }
         //Close the sidebar
         this.sidebarOpen = false;
@@ -688,7 +691,7 @@ class ListStore {
         this.success.updateUser = true;
         setTimeout(function(){
             this.success.updateUser = false;
-        }.bind(this), 1000)
+        }.bind(this), 2000)
     }
     onUpdateUserFailure(error){
         console.log('Failed Updating User', error);
@@ -709,7 +712,7 @@ class ListStore {
         this.success.deleteUser = true;
         setTimeout(function(){
             this.success.deleteUser = false;
-        }.bind(this), 1000)
+        }.bind(this), 2000)
     }
     onDeleteUserFailure(error){
         console.log('Failed Deleting User', error);

@@ -255,7 +255,7 @@ router.post('/add', function (req, res) {
     //Create the full show title
     let artistBlock = ''
     if (newlisting.artists){
-        var ij
+        var i
         for (i = 0; i < newlisting.artists.length; i++) {
             var comma = i < (newlisting.artists.length - 1) ? ', ' : ''
             artistBlock = artistBlock + newlisting.artists[i].name + comma

@@ -5,13 +5,28 @@ export default class UpdateModal extends React.Component {
 	constructor(props) {
         super(props)
 
+        this.state = {
+            newSuccess: false
+        }
+
         this.componentDidUpdate = this.componentDidUpdate.bind(this)
     }
 
     componentDidUpdate(){
-        this.props.success && setTimeout(function(){
-            this.props.toggle(this.props.name)
-        }.bind(this), 1000)
+       if (this.props.success && !this.state.newSuccess) {
+           //Make sure it's the first time it updates
+           this.setState({
+               newSuccess: true
+           })
+           let that = this
+            setTimeout(function(){
+                console.log('Update and Success')
+                this.props.toggle(this.props.name)
+                that.setState({
+                    newSuccess: false
+                })
+            }.bind(this), 1000)
+       }
     }
 
 	render() {
