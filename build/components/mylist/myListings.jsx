@@ -10,10 +10,20 @@ export default class MyListings extends React.Component {
 
 
     render() {
+
+        let makeid = () => {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+          
+            for (var i = 0; i < 5; i++)
+              text += possible.charAt(Math.floor(Math.random() * possible.length));
+          
+            return text;
+          }
         
         return ( 
                 <Reorder
-                    reorderId="my-list"
+                    reorderId={this.props.user._id}
                     draggedClassName="dragged"
                     lock="horizontal"
                     holdTime={10}

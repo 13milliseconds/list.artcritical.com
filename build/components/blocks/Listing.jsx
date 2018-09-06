@@ -51,9 +51,11 @@ export default class Listing extends React.Component {
 
     eventsDisplay(events){
         return events.map((event, index) => {
-            return <div className="listingEvent" key={index}>
-                    <span className="type">{event.type === "other" ? event.name : event.type}</span>: {event.date && <Date date={event.date} />} - {event.description ? event.description : "8pm"}
-            </div>
+            if (event) {
+                return <div className="listingEvent" key={index}>
+                        <span className="type">{event.type === "other" ? event.name : event.type}</span>: {event.date && <Date date={event.date} />} - {event.description ? event.description : "8pm"}
+                    </div>
+            }
         })
 
     }
@@ -68,8 +70,9 @@ export default class Listing extends React.Component {
 
         //let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
         let eventsPresence = false
+        console.log('relatedEvents: ', listing.relatedEvents)
         listing.relatedEvents && listing.relatedEvents.map(event => {
-            if (moment(event.date).isAfter(moment().startOf('day'))){
+            if (event && moment(event.date).isAfter(moment().startOf('day'))){
                 eventsPresence = true
             }
         })

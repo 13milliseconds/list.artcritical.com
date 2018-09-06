@@ -15575,19 +15575,21 @@ var Listing = function (_React$Component) {
         key: 'eventsDisplay',
         value: function eventsDisplay(events) {
             return events.map(function (event, index) {
-                return _react2.default.createElement(
-                    'div',
-                    { className: 'listingEvent', key: index },
-                    _react2.default.createElement(
-                        'span',
-                        { className: 'type' },
-                        event.type === "other" ? event.name : event.type
-                    ),
-                    ': ',
-                    event.date && _react2.default.createElement(_DateBlock2.default, { date: event.date }),
-                    ' - ',
-                    event.description ? event.description : "8pm"
-                );
+                if (event) {
+                    return _react2.default.createElement(
+                        'div',
+                        { className: 'listingEvent', key: index },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'type' },
+                            event.type === "other" ? event.name : event.type
+                        ),
+                        ': ',
+                        event.date && _react2.default.createElement(_DateBlock2.default, { date: event.date }),
+                        ' - ',
+                        event.description ? event.description : "8pm"
+                    );
+                }
             });
         }
     }, {
@@ -15610,8 +15612,9 @@ var Listing = function (_React$Component) {
 
             //let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
             var eventsPresence = false;
+            console.log('relatedEvents: ', listing.relatedEvents);
             listing.relatedEvents && listing.relatedEvents.map(function (event) {
-                if ((0, _moment2.default)(event.date).isAfter((0, _moment2.default)().startOf('day'))) {
+                if (event && (0, _moment2.default)(event.date).isAfter((0, _moment2.default)().startOf('day'))) {
                     eventsPresence = true;
                 }
             });
@@ -20534,10 +20537,19 @@ var MyListings = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var makeid = function makeid() {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for (var i = 0; i < 5; i++) {
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }return text;
+            };
+
             return _react2.default.createElement(
                 _reactReorder2.default,
                 {
-                    reorderId: 'my-list',
+                    reorderId: this.props.user._id,
                     draggedClassName: 'dragged',
                     lock: 'horizontal',
                     holdTime: 10,
