@@ -21,6 +21,7 @@ import EditListing from './components/admin/EditListing';
 import EditEvents from './components/admin/EditEvents';
 import EditVenue from './components/admin/EditVenue';
 import FeaturedListings from './components/admin/featuredPage';
+import PastFeaturedListings from './components/admin/PastFeaturedPage';
 import VenuesPage from './components/admin/VenuesPage';
 import UsersPage from './components/admin/UsersPage';
 import ReviewPage from './components/admin/ReviewPage';
@@ -49,6 +50,7 @@ const routes = (
             <Route path="events" component={EditEvents}/>
             <Route path="venues" component={EditVenue}/>
             <Route path="featured" component={FeaturedListings}/>
+            <Route path="pastfeatures" component={PastFeaturedListings}/>
 			<Route path="review" component={ReviewPage}/>
 			<Route path="users" component={UsersPage}/>
         </Route>

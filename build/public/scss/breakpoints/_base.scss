@@ -1012,6 +1012,9 @@ ADMIN
 		}
     }
     .featureAdmin{
+        .pastfeatures{
+            float: right;
+        }
         .preview{
             display: none;
         }
@@ -1027,6 +1030,15 @@ ADMIN
                 .formSection{
                     @include span-columns(12);
                 }
+            }
+        }
+    }
+    .pastFeatureAdmin{
+        .feature{
+            margin-bottom: 30px;
+            h2{
+                font-size: 1.5em;
+                font-weight: 400;
             }
         }
     }

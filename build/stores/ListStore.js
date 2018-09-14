@@ -614,30 +614,32 @@ class ListStore {
         this.loading.features = false
         if (data.json){
 			// Match all features with a day of the next week
-            let features = []
             this.allFeatures = data.json
 
-			//Find element in features whose date == d
-				//For each day of the week
-				for (var i=0; i < data.days; i++) { 
-                    let tempFeature = null
-					// Go through all the features
-					this.allFeatures.map((feature) => {
-                        // Check if it matches
-                        let d = moment().add(i, 'days');
-						if (moment(feature.date).isSame(d, 'day')){
-                            tempFeature = feature
+            if (data.days){
+                let features = []
+                //Find element in features whose date == d
+                    //For each day of the week
+                    for (var i=0; i < data.days; i++) {
+                        let tempFeature = null
+                        // Go through all the features
+                        this.allFeatures.map((feature) => {
+                            // Check if it matches
+                            let d = moment().add(i, 'days');
+                            if (moment(feature.date).isSame(d, 'day')){
+                                tempFeature = feature
+                            }
+                        })
+                        if (tempFeature){
+                            features.push(tempFeature)
+                            tempFeature = null
+                        }  else {
+                            features.push({})
                         }
-					})
-					if (tempFeature){
-						features.push(tempFeature)
-						tempFeature = null
-					}  else {
-						features.push({})
-					}
-				}
-            this.features = features;
-            console.log('Loaded all features: ', this.features)
+                    }
+                this.features = features;
+                console.log('Loaded all features: ', this.features)
+            }
         } else {
             this.error.feature = "No Features";
         }

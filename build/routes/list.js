@@ -582,6 +582,7 @@ router.post('/findfeatures', function (req, res) {
     console.log("Find all features");
 
     Feature.find()
+    .sort('-date')
     .populate('list')
     .populate('event')
     .populate('venue')

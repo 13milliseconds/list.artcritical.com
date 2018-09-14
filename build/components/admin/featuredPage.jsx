@@ -53,6 +53,7 @@ export default class FeaturePage extends React.Component {
         return ( 
             <div className = "featureAdmin">
               <h2>Featured Listings</h2>
+              <Link className="pastfeatures" to="/admin/pastfeatures">Past Features</Link>
               {this.props.loading.features 
                     ? <Loading />
                     :<Tabs>{days}</Tabs>
