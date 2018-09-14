@@ -252,7 +252,7 @@ class ListStore {
         if (!this.listingEdit.relatedEvents){
             this.listingEdit.relatedEvents = [];
         }
-		// Need to explain this
+		// This makes the found listing a featured listing
 		if (Number.isInteger(info.i)){
 			console.log('Feature listing', this.features);
 			this.features[info.i].list = info.data;
@@ -965,10 +965,17 @@ class ListStore {
         this.error.saveEvent = 'Error. ' + error;
     }
 
-    onGetEventInfoSuccess(data){
-        if (data){ 
-            this.eventEdit = data
+    onGetEventInfoSuccess(info){
+        if (info){ 
+            this.eventEdit = info.data
         }
+        // Making a featured event
+		if (Number.isInteger(info.i)){
+            this.features[info.i].event = info.data;
+            this.features[info.i].list = info.data.list;
+            this.features[info.i].type = 'event';
+			console.log('Feature #' + info.i, this.features[info.i]);
+		}
     }
     //Update an event
     onUpdateEventAttempt(){

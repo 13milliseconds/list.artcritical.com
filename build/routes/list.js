@@ -336,6 +336,7 @@ router.post('/update', function (req, res) {
 
     // define a new entry
     var thelisting = req.body;
+    console.log('The listing: ', thelisting)
 
     // Save when and who updated it
 	var now = moment();
@@ -376,11 +377,14 @@ router.post('/update', function (req, res) {
 
     savedArtists.then(data => {
 
+        console.log('artists saved')
+
         thelisting.artists = data;
 
         //SAVE ALL THE EVENTS
         var eventsfn = function saveEvents(event){ // Save artist async
             if (event._id){
+                console.log('update an event')
 
                 let newEvent = event
                 newEvent.venue = thelisting.venue._id
@@ -399,6 +403,9 @@ router.post('/update', function (req, res) {
                 })
 
             } else {
+
+                console.log('save a new event')
+
                 let newEvent = event
                 newEvent.venue = thelisting.venue._id
                 newEvent.list = thelisting._id
@@ -419,8 +426,12 @@ router.post('/update', function (req, res) {
     
         savedEvents.then(data => {
 
+            console.log('events saved')
+
             thelisting.relatedEvents = data;
             thelisting = new List(thelisting);
+
+            console.log('The final listing: ', thelisting)
 
             List.update({
                 _id: thelisting._id
@@ -449,6 +460,7 @@ router.post('/update', function (req, res) {
 
 router.post('/feature', function (req, res) {
     var Feature = req.feature;
+    var List = req.list;
 
     if (req.body._id) {
 
@@ -456,12 +468,21 @@ router.post('/feature', function (req, res) {
 
         var theFeature = new Feature(req.body);
 
+        
+
         Feature.update({
             _id: theFeature._id
         }, {
             $set: theFeature
-        }, function (err, newFeature) {
-            res.send((err === null) ? { msg: '' } : { msg: err });
+        }, function (error, newFeature) {
+            if (!error){
+                const listing = req.body.list
+                List.update({_id: listing._id}, { $set: listing}, function(err){
+                    if(!err) {
+                        res.send((err === null) ? { msg: '', feature: newFeature} : { msg: err });
+                    }
+                })
+            }
         });
 
 
@@ -515,6 +536,7 @@ router.post('/findcurrentfeatures', function (req, res) {
 
         //Check that all listings are current or future
         docs.map(feature => {
+            feature.list && console.log(feature.list.title)
             feature.list && feature.list.end && moment(feature.list.end).isSameOrAfter(now, 'day') && currentFeatures.push(feature)
         })
 

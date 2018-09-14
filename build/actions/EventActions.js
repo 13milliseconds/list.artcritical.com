@@ -185,7 +185,7 @@ class EventActions {
         return event;
     }
     
-    getEventInfo(id){
+    getEventInfo(id, i){
 		console.log('Getting the info for ' + id);
         return dispatch => {
             dispatch();
@@ -193,7 +193,7 @@ class EventActions {
                     url: '/event/getinfo/' + id
                 })
                 .done((data) => {
-                    this.getEventInfoSuccess(data)
+                    this.getEventInfoSuccess({data, i})
                 })
                 .fail((jqXhr) => {
                     this.getEventInfoFailure(jqXhr)

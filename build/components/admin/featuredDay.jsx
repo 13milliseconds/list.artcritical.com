@@ -1,6 +1,8 @@
 import React from 'react';
-import ListActions from '../../actions/ListActions';
+import ListActions from '../../actions/ListActions'
+import EventActions from '../../actions/EventActions'
 //Components
+import {Input} from 'reactstrap'
 import Select from '../forms/formSelect';
 import FeaturedForm from '../forms/featuredForm';
 import FeatureBlock from '../blocks/featureBlock';
@@ -15,7 +17,8 @@ export default class FeaturedDay extends React.Component {
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleListingChange = this.handleListingChange.bind(this)
+        this.handleEventChange = this.handleEventChange.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.onTextChange = this.onTextChange.bind(this)
       }
@@ -28,20 +31,27 @@ export default class FeaturedDay extends React.Component {
             _id:    id,
             date:   this.props.date,
             text:   this.state.text,
-            list:   this.props.feature.list._id,
+            list:   this.props.feature.list,
 			venue:  this.props.feature.list.venue._id
         }
         ListActions.updateFeature(newFeature)
-        ListActions.updateListing(this.props.feature.list)
       }
 	
 	handleChange (event) {
         ListActions.featureInfoChange(event, this.props.dayNumber);
     }
+    typeChange(event){
+        console.log(event.target)
+    }
     
-    handleSelectChange (data) {
+    handleListingChange (data) {
         data
             ? data.value && ListActions.getListingInfo(data.value, this.props.dayNumber)
+            : ListActions.featureReset(this.props.dayNumber)
+    }
+    handleEventChange (data) {
+        data
+            ? data.value && EventActions.getEventInfo(data.value, this.props.dayNumber)
             : ListActions.featureReset(this.props.dayNumber)
     }
 
@@ -64,11 +74,26 @@ export default class FeaturedDay extends React.Component {
               return { options: json };
             });
         }
+        const getEventOptions = (input) => {
+            return fetch('/event/find/' + input)
+              .then((response) => {
+                return response.json();
+              }).then((json) => {
+                return { options: json };
+              });
+          }
         
         return ( 
             <div>
                 <div className="featureFormWrap">
-                    <Select value={{label: list.name, value: list._id}} handleSelectChange={this.handleSelectChange} getOptions={getOptions} />
+                <Input type="select" name='featureType' id='featureType' onChange={this.typeChange} >
+                    <option value='listing'>listing</option>
+                    <option  value='event'>event</option>
+                </Input>
+                {this.props.feature.type === 'event' 
+                    ? <Select value={{label: list.name, value: list._id}} handleSelectChange={this.handleEventChange} getOptions={getEventOptions} />
+                    : <Select value={{label: list.name, value: list._id}} handleSelectChange={this.handleListingChange} getOptions={getOptions} />
+                }
                     {this.props.feature.list &&
                         <FeaturedForm {...this.props.feature} 
                             number={this.props.dayNumber} 

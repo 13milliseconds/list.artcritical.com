@@ -5,11 +5,16 @@ var mongoose = require('mongoose');
 var featureSchema = mongoose.Schema({
     date: Date,
     text: String,
+    type: String,
     list: {
         ref: 'List',
         type: String
       },
-	venue: {
+    event: {
+        ref: 'Event',
+        type: String
+    },
+	  venue: {
         ref: 'Venue',
         type: String
       }
