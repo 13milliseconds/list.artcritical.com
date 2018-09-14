@@ -1,6 +1,4 @@
 import React from 'react';
-import ToggleButton from 'react-toggle-button';
-import ListActions from '../../actions/ListActions';
 import {EditorState } from 'draft-js';
 import {stateFromHTML} from 'draft-js-import-html';
 import {stateToHTML} from 'draft-js-export-html';
@@ -9,7 +7,7 @@ import {createEditorStateWithText } from 'draft-js-plugins-editor';
 import ConfirmModal from './confirmModal'
 import ThumbnailInput from './ThumbnailInput';
 import MyEditor from './MyEditor';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Alert } from 'reactstrap';
 
 
 export default class ListingForm extends React.Component {
@@ -19,11 +17,13 @@ export default class ListingForm extends React.Component {
         this.state = {
             text: '',
             updatevisible: false,
+            deletevisible: false,
             editorState: createEditorStateWithText('Test')
         }
 
         this.onEditorChange = this.onEditorChange.bind(this)
         this.onUpdate = this.onUpdate.bind(this)
+        this.onDelete = this.onDelete.bind(this)
         this.toggleModal = this.toggleModal.bind(this)
       }
     
@@ -38,9 +38,9 @@ export default class ListingForm extends React.Component {
         }
     }
 
-    toggleModal() {
+    toggleModal(modalName) {
         this.setState({
-            updatevisible: false
+            [modalName]: !this.state[modalName]
         })
     }
 
@@ -57,14 +57,28 @@ export default class ListingForm extends React.Component {
             updatevisible: true
         })
     }
+    onDelete(e){
+        e.preventDefault();
+        this.setState({ 
+            deletevisible: true
+        })
+    }
     
     render() {
+
+        let image = this.props.list
+            ? this.props.list.image
+            : this.props.event 
+                ? this.props.event.image
+                : ''
+
         return ( 
             <div className="featuredForm">
+                { this.props.type === 'event' && <Alert color="secondary">This an event.</Alert>}
                 <Form>
                     <FormGroup check>
                         <Label>Thumbnail</Label>
-                        <ThumbnailInput image={this.props.list && this.props.list.image} number={this.props.number} /> 
+                        <ThumbnailInput image={image} number={this.props.number} /> 
                     </FormGroup>
                     
                     <FormGroup check>
@@ -79,15 +93,26 @@ export default class ListingForm extends React.Component {
                 </Form>
                 
                 <Button onClick={this.onUpdate}>Submit</Button>
+                {this.props._id && <Button onClick={this.onDelete}>Delete</Button>}
 
                 {this.state.updatevisible && <ConfirmModal 
+                                                name="updatevisible"
                                                 toggle={this.toggleModal}
                                                 handleSubmit={this.props.handleSubmit}
                                                 textTitle="Save"
                                                 textAction="save this Feature"
                                                 textConfirm="Saved!"
                                                 error={this.props.error}
-                                                success={this.props.success}/>}
+                                                success={this.props.success.updateFeature}/>}
+                {this.state.deletevisible && <ConfirmModal 
+                                                name="deletevisible"
+                                                toggle={this.toggleModal}
+                                                handleSubmit={this.props.handleDelete}
+                                                textTitle="Delete"
+                                                textAction="delete this Feature"
+                                                textConfirm="Deleted!"
+                                                error={this.props.error}
+                                                success={this.props.success.deleteFeature}/>}
             </div>
         )
     }

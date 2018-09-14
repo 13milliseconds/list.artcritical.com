@@ -48,18 +48,36 @@ export default class FeatureBlock extends React.Component {
 	
     render() {
         const feature = this.props.feature
-        const venue = this.props.feature.venue ? this.props.feature.venue : {}
-        const listing = this.props.feature.list ? this.props.feature.list : {}
+
+        const venue = feature.venue ? feature.venue : {}
+        const listing = feature.list ? feature.list : {}
+        const event = feature.event ? feature.event : {}
+        const type = feature.type
+
+        let image = type === 'event' ? event.image : listing.image 
+
+        let title = type === 'event'
+            ? event.name
+            : listing.title ? listing.title : <ListingNameDisplay {...listing} />
+
+        let description = type === 'event'
+            ? event.description
+            : listing.description
         
-        let start = listing.start?
-                    <IntlProvider locale="en">
-                        <FormattedDate value={listing.start} day="numeric" month="short" />
-                    </IntlProvider>
+        let date = type === 'event' && event.date
+                ?<IntlProvider locale="en">
+                    <FormattedDate value={event.date} day="numeric" month="short" />
+                </IntlProvider>
+                : ''
+        let start = type != 'event' && listing.start
+            ? <IntlProvider locale="en">
+                    <FormattedDate value={listing.start} day="numeric" month="short" />
+                </IntlProvider>
             : ''
-        let end = listing.end?
-                    <IntlProvider locale="en">
-                        <FormattedDate value={listing.end} day="numeric" month="short" />
-                    </IntlProvider>
+        let end = type != 'event' && listing.end
+            ? <IntlProvider locale="en">
+                    <FormattedDate value={listing.end} day="numeric" month="short" />
+                </IntlProvider>
             : ''
         let StrippedDescription = feature.text && feature.text.replace(/(<([^>]+)>)/ig,"")
       
@@ -70,22 +88,23 @@ export default class FeatureBlock extends React.Component {
         <Helmet
             ogTitle={listing.name + " at " + venue.name}
             ogDescription={StrippedDescription}
-            ogImage={"https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg"}
+            ogImage={"https://res.cloudinary.com/artcritical/image/upload/" + image + ".jpg"}
                 />
 
 
             <div className="picture">
-                {listing.image? <ImageBlock image={listing.image} classes="feature" /> : ''}
+                {image ? <ImageBlock image={image} classes="feature" /> : ''}
             </div>
             <div className="info">
-                <h3>{listing.title ? listing.title : <ListingNameDisplay {...listing} />} at <a className="venueName" href={"/venue/" + venue.slug}>{venue.name}</a></h3>
+                <h3>{title} at <a className="venueName" href={"/venue/" + venue.slug}>{venue.name}</a></h3>
                 <HtmlText content={feature.text} />
-                {listing.description && 
+                {description && 
                     <div className="notes">
                         <h6>Notes</h6>
-                        {listing.description}
-                    </div>}
-                <div className="dates">{start}{end? ' to ' : ''}{end}</div>
+                        {description}
+                    </div>
+                }
+                <div className="dates">{date}{start}{end? ' to ' : ''}{end}</div>
                 <div className="address">{venue.address1} {venue.address2}, {venue.city}</div>
                 {this.props.user._id  
                     ? this.state.inList

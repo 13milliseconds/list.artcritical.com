@@ -201,6 +201,65 @@ router.get('/find/:regex_input', function (req, res, next) {
 
 });
 
+//#######################
+/* FIND listings and Events based on text */
+//#######################
+
+router.get('/findall/:regex_input', function (req, res, next) {
+    var List = req.list;
+    var Event = req.event;
+
+    var regexp = new RegExp(req.params.regex_input, "gi");
+
+    var results = [];
+    
+    List
+    .find( {$or:[ {tags: regexp}, {name: regexp}]})
+    .populate('artists') //get rid of this when all shows have titles
+    .exec(function (err, listings) {
+        if (err) res.send(err);
+
+        listings.map(thelisting => {
+            if (thelisting.title){
+                results.push({
+                    value: thelisting._id,
+                    label: thelisting.title,
+                    type: 'listing'
+                });
+            } else { //get rid of this when all shows have titles
+                var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map((artist, index) => { var comma = index < (thelisting.artists.length - 1) ? ', ' : ''; return artist.name + comma}) : ''
+                var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : ''
+                var colon = thelisting.artists.length && thelisting.name ? ': ' : ''
+                results.push({
+                    value: thelisting._id,
+                    label: artists + groupShow + colon + thelisting.name
+                });
+            }
+        })
+
+        Event
+        .find( {$or:[ {tags: regexp}, {name: regexp}]})
+        .exec(function (err, events) {
+            if (err) res.send(err);
+
+            events.map(theevent => {
+                    results.push({
+                        value: theevent._id,
+                        label: 'EVENT: ' + theevent.name,
+                        type: 'event'
+                    });
+            })
+
+            res.json(results);
+
+
+        })
+            
+
+    });
+
+});
+
 
 
 //#######################
@@ -461,6 +520,7 @@ router.post('/update', function (req, res) {
 router.post('/feature', function (req, res) {
     var Feature = req.feature;
     var List = req.list;
+    var Event = req.event;
 
     if (req.body._id) {
 
@@ -476,12 +536,25 @@ router.post('/feature', function (req, res) {
             $set: theFeature
         }, function (error, newFeature) {
             if (!error){
-                const listing = req.body.list
-                List.update({_id: listing._id}, { $set: listing}, function(err){
-                    if(!err) {
-                        res.send((err === null) ? { msg: '', feature: newFeature} : { msg: err });
-                    }
-                })
+
+                if (req.body.type === 'event'){
+                    //Save the associated event
+                    const event = req.body.event
+                    Event.update({_id: event._id}, { $set: event}, function(err){
+                        if(!err) {
+                            console.log('Saved', newFeature)
+                            res.send((err === null) ? { msg: '', feature: newFeature} : { msg: err });
+                        }
+                    })
+                } else {
+                    //Save the associated listing
+                    const listing = req.body.list
+                    List.update({_id: listing._id}, { $set: listing}, function(err){
+                        if(!err) {
+                            res.send((err === null) ? { msg: '', feature: newFeature} : { msg: err });
+                        }
+                    })
+                }
             }
         });
 
@@ -510,6 +583,7 @@ router.post('/findfeatures', function (req, res) {
 
     Feature.find()
     .populate('list')
+    .populate('event')
     .populate('venue')
     .exec(function (e, docs) {
         res.json(docs)
@@ -528,6 +602,7 @@ router.post('/findcurrentfeatures', function (req, res) {
 
     Feature.find()
     .populate('list')
+    .populate('event')
     .populate('venue')
     .exec(function (e, docs) {
 
@@ -545,6 +620,26 @@ router.post('/findcurrentfeatures', function (req, res) {
         res.json(currentFeatures)
 
     });
+
+});
+
+
+
+//#######################
+// DELETE a Featured article
+//#######################
+
+router.post('/deletefeature/:feature_id', function (req, res) {
+    var Feature = req.feature;
+
+    console.log("Deleting one listing", req.params.feature_id);
+
+    var toDelete = req.params.feature_id;
+
+    Feature.deleteOne({ _id: toDelete }, function(err) {
+        console.log
+        res.send((err === null) ? {msg: ''} : { msg: err });
+    })
 
 });
 

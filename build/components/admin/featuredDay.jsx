@@ -2,7 +2,6 @@ import React from 'react';
 import ListActions from '../../actions/ListActions'
 import EventActions from '../../actions/EventActions'
 //Components
-import {Input} from 'reactstrap'
 import Select from '../forms/formSelect';
 import FeaturedForm from '../forms/featuredForm';
 import FeatureBlock from '../blocks/featureBlock';
@@ -16,9 +15,9 @@ export default class FeaturedDay extends React.Component {
             text: this.props.text
         }
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
         this.handleListingChange = this.handleListingChange.bind(this)
-        this.handleEventChange = this.handleEventChange.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.onTextChange = this.onTextChange.bind(this)
       }
@@ -26,33 +25,38 @@ export default class FeaturedDay extends React.Component {
     
     // Add the listing to the database
     handleSubmit() {
-        const id = this.props.feature._id || null
-        let newFeature = {
-            _id:    id,
-            date:   this.props.date,
-            text:   this.state.text,
-            list:   this.props.feature.list,
-			venue:  this.props.feature.list.venue._id
-        }
+        let newFeature = this.props.feature
+        newFeature._id = this.props.feature._id || null
+        newFeature.date = this.props.date
+        newFeature.text = this.state.text
+        newFeature.venue = this.props.feature.type === 'event'
+            ? this.props.feature.event.venue._id
+            : this.props.feature.list.venue._id
+
         ListActions.updateFeature(newFeature)
+      }
+
+      handleDelete() {
+        ListActions.deleteFeature(this.props.feature._id, this.props.dayNumber)
       }
 	
 	handleChange (event) {
         ListActions.featureInfoChange(event, this.props.dayNumber);
     }
-    typeChange(event){
-        console.log(event.target)
-    }
     
     handleListingChange (data) {
-        data
-            ? data.value && ListActions.getListingInfo(data.value, this.props.dayNumber)
-            : ListActions.featureReset(this.props.dayNumber)
-    }
-    handleEventChange (data) {
-        data
-            ? data.value && EventActions.getEventInfo(data.value, this.props.dayNumber)
-            : ListActions.featureReset(this.props.dayNumber)
+        if (data) {
+
+            this.setState({
+                type: data.type
+            })
+
+            data.value && data.type === 'event' 
+                ? EventActions.getEventInfo(data.value, this.props.dayNumber)
+                : ListActions.getListingInfo(data.value, this.props.dayNumber)
+        } else {
+            ListActions.featureReset(this.props.dayNumber)
+        }
     }
 
     onTextChange(newText){
@@ -63,41 +67,31 @@ export default class FeaturedDay extends React.Component {
     
     render() {
 		
-		let list = this.props.feature.list ? this.props.feature.list : {name: '', _id:''}
+        let featureItem = this.props.feature.type == 'event'
+                    ? this.props.feature.event ? this.props.feature.event : {name: '', _id:''}
+                    : this.props.feature.list ? this.props.feature.list : {name: '', _id:''}
         
         //how to get option for select element
-        const getOptions = (input) => {
-          return fetch('/list/find/' + input)
+        const getAllOptions = (input) => {
+          return fetch('/list/findall/' + input)
             .then((response) => {
               return response.json();
             }).then((json) => {
               return { options: json };
             });
         }
-        const getEventOptions = (input) => {
-            return fetch('/event/find/' + input)
-              .then((response) => {
-                return response.json();
-              }).then((json) => {
-                return { options: json };
-              });
-          }
+
+        console.log(this.props.feature)
         
         return ( 
             <div>
                 <div className="featureFormWrap">
-                <Input type="select" name='featureType' id='featureType' onChange={this.typeChange} >
-                    <option value='listing'>listing</option>
-                    <option  value='event'>event</option>
-                </Input>
-                {this.props.feature.type === 'event' 
-                    ? <Select value={{label: list.name, value: list._id}} handleSelectChange={this.handleEventChange} getOptions={getEventOptions} />
-                    : <Select value={{label: list.name, value: list._id}} handleSelectChange={this.handleListingChange} getOptions={getOptions} />
-                }
-                    {this.props.feature.list &&
+                    <Select value={{label: featureItem.name, value: featureItem._id}} handleSelectChange={this.handleListingChange} getOptions={getAllOptions} />
+                    {(this.props.feature.list || this.props.feature.event) &&
                         <FeaturedForm {...this.props.feature} 
                             number={this.props.dayNumber} 
                             handleChange={this.handleChange} 
+                            handleDelete={this.handleDelete}
                             handleSubmit={this.handleSubmit} 
                             onTextChange={this.onTextChange}
                             error={this.props.error}
@@ -106,7 +100,7 @@ export default class FeaturedDay extends React.Component {
                 </div>
                 <div className="preview">
                 <h4>Preview</h4>
-                    { this.props.feature.list && <FeatureBlock feature={this.props.feature} user={this.props.user}/> }
+                    { (this.props.feature.list || this.props.feature.event) && <FeatureBlock feature={this.props.feature} user={this.props.user}/> }
                 </div>
             </div>
         );

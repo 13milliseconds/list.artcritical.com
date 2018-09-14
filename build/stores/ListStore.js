@@ -535,10 +535,23 @@ class ListStore {
             this.features[day]= {
                 text: '',
                 list: {},
-                venue: {}
+                venue: {},
+                event: {}
             }
         }
         this.success.feature = false
+    }
+    onDeleteFeatureSuccess(){
+        console.log('feature deleted')
+        this.success.deleteFeature = true
+        var that = this;
+        setTimeout(() => {
+            that.success.deleteFeature = false
+        }, 1000)
+    }
+    onDeleteFeatureFailure(){
+        console.log('feature deletion failed')
+        this.success.deleteFeature = false
     }
     onFeatureLoadAttempt() {
         this.loading.features = true
@@ -897,8 +910,12 @@ class ListStore {
         console.log('Uploaded!', data)
         this.listingEdit.image = data.image.public_id;
 		if (Number.isInteger(data.i)){
-            this.features[data.i].list.image = data.image.public_id;
-            console.log(this.features[data.i].list)
+
+            if (this.features[data.i].list) this.features[data.i].list.image = data.image.public_id
+
+            if (this.features[data.i].event) this.features[data.i].event.image = data.image.public_id
+
+            console.log(data.image.public_id)
 		}
     }
     onThumbnailUploadFailure(err){
@@ -973,6 +990,7 @@ class ListStore {
 		if (Number.isInteger(info.i)){
             this.features[info.i].event = info.data;
             this.features[info.i].list = info.data.list;
+            this.features[info.i].venue = info.data.venue;
             this.features[info.i].type = 'event';
 			console.log('Feature #' + info.i, this.features[info.i]);
 		}

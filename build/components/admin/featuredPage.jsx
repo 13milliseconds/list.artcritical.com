@@ -47,7 +47,7 @@ export default class FeaturePage extends React.Component {
                             user={this.props.user} 
                             feature={this.props.features[i] || {}} 
                             error={this.props.error.feature} 
-                            success={this.props.success.updateFeature} label={label} />);
+                            success={this.props.success} label={label} />);
         }
         
         return ( 

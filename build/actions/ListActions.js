@@ -60,7 +60,9 @@ class ListActions {
             'getVenuesAdminAttempt',
             'getCoordFailure',
             'getCoordSuccess',
-        );
+            'deleteFeatureSuccess',
+            'deleteFeatureFailure'
+        )
     }
     
     
@@ -380,6 +382,35 @@ class ListActions {
     
     featureReset(day){
         return day;
+    }
+
+    async deleteFeature(featureID, dayNumber) {
+
+        await fetch(
+          '/list/deletefeature/' + featureID,
+			{
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            this.deleteFeatureSuccess(json);
+			this.featureReset(dayNumber);
+            return true;
+        })
+        .catch((error) => {
+            this.deleteFeatureFailure(error);
+        });
+        
     }
     
     async featureLoad(days){

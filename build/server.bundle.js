@@ -105,7 +105,7 @@ var ListActions = function () {
     function ListActions() {
         _classCallCheck(this, ListActions);
 
-        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'currentNotLoaded', 'currentLoaded', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsAttempt', 'getEventsSuccess', 'getEventsFail', 'getGlanceAttempt', 'getGlanceSuccess', 'getGlanceFail', 'getLatestListingsSuccess', 'getLatestListingsFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'saveVenueSuccess', 'saveVenueFailure', 'saveVenueAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadAttempt', 'featureLoadSuccess', 'featureLoadFailure', 'featureAdminAttempt', 'featureAdminSuccess', 'featureAdminFailure', 'deleteListingSuccess', 'deleteListingFailure', 'deleteVenueSuccess', 'deleteVenueFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess');
+        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'currentNotLoaded', 'currentLoaded', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsAttempt', 'getEventsSuccess', 'getEventsFail', 'getGlanceAttempt', 'getGlanceSuccess', 'getGlanceFail', 'getLatestListingsSuccess', 'getLatestListingsFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'saveVenueSuccess', 'saveVenueFailure', 'saveVenueAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadAttempt', 'featureLoadSuccess', 'featureLoadFailure', 'featureAdminAttempt', 'featureAdminSuccess', 'featureAdminFailure', 'deleteListingSuccess', 'deleteListingFailure', 'deleteVenueSuccess', 'deleteVenueFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess', 'deleteFeatureSuccess', 'deleteFeatureFailure');
     }
 
     _createClass(ListActions, [{
@@ -420,9 +420,33 @@ var ListActions = function () {
             return day;
         }
     }, {
+        key: 'deleteFeature',
+        value: async function deleteFeature(featureID, dayNumber) {
+            var _this12 = this;
+
+            await fetch('/list/deletefeature/' + featureID, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                return null;
+            }).then(function (json) {
+                _this12.deleteFeatureSuccess(json);
+                _this12.featureReset(dayNumber);
+                return true;
+            }).catch(function (error) {
+                _this12.deleteFeatureFailure(error);
+            });
+        }
+    }, {
         key: 'featureLoad',
         value: async function featureLoad(days) {
-            var _this12 = this;
+            var _this13 = this;
 
             this.featureLoadAttempt.defer();
 
@@ -438,16 +462,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this12.featureLoadSuccess({ json: json, days: days });
+                _this13.featureLoadSuccess({ json: json, days: days });
                 return true;
             }).catch(function (error) {
-                _this12.featureLoadFailure(error);
+                _this13.featureLoadFailure(error);
             });
         }
     }, {
         key: 'featureAdmin',
         value: async function featureAdmin(days) {
-            var _this13 = this;
+            var _this14 = this;
 
             this.featureAdminAttempt.defer();
 
@@ -463,16 +487,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this13.featureAdminSuccess({ json: json, days: days });
+                _this14.featureAdminSuccess({ json: json, days: days });
                 return true;
             }).catch(function (error) {
-                _this13.featureAdminFailure(error);
+                _this14.featureAdminFailure(error);
             });
         }
     }, {
         key: 'getVenueInfo',
         value: async function getVenueInfo(id) {
-            var _this14 = this;
+            var _this15 = this;
 
             await fetch('/venues/getinfo/' + id, {
                 method: 'GET',
@@ -483,16 +507,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this14.getVenueInfoSuccess(json);
+                _this15.getVenueInfoSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this14.getVenueInfoFailure(error);
+                _this15.getVenueInfoFailure(error);
             });
         }
     }, {
         key: 'getVenueFullInfo',
         value: async function getVenueFullInfo(id) {
-            var _this15 = this;
+            var _this16 = this;
 
             await fetch('/venues/getfullinfo/' + id, {
                 method: 'GET',
@@ -503,16 +527,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this15.getVenueFullInfoSuccess(json);
+                _this16.getVenueFullInfoSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this15.getVenueFullInfoFailure(error);
+                _this16.getVenueFullInfoFailure(error);
             });
         }
     }, {
         key: 'getVenueListings',
         value: async function getVenueListings(id) {
-            var _this16 = this;
+            var _this17 = this;
 
             await fetch('/venues/getlistings/' + id, {
                 method: 'GET',
@@ -523,10 +547,10 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this16.getVenueListingsSuccess(json);
+                _this17.getVenueListingsSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this16.getVenueListingsFailure(error);
+                _this17.getVenueListingsFailure(error);
             });
         }
     }, {
@@ -545,7 +569,7 @@ var ListActions = function () {
     }, {
         key: 'getVenuesAdmin',
         value: function getVenuesAdmin(neighborhood) {
-            var _this17 = this;
+            var _this18 = this;
 
             this.getVenuesAdminAttempt();
             return function (dispatch) {
@@ -553,16 +577,16 @@ var ListActions = function () {
                 $.ajax({
                     url: '/venues/getadmin/' + neighborhood
                 }).done(function (data) {
-                    _this17.getVenuesAdminSuccess(data);
+                    _this18.getVenuesAdminSuccess(data);
                 }).fail(function (jqXhr) {
-                    _this17.getVenuesAdminFailure(jqXhr);
+                    _this18.getVenuesAdminFailure(jqXhr);
                 });
             };
         }
     }, {
         key: 'updateVenue',
         value: async function updateVenue(info) {
-            var _this18 = this;
+            var _this19 = this;
 
             this.updateVenueAttempt();
 
@@ -579,16 +603,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                json ? _this18.updateVenueSuccess(json) : _this18.updateVenueFailure();
+                json ? _this19.updateVenueSuccess(json) : _this19.updateVenueFailure();
                 return true;
             }).catch(function (error) {
-                _this18.updateVenueFailure(error);
+                _this19.updateVenueFailure(error);
             });
         }
     }, {
         key: 'saveVenue',
         value: async function saveVenue(newVenue) {
-            var _this19 = this;
+            var _this20 = this;
 
             this.saveVenueAttempt();
 
@@ -605,16 +629,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                json ? _this19.saveVenueSuccess(json) : _this19.saveVenueFailure();
+                json ? _this20.saveVenueSuccess(json) : _this20.saveVenueFailure();
                 return true;
             }).catch(function (error) {
-                _this19.saveVenueFailure(error);
+                _this20.saveVenueFailure(error);
             });
         }
     }, {
         key: 'deleteVenue',
         value: async function deleteVenue(oldVenue) {
-            var _this20 = this;
+            var _this21 = this;
 
             await fetch('/venues/delete/' + oldVenue, {
                 method: 'POST',
@@ -628,11 +652,11 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this20.venueEditReset();
-                _this20.deleteVenueSuccess(json);
+                _this21.venueEditReset();
+                _this21.deleteVenueSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this20.deleteVenueFailure(error);
+                _this21.deleteVenueFailure(error);
             });
         }
     }, {
@@ -704,7 +728,7 @@ var _alt = __webpack_require__(15);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(70);
+__webpack_require__(69);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1143,7 +1167,7 @@ module.exports = require("react-router");
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
@@ -2812,7 +2836,7 @@ module.exports = require("react-intl");
 /**
  * Dependencies
  */
-const splitNameEmail = __webpack_require__(45);
+const splitNameEmail = __webpack_require__(44);
 
 /**
  * Email address class
@@ -3003,7 +3027,7 @@ var _alt = __webpack_require__(15);
 
 var _alt2 = _interopRequireDefault(_alt);
 
-__webpack_require__(70);
+__webpack_require__(69);
 
 var _superagent = __webpack_require__(216);
 
@@ -3262,7 +3286,7 @@ var _ImagesActions = __webpack_require__(28);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _imageUpload = __webpack_require__(65);
+var _imageUpload = __webpack_require__(64);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
@@ -3525,12 +3549,6 @@ module.exports = require("react-dates");
 
 /***/ }),
 /* 37 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-toggle-button");
-
-/***/ }),
-/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3586,7 +3604,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3633,13 +3651,13 @@ var venueSchema = mongoose.Schema(_defineProperty({
 module.exports = mongoose.model('Venue', venueSchema);
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5461,7 +5479,7 @@ var config = api$1.config;
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5479,7 +5497,7 @@ const {
   classes: {
     ResponseError,
   },
-} = __webpack_require__(47);
+} = __webpack_require__(46);
 
 /**
  * Sendgrid REST Client
@@ -5618,7 +5636,7 @@ module.exports = Client;
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5632,7 +5650,7 @@ const toCamelCase = __webpack_require__(22);
 const toSnakeCase = __webpack_require__(23);
 const deepClone = __webpack_require__(21);
 const merge = __webpack_require__(198);
-const wrapSubstitutions = __webpack_require__(46);
+const wrapSubstitutions = __webpack_require__(45);
 
 /**
  * Personalization class
@@ -5982,7 +6000,7 @@ module.exports = Personalization;
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6002,7 +6020,7 @@ module.exports = function arrayToJSON(arr) {
 
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6031,7 +6049,7 @@ module.exports = function splitNameEmail(str) {
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6064,7 +6082,7 @@ module.exports = function wrap(substitutions, left = '{{', right = '}}') {
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6083,7 +6101,7 @@ module.exports = {classes, helpers};
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6093,7 +6111,7 @@ module.exports = {classes, helpers};
  * Dependencies
  */
 const {Client} = __webpack_require__(116);
-const {classes: {Mail}} = __webpack_require__(47);
+const {classes: {Mail}} = __webpack_require__(46);
 
 /**
  * Mail service class
@@ -6222,7 +6240,7 @@ module.exports = MailService;
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6279,7 +6297,7 @@ var ArtistsActions = function () {
 exports.default = _alt2.default.createActions(ArtistsActions);
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6444,7 +6462,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6695,7 +6713,7 @@ var Event = function (_React$Component) {
 exports.default = Event;
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6742,7 +6760,7 @@ var htmlText = function (_React$Component) {
 exports.default = htmlText;
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6841,7 +6859,7 @@ var VenueList = function (_React$Component) {
 exports.default = VenueList;
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6891,7 +6909,7 @@ var facebookShare = function (_React$Component) {
 exports.default = facebookShare;
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6917,7 +6935,7 @@ var _imageBlock = __webpack_require__(30);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
-var _HtmlText = __webpack_require__(52);
+var _HtmlText = __webpack_require__(51);
 
 var _HtmlText2 = _interopRequireDefault(_HtmlText);
 
@@ -6992,15 +7010,29 @@ var FeatureBlock = function (_React$Component) {
             var _this2 = this;
 
             var feature = this.props.feature;
-            var venue = this.props.feature.venue ? this.props.feature.venue : {};
-            var listing = this.props.feature.list ? this.props.feature.list : {};
 
-            var start = listing.start ? _react2.default.createElement(
+            var venue = feature.venue ? feature.venue : {};
+            var listing = feature.list ? feature.list : {};
+            var event = feature.event ? feature.event : {};
+            var type = feature.type;
+
+            var image = type === 'event' ? event.image : listing.image;
+
+            var title = type === 'event' ? event.name : listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing);
+
+            var description = type === 'event' ? event.description : listing.description;
+
+            var date = type === 'event' && event.date ? _react2.default.createElement(
+                _reactIntl.IntlProvider,
+                { locale: 'en' },
+                _react2.default.createElement(_reactIntl.FormattedDate, { value: event.date, day: 'numeric', month: 'short' })
+            ) : '';
+            var start = type != 'event' && listing.start ? _react2.default.createElement(
                 _reactIntl.IntlProvider,
                 { locale: 'en' },
                 _react2.default.createElement(_reactIntl.FormattedDate, { value: listing.start, day: 'numeric', month: 'short' })
             ) : '';
-            var end = listing.end ? _react2.default.createElement(
+            var end = type != 'event' && listing.end ? _react2.default.createElement(
                 _reactIntl.IntlProvider,
                 { locale: 'en' },
                 _react2.default.createElement(_reactIntl.FormattedDate, { value: listing.end, day: 'numeric', month: 'short' })
@@ -7018,12 +7050,12 @@ var FeatureBlock = function (_React$Component) {
                 _react2.default.createElement(_Helmet2.default, {
                     ogTitle: listing.name + " at " + venue.name,
                     ogDescription: StrippedDescription,
-                    ogImage: "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg"
+                    ogImage: "https://res.cloudinary.com/artcritical/image/upload/" + image + ".jpg"
                 }),
                 _react2.default.createElement(
                     'div',
                     { className: 'picture' },
-                    listing.image ? _react2.default.createElement(_imageBlock2.default, { image: listing.image, classes: 'feature' }) : ''
+                    image ? _react2.default.createElement(_imageBlock2.default, { image: image, classes: 'feature' }) : ''
                 ),
                 _react2.default.createElement(
                     'div',
@@ -7031,7 +7063,7 @@ var FeatureBlock = function (_React$Component) {
                     _react2.default.createElement(
                         'h3',
                         null,
-                        listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing),
+                        title,
                         ' at ',
                         _react2.default.createElement(
                             'a',
@@ -7040,7 +7072,7 @@ var FeatureBlock = function (_React$Component) {
                         )
                     ),
                     _react2.default.createElement(_HtmlText2.default, { content: feature.text }),
-                    listing.description && _react2.default.createElement(
+                    description && _react2.default.createElement(
                         'div',
                         { className: 'notes' },
                         _react2.default.createElement(
@@ -7048,11 +7080,12 @@ var FeatureBlock = function (_React$Component) {
                             null,
                             'Notes'
                         ),
-                        listing.description
+                        description
                     ),
                     _react2.default.createElement(
                         'div',
                         { className: 'dates' },
+                        date,
                         start,
                         end ? ' to ' : '',
                         end
@@ -7097,7 +7130,7 @@ var FeatureBlock = function (_React$Component) {
 exports.default = FeatureBlock;
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7115,7 +7148,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(50);
+var _displayActions = __webpack_require__(49);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -7260,7 +7293,7 @@ var ListingsPerNeighbor = function (_React$Component) {
 exports.default = ListingsPerNeighbor;
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7278,7 +7311,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(71);
+var _reactDom = __webpack_require__(70);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -7392,7 +7425,7 @@ var MapBlock = function (_React$Component) {
 exports.default = MapBlock;
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7618,7 +7651,7 @@ var HoodNav = function (_React$Component) {
 exports.default = HoodNav;
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7708,7 +7741,7 @@ var SizeSelector = function (_React$Component) {
 exports.default = SizeSelector;
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7736,7 +7769,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactstrap = __webpack_require__(1);
 
-var _formDateSingle = __webpack_require__(64);
+var _formDateSingle = __webpack_require__(63);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
@@ -8179,7 +8212,7 @@ var EventForm = function (_React$Component) {
 exports.default = EventForm;
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8750,7 +8783,7 @@ var ListingForm = function (_React$Component) {
 exports.default = ListingForm;
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8766,7 +8799,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(71);
+var _reactDom = __webpack_require__(70);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -8835,7 +8868,7 @@ var MyEditor = function (_React$Component) {
 exports.default = MyEditor;
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9091,7 +9124,7 @@ var NeighborhoodSelect = function (_React$Component) {
 exports.default = NeighborhoodSelect;
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9164,7 +9197,7 @@ var DateSingle = function (_React$Component) {
 exports.default = DateSingle;
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9273,7 +9306,7 @@ var ImageUpload = function (_React$Component) {
 exports.default = ImageUpload;
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9383,40 +9416,46 @@ var MyMap = function (_React$Component) {
 exports.default = MyMap;
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = require("draft-js");
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports) {
 
 module.exports = require("draft-js-export-html");
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = require("draft-js-import-html");
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom");
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-reorder");
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-toggle-button");
 
 /***/ }),
 /* 73 */
@@ -9439,9 +9478,9 @@ var FacebookStrategy = __webpack_require__(203).Strategy;
 
 
 // load up the user model
-var UserModels = __webpack_require__(38);
+var UserModels = __webpack_require__(37);
 var User = UserModels.user;
-var Venue = __webpack_require__(39);
+var Venue = __webpack_require__(38);
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -9707,6 +9746,9 @@ var mongoose = __webpack_require__(7);
 
 var eventSchema = mongoose.Schema({
     name: String,
+    title: String,
+    tags: String,
+    blurb: String,
     date: Date,
     description: String,
     type: String,
@@ -9897,7 +9939,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var express = __webpack_require__(11);
 var router = express.Router();
-var passport = __webpack_require__(40);
+var passport = __webpack_require__(39);
 var mongoose = __webpack_require__(7);
 var crypto = __webpack_require__(195);
 var sgMail = __webpack_require__(127);
@@ -10734,6 +10776,59 @@ router.get('/find/:regex_input', function (req, res, next) {
 });
 
 //#######################
+/* FIND listings and Events based on text */
+//#######################
+
+router.get('/findall/:regex_input', function (req, res, next) {
+    var List = req.list;
+    var Event = req.event;
+
+    var regexp = new RegExp(req.params.regex_input, "gi");
+
+    var results = [];
+
+    List.find({ $or: [{ tags: regexp }, { name: regexp }] }).populate('artists') //get rid of this when all shows have titles
+    .exec(function (err, listings) {
+        if (err) res.send(err);
+
+        listings.map(function (thelisting) {
+            if (thelisting.title) {
+                results.push({
+                    value: thelisting._id,
+                    label: thelisting.title,
+                    type: 'listing'
+                });
+            } else {
+                //get rid of this when all shows have titles
+                var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map(function (artist, index) {
+                    var comma = index < thelisting.artists.length - 1 ? ', ' : '';return artist.name + comma;
+                }) : '';
+                var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : '';
+                var colon = thelisting.artists.length && thelisting.name ? ': ' : '';
+                results.push({
+                    value: thelisting._id,
+                    label: artists + groupShow + colon + thelisting.name
+                });
+            }
+        });
+
+        Event.find({ $or: [{ tags: regexp }, { name: regexp }] }).exec(function (err, events) {
+            if (err) res.send(err);
+
+            events.map(function (theevent) {
+                results.push({
+                    value: theevent._id,
+                    label: 'EVENT: ' + theevent.name,
+                    type: 'event'
+                });
+            });
+
+            res.json(results);
+        });
+    });
+});
+
+//#######################
 // GET ONE listing 
 //#######################
 router.get('/getinfo/:listing_id', function (req, res, next) {
@@ -10973,6 +11068,7 @@ router.post('/update', function (req, res) {
 router.post('/feature', function (req, res) {
     var Feature = req.feature;
     var List = req.list;
+    var Event = req.event;
 
     if (req.body._id) {
 
@@ -10986,12 +11082,25 @@ router.post('/feature', function (req, res) {
             $set: theFeature
         }, function (error, newFeature) {
             if (!error) {
-                var listing = req.body.list;
-                List.update({ _id: listing._id }, { $set: listing }, function (err) {
-                    if (!err) {
-                        res.send(err === null ? { msg: '', feature: newFeature } : { msg: err });
-                    }
-                });
+
+                if (req.body.type === 'event') {
+                    //Save the associated event
+                    var event = req.body.event;
+                    Event.update({ _id: event._id }, { $set: event }, function (err) {
+                        if (!err) {
+                            console.log('Saved', newFeature);
+                            res.send(err === null ? { msg: '', feature: newFeature } : { msg: err });
+                        }
+                    });
+                } else {
+                    //Save the associated listing
+                    var listing = req.body.list;
+                    List.update({ _id: listing._id }, { $set: listing }, function (err) {
+                        if (!err) {
+                            res.send(err === null ? { msg: '', feature: newFeature } : { msg: err });
+                        }
+                    });
+                }
             }
         });
     } else {
@@ -11015,7 +11124,7 @@ router.post('/findfeatures', function (req, res) {
 
     console.log("Find all features");
 
-    Feature.find().populate('list').populate('venue').exec(function (e, docs) {
+    Feature.find().populate('list').populate('event').populate('venue').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -11029,7 +11138,7 @@ router.post('/findcurrentfeatures', function (req, res) {
 
     console.log("Find all current features");
 
-    Feature.find().populate('list').populate('venue').exec(function (e, docs) {
+    Feature.find().populate('list').populate('event').populate('venue').exec(function (e, docs) {
 
         var now = (0, _moment2.default)();
         var currentFeatures = [];
@@ -11043,6 +11152,23 @@ router.post('/findcurrentfeatures', function (req, res) {
         //Return the current feature listings
         console.log('Returned ' + currentFeatures.length + ' features');
         res.json(currentFeatures);
+    });
+});
+
+//#######################
+// DELETE a Featured article
+//#######################
+
+router.post('/deletefeature/:feature_id', function (req, res) {
+    var Feature = req.feature;
+
+    console.log("Deleting one listing", req.params.feature_id);
+
+    var toDelete = req.params.feature_id;
+
+    Feature.deleteOne({ _id: toDelete }, function (err) {
+        console.log;
+        res.send(err === null ? { msg: '' } : { msg: err });
     });
 });
 
@@ -11497,7 +11623,7 @@ module.exports = { prefix: 'fas', iconName: 'star', icon: [576, 512, [], "f005",
 
 
 const client = __webpack_require__(118);
-const Client = __webpack_require__(42);
+const Client = __webpack_require__(41);
 
 module.exports = client;
 module.exports.Client = Client;
@@ -11519,7 +11645,7 @@ module.exports = {"_from":"@sendgrid/client@^6.3.0","_id":"@sendgrid/client@6.3.
 /**
  * Dependencies
  */
-const Client = __webpack_require__(42);
+const Client = __webpack_require__(41);
 
 //Export singleton instance
 module.exports = new Client();
@@ -11690,7 +11816,7 @@ module.exports = Attachment;
 const Attachment = __webpack_require__(119);
 const EmailAddress = __webpack_require__(26);
 const Mail = __webpack_require__(121);
-const Personalization = __webpack_require__(43);
+const Personalization = __webpack_require__(42);
 const ResponseError = __webpack_require__(122);
 
 /**
@@ -11716,11 +11842,11 @@ module.exports = {
  * Dependencies
  */
 const EmailAddress = __webpack_require__(26);
-const Personalization = __webpack_require__(43);
+const Personalization = __webpack_require__(42);
 const toCamelCase = __webpack_require__(22);
 const toSnakeCase = __webpack_require__(23);
 const deepClone = __webpack_require__(21);
-const arrayToJSON = __webpack_require__(44);
+const arrayToJSON = __webpack_require__(43);
 
 /**
  * Mail class
@@ -12415,14 +12541,14 @@ module.exports = ResponseError;
 /**
  * Expose helpers
  */
-const arrayToJSON = __webpack_require__(44);
+const arrayToJSON = __webpack_require__(43);
 const convertKeys = __webpack_require__(27);
 const deepClone = __webpack_require__(21);
 const mergeData = __webpack_require__(124);
-const splitNameEmail = __webpack_require__(45);
+const splitNameEmail = __webpack_require__(44);
 const toCamelCase = __webpack_require__(22);
 const toSnakeCase = __webpack_require__(23);
-const wrapSubstitutions = __webpack_require__(46);
+const wrapSubstitutions = __webpack_require__(45);
 
 /**
  * Export
@@ -12538,7 +12664,7 @@ module.exports = function strToSnakeCase(str) {
 
 
 const mailer = __webpack_require__(128);
-const MailService = __webpack_require__(48);
+const MailService = __webpack_require__(47);
 
 module.exports = mailer;
 module.exports.MailService = MailService;
@@ -12554,7 +12680,7 @@ module.exports.MailService = MailService;
 /**
  * Dependencies
  */
-const MailService = __webpack_require__(48);
+const MailService = __webpack_require__(47);
 
 //Export singleton instance
 module.exports = new MailService();
@@ -12578,7 +12704,7 @@ var debug = __webpack_require__(87)('artcritical-list:server');
 var expressValidator = __webpack_require__(89);
 
 //Authentification
-var passport = __webpack_require__(40);
+var passport = __webpack_require__(39);
 var flash = __webpack_require__(85);
 var session = __webpack_require__(88);
 
@@ -12611,8 +12737,8 @@ var EventArchive = EventModels.trash;
 var ArtistModels = __webpack_require__(74);
 var Artist = ArtistModels.artist;
 var ArtistTrash = ArtistModels.artistTrash;
-var Venue = __webpack_require__(39);
-var UserModels = __webpack_require__(38);
+var Venue = __webpack_require__(38);
+var UserModels = __webpack_require__(37);
 var User = UserModels.user;
 var UserTrash = UserModels.userTrash;
 var Feature = __webpack_require__(76);
@@ -13207,11 +13333,11 @@ var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _neighborhoodNav = __webpack_require__(58);
+var _neighborhoodNav = __webpack_require__(57);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
-var _listingsPerNeighbor = __webpack_require__(56);
+var _listingsPerNeighbor = __webpack_require__(55);
 
 var _listingsPerNeighbor2 = _interopRequireDefault(_listingsPerNeighbor);
 
@@ -13315,11 +13441,11 @@ var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _VenueList = __webpack_require__(53);
+var _VenueList = __webpack_require__(52);
 
 var _VenueList2 = _interopRequireDefault(_VenueList);
 
-var _Event = __webpack_require__(51);
+var _Event = __webpack_require__(50);
 
 var _Event2 = _interopRequireDefault(_Event);
 
@@ -13327,7 +13453,7 @@ var _loading = __webpack_require__(10);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _featureBlock = __webpack_require__(55);
+var _featureBlock = __webpack_require__(54);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -13547,7 +13673,7 @@ var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _Event = __webpack_require__(51);
+var _Event = __webpack_require__(50);
 
 var _Event2 = _interopRequireDefault(_Event);
 
@@ -13714,11 +13840,11 @@ var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _neighborhoodNav = __webpack_require__(58);
+var _neighborhoodNav = __webpack_require__(57);
 
 var _neighborhoodNav2 = _interopRequireDefault(_neighborhoodNav);
 
-var _listingsPerNeighbor = __webpack_require__(56);
+var _listingsPerNeighbor = __webpack_require__(55);
 
 var _listingsPerNeighbor2 = _interopRequireDefault(_listingsPerNeighbor);
 
@@ -14183,7 +14309,7 @@ var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _EventForm = __webpack_require__(60);
+var _EventForm = __webpack_require__(59);
 
 var _EventForm2 = _interopRequireDefault(_EventForm);
 
@@ -14336,7 +14462,7 @@ var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
 
-var _ListingForm = __webpack_require__(61);
+var _ListingForm = __webpack_require__(60);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
@@ -14498,7 +14624,7 @@ var _VenueForm = __webpack_require__(162);
 
 var _VenueForm2 = _interopRequireDefault(_VenueForm);
 
-var _mapBlock = __webpack_require__(57);
+var _mapBlock = __webpack_require__(56);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
@@ -14934,7 +15060,7 @@ var _VenueItem = __webpack_require__(181);
 
 var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
-var _NeighborhoodSelect = __webpack_require__(63);
+var _NeighborhoodSelect = __webpack_require__(62);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
@@ -15059,7 +15185,7 @@ var _ImagesActions = __webpack_require__(28);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
-var _imageUpload = __webpack_require__(65);
+var _imageUpload = __webpack_require__(64);
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
@@ -15181,8 +15307,6 @@ var _EventActions = __webpack_require__(12);
 
 var _EventActions2 = _interopRequireDefault(_EventActions);
 
-var _reactstrap = __webpack_require__(1);
-
 var _formSelect = __webpack_require__(17);
 
 var _formSelect2 = _interopRequireDefault(_formSelect);
@@ -15191,7 +15315,7 @@ var _featuredForm = __webpack_require__(163);
 
 var _featuredForm2 = _interopRequireDefault(_featuredForm);
 
-var _featureBlock = __webpack_require__(55);
+var _featureBlock = __webpack_require__(54);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -15218,8 +15342,8 @@ var FeaturedDay = function (_React$Component) {
         };
 
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleDelete = _this.handleDelete.bind(_this);
         _this.handleListingChange = _this.handleListingChange.bind(_this);
-        _this.handleEventChange = _this.handleEventChange.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
         _this.onTextChange = _this.onTextChange.bind(_this);
         return _this;
@@ -15231,15 +15355,18 @@ var FeaturedDay = function (_React$Component) {
     _createClass(FeaturedDay, [{
         key: 'handleSubmit',
         value: function handleSubmit() {
-            var id = this.props.feature._id || null;
-            var newFeature = {
-                _id: id,
-                date: this.props.date,
-                text: this.state.text,
-                list: this.props.feature.list,
-                venue: this.props.feature.list.venue._id
-            };
+            var newFeature = this.props.feature;
+            newFeature._id = this.props.feature._id || null;
+            newFeature.date = this.props.date;
+            newFeature.text = this.state.text;
+            newFeature.venue = this.props.feature.type === 'event' ? this.props.feature.event.venue._id : this.props.feature.list.venue._id;
+
             _ListActions2.default.updateFeature(newFeature);
+        }
+    }, {
+        key: 'handleDelete',
+        value: function handleDelete() {
+            _ListActions2.default.deleteFeature(this.props.feature._id, this.props.dayNumber);
         }
     }, {
         key: 'handleChange',
@@ -15247,19 +15374,18 @@ var FeaturedDay = function (_React$Component) {
             _ListActions2.default.featureInfoChange(event, this.props.dayNumber);
         }
     }, {
-        key: 'typeChange',
-        value: function typeChange(event) {
-            console.log(event.target);
-        }
-    }, {
         key: 'handleListingChange',
         value: function handleListingChange(data) {
-            data ? data.value && _ListActions2.default.getListingInfo(data.value, this.props.dayNumber) : _ListActions2.default.featureReset(this.props.dayNumber);
-        }
-    }, {
-        key: 'handleEventChange',
-        value: function handleEventChange(data) {
-            data ? data.value && _EventActions2.default.getEventInfo(data.value, this.props.dayNumber) : _ListActions2.default.featureReset(this.props.dayNumber);
+            if (data) {
+
+                this.setState({
+                    type: data.type
+                });
+
+                data.value && data.type === 'event' ? _EventActions2.default.getEventInfo(data.value, this.props.dayNumber) : _ListActions2.default.getListingInfo(data.value, this.props.dayNumber);
+            } else {
+                _ListActions2.default.featureReset(this.props.dayNumber);
+            }
         }
     }, {
         key: 'onTextChange',
@@ -15272,23 +15398,18 @@ var FeaturedDay = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            var list = this.props.feature.list ? this.props.feature.list : { name: '', _id: ''
+            var featureItem = this.props.feature.type == 'event' ? this.props.feature.event ? this.props.feature.event : { name: '', _id: '' } : this.props.feature.list ? this.props.feature.list : { name: '', _id: ''
 
                 //how to get option for select element
-            };var getOptions = function getOptions(input) {
-                return fetch('/list/find/' + input).then(function (response) {
+            };var getAllOptions = function getAllOptions(input) {
+                return fetch('/list/findall/' + input).then(function (response) {
                     return response.json();
                 }).then(function (json) {
                     return { options: json };
                 });
             };
-            var getEventOptions = function getEventOptions(input) {
-                return fetch('/event/find/' + input).then(function (response) {
-                    return response.json();
-                }).then(function (json) {
-                    return { options: json };
-                });
-            };
+
+            console.log(this.props.feature);
 
             return _react2.default.createElement(
                 'div',
@@ -15296,24 +15417,11 @@ var FeaturedDay = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'featureFormWrap' },
-                    _react2.default.createElement(
-                        _reactstrap.Input,
-                        { type: 'select', name: 'featureType', id: 'featureType', onChange: this.typeChange },
-                        _react2.default.createElement(
-                            'option',
-                            { value: 'listing' },
-                            'listing'
-                        ),
-                        _react2.default.createElement(
-                            'option',
-                            { value: 'event' },
-                            'event'
-                        )
-                    ),
-                    this.props.feature.type === 'event' ? _react2.default.createElement(_formSelect2.default, { value: { label: list.name, value: list._id }, handleSelectChange: this.handleEventChange, getOptions: getEventOptions }) : _react2.default.createElement(_formSelect2.default, { value: { label: list.name, value: list._id }, handleSelectChange: this.handleListingChange, getOptions: getOptions }),
-                    this.props.feature.list && _react2.default.createElement(_featuredForm2.default, _extends({}, this.props.feature, {
+                    _react2.default.createElement(_formSelect2.default, { value: { label: featureItem.name, value: featureItem._id }, handleSelectChange: this.handleListingChange, getOptions: getAllOptions }),
+                    (this.props.feature.list || this.props.feature.event) && _react2.default.createElement(_featuredForm2.default, _extends({}, this.props.feature, {
                         number: this.props.dayNumber,
                         handleChange: this.handleChange,
+                        handleDelete: this.handleDelete,
                         handleSubmit: this.handleSubmit,
                         onTextChange: this.onTextChange,
                         error: this.props.error,
@@ -15327,7 +15435,7 @@ var FeaturedDay = function (_React$Component) {
                         null,
                         'Preview'
                     ),
-                    this.props.feature.list && _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
+                    (this.props.feature.list || this.props.feature.event) && _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
                 )
             );
         }
@@ -15439,7 +15547,7 @@ var FeaturePage = function (_React$Component) {
                     user: this.props.user,
                     feature: this.props.features[i] || {},
                     error: this.props.error.feature,
-                    success: this.props.success.updateFeature, label: label }));
+                    success: this.props.success, label: label }));
             }
 
             return _react2.default.createElement(
@@ -15901,7 +16009,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _VenueList = __webpack_require__(53);
+var _VenueList = __webpack_require__(52);
 
 var _VenueList2 = _interopRequireDefault(_VenueList);
 
@@ -16581,15 +16689,15 @@ var _avatar2 = _interopRequireDefault(_avatar);
 
 var _reactstrap = __webpack_require__(1);
 
-var _draftJs = __webpack_require__(67);
+var _draftJs = __webpack_require__(66);
 
 var _draftJsPluginsEditor = __webpack_require__(35);
 
-var _draftJsImportHtml = __webpack_require__(69);
+var _draftJsImportHtml = __webpack_require__(68);
 
-var _draftJsExportHtml = __webpack_require__(68);
+var _draftJsExportHtml = __webpack_require__(67);
 
-var _MyEditor = __webpack_require__(62);
+var _MyEditor = __webpack_require__(61);
 
 var _MyEditor2 = _interopRequireDefault(_MyEditor);
 
@@ -16890,7 +16998,7 @@ var _reactAutosuggest = __webpack_require__(206);
 
 var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
 
-var _ArtistsActions = __webpack_require__(49);
+var _ArtistsActions = __webpack_require__(48);
 
 var _ArtistsActions2 = _interopRequireDefault(_ArtistsActions);
 
@@ -17119,7 +17227,7 @@ var _EventActions = __webpack_require__(12);
 
 var _EventActions2 = _interopRequireDefault(_EventActions);
 
-var _formDateSingle = __webpack_require__(64);
+var _formDateSingle = __webpack_require__(63);
 
 var _formDateSingle2 = _interopRequireDefault(_formDateSingle);
 
@@ -17559,7 +17667,7 @@ var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactToggleButton = __webpack_require__(37);
+var _reactToggleButton = __webpack_require__(72);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -17573,7 +17681,7 @@ var _DateBlock = __webpack_require__(8);
 
 var _DateBlock2 = _interopRequireDefault(_DateBlock);
 
-var _NeighborhoodSelect = __webpack_require__(63);
+var _NeighborhoodSelect = __webpack_require__(62);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
@@ -18163,19 +18271,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactToggleButton = __webpack_require__(37);
+var _draftJs = __webpack_require__(66);
 
-var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
+var _draftJsImportHtml = __webpack_require__(68);
 
-var _ListActions = __webpack_require__(2);
-
-var _ListActions2 = _interopRequireDefault(_ListActions);
-
-var _draftJs = __webpack_require__(67);
-
-var _draftJsImportHtml = __webpack_require__(69);
-
-var _draftJsExportHtml = __webpack_require__(68);
+var _draftJsExportHtml = __webpack_require__(67);
 
 var _draftJsPluginsEditor = __webpack_require__(35);
 
@@ -18187,13 +18287,15 @@ var _ThumbnailInput = __webpack_require__(31);
 
 var _ThumbnailInput2 = _interopRequireDefault(_ThumbnailInput);
 
-var _MyEditor = __webpack_require__(62);
+var _MyEditor = __webpack_require__(61);
 
 var _MyEditor2 = _interopRequireDefault(_MyEditor);
 
 var _reactstrap = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -18214,11 +18316,13 @@ var ListingForm = function (_React$Component) {
         _this.state = {
             text: '',
             updatevisible: false,
+            deletevisible: false,
             editorState: (0, _draftJsPluginsEditor.createEditorStateWithText)('Test')
         };
 
         _this.onEditorChange = _this.onEditorChange.bind(_this);
         _this.onUpdate = _this.onUpdate.bind(_this);
+        _this.onDelete = _this.onDelete.bind(_this);
         _this.toggleModal = _this.toggleModal.bind(_this);
         return _this;
     }
@@ -18236,10 +18340,8 @@ var ListingForm = function (_React$Component) {
         }
     }, {
         key: 'toggleModal',
-        value: function toggleModal() {
-            this.setState({
-                updatevisible: false
-            });
+        value: function toggleModal(modalName) {
+            this.setState(_defineProperty({}, modalName, !this.state[modalName]));
         }
     }, {
         key: 'onEditorChange',
@@ -18258,11 +18360,27 @@ var ListingForm = function (_React$Component) {
             });
         }
     }, {
+        key: 'onDelete',
+        value: function onDelete(e) {
+            e.preventDefault();
+            this.setState({
+                deletevisible: true
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
+
+            var image = this.props.list ? this.props.list.image : this.props.event ? this.props.event.image : '';
+
             return _react2.default.createElement(
                 'div',
                 { className: 'featuredForm' },
+                this.props.type === 'event' && _react2.default.createElement(
+                    _reactstrap.Alert,
+                    { color: 'secondary' },
+                    'This an event.'
+                ),
                 _react2.default.createElement(
                     _reactstrap.Form,
                     null,
@@ -18274,7 +18392,7 @@ var ListingForm = function (_React$Component) {
                             null,
                             'Thumbnail'
                         ),
-                        _react2.default.createElement(_ThumbnailInput2.default, { image: this.props.list && this.props.list.image, number: this.props.number })
+                        _react2.default.createElement(_ThumbnailInput2.default, { image: image, number: this.props.number })
                     ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
@@ -18299,14 +18417,29 @@ var ListingForm = function (_React$Component) {
                     { onClick: this.onUpdate },
                     'Submit'
                 ),
+                this.props._id && _react2.default.createElement(
+                    _reactstrap.Button,
+                    { onClick: this.onDelete },
+                    'Delete'
+                ),
                 this.state.updatevisible && _react2.default.createElement(_confirmModal2.default, {
+                    name: 'updatevisible',
                     toggle: this.toggleModal,
                     handleSubmit: this.props.handleSubmit,
                     textTitle: 'Save',
                     textAction: 'save this Feature',
                     textConfirm: 'Saved!',
                     error: this.props.error,
-                    success: this.props.success })
+                    success: this.props.success.updateFeature }),
+                this.state.deletevisible && _react2.default.createElement(_confirmModal2.default, {
+                    name: 'deletevisible',
+                    toggle: this.toggleModal,
+                    handleSubmit: this.props.handleDelete,
+                    textTitle: 'Delete',
+                    textAction: 'delete this Feature',
+                    textConfirm: 'Deleted!',
+                    error: this.props.error,
+                    success: this.props.success.deleteFeature })
             );
         }
     }]);
@@ -18421,7 +18554,7 @@ var _ListActions2 = _interopRequireDefault(_ListActions);
 
 var _reactRouter = __webpack_require__(4);
 
-var _sizeSelector = __webpack_require__(59);
+var _sizeSelector = __webpack_require__(58);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
@@ -18435,11 +18568,11 @@ var _Helmet2 = _interopRequireDefault(_Helmet);
 
 var _reactOffcanvas = __webpack_require__(211);
 
-var _ListingForm = __webpack_require__(61);
+var _ListingForm = __webpack_require__(60);
 
 var _ListingForm2 = _interopRequireDefault(_ListingForm);
 
-var _EventForm = __webpack_require__(60);
+var _EventForm = __webpack_require__(59);
 
 var _EventForm2 = _interopRequireDefault(_EventForm);
 
@@ -18447,7 +18580,7 @@ var _reactGa = __webpack_require__(209);
 
 var _reactGa2 = _interopRequireDefault(_reactGa);
 
-var _fontawesome = __webpack_require__(41);
+var _fontawesome = __webpack_require__(40);
 
 var _fontawesome2 = _interopRequireDefault(_fontawesome);
 
@@ -19584,11 +19717,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(50);
+var _displayActions = __webpack_require__(49);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
-var _reactToggleButton = __webpack_require__(37);
+var _reactToggleButton = __webpack_require__(72);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
@@ -20249,15 +20382,15 @@ var _myListings = __webpack_require__(177);
 
 var _myListings2 = _interopRequireDefault(_myListings);
 
-var _myMap = __webpack_require__(66);
+var _myMap = __webpack_require__(65);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _facebookShare = __webpack_require__(54);
+var _facebookShare = __webpack_require__(53);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
-var _reactReorder = __webpack_require__(72);
+var _reactReorder = __webpack_require__(71);
 
 var _reactstrap = __webpack_require__(1);
 
@@ -20571,7 +20704,7 @@ var _VenueBlock = __webpack_require__(13);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _reactReorder = __webpack_require__(72);
+var _reactReorder = __webpack_require__(71);
 
 var _reactReorder2 = _interopRequireDefault(_reactReorder);
 
@@ -20674,17 +20807,17 @@ var _userListings = __webpack_require__(179);
 
 var _userListings2 = _interopRequireDefault(_userListings);
 
-var _myMap = __webpack_require__(66);
+var _myMap = __webpack_require__(65);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _facebookShare = __webpack_require__(54);
+var _facebookShare = __webpack_require__(53);
 
 var _facebookShare2 = _interopRequireDefault(_facebookShare);
 
 var _reactstrap = __webpack_require__(1);
 
-var _HtmlText = __webpack_require__(52);
+var _HtmlText = __webpack_require__(51);
 
 var _HtmlText2 = _interopRequireDefault(_HtmlText);
 
@@ -21303,7 +21436,7 @@ var _VenueBlock = __webpack_require__(13);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
-var _sizeSelector = __webpack_require__(59);
+var _sizeSelector = __webpack_require__(58);
 
 var _sizeSelector2 = _interopRequireDefault(_sizeSelector);
 
@@ -21369,7 +21502,7 @@ var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _mapBlock = __webpack_require__(57);
+var _mapBlock = __webpack_require__(56);
 
 var _mapBlock2 = _interopRequireDefault(_mapBlock);
 
@@ -21609,7 +21742,7 @@ var _ListActions = __webpack_require__(2);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _ArtistsActions = __webpack_require__(49);
+var _ArtistsActions = __webpack_require__(48);
 
 var _ArtistsActions2 = _interopRequireDefault(_ArtistsActions);
 
@@ -22303,10 +22436,27 @@ var ListStore = function () {
                 this.features[day] = {
                     text: '',
                     list: {},
-                    venue: {}
+                    venue: {},
+                    event: {}
                 };
             }
             this.success.feature = false;
+        }
+    }, {
+        key: 'onDeleteFeatureSuccess',
+        value: function onDeleteFeatureSuccess() {
+            console.log('feature deleted');
+            this.success.deleteFeature = true;
+            var that = this;
+            setTimeout(function () {
+                that.success.deleteFeature = false;
+            }, 1000);
+        }
+    }, {
+        key: 'onDeleteFeatureFailure',
+        value: function onDeleteFeatureFailure() {
+            console.log('feature deletion failed');
+            this.success.deleteFeature = false;
         }
     }, {
         key: 'onFeatureLoadAttempt',
@@ -22781,8 +22931,12 @@ var ListStore = function () {
             console.log('Uploaded!', data);
             this.listingEdit.image = data.image.public_id;
             if (Number.isInteger(data.i)) {
-                this.features[data.i].list.image = data.image.public_id;
-                console.log(this.features[data.i].list);
+
+                if (this.features[data.i].list) this.features[data.i].list.image = data.image.public_id;
+
+                if (this.features[data.i].event) this.features[data.i].event.image = data.image.public_id;
+
+                console.log(data.image.public_id);
             }
         }
     }, {
@@ -22869,6 +23023,7 @@ var ListStore = function () {
             if (Number.isInteger(info.i)) {
                 this.features[info.i].event = info.data;
                 this.features[info.i].list = info.data.list;
+                this.features[info.i].venue = info.data.venue;
                 this.features[info.i].type = 'event';
                 console.log('Feature #' + info.i, this.features[info.i]);
             }
