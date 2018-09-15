@@ -959,6 +959,27 @@ My List
 }
 
 /*********************
+Features Page
+*********************/
+
+.allFeatures{
+    .feature{
+        margin-bottom: 30px;
+        position: relative;
+        h3{
+            font-size: 1.5em;
+            font-weight: 400;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: $white;
+            display: inline-block;
+            padding: 0 10px 10px 0;
+        }
+    }
+}
+
+/*********************
 Venue Page
 *********************/
 
@@ -1030,15 +1051,6 @@ ADMIN
                 .formSection{
                     @include span-columns(12);
                 }
-            }
-        }
-    }
-    .pastFeatureAdmin{
-        .feature{
-            margin-bottom: 30px;
-            h2{
-                font-size: 1.5em;
-                font-weight: 400;
             }
         }
     }

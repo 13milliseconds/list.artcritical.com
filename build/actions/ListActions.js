@@ -61,7 +61,10 @@ class ListActions {
             'getCoordFailure',
             'getCoordSuccess',
             'deleteFeatureSuccess',
-            'deleteFeatureFailure'
+            'deleteFeatureFailure',
+            'featureDateAttempt',
+            'featureDateSuccess',
+            'featureDateFailure'
         )
     }
     
@@ -441,6 +444,39 @@ class ListActions {
             this.featureLoadFailure(error);
         });
     }
+
+
+
+    async getFeatureByDate(date){
+
+        this.featureDateAttempt.defer()
+        
+        await fetch(
+          '/list/findfeaturesbydate/' + date,
+          {
+            method: 'POST',
+            credentials: 'same-origin',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((json) => {
+            json
+                ? this.featureDateSuccess(json)
+                : this.featureDateFailure()
+            return true;
+        })
+        .catch((error) => {
+            this.featureDateFailure(error);
+        });
+    }
+
+
+
     async featureAdmin(days){
 
         this.featureAdminAttempt.defer()

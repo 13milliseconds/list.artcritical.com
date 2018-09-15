@@ -81,6 +81,7 @@ class ListStore {
         this.loading.events = true;
         this.loading.allVenues = false;
         this.loading.features = false;
+        this.loading.featureByDate = false
         this.loading.glance = false
         this.loading.certifyReset = false
         //Error Messages
@@ -643,6 +644,17 @@ class ListStore {
         } else {
             this.error.feature = "No Features";
         }
+    }
+    featureDateAttempt(){
+        this.loading.featureByDate = true
+    }
+    featureDateSuccess(json){
+        this.loading.featureByDate = false
+        this.feature = json
+    }
+    featureDateFailure(error){
+        this.loading.featureByDate = false
+        console.log('Error retrieving Feature article', error)
     }
     
     // Auth Reducers

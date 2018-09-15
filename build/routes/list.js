@@ -624,6 +624,31 @@ router.post('/findcurrentfeatures', function (req, res) {
 
 });
 
+//#######################
+// FIND the current featured article
+//#######################
+
+router.post('/findfeaturesbydate/:date', function (req, res) {
+    var Feature = req.feature;
+
+    console.log("Find feature by date");
+
+    let start = moment(req.params.date, 'MMDDYY').startOf('day')
+    let end = moment(req.params.date, 'MMDDYY').endOf('day')
+
+    Feature.findOne({
+        date: {"$gt":start, "$lt":end}
+    })
+    .populate('list')
+    .populate('event')
+    .populate('venue')
+    .exec(function (e, docs) {
+        
+        if (!e) res.json(docs)
+    });
+
+});
+
 
 
 //#######################

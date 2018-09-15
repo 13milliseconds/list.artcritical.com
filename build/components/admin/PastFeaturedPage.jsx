@@ -2,9 +2,10 @@ import React from 'react';
 import ListActions from '../../actions/ListActions';
 //COMPONENTS
 import {IntlProvider, FormattedDate} from 'react-intl';
-import HtmlText from '../blocks/HtmlText' 
 import Loading from '../blocks/loading';
+import moment from 'moment'
 import ListingNameDisplay from '../blocks/ListingNameDisplay'
+import {Link} from 'react-router';
 
 
 export default class FeaturePage extends React.Component {
@@ -13,7 +14,7 @@ export default class FeaturePage extends React.Component {
     }
 
     componentWillMount() {
-        if (this.props.allFeatures.length >= 0){
+        if (this.props.allFeatures.length === 0){
             ListActions.featureAdmin()
         }
     }
@@ -30,10 +31,6 @@ export default class FeaturePage extends React.Component {
             let title = type === 'event'
             ? event.name
             : listing.title ? listing.title : <ListingNameDisplay {...listing} />
-
-            let description = type === 'event'
-                ? event.description
-                : listing.description
             
             let featureDay = feature.date
                 ?<IntlProvider locale="en">
@@ -41,44 +38,22 @@ export default class FeaturePage extends React.Component {
                 </IntlProvider>
                 : ''
 
-            let date = type === 'event' && event.date
-                    ?<IntlProvider locale="en">
-                        <FormattedDate value={event.date} day="numeric" month="short" />
-                    </IntlProvider>
-                    : ''
-            let start = type != 'event' && listing.start
-                ? <IntlProvider locale="en">
-                        <FormattedDate value={listing.start} day="numeric" month="short" />
-                    </IntlProvider>
-                : ''
-            let end = type != 'event' && listing.end
-                ? <IntlProvider locale="en">
-                        <FormattedDate value={listing.end} day="numeric" month="short" />
-                    </IntlProvider>
-                : ''
-
-            return <div className="feature">
-                    
-                    <h2>{featureDay}: {title}</h2>
-                    <HtmlText content={feature.text} />
-                    {description && 
-                        <div className="notes">
-                            <h6>Notes</h6>
-                            {description}
-                        </div>
-                    }
-                    <div className="dates">{date}{start}{end? ' to ' : ''}{end}</div>
-                    <div className="address">{venue.address1} {venue.address2}, {venue.city}</div>
+            return <div className="feature" key={feature._id}>
+                    <h3>{featureDay}</h3>
+                    <div className="image" style={{backgroundImage: 'url("https://res.cloudinary.com/artcritical/image/upload/' + listing.image + '.jpg")'}}></div>
+                    <h4>{title} at {venue.name}</h4>
+                    <Link to={'features/' + moment(feature.date).format('MMDDYY')}>Read More</Link>
             </div>
         })
         
         return ( 
-            <div className = "pastFeatureAdmin">
+            <div className = "allFeatures">
               <h2>Past Features</h2>
               {this.props.loading.features
                     ? <Loading />
                     : allFeatures(this.props.allFeatures)
               }
+
             </div>
         );
     }

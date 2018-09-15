@@ -579,8 +579,55 @@ header.mainHeader{
         }
 }
 
+/*********************
+Features Page
+*********************/
 
-//VENUE PAGE
+.allFeatures{
+    .feature{
+        @include span-columns(4);
+        float: none;
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 50px;
+        &:nth-of-type(3n){
+            @include omega;
+        }
+        .image{
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-bottom: 20px;
+        }
+    }
+}
+.singleFeature{
+    .left-col{
+        @include span-columns(3);
+    }
+    .right-col{
+        @include span-columns(9);
+        @include omega;
+        .feature-wrap{
+            h5{
+                display: none;
+            }
+            .picture{
+                @include span-columns(4);
+            }
+            .info{
+                margin-top: 0;
+                @include span-columns(8);
+                @include omega;
+            }
+        }
+    }
+}
+
+/*********************
+Venue Page
+*********************/
 .venuePage{
     .mapInfo{
         @include span-columns(6);

@@ -966,7 +966,93 @@ header.mainHeader .SizeSelector span.active {
   border-radius: 10px;
 }
 
-/* line 585, ../scss/breakpoints/_768up.scss */
+/*********************
+Features Page
+*********************/
+/* line 587, ../scss/breakpoints/_768up.scss */
+.allFeatures .feature {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+  float: none;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 50px;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.allFeatures .feature:last-child {
+  margin-right: 0;
+}
+/* line 593, ../scss/breakpoints/_768up.scss */
+.allFeatures .feature:nth-of-type(3n) {
+  margin-right: 0;
+}
+/* line 596, ../scss/breakpoints/_768up.scss */
+.allFeatures .feature .image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 20px;
+}
+
+/* line 606, ../scss/breakpoints/_768up.scss */
+.singleFeature .left-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.singleFeature .left-col:last-child {
+  margin-right: 0;
+}
+/* line 609, ../scss/breakpoints/_768up.scss */
+.singleFeature .right-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.singleFeature .right-col:last-child {
+  margin-right: 0;
+}
+/* line 613, ../scss/breakpoints/_768up.scss */
+.singleFeature .right-col .feature-wrap h5 {
+  display: none;
+}
+/* line 616, ../scss/breakpoints/_768up.scss */
+.singleFeature .right-col .feature-wrap .picture {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.singleFeature .right-col .feature-wrap .picture:last-child {
+  margin-right: 0;
+}
+/* line 619, ../scss/breakpoints/_768up.scss */
+.singleFeature .right-col .feature-wrap .info {
+  margin-top: 0;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.singleFeature .right-col .feature-wrap .info:last-child {
+  margin-right: 0;
+}
+
+/*********************
+Venue Page
+*********************/
+/* line 632, ../scss/breakpoints/_768up.scss */
 .venuePage .mapInfo {
   float: left;
   display: block;
@@ -978,7 +1064,7 @@ header.mainHeader .SizeSelector span.active {
 .venuePage .mapInfo:last-child {
   margin-right: 0;
 }
-/* line 589, ../scss/breakpoints/_768up.scss */
+/* line 636, ../scss/breakpoints/_768up.scss */
 .venuePage .mapWrap {
   float: left;
   display: block;
@@ -991,18 +1077,18 @@ header.mainHeader .SizeSelector span.active {
 .venuePage .mapWrap:last-child {
   margin-right: 0;
 }
-/* line 593, ../scss/breakpoints/_768up.scss */
+/* line 640, ../scss/breakpoints/_768up.scss */
 .venuePage .mapWrap .map {
   height: 100%;
 }
 
-/* line 600, ../scss/breakpoints/_768up.scss */
+/* line 647, ../scss/breakpoints/_768up.scss */
 .loginForm, .signupForm, .resetForm {
   max-width: 500px;
   margin: 50px auto;
 }
 
-/* line 607, ../scss/breakpoints/_768up.scss */
+/* line 654, ../scss/breakpoints/_768up.scss */
 .account {
   display: block;
 }
@@ -1012,7 +1098,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 609, ../scss/breakpoints/_768up.scss */
+/* line 656, ../scss/breakpoints/_768up.scss */
 .account .left-col {
   float: left;
   display: block;
@@ -1023,12 +1109,12 @@ header.mainHeader .SizeSelector span.active {
 .account .left-col:last-child {
   margin-right: 0;
 }
-/* line 611, ../scss/breakpoints/_768up.scss */
+/* line 658, ../scss/breakpoints/_768up.scss */
 .account .left-col h1 {
   text-align: left;
   margin-top: 0;
 }
-/* line 616, ../scss/breakpoints/_768up.scss */
+/* line 663, ../scss/breakpoints/_768up.scss */
 .account .accountform {
   float: left;
   display: block;
@@ -1041,12 +1127,12 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 623, ../scss/breakpoints/_768up.scss */
+/* line 670, ../scss/breakpoints/_768up.scss */
 .draftJsToolbar__toolbar__dNtBH button {
   margin: 0 0 0 0 !important;
 }
 
-/* line 631, ../scss/breakpoints/_768up.scss */
+/* line 678, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header {
   display: block;
   border-bottom: 1px solid #eaedf2;
@@ -1059,7 +1145,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 636, ../scss/breakpoints/_768up.scss */
+/* line 683, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .avatarWrap {
   float: left;
   display: block;
@@ -1070,14 +1156,14 @@ header.mainHeader .SizeSelector span.active {
 .userList .mapInfo header .avatarWrap:last-child {
   margin-right: 0;
 }
-/* line 638, ../scss/breakpoints/_768up.scss */
+/* line 685, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .avatarWrap .avatar {
   width: 100%;
   height: 0;
   background-size: cover;
   background-position: center;
 }
-/* line 645, ../scss/breakpoints/_768up.scss */
+/* line 692, ../scss/breakpoints/_768up.scss */
 .userList .mapInfo header .infoWrap {
   float: left;
   display: block;
@@ -1090,7 +1176,7 @@ header.mainHeader .SizeSelector span.active {
   margin-right: 0;
 }
 
-/* line 655, ../scss/breakpoints/_768up.scss */
+/* line 702, ../scss/breakpoints/_768up.scss */
 .adminWrap {
   display: block;
 }
@@ -1100,7 +1186,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 657, ../scss/breakpoints/_768up.scss */
+/* line 704, ../scss/breakpoints/_768up.scss */
 .adminWrap .left-col {
   position: fixed;
   float: left;
@@ -1112,12 +1198,12 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .left-col:last-child {
   margin-right: 0;
 }
-/* line 661, ../scss/breakpoints/_768up.scss */
+/* line 708, ../scss/breakpoints/_768up.scss */
 .adminWrap .left-col nav li {
   display: block;
   margin-bottom: 10px;
 }
-/* line 667, ../scss/breakpoints/_768up.scss */
+/* line 714, ../scss/breakpoints/_768up.scss */
 .adminWrap .admin-content {
   margin-left: 25.5894130058%;
   float: left;
@@ -1130,7 +1216,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .admin-content:last-child {
   margin-right: 0;
 }
-/* line 673, ../scss/breakpoints/_768up.scss */
+/* line 720, ../scss/breakpoints/_768up.scss */
 .adminWrap .editHeader {
   display: block;
   padding-bottom: 20px;
@@ -1141,20 +1227,20 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 676, ../scss/breakpoints/_768up.scss */
+/* line 723, ../scss/breakpoints/_768up.scss */
 .adminWrap .editHeader button {
   vertical-align: top;
 }
-/* line 679, ../scss/breakpoints/_768up.scss */
+/* line 726, ../scss/breakpoints/_768up.scss */
 .adminWrap .editHeader .search {
   float: right;
 }
-/* line 681, ../scss/breakpoints/_768up.scss */
+/* line 728, ../scss/breakpoints/_768up.scss */
 .adminWrap .editHeader .search .Select {
   width: 400px;
   display: inline-block;
 }
-/* line 687, ../scss/breakpoints/_768up.scss */
+/* line 734, ../scss/breakpoints/_768up.scss */
 .adminWrap .editVenue {
   display: block;
 }
@@ -1164,7 +1250,7 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 689, ../scss/breakpoints/_768up.scss */
+/* line 736, ../scss/breakpoints/_768up.scss */
 .adminWrap .editVenue .venueEditing,
 .adminWrap .editVenue .venueLocation {
   float: left;
@@ -1177,18 +1263,18 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .editVenue .venueLocation:last-child {
   margin-right: 0;
 }
-/* line 697, ../scss/breakpoints/_768up.scss */
+/* line 744, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #ListingList .Select {
   width: 100%;
   max-width: 500px;
   display: inline-block;
   margin-left: 10px;
 }
-/* line 703, ../scss/breakpoints/_768up.scss */
+/* line 750, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #ListingList button.btn {
   vertical-align: top;
 }
-/* line 707, ../scss/breakpoints/_768up.scss */
+/* line 754, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #listingForm {
   max-width: 600px;
   display: block;
@@ -1199,16 +1285,16 @@ header.mainHeader .SizeSelector span.active {
   content: "";
   display: block;
 }
-/* line 710, ../scss/breakpoints/_768up.scss */
+/* line 757, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #listingForm label {
   text-transform: uppercase;
   font-size: .8em;
 }
-/* line 715, ../scss/breakpoints/_768up.scss */
+/* line 762, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #listingForm input::placeholder, .adminWrap .listingEdit #listingForm input::-webkit-input-placeholder, .adminWrap .listingEdit #listingForm input::-moz-placeholder, .adminWrap .listingEdit #listingForm input:-ms-input-placeholder, .adminWrap .listingEdit #listingForm input:-moz-placeholder {
   color: pink !important;
 }
-/* line 723, ../scss/breakpoints/_768up.scss */
+/* line 770, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #listingForm .group-venue {
   float: left;
   display: block;
@@ -1219,13 +1305,13 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .listingEdit #listingForm .group-venue:last-child {
   margin-right: 0;
 }
-/* line 725, ../scss/breakpoints/_768up.scss */
+/* line 772, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #listingForm .group-venue button.btn {
   margin-top: 10px;
   background-color: #fff;
   color: #323944;
 }
-/* line 731, ../scss/breakpoints/_768up.scss */
+/* line 778, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #listingForm .group-artists,
 .adminWrap .listingEdit #listingForm .group-name,
 .adminWrap .listingEdit #listingForm .group-description,
@@ -1246,7 +1332,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .listingEdit #listingForm .group-dates:last-child {
   margin-right: 0;
 }
-/* line 739, ../scss/breakpoints/_768up.scss */
+/* line 786, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #listingForm .group-thumbnail {
   float: left;
   display: block;
@@ -1258,7 +1344,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .listingEdit #listingForm .group-thumbnail:last-child {
   margin-right: 0;
 }
-/* line 743, ../scss/breakpoints/_768up.scss */
+/* line 790, ../scss/breakpoints/_768up.scss */
 .adminWrap .listingEdit #listingForm .group-events {
   float: left;
   display: block;
@@ -1269,7 +1355,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .listingEdit #listingForm .group-events:last-child {
   margin-right: 0;
 }
-/* line 754, ../scss/breakpoints/_768up.scss */
+/* line 801, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card {
   float: left;
   display: block;
@@ -1283,7 +1369,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .usersWrap .allUsers .card:last-child {
   margin-right: 0;
 }
-/* line 759, ../scss/breakpoints/_768up.scss */
+/* line 806, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card:nth-of-type(2n) {
   margin-right: 2.3576520234%;
 }
@@ -1295,7 +1381,7 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .usersWrap .allUsers .card:nth-child(3n+1) {
   clear: left;
 }
-/* line 763, ../scss/breakpoints/_768up.scss */
+/* line 810, ../scss/breakpoints/_768up.scss */
 .adminWrap .usersWrap .allUsers .card .card-block {
   -webkit-transform: translateY(-30%);
   -moz-transform: translateY(-30%);
@@ -1303,7 +1389,7 @@ header.mainHeader .SizeSelector span.active {
   -o-transform: translateY(-30%);
   transform: translateY(-30%);
 }
-/* line 768, ../scss/breakpoints/_768up.scss */
+/* line 815, ../scss/breakpoints/_768up.scss */
 .adminWrap .allInfo {
   float: left;
   display: block;
@@ -1314,25 +1400,25 @@ header.mainHeader .SizeSelector span.active {
 .adminWrap .allInfo:last-child {
   margin-right: 0;
 }
-/* line 773, ../scss/breakpoints/_768up.scss */
+/* line 820, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .tabs__labels {
   display: block;
 }
-/* line 775, ../scss/breakpoints/_768up.scss */
+/* line 822, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .tabs__labels li {
   display: inline-block;
   margin-bottom: 10px;
 }
-/* line 779, ../scss/breakpoints/_768up.scss */
+/* line 826, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .tabs__labels li a.active button {
   background-color: #eaedf2;
 }
-/* line 785, ../scss/breakpoints/_768up.scss */
+/* line 832, ../scss/breakpoints/_768up.scss */
 .adminWrap .featureAdmin .featureFormWrap {
   max-width: 500px;
 }
 
-/* line 792, ../scss/breakpoints/_768up.scss */
+/* line 839, ../scss/breakpoints/_768up.scss */
 .picture img {
   max-width: 400px;
 }
