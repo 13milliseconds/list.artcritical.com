@@ -1917,7 +1917,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIntl = __webpack_require__(19);
+var _reactIntl = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2529,22 +2529,16 @@ module.exports = require("prop-types");
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-intl");
+module.exports = require("react-map-gl");
 
 /***/ }),
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-map-gl");
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
 module.exports = require("validator");
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2559,7 +2553,7 @@ module.exports = function deepClone(obj) {
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2580,7 +2574,7 @@ module.exports = function toCamelCase(obj, ignored) {
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2601,7 +2595,7 @@ module.exports = function toSnakeCase(obj, ignored) {
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2617,7 +2611,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(21);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -2847,6 +2841,12 @@ var LogInForm = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = LogInForm;
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-intl");
 
 /***/ }),
 /* 26 */
@@ -3260,7 +3260,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _reactIntl = __webpack_require__(19);
+var _reactIntl = __webpack_require__(25);
 
 var _imageBlock = __webpack_require__(31);
 
@@ -5889,9 +5889,9 @@ module.exports = Client;
  * Dependencies
  */
 const EmailAddress = __webpack_require__(26);
-const toCamelCase = __webpack_require__(23);
-const toSnakeCase = __webpack_require__(24);
-const deepClone = __webpack_require__(22);
+const toCamelCase = __webpack_require__(22);
+const toSnakeCase = __webpack_require__(23);
+const deepClone = __webpack_require__(21);
 const merge = __webpack_require__(201);
 const wrapSubstitutions = __webpack_require__(46);
 
@@ -7349,7 +7349,7 @@ var _singleMarker = __webpack_require__(158);
 
 var _singleMarker2 = _interopRequireDefault(_singleMarker);
 
-var _reactMapGl = __webpack_require__(20);
+var _reactMapGl = __webpack_require__(19);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -9496,7 +9496,7 @@ var _MarkerDisplay = __webpack_require__(155);
 
 var _MarkerDisplay2 = _interopRequireDefault(_MarkerDisplay);
 
-var _reactMapGl = __webpack_require__(20);
+var _reactMapGl = __webpack_require__(19);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -11332,8 +11332,8 @@ router.post('/findfeaturesbydate/:date', function (req, res) {
 
     console.log("Find feature by date");
 
-    var start = (0, _moment2.default)(req.params.date, 'MMDDYY').startOf('day');
-    var end = (0, _moment2.default)(req.params.date, 'MMDDYY').endOf('day');
+    var start = _moment2.default.utc(req.params.date, 'MMDDYY').startOf('day');
+    var end = _moment2.default.utc(req.params.date, 'MMDDYY').endOf('day');
 
     Feature.findOne({
         date: { "$gt": start, "$lt": end }
@@ -11849,9 +11849,9 @@ module.exports = new Client();
 /**
  * Dependencies
  */
-const toCamelCase = __webpack_require__(23);
-const toSnakeCase = __webpack_require__(24);
-const deepClone = __webpack_require__(22);
+const toCamelCase = __webpack_require__(22);
+const toSnakeCase = __webpack_require__(23);
+const deepClone = __webpack_require__(21);
 
 /**
  * Attachment class
@@ -12031,9 +12031,9 @@ module.exports = {
  */
 const EmailAddress = __webpack_require__(26);
 const Personalization = __webpack_require__(43);
-const toCamelCase = __webpack_require__(23);
-const toSnakeCase = __webpack_require__(24);
-const deepClone = __webpack_require__(22);
+const toCamelCase = __webpack_require__(22);
+const toSnakeCase = __webpack_require__(23);
+const deepClone = __webpack_require__(21);
 const arrayToJSON = __webpack_require__(44);
 
 /**
@@ -12731,11 +12731,11 @@ module.exports = ResponseError;
  */
 const arrayToJSON = __webpack_require__(44);
 const convertKeys = __webpack_require__(27);
-const deepClone = __webpack_require__(22);
+const deepClone = __webpack_require__(21);
 const mergeData = __webpack_require__(125);
 const splitNameEmail = __webpack_require__(45);
-const toCamelCase = __webpack_require__(23);
-const toSnakeCase = __webpack_require__(24);
+const toCamelCase = __webpack_require__(22);
+const toSnakeCase = __webpack_require__(23);
 const wrapSubstitutions = __webpack_require__(46);
 
 /**
@@ -13124,7 +13124,7 @@ var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
-var _reactMapGl = __webpack_require__(20);
+var _reactMapGl = __webpack_require__(19);
 
 var _reactMapGl2 = _interopRequireDefault(_reactMapGl);
 
@@ -14139,7 +14139,7 @@ var _moment = __webpack_require__(5);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactIntl = __webpack_require__(19);
+var _reactIntl = __webpack_require__(25);
 
 var _DayPage = __webpack_require__(133);
 
@@ -14320,13 +14320,13 @@ var SingleFeature = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            var date = (0, _moment2.default)(this.props.params.date, 'MMDDYY').format('MMMM D YYYY');
+            var date = _moment2.default.utc(this.props.params.date, 'MMDDYY').format('MMMM D YYYY');
 
             return _react2.default.createElement(
                 'div',
                 { className: 'singleFeature' },
                 _react2.default.createElement(_Helmet2.default, {
-                    title: this.props.feature ? date + ': ' + this.props.feature.list.title : date,
+                    title: this.props.feature && this.props.feature.list ? date + ': ' + this.props.feature.list.title : date,
                     link: "https://list.artcritical.com/features/" + this.props.params.date
                 }),
                 _react2.default.createElement(
@@ -14396,7 +14396,7 @@ var _AccountForm = __webpack_require__(160);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
-var _LogInForm = __webpack_require__(25);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -14479,7 +14479,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _LogInForm = __webpack_require__(25);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -15176,8 +15176,6 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(19);
-
 var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
@@ -15225,41 +15223,42 @@ var FeaturePage = function (_React$Component) {
             var allFeatures = function allFeatures(features) {
                 return features.map(function (feature, index) {
 
-                    var type = feature.type;
-                    var event = feature.event;
-                    var listing = feature.list ? feature.list : {};
-                    var venue = feature.venue ? feature.venue : {};
+                    var listing = feature.list;
 
-                    var title = type === 'event' ? event.name : listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing);
+                    if (listing && listing._id) {
+                        var type = feature.type;
+                        var event = feature.event;
+                        var venue = feature.venue ? feature.venue : {};
 
-                    var featureDay = feature.date ? _react2.default.createElement(
-                        _reactIntl.IntlProvider,
-                        { locale: 'en' },
-                        _react2.default.createElement(_reactIntl.FormattedDate, { value: feature.date, day: 'numeric', month: 'short' })
-                    ) : '';
+                        var title = type === 'event' ? event.name : listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing);
 
-                    return _react2.default.createElement(
-                        'div',
-                        { className: 'feature', key: feature._id },
-                        _react2.default.createElement(
-                            'h3',
-                            null,
-                            featureDay
-                        ),
-                        _react2.default.createElement('div', { className: 'image', style: { backgroundImage: 'url("https://res.cloudinary.com/artcritical/image/upload/' + listing.image + '.jpg")' } }),
-                        _react2.default.createElement(
-                            'h4',
-                            null,
-                            title,
-                            ' at ',
-                            venue.name
-                        ),
-                        _react2.default.createElement(
-                            _reactRouter.Link,
-                            { to: 'features/' + (0, _moment2.default)(feature.date).format('MMDDYY') },
-                            'Read More'
-                        )
-                    );
+                        var featureDay = feature.date ? _moment2.default.utc(feature.date).format('MMM DD') : '';
+
+                        return _react2.default.createElement(
+                            'div',
+                            { className: 'feature', key: feature._id },
+                            _react2.default.createElement('div', { className: 'image', style: { backgroundImage: 'url("https://res.cloudinary.com/artcritical/image/upload/' + listing.image + '.jpg")' } }),
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                title,
+                                ' at ',
+                                venue.name
+                            ),
+                            _react2.default.createElement(
+                                'h5',
+                                null,
+                                featureDay
+                            ),
+                            _react2.default.createElement(
+                                _reactRouter.Link,
+                                { to: 'features/' + _moment2.default.utc(feature.date).format('MMDDYY') },
+                                'Read More'
+                            )
+                        );
+                    } else {
+                        return false;
+                    }
                 });
             };
 
@@ -15826,7 +15825,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactIntl = __webpack_require__(19);
+var _reactIntl = __webpack_require__(25);
 
 var _reactstrap = __webpack_require__(2);
 
@@ -17041,7 +17040,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _validator = __webpack_require__(21);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -19475,7 +19474,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(21);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -19708,7 +19707,7 @@ var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _LogInForm = __webpack_require__(25);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -19790,7 +19789,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _validator = __webpack_require__(21);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -20087,7 +20086,7 @@ var _reactToggleButton = __webpack_require__(73);
 
 var _reactToggleButton2 = _interopRequireDefault(_reactToggleButton);
 
-var _validator = __webpack_require__(21);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -20563,7 +20562,7 @@ var _myList = __webpack_require__(179);
 
 var _myList2 = _interopRequireDefault(_myList);
 
-var _LogInForm = __webpack_require__(25);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -20738,7 +20737,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(20);
+var _reactMapGl = __webpack_require__(19);
 
 var _myListings = __webpack_require__(180);
 
@@ -21163,7 +21162,7 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
-var _reactMapGl = __webpack_require__(20);
+var _reactMapGl = __webpack_require__(19);
 
 var _userListings = __webpack_require__(182);
 
@@ -22840,7 +22839,6 @@ var ListStore = function () {
         key: 'onFeatureLoadSuccess',
         value: function onFeatureLoadSuccess(data) {
             this.loading.features = false;
-            var today = (0, _moment2.default)();
             if (data.json) {
                 // Match all features with a day of the next week
                 var features = [];
@@ -22854,7 +22852,7 @@ var ListStore = function () {
                     this.allFeatures.map(function (feature) {
                         // Check if it matches
                         var d = (0, _moment2.default)().add(i, 'days');
-                        if ((0, _moment2.default)(feature.date).isSame(d, 'day')) {
+                        if (_moment2.default.utc(feature.date).isSame(d, 'day')) {
                             tempFeature = feature;
                         }
                     });
@@ -22918,7 +22916,7 @@ var ListStore = function () {
                         this.allFeatures.map(function (feature) {
                             // Check if it matches
                             var d = (0, _moment2.default)().add(i, 'days');
-                            if ((0, _moment2.default)(feature.date).isSame(d, 'day')) {
+                            if (_moment2.default.utc(feature.date).isSame(d, 'day')) {
                                 tempFeature = feature;
                             }
                         });

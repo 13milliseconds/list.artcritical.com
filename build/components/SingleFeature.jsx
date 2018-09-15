@@ -33,12 +33,12 @@ export default class SingleFeature extends React.Component {
 
     render() {
 
-        let date = moment(this.props.params.date, 'MMDDYY').format('MMMM D YYYY')
+        let date = moment.utc(this.props.params.date, 'MMDDYY').format('MMMM D YYYY')
 
         return ( 
             <div className="singleFeature">
                 <Helmet
-                    title={this.props.feature ? date + ': ' + this.props.feature.list.title : date}
+                    title={this.props.feature && this.props.feature.list ? date + ': ' + this.props.feature.list.title : date}
                     link={"https://list.artcritical.com/features/" + this.props.params.date}
                 />
                 <div className="left-col">

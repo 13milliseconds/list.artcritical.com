@@ -1,7 +1,6 @@
 import React from 'react';
 import ListActions from '../../actions/ListActions';
 //COMPONENTS
-import {IntlProvider, FormattedDate} from 'react-intl';
 import Loading from '../blocks/loading';
 import moment from 'moment'
 import ListingNameDisplay from '../blocks/ListingNameDisplay'
@@ -23,27 +22,30 @@ export default class FeaturePage extends React.Component {
     
         var allFeatures = features => features.map((feature, index) => {
 
-            let type = feature.type
-            let event = feature.event
-            let listing = feature.list ? feature.list : {}
-            const venue = feature.venue ? feature.venue : {}
+            let listing = feature.list
 
-            let title = type === 'event'
-            ? event.name
-            : listing.title ? listing.title : <ListingNameDisplay {...listing} />
-            
-            let featureDay = feature.date
-                ?<IntlProvider locale="en">
-                    <FormattedDate value={feature.date} day="numeric" month="short" />
-                </IntlProvider>
-                : ''
+            if (listing && listing._id) {
+                let type = feature.type
+                let event = feature.event
+                const venue = feature.venue ? feature.venue : {}
 
-            return <div className="feature" key={feature._id}>
-                    <h3>{featureDay}</h3>
-                    <div className="image" style={{backgroundImage: 'url("https://res.cloudinary.com/artcritical/image/upload/' + listing.image + '.jpg")'}}></div>
-                    <h4>{title} at {venue.name}</h4>
-                    <Link to={'features/' + moment(feature.date).format('MMDDYY')}>Read More</Link>
-            </div>
+                let title = type === 'event'
+                ? event.name
+                : listing.title ? listing.title : <ListingNameDisplay {...listing} />
+                
+                let featureDay = feature.date
+                    ? moment.utc(feature.date).format('MMM DD')
+                    : ''
+
+                return <div className="feature" key={feature._id}>
+                            <div className="image" style={{backgroundImage: 'url("https://res.cloudinary.com/artcritical/image/upload/' + listing.image + '.jpg")'}}></div>
+                            <h4>{title} at {venue.name}</h4>
+                            <h5>{featureDay}</h5>
+                            <Link to={'features/' + moment.utc(feature.date).format('MMDDYY')}>Read More</Link>
+                        </div>
+            } else {
+                return false
+            }
         })
         
         return ( 

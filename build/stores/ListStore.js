@@ -559,7 +559,6 @@ class ListStore {
     }
     onFeatureLoadSuccess(data) {
         this.loading.features = false
-        const today = moment()
         if (data.json){
 			// Match all features with a day of the next week
             let features = []
@@ -573,7 +572,7 @@ class ListStore {
 					this.allFeatures.map((feature) => {
                         // Check if it matches
                         let d = moment().add(i, 'days');
-						if (moment(feature.date).isSame(d, 'day')){
+						if (moment.utc(feature.date).isSame(d, 'day')){
                             tempFeature = feature
                         }
 					})
@@ -627,7 +626,7 @@ class ListStore {
                         this.allFeatures.map((feature) => {
                             // Check if it matches
                             let d = moment().add(i, 'days');
-                            if (moment(feature.date).isSame(d, 'day')){
+                            if (moment.utc(feature.date).isSame(d, 'day')){
                                 tempFeature = feature
                             }
                         })
