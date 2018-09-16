@@ -584,6 +584,7 @@ Features Page
 *********************/
 
 .allFeatures{
+    padding: 0 0;
     .feature{
         @include span-columns(4);
         float: none;
@@ -595,14 +596,12 @@ Features Page
         }
         .image{
             height: 200px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             margin-bottom: 20px;
         }
     }
 }
 .singleFeature{
+    padding: 0 0;
     .left-col{
         @include span-columns(3);
     }
@@ -610,9 +609,6 @@ Features Page
         @include span-columns(9);
         @include omega;
         .feature-wrap{
-            h5{
-                display: none;
-            }
             .picture{
                 @include span-columns(4);
             }
