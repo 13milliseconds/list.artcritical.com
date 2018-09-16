@@ -963,11 +963,17 @@ Features Page
 
 .allFeatures{
     padding: 0 20px;
+    h2{
+        margin-bottom: 30px;
+    }
     .feature{
         margin-bottom: 30px;
         position: relative;
         h4{
             font-size: 1.25em;
+            a{
+                border-bottom: 0;
+            }
         }
         h5{
             color: $dark-gray;

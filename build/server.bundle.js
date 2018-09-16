@@ -15253,19 +15253,18 @@ var FeaturePage = function (_React$Component) {
                             _react2.default.createElement(
                                 'h4',
                                 null,
-                                title,
-                                ' at ',
-                                venue.name
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    { to: 'features/' + _moment2.default.utc(feature.date).format('MMDDYY') },
+                                    title,
+                                    ' at ',
+                                    venue.name
+                                )
                             ),
                             _react2.default.createElement(
                                 'h5',
                                 null,
                                 featureDay
-                            ),
-                            _react2.default.createElement(
-                                _reactRouter.Link,
-                                { to: 'features/' + _moment2.default.utc(feature.date).format('MMDDYY') },
-                                'Read More'
                             )
                         );
                     } else {

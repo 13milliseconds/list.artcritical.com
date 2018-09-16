@@ -39,9 +39,8 @@ export default class FeaturePage extends React.Component {
 
                 return <div className="feature" key={feature._id}>
                             <div className="image" style={{backgroundImage: 'url("https://res.cloudinary.com/artcritical/image/upload/' + listing.image + '.jpg")'}}></div>
-                            <h4>{title} at {venue.name}</h4>
+                            <h4><Link to={'features/' + moment.utc(feature.date).format('MMDDYY')}>{title} at {venue.name}</Link></h4>
                             <h5>{featureDay}</h5>
-                            <Link to={'features/' + moment.utc(feature.date).format('MMDDYY')}>Read More</Link>
                         </div>
             } else {
                 return false
