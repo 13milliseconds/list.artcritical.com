@@ -62,6 +62,7 @@
         "express": "^4.16.3",
         "express-flash": "0.0.2",
         "express-session": "^1.15.6",
+        "express-sslify": "^1.2.0",
         "express-validator": "^3.2.1",
         "gl": "^4.0.4",
         "google-map-react": "^0.24.0",

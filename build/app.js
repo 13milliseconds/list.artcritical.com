@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var debug = require('debug')('artcritical-list:server');
+var enforce = require('express-sslify');
 
 var expressValidator = require('express-validator');
 
@@ -17,6 +18,11 @@ var session = require('express-session');
 require('./config/passport')(passport);
 
 var app = express();
+
+//Force HTTPS
+if ( process.env.BASE_URI !== 'http://localhost:5000'){
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
+}
 
 // MongoDB
 var mongoose = require("mongoose");
