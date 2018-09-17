@@ -102,7 +102,7 @@ export default class ListingForm extends React.Component {
                                                 textTitle="Save"
                                                 textAction="save this Feature"
                                                 textConfirm="Saved!"
-                                                error={this.props.error}
+                                                error={this.props.error.updateFeature}
                                                 success={this.props.success.updateFeature}/>}
                 {this.state.deletevisible && <ConfirmModal 
                                                 name="deletevisible"
@@ -111,7 +111,7 @@ export default class ListingForm extends React.Component {
                                                 textTitle="Delete"
                                                 textAction="delete this Feature"
                                                 textConfirm="Deleted!"
-                                                error={this.props.error}
+                                                error={this.props.error.deleteFeature}
                                                 success={this.props.success.deleteFeature}/>}
             </div>
         )

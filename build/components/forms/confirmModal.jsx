@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
 
-export default class UpdateModal extends React.Component {
+export default class ConfirmModal extends React.Component {
 	constructor(props) {
         super(props)
 
@@ -42,6 +42,7 @@ export default class UpdateModal extends React.Component {
                     {this.props.success && 
                         <div className='success'>{this.props.textConfirm}</div>
                     }
+                    {this.props.error && console.log(this.props.error)}
                     {this.props.error && 
                         <div className='error'>Technical problem. Please Try Again.</div>
                     }

@@ -528,7 +528,7 @@ class ListStore {
         }, 1000);
     }
     onUpdateFeatureFailure(error){
-        this.error.feature = 'Error updating the feature: ' + error
+        this.error.updateFeature = 'Error updating the feature: ' + error
         console.log(error);
     }
     onFeatureReset(day){
@@ -551,7 +551,7 @@ class ListStore {
         }, 1000)
     }
     onDeleteFeatureFailure(){
-        console.log('feature deletion failed')
+        this.error.deleteFeature = 'feature deletion failed'
         this.success.deleteFeature = false
     }
     onFeatureLoadAttempt() {

@@ -2349,13 +2349,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var UpdateModal = function (_React$Component) {
-    _inherits(UpdateModal, _React$Component);
+var ConfirmModal = function (_React$Component) {
+    _inherits(ConfirmModal, _React$Component);
 
-    function UpdateModal(props) {
-        _classCallCheck(this, UpdateModal);
+    function ConfirmModal(props) {
+        _classCallCheck(this, ConfirmModal);
 
-        var _this = _possibleConstructorReturn(this, (UpdateModal.__proto__ || Object.getPrototypeOf(UpdateModal)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ConfirmModal.__proto__ || Object.getPrototypeOf(ConfirmModal)).call(this, props));
 
         _this.state = {
             newSuccess: false
@@ -2365,7 +2365,7 @@ var UpdateModal = function (_React$Component) {
         return _this;
     }
 
-    _createClass(UpdateModal, [{
+    _createClass(ConfirmModal, [{
         key: 'componentDidUpdate',
         value: function componentDidUpdate() {
             if (this.props.success && !this.state.newSuccess) {
@@ -2410,6 +2410,7 @@ var UpdateModal = function (_React$Component) {
                         { className: 'success' },
                         this.props.textConfirm
                     ),
+                    this.props.error && console.log(this.props.error),
                     this.props.error && _react2.default.createElement(
                         'div',
                         { className: 'error' },
@@ -2440,10 +2441,10 @@ var UpdateModal = function (_React$Component) {
         }
     }]);
 
-    return UpdateModal;
+    return ConfirmModal;
 }(_react2.default.Component);
 
-exports.default = UpdateModal;
+exports.default = ConfirmModal;
 
 /***/ }),
 /* 16 */
@@ -14368,7 +14369,11 @@ var SingleFeature = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'right-col' },
-                    this.props.loading.featureByDate ? _react2.default.createElement(_loading2.default, null) : this.props.feature ? this.state.editing ? _react2.default.createElement(_featuredSelect2.default, { feature: this.props.feature, dayNumber: 1 }) : _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user }) : _react2.default.createElement(
+                    this.props.loading.featureByDate ? _react2.default.createElement(_loading2.default, null) : this.props.feature ? this.state.editing ? _react2.default.createElement(_featuredSelect2.default, {
+                        feature: this.props.feature,
+                        dayNumber: 1,
+                        error: this.props.error,
+                        success: this.props.success }) : _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user }) : _react2.default.createElement(
                         'p',
                         null,
                         'No feature listing on this date'
@@ -15793,7 +15798,11 @@ var FeaturedDay = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_featuredSelect2.default, { feature: this.props.feature, dayNumber: this.props.dayNumber }),
+                _react2.default.createElement(_featuredSelect2.default, {
+                    feature: this.props.feature,
+                    dayNumber: this.props.dayNumber,
+                    error: this.props.error,
+                    success: this.props.success }),
                 _react2.default.createElement(
                     'div',
                     { className: 'preview' },
@@ -18801,7 +18810,7 @@ var ListingForm = function (_React$Component) {
                     textTitle: 'Save',
                     textAction: 'save this Feature',
                     textConfirm: 'Saved!',
-                    error: this.props.error,
+                    error: this.props.error.updateFeature,
                     success: this.props.success.updateFeature }),
                 this.state.deletevisible && _react2.default.createElement(_confirmModal2.default, {
                     name: 'deletevisible',
@@ -18810,7 +18819,7 @@ var ListingForm = function (_React$Component) {
                     textTitle: 'Delete',
                     textAction: 'delete this Feature',
                     textConfirm: 'Deleted!',
-                    error: this.props.error,
+                    error: this.props.error.deleteFeature,
                     success: this.props.success.deleteFeature })
             );
         }
@@ -22809,7 +22818,7 @@ var ListStore = function () {
     }, {
         key: 'onUpdateFeatureFailure',
         value: function onUpdateFeatureFailure(error) {
-            this.error.feature = 'Error updating the feature: ' + error;
+            this.error.updateFeature = 'Error updating the feature: ' + error;
             console.log(error);
         }
     }, {
@@ -22838,7 +22847,7 @@ var ListStore = function () {
     }, {
         key: 'onDeleteFeatureFailure',
         value: function onDeleteFeatureFailure() {
-            console.log('feature deletion failed');
+            this.error.deleteFeature = 'feature deletion failed';
             this.success.deleteFeature = false;
         }
     }, {

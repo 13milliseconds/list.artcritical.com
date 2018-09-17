@@ -52,7 +52,11 @@ export default class SingleFeature extends React.Component {
                         ? <Loading />
                         : this.props.feature
                             ? this.state.editing 
-                                ? <FeaturedSelect feature={this.props.feature} dayNumber={1} />
+                                ? <FeaturedSelect 
+                                    feature={this.props.feature} 
+                                    dayNumber={1} 
+                                    error={this.props.error}
+                                    success={this.props.success}/>
                                 : <FeatureBlock feature={this.props.feature} user={this.props.user}/>
                             : <p>No feature listing on this date</p>
                     }
