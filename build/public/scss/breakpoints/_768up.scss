@@ -585,18 +585,12 @@ Features Page
 
 .allFeatures{
     padding: 0 0;
-    .feature{
-        @include span-columns(4);
-        float: none;
-        display: inline-block;
-        vertical-align: top;
-        margin-bottom: 50px;
-        &:nth-of-type(3n){
-            @include omega;
-        }
-        .image{
-            height: 200px;
-            margin-bottom: 20px;
+    .featuresWrap{
+        .feature{
+            @include span-columns(4);
+            @include omega-reset(2n);
+            @include omega(3n);
+            margin-bottom: 50px;
         }
     }
 }

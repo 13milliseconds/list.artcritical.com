@@ -42,7 +42,7 @@ export default class SingleFeature extends React.Component {
                     link={"https://list.artcritical.com/features/" + this.props.params.date}
                 />
                 <div className="left-col">
-                    <h2>Today's Feature</h2>
+                    <h2>Featured Listing</h2>
                     <h3>{date}</h3>
                     { this.props.feature && this.props.user.userAccess >=1 && <Button onClick={this.onEditButton}>{this.state.editing ? 'Done' : 'Edit'}</Button>}
                     <Link to='/features'>Back to all features</Link>

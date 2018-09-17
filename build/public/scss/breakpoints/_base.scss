@@ -24,6 +24,7 @@ and will be used across all viewports.
 	}
 }
 
+
 /*********************
 GENERAL STYLES
 *********************/
@@ -988,12 +989,11 @@ Features Page
         }
         h5{
             color: $dark-gray;
+            font-weight: 200;
+            font-size: 1em;
         }
-        .image{
-            height: 150px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+        img{ 
+            max-width: 100%;
             margin-bottom: 10px;
         }
     }

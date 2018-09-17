@@ -16,6 +16,11 @@ http://thesassway.com/advanced/modular-css-naming-conventions
 
 ******************************************************************/
 
+@mixin omega-reset($nth) {
+    &:nth-child(#{$nth}) { margin-right: flex-gutter(); }
+    &:nth-child(#{$nth}+1) { clear: none }
+  }
+
 /*********************
 IMPORTING PARTIALS
 These files are needed at the beginning so that we establish all

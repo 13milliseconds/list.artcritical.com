@@ -4,6 +4,7 @@ import ListActions from '../../actions/ListActions';
 import Loading from '../blocks/loading';
 import moment from 'moment'
 import ListingNameDisplay from '../blocks/ListingNameDisplay'
+import ImageBlock from '../blocks/imageBlock';
 import {Link} from 'react-router';
 
 
@@ -34,11 +35,11 @@ export default class FeaturePage extends React.Component {
                 : listing.title ? listing.title : <ListingNameDisplay {...listing} />
                 
                 let featureDay = feature.date
-                    ? moment.utc(feature.date).format('MMM DD')
+                    ? moment.utc(feature.date).format('ddd, MMM DD YYYY')
                     : ''
 
                 return <div className="feature" key={feature._id}>
-                            <div className="image" style={{backgroundImage: 'url("https://res.cloudinary.com/artcritical/image/upload/' + listing.image + '.jpg")'}}></div>
+                            {listing.image && <ImageBlock image={listing.image} />}
                             <h4><Link to={'features/' + moment.utc(feature.date).format('MMDDYY')}>{title} at {venue.name}</Link></h4>
                             <h5>{featureDay}</h5>
                         </div>
@@ -49,12 +50,13 @@ export default class FeaturePage extends React.Component {
         
         return ( 
             <div className = "allFeatures">
-              <h2>Past Features</h2>
-              {this.props.loading.features
-                    ? <Loading />
-                    : allFeatures(this.props.allFeatures)
-              }
-
+              <h2>Archive of Featured Listings</h2>
+              <div className="featuresWrap">
+                {this.props.loading.features
+                        ? <Loading />
+                        : allFeatures(this.props.allFeatures)
+                }
+              </div>
             </div>
         );
     }
