@@ -44,6 +44,7 @@ export default class UsersPage extends React.Component {
         return ( 
             <div className = "usersWrap">
                 <h2>Users</h2>
+                <h6>There are {this.props.allUsers ? this.props.allUsers.length : 0} registered users.</h6>
 
 				<div className="allUsers">
 				{this.props.loading.allUsers && <Loading />}

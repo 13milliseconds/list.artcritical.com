@@ -10561,7 +10561,7 @@ router.get('/getallusers', function (req, res) {
     var Userlist = req.userlist;
 
     console.log('auth/getallusers');
-    Userlist.find().sort('createdOn').limit(50).populate('mylist').exec(function (e, docs) {
+    Userlist.find().sort('createdOn').populate('mylist').exec(function (e, docs) {
         res.json(docs);
     });
 });
@@ -15479,6 +15479,13 @@ var UsersPage = function (_React$Component) {
                     'h2',
                     null,
                     'Users'
+                ),
+                _react2.default.createElement(
+                    'h6',
+                    null,
+                    'There are ',
+                    this.props.allUsers ? this.props.allUsers.length : 0,
+                    ' registered users.'
                 ),
                 _react2.default.createElement(
                     'div',

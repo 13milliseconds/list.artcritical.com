@@ -516,7 +516,6 @@ router.get('/getallusers', function (req, res){
 	console.log('auth/getallusers');
 	Userlist.find().
     sort('createdOn').
-    limit(50).
     populate('mylist').
     exec(function (e, docs) {
         res.json(docs);
