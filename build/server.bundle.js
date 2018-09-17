@@ -19128,6 +19128,12 @@ var Layout = function (_React$Component) {
         value: function componentDidMount() {
             _ListStore2.default.listen(this.onChange);
             _reactGa2.default.pageview(window.location.pathname);
+
+            console.log(window.location.href);
+            console.log(window.location.pathname);
+            this.setState({
+                url: window.location.href
+            });
         }
     }, {
         key: 'componentWillUnmount',

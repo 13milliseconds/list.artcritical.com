@@ -1349,9 +1349,13 @@ input.invalid{
 }
 
 //Style placeholder text
-input::-webkit-input-placeholder,/* Chrome/Opera/Safari */
+input,
+input[type="text"],
+input[type="number"]{
+    @include placeholder{color: #bbb}
+}
 option{ 
-  color: #C9C9C9;
+  color: #bbb;
 }
 
 //ACCOUNT

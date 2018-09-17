@@ -58,6 +58,7 @@ export default class Layout extends React.Component {
 
         this.onChange = this.onChange.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this)
+        this.componentDidMount = this.componentDidMount.bind(this)
     }
 
     componentWillMount() {
@@ -70,6 +71,9 @@ export default class Layout extends React.Component {
         ListStore.listen(this.onChange);
         ReactGA.pageview(window.location.pathname);
 
+        this.setState({
+            url: window.location.href
+        })
     }
 
     componentWillUnmount() {
