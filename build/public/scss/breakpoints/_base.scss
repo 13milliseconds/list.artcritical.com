@@ -123,6 +123,17 @@ a.facebookbutton{
         margin-right: 10px;
     }
 }
+.DateRangePicker,
+.SingleDatePicker{
+    button{
+        margin-right: 0;
+    }
+    input[type="text"]{
+        background-color: transparent;
+        margin-bottom: 0;
+    }
+}
+
 /******************
 HEADER
 ********************/

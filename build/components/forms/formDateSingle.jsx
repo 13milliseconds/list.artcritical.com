@@ -17,6 +17,7 @@ export default class DateSingle extends React.Component {
 
            <SingleDatePicker
                 id="startDate"
+                numberOfMonths={1}
                 isOutsideRange={() => false}
                 date={this.props.startDate ? moment(this.props.startDate) : null}  
                 onDateChange={date => this.props.onDatesChange({date, index: this.props.event})} // PropTypes.func.isRequired

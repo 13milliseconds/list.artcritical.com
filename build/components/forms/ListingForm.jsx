@@ -285,7 +285,7 @@ export default class ListingForm extends React.Component {
                     <FormGroup check className="group-dates">
                         <Label> Dates </Label>
                         <div className="formSection">
-                            <DateRange startDate={listing.start} endDate={listing.end} onDatesChange={this.handleChange}/>
+                            <DateRange vertical={this.props.dateVertical} startDate={listing.start} endDate={listing.end} onDatesChange={this.handleChange}/>
                             {this.state.errorMessages.dates && <Alert color="danger">{this.state.errorMessages.dates}</Alert>}
                         </div>  
                     </FormGroup>

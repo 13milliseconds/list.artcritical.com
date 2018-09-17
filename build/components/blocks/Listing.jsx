@@ -70,7 +70,6 @@ export default class Listing extends React.Component {
 
         //let closeIcon = this.state.fullInfo ? ["fal", "minus-circle"] : ["fal", "plus-circle"]
         let eventsPresence = false
-        console.log('relatedEvents: ', listing.relatedEvents)
         listing.relatedEvents && listing.relatedEvents.map(event => {
             if (event && moment(event.date).isAfter(moment().startOf('day'))){
                 eventsPresence = true

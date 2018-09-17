@@ -9,6 +9,9 @@ import SizeSelector from './blocks/sizeSelector';
 import Hamburger from './blocks/Hamburger';
 import Helmet from './blocks/Helmet'
 
+//React Dates initialization
+import 'react-dates/initialize';
+
 //Sidebar
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas'
 import ListingForm from './forms/ListingForm';
@@ -179,7 +182,8 @@ export default class Layout extends React.Component {
                                 listing={this.state.listingEdit}
                                 error={this.state.error}
                                 loading={this.state.loading}
-                                success={this.state.success} />
+                                success={this.state.success}
+                                dateVertical={true} />
                                 </div>
                         }
                         {typeof this.state.eventEdit._id === "string" &&

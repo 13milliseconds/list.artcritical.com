@@ -23,6 +23,8 @@ export default class DateRange extends React.Component {
               onDatesChange={({startDate, endDate}) => this.props.onDatesChange({startDate, endDate})} 
               focusedInput={this.state.focusedInput} 
               onFocusChange={focusedInput => this.setState({ focusedInput })} 
+              orientation={this.props.vertical ? 'vertical' : 'horizontal'}
+              verticalHeight={390}
             />
 
         );
