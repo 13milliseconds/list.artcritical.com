@@ -1973,7 +1973,7 @@ header.mainHeader .mainLogo h1 {
   color: #9f0900;
   margin-bottom: 0;
   font-weight: 500;
-  letter-spacing: .1em;
+  letter-spacing: .01em;
 }
 /* line 644, ../scss/breakpoints/_base.scss */
 header.mainHeader .mainLogo h2 {
@@ -3146,16 +3146,16 @@ you can add resource intensive styles.
   }
   /* line 94, ../scss/breakpoints/_768up.scss */
   header.mainHeader .mainLogo h1 {
-    font-size: 2.6em;
-    margin-bottom: 10px;
+    font-size: 3em;
     line-height: .6em;
+    margin-bottom: 10px;
   }
   /* line 99, ../scss/breakpoints/_768up.scss */
   header.mainHeader .mainLogo h2 {
     display: block;
     color: #323944;
-    font-size: .76em;
-    font-weight: 500;
+    font-weight: 400;
+    font-size: .8em;
   }
   /* line 106, ../scss/breakpoints/_768up.scss */
   header.mainHeader nav {
@@ -4534,11 +4534,11 @@ This is for the larger monitors and possibly full screen viewers.
   ******************************************************************/
   /* line 14, ../scss/breakpoints/_1240up.scss */
   header.mainHeader .mainLogo h1 {
-    font-size: 3em;
+    font-size: 3.4em;
   }
   /* line 17, ../scss/breakpoints/_1240up.scss */
   header.mainHeader .mainLogo h2 {
-    font-size: .97em;
+    font-size: .92em;
   }
 }
 /*********************
