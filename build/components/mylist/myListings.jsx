@@ -26,7 +26,7 @@ export default class MyListings extends React.Component {
                     reorderId={this.props.user._id}
                     draggedClassName="dragged"
                     lock="horizontal"
-                    holdTime={10}
+                    holdTime={300}
                     disabled={false}
                     onReorder={this.props.onReorder.bind(this)}
                     >
