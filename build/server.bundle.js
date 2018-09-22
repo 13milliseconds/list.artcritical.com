@@ -11275,8 +11275,8 @@ router.post('/feature', function (req, res) {
         });
     } else {
         // New feature
-
         var theFeature = new Feature(req.body);
+        console.log('To save: ', theFeature);
 
         //Save this new entry
         theFeature.save(function (err, newFeature) {
@@ -11300,7 +11300,7 @@ router.post('/findfeatures', function (req, res) {
 });
 
 //#######################
-// FIND the current featured article
+// FIND the current featured articles
 //#######################
 
 router.post('/findcurrentfeatures', function (req, res) {
@@ -11326,7 +11326,7 @@ router.post('/findcurrentfeatures', function (req, res) {
 });
 
 //#######################
-// FIND the current featured article
+// FIND the featured by date
 //#######################
 
 router.post('/findfeaturesbydate/:date', function (req, res) {
@@ -15814,11 +15814,7 @@ var FeaturedDay = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_featuredSelect2.default, {
-                    feature: this.props.feature,
-                    dayNumber: this.props.dayNumber,
-                    error: this.props.error,
-                    success: this.props.success }),
+                _react2.default.createElement(_featuredSelect2.default, this.props),
                 _react2.default.createElement(
                     'div',
                     { className: 'preview' },
@@ -19113,6 +19109,7 @@ var Layout = function (_React$Component) {
 
         _this.onChange = _this.onChange.bind(_this);
         _this.toggleMenu = _this.toggleMenu.bind(_this);
+        _this.componentDidMount = _this.componentDidMount.bind(_this);
         return _this;
     }
 
@@ -19129,8 +19126,6 @@ var Layout = function (_React$Component) {
             _ListStore2.default.listen(this.onChange);
             _reactGa2.default.pageview(window.location.pathname);
 
-            console.log(window.location.href);
-            console.log(window.location.pathname);
             this.setState({
                 url: window.location.href
             });

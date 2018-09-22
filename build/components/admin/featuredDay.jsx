@@ -14,11 +14,7 @@ export default class FeaturedDay extends React.Component {
         
         return ( 
             <div>
-                <FeaturedSelect 
-                    feature={this.props.feature} 
-                    dayNumber={this.props.dayNumber}
-                    error={this.props.error}
-                    success={this.props.success}/>
+                <FeaturedSelect {...this.props}/>
                 <div className="preview">
                 <h4>Preview</h4>
                     { (this.props.feature.list || this.props.feature.event) && <FeatureBlock feature={this.props.feature} user={this.props.user}/> }

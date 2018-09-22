@@ -561,8 +561,8 @@ router.post('/feature', function (req, res) {
 
     } else {
         // New feature
-
         var theFeature = new Feature(req.body);
+        console.log('To save: ', theFeature)
 
         //Save this new entry
         theFeature.save(function (err, newFeature) {
@@ -593,7 +593,7 @@ router.post('/findfeatures', function (req, res) {
 });
 
 //#######################
-// FIND the current featured article
+// FIND the current featured articles
 //#######################
 
 router.post('/findcurrentfeatures', function (req, res) {
@@ -625,7 +625,7 @@ router.post('/findcurrentfeatures', function (req, res) {
 });
 
 //#######################
-// FIND the current featured article
+// FIND the featured by date
 //#######################
 
 router.post('/findfeaturesbydate/:date', function (req, res) {
