@@ -137,7 +137,7 @@ export default class Listing extends React.Component {
                         {this.props.onMap && <FontAwesomeIcon onClick={this.props.mapMouseEnter} icon={['fal', 'search']}/>}
                         {listing.review && <a alt="Review" target="_blank" href={listing.review}><FontAwesomeIcon icon={['fal', 'pencil-alt']}/></a>}
                         {eventsPresence && <FontAwesomeIcon icon={['fal', 'glass-martini']} onClick={this._revealInfo}/>}
-                        {listing.popularity >= 5 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
+                        {listing.popularity >= 10 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
                     </span>
 
                     <div className="listingActions">
