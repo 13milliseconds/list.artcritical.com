@@ -800,6 +800,9 @@ AT A GLANCE
         margin-top: 20px;
         h3{
             font-size: 1.2em;
+            .type{
+                text-transform: capitalize;
+            }
         }
     } 
     a.button{

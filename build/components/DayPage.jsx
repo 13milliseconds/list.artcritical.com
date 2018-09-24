@@ -67,7 +67,7 @@ export default class DayPage extends React.Component {
         return (
             <div className="day">
                 <div className="featuredSection">
-                    {this.props.feature.list && <FeatureBlock feature={this.props.feature} user={this.props.user}/>}
+                    {this.props.feature && <FeatureBlock feature={this.props.feature} user={this.props.user}/>}
                 </div>   
                 {!this.props.loading.glance
                 ? <div className={this.props.view + " listingsWrap"}>

@@ -578,7 +578,7 @@ class ListStore {
 				//For each day of the week
 				for (var i=0; i < data.days; i++) {
                     let tempFeature = null
-                    let d = moment().add(i, 'days');
+                    let d = moment().utcOffset(-4).add(i, 'days');
 					// Go through all the features
 					this.allFeatures.map((feature) => {
                         // Check if it matches
@@ -593,13 +593,13 @@ class ListStore {
                         for (var y = 0; y < this.allFeatures.length; y++){
 						    var feature = this.allFeatures[y]
                             // Find current feature
-                            if (!features.includes(feature) && feature.list){
+                            if (!features.includes(feature) && (feature.list || feature.event)){
                                 features.push(feature)
                                 break
                             }
                         }
 					}
-				}
+                }
             this.features = features;
         } else {
             this.error.feature = "No Features";

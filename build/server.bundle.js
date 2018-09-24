@@ -3436,12 +3436,21 @@ var FeatureBlock = function (_React$Component) {
             var listing = feature.list ? feature.list : {};
             var event = feature.event ? feature.event : {};
             var relatedEvent = feature.relatedEvent;
-            console.log(relatedEvent);
             var type = feature.type;
 
             var image = type === 'event' ? event.image : listing.image;
 
-            var title = type === 'event' ? event.name : relatedEvent ? relatedEvent.type === 'other' ? relatedEvent.name : relatedEvent.type + ': ' + listing.title : listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing);
+            var title = type === 'event' ? event.name : relatedEvent ? relatedEvent.type === 'other' ? relatedEvent.name : _react2.default.createElement(
+                'span',
+                null,
+                _react2.default.createElement(
+                    'span',
+                    { className: 'type' },
+                    relatedEvent.type
+                ),
+                ': ',
+                listing.title
+            ) : listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing);
 
             var description = type === 'event' ? event.description : listing.description;
 
@@ -11440,22 +11449,35 @@ router.post('/findcurrentfeatures', function (req, res) {
     console.log("Find all current features");
 
     Feature.find().populate('list').populate('event').populate('venue').populate('relatedEvent').exec(function (e, docs) {
-
         var now = (0, _moment2.default)().utcOffset(-4);
-        var currentFeatures = [];
 
-        //Check that all listings are current or future
-        docs.map(function (feature) {
-            feature.list && List.populate(feature.list, { path: 'relatedEvents' }, function (err, doc) {
-                console.log(doc);
-                feature.list = doc;
-            });
-            feature.list && feature.list.end && (0, _moment2.default)(feature.list.end).isSameOrAfter(now, 'day') && currentFeatures.push(feature);
+        var newFeatures = docs.filter(function (doc) {
+            return doc.list ? (0, _moment2.default)(doc.list.end).utcOffset(-4).isSameOrAfter(now, 'day') : doc.event ? (0, _moment2.default)(doc.event.date).utcOffset(-4).isSameOrAfter(now, 'day') : false;
         });
 
-        //Return the current feature listings
-        console.log('Returned ' + currentFeatures.length + ' features');
-        res.json(currentFeatures);
+        //NEED TO USE PROMISES
+
+        var populatefn = function saveArtists(feature) {
+            // Save artist async
+            return new Promise(function (resolve) {
+                feature.list ? List.populate(feature.list, { path: 'relatedEvents' }, function (err, doc) {
+                    var newfeature = feature;
+                    newfeature.list = doc;
+                    resolve(newfeature);
+                }) : feature.event && resolve(feature);
+            });
+        };
+
+        var population = newFeatures.map(populatefn); // run the function over all items
+
+        var populatedEvents = Promise.all(population); // pass array of promises
+
+        populatedEvents.then(function (data) {
+            res.json(data);
+        }).catch(function (err) {
+            console.log(err);
+            res.send(err);
+        });
     });
 });
 
@@ -13870,7 +13892,7 @@ var DayPage = function (_React$Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "featuredSection" },
-                    this.props.feature.list && _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
+                    this.props.feature && _react2.default.createElement(_featureBlock2.default, { feature: this.props.feature, user: this.props.user })
                 ),
                 !this.props.loading.glance ? _react2.default.createElement(
                     "div",
@@ -14398,6 +14420,139 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _ListActions = __webpack_require__(1);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
+var _loading = __webpack_require__(7);
+
+var _loading2 = _interopRequireDefault(_loading);
+
+var _moment = __webpack_require__(5);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _ListingNameDisplay = __webpack_require__(13);
+
+var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
+
+var _imageBlock = __webpack_require__(24);
+
+var _imageBlock2 = _interopRequireDefault(_imageBlock);
+
+var _reactRouter = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//COMPONENTS
+
+
+var FeaturePage = function (_React$Component) {
+    _inherits(FeaturePage, _React$Component);
+
+    function FeaturePage(props) {
+        _classCallCheck(this, FeaturePage);
+
+        return _possibleConstructorReturn(this, (FeaturePage.__proto__ || Object.getPrototypeOf(FeaturePage)).call(this, props));
+    }
+
+    _createClass(FeaturePage, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            if (this.props.allFeatures.length === 0) {
+                _ListActions2.default.featureAdmin();
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            var allFeatures = function allFeatures(features) {
+                return features.map(function (feature, index) {
+
+                    var listing = feature.list;
+                    var event = feature.event;
+
+                    if (listing || event) {
+                        var type = feature.type;
+                        var venue = feature.venue ? feature.venue : {};
+
+                        var title = type === 'event' ? event.name : listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing);
+
+                        var featureDay = feature.date ? _moment2.default.utc(feature.date).format('ddd, MMM DD YYYY') : '';
+
+                        return _react2.default.createElement(
+                            'div',
+                            { className: 'feature', key: feature._id },
+                            listing && listing.image && _react2.default.createElement(_imageBlock2.default, { image: listing.image }),
+                            event && event.image && _react2.default.createElement(_imageBlock2.default, { image: event.image }),
+                            _react2.default.createElement(
+                                'h4',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    { to: 'features/' + _moment2.default.utc(feature.date).format('MMDDYY') },
+                                    title,
+                                    ' at ',
+                                    venue.name
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'h5',
+                                null,
+                                featureDay
+                            )
+                        );
+                    } else {
+                        return false;
+                    }
+                });
+            };
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'allFeatures' },
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    'Archive of Featured Listings'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'featuresWrap' },
+                    this.props.loading.features ? _react2.default.createElement(_loading2.default, null) : allFeatures(this.props.allFeatures)
+                )
+            );
+        }
+    }]);
+
+    return FeaturePage;
+}(_react2.default.Component);
+
+exports.default = FeaturePage;
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
 var _reactRouter = __webpack_require__(3);
 
 var _ListActions = __webpack_require__(1);
@@ -14524,7 +14679,7 @@ var SingleFeature = function (_React$Component) {
 exports.default = SingleFeature;
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14613,7 +14768,7 @@ var AccountPage = function (_React$Component) {
 exports.default = AccountPage;
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14763,7 +14918,7 @@ var AdminPage = function (_React$Component) {
 exports.default = AdminPage;
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14912,7 +15067,7 @@ var EventEdit = function (_React$Component) {
 exports.default = EventEdit;
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15072,7 +15227,7 @@ var ListingEdit = function (_React$Component) {
 exports.default = ListingEdit;
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15306,138 +15461,6 @@ var VenueEdit = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = VenueEdit;
-
-/***/ }),
-/* 145 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _ListActions = __webpack_require__(1);
-
-var _ListActions2 = _interopRequireDefault(_ListActions);
-
-var _loading = __webpack_require__(7);
-
-var _loading2 = _interopRequireDefault(_loading);
-
-var _moment = __webpack_require__(5);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _ListingNameDisplay = __webpack_require__(13);
-
-var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
-
-var _imageBlock = __webpack_require__(24);
-
-var _imageBlock2 = _interopRequireDefault(_imageBlock);
-
-var _reactRouter = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//COMPONENTS
-
-
-var FeaturePage = function (_React$Component) {
-    _inherits(FeaturePage, _React$Component);
-
-    function FeaturePage(props) {
-        _classCallCheck(this, FeaturePage);
-
-        return _possibleConstructorReturn(this, (FeaturePage.__proto__ || Object.getPrototypeOf(FeaturePage)).call(this, props));
-    }
-
-    _createClass(FeaturePage, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            if (this.props.allFeatures.length === 0) {
-                _ListActions2.default.featureAdmin();
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-
-            var allFeatures = function allFeatures(features) {
-                return features.map(function (feature, index) {
-
-                    var listing = feature.list;
-
-                    if (listing && listing._id) {
-                        var type = feature.type;
-                        var event = feature.event;
-                        var venue = feature.venue ? feature.venue : {};
-
-                        var title = type === 'event' ? event.name : listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing);
-
-                        var featureDay = feature.date ? _moment2.default.utc(feature.date).format('ddd, MMM DD YYYY') : '';
-
-                        return _react2.default.createElement(
-                            'div',
-                            { className: 'feature', key: feature._id },
-                            listing.image && _react2.default.createElement(_imageBlock2.default, { image: listing.image }),
-                            _react2.default.createElement(
-                                'h4',
-                                null,
-                                _react2.default.createElement(
-                                    _reactRouter.Link,
-                                    { to: 'features/' + _moment2.default.utc(feature.date).format('MMDDYY') },
-                                    title,
-                                    ' at ',
-                                    venue.name
-                                )
-                            ),
-                            _react2.default.createElement(
-                                'h5',
-                                null,
-                                featureDay
-                            )
-                        );
-                    } else {
-                        return false;
-                    }
-                });
-            };
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'allFeatures' },
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    'Archive of Featured Listings'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'featuresWrap' },
-                    this.props.loading.features ? _react2.default.createElement(_loading2.default, null) : allFeatures(this.props.allFeatures)
-                )
-            );
-        }
-    }]);
-
-    return FeaturePage;
-}(_react2.default.Component);
-
-exports.default = FeaturePage;
 
 /***/ }),
 /* 146 */
@@ -16428,7 +16451,7 @@ var Listing = function (_React$Component) {
                                 _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'pencil-alt'] })
                             ),
                             eventsPresence && _react2.default.createElement(_reactFontawesome2.default, { icon: ['fal', 'glass-martini'], onClick: this._revealInfo }),
-                            listing.popularity >= 5 && _react2.default.createElement(
+                            listing.popularity >= 10 && _react2.default.createElement(
                                 'span',
                                 { className: 'popular' },
                                 _react2.default.createElement(_reactFontawesome2.default, { icon: ['fas', 'star'] })
@@ -18932,6 +18955,8 @@ var ListingForm = function (_React$Component) {
         key: 'render',
         value: function render() {
 
+            console.log(this.props);
+
             var image = this.props.list ? this.props.list.image : this.props.event ? this.props.event.image : '';
 
             return _react2.default.createElement(
@@ -18965,11 +18990,13 @@ var ListingForm = function (_React$Component) {
                                     'Choose a related event'
                                 ),
                                 this.props.list.relatedEvents.map(function (event) {
-                                    return _react2.default.createElement(
-                                        'option',
-                                        { key: event._id, value: event._id },
-                                        event.type === 'other' ? event.name : event.type
-                                    );
+                                    if (event && event._id) {
+                                        return _react2.default.createElement(
+                                            'option',
+                                            { key: event._id, value: event._id },
+                                            event.type === 'other' ? event.name : event.type
+                                        );
+                                    }
                                 })
                             )
                         )
@@ -22246,23 +22273,23 @@ var _AuthSuccess = __webpack_require__(170);
 
 var _AuthSuccess2 = _interopRequireDefault(_AuthSuccess);
 
-var _AdminPage = __webpack_require__(141);
+var _AdminPage = __webpack_require__(142);
 
 var _AdminPage2 = _interopRequireDefault(_AdminPage);
 
-var _EditListing = __webpack_require__(143);
+var _EditListing = __webpack_require__(144);
 
 var _EditListing2 = _interopRequireDefault(_EditListing);
 
-var _EditEvents = __webpack_require__(142);
+var _EditEvents = __webpack_require__(143);
 
 var _EditEvents2 = _interopRequireDefault(_EditEvents);
 
-var _EditVenue = __webpack_require__(144);
+var _EditVenue = __webpack_require__(145);
 
 var _EditVenue2 = _interopRequireDefault(_EditVenue);
 
-var _SingleFeature = __webpack_require__(139);
+var _SingleFeature = __webpack_require__(140);
 
 var _SingleFeature2 = _interopRequireDefault(_SingleFeature);
 
@@ -22270,7 +22297,7 @@ var _featuredPage = __webpack_require__(151);
 
 var _featuredPage2 = _interopRequireDefault(_featuredPage);
 
-var _PastFeaturedPage = __webpack_require__(145);
+var _PastFeaturedPage = __webpack_require__(139);
 
 var _PastFeaturedPage2 = _interopRequireDefault(_PastFeaturedPage);
 
@@ -22286,7 +22313,7 @@ var _ReviewPage = __webpack_require__(146);
 
 var _ReviewPage2 = _interopRequireDefault(_ReviewPage);
 
-var _Account = __webpack_require__(140);
+var _Account = __webpack_require__(141);
 
 var _Account2 = _interopRequireDefault(_Account);
 
@@ -23108,7 +23135,7 @@ var ListStore = function () {
 
                 var _loop = function _loop() {
                     var tempFeature = null;
-                    var d = (0, _moment2.default)().add(i, 'days');
+                    var d = (0, _moment2.default)().utcOffset(-4).add(i, 'days');
                     // Go through all the features
                     _this.allFeatures.map(function (feature) {
                         // Check if it matches
@@ -23124,7 +23151,7 @@ var ListStore = function () {
                             feature = _this.allFeatures[y];
                             // Find current feature
 
-                            if (!features.includes(feature) && feature.list) {
+                            if (!features.includes(feature) && (feature.list || feature.event)) {
                                 features.push(feature);
                                 break;
                             }

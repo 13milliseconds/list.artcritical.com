@@ -664,22 +664,42 @@ router.post('/findcurrentfeatures', function (req, res) {
     .populate('venue')
     .populate('relatedEvent')
     .exec(function (e, docs) {
-
         let now = moment().utcOffset(-4)
-        let currentFeatures = []
 
-        //Check that all listings are current or future
-        docs.map(feature => {
-            feature.list && List.populate(feature.list, {path: 'relatedEvents'}, function (err, doc) {
-                console.log(doc)
-                feature.list = doc
-            })
-            feature.list && feature.list.end && moment(feature.list.end).isSameOrAfter(now, 'day') && currentFeatures.push(feature)
+        let newFeatures = docs.filter(doc => {
+            return doc.list
+                ? moment(doc.list.end).utcOffset(-4).isSameOrAfter(now, 'day')
+                : doc.event
+                    ? moment(doc.event.date).utcOffset(-4).isSameOrAfter(now, 'day')
+                    : false
         })
 
-        //Return the current feature listings
-        console.log('Returned ' + currentFeatures.length + ' features')
-        res.json(currentFeatures)
+        //NEED TO USE PROMISES
+
+        var populatefn = function saveArtists(feature){ // Save artist async
+            return new Promise((resolve) => {
+                feature.list 
+                    ? List.populate(feature.list, {path: 'relatedEvents'}, function (err, doc) {
+                        var newfeature = feature
+                        newfeature.list = doc
+                        resolve(newfeature)
+                    })
+                    : feature.event && resolve(feature)
+            })
+        }
+    
+        var population = newFeatures.map(populatefn); // run the function over all items
+    
+        var populatedEvents = Promise.all(population); // pass array of promises
+    
+        populatedEvents
+        .then(data => {
+            res.json(data)
+        })
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
 
     });
 

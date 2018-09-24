@@ -85,6 +85,8 @@ export default class ListingForm extends React.Component {
     
     render() {
 
+        console.log(this.props)
+
 
         let image = this.props.list
             ? this.props.list.image
@@ -103,7 +105,9 @@ export default class ListingForm extends React.Component {
                                 <select value={this.props.relatedEvent ? this.props.relatedEvent._id : ''} onChange={this.onChange} name="relatedEvent">
                                     <option value=''>Choose a related event</option>
                                     {this.props.list.relatedEvents.map((event) => {
-                                        return <option key={event._id} value={event._id}>{event.type === 'other' ? event.name : event.type}</option>
+                                        if (event && event._id){
+                                            return <option key={event._id} value={event._id}>{event.type === 'other' ? event.name : event.type}</option>
+                                        }
                                     })}
                                 </select>
                             </div> 

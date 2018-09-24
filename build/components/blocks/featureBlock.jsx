@@ -54,7 +54,6 @@ export default class FeatureBlock extends React.Component {
         const listing = feature.list ? feature.list : {}
         const event = feature.event ? feature.event : {}
         const relatedEvent = feature.relatedEvent
-        console.log(relatedEvent)
         const type = feature.type
 
         let image = type === 'event' ? event.image : listing.image 
@@ -64,7 +63,7 @@ export default class FeatureBlock extends React.Component {
             : relatedEvent 
                 ? relatedEvent.type === 'other'
                     ? relatedEvent.name
-                    : relatedEvent.type + ': ' + listing.title
+                    : <span><span className="type">{relatedEvent.type}</span>: {listing.title}</span>
                 : listing.title ? listing.title : <ListingNameDisplay {...listing} />
 
         let description = type === 'event'
