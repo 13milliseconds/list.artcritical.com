@@ -17,8 +17,8 @@ export default class DateRange extends React.Component {
         return (
 
            <DateRangePicker
-              startDate={this.props.startDate ? moment(this.props.startDate) : null} 
-              endDate={this.props.endDate ? moment(this.props.endDate) : null} 
+              startDate={this.props.startDate ? moment(this.props.startDate) : ''} 
+              endDate={this.props.endDate ? moment(this.props.endDate) : ''} 
               isOutsideRange={() => false}
               onDatesChange={({startDate, endDate}) => this.props.onDatesChange({startDate, endDate})} 
               focusedInput={this.state.focusedInput} 

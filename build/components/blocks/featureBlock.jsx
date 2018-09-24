@@ -1,8 +1,9 @@
-import React from 'react';
-import AuthActions from '../../actions/AuthActions';
+import React from 'react'
+import AuthActions from '../../actions/AuthActions'
+import moment from 'moment'
 //COMPONENTS
-import {IntlProvider, FormattedDate} from 'react-intl';
-import ImageBlock from './imageBlock';
+import {IntlProvider, FormattedDate} from 'react-intl'
+import ImageBlock from './imageBlock'
 import HtmlText from './HtmlText' 
 import Helmet from './Helmet'
 import ListingNameDisplay from './ListingNameDisplay'
@@ -52,33 +53,39 @@ export default class FeatureBlock extends React.Component {
         const venue = feature.venue ? feature.venue : {}
         const listing = feature.list ? feature.list : {}
         const event = feature.event ? feature.event : {}
+        const relatedEvent = feature.relatedEvent
+        console.log(relatedEvent)
         const type = feature.type
 
         let image = type === 'event' ? event.image : listing.image 
 
         let title = type === 'event'
             ? event.name
-            : listing.title ? listing.title : <ListingNameDisplay {...listing} />
+            : relatedEvent 
+                ? relatedEvent.type === 'other'
+                    ? relatedEvent.name
+                    : relatedEvent.type + ': ' + listing.title
+                : listing.title ? listing.title : <ListingNameDisplay {...listing} />
 
         let description = type === 'event'
             ? event.description
             : listing.description
         
-        let date = type === 'event' && event.date
-                ?<IntlProvider locale="en">
-                    <FormattedDate value={event.date} day="numeric" month="short" />
-                </IntlProvider>
-                : ''
-        let start = type != 'event' && listing.start
-            ? <IntlProvider locale="en">
-                    <FormattedDate value={listing.start} day="numeric" month="short" />
-                </IntlProvider>
-            : ''
-        let end = type != 'event' && listing.end
-            ? <IntlProvider locale="en">
-                    <FormattedDate value={listing.end} day="numeric" month="short" />
-                </IntlProvider>
-            : ''
+        let date = ''
+
+        if  (type === 'event' && event.date){
+            date = moment(event.date).format('MMM D')
+        }
+        if  (type != 'event' && listing.start){
+            date = moment(listing.start).format('MMM D')
+        }
+        if  (type != 'event' && listing.end){
+            date = date + ' to ' + moment(listing.end).format('MMM D')
+        }
+        if  (type != 'event' && relatedEvent){
+            date = moment(relatedEvent.date).format('MMM D')
+        }
+        
         let StrippedDescription = feature.text && feature.text.replace(/(<([^>]+)>)/ig,"")
       
     return (
@@ -98,13 +105,18 @@ export default class FeatureBlock extends React.Component {
             <div className="info">
                 <h3>{title} at <a className="venueName" href={"/venue/" + venue.slug}>{venue.name}</a></h3>
                 <HtmlText content={feature.text} />
-                {description && 
-                    <div className="notes">
-                        <h6>Notes</h6>
-                        {description}
+                {relatedEvent 
+                    ? <div className="notes">
+                        <h6>Event Information</h6>
+                        <p>{relatedEvent.description}</p>
                     </div>
+                    : description && 
+                        <div className="notes">
+                            <h6>Notes</h6>
+                            <p>{description}</p>
+                        </div>
                 }
-                <div className="dates">{date}{start}{end? ' to ' : ''}{end}</div>
+                <div className="dates">{date}</div>
                 <div className="address">{venue.address1} {venue.address2}, {venue.city}</div>
                 {this.props.user._id  
                     ? this.state.inList

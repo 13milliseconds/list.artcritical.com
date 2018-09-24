@@ -64,8 +64,35 @@ class ListActions {
             'deleteFeatureFailure',
             'featureDateAttempt',
             'featureDateSuccess',
-            'featureDateFailure'
+            'featureDateFailure',
+            'cleanupAttempt',
+            'cleanupSuccess',
+            'cleanupFailure'
         )
+    }
+
+    async cleanupListings() {
+
+        this.cleanupAttempt();
+        
+        await fetch(
+          '/list/cleanup',
+          {
+            method: 'GET',
+          },
+        )
+        .then((response) => {
+          if (response.status === 200) {
+              return response.json();
+          }
+          return null;
+        })
+        .then((data) => {
+            this.cleanupSuccess(data)
+        })
+        .catch((jqXhr) => {
+            this.cleanupFailure(jqXhr)
+        });
     }
     
     

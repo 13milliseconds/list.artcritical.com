@@ -1,8 +1,9 @@
-import React from 'react';
-import ListActions from '../../actions/ListActions';
+import React from 'react'
+import ListActions from '../../actions/ListActions'
 
 //COMPONENTS
-import VenueBlock from '../blocks/VenueBlock.jsx';
+import VenueBlock from '../blocks/VenueBlock.jsx'
+import {Button} from 'reactstrap'
 
 
 export default class ReviewPage extends React.Component {
@@ -12,6 +13,10 @@ export default class ReviewPage extends React.Component {
 
     componentDidMount() {
         ListActions.getLatestListings();
+    }
+
+    cleanup(){
+        ListActions.cleanupListings();
     }
 
     render() {
@@ -27,6 +32,7 @@ export default class ReviewPage extends React.Component {
     	return(
     		<div>
 	    		<h4>Review</h4>
+                Clean up databse: <Button onClick={this.cleanup}>Cleanup</Button>
 	    		<div className={this.props.view}>
                         {thelistings(this.props.latestListings)}
 	            </div>

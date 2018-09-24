@@ -60,11 +60,13 @@ export default class ListingForm extends React.Component {
 		newListing.neighborhood = newListing.venue.neighborhood
 
         //Check and save only events that have a date
-        let allEvents = []
-        newListing.relatedEvents.map(event => {
-            if (event.date){allEvents.push(event)}
-        })
-        newListing.relatedEvents = allEvents
+        if (newListing.relatedEvents){
+            let allEvents = []
+            newListing.relatedEvents.map(event => {
+                if (event && event.date){allEvents.push(event)}
+            })
+            newListing.relatedEvents = allEvents
+        }
 
 		if (this.props.listing._id){
 			//Edit the current listing

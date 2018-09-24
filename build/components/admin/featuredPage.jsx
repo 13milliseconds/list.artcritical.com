@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import ListActions from '../../actions/ListActions';
+import moment from 'moment'
 //COMPONENTS
 import {IntlProvider, FormattedDate} from 'react-intl';
 import { Button } from 'reactstrap';
@@ -16,9 +17,7 @@ export default class FeaturePage extends React.Component {
 		//Get the next 14 dates
 		let dates = []
 		for (var i=0; i < 14; i++) {
-			let d = new Date();
-			d.setHours(0,0,0,0)
-            d.setDate(d.getDate() + i );
+			let d = moment().add(i, 'days').startOf('day');
 			dates.push(d)
 		}
 		
@@ -37,7 +36,7 @@ export default class FeaturePage extends React.Component {
         
         for (var i=0; i < 14; i++) {
             let label = <Button outline color={this.props.features[i] && this.props.features[i]._id? 'success' : 'danger'}>
-                            <IntlProvider locale="en"><FormattedDate value={this.state.dates[i]} weekday="short" day="numeric" month="short" /></IntlProvider>
+                            {moment(this.state.dates[i]).format('ddd, MMM DD')}
                         </Button>
 
             days.push(<FeaturedDay 

@@ -331,7 +331,12 @@ LISTING ELEMENTS
     }
 	.popular{
 		padding: 3px 5px;
-		display: inline-block;
+        display: inline-block;
+        cursor: default;
+        color: $yellow;
+        &:hover{
+            color: $yellow;
+        }
 	}
     .listingClose{
         //@include span-columns(1);

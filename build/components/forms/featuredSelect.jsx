@@ -63,6 +63,16 @@ export default class FeaturedSelect extends React.Component {
             text: newText
         })
     }
+
+    renderOption(option){
+        return <div>
+            {option.label}<br />
+            {option.type === 'event' 
+                ? <span style={{color: 'brown', fontSize: '.8em'}} >Event</span>
+                : <span style={{color: 'green', fontSize: '.8em'}} >Listing</span>}
+        </div>
+
+    }
     
     render() {
 		
@@ -82,7 +92,12 @@ export default class FeaturedSelect extends React.Component {
         
         return ( 
             <div className="featureFormWrap">
-                    <Select value={{label: featureItem.name, value: featureItem._id}} handleSelectChange={this.handleListingChange} getOptions={getAllOptions} />
+
+                    <Select value={{label: featureItem.name, value: featureItem._id}} 
+                    handleSelectChange={this.handleListingChange} 
+                    getOptions={getAllOptions} 
+                    optionRenderer={this.renderOption} />
+
                     {(this.props.feature.list || this.props.feature.event) &&
                         <FeaturedForm {...this.props.feature} 
                             number={this.props.dayNumber} 

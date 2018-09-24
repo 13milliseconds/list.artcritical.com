@@ -181,6 +181,16 @@ class ListStore {
         // Handle multiple response formats, fallback to HTTP status code number.
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
+
+    onCleanupAttempt(){
+        console.log('Cleaning up...');
+    }   
+    onCleanupSuccess(){
+        console.log('Cleaned up!');
+    }
+    onCleanupFailure(){
+        console.log('Cleaning failed');
+    }
     
     //Listing size change
     onSizeChange(size){
@@ -491,9 +501,9 @@ class ListStore {
     
     //Update info on feature page
     onFeatureInfoChange (data){
-            const value = data.event.target.value;
-            const name = data.event.target.name;  
-            this.features[data.i][name] = value;
+            const value = data.event.value
+            const name = data.event.name
+            this.features[data.i][name] = value
     }
     
     //Update info on venue page
@@ -566,13 +576,13 @@ class ListStore {
             
 			//Find element in features whose date == d
 				//For each day of the week
-				for (var i=0; i < data.days; i++) { 
+				for (var i=0; i < data.days; i++) {
                     let tempFeature = null
+                    let d = moment().add(i, 'days');
 					// Go through all the features
 					this.allFeatures.map((feature) => {
                         // Check if it matches
-                        let d = moment().add(i, 'days');
-						if (moment.utc(feature.date).isSame(d, 'day')){
+						if (moment(feature.date).utcOffset(-4).isSame(d, 'day')){
                             tempFeature = feature
                         }
 					})
@@ -622,11 +632,11 @@ class ListStore {
                     //For each day of the week
                     for (var i=0; i < data.days; i++) {
                         let tempFeature = null
+                        let d = moment().add(i, 'days');
                         // Go through all the features
                         this.allFeatures.map((feature) => {
                             // Check if it matches
-                            let d = moment().add(i, 'days');
-                            if (moment.utc(feature.date).isSame(d, 'day')){
+                            if (moment(feature.date).utcOffset(-4).isSame(d, 'day')){
                                 tempFeature = feature
                             }
                         })
@@ -638,7 +648,6 @@ class ListStore {
                         }
                     }
                 this.features = features;
-                console.log('Loaded all features: ', this.features)
             }
         } else {
             this.error.feature = "No Features";
@@ -950,6 +959,7 @@ class ListStore {
     }
 
     onEventsInfoChange(event){
+        console.log(event)
         if (event.target){
             const type = event.target.name;
             const index = event.target.dataset.index;

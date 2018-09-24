@@ -5,8 +5,13 @@ export default class ListingNameDisplay extends React.Component {
     render() {
 
         let listing = this.props
-        let artistPresent = listing.artists && listing.artists.length > 0 && true
-        let isGroupShow = listing.artists && listing.artists.length > 3 ? true : false
+        let artistPresent = listing.artists 
+                                && listing.artists.length > 0 
+                                    && true
+        let isGroupShow = listing.artists 
+                                && (listing.artists.length > 3 && listing.name)
+                                    ? true 
+                                    : false
 
         let artistBlock = ''
         if (listing.artists){

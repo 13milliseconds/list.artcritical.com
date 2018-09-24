@@ -1,4 +1,5 @@
 import React from 'react';
+import listActions from '../../actions/ListActions'
 import {EditorState } from 'draft-js';
 import {stateFromHTML} from 'draft-js-import-html';
 import {stateToHTML} from 'draft-js-export-html';
@@ -25,6 +26,7 @@ export default class ListingForm extends React.Component {
         this.onUpdate = this.onUpdate.bind(this)
         this.onDelete = this.onDelete.bind(this)
         this.toggleModal = this.toggleModal.bind(this)
+        this.onChange = this.onChange.bind(this)
       }
     
 
@@ -51,6 +53,23 @@ export default class ListingForm extends React.Component {
         })
       }
 
+    onChange(e){
+        e.preventDefault();
+
+        if (e.target.value){
+            //Find the full event object
+            this.props.list.relatedEvents.map((event) => {
+                if (event._id === e.target.value){
+                    listActions.featureInfoChange({name: e.target.name, value: event}, this.props.number)
+                }
+            })
+        } else {
+            //If default is selected
+            listActions.featureInfoChange({name: e.target.name, value: null}, this.props.number)
+        }
+        
+    }
+
     onUpdate(e){
         e.preventDefault();
         this.setState({ 
@@ -66,6 +85,7 @@ export default class ListingForm extends React.Component {
     
     render() {
 
+
         let image = this.props.list
             ? this.props.list.image
             : this.props.event 
@@ -76,6 +96,20 @@ export default class ListingForm extends React.Component {
             <div className="featuredForm">
                 { this.props.type === 'event' && <Alert color="secondary">This an event.</Alert>}
                 <Form>
+                    { this.props.list && this.props.list.relatedEvents.length > 0 &&
+                        <FormGroup check>
+                            <Label>Related Events</Label>
+                            <div className="formSection">
+                                <select value={this.props.relatedEvent ? this.props.relatedEvent._id : ''} onChange={this.onChange} name="relatedEvent">
+                                    <option value=''>Choose a related event</option>
+                                    {this.props.list.relatedEvents.map((event) => {
+                                        return <option key={event._id} value={event._id}>{event.type === 'other' ? event.name : event.type}</option>
+                                    })}
+                                </select>
+                            </div> 
+                        </FormGroup>
+                    }
+
                     <FormGroup check>
                         <Label>Thumbnail</Label>
                         <ThumbnailInput image={image} number={this.props.number} /> 

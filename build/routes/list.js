@@ -45,8 +45,8 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     var List = req.list;
 
     //Find today's date
-    var start = moment().startOf('day');
-    var end = moment().endOf('day');
+    var start = moment.utc().startOf('day');
+    var end = moment.utc().endOf('day');
     
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 500; 
@@ -188,9 +188,11 @@ router.get('/find/:regex_input', function (req, res, next) {
                 var artists = thelisting.artists && thelisting.artists.length <= 3 ? thelisting.artists.map((artist, index) => { var comma = index < (thelisting.artists.length - 1) ? ', ' : ''; return artist.name + comma}) : ''
                 var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : ''
                 var colon = thelisting.artists.length && thelisting.name ? ': ' : ''
+                var dates = moment.utc(thelisting.start).format('MM/DD/YY') + '-' + moment.utc(thelisting.end).format('MM/DD/YY')
                 results.push({
                     value: thelisting._id,
-                    label: artists + groupShow + colon + thelisting.name
+                    label: artists + groupShow + colon + thelisting.name,
+                    dates
                 });
             }
         })
@@ -212,9 +214,12 @@ router.get('/findall/:regex_input', function (req, res, next) {
     var regexp = new RegExp(req.params.regex_input, "gi");
 
     var results = [];
+
+    var today = moment().utcOffset(-4).startOf('day');
     
     List
     .find( {$or:[ {tags: regexp}, {name: regexp}]})
+    .where('end').gte(today)
     .populate('artists') //get rid of this when all shows have titles
     .exec(function (err, listings) {
         if (err) res.send(err);
@@ -239,13 +244,14 @@ router.get('/findall/:regex_input', function (req, res, next) {
 
         Event
         .find( {$or:[ {tags: regexp}, {name: regexp}]})
+        .where('date').gte(today)
         .exec(function (err, events) {
             if (err) res.send(err);
 
             events.map(theevent => {
                     results.push({
                         value: theevent._id,
-                        label: 'EVENT: ' + theevent.name,
+                        label: theevent.name,
                         type: 'event'
                     });
             })
@@ -260,6 +266,27 @@ router.get('/findall/:regex_input', function (req, res, next) {
 
 });
 
+
+//#######################
+// CLEAN UP LISTINGS
+//#######################
+router.get('/cleanup', function (req, res, next) {
+    var List = req.list;
+
+    var twodaysago = moment().utcOffset(-4).subtract(2, 'days');
+    console.log(twodaysago)
+
+    List.find().
+	where('end').lt(twodaysago).
+    exec(function (e, docs) {
+        if (e)  res.send(e);
+        
+        console.log('Found ' + docs.length + ' listings')
+
+        res.json(docs);
+    });
+
+});
 
 
 //#######################
@@ -306,7 +333,7 @@ router.post('/add', function (req, res) {
     var newlisting = req.body;
 
     // Save when and who created it
-	var now = new moment();
+	var now = new moment().utcOffset(-4);
 	newlisting.created_at = now;
 	newlisting.updated_at = now;
     newlisting.updated_by = req.user._id;
@@ -320,7 +347,10 @@ router.post('/add', function (req, res) {
             artistBlock = artistBlock + newlisting.artists[i].name + comma
         }
     }
-    let firstPart = newlisting.artists && newlisting.artists.length > 3 ? 'Group Show' : artistBlock
+    let firstPart = newlisting.artists
+                        && (newlisting.artists.length > 3 && newlisting.name)
+                            ? 'Group Show' 
+                            : artistBlock
     let colon =  newlisting.artists && newlisting.artists.length > 0 && newlisting.name ? ': ' : ''
     newlisting.title = firstPart + colon + newlisting.name
     newlisting.tags = artistBlock +  ' ' + newlisting.name
@@ -398,7 +428,7 @@ router.post('/update', function (req, res) {
     console.log('The listing: ', thelisting)
 
     // Save when and who updated it
-	var now = moment();
+	var now = moment().utcOffset(-4);
 	thelisting.updated_at = now;
     thelisting.updated_by = req.user._id;
 
@@ -411,7 +441,10 @@ router.post('/update', function (req, res) {
             artistBlock = artistBlock + thelisting.artists[i].name + comma
         }
     }
-    let firstPart = thelisting.artists && thelisting.artists.length > 3 ? 'Group Show' : artistBlock
+    let firstPart = thelisting.artists 
+                        && (thelisting.artists.length > 3 && thelisting.name)
+                            ? 'Group Show' 
+                            : artistBlock
     let colon =  thelisting.artists && thelisting.artists.length > 0 && thelisting.name ? ': ' : ''
     thelisting.title = firstPart + colon + thelisting.name
     thelisting.tags = artistBlock +  ' ' + thelisting.name
@@ -527,7 +560,6 @@ router.post('/feature', function (req, res) {
         //Update feature
 
         var theFeature = new Feature(req.body);
-
         
 
         Feature.update({
@@ -578,6 +610,7 @@ router.post('/feature', function (req, res) {
 
 router.post('/findfeatures', function (req, res) {
     var Feature = req.feature;
+    var List = req.list
 
     console.log("Find all features");
 
@@ -586,8 +619,31 @@ router.post('/findfeatures', function (req, res) {
     .populate('list')
     .populate('event')
     .populate('venue')
+    .populate('relatedEvent')
     .exec(function (e, docs) {
-        res.json(docs)
+
+        console.log(e, docs)
+
+        //NEED TO USE PROMISES
+
+        var populatefn = function saveArtists(feature){ // Save artist async
+            return new Promise(resolve => {
+                List.populate(feature.list, {path: 'relatedEvents'}, function (err, doc) {
+                    var newfeature = feature
+                    newfeature.list = doc
+                    resolve(newfeature)
+                })
+            })
+        }
+    
+        var population = docs.map(populatefn); // run the function over all items
+    
+        var populatedEvents = Promise.all(population); // pass array of promises
+    
+        populatedEvents.then(data => {
+            res.json(data)
+        })
+
     });
 
 });
@@ -598,6 +654,7 @@ router.post('/findfeatures', function (req, res) {
 
 router.post('/findcurrentfeatures', function (req, res) {
     var Feature = req.feature;
+    var List = req.list;
 
     console.log("Find all current features");
 
@@ -605,14 +662,18 @@ router.post('/findcurrentfeatures', function (req, res) {
     .populate('list')
     .populate('event')
     .populate('venue')
+    .populate('relatedEvent')
     .exec(function (e, docs) {
 
-        let now = moment()
+        let now = moment().utcOffset(-4)
         let currentFeatures = []
 
         //Check that all listings are current or future
         docs.map(feature => {
-            feature.list && console.log(feature.list.title)
+            feature.list && List.populate(feature.list, {path: 'relatedEvents'}, function (err, doc) {
+                console.log(doc)
+                feature.list = doc
+            })
             feature.list && feature.list.end && moment(feature.list.end).isSameOrAfter(now, 'day') && currentFeatures.push(feature)
         })
 
@@ -642,6 +703,7 @@ router.post('/findfeaturesbydate/:date', function (req, res) {
     .populate('list')
     .populate('event')
     .populate('venue')
+    .populate('relatedEvent')
     .exec(function (e, docs) {
         
         if (!e) res.json(docs)

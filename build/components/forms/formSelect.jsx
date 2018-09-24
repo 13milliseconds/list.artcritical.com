@@ -6,7 +6,15 @@ export default class formSelect extends React.Component {
     constructor(props) {
         super(props);
       }
-        
+
+    renderOption(option){
+        return <div>
+            {option.label} <br />
+            <span style={{color: 'grey', fontSize: '.8em'}}>{option.dates}</span>
+        </div>
+
+    }
+
     render() {
 
         return (
@@ -14,8 +22,9 @@ export default class formSelect extends React.Component {
                 name="venue"
                 placeholder="Search"
                 value={this.props.value}  
-                loadOptions={this.props.getOptions} 
-                onChange={this.props.handleSelectChange} 
+                loadOptions={this.props.getOptions}
+                onChange={this.props.handleSelectChange}
+                optionRenderer={this.props.optionRenderer ? this.props.optionRenderer : this.renderOption}
             />
          
 

@@ -99,13 +99,33 @@ var ListActions = function () {
     function ListActions() {
         _classCallCheck(this, ListActions);
 
-        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'currentNotLoaded', 'currentLoaded', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsAttempt', 'getEventsSuccess', 'getEventsFail', 'getGlanceAttempt', 'getGlanceSuccess', 'getGlanceFail', 'getLatestListingsSuccess', 'getLatestListingsFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'saveVenueSuccess', 'saveVenueFailure', 'saveVenueAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadAttempt', 'featureLoadSuccess', 'featureLoadFailure', 'featureAdminAttempt', 'featureAdminSuccess', 'featureAdminFailure', 'deleteListingSuccess', 'deleteListingFailure', 'deleteVenueSuccess', 'deleteVenueFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess', 'deleteFeatureSuccess', 'deleteFeatureFailure', 'featureDateAttempt', 'featureDateSuccess', 'featureDateFailure');
+        this.generateActions('getCurrentAttempt', 'getCurrentSuccess', 'getCurrentFail', 'currentNotLoaded', 'currentLoaded', 'getFutureAttempt', 'getFutureSuccess', 'getFutureFail', 'getAllSuccess', 'getAllFail', 'getEventsAttempt', 'getEventsSuccess', 'getEventsFail', 'getGlanceAttempt', 'getGlanceSuccess', 'getGlanceFail', 'getLatestListingsSuccess', 'getLatestListingsFail', 'getListingInfoSuccess', 'getListingInfoFailure', 'getVenueInfoSuccess', 'getVenueInfoFailure', 'getVenueFullInfoSuccess', 'getVenueFullInfoFailure', 'saveListingSuccess', 'saveListingFailure', 'saveListingAttempt', 'saveVenueSuccess', 'saveVenueFailure', 'saveVenueAttempt', 'updateListingSuccess', 'updateListingFailure', 'updateListingAttempt', 'updateVenueAttempt', 'updateVenueSuccess', 'updateVenueFailure', 'updateFeatureSuccess', 'updateFeatureFailure', 'featureLoadAttempt', 'featureLoadSuccess', 'featureLoadFailure', 'featureAdminAttempt', 'featureAdminSuccess', 'featureAdminFailure', 'deleteListingSuccess', 'deleteListingFailure', 'deleteVenueSuccess', 'deleteVenueFailure', 'getVenueListingsSuccess', 'getVenueListingsFailure', 'getVenuesAdminSuccess', 'getVenuesAdminFailure', 'getVenuesAdminAttempt', 'getCoordFailure', 'getCoordSuccess', 'deleteFeatureSuccess', 'deleteFeatureFailure', 'featureDateAttempt', 'featureDateSuccess', 'featureDateFailure', 'cleanupAttempt', 'cleanupSuccess', 'cleanupFailure');
     }
 
     _createClass(ListActions, [{
+        key: 'cleanupListings',
+        value: async function cleanupListings() {
+            var _this = this;
+
+            this.cleanupAttempt();
+
+            await fetch('/list/cleanup', {
+                method: 'GET'
+            }).then(function (response) {
+                if (response.status === 200) {
+                    return response.json();
+                }
+                return null;
+            }).then(function (data) {
+                _this.cleanupSuccess(data);
+            }).catch(function (jqXhr) {
+                _this.cleanupFailure(jqXhr);
+            });
+        }
+    }, {
         key: 'getCurrent',
         value: async function getCurrent() {
-            var _this = this;
+            var _this2 = this;
 
             this.getCurrentAttempt();
 
@@ -117,24 +137,24 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (data) {
-                _this.getCurrentSuccess(data);
+                _this2.getCurrentSuccess(data);
                 if (data[0]) {
                     offset = offset + 1;
-                    _this.getCurrent();
-                    _this.currentNotLoaded();
+                    _this2.getCurrent();
+                    _this2.currentNotLoaded();
                 } else {
-                    _this.currentLoaded();
+                    _this2.currentLoaded();
                     console.log('done loading current shows!');
                     offset = 0;
                 }
             }).catch(function (jqXhr) {
-                _this.getCurrentFail(jqXhr);
+                _this2.getCurrentFail(jqXhr);
             });
         }
     }, {
         key: 'getFuture',
         value: async function getFuture() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.getFutureAttempt();
 
@@ -146,53 +166,53 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (data) {
-                _this2.getFutureSuccess(data);
+                _this3.getFutureSuccess(data);
                 if (data[0]) {
                     offset = offset + 1;
-                    _this2.getFuture();
+                    _this3.getFuture();
                 } else {
                     offset = 0;
                 }
             }).catch(function (jqXhr) {
-                _this2.getFutureFail(jqXhr);
+                _this3.getFutureFail(jqXhr);
             });
         }
     }, {
         key: 'getAll',
         value: function getAll() {
-            var _this3 = this;
+            var _this4 = this;
 
             return function (dispatch) {
                 dispatch();
                 $.ajax({
                     url: '/list/alllistings'
                 }).done(function (data) {
-                    _this3.getAllSuccess(data);
+                    _this4.getAllSuccess(data);
                 }).fail(function (jqXhr) {
-                    _this3.getAllFail(jqXhr);
+                    _this4.getAllFail(jqXhr);
                 });
             };
         }
     }, {
         key: 'getEvents',
         value: function getEvents() {
-            var _this4 = this;
+            var _this5 = this;
 
             return function (dispatch) {
                 dispatch();
                 $.ajax({
                     url: '/list/eventslistings'
                 }).done(function (data) {
-                    _this4.getEventsSuccess(data);
+                    _this5.getEventsSuccess(data);
                 }).fail(function (jqXhr) {
-                    _this4.getEventsFail(jqXhr);
+                    _this5.getEventsFail(jqXhr);
                 });
             };
         }
     }, {
         key: 'getGlance',
         value: async function getGlance() {
-            var _this5 = this;
+            var _this6 = this;
 
             this.getGlanceAttempt();
 
@@ -205,24 +225,24 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (data) {
-                data ? _this5.getGlanceSuccess(data) : _this5.getGlanceFail();
+                data ? _this6.getGlanceSuccess(data) : _this6.getGlanceFail();
                 return true;
             }).catch(function (error) {
-                _this5.getGlanceFail(error);
+                _this6.getGlanceFail(error);
             });
         }
     }, {
         key: 'getLatestListings',
         value: function getLatestListings() {
-            var _this6 = this;
+            var _this7 = this;
 
             return function (dispatch) {
                 $.ajax({
                     url: '/list/latestlistings'
                 }).done(function (data) {
-                    _this6.getLatestListingsSuccess(data);
+                    _this7.getLatestListingsSuccess(data);
                 }).fail(function (error) {
-                    _this6.getLatestListingsFail(error);
+                    _this7.getLatestListingsFail(error);
                 });
             };
         }
@@ -280,7 +300,7 @@ var ListActions = function () {
     }, {
         key: 'saveListing',
         value: async function saveListing(newListing) {
-            var _this7 = this;
+            var _this8 = this;
 
             this.saveListingAttempt();
 
@@ -297,16 +317,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                json ? _this7.saveListingSuccess(json) : _this7.saveListingFailure();
+                json ? _this8.saveListingSuccess(json) : _this8.saveListingFailure();
                 return true;
             }).catch(function (error) {
-                _this7.saveListingFailure(error);
+                _this8.saveListingFailure(error);
             });
         }
     }, {
         key: 'deleteListing',
         value: async function deleteListing(oldListing) {
-            var _this8 = this;
+            var _this9 = this;
 
             await fetch('/list/delete/' + oldListing, {
                 method: 'POST',
@@ -320,17 +340,17 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this8.deleteListingSuccess(json);
+                _this9.deleteListingSuccess(json);
                 //this.listingEditReset();
                 return true;
             }).catch(function (error) {
-                _this8.deleteListingFailure(error);
+                _this9.deleteListingFailure(error);
             });
         }
     }, {
         key: 'updateListing',
         value: async function updateListing(newInfo) {
-            var _this9 = this;
+            var _this10 = this;
 
             this.updateListingAttempt();
 
@@ -347,11 +367,11 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                json ? _this9.updateListingSuccess(json) : _this9.updateListingFailure();
+                json ? _this10.updateListingSuccess(json) : _this10.updateListingFailure();
 
                 return true;
             }).catch(function (error) {
-                _this9.updateListingFailure(error);
+                _this10.updateListingFailure(error);
             });
         }
 
@@ -365,7 +385,7 @@ var ListActions = function () {
     }, {
         key: 'getListingInfo',
         value: function getListingInfo(id, i) {
-            var _this10 = this;
+            var _this11 = this;
 
             console.log('Getting the info');
             return function (dispatch) {
@@ -373,9 +393,9 @@ var ListActions = function () {
                 $.ajax({
                     url: '/list/getinfo/' + id
                 }).done(function (data) {
-                    _this10.getListingInfoSuccess({ data: data, i: i });
+                    _this11.getListingInfoSuccess({ data: data, i: i });
                 }).fail(function (jqXhr) {
-                    _this10.getListingInfoFailure(jqXhr);
+                    _this11.getListingInfoFailure(jqXhr);
                 });
             };
         }
@@ -385,7 +405,7 @@ var ListActions = function () {
     }, {
         key: 'updateFeature',
         value: async function updateFeature(data) {
-            var _this11 = this;
+            var _this12 = this;
 
             console.log('Update feature', data);
 
@@ -402,10 +422,10 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this11.updateFeatureSuccess(json);
+                _this12.updateFeatureSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this11.updateFeatureFailure(error);
+                _this12.updateFeatureFailure(error);
             });
         }
     }, {
@@ -416,7 +436,7 @@ var ListActions = function () {
     }, {
         key: 'deleteFeature',
         value: async function deleteFeature(featureID, dayNumber) {
-            var _this12 = this;
+            var _this13 = this;
 
             await fetch('/list/deletefeature/' + featureID, {
                 method: 'POST',
@@ -430,17 +450,17 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this12.deleteFeatureSuccess(json);
-                _this12.featureReset(dayNumber);
+                _this13.deleteFeatureSuccess(json);
+                _this13.featureReset(dayNumber);
                 return true;
             }).catch(function (error) {
-                _this12.deleteFeatureFailure(error);
+                _this13.deleteFeatureFailure(error);
             });
         }
     }, {
         key: 'featureLoad',
         value: async function featureLoad(days) {
-            var _this13 = this;
+            var _this14 = this;
 
             this.featureLoadAttempt.defer();
 
@@ -456,16 +476,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this13.featureLoadSuccess({ json: json, days: days });
+                _this14.featureLoadSuccess({ json: json, days: days });
                 return true;
             }).catch(function (error) {
-                _this13.featureLoadFailure(error);
+                _this14.featureLoadFailure(error);
             });
         }
     }, {
         key: 'getFeatureByDate',
         value: async function getFeatureByDate(date) {
-            var _this14 = this;
+            var _this15 = this;
 
             this.featureDateAttempt.defer();
 
@@ -478,16 +498,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                json ? _this14.featureDateSuccess(json) : _this14.featureDateFailure();
+                json ? _this15.featureDateSuccess(json) : _this15.featureDateFailure();
                 return true;
             }).catch(function (error) {
-                _this14.featureDateFailure(error);
+                _this15.featureDateFailure(error);
             });
         }
     }, {
         key: 'featureAdmin',
         value: async function featureAdmin(days) {
-            var _this15 = this;
+            var _this16 = this;
 
             this.featureAdminAttempt.defer();
 
@@ -503,16 +523,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this15.featureAdminSuccess({ json: json, days: days });
+                _this16.featureAdminSuccess({ json: json, days: days });
                 return true;
             }).catch(function (error) {
-                _this15.featureAdminFailure(error);
+                _this16.featureAdminFailure(error);
             });
         }
     }, {
         key: 'getVenueInfo',
         value: async function getVenueInfo(id) {
-            var _this16 = this;
+            var _this17 = this;
 
             await fetch('/venues/getinfo/' + id, {
                 method: 'GET',
@@ -523,16 +543,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this16.getVenueInfoSuccess(json);
+                _this17.getVenueInfoSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this16.getVenueInfoFailure(error);
+                _this17.getVenueInfoFailure(error);
             });
         }
     }, {
         key: 'getVenueFullInfo',
         value: async function getVenueFullInfo(id) {
-            var _this17 = this;
+            var _this18 = this;
 
             await fetch('/venues/getfullinfo/' + id, {
                 method: 'GET',
@@ -543,16 +563,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this17.getVenueFullInfoSuccess(json);
+                _this18.getVenueFullInfoSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this17.getVenueFullInfoFailure(error);
+                _this18.getVenueFullInfoFailure(error);
             });
         }
     }, {
         key: 'getVenueListings',
         value: async function getVenueListings(id) {
-            var _this18 = this;
+            var _this19 = this;
 
             await fetch('/venues/getlistings/' + id, {
                 method: 'GET',
@@ -563,10 +583,10 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this18.getVenueListingsSuccess(json);
+                _this19.getVenueListingsSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this18.getVenueListingsFailure(error);
+                _this19.getVenueListingsFailure(error);
             });
         }
     }, {
@@ -585,7 +605,7 @@ var ListActions = function () {
     }, {
         key: 'getVenuesAdmin',
         value: function getVenuesAdmin(neighborhood) {
-            var _this19 = this;
+            var _this20 = this;
 
             this.getVenuesAdminAttempt();
             return function (dispatch) {
@@ -593,16 +613,16 @@ var ListActions = function () {
                 $.ajax({
                     url: '/venues/getadmin/' + neighborhood
                 }).done(function (data) {
-                    _this19.getVenuesAdminSuccess(data);
+                    _this20.getVenuesAdminSuccess(data);
                 }).fail(function (jqXhr) {
-                    _this19.getVenuesAdminFailure(jqXhr);
+                    _this20.getVenuesAdminFailure(jqXhr);
                 });
             };
         }
     }, {
         key: 'updateVenue',
         value: async function updateVenue(info) {
-            var _this20 = this;
+            var _this21 = this;
 
             this.updateVenueAttempt();
 
@@ -619,16 +639,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                json ? _this20.updateVenueSuccess(json) : _this20.updateVenueFailure();
+                json ? _this21.updateVenueSuccess(json) : _this21.updateVenueFailure();
                 return true;
             }).catch(function (error) {
-                _this20.updateVenueFailure(error);
+                _this21.updateVenueFailure(error);
             });
         }
     }, {
         key: 'saveVenue',
         value: async function saveVenue(newVenue) {
-            var _this21 = this;
+            var _this22 = this;
 
             this.saveVenueAttempt();
 
@@ -645,16 +665,16 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                json ? _this21.saveVenueSuccess(json) : _this21.saveVenueFailure();
+                json ? _this22.saveVenueSuccess(json) : _this22.saveVenueFailure();
                 return true;
             }).catch(function (error) {
-                _this21.saveVenueFailure(error);
+                _this22.saveVenueFailure(error);
             });
         }
     }, {
         key: 'deleteVenue',
         value: async function deleteVenue(oldVenue) {
-            var _this22 = this;
+            var _this23 = this;
 
             await fetch('/venues/delete/' + oldVenue, {
                 method: 'POST',
@@ -668,11 +688,11 @@ var ListActions = function () {
                 }
                 return null;
             }).then(function (json) {
-                _this22.venueEditReset();
-                _this22.deleteVenueSuccess(json);
+                _this23.venueEditReset();
+                _this23.deleteVenueSuccess(json);
                 return true;
             }).catch(function (error) {
-                _this22.deleteVenueFailure(error);
+                _this23.deleteVenueFailure(error);
             });
         }
     }, {
@@ -2205,7 +2225,7 @@ var ListingNameDisplay = function (_React$Component) {
 
             var listing = this.props;
             var artistPresent = listing.artists && listing.artists.length > 0 && true;
-            var isGroupShow = listing.artists && listing.artists.length > 3 ? true : false;
+            var isGroupShow = listing.artists && listing.artists.length > 3 && listing.name ? true : false;
 
             var artistBlock = '';
             if (listing.artists) {
@@ -2502,6 +2522,22 @@ var formSelect = function (_React$Component) {
     }
 
     _createClass(formSelect, [{
+        key: 'renderOption',
+        value: function renderOption(option) {
+            return _react2.default.createElement(
+                'div',
+                null,
+                option.label,
+                ' ',
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'span',
+                    { style: { color: 'grey', fontSize: '.8em' } },
+                    option.dates
+                )
+            );
+        }
+    }, {
         key: 'render',
         value: function render() {
 
@@ -2510,7 +2546,8 @@ var formSelect = function (_React$Component) {
                 placeholder: 'Search',
                 value: this.props.value,
                 loadOptions: this.props.getOptions,
-                onChange: this.props.handleSelectChange
+                onChange: this.props.handleSelectChange,
+                optionRenderer: this.props.optionRenderer ? this.props.optionRenderer : this.renderOption
             });
         }
     }]);
@@ -3309,6 +3346,10 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
+var _moment = __webpack_require__(5);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _reactIntl = __webpack_require__(26);
 
 var _imageBlock = __webpack_require__(24);
@@ -3394,29 +3435,31 @@ var FeatureBlock = function (_React$Component) {
             var venue = feature.venue ? feature.venue : {};
             var listing = feature.list ? feature.list : {};
             var event = feature.event ? feature.event : {};
+            var relatedEvent = feature.relatedEvent;
+            console.log(relatedEvent);
             var type = feature.type;
 
             var image = type === 'event' ? event.image : listing.image;
 
-            var title = type === 'event' ? event.name : listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing);
+            var title = type === 'event' ? event.name : relatedEvent ? relatedEvent.type === 'other' ? relatedEvent.name : relatedEvent.type + ': ' + listing.title : listing.title ? listing.title : _react2.default.createElement(_ListingNameDisplay2.default, listing);
 
             var description = type === 'event' ? event.description : listing.description;
 
-            var date = type === 'event' && event.date ? _react2.default.createElement(
-                _reactIntl.IntlProvider,
-                { locale: 'en' },
-                _react2.default.createElement(_reactIntl.FormattedDate, { value: event.date, day: 'numeric', month: 'short' })
-            ) : '';
-            var start = type != 'event' && listing.start ? _react2.default.createElement(
-                _reactIntl.IntlProvider,
-                { locale: 'en' },
-                _react2.default.createElement(_reactIntl.FormattedDate, { value: listing.start, day: 'numeric', month: 'short' })
-            ) : '';
-            var end = type != 'event' && listing.end ? _react2.default.createElement(
-                _reactIntl.IntlProvider,
-                { locale: 'en' },
-                _react2.default.createElement(_reactIntl.FormattedDate, { value: listing.end, day: 'numeric', month: 'short' })
-            ) : '';
+            var date = '';
+
+            if (type === 'event' && event.date) {
+                date = (0, _moment2.default)(event.date).format('MMM D');
+            }
+            if (type != 'event' && listing.start) {
+                date = (0, _moment2.default)(listing.start).format('MMM D');
+            }
+            if (type != 'event' && listing.end) {
+                date = date + ' to ' + (0, _moment2.default)(listing.end).format('MMM D');
+            }
+            if (type != 'event' && relatedEvent) {
+                date = (0, _moment2.default)(relatedEvent.date).format('MMM D');
+            }
+
             var StrippedDescription = feature.text && feature.text.replace(/(<([^>]+)>)/ig, "");
 
             return _react2.default.createElement(
@@ -3452,7 +3495,20 @@ var FeatureBlock = function (_React$Component) {
                         )
                     ),
                     _react2.default.createElement(_HtmlText2.default, { content: feature.text }),
-                    description && _react2.default.createElement(
+                    relatedEvent ? _react2.default.createElement(
+                        'div',
+                        { className: 'notes' },
+                        _react2.default.createElement(
+                            'h6',
+                            null,
+                            'Event Information'
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            relatedEvent.description
+                        )
+                    ) : description && _react2.default.createElement(
                         'div',
                         { className: 'notes' },
                         _react2.default.createElement(
@@ -3460,15 +3516,16 @@ var FeatureBlock = function (_React$Component) {
                             null,
                             'Notes'
                         ),
-                        description
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            description
+                        )
                     ),
                     _react2.default.createElement(
                         'div',
                         { className: 'dates' },
-                        date,
-                        start,
-                        end ? ' to ' : '',
-                        end
+                        date
                     ),
                     _react2.default.createElement(
                         'div',
@@ -8362,13 +8419,15 @@ var ListingForm = function (_React$Component) {
             newListing.neighborhood = newListing.venue.neighborhood;
 
             //Check and save only events that have a date
-            var allEvents = [];
-            newListing.relatedEvents.map(function (event) {
-                if (event.date) {
-                    allEvents.push(event);
-                }
-            });
-            newListing.relatedEvents = allEvents;
+            if (newListing.relatedEvents) {
+                var allEvents = [];
+                newListing.relatedEvents.map(function (event) {
+                    if (event && event.date) {
+                        allEvents.push(event);
+                    }
+                });
+                newListing.relatedEvents = allEvents;
+            }
 
             if (this.props.listing._id) {
                 //Edit the current listing
@@ -9257,6 +9316,25 @@ var FeaturedSelect = function (_React$Component) {
             });
         }
     }, {
+        key: 'renderOption',
+        value: function renderOption(option) {
+            return _react2.default.createElement(
+                'div',
+                null,
+                option.label,
+                _react2.default.createElement('br', null),
+                option.type === 'event' ? _react2.default.createElement(
+                    'span',
+                    { style: { color: 'brown', fontSize: '.8em' } },
+                    'Event'
+                ) : _react2.default.createElement(
+                    'span',
+                    { style: { color: 'green', fontSize: '.8em' } },
+                    'Listing'
+                )
+            );
+        }
+    }, {
         key: 'render',
         value: function render() {
 
@@ -9274,7 +9352,10 @@ var FeaturedSelect = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'featureFormWrap' },
-                _react2.default.createElement(_formSelect2.default, { value: { label: featureItem.name, value: featureItem._id }, handleSelectChange: this.handleListingChange, getOptions: getAllOptions }),
+                _react2.default.createElement(_formSelect2.default, { value: { label: featureItem.name, value: featureItem._id },
+                    handleSelectChange: this.handleListingChange,
+                    getOptions: getAllOptions,
+                    optionRenderer: this.renderOption }),
                 (this.props.feature.list || this.props.feature.event) && _react2.default.createElement(_featuredForm2.default, _extends({}, this.props.feature, {
                     number: this.props.dayNumber,
                     handleChange: this.handleChange,
@@ -9971,6 +10052,10 @@ var featureSchema = mongoose.Schema({
         type: String
     },
     event: {
+        ref: 'Event',
+        type: String
+    },
+    relatedEvent: {
         ref: 'Event',
         type: String
     },
@@ -10837,8 +10922,8 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     var List = req.list;
 
     //Find today's date
-    var start = (0, _moment2.default)().startOf('day');
-    var end = (0, _moment2.default)().endOf('day');
+    var start = _moment2.default.utc().startOf('day');
+    var end = _moment2.default.utc().endOf('day');
 
     //Count how many times we've fetched listings
     var offset_ratio = parseInt(req.params.offset_ratio) * 500;
@@ -10934,9 +11019,11 @@ router.get('/find/:regex_input', function (req, res, next) {
                 }) : '';
                 var groupShow = thelisting.artists && thelisting.artists.length > 3 ? "Group Show" : '';
                 var colon = thelisting.artists.length && thelisting.name ? ': ' : '';
+                var dates = _moment2.default.utc(thelisting.start).format('MM/DD/YY') + '-' + _moment2.default.utc(thelisting.end).format('MM/DD/YY');
                 results.push({
                     value: thelisting._id,
-                    label: artists + groupShow + colon + thelisting.name
+                    label: artists + groupShow + colon + thelisting.name,
+                    dates: dates
                 });
             }
         });
@@ -10957,7 +11044,9 @@ router.get('/findall/:regex_input', function (req, res, next) {
 
     var results = [];
 
-    List.find({ $or: [{ tags: regexp }, { name: regexp }] }).populate('artists') //get rid of this when all shows have titles
+    var today = (0, _moment2.default)().utcOffset(-4).startOf('day');
+
+    List.find({ $or: [{ tags: regexp }, { name: regexp }] }).where('end').gte(today).populate('artists') //get rid of this when all shows have titles
     .exec(function (err, listings) {
         if (err) res.send(err);
 
@@ -10982,19 +11071,37 @@ router.get('/findall/:regex_input', function (req, res, next) {
             }
         });
 
-        Event.find({ $or: [{ tags: regexp }, { name: regexp }] }).exec(function (err, events) {
+        Event.find({ $or: [{ tags: regexp }, { name: regexp }] }).where('date').gte(today).exec(function (err, events) {
             if (err) res.send(err);
 
             events.map(function (theevent) {
                 results.push({
                     value: theevent._id,
-                    label: 'EVENT: ' + theevent.name,
+                    label: theevent.name,
                     type: 'event'
                 });
             });
 
             res.json(results);
         });
+    });
+});
+
+//#######################
+// CLEAN UP LISTINGS
+//#######################
+router.get('/cleanup', function (req, res, next) {
+    var List = req.list;
+
+    var twodaysago = (0, _moment2.default)().utcOffset(-4).subtract(2, 'days');
+    console.log(twodaysago);
+
+    List.find().where('end').lt(twodaysago).exec(function (e, docs) {
+        if (e) res.send(e);
+
+        console.log('Found ' + docs.length + ' listings');
+
+        res.json(docs);
     });
 });
 
@@ -11031,7 +11138,7 @@ router.post('/add', function (req, res) {
     var newlisting = req.body;
 
     // Save when and who created it
-    var now = new _moment2.default();
+    var now = new _moment2.default().utcOffset(-4);
     newlisting.created_at = now;
     newlisting.updated_at = now;
     newlisting.updated_by = req.user._id;
@@ -11045,7 +11152,7 @@ router.post('/add', function (req, res) {
             artistBlock = artistBlock + newlisting.artists[i].name + comma;
         }
     }
-    var firstPart = newlisting.artists && newlisting.artists.length > 3 ? 'Group Show' : artistBlock;
+    var firstPart = newlisting.artists && newlisting.artists.length > 3 && newlisting.name ? 'Group Show' : artistBlock;
     var colon = newlisting.artists && newlisting.artists.length > 0 && newlisting.name ? ': ' : '';
     newlisting.title = firstPart + colon + newlisting.name;
     newlisting.tags = artistBlock + ' ' + newlisting.name;
@@ -11121,7 +11228,7 @@ router.post('/update', function (req, res) {
     console.log('The listing: ', thelisting);
 
     // Save when and who updated it
-    var now = (0, _moment2.default)();
+    var now = (0, _moment2.default)().utcOffset(-4);
     thelisting.updated_at = now;
     thelisting.updated_by = req.user._id;
 
@@ -11134,7 +11241,7 @@ router.post('/update', function (req, res) {
             artistBlock = artistBlock + thelisting.artists[i].name + comma;
         }
     }
-    var firstPart = thelisting.artists && thelisting.artists.length > 3 ? 'Group Show' : artistBlock;
+    var firstPart = thelisting.artists && thelisting.artists.length > 3 && thelisting.name ? 'Group Show' : artistBlock;
     var colon = thelisting.artists && thelisting.artists.length > 0 && thelisting.name ? ': ' : '';
     thelisting.title = firstPart + colon + thelisting.name;
     thelisting.tags = artistBlock + ' ' + thelisting.name;
@@ -11291,11 +11398,34 @@ router.post('/feature', function (req, res) {
 
 router.post('/findfeatures', function (req, res) {
     var Feature = req.feature;
+    var List = req.list;
 
     console.log("Find all features");
 
-    Feature.find().sort('-date').populate('list').populate('event').populate('venue').exec(function (e, docs) {
-        res.json(docs);
+    Feature.find().sort('-date').populate('list').populate('event').populate('venue').populate('relatedEvent').exec(function (e, docs) {
+
+        console.log(e, docs);
+
+        //NEED TO USE PROMISES
+
+        var populatefn = function saveArtists(feature) {
+            // Save artist async
+            return new Promise(function (resolve) {
+                List.populate(feature.list, { path: 'relatedEvents' }, function (err, doc) {
+                    var newfeature = feature;
+                    newfeature.list = doc;
+                    resolve(newfeature);
+                });
+            });
+        };
+
+        var population = docs.map(populatefn); // run the function over all items
+
+        var populatedEvents = Promise.all(population); // pass array of promises
+
+        populatedEvents.then(function (data) {
+            res.json(data);
+        });
     });
 });
 
@@ -11305,17 +11435,21 @@ router.post('/findfeatures', function (req, res) {
 
 router.post('/findcurrentfeatures', function (req, res) {
     var Feature = req.feature;
+    var List = req.list;
 
     console.log("Find all current features");
 
-    Feature.find().populate('list').populate('event').populate('venue').exec(function (e, docs) {
+    Feature.find().populate('list').populate('event').populate('venue').populate('relatedEvent').exec(function (e, docs) {
 
-        var now = (0, _moment2.default)();
+        var now = (0, _moment2.default)().utcOffset(-4);
         var currentFeatures = [];
 
         //Check that all listings are current or future
         docs.map(function (feature) {
-            feature.list && console.log(feature.list.title);
+            feature.list && List.populate(feature.list, { path: 'relatedEvents' }, function (err, doc) {
+                console.log(doc);
+                feature.list = doc;
+            });
             feature.list && feature.list.end && (0, _moment2.default)(feature.list.end).isSameOrAfter(now, 'day') && currentFeatures.push(feature);
         });
 
@@ -11339,7 +11473,7 @@ router.post('/findfeaturesbydate/:date', function (req, res) {
 
     Feature.findOne({
         date: { "$gt": start, "$lt": end }
-    }).populate('list').populate('event').populate('venue').exec(function (e, docs) {
+    }).populate('list').populate('event').populate('venue').populate('relatedEvent').exec(function (e, docs) {
 
         if (!e) res.json(docs);
     });
@@ -15330,6 +15464,8 @@ var _VenueBlock = __webpack_require__(14);
 
 var _VenueBlock2 = _interopRequireDefault(_VenueBlock);
 
+var _reactstrap = __webpack_require__(2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -15356,6 +15492,11 @@ var ReviewPage = function (_React$Component) {
             _ListActions2.default.getLatestListings();
         }
     }, {
+        key: 'cleanup',
+        value: function cleanup() {
+            _ListActions2.default.cleanupListings();
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -15375,6 +15516,12 @@ var ReviewPage = function (_React$Component) {
                     'h4',
                     null,
                     'Review'
+                ),
+                'Clean up databse: ',
+                _react2.default.createElement(
+                    _reactstrap.Button,
+                    { onClick: this.cleanup },
+                    'Cleanup'
                 ),
                 _react2.default.createElement(
                     'div',
@@ -15857,6 +16004,10 @@ var _ListActions = __webpack_require__(1);
 
 var _ListActions2 = _interopRequireDefault(_ListActions);
 
+var _moment = __webpack_require__(5);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _reactIntl = __webpack_require__(26);
 
 var _reactstrap = __webpack_require__(2);
@@ -15894,9 +16045,7 @@ var FeaturePage = function (_React$Component) {
 
         var dates = [];
         for (var i = 0; i < 14; i++) {
-            var d = new Date();
-            d.setHours(0, 0, 0, 0);
-            d.setDate(d.getDate() + i);
+            var d = (0, _moment2.default)().add(i, 'days').startOf('day');
             dates.push(d);
         }
 
@@ -15921,11 +16070,7 @@ var FeaturePage = function (_React$Component) {
                 var label = _react2.default.createElement(
                     _reactstrap.Button,
                     { outline: true, color: this.props.features[i] && this.props.features[i]._id ? 'success' : 'danger' },
-                    _react2.default.createElement(
-                        _reactIntl.IntlProvider,
-                        { locale: 'en' },
-                        _react2.default.createElement(_reactIntl.FormattedDate, { value: this.state.dates[i], weekday: 'short', day: 'numeric', month: 'short' })
-                    )
+                    (0, _moment2.default)(this.state.dates[i]).format('ddd, MMM DD')
                 );
 
                 days.push(_react2.default.createElement(_featuredDay2.default, {
@@ -18663,6 +18808,10 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _ListActions = __webpack_require__(1);
+
+var _ListActions2 = _interopRequireDefault(_ListActions);
+
 var _draftJs = __webpack_require__(67);
 
 var _draftJsImportHtml = __webpack_require__(69);
@@ -18716,6 +18865,7 @@ var ListingForm = function (_React$Component) {
         _this.onUpdate = _this.onUpdate.bind(_this);
         _this.onDelete = _this.onDelete.bind(_this);
         _this.toggleModal = _this.toggleModal.bind(_this);
+        _this.onChange = _this.onChange.bind(_this);
         return _this;
     }
 
@@ -18742,6 +18892,25 @@ var ListingForm = function (_React$Component) {
             this.setState({
                 editorState: editorState
             });
+        }
+    }, {
+        key: 'onChange',
+        value: function onChange(e) {
+            var _this2 = this;
+
+            e.preventDefault();
+
+            if (e.target.value) {
+                //Find the full event object
+                this.props.list.relatedEvents.map(function (event) {
+                    if (event._id === e.target.value) {
+                        _ListActions2.default.featureInfoChange({ name: e.target.name, value: event }, _this2.props.number);
+                    }
+                });
+            } else {
+                //If default is selected
+                _ListActions2.default.featureInfoChange({ name: e.target.name, value: null }, this.props.number);
+            }
         }
     }, {
         key: 'onUpdate',
@@ -18776,6 +18945,35 @@ var ListingForm = function (_React$Component) {
                 _react2.default.createElement(
                     _reactstrap.Form,
                     null,
+                    this.props.list && this.props.list.relatedEvents.length > 0 && _react2.default.createElement(
+                        _reactstrap.FormGroup,
+                        { check: true },
+                        _react2.default.createElement(
+                            _reactstrap.Label,
+                            null,
+                            'Related Events'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'formSection' },
+                            _react2.default.createElement(
+                                'select',
+                                { value: this.props.relatedEvent ? this.props.relatedEvent._id : '', onChange: this.onChange, name: 'relatedEvent' },
+                                _react2.default.createElement(
+                                    'option',
+                                    { value: '' },
+                                    'Choose a related event'
+                                ),
+                                this.props.list.relatedEvents.map(function (event) {
+                                    return _react2.default.createElement(
+                                        'option',
+                                        { key: event._id, value: event._id },
+                                        event.type === 'other' ? event.name : event.type
+                                    );
+                                })
+                            )
+                        )
+                    ),
                     _react2.default.createElement(
                         _reactstrap.FormGroup,
                         { check: true },
@@ -18892,8 +19090,8 @@ var DateRange = function (_React$Component) {
             var _this2 = this;
 
             return _react2.default.createElement(_reactDates.DateRangePicker, {
-                startDate: this.props.startDate ? (0, _moment2.default)(this.props.startDate) : null,
-                endDate: this.props.endDate ? (0, _moment2.default)(this.props.endDate) : null,
+                startDate: this.props.startDate ? (0, _moment2.default)(this.props.startDate) : '',
+                endDate: this.props.endDate ? (0, _moment2.default)(this.props.endDate) : '',
                 isOutsideRange: function isOutsideRange() {
                     return false;
                 },
@@ -22397,6 +22595,21 @@ var ListStore = function () {
             // Handle multiple response formats, fallback to HTTP status code number.
             _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
         }
+    }, {
+        key: 'onCleanupAttempt',
+        value: function onCleanupAttempt() {
+            console.log('Cleaning up...');
+        }
+    }, {
+        key: 'onCleanupSuccess',
+        value: function onCleanupSuccess() {
+            console.log('Cleaned up!');
+        }
+    }, {
+        key: 'onCleanupFailure',
+        value: function onCleanupFailure() {
+            console.log('Cleaning failed');
+        }
 
         //Listing size change
 
@@ -22795,8 +23008,8 @@ var ListStore = function () {
     }, {
         key: 'onFeatureInfoChange',
         value: function onFeatureInfoChange(data) {
-            var value = data.event.target.value;
-            var name = data.event.target.name;
+            var value = data.event.value;
+            var name = data.event.name;
             this.features[data.i][name] = value;
         }
 
@@ -22882,6 +23095,8 @@ var ListStore = function () {
     }, {
         key: 'onFeatureLoadSuccess',
         value: function onFeatureLoadSuccess(data) {
+            var _this = this;
+
             this.loading.features = false;
             if (data.json) {
                 // Match all features with a day of the next week
@@ -22890,13 +23105,14 @@ var ListStore = function () {
 
                 //Find element in features whose date == d
                 //For each day of the week
-                for (var i = 0; i < data.days; i++) {
+
+                var _loop = function _loop() {
                     var tempFeature = null;
+                    var d = (0, _moment2.default)().add(i, 'days');
                     // Go through all the features
-                    this.allFeatures.map(function (feature) {
+                    _this.allFeatures.map(function (feature) {
                         // Check if it matches
-                        var d = (0, _moment2.default)().add(i, 'days');
-                        if (_moment2.default.utc(feature.date).isSame(d, 'day')) {
+                        if ((0, _moment2.default)(feature.date).utcOffset(-4).isSame(d, 'day')) {
                             tempFeature = feature;
                         }
                     });
@@ -22904,15 +23120,23 @@ var ListStore = function () {
                         features.push(tempFeature);
                         tempFeature = null;
                     } else {
-                        for (var y = 0; y < this.allFeatures.length; y++) {
-                            var feature = this.allFeatures[y];
+                        for (y = 0; y < _this.allFeatures.length; y++) {
+                            feature = _this.allFeatures[y];
                             // Find current feature
+
                             if (!features.includes(feature) && feature.list) {
                                 features.push(feature);
                                 break;
                             }
                         }
                     }
+                };
+
+                for (var i = 0; i < data.days; i++) {
+                    var y;
+                    var feature;
+
+                    _loop();
                 }
                 this.features = features;
             } else {
@@ -22945,6 +23169,8 @@ var ListStore = function () {
     }, {
         key: 'onFeatureAdminSuccess',
         value: function onFeatureAdminSuccess(data) {
+            var _this2 = this;
+
             this.loading.features = false;
             if (data.json) {
                 // Match all features with a day of the next week
@@ -22954,13 +23180,14 @@ var ListStore = function () {
                     var features = [];
                     //Find element in features whose date == d
                     //For each day of the week
-                    for (var i = 0; i < data.days; i++) {
+
+                    var _loop2 = function _loop2() {
                         var tempFeature = null;
+                        var d = (0, _moment2.default)().add(i, 'days');
                         // Go through all the features
-                        this.allFeatures.map(function (feature) {
+                        _this2.allFeatures.map(function (feature) {
                             // Check if it matches
-                            var d = (0, _moment2.default)().add(i, 'days');
-                            if (_moment2.default.utc(feature.date).isSame(d, 'day')) {
+                            if ((0, _moment2.default)(feature.date).utcOffset(-4).isSame(d, 'day')) {
                                 tempFeature = feature;
                             }
                         });
@@ -22970,9 +23197,12 @@ var ListStore = function () {
                         } else {
                             features.push({});
                         }
+                    };
+
+                    for (var i = 0; i < data.days; i++) {
+                        _loop2();
                     }
                     this.features = features;
-                    console.log('Loaded all features: ', this.features);
                 }
             } else {
                 this.error.feature = "No Features";
@@ -23399,6 +23629,7 @@ var ListStore = function () {
     }, {
         key: 'onEventsInfoChange',
         value: function onEventsInfoChange(event) {
+            console.log(event);
             if (event.target) {
                 var type = event.target.name;
                 var index = event.target.dataset.index;

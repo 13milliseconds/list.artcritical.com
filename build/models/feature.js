@@ -14,6 +14,10 @@ var featureSchema = mongoose.Schema({
         ref: 'Event',
         type: String
     },
+    relatedEvent: {
+        ref: 'Event',
+        type: String
+    },
 	  venue: {
         ref: 'Venue',
         type: String
