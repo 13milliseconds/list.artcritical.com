@@ -384,20 +384,23 @@ router.get('/getmylist', (req, res) => {
 
 router.get('/getusermylist/:user_slug', (req, res) => {
 	var Userlist = req.userlist;
-    var Venue = req.venue;
+    var List = req.list;
 	
     Userlist
 		.findOne({'slug': req.params.user_slug})
 		.populate('mylist')
 		.exec(function (e, user) {
 			//Populate the mylist venues
-			Userlist.populate(user, {
-				path: 'mylist.venue',
-				model: Venue
-			  }, function(err, fullUser) {
-			//found user
-			res.json(fullUser);
-			});
+            List
+                .find({ _id : { $in: user.mylist } })
+                .populate('venue') 
+                .populate('artists')
+                .exec(function(err, listings) {
+                    //found user
+                    let fullUser = user
+                    fullUser.mylist = listings
+                    res.json(fullUser);
+			    });
         });
     
 });
