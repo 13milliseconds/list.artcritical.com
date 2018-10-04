@@ -14629,7 +14629,8 @@ var SingleFeature = function (_React$Component) {
                 { className: 'singleFeature' },
                 _react2.default.createElement(_Helmet2.default, {
                     title: this.props.feature && this.props.feature.list ? date + ': ' + this.props.feature.list.title : date,
-                    link: "https://list.artcritical.com/features/" + this.props.params.date
+                    link: "https://list.artcritical.com/features/" + this.props.params.date,
+                    ogUrl: "https://list.artcritical.com/features/" + this.props.params.date
                 }),
                 _react2.default.createElement(
                     'div',

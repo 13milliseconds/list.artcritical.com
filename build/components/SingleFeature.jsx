@@ -39,7 +39,8 @@ export default class SingleFeature extends React.Component {
             <div className="singleFeature">
                 <Helmet
                     title={this.props.feature && this.props.feature.list ? date + ': ' + this.props.feature.list.title : date}
-                    link={"https://list.artcritical.com/features/" + this.props.params.date}
+                    link={"https://list.artcritical.com/features/" + this.props.params.date} 
+                    ogUrl={"https://list.artcritical.com/features/" + this.props.params.date} 
                 />
                 <div className="left-col">
                     <h2>Featured Listing</h2>
