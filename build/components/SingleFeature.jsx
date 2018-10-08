@@ -57,7 +57,7 @@ export default class SingleFeature extends React.Component {
                                     dayNumber={1} 
                                     error={this.props.error}
                                     success={this.props.success}/>
-                                : <FeatureBlock feature={this.props.feature} user={this.props.user}/>
+                                : <FeatureBlock feature={this.props.feature} user={this.props.user} isSingle={true}/>
                             : <p>No feature listing on this date</p>
                     }
 

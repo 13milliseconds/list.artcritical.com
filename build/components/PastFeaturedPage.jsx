@@ -14,9 +14,9 @@ export default class FeaturePage extends React.Component {
     }
 
     componentWillMount() {
-        if (this.props.allFeatures.length === 0){
+        //if (this.props.allFeatures.length === 0){
             ListActions.featureAdmin()
-        }
+        //}
     }
 
     render() {

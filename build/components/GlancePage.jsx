@@ -38,7 +38,7 @@ export default class GlancePage extends React.Component {
                 days.push(<DayPage 
                               key={i} 
                               {...this.props}
-                              feature={this.props.features[i]? this.props.features[i] : {}} 
+                              feature={this.props.features[i]? this.props.features[i] : null} 
                               glanceListings={listings} 
                               label={label} 
                               date={this.state.dates[i]} />)

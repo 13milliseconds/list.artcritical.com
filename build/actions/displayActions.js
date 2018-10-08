@@ -180,5 +180,29 @@ module.exports = {
             return "Other";
         }
     },
+
+    listingName (listing) {
+        let artistPresent = listing.artists 
+                                && listing.artists.length > 0 
+                                    && true
+        let isGroupShow = listing.artists 
+                                && (listing.artists.length > 3 && listing.name)
+                                    ? true 
+                                    : false
+
+        let artistBlock = ''
+        if (listing.artists){
+            var i
+            for (i =0; i < listing.artists.length; i++) {
+                var comma = i < (listing.artists.length - 1) ? ', ' : ''
+                artistBlock = artistBlock + listing.artists[i].name + comma
+            }
+        }
+
+        let firstPart = isGroupShow ? 'Group Show' : artistBlock
+        let colon = artistPresent && listing.name ? ': ' : ''
+      
+        return  firstPart + colon + listing.name
+    }
     
 };

@@ -1,12 +1,12 @@
 import React from 'react'
 import AuthActions from '../../actions/AuthActions'
+import DisplayActions from '../../actions/displayActions'
 import moment from 'moment'
 //COMPONENTS
-import {IntlProvider, FormattedDate} from 'react-intl'
 import ImageBlock from './imageBlock'
 import HtmlText from './HtmlText' 
 import Helmet from './Helmet'
-import ListingNameDisplay from './ListingNameDisplay'
+import {Link} from 'react-router'
 
 export default class FeatureBlock extends React.Component {
     constructor(props) {
@@ -64,7 +64,7 @@ export default class FeatureBlock extends React.Component {
                 ? relatedEvent.type === 'other'
                     ? relatedEvent.name
                     : <span><span className="type">{relatedEvent.type}</span>: {listing.title}</span>
-                : listing.title ? listing.title : <ListingNameDisplay {...listing} />
+                : listing.title ? listing.title : DisplayActions.listingName(listing)
 
         let description = type === 'event'
             ? event.description
@@ -84,19 +84,19 @@ export default class FeatureBlock extends React.Component {
         if  (type != 'event' && relatedEvent){
             date = moment(relatedEvent.date).format('MMM D')
         }
-        
-        let StrippedDescription = feature.text && feature.text.replace(/(<([^>]+)>)/ig,"")
+
+        let StrippedDescription = feature && feature.text && feature.text.replace(/(<([^>]+)>)/ig,"")
       
     return (
         <div className="feature-wrap">
-        <h5>Featured</h5>
-
-        <Helmet
-            ogTitle={title + " at " + venue.name}
-            ogDescription={StrippedDescription}
-            ogImage={"https://res.cloudinary.com/artcritical/image/upload/" + image + ".jpg"}
-                />
-
+        <h5><Link to="/features">Featured</Link></h5>
+            
+            {this.props.isSingle && 
+                <Helmet
+                    ogTitle={title + " at " + venue.name}
+                    ogDescription={StrippedDescription}
+                    ogImage={"https://res.cloudinary.com/artcritical/image/upload/" + image + ".jpg"}
+                />}
 
             <div className="picture">
                 {image ? <ImageBlock image={image} classes="feature" /> : ''}

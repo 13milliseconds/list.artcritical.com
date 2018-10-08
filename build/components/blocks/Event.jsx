@@ -1,5 +1,4 @@
 import React from 'react';
-//import AuthActions from '../../actions/AuthActions';
 import ListActions from '../../actions/ListActions';
 import EventActions from '../../actions/EventActions';
 //import moment from 'moment'

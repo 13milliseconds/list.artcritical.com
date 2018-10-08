@@ -622,8 +622,6 @@ router.post('/findfeatures', function (req, res) {
     .populate('relatedEvent')
     .exec(function (e, docs) {
 
-        console.log(e, docs)
-
         //NEED TO USE PROMISES
 
         var populatefn = function saveArtists(feature){ // Save artist async
