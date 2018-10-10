@@ -465,7 +465,10 @@ header.mainHeader{
     display: flex;
     flex-direction: column;
     h2{
-        font-size: 2em;
+        font-size: 1.5em;
+    }
+    .infoWrap{
+        padding-left: 10px;
     }
     .mapHeader{
         order: 1;
@@ -486,6 +489,9 @@ header.mainHeader{
         border-radius: 10px;
         box-shadow: 0 0 20px $gray;
         @include row();
+    }
+    .listingsWrap{
+        @include span-columns(12);
     }
 }
 .mapWrap{

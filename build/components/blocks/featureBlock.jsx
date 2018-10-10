@@ -7,6 +7,7 @@ import ImageBlock from './imageBlock'
 import HtmlText from './HtmlText' 
 import Helmet from './Helmet'
 import {Link} from 'react-router'
+import SocialShare from './SocialShare';
 
 export default class FeatureBlock extends React.Component {
     constructor(props) {
@@ -123,12 +124,7 @@ export default class FeatureBlock extends React.Component {
                         :<a className='button' onClick={(e) => this.addToList(e, listing)}>Add to your list</a>
                     : ''
                 }
-                <div className="shareWrap">
-                    <div className="fb-share-button" 
-                        data-href="https://list.artcritical.com" 
-                        data-layout="button_count">
-                    </div>
-                </div>
+                <SocialShare shareUrl={"https://list.artcritical.com/features/" + moment(feature.date).utcOffset(-4).format('MMDDYY')} />
             </div>
         </div>
     );

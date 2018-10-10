@@ -45,9 +45,10 @@ import faMinus from '@fortawesome/fontawesome-pro-regular/faMinus'
 import faPhone from '@fortawesome/fontawesome-pro-regular/faPhone'
 import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
 import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
+import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter'
 
 
-fontawesome.library.add(faBars, faListUl, faExternalLinkSquare, faTh, faMap, faCalendar, faPlusCircle, faPlusCircle, faMapMarkerAlt, faPlus, faMinus, faSpinnerThird, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
+fontawesome.library.add(faBars, faListUl, faTwitter, faExternalLinkSquare, faTh, faMap, faCalendar, faPlusCircle, faPlusCircle, faMapMarkerAlt, faPlus, faMinus, faSpinnerThird, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
 
 
 export default class Layout extends React.Component {

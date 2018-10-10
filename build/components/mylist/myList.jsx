@@ -6,7 +6,7 @@ var async = require('async');
 // Components
 import MyListings from './myListings';
 import MyMap from './myMap';
-import FacebookShare from '../blocks/facebookShare';
+import SocialShare from '../blocks/SocialShare';
 import {reorder} from 'react-reorder';
 import { Button} from 'reactstrap';
 import {Link} from 'react-router';
@@ -191,7 +191,7 @@ export default class MyList extends React.Component {
                     <div className="mapHeader">
                     <h2>My List</h2>
 					<a target="_blank" href={window.location.href + '/' + this.props.user.slug}>Public page</a>
-                    <FacebookShare url={this.state.publicUrl} />
+                    <SocialShare url={this.state.publicUrl} />
                     </div>
                     <div className="content">
                     {hasList && <MyListings 

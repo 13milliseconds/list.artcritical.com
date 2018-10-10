@@ -5,7 +5,7 @@ var async = require('async');
 // Components
 import UserListings from './userListings';
 import MyMap from './myMap';
-import FacebookShare from '../blocks/facebookShare';
+import SocialShare from '../blocks/SocialShare';
 import { Button} from 'reactstrap';
 import HtmlText from '../blocks/HtmlText'
 
@@ -159,7 +159,7 @@ export default class UserList extends React.Component {
                             {user.website && <a className="button"
                                                         href={user.website}
                                                         target="_blank">Website</a>}
-                            <FacebookShare url={this.state.url} />
+                            <SocialShare url={this.state.url} />
                         </div>
                     </header>
                     {user.mylist? <UserListings 
