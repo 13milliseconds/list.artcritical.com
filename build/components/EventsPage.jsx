@@ -1,12 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router';
 import EventActions from '../actions/EventActions';
-import moment, { parseTwoDigitYear } from 'moment';
+import moment from 'moment';
 //COMPONENTS
 import Helmet from './blocks/Helmet'
 import Event from './blocks/Event';
 import Date from './blocks/DateBlock';
-import DayPicker from './forms/DayPicker';
+//import DayPicker from './forms/DayPicker';
 import Loading from './blocks/loading'
 
 var scrollToComponent = ''
@@ -62,7 +62,7 @@ export default class EventsPage extends React.Component {
             />
             <h1>Events</h1>
             <div className="left-col">
-				<DayPicker events={this.props.eventsListings} scrollToDate={this.scrollToDate} />
+                { /*<DayPicker events={this.props.eventsListings} scrollToDate={this.scrollToDate} /> */}
 			</div>
             <div className={this.props.view + " listingsWrap main-col"}>
                 {this.props.eventsListings.length 
