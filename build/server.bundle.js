@@ -2600,7 +2600,7 @@ module.exports = function deepClone(obj) {
 /**
  * Dependencies
  */
-const convertKeys = __webpack_require__(27);
+const convertKeys = __webpack_require__(26);
 const strToCamelCase = __webpack_require__(128);
 
 /**
@@ -2621,7 +2621,7 @@ module.exports = function toCamelCase(obj, ignored) {
 /**
  * Dependencies
  */
-const convertKeys = __webpack_require__(27);
+const convertKeys = __webpack_require__(26);
 const strToSnakeCase = __webpack_require__(129);
 
 /**
@@ -2634,54 +2634,6 @@ module.exports = function toSnakeCase(obj, ignored) {
 
 /***/ }),
 /* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var imageBlock = function (_React$Component) {
-    _inherits(imageBlock, _React$Component);
-
-    function imageBlock() {
-        _classCallCheck(this, imageBlock);
-
-        return _possibleConstructorReturn(this, (imageBlock.__proto__ || Object.getPrototypeOf(imageBlock)).apply(this, arguments));
-    }
-
-    _createClass(imageBlock, [{
-        key: "render",
-        value: function render() {
-            var fullURL = this.props.image ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : "https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg";
-
-            return _react2.default.createElement("img", { src: fullURL, className: this.props.classes });
-        }
-    }]);
-
-    return imageBlock;
-}(_react2.default.Component);
-
-exports.default = imageBlock;
-
-/***/ }),
-/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2929,7 +2881,7 @@ var LogInForm = function (_React$Component) {
 exports.default = LogInForm;
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3057,7 +3009,7 @@ module.exports = EmailAddress;
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3113,7 +3065,7 @@ module.exports = function convertKeys(obj, converter, ignored) {
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3201,7 +3153,7 @@ var ImagesActions = function () {
 exports.default = _alt2.default.createActions(ImagesActions);
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3384,7 +3336,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3445,7 +3397,7 @@ var SocialShare = function (_React$Component) {
 exports.default = SocialShare;
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3564,7 +3516,7 @@ var UserLink = function (_React$Component) {
 exports.default = UserLink;
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3584,7 +3536,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _displayActions = __webpack_require__(29);
+var _displayActions = __webpack_require__(28);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -3592,7 +3544,7 @@ var _moment = __webpack_require__(5);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _imageBlock = __webpack_require__(24);
+var _imageBlock = __webpack_require__(32);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -3606,7 +3558,7 @@ var _Helmet2 = _interopRequireDefault(_Helmet);
 
 var _reactRouter = __webpack_require__(3);
 
-var _SocialShare = __webpack_require__(30);
+var _SocialShare = __webpack_require__(29);
 
 var _SocialShare2 = _interopRequireDefault(_SocialShare);
 
@@ -3816,6 +3768,54 @@ var FeatureBlock = function (_React$Component) {
 exports.default = FeatureBlock;
 
 /***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var imageBlock = function (_React$Component) {
+    _inherits(imageBlock, _React$Component);
+
+    function imageBlock() {
+        _classCallCheck(this, imageBlock);
+
+        return _possibleConstructorReturn(this, (imageBlock.__proto__ || Object.getPrototypeOf(imageBlock)).apply(this, arguments));
+    }
+
+    _createClass(imageBlock, [{
+        key: "render",
+        value: function render() {
+            var fullURL = this.props.image ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.image + ".jpg" : "https://image.freepik.com/free-vector/hexagonal-pattern_1051-833.jpg";
+
+            return _react2.default.createElement("img", { src: fullURL, className: this.props.classes });
+        }
+    }]);
+
+    return imageBlock;
+}(_react2.default.Component);
+
+exports.default = imageBlock;
+
+/***/ }),
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3832,7 +3832,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(28);
+var _ImagesActions = __webpack_require__(27);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -6195,7 +6195,7 @@ module.exports = Client;
 /**
  * Dependencies
  */
-const EmailAddress = __webpack_require__(26);
+const EmailAddress = __webpack_require__(25);
 const toCamelCase = __webpack_require__(22);
 const toSnakeCase = __webpack_require__(23);
 const deepClone = __webpack_require__(21);
@@ -7260,7 +7260,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(29);
+var _displayActions = __webpack_require__(28);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -7901,7 +7901,7 @@ var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _UserLink = __webpack_require__(31);
+var _UserLink = __webpack_require__(30);
 
 var _UserLink2 = _interopRequireDefault(_UserLink);
 
@@ -8374,7 +8374,7 @@ var _confirmModal = __webpack_require__(14);
 
 var _confirmModal2 = _interopRequireDefault(_confirmModal);
 
-var _UserLink = __webpack_require__(31);
+var _UserLink = __webpack_require__(30);
 
 var _UserLink2 = _interopRequireDefault(_UserLink);
 
@@ -10581,6 +10581,7 @@ router.get('/getusermylist/:user_slug', function (req, res) {
             //found user
             var fullUser = user;
             fullUser.mylist = listings;
+            console.log(fullUser);
             res.json(fullUser);
         });
     });
@@ -12198,7 +12199,7 @@ module.exports = Attachment;
  * Expose classes
  */
 const Attachment = __webpack_require__(122);
-const EmailAddress = __webpack_require__(26);
+const EmailAddress = __webpack_require__(25);
 const Mail = __webpack_require__(124);
 const Personalization = __webpack_require__(44);
 const ResponseError = __webpack_require__(125);
@@ -12225,7 +12226,7 @@ module.exports = {
 /**
  * Dependencies
  */
-const EmailAddress = __webpack_require__(26);
+const EmailAddress = __webpack_require__(25);
 const Personalization = __webpack_require__(44);
 const toCamelCase = __webpack_require__(22);
 const toSnakeCase = __webpack_require__(23);
@@ -12926,7 +12927,7 @@ module.exports = ResponseError;
  * Expose helpers
  */
 const arrayToJSON = __webpack_require__(45);
-const convertKeys = __webpack_require__(27);
+const convertKeys = __webpack_require__(26);
 const deepClone = __webpack_require__(21);
 const mergeData = __webpack_require__(127);
 const splitNameEmail = __webpack_require__(46);
@@ -13843,7 +13844,7 @@ var _loading = __webpack_require__(7);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _featureBlock = __webpack_require__(32);
+var _featureBlock = __webpack_require__(31);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -14462,7 +14463,7 @@ var _ListingNameDisplay = __webpack_require__(16);
 
 var _ListingNameDisplay2 = _interopRequireDefault(_ListingNameDisplay);
 
-var _imageBlock = __webpack_require__(24);
+var _imageBlock = __webpack_require__(32);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -14597,7 +14598,7 @@ var _moment = __webpack_require__(5);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _featureBlock = __webpack_require__(32);
+var _featureBlock = __webpack_require__(31);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -14729,7 +14730,7 @@ var _AccountForm = __webpack_require__(162);
 
 var _AccountForm2 = _interopRequireDefault(_AccountForm);
 
-var _LogInForm = __webpack_require__(25);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -14812,7 +14813,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _LogInForm = __webpack_require__(25);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -15860,7 +15861,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ImagesActions = __webpack_require__(28);
+var _ImagesActions = __webpack_require__(27);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 
@@ -15980,7 +15981,7 @@ var _featuredSelect = __webpack_require__(62);
 
 var _featuredSelect2 = _interopRequireDefault(_featuredSelect);
 
-var _featureBlock = __webpack_require__(32);
+var _featureBlock = __webpack_require__(31);
 
 var _featureBlock2 = _interopRequireDefault(_featureBlock);
 
@@ -16943,14 +16944,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _imageBlock = __webpack_require__(24);
-
-var _imageBlock2 = _interopRequireDefault(_imageBlock);
-
-var _DateBlock = __webpack_require__(10);
-
-var _DateBlock2 = _interopRequireDefault(_DateBlock);
-
 var _reactstrap = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -17054,7 +17047,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _imageBlock = __webpack_require__(24);
+var _imageBlock = __webpack_require__(32);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
@@ -18169,7 +18162,7 @@ var _NeighborhoodSelect = __webpack_require__(61);
 
 var _NeighborhoodSelect2 = _interopRequireDefault(_NeighborhoodSelect);
 
-var _UserLink = __webpack_require__(31);
+var _UserLink = __webpack_require__(30);
 
 var _UserLink2 = _interopRequireDefault(_UserLink);
 
@@ -19904,7 +19897,7 @@ var _propTypes = __webpack_require__(18);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _LogInForm = __webpack_require__(25);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -20275,7 +20268,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _displayActions = __webpack_require__(29);
+var _displayActions = __webpack_require__(28);
 
 var _displayActions2 = _interopRequireDefault(_displayActions);
 
@@ -20759,7 +20752,7 @@ var _myList = __webpack_require__(180);
 
 var _myList2 = _interopRequireDefault(_myList);
 
-var _LogInForm = __webpack_require__(25);
+var _LogInForm = __webpack_require__(24);
 
 var _LogInForm2 = _interopRequireDefault(_LogInForm);
 
@@ -20883,10 +20876,12 @@ var MyListPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var fullname = this.props.currentUser._id ? this.props.currentUser.firstname + ' ' + this.props.currentUser.lastname + "'s List" : 'The List';
-            console.log('fullname: ', fullname);
-            console.log(this.props);
-            var myListRender = this.props.currentUser.mylist ? _react2.default.createElement(_userList2.default, this.props) : _react2.default.createElement(
+            var fullname = this.props.currentUser ? this.props.currentUser.firstname + ' ' + this.props.currentUser.lastname + "'s List" : 'The List';
+
+            //Get the user's avatar
+            var fullURL = this.props.currentUser ? this.props.currentUser.avatar ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.currentUser.avatar + ".jpg" : this.props.currentUser.facebook ? "https://graph.facebook.com/" + this.props.currentUser.facebook.id + "/picture?type=large" : '' : '';
+
+            var myListRender = this.props.currentUser._id ? _react2.default.createElement(_userList2.default, this.props) : _react2.default.createElement(
                 'div',
                 null,
                 'No such user.'
@@ -20896,7 +20891,8 @@ var MyListPage = function (_React$Component) {
                 { className: 'myListwrap' },
                 _react2.default.createElement(_Helmet2.default, {
                     title: fullname,
-                    description: fullname + "'s personalized list of upcoming shows and events."
+                    ogDescription: "A personalized list of upcoming shows and events.",
+                    ogImage: fullURL
                 }),
                 myListRender
             );
@@ -20947,7 +20943,7 @@ var _myMap = __webpack_require__(65);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _SocialShare = __webpack_require__(30);
+var _SocialShare = __webpack_require__(29);
 
 var _SocialShare2 = _interopRequireDefault(_SocialShare);
 
@@ -21372,7 +21368,7 @@ var _myMap = __webpack_require__(65);
 
 var _myMap2 = _interopRequireDefault(_myMap);
 
-var _SocialShare = __webpack_require__(30);
+var _SocialShare = __webpack_require__(29);
 
 var _SocialShare2 = _interopRequireDefault(_SocialShare);
 
@@ -22321,7 +22317,7 @@ var _AuthActions = __webpack_require__(4);
 
 var _AuthActions2 = _interopRequireDefault(_AuthActions);
 
-var _ImagesActions = __webpack_require__(28);
+var _ImagesActions = __webpack_require__(27);
 
 var _ImagesActions2 = _interopRequireDefault(_ImagesActions);
 

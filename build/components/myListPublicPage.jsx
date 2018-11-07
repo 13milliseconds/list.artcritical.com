@@ -19,15 +19,15 @@ export default class MyListPage extends React.Component {
                         : 'The List'
 
         //Get the user's avatar
-        let fullURL = ''
-        
-        if (user.avatar) {
-            fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg";
-        } else if (user.facebook){
-            fullURL = "https://graph.facebook.com/" + user.facebook.id + "/picture?type=large";
-        }
+        let fullURL = this.props.currentUser 
+            ? this.props.currentUser.avatar
+                ?  "https://res.cloudinary.com/artcritical/image/upload/" + this.props.currentUser.avatar + ".jpg"
+                : this.props.currentUser.facebook 
+                    ? "https://graph.facebook.com/" + this.props.currentUser.facebook.id + "/picture?type=large"
+                    : ''
+            : ''
 
-        let myListRender = this.props.currentUser.mylist ?
+        let myListRender = this.props.currentUser._id ?
                             <UserList {...this.props}/>
                             :
                             <div>No such user.</div>
