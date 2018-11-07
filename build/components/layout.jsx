@@ -113,14 +113,16 @@ export default class Layout extends React.Component {
         //admin access
         let allowAccess = user.isLoggedIn && user.userAccess > 0 ? true : false
 
+
         return (
             <div className={currentLocation + "Page app-container " + connectedClass}>
                 <Helmet
                     title="The List"
-                    link="https://list.artcritical.com"
+                    link={"https://list.artcritical.com" + this.props.location.pathname}
+                    ogUrl={"https://list.artcritical.com" + this.props.location.pathname}
                     ogType="website"
                     ogTitle="The List - artcritical"
-                    ogUrl="https://list.artcritical.com"
+                    ogDescription="Explore art exhibitions in New York City and beyond. Create your personal lists. See. Share."
                     ogImage="/images/facebook-share.jpg"
                 />
                 <header className={"mainHeader" + (this.state.menuActive ? ' active' : '')}>

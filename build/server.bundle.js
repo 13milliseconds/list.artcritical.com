@@ -3678,8 +3678,7 @@ var FeatureBlock = function (_React$Component) {
                 ),
                 this.props.isSingle && _react2.default.createElement(_Helmet2.default, {
                     ogTitle: title + " at " + venue.name,
-                    ogDescription: StrippedDescription,
-                    ogImage: "https://res.cloudinary.com/artcritical/image/upload/" + image + ".jpg"
+                    ogDescription: StrippedDescription
                 }),
                 _react2.default.createElement(
                     'div',
@@ -19321,10 +19320,12 @@ var Layout = function (_React$Component) {
                 { className: currentLocation + "Page app-container " + connectedClass },
                 _react2.default.createElement(_Helmet2.default, {
                     title: 'The List',
-                    link: 'https://list.artcritical.com',
+                    link: "https://list.artcritical.com" + this.props.location.pathname,
+                    ogUrl: "https://list.artcritical.com" + this.props.location.pathname,
                     ogType: 'website',
                     ogTitle: 'The List - artcritical',
-                    ogUrl: 'https://list.artcritical.com'
+                    ogDescription: 'Explore art exhibitions in New York City and beyond. Create your personal lists. See. Share.',
+                    ogImage: '/images/facebook-share.jpg'
                 }),
                 _react2.default.createElement(
                     'header',
@@ -20889,6 +20890,7 @@ var MyListPage = function (_React$Component) {
                 { className: 'myListwrap' },
                 _react2.default.createElement(_Helmet2.default, {
                     title: fullname,
+                    ogTitle: fullname + ' - artcritical',
                     ogDescription: "A personalized list of upcoming shows and events.",
                     ogImage: fullURL
                 }),
