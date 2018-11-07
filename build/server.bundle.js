@@ -20877,6 +20877,8 @@ var MyListPage = function (_React$Component) {
         value: function render() {
             var fullname = this.props.currentUser ? this.props.currentUser.firstname + ' ' + this.props.currentUser.lastname + "'s List" : 'The List';
 
+            var bio = this.props.currentUser ? this.props.currentUser.bio ? this.props.currentUser.bio.replace(/<\/?[^>]+(>|$)/g, '') : 'A personalized list of upcoming shows and events.' : 'A personalized list of upcoming shows and events.';
+
             //Get the user's avatar
             var fullURL = this.props.currentUser ? this.props.currentUser.avatar ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.currentUser.avatar + ".jpg" : this.props.currentUser.facebook ? "https://graph.facebook.com/" + this.props.currentUser.facebook.id + "/picture?type=large" : '' : '';
 
@@ -20891,7 +20893,7 @@ var MyListPage = function (_React$Component) {
                 _react2.default.createElement(_Helmet2.default, {
                     title: fullname,
                     ogTitle: fullname + ' - artcritical',
-                    ogDescription: "A personalized list of upcoming shows and events.",
+                    ogDescription: bio,
                     ogImage: fullURL
                 }),
                 myListRender

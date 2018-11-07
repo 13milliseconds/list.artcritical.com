@@ -18,6 +18,12 @@ export default class MyListPage extends React.Component {
                         ? this.props.currentUser.firstname + ' ' + this.props.currentUser.lastname + "'s List"
                         : 'The List'
 
+        let bio = this.props.currentUser 
+            ? this.props.currentUser.bio 
+                ? this.props.currentUser.bio.replace(/<\/?[^>]+(>|$)/g, '')
+                : 'A personalized list of upcoming shows and events.'
+            : 'A personalized list of upcoming shows and events.'
+
         //Get the user's avatar
         let fullURL = this.props.currentUser 
             ? this.props.currentUser.avatar
@@ -36,7 +42,7 @@ export default class MyListPage extends React.Component {
                 <Helmet
                     title={fullname}
                     ogTitle={fullname + ' - artcritical'}
-                    ogDescription={"A personalized list of upcoming shows and events."}
+                    ogDescription={bio}
                     ogImage={fullURL}
                 />
                     {myListRender}
