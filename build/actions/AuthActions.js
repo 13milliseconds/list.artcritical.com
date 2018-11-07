@@ -66,7 +66,6 @@ class AuthActions {
         })
         .then((json) => {
           if (json) {
-            console.log(json);
             this.loginSuccess(json);
           } else {
             this.loginFailure(new Error('Authentication Failed'));

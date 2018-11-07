@@ -810,7 +810,6 @@ var AuthActions = function () {
         return null;
       }).then(function (json) {
         if (json) {
-          console.log(json);
           _this.loginSuccess(json);
         } else {
           _this.loginFailure(new Error('Authentication Failed'));
@@ -10581,7 +10580,6 @@ router.get('/getusermylist/:user_slug', function (req, res) {
             //found user
             var fullUser = user;
             fullUser.mylist = listings;
-            console.log(fullUser);
             res.json(fullUser);
         });
     });

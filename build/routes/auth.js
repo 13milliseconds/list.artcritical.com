@@ -399,7 +399,6 @@ router.get('/getusermylist/:user_slug', (req, res) => {
                     //found user
                     let fullUser = user
                     fullUser.mylist = listings
-                    console.log(fullUser)
                     res.json(fullUser);
 			    });
         });
