@@ -121,6 +121,7 @@ export default class Layout extends React.Component {
                     ogType="website"
                     ogTitle="The List - artcritical"
                     ogUrl="https://list.artcritical.com"
+                    ogImage="/images/facebook-share.jpg"
                 />
                 <header className={"mainHeader" + (this.state.menuActive ? ' active' : '')}>
                     <div className="mainLogo">

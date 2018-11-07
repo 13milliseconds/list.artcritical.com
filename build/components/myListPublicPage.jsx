@@ -35,6 +35,7 @@ export default class MyListPage extends React.Component {
                 <div className="myListwrap">
                 <Helmet
                     title={fullname}
+                    ogTitle={fullname + ' - artcritical'}
                     ogDescription={"A personalized list of upcoming shows and events."}
                     ogImage={fullURL}
                 />

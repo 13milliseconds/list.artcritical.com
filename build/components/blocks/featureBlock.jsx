@@ -96,7 +96,6 @@ export default class FeatureBlock extends React.Component {
                 <Helmet
                     ogTitle={title + " at " + venue.name}
                     ogDescription={StrippedDescription}
-                    ogImage={"https://res.cloudinary.com/artcritical/image/upload/" + image + ".jpg"}
                 />}
 
             <div className="picture">
