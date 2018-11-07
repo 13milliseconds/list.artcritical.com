@@ -1,8 +1,6 @@
 import React from 'react';
 //Components
-import ImageBlock from './imageBlock'
-import DateBlock from './DateBlock'
-import { Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 
 export default class UserCard extends React.Component {

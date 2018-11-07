@@ -14,9 +14,19 @@ export default class MyListPage extends React.Component {
     }
 
     render() {
-        let fullname = this.props.currentUser.mylist 
+        let fullname = this.props.currentUser 
                         ? this.props.currentUser.firstname + ' ' + this.props.currentUser.lastname + "'s List"
                         : 'The List'
+
+        //Get the user's avatar
+        let fullURL = ''
+        
+        if (user.avatar) {
+            fullURL = "https://res.cloudinary.com/artcritical/image/upload/" + user.avatar + ".jpg";
+        } else if (user.facebook){
+            fullURL = "https://graph.facebook.com/" + user.facebook.id + "/picture?type=large";
+        }
+
         let myListRender = this.props.currentUser.mylist ?
                             <UserList {...this.props}/>
                             :
@@ -25,6 +35,8 @@ export default class MyListPage extends React.Component {
                 <div className="myListwrap">
                 <Helmet
                     title={fullname}
+                    ogDescription={"A personalized list of upcoming shows and events."}
+                    ogImage={fullURL}
                 />
                     {myListRender}
                 </div>

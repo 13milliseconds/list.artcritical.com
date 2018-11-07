@@ -20883,7 +20883,9 @@ var MyListPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var fullname = this.props.currentUser.mylist ? this.props.currentUser.firstname + ' ' + this.props.currentUser.lastname + "'s List" : 'The List';
+            var fullname = this.props.currentUser._id ? this.props.currentUser.firstname + ' ' + this.props.currentUser.lastname + "'s List" : 'The List';
+            console.log('fullname: ', fullname);
+            console.log(this.props);
             var myListRender = this.props.currentUser.mylist ? _react2.default.createElement(_userList2.default, this.props) : _react2.default.createElement(
                 'div',
                 null,
@@ -20893,7 +20895,8 @@ var MyListPage = function (_React$Component) {
                 'div',
                 { className: 'myListwrap' },
                 _react2.default.createElement(_Helmet2.default, {
-                    title: fullname
+                    title: fullname,
+                    description: fullname + "'s personalized list of upcoming shows and events."
                 }),
                 myListRender
             );
