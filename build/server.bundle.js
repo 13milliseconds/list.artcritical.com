@@ -14620,12 +14620,15 @@ var SingleFeature = function (_React$Component) {
 
             var date = _moment2.default.utc(this.props.params.date, 'MMDDYY').format('MMMM D YYYY');
 
+            var ogImage = this.props.feature && this.props.feature.list.image ? "https://res.cloudinary.com/artcritical/image/upload/c_fill,g_faces:center,h_630,q_auto:good,w_1200/" + this.props.feature.list.image + ".jpg" : '';
+
             return _react2.default.createElement(
                 'div',
                 { className: 'singleFeature' },
                 _react2.default.createElement(_Helmet2.default, {
                     link: "https://list.artcritical.com/features/" + this.props.params.date,
-                    ogUrl: "https://list.artcritical.com/features/" + this.props.params.date
+                    ogUrl: "https://list.artcritical.com/features/" + this.props.params.date,
+                    ogImage: ogImage
                 }),
                 _react2.default.createElement(
                     'div',

@@ -35,11 +35,16 @@ export default class SingleFeature extends React.Component {
 
         let date = moment.utc(this.props.params.date, 'MMDDYY').format('MMMM D YYYY')
 
+        let ogImage = this.props.feature && this.props.feature.list.image
+                            ?  "https://res.cloudinary.com/artcritical/image/upload/c_fill,g_faces:center,h_630,q_auto:good,w_1200/" + this.props.feature.list.image + ".jpg"
+                            : ''
+
         return ( 
             <div className="singleFeature">
                 <Helmet
                     link={"https://list.artcritical.com/features/" + this.props.params.date} 
-                    ogUrl={"https://list.artcritical.com/features/" + this.props.params.date} 
+                    ogUrl={"https://list.artcritical.com/features/" + this.props.params.date}
+                    ogImage={ogImage}
                 />
                 <div className="left-col">
                     <h2>Featured Listing</h2>
