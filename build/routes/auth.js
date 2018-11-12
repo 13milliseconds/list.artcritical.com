@@ -333,6 +333,7 @@ router.post('/updatemylist', function (req, res) {
             if (err) return handleError(err);
                 
             //Replace listings in mylist
+            console.log(user.mylist);
             user.mylist = req.body;
             console.log(user.mylist);
                 
@@ -340,42 +341,13 @@ router.post('/updatemylist', function (req, res) {
             user.save(function (err, updatedUser) {
                 if (err) return handleError(err);
                 
+                console.log(updatedUser)
                 return res.send(JSON.stringify(updatedUser));
                 
             });
         });
 
     };
-});
-
-
-//###################################
-// GET all listings from my list
-// (not used anymore)
-//###################################
-
-router.get('/getmylist', (req, res) => {
-    var List = req.list;
-    
-	//Find today's date
-    var today = moment().startOf('day');
-    
-    //CHECK IF USER IS CONNECTED
-    if (req.user) {
-        List
-		.find()
-		.where('_id').in(req.user.mylist)
-		.where('end').gte(today)
-        .populate('venue')
-        .populate('relatedEvents')
-        .populate('artists')
-        .exec(function (e, docs) {
-            res.json({list: docs, user: req.user});
-        });
-    } else {
-        var docs = [];
-        res.json(docs);
-    }
 });
 
 //###################################
@@ -385,22 +357,43 @@ router.get('/getmylist', (req, res) => {
 router.get('/getusermylist/:user_slug', (req, res) => {
 	var Userlist = req.userlist;
     var List = req.list;
+
+    //Find today's date
+    var today = moment().startOf('day');
 	
     Userlist
 		.findOne({'slug': req.params.user_slug})
 		.populate('mylist')
 		.exec(function (e, user) {
-			//Populate the mylist venues
-            List
-                .find({ _id : { $in: user.mylist } })
-                .populate('venue') 
-                .populate('artists')
-                .exec(function(err, listings) {
-                    //found user
+
+            //Populate the mylist venues
+            if (user) {
+                let listingLoading = user.mylist.map((el) => {
+
+                    return new Promise(resolve => {
+                        List
+                        .findOne({_id: el._id})
+                        .where('end').gte(today)
+                        .populate('venue')
+                        .populate('relatedEvents')
+                        .populate('artists')
+                        .exec(function (e, fullListing) {
+                            resolve(fullListing)
+                        });
+                    })
+                });
+
+                var populatedListings = Promise.all(listingLoading);
+
+                populatedListings.then(data => {
                     let fullUser = user
-                    fullUser.mylist = listings
+                    fullUser.mylist = data
                     res.json(fullUser);
-			    });
+                })
+        
+            } else {
+                res.json({error: 'No such user'});
+            }
         });
     
 });

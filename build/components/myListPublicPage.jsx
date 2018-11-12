@@ -3,6 +3,7 @@ import AuthActions from '../actions/AuthActions';
 //COMPONENTS
 import UserList from './mylist/userList';
 import Helmet from './blocks/Helmet'
+import { browserHistory } from 'react-router'
 
 export default class MyListPage extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export default class MyListPage extends React.Component {
             : 'A personalized list of upcoming shows and events.'
 
         //Get the user's avatar
-        let fullURL = this.props.currentUser 
+        let fullURL = this.props.currentUser  
             ? this.props.currentUser.avatar
                 ?  "https://res.cloudinary.com/artcritical/image/upload/" + this.props.currentUser.avatar + ".jpg"
                 : this.props.currentUser.facebook 
@@ -33,10 +34,11 @@ export default class MyListPage extends React.Component {
                     : ''
             : ''
 
-        let myListRender = this.props.currentUser._id ?
-                            <UserList {...this.props}/>
-                            :
-                            <div>No such user.</div>
+        let myListRender = this.props.currentUser.loaded 
+                            ? this.props.currentUser._id
+                                ? <UserList {...this.props}/>
+                                : browserHistory.push('/')
+                            : ''
         return ( 
                 <div className="myListwrap">
                 <Helmet

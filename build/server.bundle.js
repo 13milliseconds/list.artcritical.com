@@ -214,7 +214,7 @@ var ListActions = function () {
         value: async function getGlance() {
             var _this6 = this;
 
-            this.getGlanceAttempt();
+            this.getGlanceAttempt.defer();
 
             await fetch('/list/glancelistings', {
                 method: 'GET',
@@ -786,7 +786,7 @@ var AuthActions = function () {
   function AuthActions() {
     _classCallCheck(this, AuthActions);
 
-    this.generateActions('sessionCheckFailure', 'sessionCheckSuccess', 'addToMyListSuccess', 'addToMyListFailure', 'loginAttempt', 'loginFailure', 'loginSuccess', 'logoutSuccess', 'logoutFailure', 'registerAttempt', 'registerSuccess', 'registerFailure', 'updateUserSuccess', 'updateUserFailure', 'updateUserAttempt', 'deleteUserSuccess', 'deleteUserFailure', 'deleteUserAttempt', 'getMylistSuccess', 'getMylistFailure', 'reorderMyListSuccess', 'reorderMyListFailure', 'getUserMylistSuccess', 'getUserMylistFailure', 'getAllUserAttempt', 'getAllUserSuccess', 'getAllUserFailure', 'forgotPasswordAttempt', 'forgotPasswordSuccess', 'forgotPasswordFailure', 'resetPasswordAttempt', 'resetPasswordSuccess', 'resetPasswordFailure', 'certifyPasswordAttempt', 'certifyPasswordSuccess', 'certifyPasswordFailure');
+    this.generateActions('sessionCheckFailure', 'sessionCheckSuccess', 'addToMyListSuccess', 'addToMyListFailure', 'loginAttempt', 'loginFailure', 'loginSuccess', 'logoutSuccess', 'logoutFailure', 'registerAttempt', 'registerSuccess', 'registerFailure', 'updateUserSuccess', 'updateUserFailure', 'updateUserAttempt', 'deleteUserSuccess', 'deleteUserFailure', 'deleteUserAttempt', 'reorderMyListSuccess', 'reorderMyListFailure', 'getUserMylistSuccess', 'getUserMylistFailure', 'getAllUserAttempt', 'getAllUserSuccess', 'getAllUserFailure', 'forgotPasswordAttempt', 'forgotPasswordSuccess', 'forgotPasswordFailure', 'resetPasswordAttempt', 'resetPasswordSuccess', 'resetPasswordFailure', 'certifyPasswordAttempt', 'certifyPasswordSuccess', 'certifyPasswordFailure');
   }
 
   _createClass(AuthActions, [{
@@ -873,38 +873,9 @@ var AuthActions = function () {
       });
     }
   }, {
-    key: 'getMylist',
-    value: async function getMylist() {
-      var _this4 = this;
-
-      console.log('Get MyList');
-      await fetch('/auth/getmylist', {
-        method: 'GET',
-        credentials: 'same-origin'
-      }).then(function (response) {
-        if (response.status === 200) {
-          return response.json();
-        }
-        return null;
-      }).then(function (data) {
-        if (data) {
-          _this4.getMylistSuccess(data.list);
-          var newUser = data.user;
-          newUser.mylist = data.list;
-          _this4.updateUser(newUser);
-          return true;
-        }
-        _this4.getMylistFailure(data.error);
-        return true;
-      }).catch(function (error) {
-        _this4.getMylistFailure(error);
-        return true;
-      });
-    }
-  }, {
     key: 'getUserMylist',
     value: async function getUserMylist(user_slug) {
-      var _this5 = this;
+      var _this4 = this;
 
       await fetch('/auth/getusermylist/' + user_slug, {
         method: 'GET',
@@ -916,20 +887,20 @@ var AuthActions = function () {
         return null;
       }).then(function (data) {
         if (data) {
-          _this5.getUserMylistSuccess(data);
+          _this4.getUserMylistSuccess(data);
           return true;
         }
-        _this5.getUserMylistFailure(data.error);
+        _this4.getUserMylistFailure(data.error);
         return true;
       }).catch(function (error) {
-        _this5.getUserMylistFailure(error);
+        _this4.getUserMylistFailure(error);
         return true;
       });
     }
   }, {
     key: 'checkSession',
     value: async function checkSession() {
-      var _this6 = this;
+      var _this5 = this;
 
       console.log('Check Session');
       await fetch('/auth/checksession', {
@@ -943,20 +914,20 @@ var AuthActions = function () {
       }).then(function (json) {
         if (json._id) {
           console.log(json);
-          _this6.sessionCheckSuccess(json);
+          _this5.sessionCheckSuccess(json);
           return true;
         }
-        _this6.sessionCheckFailure(json.error);
+        _this5.sessionCheckFailure(json.error);
         return true;
       }).catch(function (error) {
-        _this6.sessionCheckFailure(error);
+        _this5.sessionCheckFailure(error);
         return true;
       });
     }
   }, {
     key: 'addToUserList',
     value: async function addToUserList(listing) {
-      var _this7 = this;
+      var _this6 = this;
 
       var newListing = listing;
       delete newListing.zoomLevels;
@@ -976,19 +947,20 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        _this7.addToMyListSuccess(json);
+        _this6.addToMyListSuccess(json);
         return true;
       }).catch(function (error) {
-        _this7.addToMyListFailure(error);
+        _this6.addToMyListFailure(error);
         return true;
       });
     }
   }, {
     key: 'reorderMyList',
     value: async function reorderMyList(newList) {
-      var _this8 = this;
+      var _this7 = this;
 
       this.reorderMyListAttempt(newList);
+      console.log(newList);
 
       await fetch('/auth/updatemylist', {
         body: JSON.stringify(newList),
@@ -1003,10 +975,10 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        _this8.reorderMyListSuccess(json);
+        _this7.reorderMyListSuccess(json);
         return true;
       }).catch(function (error) {
-        _this8.reorderMyListFailure(error);
+        _this7.reorderMyListFailure(error);
         return true;
       });
     }
@@ -1018,7 +990,7 @@ var AuthActions = function () {
   }, {
     key: 'updateUser',
     value: async function updateUser(newUserInfo) {
-      var _this9 = this;
+      var _this8 = this;
 
       console.log('Updating ', newUserInfo);
 
@@ -1038,17 +1010,17 @@ var AuthActions = function () {
         return null;
       }).then(function (json) {
         console.log(json);
-        _this9.updateUserSuccess(json);
+        _this8.updateUserSuccess(json);
         return true;
       }).catch(function (error) {
-        _this9.updateUserFailure(error);
+        _this8.updateUserFailure(error);
         return true;
       });
     }
   }, {
     key: 'deleteUser',
     value: async function deleteUser(user) {
-      var _this10 = this;
+      var _this9 = this;
 
       this.deleteUserAttempt();
 
@@ -1065,17 +1037,17 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        _this10.deleteUserSuccess(json);
+        _this9.deleteUserSuccess(json);
         return true;
       }).catch(function (error) {
-        _this10.deleteUserFailure(error);
+        _this9.deleteUserFailure(error);
         return true;
       });
     }
   }, {
     key: 'getAllUsers',
     value: async function getAllUsers() {
-      var _this11 = this;
+      var _this10 = this;
 
       console.log("Getting all Users");
 
@@ -1093,17 +1065,17 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        _this11.getAllUserSuccess(json);
+        _this10.getAllUserSuccess(json);
         return true;
       }).catch(function (error) {
-        _this11.getAllUserFailure(error);
+        _this10.getAllUserFailure(error);
         return true;
       });
     }
   }, {
     key: 'forgotPassword',
     value: async function forgotPassword(email) {
-      var _this12 = this;
+      var _this11 = this;
 
       console.log("Sending an email");
 
@@ -1122,17 +1094,17 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        _this12.forgotPasswordSuccess(json);
+        _this11.forgotPasswordSuccess(json);
         return true;
       }).catch(function (error) {
-        _this12.forgotPasswordFailure(error);
+        _this11.forgotPasswordFailure(error);
         return true;
       });
     }
   }, {
     key: 'certifyReset',
     value: async function certifyReset(token) {
-      var _this13 = this;
+      var _this12 = this;
 
       console.log("Checking the token");
 
@@ -1151,17 +1123,17 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        json ? _this13.certifyPasswordSuccess(json) : _this13.certifyPasswordFailure();
+        json ? _this12.certifyPasswordSuccess(json) : _this12.certifyPasswordFailure();
         return true;
       }).catch(function (error) {
-        _this13.certifyPasswordFailure();
+        _this12.certifyPasswordFailure();
         return true;
       });
     }
   }, {
     key: 'resetPassword',
     value: async function resetPassword(password, token) {
-      var _this14 = this;
+      var _this13 = this;
 
       console.log("Resetting the password");
 
@@ -1180,10 +1152,10 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        json ? _this14.resetPasswordSuccess(json) : _this14.resetPasswordFailure();
+        json ? _this13.resetPasswordSuccess(json) : _this13.resetPasswordFailure();
         return true;
       }).catch(function (error) {
-        _this14.resetPasswordFailure();
+        _this13.resetPasswordFailure();
         return true;
       });
     }
@@ -10530,6 +10502,7 @@ router.post('/updatemylist', function (req, res) {
             if (err) return handleError(err);
 
             //Replace listings in mylist
+            console.log(user.mylist);
             user.mylist = req.body;
             console.log(user.mylist);
 
@@ -10537,32 +10510,11 @@ router.post('/updatemylist', function (req, res) {
             user.save(function (err, updatedUser) {
                 if (err) return handleError(err);
 
+                console.log(updatedUser);
                 return res.send(JSON.stringify(updatedUser));
             });
         });
     };
-});
-
-//###################################
-// GET all listings from my list
-// (not used anymore)
-//###################################
-
-router.get('/getmylist', function (req, res) {
-    var List = req.list;
-
-    //Find today's date
-    var today = (0, _moment2.default)().startOf('day');
-
-    //CHECK IF USER IS CONNECTED
-    if (req.user) {
-        List.find().where('_id').in(req.user.mylist).where('end').gte(today).populate('venue').populate('relatedEvents').populate('artists').exec(function (e, docs) {
-            res.json({ list: docs, user: req.user });
-        });
-    } else {
-        var docs = [];
-        res.json(docs);
-    }
 });
 
 //###################################
@@ -10573,14 +10525,32 @@ router.get('/getusermylist/:user_slug', function (req, res) {
     var Userlist = req.userlist;
     var List = req.list;
 
+    //Find today's date
+    var today = (0, _moment2.default)().startOf('day');
+
     Userlist.findOne({ 'slug': req.params.user_slug }).populate('mylist').exec(function (e, user) {
+
         //Populate the mylist venues
-        List.find({ _id: { $in: user.mylist } }).populate('venue').populate('artists').exec(function (err, listings) {
-            //found user
-            var fullUser = user;
-            fullUser.mylist = listings;
-            res.json(fullUser);
-        });
+        if (user) {
+            var listingLoading = user.mylist.map(function (el) {
+
+                return new Promise(function (resolve) {
+                    List.findOne({ _id: el._id }).where('end').gte(today).populate('venue').populate('relatedEvents').populate('artists').exec(function (e, fullListing) {
+                        resolve(fullListing);
+                    });
+                });
+            });
+
+            var populatedListings = Promise.all(listingLoading);
+
+            populatedListings.then(function (data) {
+                var fullUser = user;
+                fullUser.mylist = data;
+                res.json(fullUser);
+            });
+        } else {
+            res.json({ error: 'No such user' });
+        }
     });
 });
 
@@ -14153,6 +14123,7 @@ var EventsPage = function (_React$Component) {
                 { className: 'events mainList' },
                 _react2.default.createElement(_Helmet2.default, {
                     title: 'Events',
+                    ogTitle: 'Events - artcritical',
                     link: 'https://list.artcritical.com/events'
                 }),
                 _react2.default.createElement(
@@ -20807,6 +20778,7 @@ var MyListPage = function (_React$Component) {
                 { className: 'myListwrap' },
                 _react2.default.createElement(_Helmet2.default, {
                     title: 'My List',
+                    ogTitle: 'My List - artcritical',
                     link: 'https://list.artcritical.com/mylist'
                 }),
                 myListRender
@@ -20848,6 +20820,8 @@ var _Helmet = __webpack_require__(9);
 
 var _Helmet2 = _interopRequireDefault(_Helmet);
 
+var _reactRouter = __webpack_require__(3);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20882,11 +20856,7 @@ var MyListPage = function (_React$Component) {
             //Get the user's avatar
             var fullURL = this.props.currentUser ? this.props.currentUser.avatar ? "https://res.cloudinary.com/artcritical/image/upload/" + this.props.currentUser.avatar + ".jpg" : this.props.currentUser.facebook ? "https://graph.facebook.com/" + this.props.currentUser.facebook.id + "/picture?type=large" : '' : '';
 
-            var myListRender = this.props.currentUser._id ? _react2.default.createElement(_userList2.default, this.props) : _react2.default.createElement(
-                'div',
-                null,
-                'No such user.'
-            );
+            var myListRender = this.props.currentUser.loaded ? this.props.currentUser._id ? _react2.default.createElement(_userList2.default, this.props) : _reactRouter.browserHistory.push('/') : '';
             return _react2.default.createElement(
                 'div',
                 { className: 'myListwrap' },
@@ -21009,8 +20979,6 @@ var MyList = function (_React$Component) {
         key: 'componentWillMount',
         value: function componentWillMount() {
 
-            _AuthActions2.default.getMylist();
-
             async.map(this.props.user.mylist, this.findCoord, function (err, results) {
                 // results is now an array
                 this.setState({
@@ -21079,8 +21047,9 @@ var MyList = function (_React$Component) {
         }
     }, {
         key: 'onReorder',
-        value: function onReorder(event, fromIndex, toIndex, fromId, toId) {
+        value: function onReorder(e, fromIndex, toIndex) {
             var newOrder = (0, _reactReorder.reorder)(this.props.user.mylist, fromIndex, toIndex);
+            console.log('New order: ', newOrder);
             _AuthActions2.default.reorderMyList(newOrder);
             this.setState({
                 markers: newOrder
@@ -21306,7 +21275,7 @@ var MyListings = function (_React$Component) {
                     reorderId: this.props.user._id,
                     draggedClassName: 'dragged',
                     lock: 'horizontal',
-                    holdTime: 300,
+                    holdTime: 50,
                     disabled: false,
                     onReorder: this.props.onReorder.bind(this)
                 },
@@ -23456,23 +23425,6 @@ var ListStore = function () {
         }
 
         // GET MYLIST
-
-    }, {
-        key: 'onGetMylistSuccess',
-        value: function onGetMylistSuccess(data) {
-            console.log('onGetMylistSuccess');
-            if (data) {
-                this.user.mylist = data;
-            } else {
-                this.user.mylist = [];
-            }
-        }
-    }, {
-        key: 'onGetMylistFailure',
-        value: function onGetMylistFailure(jqXhr) {
-            // Handle multiple response formats, fallback to HTTP status code number.
-            _toastr2.default.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-        }
         //Get a user's list
 
     }, {
@@ -23480,11 +23432,13 @@ var ListStore = function () {
         value: function onGetUserMylistSuccess(data) {
             console.log('onGetUserMylistSuccess', data);
             this.currentUser = data;
+            this.currentUser.loaded = true;
         }
     }, {
         key: 'onGetUserMylistFailure',
         value: function onGetUserMylistFailure(error) {
             console.log('onGetUserMylistFailure', error);
+            this.currentUser.loaded = false;
         }
         // REORDER MYLIST
 

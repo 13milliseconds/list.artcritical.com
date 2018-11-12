@@ -58,6 +58,7 @@ export default class EventsPage extends React.Component {
             <div className="events mainList">
             <Helmet
                 title="Events"
+                ogTitle="Events - artcritical"
                 link="https://list.artcritical.com/events"
             />
             <h1>Events</h1>

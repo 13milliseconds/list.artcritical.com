@@ -44,8 +44,6 @@ export default class MyList extends React.Component {
     }
     
     componentWillMount(){
-        
-        AuthActions.getMylist()
 
         async.map(this.props.user.mylist, this.findCoord, function(err, results){
           // results is now an array
@@ -116,8 +114,9 @@ export default class MyList extends React.Component {
         })
     }
     
-    onReorder (event, fromIndex, toIndex, fromId, toId) {
+    onReorder (e, fromIndex, toIndex) {
         let newOrder = reorder(this.props.user.mylist, fromIndex, toIndex)
+        console.log('New order: ', newOrder)
         AuthActions.reorderMyList(newOrder)
         this.setState({
               markers: newOrder

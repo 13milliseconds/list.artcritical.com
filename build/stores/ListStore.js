@@ -865,25 +865,15 @@ class ListStore {
     }
     
     // GET MYLIST
-    onGetMylistSuccess(data) {
-		console.log('onGetMylistSuccess');
-		if (data) {
-			this.user.mylist = data;	
-		} else {
-			this.user.mylist = [];
-		}
-    }
-    onGetMylistFailure(jqXhr) {
-        // Handle multiple response formats, fallback to HTTP status code number.
-        toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
-    }
 	//Get a user's list
 	onGetUserMylistSuccess(data) {
-		console.log('onGetUserMylistSuccess', data);
+        console.log('onGetUserMylistSuccess', data);
         this.currentUser = data;
+        this.currentUser.loaded = true;
     }
     onGetUserMylistFailure(error) {
         console.log('onGetUserMylistFailure', error);
+        this.currentUser.loaded = false;
     }
     // REORDER MYLIST
     onReorderMyListAttempt(data){

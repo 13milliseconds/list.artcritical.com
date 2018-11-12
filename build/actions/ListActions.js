@@ -191,7 +191,7 @@ class ListActions {
 
     async getGlance() {
 
-        this.getGlanceAttempt();
+        this.getGlanceAttempt.defer();
 
         await fetch(
             '/list/glancelistings',

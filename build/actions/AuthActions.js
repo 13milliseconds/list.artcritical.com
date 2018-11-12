@@ -22,8 +22,6 @@ class AuthActions {
             'deleteUserSuccess',
             'deleteUserFailure',
             'deleteUserAttempt',
-            'getMylistSuccess',
-            'getMylistFailure',
             'reorderMyListSuccess',
             'reorderMyListFailure',
             'getUserMylistSuccess',
@@ -135,38 +133,6 @@ class AuthActions {
           this.registerFailure(new Error(error));
         });
   }
-    
-    async getMylist() {
-        console.log('Get MyList');
-        await fetch(
-          '/auth/getmylist',
-          {
-            method: 'GET',
-            credentials: 'same-origin',
-          },
-        )
-        .then((response) => {
-          if (response.status === 200) {
-              return response.json();
-          }
-          return null;
-        })
-        .then((data) => {
-            if (data) {
-                this.getMylistSuccess(data.list)
-                var newUser = data.user
-                newUser.mylist = data.list
-                this.updateUser(newUser)
-                return true;
-            } 
-            this.getMylistFailure(data.error);
-            return true;
-        })
-        .catch((error) => {
-            this.getMylistFailure(error)
-            return true;
-        });
-    }
 	
 	async getUserMylist(user_slug) {
         await fetch(
@@ -262,6 +228,7 @@ class AuthActions {
     async reorderMyList(newList) {
         
         this.reorderMyListAttempt(newList);
+        console.log(newList)
         
         await fetch(
           '/auth/updatemylist',
