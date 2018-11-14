@@ -350,6 +350,40 @@ router.post('/updatemylist', function (req, res) {
     };
 });
 
+/*//###################################
+/* CLEAR the user's list
+/*///###################################
+
+router.post('/clearmylist', function (req, res) {
+   var Userlist = req.userlist;
+
+   //CHECK IF USER IS CONNECTED
+   if (req.user) {
+
+       // define variables
+       var userID = req.user._id;
+       
+       Userlist.findById(userID, function (err, user) {
+
+           if (err) return handleError(err);
+               
+           //Replace listings in mylist
+           user.mylist = [];
+           console.log(user.mylist);
+               
+           // Save user with new listing
+           user.save(function (err, updatedUser) {
+               if (err) return handleError(err);
+               
+               console.log(updatedUser)
+               return res.send(JSON.stringify(updatedUser));
+               
+           });
+       });
+
+   };
+}); 
+
 //###################################
 // GET all listings from a list
 //###################################

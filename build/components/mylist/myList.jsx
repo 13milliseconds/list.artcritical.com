@@ -54,7 +54,8 @@ export default class MyList extends React.Component {
     }
 
     componentDidUpdate(){
-        
+        //Resize the map
+        this._updateDimensions()
     }
     
     componentDidMount(){
@@ -116,7 +117,6 @@ export default class MyList extends React.Component {
     
     onReorder (e, fromIndex, toIndex) {
         let newOrder = reorder(this.props.user.mylist, fromIndex, toIndex)
-        console.log('New order: ', newOrder)
         AuthActions.reorderMyList(newOrder)
         this.setState({
               markers: newOrder
@@ -135,6 +135,10 @@ export default class MyList extends React.Component {
         this.setState({
               markers: newOrder
           })
+    }
+
+    clearList (){
+        AuthActions.clearMyList()
     }
     
     findCoord(listing, done) {
@@ -205,6 +209,7 @@ export default class MyList extends React.Component {
                     </div>
                     <div className="footer">
                         <Button onClick={this.onAutoReorder}>Reset Order</Button>
+                        <Button color="danger" onClick={this.clearList}>Clear All</Button>
                     </div>
 				</div>
                     {!hasList && <div className="popupList">

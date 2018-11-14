@@ -786,7 +786,7 @@ var AuthActions = function () {
   function AuthActions() {
     _classCallCheck(this, AuthActions);
 
-    this.generateActions('sessionCheckFailure', 'sessionCheckSuccess', 'addToMyListSuccess', 'addToMyListFailure', 'loginAttempt', 'loginFailure', 'loginSuccess', 'logoutSuccess', 'logoutFailure', 'registerAttempt', 'registerSuccess', 'registerFailure', 'updateUserSuccess', 'updateUserFailure', 'updateUserAttempt', 'deleteUserSuccess', 'deleteUserFailure', 'deleteUserAttempt', 'reorderMyListSuccess', 'reorderMyListFailure', 'getUserMylistSuccess', 'getUserMylistFailure', 'getAllUserAttempt', 'getAllUserSuccess', 'getAllUserFailure', 'forgotPasswordAttempt', 'forgotPasswordSuccess', 'forgotPasswordFailure', 'resetPasswordAttempt', 'resetPasswordSuccess', 'resetPasswordFailure', 'certifyPasswordAttempt', 'certifyPasswordSuccess', 'certifyPasswordFailure');
+    this.generateActions('sessionCheckFailure', 'sessionCheckSuccess', 'addToMyListSuccess', 'addToMyListFailure', 'loginAttempt', 'loginFailure', 'loginSuccess', 'logoutSuccess', 'logoutFailure', 'registerAttempt', 'registerSuccess', 'registerFailure', 'updateUserSuccess', 'updateUserFailure', 'updateUserAttempt', 'deleteUserSuccess', 'deleteUserFailure', 'deleteUserAttempt', 'reorderMyListSuccess', 'reorderMyListFailure', 'clearMyListAttempt', 'clearMyListSuccess', 'clearMyListFailure', 'getUserMylistSuccess', 'getUserMylistFailure', 'getAllUserAttempt', 'getAllUserSuccess', 'getAllUserFailure', 'forgotPasswordAttempt', 'forgotPasswordSuccess', 'forgotPasswordFailure', 'resetPasswordAttempt', 'resetPasswordSuccess', 'resetPasswordFailure', 'certifyPasswordAttempt', 'certifyPasswordSuccess', 'certifyPasswordFailure');
   }
 
   _createClass(AuthActions, [{
@@ -960,7 +960,6 @@ var AuthActions = function () {
       var _this7 = this;
 
       this.reorderMyListAttempt(newList);
-      console.log(newList);
 
       await fetch('/auth/updatemylist', {
         body: JSON.stringify(newList),
@@ -988,9 +987,36 @@ var AuthActions = function () {
       return newList;
     }
   }, {
+    key: 'clearMyList',
+    value: async function clearMyList(newList) {
+      var _this8 = this;
+
+      this.clearMyListAttempt.defer();
+
+      await fetch('/auth/clearmylist', {
+        body: JSON.stringify(newList),
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function (response) {
+        if (response.status === 200) {
+          return response.json();
+        }
+        return null;
+      }).then(function (json) {
+        _this8.clearMyListSuccess(json);
+        return true;
+      }).catch(function (error) {
+        _this8.clearMyListFailure(error);
+        return true;
+      });
+    }
+  }, {
     key: 'updateUser',
     value: async function updateUser(newUserInfo) {
-      var _this8 = this;
+      var _this9 = this;
 
       console.log('Updating ', newUserInfo);
 
@@ -1010,17 +1036,17 @@ var AuthActions = function () {
         return null;
       }).then(function (json) {
         console.log(json);
-        _this8.updateUserSuccess(json);
+        _this9.updateUserSuccess(json);
         return true;
       }).catch(function (error) {
-        _this8.updateUserFailure(error);
+        _this9.updateUserFailure(error);
         return true;
       });
     }
   }, {
     key: 'deleteUser',
     value: async function deleteUser(user) {
-      var _this9 = this;
+      var _this10 = this;
 
       this.deleteUserAttempt();
 
@@ -1037,17 +1063,17 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        _this9.deleteUserSuccess(json);
+        _this10.deleteUserSuccess(json);
         return true;
       }).catch(function (error) {
-        _this9.deleteUserFailure(error);
+        _this10.deleteUserFailure(error);
         return true;
       });
     }
   }, {
     key: 'getAllUsers',
     value: async function getAllUsers() {
-      var _this10 = this;
+      var _this11 = this;
 
       console.log("Getting all Users");
 
@@ -1065,17 +1091,17 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        _this10.getAllUserSuccess(json);
+        _this11.getAllUserSuccess(json);
         return true;
       }).catch(function (error) {
-        _this10.getAllUserFailure(error);
+        _this11.getAllUserFailure(error);
         return true;
       });
     }
   }, {
     key: 'forgotPassword',
     value: async function forgotPassword(email) {
-      var _this11 = this;
+      var _this12 = this;
 
       console.log("Sending an email");
 
@@ -1094,17 +1120,17 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        _this11.forgotPasswordSuccess(json);
+        _this12.forgotPasswordSuccess(json);
         return true;
       }).catch(function (error) {
-        _this11.forgotPasswordFailure(error);
+        _this12.forgotPasswordFailure(error);
         return true;
       });
     }
   }, {
     key: 'certifyReset',
     value: async function certifyReset(token) {
-      var _this12 = this;
+      var _this13 = this;
 
       console.log("Checking the token");
 
@@ -1123,17 +1149,17 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        json ? _this12.certifyPasswordSuccess(json) : _this12.certifyPasswordFailure();
+        json ? _this13.certifyPasswordSuccess(json) : _this13.certifyPasswordFailure();
         return true;
       }).catch(function (error) {
-        _this12.certifyPasswordFailure();
+        _this13.certifyPasswordFailure();
         return true;
       });
     }
   }, {
     key: 'resetPassword',
     value: async function resetPassword(password, token) {
-      var _this13 = this;
+      var _this14 = this;
 
       console.log("Resetting the password");
 
@@ -1152,10 +1178,10 @@ var AuthActions = function () {
         }
         return null;
       }).then(function (json) {
-        json ? _this13.resetPasswordSuccess(json) : _this13.resetPasswordFailure();
+        json ? _this14.resetPasswordSuccess(json) : _this14.resetPasswordFailure();
         return true;
       }).catch(function (error) {
-        _this13.resetPasswordFailure();
+        _this14.resetPasswordFailure();
         return true;
       });
     }
@@ -10504,6 +10530,38 @@ router.post('/updatemylist', function (req, res) {
             //Replace listings in mylist
             console.log(user.mylist);
             user.mylist = req.body;
+            console.log(user.mylist);
+
+            // Save user with new listing
+            user.save(function (err, updatedUser) {
+                if (err) return handleError(err);
+
+                console.log(updatedUser);
+                return res.send(JSON.stringify(updatedUser));
+            });
+        });
+    };
+});
+
+/*//###################################
+/* CLEAR the user's list
+/*/ //###################################
+
+router.post('/clearmylist', function (req, res) {
+    var Userlist = req.userlist;
+
+    //CHECK IF USER IS CONNECTED
+    if (req.user) {
+
+        // define variables
+        var userID = req.user._id;
+
+        Userlist.findById(userID, function (err, user) {
+
+            if (err) return handleError(err);
+
+            //Replace listings in mylist
+            user.mylist = [];
             console.log(user.mylist);
 
             // Save user with new listing
@@ -20991,7 +21049,10 @@ var MyList = function (_React$Component) {
         }
     }, {
         key: 'componentDidUpdate',
-        value: function componentDidUpdate() {}
+        value: function componentDidUpdate() {
+            //Resize the map
+            this._updateDimensions();
+        }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
@@ -21052,7 +21113,6 @@ var MyList = function (_React$Component) {
         key: 'onReorder',
         value: function onReorder(e, fromIndex, toIndex) {
             var newOrder = (0, _reactReorder.reorder)(this.props.user.mylist, fromIndex, toIndex);
-            console.log('New order: ', newOrder);
             _AuthActions2.default.reorderMyList(newOrder);
             this.setState({
                 markers: newOrder
@@ -21071,6 +21131,11 @@ var MyList = function (_React$Component) {
             this.setState({
                 markers: newOrder
             });
+        }
+    }, {
+        key: 'clearList',
+        value: function clearList() {
+            _AuthActions2.default.clearMyList();
         }
     }, {
         key: 'findCoord',
@@ -21165,6 +21230,11 @@ var MyList = function (_React$Component) {
                             _reactstrap.Button,
                             { onClick: this.onAutoReorder },
                             'Reset Order'
+                        ),
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { color: 'danger', onClick: this.clearList },
+                            'Clear All'
                         )
                     )
                 ),
@@ -21262,15 +21332,6 @@ var MyListings = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _this2 = this;
-
-            var makeid = function makeid() {
-                var text = "";
-                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-                for (var i = 0; i < 5; i++) {
-                    text += possible.charAt(Math.floor(Math.random() * possible.length));
-                }return text;
-            };
 
             return _react2.default.createElement(
                 _reactReorder2.default,
@@ -23459,6 +23520,20 @@ var ListStore = function () {
         key: 'onReorderMyListFailure',
         value: function onReorderMyListFailure() {
             console.log('problem!');
+        }
+
+        // CLEAR MY LIST
+
+    }, {
+        key: 'onClearMyListSuccess',
+        value: function onClearMyListSuccess() {
+            console.log('Cleared!');
+            this.user.mylist = [];
+        }
+    }, {
+        key: 'onClearMyListFailure',
+        value: function onClearMyListFailure(e) {
+            console.log('onClearMyListFailure: ' + e);
         }
 
         // INFO CHANGE ON ACCOUNT PAGE

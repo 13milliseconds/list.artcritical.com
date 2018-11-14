@@ -24,6 +24,9 @@ class AuthActions {
             'deleteUserAttempt',
             'reorderMyListSuccess',
             'reorderMyListFailure',
+            'clearMyListAttempt',
+            'clearMyListSuccess',
+            'clearMyListFailure',
             'getUserMylistSuccess',
             'getUserMylistFailure',
             'getAllUserAttempt',
@@ -228,7 +231,6 @@ class AuthActions {
     async reorderMyList(newList) {
         
         this.reorderMyListAttempt(newList);
-        console.log(newList)
         
         await fetch(
           '/auth/updatemylist',
@@ -256,9 +258,41 @@ class AuthActions {
             return true;
         });
     }
+
     reorderMyListAttempt(newList){
         return newList;
     }
+
+    async clearMyList(newList) {
+        
+      this.clearMyListAttempt.defer();
+      
+      await fetch(
+        '/auth/clearmylist',
+        {
+          body: JSON.stringify(newList),
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        },
+      )
+      .then((response) => {
+        if (response.status === 200) {
+            return response.json();
+        }
+          return null;
+      })
+      .then((json) => {
+          this.clearMyListSuccess(json);
+          return true;
+      })
+      .catch((error) => {
+          this.clearMyListFailure(error);
+          return true;
+      });
+  }
     
     async updateUser(newUserInfo) {
 

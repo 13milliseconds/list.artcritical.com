@@ -885,6 +885,15 @@ class ListStore {
     onReorderMyListFailure(){
         console.log('problem!');
     }
+
+    // CLEAR MY LIST
+    onClearMyListSuccess(){
+        console.log('Cleared!');  
+        this.user.mylist = [];
+    }
+    onClearMyListFailure(e){
+        console.log('onClearMyListFailure: ' + e)
+    }
     
     // INFO CHANGE ON ACCOUNT PAGE
     onUserInfoChange (data){
