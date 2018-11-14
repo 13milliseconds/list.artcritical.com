@@ -1,5 +1,5 @@
 import React from 'react';
-import {FacebookShareButton, TwitterShareButton} from 'react-share';
+import {FacebookShareButton, TwitterShareButton, EmailShareButton} from 'react-share';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 export default class SocialShare extends React.Component {
@@ -13,6 +13,11 @@ export default class SocialShare extends React.Component {
             Share
             <FacebookShareButton url={shareUrl} children={<FontAwesomeIcon icon={['fab', 'facebook']}/>}/>
             <TwitterShareButton url={shareUrl} children={<FontAwesomeIcon icon={['fab', 'twitter']}/>}/>
+            <EmailShareButton 
+                url={shareUrl} 
+                children={<FontAwesomeIcon icon={['far', 'envelope']}/>}
+                subject="Check out the List at artcritical"
+                />
         </div>
     );
   }
