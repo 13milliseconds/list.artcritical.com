@@ -18,6 +18,7 @@ export default class NeighborhoodSelect extends React.Component {
             value={this.props.selected? this.props.selected : "no-value"} 
             onChange={this.props.onChange}>
 			<option value= "no-value" disabled>Neighborhood</option>
+            {this.props.allOption && <option value="all">All</option>}
             <option value="10">Tribeca and below</option>
             <option value="20">Lower East Side</option>
             <option value="30">Soho</option>

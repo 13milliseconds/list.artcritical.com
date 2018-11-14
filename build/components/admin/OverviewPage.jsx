@@ -5,7 +5,7 @@ import VenueItem from '../venues/VenueItem';
 import NeighborhoodSelect from '../forms/NeighborhoodSelect';
 import Loading from '../blocks/loading';
 
-export default class VenuesPage extends React.Component {
+export default class OverviewPage extends React.Component {
     constructor(props) {
         super(props);
 		
@@ -48,7 +48,8 @@ export default class VenuesPage extends React.Component {
                 </p>
 				<NeighborhoodSelect 
 					selected={this.state.venueAdminNeighborhood}
-					onChange={this.onSelectChange}
+                    onChange={this.onSelectChange}
+                    allOption={true}
 					/>
 				<div className="allVenues">
 				{this.props.loading.allVenues && <Loading />}

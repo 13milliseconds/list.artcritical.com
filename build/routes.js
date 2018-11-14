@@ -23,7 +23,7 @@ import EditVenue from './components/admin/EditVenue'
 import SingleFeature from './components/SingleFeature'
 import FeaturedListings from './components/admin/featuredPage'
 import PastFeaturedListings from './components/PastFeaturedPage'
-import VenuesPage from './components/admin/VenuesPage'
+import OverviewPage from './components/admin/OverviewPage'
 import UsersPage from './components/admin/UsersPage'
 import ReviewPage from './components/admin/ReviewPage'
 import Account from './components/admin/Account'
@@ -48,7 +48,7 @@ const routes = (
         <Route path="features/:date" component={SingleFeature}/>
 		<Route path="account" component={Account}/>
         <Route path="admin" component={AdminPage}>
-            <IndexRoute component={VenuesPage}/>
+            <IndexRoute component={OverviewPage}/>
             <Route path="listings" component={EditListing}/>
             <Route path="events" component={EditEvents}/>
             <Route path="venues" component={EditVenue}/>

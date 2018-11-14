@@ -19,8 +19,12 @@ router.get('/', function (req, res, next) {
 router.get('/getadmin/:neighborhood', function (req, res, next) {
     var Venue = req.venue;
     var List = req.list;
+
+    let query = req.params.neighborhood === 'all'
+        ? {}
+        : {neighborhood: req.params.neighborhood}
     
-    Venue.find({ neighborhood: req.params.neighborhood})
+    Venue.find(query)
 		.sort('name')
 		.exec()
         .then(function(venues){
