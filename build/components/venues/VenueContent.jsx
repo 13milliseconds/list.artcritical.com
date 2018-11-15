@@ -2,7 +2,7 @@ import React from 'react';
 //Components
 import Tabs from '../tabs.jsx';
 import VenueListings from './VenueListings';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 export default class VenuePage extends React.Component {

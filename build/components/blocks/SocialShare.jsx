@@ -1,6 +1,6 @@
 import React from 'react';
 import {FacebookShareButton, TwitterShareButton, EmailShareButton} from 'react-share';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class SocialShare extends React.Component {
         

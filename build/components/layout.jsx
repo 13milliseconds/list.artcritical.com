@@ -21,35 +21,16 @@ import EventForm from './forms/EventForm';
 import ReactGA from 'react-ga';
 
 //FontAwesome
-import fontawesome from '@fortawesome/fontawesome'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faPlusCircle from '@fortawesome/fontawesome-pro-light/faPlusCircle'
-import faGlassMartini from '@fortawesome/fontawesome-pro-light/faGlassMartini'
-import faTimes from '@fortawesome/fontawesome-pro-light/faTimes'
-import faEdit from '@fortawesome/fontawesome-pro-light/faEdit'
-import faCalendar from '@fortawesome/fontawesome-pro-light/faCalendar'
-import faTrash from '@fortawesome/fontawesome-pro-light/faTrash'
-import faMap from '@fortawesome/fontawesome-pro-light/faMap'
-import faExternalLinkSquare from '@fortawesome/fontawesome-pro-light/faExternalLinkSquare'
-import faMapMarkerAlt from '@fortawesome/fontawesome-pro-light/faMapMarkerAlt'
-import faBars from '@fortawesome/fontawesome-pro-light/faBars'
-import faPencilAlt from '@fortawesome/fontawesome-pro-light/faPencilAlt'
-import faListUl from '@fortawesome/fontawesome-pro-light/faListUl'
-import faTh from '@fortawesome/fontawesome-pro-light/faTh'
-import faLink from '@fortawesome/fontawesome-pro-light/faLink'
-import faSpinnerThird from '@fortawesome/fontawesome-pro-light/faSpinnerThird'
-import faSearch from '@fortawesome/fontawesome-pro-light/faSearch'
-import faInfoCircle from '@fortawesome/fontawesome-pro-light/faInfoCircle'
-import faPlus from '@fortawesome/fontawesome-pro-regular/faPlus'
-import faMinus from '@fortawesome/fontawesome-pro-regular/faMinus'
-import faPhone from '@fortawesome/fontawesome-pro-regular/faPhone'
-import faEnvelope from '@fortawesome/fontawesome-pro-regular/faEnvelope'
-import faStar from '@fortawesome/fontawesome-pro-solid/faStar'
-import faFacebook from '@fortawesome/fontawesome-free-brands/faFacebook'
-import faTwitter from '@fortawesome/fontawesome-free-brands/faTwitter'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import {faInfoCircle, faGlassMartini, faPlusCircle, faSearch, faSpinnerThird, faTimes, faLink, faEdit, faTh, faListUl, faCalendar, faPencilAlt, faBars, faMapMarkerAlt, faExternalLinkSquare, faMap, faTrash} from '@fortawesome/pro-light-svg-icons'
+import {faEnvelope, faPhone, faMinus, faPlus} from '@fortawesome/pro-regular-svg-icons'
+import { faStar } from '@fortawesome/pro-solid-svg-icons'
+import { faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons'
 
 
-fontawesome.library.add(faBars, faListUl, faTwitter, faExternalLinkSquare, faTh, faMap, faEnvelope, faCalendar, faPlusCircle, faPlusCircle, faMapMarkerAlt, faPlus, faMinus, faSpinnerThird, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
+library.add(faBars, faListUl, faTwitter, faExternalLinkSquare, faTh, faMap, faEnvelope, faCalendar, faPlusCircle, faPlusCircle, faMapMarkerAlt, faPlus, faMinus, faSpinnerThird, faGlassMartini, faStar, faTimes, faFacebook, faInfoCircle, faSearch, faEdit, faTrash, faPhone, faLink, faPencilAlt)
 
 
 export default class Layout extends React.Component {

@@ -6,7 +6,7 @@ import moment from 'moment'
 import {Link} from 'react-router'
 import {Collapse, Card, CardTitle, CardBlock} from 'reactstrap'
 import Date from './DateBlock.jsx'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ListingNameDisplay from './ListingNameDisplay'
 
 export default class Listing extends React.Component {
@@ -140,12 +140,14 @@ export default class Listing extends React.Component {
                         {listing.popularity >= 10 && <span className="popular"><FontAwesomeIcon icon={['fas', 'star']}/></span>}
                     </span>
 
+                    {this.props.mylisting || this.props.user.userAccess > 0 &&
                     <div className="listingActions">
                         {this.props.mylisting && //If you are seeing this on your myList page
                         <a onClick={(e) => this.addToList(e, listing)} className="delete"><FontAwesomeIcon icon={['fal', 'trash']}/></a> }
                         {this.props.user.userAccess > 0 && //If you are seeing this as an editor
                         <a onClick={(e) => this._editListing(listing)} className="edit"><FontAwesomeIcon icon={['fal', 'edit']}/></a> }
                     </div>
+                    }
                     
                 </div>
                 <Collapse isOpen={this.state.fullInfo}>

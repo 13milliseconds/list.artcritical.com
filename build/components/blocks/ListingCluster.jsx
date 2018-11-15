@@ -4,7 +4,7 @@ import ListActions from '../../actions/ListActions';
 //COMPONENTS
 import {Link } from 'react-router';
 import Date from '../blocks/DateBlock.jsx';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class ListingCluster extends React.Component {
     

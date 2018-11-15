@@ -3,7 +3,7 @@ import ListActions from '../../actions/ListActions'
 import EventActions from '../../actions/EventActions'
 //Components
 import DateSingle from './formDateSingle'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ConfirmModal from './confirmModal'
 import {Input} from 'reactstrap';
 

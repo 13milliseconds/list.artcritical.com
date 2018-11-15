@@ -2,7 +2,7 @@ import React from 'react'
 //COMPONENTS
 import {Link} from 'react-router'
 import Listing from './Listing'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class VenueBlock extends React.Component {
     

@@ -6,7 +6,7 @@ import EventActions from '../../actions/EventActions';
 import {Link} from 'react-router'
 import {Collapse, Card, CardTitle, CardBlock} from 'reactstrap'
 import Date from './DateBlock.jsx'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ListingNameDisplay from './ListingNameDisplay'
 
 export default class Event extends React.Component {

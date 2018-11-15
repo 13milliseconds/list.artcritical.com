@@ -4,7 +4,7 @@ import {Link} from 'react-router'
 import DateBlock from '../blocks/DateBlock'
 import ListingNameDisplay from '../blocks/ListingNameDisplay'
 import moment from 'moment'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 //Find today's date
 let today = moment()

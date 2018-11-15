@@ -2,7 +2,7 @@ import React from 'react';
 import ImagesActions from '../../actions/ImagesActions';
 //COMPONENTS
 import ImageUpload from '../forms/imageUpload';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class Avatar extends React.Component {
     

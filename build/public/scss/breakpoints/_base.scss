@@ -399,9 +399,12 @@ LISTING ELEMENTS
         text-align: right;
     }
     .listingActions{
+        display: inline-block;
         text-align: right;
+
         a{
             border-bottom: 0;
+            margin-right: 10px;
         }
         .delete, .edit{
             cursor: pointer;
@@ -512,8 +515,7 @@ LISTING ELEMENTS
             margin-right: 10px;
         }
         .date, 
-        .icons, 
-        .listingActions{
+        .icons{
             display: inline-block;
             margin-right: 10px;
         }

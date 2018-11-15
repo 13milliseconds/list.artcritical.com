@@ -1,7 +1,7 @@
 import React from 'react';
 import ListActions from '../../actions/ListActions';
 //Components
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class Hamburger extends React.Component {
 
