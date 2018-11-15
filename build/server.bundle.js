@@ -21084,7 +21084,7 @@ var MyList = function (_React$Component) {
         key: 'componentDidUpdate',
         value: function componentDidUpdate() {
             //Resize the map
-            this._updateDimensions();
+            //this._updateDimensions()
         }
     }, {
         key: 'componentDidMount',

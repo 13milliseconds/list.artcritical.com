@@ -477,11 +477,23 @@ header.mainHeader{
 
         .mapWrap{
             height: 100%;
+            overflow: hidden;
+            position: relative; 
             flex: 1;
         }
 
         .mapInfo{
             flex: 0 0 500px;
+            width: 500px;
+            padding: 40px;
+
+            .mapHeader{
+                padding-bottom: 20px;
+            }
+
+            .venue{
+                background-color: $white;
+            }
         }
     }
 }
@@ -554,9 +566,7 @@ header.mainHeader{
 .mylistPage.app-container{
     padding: 0;
     max-width: none;
-    .venue{
-        padding: 10px;
-    }
+
     .listing, 
     .event{
         &:hover{

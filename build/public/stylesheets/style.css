@@ -3783,14 +3783,26 @@ you can add resource intensive styles.
   /* line 478, ../scss/breakpoints/_768up.scss */
   .myListwrap .myList .mapWrap {
     height: 100%;
+    overflow: hidden;
+    position: relative;
     flex: 1;
   }
-  /* line 483, ../scss/breakpoints/_768up.scss */
+  /* line 485, ../scss/breakpoints/_768up.scss */
   .myListwrap .myList .mapInfo {
     flex: 0 0 500px;
+    width: 500px;
+    padding: 40px;
+  }
+  /* line 490, ../scss/breakpoints/_768up.scss */
+  .myListwrap .myList .mapInfo .mapHeader {
+    padding-bottom: 20px;
+  }
+  /* line 494, ../scss/breakpoints/_768up.scss */
+  .myListwrap .myList .mapInfo .venue {
+    background-color: #fff;
   }
 
-  /* line 489, ../scss/breakpoints/_768up.scss */
+  /* line 501, ../scss/breakpoints/_768up.scss */
   .currentMap {
     display: flex;
     flex-direction: row-reverse;
@@ -3799,7 +3811,7 @@ you can add resource intensive styles.
     width: 100%;
     padding-top: 100px;
   }
-  /* line 497, ../scss/breakpoints/_768up.scss */
+  /* line 509, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo {
     flex: 0 0 400px;
     width: 400px;
@@ -3807,32 +3819,32 @@ you can add resource intensive styles.
     display: flex;
     flex-direction: column;
   }
-  /* line 504, ../scss/breakpoints/_768up.scss */
+  /* line 516, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo h2 {
     font-size: 1.5em;
   }
-  /* line 507, ../scss/breakpoints/_768up.scss */
+  /* line 519, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .infoWrap {
     padding-left: 10px;
   }
-  /* line 510, ../scss/breakpoints/_768up.scss */
+  /* line 522, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .mapHeader {
     order: 1;
     flex: 0 0 auto;
     margin-bottom: 30px;
   }
-  /* line 515, ../scss/breakpoints/_768up.scss */
+  /* line 527, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .content {
     order: 2;
     flex: 1;
   }
-  /* line 519, ../scss/breakpoints/_768up.scss */
+  /* line 531, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .footer {
     order: 3;
     flex: 0 0 auto;
     margin-top: 50px;
   }
-  /* line 524, ../scss/breakpoints/_768up.scss */
+  /* line 536, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .dragged {
     background: #fff;
     border-radius: 10px;
@@ -3845,7 +3857,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 530, ../scss/breakpoints/_768up.scss */
+  /* line 542, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .listingsWrap {
     float: left;
     display: block;
@@ -3856,14 +3868,14 @@ you can add resource intensive styles.
   .currentMap .mapInfo .listingsWrap:last-child {
     margin-right: 0;
   }
-  /* line 534, ../scss/breakpoints/_768up.scss */
+  /* line 546, ../scss/breakpoints/_768up.scss */
   .currentMap .mapWrap {
     height: 100%;
     overflow: hidden;
     position: relative;
     flex: 1;
   }
-  /* line 540, ../scss/breakpoints/_768up.scss */
+  /* line 552, ../scss/breakpoints/_768up.scss */
   .currentMap .mapWrap .label {
     display: block;
     position: absolute;
@@ -3874,31 +3886,27 @@ you can add resource intensive styles.
     padding: 5px;
   }
 
-  /* line 554, ../scss/breakpoints/_768up.scss */
+  /* line 566, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container {
     padding: 0;
     max-width: none;
   }
-  /* line 557, ../scss/breakpoints/_768up.scss */
-  .mylistPage.app-container .venue {
-    padding: 10px;
-  }
-  /* line 564, ../scss/breakpoints/_768up.scss */
+  /* line 574, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .listing:hover .listingAdd span,
   .mylistPage.app-container .event:hover .listingAdd span {
     background-color: #d70b00;
     color: white;
   }
-  /* line 572, ../scss/breakpoints/_768up.scss */
+  /* line 582, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .mapWrap {
     height: 100%;
     flex: 1;
   }
-  /* line 576, ../scss/breakpoints/_768up.scss */
+  /* line 586, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .mapInfo {
     display: none;
   }
-  /* line 579, ../scss/breakpoints/_768up.scss */
+  /* line 589, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .popupList {
     position: fixed;
     z-index: 10;
@@ -3908,7 +3916,7 @@ you can add resource intensive styles.
     left: 0;
     background-color: rgba(255, 255, 255, 0.5);
   }
-  /* line 588, ../scss/breakpoints/_768up.scss */
+  /* line 598, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .popupList div {
     background: #fff;
     position: absolute;
@@ -3922,12 +3930,12 @@ you can add resource intensive styles.
     padding: 50px;
     border-radius: 10px;
   }
-  /* line 596, ../scss/breakpoints/_768up.scss */
+  /* line 606, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .popupList div a {
     border-bottom: 0;
   }
 
-  /* line 603, ../scss/breakpoints/_768up.scss */
+  /* line 613, ../scss/breakpoints/_768up.scss */
   .SignIn {
     position: fixed;
     width: 100%;
@@ -3939,7 +3947,7 @@ you can add resource intensive styles.
     background-position: center;
     background-repeat: no-repeat;
   }
-  /* line 613, ../scss/breakpoints/_768up.scss */
+  /* line 623, ../scss/breakpoints/_768up.scss */
   .SignIn > div {
     background-color: #fff;
     position: absolute;
@@ -3959,11 +3967,11 @@ you can add resource intensive styles.
   /*********************
   Features Page
   *********************/
-  /* line 630, ../scss/breakpoints/_768up.scss */
+  /* line 640, ../scss/breakpoints/_768up.scss */
   .allFeatures {
     padding: 0 0;
   }
-  /* line 633, ../scss/breakpoints/_768up.scss */
+  /* line 643, ../scss/breakpoints/_768up.scss */
   .allFeatures .featuresWrap .feature {
     float: left;
     display: block;
@@ -3984,11 +3992,11 @@ you can add resource intensive styles.
     clear: left;
   }
 
-  /* line 641, ../scss/breakpoints/_768up.scss */
+  /* line 651, ../scss/breakpoints/_768up.scss */
   .singleFeature {
     padding: 0 0;
   }
-  /* line 643, ../scss/breakpoints/_768up.scss */
+  /* line 653, ../scss/breakpoints/_768up.scss */
   .singleFeature .left-col {
     float: left;
     display: block;
@@ -3999,7 +4007,7 @@ you can add resource intensive styles.
   .singleFeature .left-col:last-child {
     margin-right: 0;
   }
-  /* line 646, ../scss/breakpoints/_768up.scss */
+  /* line 656, ../scss/breakpoints/_768up.scss */
   .singleFeature .right-col {
     float: left;
     display: block;
@@ -4011,7 +4019,7 @@ you can add resource intensive styles.
   .singleFeature .right-col:last-child {
     margin-right: 0;
   }
-  /* line 650, ../scss/breakpoints/_768up.scss */
+  /* line 660, ../scss/breakpoints/_768up.scss */
   .singleFeature .right-col .feature-wrap .picture {
     float: left;
     display: block;
@@ -4022,7 +4030,7 @@ you can add resource intensive styles.
   .singleFeature .right-col .feature-wrap .picture:last-child {
     margin-right: 0;
   }
-  /* line 653, ../scss/breakpoints/_768up.scss */
+  /* line 663, ../scss/breakpoints/_768up.scss */
   .singleFeature .right-col .feature-wrap .info {
     margin-top: 0;
     float: left;
@@ -4039,7 +4047,7 @@ you can add resource intensive styles.
   /*********************
   Venue Page
   *********************/
-  /* line 666, ../scss/breakpoints/_768up.scss */
+  /* line 676, ../scss/breakpoints/_768up.scss */
   .venuePage .mapInfo {
     float: left;
     display: block;
@@ -4051,7 +4059,7 @@ you can add resource intensive styles.
   .venuePage .mapInfo:last-child {
     margin-right: 0;
   }
-  /* line 670, ../scss/breakpoints/_768up.scss */
+  /* line 680, ../scss/breakpoints/_768up.scss */
   .venuePage .mapWrap {
     float: left;
     display: block;
@@ -4064,18 +4072,18 @@ you can add resource intensive styles.
   .venuePage .mapWrap:last-child {
     margin-right: 0;
   }
-  /* line 674, ../scss/breakpoints/_768up.scss */
+  /* line 684, ../scss/breakpoints/_768up.scss */
   .venuePage .mapWrap .map {
     height: 100%;
   }
 
-  /* line 681, ../scss/breakpoints/_768up.scss */
+  /* line 691, ../scss/breakpoints/_768up.scss */
   .loginForm, .signupForm, .resetForm {
     max-width: 500px;
     margin: 50px auto;
   }
 
-  /* line 688, ../scss/breakpoints/_768up.scss */
+  /* line 698, ../scss/breakpoints/_768up.scss */
   .account {
     display: block;
   }
@@ -4085,7 +4093,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 690, ../scss/breakpoints/_768up.scss */
+  /* line 700, ../scss/breakpoints/_768up.scss */
   .account .left-col {
     float: left;
     display: block;
@@ -4096,12 +4104,12 @@ you can add resource intensive styles.
   .account .left-col:last-child {
     margin-right: 0;
   }
-  /* line 692, ../scss/breakpoints/_768up.scss */
+  /* line 702, ../scss/breakpoints/_768up.scss */
   .account .left-col h1 {
     text-align: left;
     margin-top: 0;
   }
-  /* line 697, ../scss/breakpoints/_768up.scss */
+  /* line 707, ../scss/breakpoints/_768up.scss */
   .account .accountform {
     float: left;
     display: block;
@@ -4114,12 +4122,12 @@ you can add resource intensive styles.
     margin-right: 0;
   }
 
-  /* line 704, ../scss/breakpoints/_768up.scss */
+  /* line 714, ../scss/breakpoints/_768up.scss */
   .draftJsToolbar__toolbar__dNtBH button {
     margin: 0 0 0 0 !important;
   }
 
-  /* line 712, ../scss/breakpoints/_768up.scss */
+  /* line 722, ../scss/breakpoints/_768up.scss */
   .userList .mapInfo header {
     display: block;
     border-bottom: 1px solid #eaedf2;
@@ -4132,7 +4140,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 717, ../scss/breakpoints/_768up.scss */
+  /* line 727, ../scss/breakpoints/_768up.scss */
   .userList .mapInfo header .avatarWrap {
     float: left;
     display: block;
@@ -4143,14 +4151,14 @@ you can add resource intensive styles.
   .userList .mapInfo header .avatarWrap:last-child {
     margin-right: 0;
   }
-  /* line 719, ../scss/breakpoints/_768up.scss */
+  /* line 729, ../scss/breakpoints/_768up.scss */
   .userList .mapInfo header .avatarWrap .avatar {
     width: 100%;
     height: 0;
     background-size: cover;
     background-position: center;
   }
-  /* line 726, ../scss/breakpoints/_768up.scss */
+  /* line 736, ../scss/breakpoints/_768up.scss */
   .userList .mapInfo header .infoWrap {
     float: left;
     display: block;
@@ -4163,7 +4171,7 @@ you can add resource intensive styles.
     margin-right: 0;
   }
 
-  /* line 736, ../scss/breakpoints/_768up.scss */
+  /* line 746, ../scss/breakpoints/_768up.scss */
   .adminWrap {
     display: block;
   }
@@ -4173,7 +4181,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 738, ../scss/breakpoints/_768up.scss */
+  /* line 748, ../scss/breakpoints/_768up.scss */
   .adminWrap .left-col {
     position: fixed;
     float: left;
@@ -4185,12 +4193,12 @@ you can add resource intensive styles.
   .adminWrap .left-col:last-child {
     margin-right: 0;
   }
-  /* line 742, ../scss/breakpoints/_768up.scss */
+  /* line 752, ../scss/breakpoints/_768up.scss */
   .adminWrap .left-col nav li {
     display: block;
     margin-bottom: 10px;
   }
-  /* line 748, ../scss/breakpoints/_768up.scss */
+  /* line 758, ../scss/breakpoints/_768up.scss */
   .adminWrap .admin-content {
     margin-left: 25.5894130058%;
     float: left;
@@ -4203,7 +4211,7 @@ you can add resource intensive styles.
   .adminWrap .admin-content:last-child {
     margin-right: 0;
   }
-  /* line 754, ../scss/breakpoints/_768up.scss */
+  /* line 764, ../scss/breakpoints/_768up.scss */
   .adminWrap .editHeader {
     display: block;
     padding-bottom: 20px;
@@ -4214,20 +4222,20 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 757, ../scss/breakpoints/_768up.scss */
+  /* line 767, ../scss/breakpoints/_768up.scss */
   .adminWrap .editHeader button {
     vertical-align: top;
   }
-  /* line 760, ../scss/breakpoints/_768up.scss */
+  /* line 770, ../scss/breakpoints/_768up.scss */
   .adminWrap .editHeader .search {
     float: right;
   }
-  /* line 762, ../scss/breakpoints/_768up.scss */
+  /* line 772, ../scss/breakpoints/_768up.scss */
   .adminWrap .editHeader .search .Select {
     width: 400px;
     display: inline-block;
   }
-  /* line 768, ../scss/breakpoints/_768up.scss */
+  /* line 778, ../scss/breakpoints/_768up.scss */
   .adminWrap .editVenue {
     display: block;
   }
@@ -4237,7 +4245,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 770, ../scss/breakpoints/_768up.scss */
+  /* line 780, ../scss/breakpoints/_768up.scss */
   .adminWrap .editVenue .venueEditing,
   .adminWrap .editVenue .venueLocation {
     float: left;
@@ -4250,18 +4258,18 @@ you can add resource intensive styles.
   .adminWrap .editVenue .venueLocation:last-child {
     margin-right: 0;
   }
-  /* line 778, ../scss/breakpoints/_768up.scss */
+  /* line 788, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #ListingList .Select {
     width: 100%;
     max-width: 500px;
     display: inline-block;
     margin-left: 10px;
   }
-  /* line 784, ../scss/breakpoints/_768up.scss */
+  /* line 794, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #ListingList button.btn {
     vertical-align: top;
   }
-  /* line 788, ../scss/breakpoints/_768up.scss */
+  /* line 798, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm {
     max-width: 600px;
     display: block;
@@ -4272,16 +4280,16 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 791, ../scss/breakpoints/_768up.scss */
+  /* line 801, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm label {
     text-transform: uppercase;
     font-size: .8em;
   }
-  /* line 796, ../scss/breakpoints/_768up.scss */
+  /* line 806, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm input::placeholder, .adminWrap .listingEdit #listingForm input::-webkit-input-placeholder, .adminWrap .listingEdit #listingForm input::-moz-placeholder, .adminWrap .listingEdit #listingForm input:-ms-input-placeholder, .adminWrap .listingEdit #listingForm input:-moz-placeholder {
     color: pink !important;
   }
-  /* line 804, ../scss/breakpoints/_768up.scss */
+  /* line 814, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-venue {
     float: left;
     display: block;
@@ -4292,13 +4300,13 @@ you can add resource intensive styles.
   .adminWrap .listingEdit #listingForm .group-venue:last-child {
     margin-right: 0;
   }
-  /* line 806, ../scss/breakpoints/_768up.scss */
+  /* line 816, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-venue button.btn {
     margin-top: 10px;
     background-color: #fff;
     color: #323944;
   }
-  /* line 812, ../scss/breakpoints/_768up.scss */
+  /* line 822, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-artists,
   .adminWrap .listingEdit #listingForm .group-name,
   .adminWrap .listingEdit #listingForm .group-description,
@@ -4319,7 +4327,7 @@ you can add resource intensive styles.
   .adminWrap .listingEdit #listingForm .group-dates:last-child {
     margin-right: 0;
   }
-  /* line 820, ../scss/breakpoints/_768up.scss */
+  /* line 830, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-thumbnail {
     float: left;
     display: block;
@@ -4331,7 +4339,7 @@ you can add resource intensive styles.
   .adminWrap .listingEdit #listingForm .group-thumbnail:last-child {
     margin-right: 0;
   }
-  /* line 824, ../scss/breakpoints/_768up.scss */
+  /* line 834, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-events {
     float: left;
     display: block;
@@ -4342,7 +4350,7 @@ you can add resource intensive styles.
   .adminWrap .listingEdit #listingForm .group-events:last-child {
     margin-right: 0;
   }
-  /* line 835, ../scss/breakpoints/_768up.scss */
+  /* line 845, ../scss/breakpoints/_768up.scss */
   .adminWrap .usersWrap .allUsers .card {
     float: left;
     display: block;
@@ -4356,7 +4364,7 @@ you can add resource intensive styles.
   .adminWrap .usersWrap .allUsers .card:last-child {
     margin-right: 0;
   }
-  /* line 840, ../scss/breakpoints/_768up.scss */
+  /* line 850, ../scss/breakpoints/_768up.scss */
   .adminWrap .usersWrap .allUsers .card:nth-of-type(2n) {
     margin-right: 2.3576520234%;
   }
@@ -4368,7 +4376,7 @@ you can add resource intensive styles.
   .adminWrap .usersWrap .allUsers .card:nth-child(3n+1) {
     clear: left;
   }
-  /* line 844, ../scss/breakpoints/_768up.scss */
+  /* line 854, ../scss/breakpoints/_768up.scss */
   .adminWrap .usersWrap .allUsers .card .card-block {
     -webkit-transform: translateY(-30%);
     -moz-transform: translateY(-30%);
@@ -4376,7 +4384,7 @@ you can add resource intensive styles.
     -o-transform: translateY(-30%);
     transform: translateY(-30%);
   }
-  /* line 849, ../scss/breakpoints/_768up.scss */
+  /* line 859, ../scss/breakpoints/_768up.scss */
   .adminWrap .allInfo {
     float: left;
     display: block;
@@ -4387,25 +4395,25 @@ you can add resource intensive styles.
   .adminWrap .allInfo:last-child {
     margin-right: 0;
   }
-  /* line 854, ../scss/breakpoints/_768up.scss */
+  /* line 864, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .tabs__labels {
     display: block;
   }
-  /* line 856, ../scss/breakpoints/_768up.scss */
+  /* line 866, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .tabs__labels li {
     display: inline-block;
     margin-bottom: 10px;
   }
-  /* line 860, ../scss/breakpoints/_768up.scss */
+  /* line 870, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .tabs__labels li a.active button {
     background-color: #eaedf2;
   }
-  /* line 866, ../scss/breakpoints/_768up.scss */
+  /* line 876, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .featureFormWrap {
     max-width: 500px;
   }
 
-  /* line 873, ../scss/breakpoints/_768up.scss */
+  /* line 883, ../scss/breakpoints/_768up.scss */
   .picture img {
     max-width: 400px;
   }

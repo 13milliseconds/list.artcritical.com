@@ -55,7 +55,7 @@ export default class MyList extends React.Component {
 
     componentDidUpdate(){
         //Resize the map
-        this._updateDimensions()
+        //this._updateDimensions()
     }
     
     componentDidMount(){
