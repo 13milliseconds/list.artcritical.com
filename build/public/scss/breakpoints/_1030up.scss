@@ -104,7 +104,7 @@ Features Page
     .featuresWrap{
         .feature{
             @include span-columns(3);
-            @include omega-reset(3n);
+            //@include omega-reset(3n);
             @include omega(4n);
         }
     }

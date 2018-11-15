@@ -47,14 +47,12 @@ export default class MyMap extends React.Component {
   render() {
     const {viewport, updateViewport} = this.props;
     return (
-        <div className="mapWrap" ref="theMap">
             <ReactMapGL
                 {...viewport}
                 onViewportChange={updateViewport}
               >
                 {this.mapMarkers(this.props.markers)}
             </ReactMapGL>
-        </div>
     );
   }
 }

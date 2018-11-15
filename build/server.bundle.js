@@ -9682,15 +9682,11 @@ var MyMap = function (_React$Component) {
                 updateViewport = _props.updateViewport;
 
             return _react2.default.createElement(
-                'div',
-                { className: 'mapWrap', ref: 'theMap' },
-                _react2.default.createElement(
-                    _reactMapGl2.default,
-                    _extends({}, viewport, {
-                        onViewportChange: updateViewport
-                    }),
-                    this.mapMarkers(this.props.markers)
-                )
+                _reactMapGl2.default,
+                _extends({}, viewport, {
+                    onViewportChange: updateViewport
+                }),
+                this.mapMarkers(this.props.markers)
             );
         }
     }]);
@@ -13465,7 +13461,6 @@ var CurrentMap = function (_React$Component) {
 	}, {
 		key: '_resizeMap',
 		value: function _resizeMap() {
-			console.log(this.refs.mapWrap);
 			// Create variable to change property
 			var viewport = _extends({}, this.state.viewport, {
 				width: this.refs.mapWrap.offsetWidth,
@@ -13586,9 +13581,22 @@ var CurrentMap = function (_React$Component) {
 				});
 			};
 
+			var labelTally = [];
 			var showLabels = function showLabels(listings) {
 				return listings.map(function (listing) {
-					return _react2.default.createElement(_ListingNameDisplay2.default, _extends({}, listing, { key: listing._id }));
+					//Showing the listings names
+					//return <ListingNameDisplay {...listing} key={listing._id} />
+					var venueName = listing.venue.name;
+					if (labelTally.indexOf(venueName) >= 0) {
+						return;
+					} else {
+						labelTally.push(venueName);
+						return _react2.default.createElement(
+							'div',
+							{ key: listing._id },
+							venueName
+						);
+					}
 				});
 			};
 

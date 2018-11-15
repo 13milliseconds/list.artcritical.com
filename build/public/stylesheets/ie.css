@@ -1,102 +1,1708 @@
-/*
-Error: Undefined mixin 'omega-reset'.
-        on line 597 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss, in `omega-reset'
-        from line 597 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss
-        from line 32 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/ie.scss
+/******************************************************************
+Site Name:
+Author:
 
-Backtrace:
-/Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss:597:in `omega-reset'
-/Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss:597
-/Users/francoishuyghe/Sites/artcritical-list/build/public/scss/ie.scss:32
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:348:in `visit_mixin'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:98:in `with_mixin'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:98:in `with_mixin'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:346:in `visit_mixin'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `visit_rule'
-org/jruby/RubyArray.java:2412:in `map'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `visit_rule'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `visit_rule'
-org/jruby/RubyArray.java:2412:in `map'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `visit_rule'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `visit_rule'
-org/jruby/RubyArray.java:2412:in `map'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:430:in `visit_rule'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:325:in `visit_import'
-org/jruby/RubyArray.java:2412:in `map'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:325:in `visit_import'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:88:in `with_import'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:88:in `with_import'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-org/jruby/RubyArray.java:2412:in `map'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:167:in `visit_children'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:157:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:8:in `visit'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/root_node.rb:36:in `css_tree'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/engine.rb:368:in `_render_with_sourcemap'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/engine.rb:285:in `render_with_sourcemap'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
-org/jruby/RubyMethod.java:128:in `call'
-file:/Applications/compass.app/Contents/Java/compass-app.jar!/hook/compass_patch.rb:108:in `update_stylesheet'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/plugin/compiler.rb:215:in `update_stylesheets'
-org/jruby/RubyArray.java:1613:in `each'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
-/Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/plugin/compiler.rb:328:in `watch'
-org/jruby/RubyProc.java:271:in `call'
-/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-1.3.1-patched/lib/listen/listener.rb:252:in `on_change'
-/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-1.3.1-patched/lib/listen/listener.rb:290:in `initialize_adapter'
-org/jruby/RubyProc.java:271:in `call'
-/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-1.3.1-patched/lib/listen/adapter.rb:252:in `report_changes'
-/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-1.3.1-patched/lib/listen/adapter.rb:321:in `poll_changed_directories'
-/Applications/compass.app/Contents/Resources/lib/ruby/jruby/listen-1.3.1-patched/lib/listen/adapter.rb:297:in `start_poller'
+Stylesheet: IE Stylesheet
+
+So instead of using the respond.js file to add media query support
+to IE, we're going to use SASS to create an easily readable css file.
+Here, we import all the styles the standard stylesheet gets, only
+without the media queries. No need to worry about editing anything!
+
+******************************************************************/
+/******************************************************************
+IMPORTS & DEPENDENCIES
+Remember, all the BASE styles are called already since IE can
+read those. Below, we need to import only the stuff IE can't
+understand (what's inside the media queries). We also need to
+import the mixins file so SASS can understand the variables.
+******************************************************************/
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Variables
+
+Here is where we declare all our variables like colors, fonts,
+base values, and defaults. We want to make sure this file ONLY
+contains variables that way our files don't get all messy.
+No one likes a mess.
+
+******************************************************************/
+/*********************
+COLORS
+Need help w/ choosing your colors? Try this site out:
+http://0to255.com/
+*********************/
+/*
+Here's a great tutorial on how to
+use color variables properly:
+http://sachagreif.com/sass-color-variables/
 */
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Undefined mixin 'omega-reset'.\A         on line 597 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss, in `omega-reset'\A         from line 597 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss\A         from line 32 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/ie.scss"; }
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Typography
+
+Need to import a font or set of icons for your site? Drop them in
+here or just use this to establish your typographical grid. Or not.
+Do whatever you want to...GOSH!
+
+Helpful Articles:
+http://trentwalton.com/2012/06/19/fluid-type/
+http://ia.net/blog/responsive-typography-the-basics/
+http://alistapart.com/column/responsive-typography-is-a-physical-discipline
+
+******************************************************************/
+/*********************
+FONT FACE (IN YOUR FACE)
+*********************/
+/*  To embed your own fonts, use this syntax
+  and place your fonts inside the
+  library/fonts folder. For more information
+  on embedding fonts, go to:
+  http://www.fontsquirrel.com/
+  Be sure to remove the comment brackets.
+*/
+/*  @font-face {
+      font-family: 'Font Name';
+      src: url('library/fonts/font-name.eot');
+      src: url('library/fonts/font-name.eot?#iefix') format('embedded-opentype'),
+             url('library/fonts/font-name.woff') format('woff'),
+             url('library/fonts/font-name.ttf') format('truetype'),
+             url('library/fonts/font-name.svg#font-name') format('svg');
+      font-weight: normal;
+      font-style: normal;
+  }
+*/
+/*
+The following is based of Typebase:
+https://github.com/devinhunt/typebase.css
+I've edited it a bit, but it's a nice starting point.
+*/
+/*
+ i imported this one in the functions file so bones would look sweet.
+ don't forget to remove it for your site.
+*/
+/*
+some nice typographical defaults
+more here: http://www.newnet-soft.com/blog/csstypography
+*/
+/* line 65, ../scss/partials/_typography.scss */
+p {
+  -ms-word-wrap: break-word;
+  word-break: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  hyphens: none;
+  -webkit-hyphenate-before: 2;
+  -webkit-hyphenate-after: 3;
+  hyphenate-lines: 3;
+  -webkit-font-feature-settings: "liga", "dlig";
+  -moz-font-feature-settings: "liga=1, dlig=1";
+  -ms-font-feature-settings: "liga", "dlig";
+  -o-font-feature-settings: "liga", "dlig";
+  font-feature-settings: "liga", "dlig";
+}
+
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: IE Grid Styles
+
+Since the example grid is based on media queries, so rather than
+setup some js library that would make IE8 and below understand
+media queries, let's just add some styles that serves a fixed grid.
+
+Again, if you want to roll your own, just remove this junk and put
+whatever you use in here.
+
+******************************************************************/
+/* line 4, ../scss/neat/grid/_box-sizing.scss */
+html {
+  box-sizing: border-box;
+}
+
+/* line 9, ../scss/neat/grid/_box-sizing.scss */
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: 481px and Up Stylesheet
+
+This stylesheet is loaded for larger devices. It's set to
+481px because at 480px it would load on a landscaped iPhone.
+This isn't ideal because then you would be loading all those
+extra styles on that same mobile connection.
+
+A word of warning. This size COULD be a larger mobile device,
+so you still want to keep it pretty light and simply expand
+upon your base.scss styles.
+
+******************************************************************/
+/*
+IMPORTANT NOTE ABOUT SASS 3.3 & UP
+You can't use @extend within media queries
+anymore, so just be aware that if you drop
+them in here, they won't work.
+*/
+/* line 26, ../scss/breakpoints/_481up.scss */
+.allFeatures .featuresWrap {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.allFeatures .featuresWrap::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 28, ../scss/breakpoints/_481up.scss */
+.allFeatures .featuresWrap .feature {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  float: none;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.allFeatures .featuresWrap .feature:last-child {
+  margin-right: 0;
+}
+/* line 78, ../scss/neat/grid/_omega.scss */
+.allFeatures .featuresWrap .feature:nth-child(2n) {
+  margin-right: 0;
+}
+/* line 108, ../scss/neat/grid/_omega.scss */
+.allFeatures .featuresWrap .feature:nth-child(2n+1) {
+  clear: left;
+}
+
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Tablet & Small Desktop Stylesheet
+
+Here's where you can start getting into the good stuff.
+This size will work on iPads, other tablets, and desktops.
+So you can start working with more styles, background images,
+and other resources. You'll also notice the grid starts to
+come into play. Have fun!
+
+******************************************************************/
+/*********************
+GENERAL STYLES
+*********************/
+/* line 21, ../scss/breakpoints/_768up.scss */
+.app-container {
+  margin: 0 auto;
+}
+/* line 25, ../scss/breakpoints/_768up.scss */
+.app-container .app-content {
+  padding: 130px 20px;
+  min-height: 100vh;
+}
+
+/* line 31, ../scss/breakpoints/_768up.scss */
+footer {
+  margin-top: -35px;
+}
+
+/* line 36, ../scss/breakpoints/_768up.scss */
+body a {
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  transition: 0.2s;
+}
+/* line 38, ../scss/breakpoints/_768up.scss */
+body a:hover {
+  color: #d70b00;
+  text-decoration: none;
+}
+/* line 43, ../scss/breakpoints/_768up.scss */
+body h2 {
+  font-size: 2em;
+}
+
+/* line 49, ../scss/breakpoints/_768up.scss */
+#banner {
+  width: auto;
+  padding: 20px;
+}
+/* line 52, ../scss/breakpoints/_768up.scss */
+#banner a {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+}
+/* line 56, ../scss/breakpoints/_768up.scss */
+#banner a:nth-of-type(1) {
+  left: auto;
+}
+/* line 59, ../scss/breakpoints/_768up.scss */
+#banner a:nth-of-type(4) {
+  left: auto;
+}
+/* line 62, ../scss/breakpoints/_768up.scss */
+#banner a:nth-of-type(2) {
+  right: auto;
+}
+/* line 65, ../scss/breakpoints/_768up.scss */
+#banner a:nth-of-type(3) {
+  right: auto;
+}
+
+/* line 71, ../scss/breakpoints/_768up.scss */
+#topMenu {
+  left: 50px;
+  padding: 0;
+  background-color: transparent;
+  width: auto;
+  border-bottom: 0;
+}
+
+/* line 79, ../scss/breakpoints/_768up.scss */
+.hamburger {
+  display: none;
+}
+
+/* line 83, ../scss/breakpoints/_768up.scss */
+header.mainHeader {
+  position: fixed;
+  left: 0;
+  height: 100px;
+  padding: 20px;
+  border-bottom: 1px solid #eaedf2;
+  width: 100%;
+  background: white;
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+header.mainHeader::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 92, ../scss/breakpoints/_768up.scss */
+header.mainHeader .mainLogo {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+header.mainHeader .mainLogo:last-child {
+  margin-right: 0;
+}
+/* line 94, ../scss/breakpoints/_768up.scss */
+header.mainHeader .mainLogo h1 {
+  font-size: 3em;
+  line-height: .6em;
+  margin-bottom: 10px;
+}
+/* line 99, ../scss/breakpoints/_768up.scss */
+header.mainHeader .mainLogo h2 {
+  display: block;
+  color: #323944;
+  font-weight: 400;
+  font-size: .8em;
+}
+/* line 106, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav {
+  position: initial;
+  padding: 0 0;
+  top: 0;
+  left: 0;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+header.mainHeader nav:last-child {
+  margin-right: 0;
+}
+/* line 113, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul {
+  text-align: left;
+}
+/* line 115, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li {
+  font-size: 1em;
+  display: inline-block;
+}
+/* line 118, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li a {
+  display: inline-block;
+  font-size: .88em;
+  padding: 5px 20px;
+  margin-right: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+/* line 127, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu {
+  display: block;
+  position: absolute;
+  top: 63px;
+}
+/* line 131, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu li {
+  font-size: 1em;
+  padding-left: 0;
+}
+/* line 134, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu li a {
+  padding: 5px 0;
+  margin-right: 20px;
+  color: black;
+  border-bottom: 3px solid transparent;
+  -webkit-transition: 0s;
+  -moz-transition: 0s;
+  transition: 0s;
+}
+/* line 140, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu li a:hover {
+  border-color: #d70b00;
+}
+/* line 143, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu li a.active {
+  border-color: #d70b00;
+  color: #323944;
+}
+/* line 149, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu li:hover > ul {
+  display: block;
+}
+/* line 153, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu li > ul {
+  display: none;
+  background: #fff;
+  top: 37px;
+  padding: 10px;
+}
+/* line 158, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu li > ul a {
+  cursor: pointer;
+}
+/* line 160, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu li > ul a:hover {
+  color: #d70b00;
+  border-color: transparent;
+}
+/* line 164, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul li > ul.submenu li > ul a.active {
+  color: #d70b00;
+  border-color: transparent;
+}
+/* line 173, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul > li:nth-child(1) > a {
+  background-color: #d70b00;
+  color: #fff;
+}
+/* line 177, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul > li:nth-child(2) > a {
+  background-color: #9f0900;
+  color: #fff;
+}
+/* line 181, ../scss/breakpoints/_768up.scss */
+header.mainHeader nav > ul > li:nth-child(3) > a {
+  background-color: #770600;
+  color: #fff;
+}
+/* line 187, ../scss/breakpoints/_768up.scss */
+header.mainHeader div {
+  display: inline-block;
+}
+/* line 190, ../scss/breakpoints/_768up.scss */
+header.mainHeader .SizeSelector {
+  display: none;
+  float: right;
+  margin-top: -25px;
+}
+/* line 194, ../scss/breakpoints/_768up.scss */
+header.mainHeader .SizeSelector span {
+  display: inline-block;
+  color: #eaedf2;
+  padding-right: 5px;
+  cursor: pointer;
+}
+/* line 199, ../scss/breakpoints/_768up.scss */
+header.mainHeader .SizeSelector span svg {
+  pointer-events: none;
+}
+/* line 202, ../scss/breakpoints/_768up.scss */
+header.mainHeader .SizeSelector span.active {
+  color: #d70b00;
+  cursor: default;
+}
+
+/* line 209, ../scss/breakpoints/_768up.scss */
+#header {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+/* line 216, ../scss/breakpoints/_768up.scss */
+.menu {
+  position: relative;
+}
+
+/* line 220, ../scss/breakpoints/_768up.scss */
+.mobileMenu {
+  display: none;
+}
+
+/* line 224, ../scss/breakpoints/_768up.scss */
+#sortPanel {
+  width: 200px;
+  top: 100px;
+}
+/* line 227, ../scss/breakpoints/_768up.scss */
+#sortPanel .wrap {
+  width: auto;
+}
+/* line 229, ../scss/breakpoints/_768up.scss */
+#sortPanel .wrap a {
+  display: table;
+}
+
+/* line 234, ../scss/breakpoints/_768up.scss */
+.sideMenu {
+  padding: 130px 50px 50px;
+}
+
+/* line 238, ../scss/breakpoints/_768up.scss */
+#banner, #introPanel.active, #loginPanel, #sharePanel, #sortPanel {
+  overflow: auto;
+  position: relative;
+  top: auto;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+
+/* line 245, ../scss/breakpoints/_768up.scss */
+#introPanel {
+  padding: 20px;
+}
+
+/* line 249, ../scss/breakpoints/_768up.scss */
+#aboutPanel {
+  display: none;
+}
+
+/* line 253, ../scss/breakpoints/_768up.scss */
+#thelist {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* line 262, ../scss/breakpoints/_768up.scss */
+.edit-page .container {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.edit-page .container::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 264, ../scss/breakpoints/_768up.scss */
+.edit-page .container .header {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 50px;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.edit-page .container .header:last-child {
+  margin-right: 0;
+}
+/* line 272, ../scss/breakpoints/_768up.scss */
+.edit-page .container .content {
+  margin-left: 25.5894130058%;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.edit-page .container .content:last-child {
+  margin-right: 0;
+}
+
+/* line 282, ../scss/breakpoints/_768up.scss */
+.home, .glance, .current, .events, .future {
+  padding: 0 0;
+}
+
+/* line 286, ../scss/breakpoints/_768up.scss */
+.hoodNav {
+  position: initial;
+  padding: 0;
+  border-top: 0;
+}
+
+/* line 293, ../scss/breakpoints/_768up.scss */
+.mainList {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.mainList::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 295, ../scss/breakpoints/_768up.scss */
+.mainList .left-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+  position: fixed;
+  top: 100px;
+  background: #fff;
+  left: 0;
+  padding: 20px;
+  border-bottom: 1px solid #eaedf2;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .left-col:last-child {
+  margin-right: 0;
+}
+/* line 303, ../scss/breakpoints/_768up.scss */
+.mainList .left-col h1 {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .left-col h1:last-child {
+  margin-right: 0;
+}
+/* line 306, ../scss/breakpoints/_768up.scss */
+.mainList .left-col .hoodNav {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .left-col .hoodNav:last-child {
+  margin-right: 0;
+}
+/* line 310, ../scss/breakpoints/_768up.scss */
+.mainList .left-col p {
+  margin-bottom: 0;
+  position: absolute;
+  top: 3.5em;
+}
+/* line 316, ../scss/breakpoints/_768up.scss */
+.mainList .right-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: -2.3576520234%;
+  position: fixed;
+  float: none;
+  right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .right-col:last-child {
+  margin-right: 0;
+}
+/* line 322, ../scss/breakpoints/_768up.scss */
+.mainList .main-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+  margin-right: 0;
+  padding-top: 100px;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .main-col:last-child {
+  margin-right: 0;
+}
+
+/* line 330, ../scss/breakpoints/_768up.scss */
+.listingsWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.listingsWrap:last-child {
+  margin-right: 0;
+}
+/* line 332, ../scss/breakpoints/_768up.scss */
+.listingsWrap .city {
+  margin-top: -100px;
+  padding-top: 100px;
+}
+
+/* line 339, ../scss/breakpoints/_768up.scss */
+.venue:hover .address {
+  opacity: 1;
+}
+
+/* line 349, ../scss/breakpoints/_768up.scss */
+.condensed .listing p,
+.condensed .event p {
+  font-size: 16px;
+}
+/* line 354, ../scss/breakpoints/_768up.scss */
+.condensed .listing .listingAdd .addButton:hover,
+.condensed .event .listingAdd .addButton:hover {
+  color: #d70b00;
+}
+
+/* line 365, ../scss/breakpoints/_768up.scss */
+.events.mainList .left-col {
+  position: fixed;
+  float: none;
+  padding-right: 4%;
+}
+/* line 370, ../scss/breakpoints/_768up.scss */
+.events.mainList .left-col .DayPicker {
+  display: none;
+  -webkit-transform: translate(-20%) scale(0.8);
+  -moz-transform: translate(-20%) scale(0.8);
+  -ms-transform: translate(-20%) scale(0.8);
+  -o-transform: translate(-20%) scale(0.8);
+  transform: translate(-20%) scale(0.8);
+}
+/* line 375, ../scss/breakpoints/_768up.scss */
+.events.mainList .main-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.events.mainList .main-col:last-child {
+  margin-right: 0;
+}
+/* line 377, ../scss/breakpoints/_768up.scss */
+.events.mainList .main-col h2 {
+  margin-top: 0;
+  border-bottom: 0;
+}
+/* line 382, ../scss/breakpoints/_768up.scss */
+.events.mainList .right-col {
+  display: none;
+}
+
+/* line 389, ../scss/breakpoints/_768up.scss */
+.glance h1 {
+  display: none;
+}
+/* line 392, ../scss/breakpoints/_768up.scss */
+.glance ul.tabs__labels {
+  display: block;
+  padding: 0;
+  position: fixed;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.glance ul.tabs__labels:last-child {
+  margin-right: 0;
+}
+/* line 397, ../scss/breakpoints/_768up.scss */
+.glance ul.tabs__labels:before {
+  content: 'Week at a Glance';
+  color: #d70b00;
+  font-size: 2em;
+  margin-bottom: 30px;
+  display: block;
+}
+/* line 405, ../scss/breakpoints/_768up.scss */
+.glance div.tabs__content {
+  margin-left: 25.5894130058%;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.glance div.tabs__content:last-child {
+  margin-right: 0;
+}
+/* line 408, ../scss/breakpoints/_768up.scss */
+.glance div.tabs__content .day {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.glance div.tabs__content .day::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 410, ../scss/breakpoints/_768up.scss */
+.glance div.tabs__content .day .listingsWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
+  padding-right: 30px;
+  margin-top: 0;
+  float: right;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.glance div.tabs__content .day .listingsWrap:last-child {
+  margin-right: 0;
+}
+/* line 416, ../scss/breakpoints/_768up.scss */
+.glance div.tabs__content .day .featuredSection {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+  float: right;
+  min-height: 1px;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.glance div.tabs__content .day .featuredSection:last-child {
+  margin-right: 0;
+}
+
+/* line 425, ../scss/breakpoints/_768up.scss */
+.feature-wrap .info {
+  margin-top: 30px;
+}
+
+/* line 430, ../scss/breakpoints/_768up.scss */
+.iconLink {
+  cursor: pointer;
+}
+/* line 432, ../scss/breakpoints/_768up.scss */
+.iconLink:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+/* line 440, ../scss/breakpoints/_768up.scss */
+.tabs .tabs__select {
+  display: none;
+}
+
+/* line 447, ../scss/breakpoints/_768up.scss */
+.map.app-container, .mylistPage.connected.app-container {
+  min-height: 100%;
+  padding: 0;
+  max-width: none;
+  position: absolute;
+  width: 100%;
+}
+/* line 453, ../scss/breakpoints/_768up.scss */
+.map.app-container .app-content, .mylistPage.connected.app-container .app-content {
+  min-height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+/* line 462, ../scss/breakpoints/_768up.scss */
+.mapPage .app-content,
+.mylistPage .app-content {
+  padding: 0 !important;
+}
+
+/* line 467, ../scss/breakpoints/_768up.scss */
+.myListwrap {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+/* line 472, ../scss/breakpoints/_768up.scss */
+.myListwrap .myList {
+  height: 100%;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+/* line 478, ../scss/breakpoints/_768up.scss */
+.myListwrap .myList .mapWrap {
+  height: 100%;
+  flex: 1;
+}
+/* line 483, ../scss/breakpoints/_768up.scss */
+.myListwrap .myList .mapInfo {
+  flex: 0 0 500px;
+}
+
+/* line 489, ../scss/breakpoints/_768up.scss */
+.currentMap {
+  display: flex;
+  flex-direction: row-reverse;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding-top: 100px;
+}
+/* line 497, ../scss/breakpoints/_768up.scss */
+.currentMap .mapInfo {
+  flex: 0 0 400px;
+  width: 400px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+/* line 504, ../scss/breakpoints/_768up.scss */
+.currentMap .mapInfo h2 {
+  font-size: 1.5em;
+}
+/* line 507, ../scss/breakpoints/_768up.scss */
+.currentMap .mapInfo .infoWrap {
+  padding-left: 10px;
+}
+/* line 510, ../scss/breakpoints/_768up.scss */
+.currentMap .mapInfo .mapHeader {
+  order: 1;
+  flex: 0 0 auto;
+  margin-bottom: 30px;
+}
+/* line 515, ../scss/breakpoints/_768up.scss */
+.currentMap .mapInfo .content {
+  order: 2;
+  flex: 1;
+}
+/* line 519, ../scss/breakpoints/_768up.scss */
+.currentMap .mapInfo .footer {
+  order: 3;
+  flex: 0 0 auto;
+  margin-top: 50px;
+}
+/* line 524, ../scss/breakpoints/_768up.scss */
+.currentMap .mapInfo .dragged {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #eaedf2;
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.currentMap .mapInfo .dragged::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 530, ../scss/breakpoints/_768up.scss */
+.currentMap .mapInfo .listingsWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.currentMap .mapInfo .listingsWrap:last-child {
+  margin-right: 0;
+}
+/* line 534, ../scss/breakpoints/_768up.scss */
+.currentMap .mapWrap {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  flex: 1;
+}
+/* line 540, ../scss/breakpoints/_768up.scss */
+.currentMap .mapWrap .label {
+  display: block;
+  position: absolute;
+  background-color: #323944;
+  color: #fff;
+  font-size: .7em;
+  margin-left: 5px;
+  padding: 5px;
+}
+
+/* line 554, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container {
+  padding: 0;
+  max-width: none;
+}
+/* line 557, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .venue {
+  padding: 10px;
+}
+/* line 564, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .listing:hover .listingAdd span,
+.mylistPage.app-container .event:hover .listingAdd span {
+  background-color: #d70b00;
+  color: white;
+}
+/* line 572, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .mapWrap {
+  height: 100%;
+  flex: 1;
+}
+/* line 576, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .mapInfo {
+  display: none;
+}
+/* line 579, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .popupList {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+/* line 588, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .popupList div {
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  padding: 50px;
+  border-radius: 10px;
+}
+/* line 596, ../scss/breakpoints/_768up.scss */
+.mylistPage.app-container .mylist.deactivated .popupList div a {
+  border-bottom: 0;
+}
+
+/* line 603, ../scss/breakpoints/_768up.scss */
+.SignIn {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url(../images/map-bg.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* line 613, ../scss/breakpoints/_768up.scss */
+.SignIn > div {
+  background-color: #fff;
+  position: absolute;
+  width: 100%;
+  max-width: 500px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  padding: 50px;
+  border-radius: 10px;
+}
+
+/*********************
+Features Page
+*********************/
+/* line 630, ../scss/breakpoints/_768up.scss */
+.allFeatures {
+  padding: 0 0;
+}
+/* line 633, ../scss/breakpoints/_768up.scss */
+.allFeatures .featuresWrap .feature {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+  margin-bottom: 50px;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.allFeatures .featuresWrap .feature:last-child {
+  margin-right: 0;
+}
+/* line 78, ../scss/neat/grid/_omega.scss */
+.allFeatures .featuresWrap .feature:nth-child(3n) {
+  margin-right: 0;
+}
+/* line 108, ../scss/neat/grid/_omega.scss */
+.allFeatures .featuresWrap .feature:nth-child(3n+1) {
+  clear: left;
+}
+
+/* line 641, ../scss/breakpoints/_768up.scss */
+.singleFeature {
+  padding: 0 0;
+}
+/* line 643, ../scss/breakpoints/_768up.scss */
+.singleFeature .left-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.singleFeature .left-col:last-child {
+  margin-right: 0;
+}
+/* line 646, ../scss/breakpoints/_768up.scss */
+.singleFeature .right-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.singleFeature .right-col:last-child {
+  margin-right: 0;
+}
+/* line 650, ../scss/breakpoints/_768up.scss */
+.singleFeature .right-col .feature-wrap .picture {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.singleFeature .right-col .feature-wrap .picture:last-child {
+  margin-right: 0;
+}
+/* line 653, ../scss/breakpoints/_768up.scss */
+.singleFeature .right-col .feature-wrap .info {
+  margin-top: 0;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 65.8807826589%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.singleFeature .right-col .feature-wrap .info:last-child {
+  margin-right: 0;
+}
+
+/*********************
+Venue Page
+*********************/
+/* line 666, ../scss/breakpoints/_768up.scss */
+.venuePage .mapInfo {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.venuePage .mapInfo:last-child {
+  margin-right: 0;
+}
+/* line 670, ../scss/breakpoints/_768up.scss */
+.venuePage .mapWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  margin-left: 51.1788260117%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.venuePage .mapWrap:last-child {
+  margin-right: 0;
+}
+/* line 674, ../scss/breakpoints/_768up.scss */
+.venuePage .mapWrap .map {
+  height: 100%;
+}
+
+/* line 681, ../scss/breakpoints/_768up.scss */
+.loginForm, .signupForm, .resetForm {
+  max-width: 500px;
+  margin: 50px auto;
+}
+
+/* line 688, ../scss/breakpoints/_768up.scss */
+.account {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.account::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 690, ../scss/breakpoints/_768up.scss */
+.account .left-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.account .left-col:last-child {
+  margin-right: 0;
+}
+/* line 692, ../scss/breakpoints/_768up.scss */
+.account .left-col h1 {
+  text-align: left;
+  margin-top: 0;
+}
+/* line 697, ../scss/breakpoints/_768up.scss */
+.account .accountform {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  padding: 150px 50px 50px;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.account .accountform:last-child {
+  margin-right: 0;
+}
+
+/* line 704, ../scss/breakpoints/_768up.scss */
+.draftJsToolbar__toolbar__dNtBH button {
+  margin: 0 0 0 0 !important;
+}
+
+/* line 712, ../scss/breakpoints/_768up.scss */
+.userList .mapInfo header {
+  display: block;
+  border-bottom: 1px solid #eaedf2;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.userList .mapInfo header::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 717, ../scss/breakpoints/_768up.scss */
+.userList .mapInfo header .avatarWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.userList .mapInfo header .avatarWrap:last-child {
+  margin-right: 0;
+}
+/* line 719, ../scss/breakpoints/_768up.scss */
+.userList .mapInfo header .avatarWrap .avatar {
+  width: 100%;
+  height: 0;
+  background-size: cover;
+  background-position: center;
+}
+/* line 726, ../scss/breakpoints/_768up.scss */
+.userList .mapInfo header .infoWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.userList .mapInfo header .infoWrap:last-child {
+  margin-right: 0;
+}
+
+/* line 736, ../scss/breakpoints/_768up.scss */
+.adminWrap {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.adminWrap::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 738, ../scss/breakpoints/_768up.scss */
+.adminWrap .left-col {
+  position: fixed;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .left-col:last-child {
+  margin-right: 0;
+}
+/* line 742, ../scss/breakpoints/_768up.scss */
+.adminWrap .left-col nav li {
+  display: block;
+  margin-bottom: 10px;
+}
+/* line 748, ../scss/breakpoints/_768up.scss */
+.adminWrap .admin-content {
+  margin-left: 25.5894130058%;
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .admin-content:last-child {
+  margin-right: 0;
+}
+/* line 754, ../scss/breakpoints/_768up.scss */
+.adminWrap .editHeader {
+  display: block;
+  padding-bottom: 20px;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.adminWrap .editHeader::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 757, ../scss/breakpoints/_768up.scss */
+.adminWrap .editHeader button {
+  vertical-align: top;
+}
+/* line 760, ../scss/breakpoints/_768up.scss */
+.adminWrap .editHeader .search {
+  float: right;
+}
+/* line 762, ../scss/breakpoints/_768up.scss */
+.adminWrap .editHeader .search .Select {
+  width: 400px;
+  display: inline-block;
+}
+/* line 768, ../scss/breakpoints/_768up.scss */
+.adminWrap .editVenue {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.adminWrap .editVenue::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 770, ../scss/breakpoints/_768up.scss */
+.adminWrap .editVenue .venueEditing,
+.adminWrap .editVenue .venueLocation {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .editVenue .venueEditing:last-child,
+.adminWrap .editVenue .venueLocation:last-child {
+  margin-right: 0;
+}
+/* line 778, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #ListingList .Select {
+  width: 100%;
+  max-width: 500px;
+  display: inline-block;
+  margin-left: 10px;
+}
+/* line 784, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #ListingList button.btn {
+  vertical-align: top;
+}
+/* line 788, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm {
+  max-width: 600px;
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.adminWrap .listingEdit #listingForm::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 791, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm label {
+  text-transform: uppercase;
+  font-size: .8em;
+}
+/* line 796, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm input::placeholder, .adminWrap .listingEdit #listingForm input::-webkit-input-placeholder, .adminWrap .listingEdit #listingForm input::-moz-placeholder, .adminWrap .listingEdit #listingForm input:-ms-input-placeholder, .adminWrap .listingEdit #listingForm input:-moz-placeholder {
+  color: pink !important;
+}
+/* line 804, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-venue {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-venue:last-child {
+  margin-right: 0;
+}
+/* line 806, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-venue button.btn {
+  margin-top: 10px;
+  background-color: #fff;
+  color: #323944;
+}
+/* line 812, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-artists,
+.adminWrap .listingEdit #listingForm .group-name,
+.adminWrap .listingEdit #listingForm .group-description,
+.adminWrap .listingEdit #listingForm .group-review,
+.adminWrap .listingEdit #listingForm .group-buttons,
+.adminWrap .listingEdit #listingForm .group-dates {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-artists:last-child,
+.adminWrap .listingEdit #listingForm .group-name:last-child,
+.adminWrap .listingEdit #listingForm .group-description:last-child,
+.adminWrap .listingEdit #listingForm .group-review:last-child,
+.adminWrap .listingEdit #listingForm .group-buttons:last-child,
+.adminWrap .listingEdit #listingForm .group-dates:last-child {
+  margin-right: 0;
+}
+/* line 820, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-thumbnail {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-thumbnail:last-child {
+  margin-right: 0;
+}
+/* line 824, ../scss/breakpoints/_768up.scss */
+.adminWrap .listingEdit #listingForm .group-events {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .listingEdit #listingForm .group-events:last-child {
+  margin-right: 0;
+}
+/* line 835, ../scss/breakpoints/_768up.scss */
+.adminWrap .usersWrap .allUsers .card {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 31.7615653177%;
+  float: none;
+  display: inline-block;
+  margin-top: 100px;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .usersWrap .allUsers .card:last-child {
+  margin-right: 0;
+}
+/* line 840, ../scss/breakpoints/_768up.scss */
+.adminWrap .usersWrap .allUsers .card:nth-of-type(2n) {
+  margin-right: 2.3576520234%;
+}
+/* line 78, ../scss/neat/grid/_omega.scss */
+.adminWrap .usersWrap .allUsers .card:nth-child(3n) {
+  margin-right: 0;
+}
+/* line 108, ../scss/neat/grid/_omega.scss */
+.adminWrap .usersWrap .allUsers .card:nth-child(3n+1) {
+  clear: left;
+}
+/* line 844, ../scss/breakpoints/_768up.scss */
+.adminWrap .usersWrap .allUsers .card .card-block {
+  -webkit-transform: translateY(-30%);
+  -moz-transform: translateY(-30%);
+  -ms-transform: translateY(-30%);
+  -o-transform: translateY(-30%);
+  transform: translateY(-30%);
+}
+/* line 849, ../scss/breakpoints/_768up.scss */
+.adminWrap .allInfo {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .allInfo:last-child {
+  margin-right: 0;
+}
+/* line 854, ../scss/breakpoints/_768up.scss */
+.adminWrap .featureAdmin .tabs__labels {
+  display: block;
+}
+/* line 856, ../scss/breakpoints/_768up.scss */
+.adminWrap .featureAdmin .tabs__labels li {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+/* line 860, ../scss/breakpoints/_768up.scss */
+.adminWrap .featureAdmin .tabs__labels li a.active button {
+  background-color: #eaedf2;
+}
+/* line 866, ../scss/breakpoints/_768up.scss */
+.adminWrap .featureAdmin .featureFormWrap {
+  max-width: 500px;
+}
+
+/* line 873, ../scss/breakpoints/_768up.scss */
+.picture img {
+  max-width: 400px;
+}
+
+/******************************************************************
+Site Name:
+Author:
+
+Stylesheet: Desktop Stylsheet
+
+This is the desktop size. It's larger than an iPad so it will only
+be seen on the Desktop.
+
+******************************************************************/
+/* line 14, ../scss/breakpoints/_1030up.scss */
+body h1 {
+  font-size: 2em;
+}
+
+/* line 20, ../scss/breakpoints/_1030up.scss */
+.app-container .app-content {
+  padding: 130px 50px;
+}
+
+/* line 26, ../scss/breakpoints/_1030up.scss */
+header.mainHeader {
+  padding: 20px 50px;
+}
+/* line 28, ../scss/breakpoints/_1030up.scss */
+header.mainHeader .mainLogo {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+header.mainHeader .mainLogo:last-child {
+  margin-right: 0;
+}
+/* line 31, ../scss/breakpoints/_1030up.scss */
+header.mainHeader nav {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 74.4105869942%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+header.mainHeader nav:last-child {
+  margin-right: 0;
+}
+/* line 34, ../scss/breakpoints/_1030up.scss */
+header.mainHeader nav > ul li a {
+  font-size: 1em;
+}
+
+/* line 43, ../scss/breakpoints/_1030up.scss */
+.hoodNav ul {
+  display: block;
+}
+/* line 46, ../scss/breakpoints/_1030up.scss */
+.hoodNav select {
+  display: none;
+}
+
+/* line 52, ../scss/breakpoints/_1030up.scss */
+.mainList .left-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+  border-bottom: 0;
+  padding-left: 50px;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .left-col:last-child {
+  margin-right: 0;
+}
+/* line 56, ../scss/breakpoints/_1030up.scss */
+.mainList .left-col h1 {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .left-col h1:last-child {
+  margin-right: 0;
+}
+/* line 60, ../scss/breakpoints/_1030up.scss */
+.mainList .left-col .hoodNav {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+  margin-right: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .left-col .hoodNav:last-child {
+  margin-right: 0;
+}
+/* line 63, ../scss/breakpoints/_1030up.scss */
+.mainList .left-col .hoodNav h3 {
+  display: none;
+}
+/* line 67, ../scss/breakpoints/_1030up.scss */
+.mainList .left-col p {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 100%;
+  margin-right: 0;
+  position: relative;
+  top: auto;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .left-col p:last-child {
+  margin-right: 0;
+}
+/* line 74, ../scss/breakpoints/_1030up.scss */
+.mainList .right-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 14.7019566472%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .right-col:last-child {
+  margin-right: 0;
+}
+/* line 77, ../scss/breakpoints/_1030up.scss */
+.mainList .main-col {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 57.3509783236%;
+  margin-left: 25.5894130058%;
+  padding-top: 0;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.mainList .main-col:last-child {
+  margin-right: 0;
+}
+
+/* line 85, ../scss/breakpoints/_1030up.scss */
+.adminWrap .featureAdmin {
+  display: block;
+}
+/* line 20, ../scss/neat/mixins/_clearfix.scss */
+.adminWrap .featureAdmin::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+/* line 87, ../scss/breakpoints/_1030up.scss */
+.adminWrap .featureAdmin .featureFormWrap {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  max-width: none;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .featureAdmin .featureFormWrap:last-child {
+  margin-right: 0;
+}
+/* line 91, ../scss/breakpoints/_1030up.scss */
+.adminWrap .featureAdmin .preview {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 48.8211739883%;
+  padding-left: 50px;
+  display: block;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.adminWrap .featureAdmin .preview:last-child {
+  margin-right: 0;
+}
+
+/*********************
+Features Page
+*********************/
+/* line 105, ../scss/breakpoints/_1030up.scss */
+.allFeatures .featuresWrap .feature {
+  float: left;
+  display: block;
+  margin-right: 2.3576520234%;
+  width: 23.2317609825%;
+}
+/* line 89, ../scss/neat/grid/_span-columns.scss */
+.allFeatures .featuresWrap .feature:last-child {
+  margin-right: 0;
+}
+/* line 78, ../scss/neat/grid/_omega.scss */
+.allFeatures .featuresWrap .feature:nth-child(4n) {
+  margin-right: 0;
+}
+/* line 108, ../scss/neat/grid/_omega.scss */
+.allFeatures .featuresWrap .feature:nth-child(4n+1) {
+  clear: left;
+}
+
+/*
+you can call the larger styles if you want, but there's really no need
+*/
+/******************************************************************
+ADDITIONAL IE FIXES
+These fixes are now ONLY seen by IE, so you don't have to worry
+about using prefixes, although it's best practice. For more info
+on using Modernizr classes, check out this link:
+http://www.modernizr.com/docs/
+******************************************************************/
+/*
+For example, you can use something like:
+
+.no-textshadow .class { ... }
+
+You can also target specific versions by using the classes applied to
+the html element. These can sometimes change, so take a look inside the
+header.php file to see what they are:
+
+
+.lt-ie8 .class { ... }
+
+*/
+
+/*# sourceMappingURL=ie.css.map */

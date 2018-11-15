@@ -457,60 +457,98 @@ header.mainHeader{
     }
 }
 
-.mapInfo{
-    @include span-columns(4);
-    @include omega();
-    height: 100%;
-    padding: 0px 40px 50px 0;
-    display: flex;
-    flex-direction: column;
-    h2{
-        font-size: 1.5em;
-    }
-    .infoWrap{
-        padding-left: 10px;
-    }
-    .mapHeader{
-        order: 1;
-        flex: 1 auto;
-        position: relative;
-        margin-bottom: 30px;
-    }
-    .content{
-        order: 2;
-    }
-    .footer{
-        order: 3;
-        flex: 1 auto;
-        margin-top: 50px;;
-    }
-    .dragged{
-        background: $white;
-        border-radius: 10px;
-        box-shadow: 0 0 20px $gray;
-        @include row();
-    }
-    .listingsWrap{
-        @include span-columns(12);
+.mapPage,
+.mylistPage{
+    .app-content{
+        padding: 0!important;
     }
 }
-.mapWrap{
-    @include span-columns(8);
-    @include shift(4);
-    position: fixed;
-    top: 0;
-    left: 0;
+
+.myListwrap{
     height: 100%;
-    .label{
-        display: block;
-        position: absolute;
-        background-color: $black;
-        color: $white;
-        font-size: .7em;
-        margin-left: 5px;
-        padding: 5px;
+    width: 100%;
+    position: absolute;
+
+    .myList{
+        height: 100%;
+        padding-top: 100px;
+        display: flex;
+        flex-direction: row-reverse;
+
+        .mapWrap{
+            height: 100%;
+            flex: 1;
+        }
+
+        .mapInfo{
+            flex: 0 0 500px;
+        }
     }
-}   
+}
+
+.currentMap{
+    display: flex;
+    flex-direction: row-reverse;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding-top: 100px;
+
+    .mapInfo{
+        flex: 0 0 400px;
+        width: 400px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+
+        h2{
+            font-size: 1.5em;
+        }
+        .infoWrap{
+            padding-left: 10px;
+        }
+        .mapHeader{
+            order: 1;
+            flex: 0 0 auto;
+            margin-bottom: 30px;
+        }
+        .content{
+            order: 2;
+            flex: 1;
+        }
+        .footer{
+            order: 3;
+            flex: 0 0 auto;
+            margin-top: 50px;;
+        }
+        .dragged{
+            background: $white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px $gray;
+            @include row();
+        }
+        .listingsWrap{
+            @include span-columns(12);
+        }
+    }
+    .mapWrap{
+        height: 100%;
+        overflow: hidden;
+        position: relative; 
+        flex: 1;
+
+        .label{
+            display: block;
+            position: absolute;
+            background-color: $black;
+            color: $white;
+            font-size: .7em;
+            margin-left: 5px;
+            padding: 5px;
+        }
+    }  
+}
+ 
 
 // MyList
 .mylistPage.app-container{
@@ -532,8 +570,8 @@ header.mainHeader{
     }
     .mylist.deactivated{
         .mapWrap{
-            @include span-columns(12);
-            @include shift(0);
+            height: 100%;
+            flex: 1;
         }
         .mapInfo{
             display: none;
@@ -594,7 +632,7 @@ Features Page
     .featuresWrap{
         .feature{
             @include span-columns(4);
-            @include omega-reset(2n);
+            //@include omega-reset(2n);
             @include omega(3n);
             margin-bottom: 50px;
         }

@@ -3,7 +3,7 @@ import ListActions from '../actions/ListActions';
 //COMPONENTS
 import Helmet from './blocks/Helmet'
 import ReactMapGL, {FlyToInterpolator} from 'react-map-gl';
-import DeckGLOverlay from './blocks/MapCluster';
+import MapCluster from './blocks/MapCluster';
 import VenueBlock from './blocks/VenueBlock'
 import {json as requestJson} from 'd3-request';
 import {Button} from 'reactstrap';
@@ -67,7 +67,6 @@ export default class CurrentMap extends React.Component {
 		
     }
 	_resizeMap(){
-		console.log(this.refs.mapWrap)
 		// Create variable to change property
 		const viewport = {
 			...this.state.viewport,
@@ -174,8 +173,17 @@ export default class CurrentMap extends React.Component {
 			return <VenueBlock key={index} listings={[listing]} user={this.props.user} dateView="current"/>
 		})
 
+		let labelTally = []
 		let showLabels = (listings) => listings.map((listing) => {
-			return <ListingNameDisplay {...listing} key={listing._id} />
+			//Showing the listings names
+			//return <ListingNameDisplay {...listing} key={listing._id} />
+			let venueName = listing.venue.name
+			if (labelTally.indexOf(venueName) >= 0){
+				return
+			} else {
+				labelTally.push(venueName)
+				return <div key={listing._id}>{venueName}</div>
+			}
 		})
 
 		let labelStyles = {
@@ -194,7 +202,7 @@ export default class CurrentMap extends React.Component {
 						{...this.state.viewport}
 						onViewportChange={this._onViewportChange}
 						>
-						<DeckGLOverlay
+						<MapCluster
 						  viewport={this.state.viewport}
 						  data={this.props.currentListings}
 						  iconAtlas="images/location-icon-atlas.png"

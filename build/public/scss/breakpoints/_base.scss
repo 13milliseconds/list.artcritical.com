@@ -240,19 +240,61 @@ Main PAGES
     background: #fff;
     padding: 50px 20px;
     overflow: auto;
+
+    .venue{
+        border: 1px solid $light-gray;
+        border-radius: 10px;
+        
+        .venueInfo{
+            background-color: $light-gray; 
+            padding: 5px 10px;
+            border-radius: 10px 10px 0 0;
+
+            a{
+                color: #777;
+
+                &:hover{
+                    color: $red;
+                }
+            }
+        }
+        
+        .listing{
+            padding: 10px;
+
+            .card{
+                border: 0;
+
+                .card-title{
+                    padding: 10px 0;
+                    margin-bottom: 0;
+                    background-color: transparent;
+                }
+
+                .card-block{
+                    padding: 0;
+                }
+            }
+        }
+    }
+
     .cityJump{
         margin-top: 20px;
+
         button{
             background-color: $dark-gray;
+
             &:hover{
                 background-color: $green;
             }
         }
         .otherWrap{
             display: inline;
+
             &:hover > button{
                 background-color: $green;
             }
+
             div{
                 padding-top: 10px;
             }
