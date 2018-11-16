@@ -185,8 +185,8 @@ class ListStore {
     onCleanupAttempt(){
         console.log('Cleaning up...');
     }   
-    onCleanupSuccess(){
-        console.log('Cleaned up!');
+    onCleanupSuccess(docs){
+        console.log('Cleaned up ' + docs.length + ' listings!');
     }
     onCleanupFailure(){
         console.log('Cleaning failed');

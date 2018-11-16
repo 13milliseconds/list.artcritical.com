@@ -35,7 +35,7 @@ export default class SingleFeature extends React.Component {
 
         let date = moment.utc(this.props.params.date, 'MMDDYY').format('MMMM D YYYY')
 
-        let ogImage = this.props.feature && this.props.feature.list.image
+        let ogImage = this.props.feature && this.props.feature.list && this.props.feature.list.image
                             ?  "https://res.cloudinary.com/artcritical/image/upload/c_fill,g_faces:center,h_630,q_auto:good,w_1200/" + this.props.feature.list.image + ".jpg"
                             : ''
 

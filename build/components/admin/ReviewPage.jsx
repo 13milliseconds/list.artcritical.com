@@ -32,7 +32,7 @@ export default class ReviewPage extends React.Component {
     	return(
     		<div>
 	    		<h4>Review</h4>
-                Clean up databse: <Button onClick={this.cleanup}>Cleanup</Button>
+                Clean up database: <Button onClick={this.cleanup}>Cleanup</Button>
 	    		<div className={this.props.view}>
                         {thelistings(this.props.latestListings)}
 	            </div>

@@ -49,7 +49,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
     var end = moment.utc().endOf('day');
     
     //Count how many times we've fetched listings
-    var offset_ratio = parseInt(req.params.offset_ratio) * 500; 
+    var offset_ratio = parseInt(req.params.offset_ratio) * 1000; 
 
     List.find().
     where('start').lte(end).
@@ -57,7 +57,7 @@ router.get('/currentlistings/:offset_ratio', function (req, res) {
 	where('event').ne(true).
 	where('venue').ne('').
     skip(offset_ratio).
-    limit(500).
+    limit(1000).
     sort({neighborhood: 1, venue: 1}).
     populate('venue').
     populate('artists').
@@ -272,16 +272,30 @@ router.get('/findall/:regex_input', function (req, res, next) {
 //#######################
 router.get('/cleanup', function (req, res, next) {
     var List = req.list;
+    var Archive = req.archive;
 
     var twodaysago = moment().utcOffset(-4).subtract(2, 'days');
-    console.log(twodaysago)
 
     List.find().
 	where('end').lt(twodaysago).
     exec(function (e, docs) {
         if (e)  res.send(e);
         
+
         console.log('Found ' + docs.length + ' listings')
+
+        docs.map(doc => {
+            let swap = new Archive(doc);
+            swap._id = mongoose.Types.ObjectId()
+            swap.isNew = true
+
+            swap.save((err) => {
+                if (err) 
+                    console.log('Error: ', err)
+
+                doc.remove();
+            });
+        });
 
         res.json(docs);
     });

@@ -23,7 +23,8 @@ GENERAL STYLES
     //max-width: 1400px;
     margin: 0 auto;
     .app-content{
-        padding: 130px 20px;
+        //padding: 130px 20px;
+        padding: 0;
         min-height: 100vh;
     }
 }
@@ -279,8 +280,8 @@ header.mainHeader{
 }
 
 
-.home, .glance, .current, .events, .future{
-    padding: 0 0;
+.home, .glance, .current, .events, .future, .allFeatures, .singleFeature{
+    padding: 130px 50px;
 }
 
 .hoodNav{
@@ -498,7 +499,8 @@ header.mainHeader{
     }
 }
 
-.currentMap{
+.currentMap,
+.venuePage{
     display: flex;
     flex-direction: row-reverse;
     position: absolute;
@@ -638,18 +640,16 @@ Features Page
 *********************/
 
 .allFeatures{
-    padding: 0 0;
     .featuresWrap{
         .feature{
             @include span-columns(4);
-            //@include omega-reset(2n);
+            @include omega-reset(2n);
             @include omega(3n);
             margin-bottom: 50px;
         }
     }
 }
 .singleFeature{
-    padding: 0 0;
     .left-col{
         @include span-columns(3);
     }
@@ -673,14 +673,14 @@ Features Page
 Venue Page
 *********************/
 .venuePage{
+    flex-direction: row;
+
     .mapInfo{
-        @include span-columns(6);
-        @include omega();
+        flex: 0 0 600px;
+        width: 600px;
     }
+
     .mapWrap{
-        @include span-columns(6);
-        @include shift(6);
-        @include omega();
         .map{
             height: 100%;
         }
@@ -745,6 +745,8 @@ Venue Page
 
 .adminWrap{
     @include row();
+    padding: 130px 50px;
+
     .left-col{
         position: fixed;
         @include span-columns(3);

@@ -4,7 +4,10 @@ var Promise = require("bluebird");
 
 import moment from 'moment';
 
+///////////////////////////////////
 /* GET All Venues */
+///////////////////////////////////
+
 router.get('/', function (req, res, next) {
     var Venue = req.venue;
 
@@ -15,7 +18,10 @@ router.get('/', function (req, res, next) {
     });
 });
 
+///////////////////////////////////
 /* GET info for one venue */
+///////////////////////////////////
+
 router.get('/getadmin/:neighborhood', function (req, res, next) {
     var Venue = req.venue;
     var List = req.list;
@@ -101,6 +107,7 @@ router.get('/getinfo/:venue_id', function (req, res, next) {
 router.get('/getfullinfo/:venue_slug', function (req, res, next) {
     var Venue = req.venue;
     var List = req.list;
+    var Archive = req.archive;
     
     //Find today's date
     var today = moment().startOf('day');
@@ -126,10 +133,9 @@ router.get('/getfullinfo/:venue_slug', function (req, res, next) {
                     populate('relatedEvents').
 					exec(function (e, upcoming) {
 
-						List.find({ venue: venue._id}).
+						Archive.find({ venue: venue._id}).
 						where('end').lte(today).
 						sort('-end').
-						limit(4).
                         populate('venue').
                         populate('artists').
                         populate('relatedEvents').
