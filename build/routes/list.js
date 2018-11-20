@@ -733,7 +733,7 @@ router.post('/findfeaturesbydate/:date', function (req, res) {
         date: {"$gt":start, "$lt":end}
     })
     .populate('list')
-    .populate('event')
+    .populate('event') 
     .populate('venue')
     .populate('relatedEvent')
     .exec(function (e, docs) {

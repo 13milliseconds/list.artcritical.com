@@ -115,8 +115,8 @@ export default class UserList extends React.Component {
     _updateDimensions(){
         const viewport = {
 			...this.state.viewport,
-            width: document.getElementsByClassName("mapWrap")[0].offsetWidth,
-            height: document.getElementsByClassName("mapWrap")[0].offsetHeight
+            width: this.refs.mapWrap.offsetWidth,
+            height: this.refs.mapWrap.offsetHeight
         }
         this.setState({
             viewport
@@ -173,6 +173,7 @@ export default class UserList extends React.Component {
                                                     <Button href="/current">Explore all shows</Button>
                                                 </div> }
 				</div>
+                    <div className="mapWrap" ref="mapWrap"> 
                     <MyMap 
                         markers={this.state.markers} 
                         viewport ={this.state.viewport}
@@ -181,6 +182,7 @@ export default class UserList extends React.Component {
                         onHover={this._onHover}
                         onLeave={this.onLeave}
                         />
+                    </div>
                 </div>
         );
     }

@@ -3779,7 +3779,7 @@ you can add resource intensive styles.
     height: 100%;
     padding-top: 100px;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
   }
   /* line 479, ../scss/breakpoints/_768up.scss */
   .myListwrap .myList .mapWrap {

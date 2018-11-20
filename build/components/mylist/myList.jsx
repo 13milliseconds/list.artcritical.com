@@ -180,16 +180,6 @@ export default class MyList extends React.Component {
         
         return ( 
                 <div className={hasList? "myList" : "mylist deactivated"}>
-                <div className="mapWrap" ref="mapWrap"> 
-                        <MyMap 
-                            markers={this.state.markers} 
-                            viewport ={this.state.viewport}
-                            updateViewport ={this._updateViewport}
-                            listingHover={this.state.listingHover} 
-                            onHover={this._onHover}
-                            onLeave={this._onLeave}
-                            />
-                </div>
 				<div className={this.props.view + " mapInfo cf"}>
                     <div className="mapHeader">
                     <h2>My List</h2>
@@ -219,6 +209,17 @@ export default class MyList extends React.Component {
                                         <Link to={'/current'}><Button>Explore all shows</Button></Link>
                                     </div>
                                 </div>}
+
+                    <div className="mapWrap" ref="mapWrap"> 
+                        <MyMap 
+                            markers={this.state.markers} 
+                            viewport ={this.state.viewport}
+                            updateViewport ={this._updateViewport}
+                            listingHover={this.state.listingHover} 
+                            onHover={this._onHover}
+                            onLeave={this._onLeave}
+                            />
+                    </div>
                 </div>
         );
     }

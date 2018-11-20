@@ -12,7 +12,7 @@ export default class UserListings extends React.Component {
     render() {
         
         return ( 
-            <div className={this.props.view + " listingsWrap"}>
+            <div className={this.props.view}>
                     { this.props.currentUser.mylist.map((listing, index) => (
 						<div key={listing._id} 
                             className={listing._id == this.props.listingHover && 'active'} 
