@@ -21,8 +21,7 @@ export default class MyListings extends React.Component {
                     onReorder={this.props.onReorder.bind(this)}
                     >
                     { this.props.user.mylist.map((listing, index) => (
-                        <div  
-                            key={listing._id}
+                        <div key={listing._id}
                             className={listing._id == this.props.listingHover && 'active'} 
                             >
                             <VenueBlock  

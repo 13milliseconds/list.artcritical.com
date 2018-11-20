@@ -6,6 +6,7 @@ import Helmet from './blocks/Helmet'
 import NeighborhoodNav from './blocks/neighborhoodNav'
 import ListingsPerNeighbor from './blocks/listingsPerNeighbor'
 import Loading from './blocks/loading'
+import DownloadCSV from './blocks/DownloadCSV'
 
 
 export default class CurrentPage extends React.Component {
@@ -28,15 +29,21 @@ export default class CurrentPage extends React.Component {
                     title="Current"
                     link="https://list.artcritical.com/current"
                 />
+
 				<div className="left-col">
                     <h1>Current Exhibitions</h1>
 					<NeighborhoodNav />
 					<p>See <Link to={'/future'} activeClassName="active">Future Exhibitions</Link>.</p>
+                    {this.props.user && this.props.user.userAccess > 1 &&
+                        <DownloadCSV download={this.props.currentListings} name="current" />
+                    }
 				</div>
+
                 <div className={this.props.view + " listingsWrap main-col"}>
                     <ListingsPerNeighbor listings={this.props.currentListings} user={this.props.user} dateView="current" />
                     {this.props.loading.current && <Loading />}
                 </div>
+
 				<div className="right-col">
 					{ /*<img src="/images/ad-long.jpg" />*/}
 				</div>

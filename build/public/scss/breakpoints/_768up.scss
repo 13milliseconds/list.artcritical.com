@@ -308,11 +308,6 @@ header.mainHeader{
             @include span-columns(8);
             @include omega();
         }
-        p{
-            margin-bottom: 0;
-            position: absolute;
-            top: 3.5em;
-        }
     }
     .right-col{
         @include span-columns(0);

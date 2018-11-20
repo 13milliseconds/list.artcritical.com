@@ -10,6 +10,7 @@ import SocialShare from '../blocks/SocialShare';
 import {reorder} from 'react-reorder';
 import { Button} from 'reactstrap';
 import {Link} from 'react-router';
+import DownloadCSV from '../blocks/DownloadCSV'
 
 var d3 = require('d3-ease');
 
@@ -200,6 +201,9 @@ export default class MyList extends React.Component {
                     <div className="footer">
                         <Button onClick={this.onAutoReorder}>Reset Order</Button>
                         <Button color="danger" onClick={this.clearList}>Clear All</Button>
+                        {this.props.user && this.props.user.userAccess > 1 &&
+                            <DownloadCSV download={this.props.user.mylist} name="mylist" />
+                        }
                     </div>
 				</div>
                     {!hasList && <div className="popupList">
