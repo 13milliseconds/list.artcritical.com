@@ -4,6 +4,7 @@ import ListActions from '../../actions/ListActions';
 import VenueItem from '../venues/VenueItem';
 import NeighborhoodSelect from '../forms/NeighborhoodSelect';
 import Loading from '../blocks/loading';
+import DownloadCSV from '../blocks/DownloadCSV'
 
 export default class OverviewPage extends React.Component {
     constructor(props) {
@@ -52,7 +53,8 @@ export default class OverviewPage extends React.Component {
                     allOption={true}
 					/>
 				<div className="allVenues">
-				{this.props.loading.allVenues && <Loading />}
+                {this.props.loading.allVenues && <Loading />}
+                {this.props.allVenues.length > 0 && <DownloadCSV venues={this.props.allVenues} name={"venues" + this.state.venueAdminNeighborhood} />}
                 {theVenuesRender(this.props.allVenues)}
 				</div>
             </div>

@@ -202,7 +202,7 @@ export default class MyList extends React.Component {
                         <Button onClick={this.onAutoReorder}>Reset Order</Button>
                         <Button color="danger" onClick={this.clearList}>Clear All</Button>
                         {this.props.user && this.props.user.userAccess > 1 &&
-                            <DownloadCSV download={this.props.user.mylist} name="mylist" />
+                            <DownloadCSV listings={this.props.user.mylist} name="mylist" />
                         }
                     </div>
 				</div>

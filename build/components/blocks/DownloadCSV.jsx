@@ -13,30 +13,69 @@ export default class DownloadCSV extends React.Component {
         }
         
         // Function binding
-        this._downloadTxtFile = this._downloadTxtFile.bind(this);
+        this._download = this._download.bind(this)
+        this._downloadListingsCSV = this._downloadListingsCSV.bind(this)
+        this._downloadVenuesCSV = this._downloadVenuesCSV.bind(this)
     }
 
-    componentDidUpdate() {
 
+    _download(){
+        if (this.props.listings)
+            this._downloadListingsCSV(this.props.listings)
+        if (this.props.venues)
+            this._downloadVenuesCSV(this.props.venues)
     }
 
-    _downloadTxtFile(){
+    _downloadListingsCSV(listings){
         // Block other clicks
         this.setState({
             compiling: true
         })
 
         //Prepare the JSON into CSV
-        var data = 'Title,Start Date,End Date,Venue,URL,Address,City,Neighborhood \n';
-        this.props.download.map(listing => {
-            data += listing.title ? '"' + listing.title + '", ' : '"' + DisplayActions.listingName(listing) + '", '
-            data += listing.start ? moment(listing.start).format('MM/DD/YY') + ', ' : ', '
-            data += listing.end ? moment(listing.end).format('MM/DD/YY') + ', ' : ', '
-            data += listing.venue ? listing.venue.name.replace(new RegExp(',', 'g'), '') + ', ' : ', '
-            data += listing.venue ? listing.venue.website + ', ' : ', '
-            data += listing.venue ? listing.venue.address1.replace(new RegExp(',', 'g'), '') + ' ' + listing.venue.address2.replace(new RegExp(',', 'g'), '') + ', ' : ', '
-            data += listing.venue ? listing.venue.city + ', ' : ', '
-            data += listing.venue ? listing.venue.neighborhood + ', ' : ', '
+        var data = 'Title,Notes,Start Date,End Date,Venue,Address,City,Neighborhood, Website,Phone \n';
+        listings.map(listing => {
+            data += listing.title ? '"' + listing.title + '",' : '"' + DisplayActions.listingName(listing) + '",'
+            data += listing.description ? '"' + listing.description + '",' : ','
+            data += listing.start ? moment(listing.start).format('MM/DD/YY') + ',' : ','
+            data += listing.end ? moment(listing.end).format('MM/DD/YY') + ',' : ','
+            data += listing.venue ? '"' + listing.venue.name + '",' : ','
+            data += listing.venue ? '"' + listing.venue.address1 + ' ' + listing.venue.address2 + '",' : ','
+            data += listing.venue ? listing.venue.city + ',' : ','
+            data += listing.venue ? listing.venue.neighborhood + ',' : ','
+            data += listing.venue ? listing.venue.website + ',' : ','
+            data += listing.venue ? listing.venue.phone + ',' : ','
+		    data += "\n";
+        })
+
+        //Prepare the file
+        var element = document.createElement("a")
+        let file = new Blob([data], {type: 'text/csv'})
+        element.href = URL.createObjectURL(file)
+        element.download = this.props.name + '-' + moment().format('MMDDYY-HHmm') + ".csv"
+        element.click();
+
+        // Allow clicks again
+        this.setState({
+            compiling: false
+        })
+      }
+
+      _downloadVenuesCSV(venues){
+        // Block other clicks
+        this.setState({
+            compiling: true
+        })
+
+        //Prepare the JSON into CSV
+        var data = 'Name,Address,City,Neighborhood, Website,Phone \n';
+        venues.map(venue => {
+            data += '"' + venue.name + '",'
+            data += '"' + venue.address1 + ' ' + venue.address2 + '",' 
+            data += venue.city + ','
+            data += venue.neighborhood + ','
+            data += venue.website + ','
+            data += venue.phone + ','
 		    data += "\n";
         })
 
@@ -55,11 +94,11 @@ export default class DownloadCSV extends React.Component {
         
     render() {
 
-        let buttonActivated = !this.state.compiling && this.props.download.length > 0
+        let buttonActivated = !this.state.compiling && (this.props.listings || this.props.venues)
         
         return (
             <Button 
-                onClick={this._downloadTxtFile}
+                onClick={this._download}
                 disabled={!buttonActivated}>
                 Download CSV
             </Button>

@@ -25,7 +25,7 @@ export default class FuturePage extends React.Component {
 					<NeighborhoodNav />
 					<p>See <Link to={'/current'} activeClassName="active">Current Exhibitions</Link>.</p>
                     {this.props.user && this.props.user.userAccess > 1 &&
-                        <DownloadCSV download={this.props.futureListings} name="current" />
+                        <DownloadCSV listings={this.props.futureListings} name="current" />
                     }
 				</div>
                 <div className={this.props.view + " listingsWrap main-col"}>

@@ -35,7 +35,7 @@ export default class CurrentPage extends React.Component {
 					<NeighborhoodNav />
 					<p>See <Link to={'/future'} activeClassName="active">Future Exhibitions</Link>.</p>
                     {this.props.user && this.props.user.userAccess > 1 &&
-                        <DownloadCSV download={this.props.currentListings} name="current" />
+                        <DownloadCSV listings={this.props.currentListings} name="current" />
                     }
 				</div>
 
