@@ -7,6 +7,7 @@ import NeighborhoodNav from './blocks/neighborhoodNav'
 import ListingsPerNeighbor from './blocks/listingsPerNeighbor'
 import Loading from './blocks/loading'
 import DownloadCSV from './blocks/DownloadCSV'
+import AdBlock from './blocks/AdBlock'
 
 
 export default class CurrentPage extends React.Component {
@@ -45,7 +46,7 @@ export default class CurrentPage extends React.Component {
                 </div>
 
 				<div className="right-col">
-					{ /*<img src="/images/ad-long.jpg" />*/}
+					<AdBlock location="current" ads={this.props.ads} />
 				</div>
             </div>
         );

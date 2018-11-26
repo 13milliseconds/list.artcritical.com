@@ -53,6 +53,7 @@ var UserModels = require('./models/user.js');
 var User = UserModels.user;
 var UserTrash = UserModels.userTrash;
 var Feature = require('./models/feature.js');
+var Ads = require('./models/ad.js');
 
 
 // view engine setup
@@ -109,6 +110,7 @@ app.use(function(req,res,next){
     req.userlist = User;
     req.usertrash = UserTrash;
     req.feature = Feature;
+    req.ads = Ads;
     next();
 });
 
@@ -118,12 +120,14 @@ var listings = require('./routes/list');
 var event = require('./routes/event');
 var artists = require('./routes/artist');
 var auth = require('./routes/auth');
+var ads = require('./routes/ads');
 
 app.use('/venues', venues);
 app.use('/list', listings);
 app.use('/event', event);
 app.use('/artist', artists);
 app.use('/auth', auth);
+app.use('/ads', ads);
 app.use('/', index);
 
 

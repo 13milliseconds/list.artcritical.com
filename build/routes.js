@@ -26,6 +26,7 @@ import PastFeaturedListings from './components/PastFeaturedPage'
 import OverviewPage from './components/admin/OverviewPage'
 import UsersPage from './components/admin/UsersPage'
 import ReviewPage from './components/admin/ReviewPage'
+import AdsPage from './components/admin/AdsPage'
 import Account from './components/admin/Account'
 // Error Components
 import ErrorPage from './components/ErrorPage'
@@ -55,6 +56,7 @@ const routes = (
             <Route path="featured" component={FeaturedListings}/>
 			<Route path="review" component={ReviewPage}/>
 			<Route path="users" component={UsersPage}/>
+            <Route path="ads" component={AdsPage}/>
         </Route>
         <Route path="auth/facebook/success" component={AuthSuccess} />
         <Route path="*" component={ErrorPage}/>

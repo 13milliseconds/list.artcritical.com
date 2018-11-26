@@ -6,6 +6,7 @@ import NeighborhoodNav from './blocks/neighborhoodNav'
 import ListingsPerNeighbor from './blocks/listingsPerNeighbor'
 import Loading from './blocks/loading'
 import DownloadCSV from './blocks/DownloadCSV'
+import AdBlock from './blocks/AdBlock'
 
 export default class FuturePage extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ export default class FuturePage extends React.Component {
                     {this.props.loading.future && <Loading />}
                 </div>
 				<div className="right-col">
-				<img src="/images/ad-long.jpg" />
+                    <AdBlock location="future" ads={this.props.ads} />
 				</div>
             </div>
         );

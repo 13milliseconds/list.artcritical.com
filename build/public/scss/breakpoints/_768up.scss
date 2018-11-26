@@ -313,7 +313,7 @@ header.mainHeader{
         @include span-columns(0);
         position: fixed;
         float: none;
-        right: 0;
+        right: 2.3576520234%;
 	}
 	.main-col{
         @include span-columns(12);
@@ -374,9 +374,6 @@ header.mainHeader{
             margin-top: 0;
             border-bottom: 0;
         }
-    }
-    .right-col{
-        display: none;
     }
 }
 
@@ -872,6 +869,19 @@ Venue Page
         }
         .featureFormWrap{
             max-width: 500px;
+        }
+    }
+    //ADS
+    .adsAdmin{
+        .wrap{
+            @include row();
+        }
+        .allAds{
+            @include span-columns(6);
+        }
+
+        .adsForm{
+            @include span-columns(6);
         }
     }
 }

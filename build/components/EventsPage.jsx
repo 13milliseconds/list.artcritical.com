@@ -8,6 +8,7 @@ import Event from './blocks/Event';
 import Date from './blocks/DateBlock';
 //import DayPicker from './forms/DayPicker';
 import Loading from './blocks/loading'
+import AdBlock from './blocks/AdBlock'
 
 var scrollToComponent = ''
 
@@ -76,7 +77,7 @@ export default class EventsPage extends React.Component {
                         </div>}
             </div>
 			<div className="right-col">
-				Ads
+                <AdBlock location="events" ads={this.props.ads} />
 			</div>
             </div>
         );

@@ -4,6 +4,7 @@ import ArtistsActions from '../actions/ArtistsActions';
 import AuthActions from '../actions/AuthActions';
 import ImagesActions from '../actions/ImagesActions';
 import EventActions from '../actions/EventActions';
+import AdActions from '../actions/AdActions';
 import toastr from 'toastr';
 import moment from 'moment';
 
@@ -14,6 +15,7 @@ class ListStore {
         this.bindActions(AuthActions);
         this.bindActions(ImagesActions);
         this.bindActions(EventActions);
+        this.bindActions(AdActions);
         //Display settings
         this.view = 'condensed';
         this.menuActive = false;
@@ -65,6 +67,10 @@ class ListStore {
         this.venue.pastListings = [];
         //Artists
         this.allArtists = [{name: 'The test artist'}]
+        //Ads
+        this.adEdit = {};
+        this.allAds = [];
+        this.ads = [];
         //Loadings
         this.loading = {};
         this.loading.login = false;
@@ -84,6 +90,7 @@ class ListStore {
         this.loading.featureByDate = false
         this.loading.glance = false
         this.loading.certifyReset = false
+        this.loading.ads = {}
         //Error Messages
         this.error = {};
         this.error.feature = '';
@@ -95,8 +102,10 @@ class ListStore {
         this.error.savelisting = '';
         this.error.savevenue = '';
         this.error.reset = ''
+        this.error.ads = {}
         //Success
         this.success = {};
+        this.success.ads = {}
         this.success.updateUser = false;
         this.success.updatelisting = false;
         this.success.updateEvent = false;
@@ -929,7 +938,11 @@ class ListStore {
     // UPLOAD A THUMBNAIL
     onThumbnailUploadSuccess(data){
         console.log('Uploaded!', data)
-        this.listingEdit.image = data.image.public_id;
+        if (data.name){
+            this.adEdit[data.name] = data.image.public_id;
+        } else {
+            this.listingEdit.image = data.image.public_id;
+        }
 		if (Number.isInteger(data.i)){
 
             if (this.features[data.i].list) this.features[data.i].list.image = data.image.public_id
@@ -1104,6 +1117,103 @@ class ListStore {
     }
     onGetAllArtistsSuggestionsFailure(){
         console.log('Error retrieving all artists')
+    }
+
+
+    //Ads
+
+    onEditThisAd(info){
+        this.adEdit = info;
+    }
+
+    onAdEditReset() {
+        this.adEdit = {};
+    }
+
+    onGetAllAttempt(){
+        console.log('Attempting to getting all ads')
+    }
+
+    onGetAllSuccess(data){
+        console.log('Success getting all ads')
+        this.allAds = data;
+    }
+
+    onGetAllFailure(){
+        console.log('Failure getting all ads')
+        this.allAds = [];
+    }
+
+    onGetAdsAttempt(){
+        console.log('Attempting to get current ads')
+    }
+
+    onGetAdsSuccess(data){
+        console.log('Success getting current ads', data)
+        this.ads = data;
+    }
+
+    onGetAdsFailure(){
+        console.log('Failure getting current ads')
+        this.ads = [];
+    }
+
+    onAdInfoChange(info){
+        this.adEdit = {...this.adEdit, ...info}
+    }
+
+    onSaveAdAttempt(){
+        console.log('Attempting to Save')
+        this.success.ads.save = false
+        this.error.ads.save = ''
+    }
+
+    onSaveAdSuccess(data){
+        console.log('Ad has been saved')
+        this.success.ads.save = true
+        this.adEdit = data
+    }
+
+    onSaveAdFailure(error){
+        this.error.ads.save = error
+        this.success.ads.save = false
+        console.log('Failure to save ad', error)
+    }
+
+    onUpdateAdAttempt(){
+        console.log('Updating the ad...')
+        this.success.ads.update = false
+        this.error.ads.update = ''
+    }
+
+    onUpdateAdSuccess(data){
+        console.log('Updated the ad successfully.')
+        this.adEdit = data
+        this.success.ads.update = true
+    }
+
+    onUpdateAdFailure(error){
+        console.log('Failure updating the ad.', error)
+        this.error.ads.update = 'Failure updating the ad'
+        this.success.ads.update = false
+    }
+
+    onDeleteAdAttempt(){
+        console.log('Deleting the ad...')
+        this.success.ads.delete = false
+        this.error.ads.delete = ''
+    }
+
+    onDeleteAdSuccess(data){
+        console.log('Deleted the ad successfully.')
+        this.adEdit = {}
+        this.success.ads.delete = true
+    }
+
+    onDeleteAdFailure(error){
+        console.log('Failure deleting the ad.', error)
+        this.error.ads.delete = 'Failure updating the ad'
+        this.success.ads.delete = false
     }
 
 }

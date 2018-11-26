@@ -26,13 +26,13 @@ export default class Thumbnail extends React.Component {
             });
             this.props.onChange && this.props.onChange()
             
-            ImagesActions.handleThumbnailUpload(accepted[0], this.props.number);
+            ImagesActions.handleThumbnailUpload(accepted[0], this.props.number, this.props.name);
 
             this.setState({
                 resetThumbnail: false
             })
         } else {
-            console.log('Wrong file type!')
+            console.log(rejected, 'Wrong file type!')
         }
         
     }

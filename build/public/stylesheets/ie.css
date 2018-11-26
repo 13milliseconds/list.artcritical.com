@@ -1,12 +1,12 @@
 /*
 Error: Undefined mixin 'omega-reset'.
-        on line 641 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss, in `omega-reset'
-        from line 641 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss
+        on line 638 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss, in `omega-reset'
+        from line 638 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss
         from line 32 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/ie.scss
 
 Backtrace:
-/Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss:641:in `omega-reset'
-/Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss:641
+/Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss:638:in `omega-reset'
+/Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss:638
 /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/ie.scss:32
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/tree/visitors/perform.rb:348:in `visit_mixin'
 /Applications/compass.app/Contents/Resources/lib/ruby/compass_1.0/sass-3.4.13/lib/sass/stack.rb:98:in `with_mixin'
@@ -98,4 +98,4 @@ org/jruby/RubyProc.java:271:in `call'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'omega-reset'.\A         on line 641 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss, in `omega-reset'\A         from line 641 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss\A         from line 32 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/ie.scss"; }
+  content: "Error: Undefined mixin 'omega-reset'.\A         on line 638 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss, in `omega-reset'\A         from line 638 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/breakpoints/_768up.scss\A         from line 32 of /Users/francoishuyghe/Sites/artcritical-list/build/public/scss/ie.scss"; }
