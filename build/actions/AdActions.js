@@ -109,9 +109,8 @@ class AdActions {
           return null;
         })
         .then((json) => {
-            json
-                ? this.saveAdSuccess(json)
-                : this.saveAdFailure()
+            this.saveAdSuccess(json)
+            this.getAll()
             return true;
         })
         .catch((error) => {
@@ -140,7 +139,7 @@ class AdActions {
         })
         .then((json) => {
             this.deleteAdSuccess(json);
-			//this.AdEditReset();
+			this.getAll()
             return true;
         })
         .catch((error) => {
@@ -171,9 +170,8 @@ class AdActions {
           return null;
         })
         .then((json) => {
-            json
-                ? this.updateAdSuccess(json)
-                : this.updateAdFailure()
+                this.updateAdSuccess(json)
+                this.getAll()
 
             return true;
         })

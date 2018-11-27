@@ -37,6 +37,17 @@ header.mainHeader{
     }
 }
 
+// Ads
+.ad{
+    .desktopImage{
+        display: block;
+    }
+    .mobileImage{
+        display: none;
+    }
+}
+
+
 // CURRENT PAGE
 
 .hoodNav{
@@ -53,10 +64,17 @@ header.mainHeader{
         @include span-columns(3);
         border-bottom: 0;
         padding-left: 50px;
+
         h1{
             @include span-columns(12);
             @include omega();
         }
+
+        p{
+            float: none;
+            margin-top: 0;
+        }
+
         .hoodNav{
             @include span-columns(12);
             @include omega();
@@ -73,6 +91,9 @@ header.mainHeader{
     }
     .right-col{
         @include span-columns(2);
+        position: fixed;
+        float: none;
+        right: 2.3576520234%;
 	}
 	.main-col{
         @include span-columns(7);

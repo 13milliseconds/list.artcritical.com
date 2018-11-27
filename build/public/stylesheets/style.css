@@ -2709,7 +2709,7 @@ ADMIN
   font-size: 12px;
 }
 
-/* line 1284, ../scss/breakpoints/_base.scss */
+/* line 1286, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-tagsinput-tag {
   padding: 5px 10px;
   border-radius: 5px;
@@ -2719,63 +2719,63 @@ ADMIN
   display: inline-block;
   margin-bottom: 10px;
 }
-/* line 1292, ../scss/breakpoints/_base.scss */
+/* line 1294, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-tagsinput-tag .react-tagsinput-remove {
   padding-left: 5px;
   border-bottom: none;
 }
-/* line 1295, ../scss/breakpoints/_base.scss */
+/* line 1297, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-tagsinput-tag .react-tagsinput-remove:after {
   content: 'x';
 }
-/* line 1300, ../scss/breakpoints/_base.scss */
+/* line 1302, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-autosuggest__container {
   margin-top: 10px;
 }
-/* line 1305, ../scss/breakpoints/_base.scss */
+/* line 1307, ../scss/breakpoints/_base.scss */
 .react-tagsinput .react-autosuggest__suggestions-list .react-autosuggest__suggestion--highlighted {
   background-color: #eaedf2;
 }
 
-/* line 1312, ../scss/breakpoints/_base.scss */
+/* line 1314, ../scss/breakpoints/_base.scss */
 .DraftEditor-root {
   border: 1px solid #eee;
   padding: 10px;
   border-radius: 5px;
 }
-/* line 1316, ../scss/breakpoints/_base.scss */
+/* line 1318, ../scss/breakpoints/_base.scss */
 .DraftEditor-root div[data-block="true"] {
   padding-bottom: 20px;
 }
 
-/* line 1323, ../scss/breakpoints/_base.scss */
+/* line 1325, ../scss/breakpoints/_base.scss */
 .userLink a {
   border-bottom: 2px dotted #d70b00;
   cursor: pointer;
 }
 
-/* line 1328, ../scss/breakpoints/_base.scss */
+/* line 1330, ../scss/breakpoints/_base.scss */
 .popover.show {
   top: -5px !important;
   max-width: 500px;
 }
-/* line 1331, ../scss/breakpoints/_base.scss */
+/* line 1333, ../scss/breakpoints/_base.scss */
 .popover.show .popover-title, .popover.show .popover-content {
   padding: 10px 20px;
 }
-/* line 1334, ../scss/breakpoints/_base.scss */
+/* line 1336, ../scss/breakpoints/_base.scss */
 .popover.show .popover-title {
   background: #eaedf2;
   font-size: 1.2em;
 }
-/* line 1337, ../scss/breakpoints/_base.scss */
+/* line 1339, ../scss/breakpoints/_base.scss */
 .popover.show .popover-title img {
   display: inline-block;
   max-width: 50px;
   max-height: 50px;
 }
 
-/* line 1347, ../scss/breakpoints/_base.scss */
+/* line 1349, ../scss/breakpoints/_base.scss */
 .sideMenu {
   padding-top: 100px;
   height: 100%;
@@ -2784,17 +2784,17 @@ ADMIN
   padding: 100px 20px;
   max-width: 100%;
 }
-/* line 1354, ../scss/breakpoints/_base.scss */
+/* line 1356, ../scss/breakpoints/_base.scss */
 .sideMenu::-webkit-scrollbar {
   display: none;
 }
-/* line 1357, ../scss/breakpoints/_base.scss */
+/* line 1359, ../scss/breakpoints/_base.scss */
 .sideMenu a.close {
   position: absolute;
   right: 15px;
   border-bottom: none;
 }
-/* line 1362, ../scss/breakpoints/_base.scss */
+/* line 1364, ../scss/breakpoints/_base.scss */
 .sideMenu #listingForm {
   display: block;
   float: none;
@@ -2807,7 +2807,7 @@ ADMIN
   content: "";
   display: block;
 }
-/* line 1367, ../scss/breakpoints/_base.scss */
+/* line 1369, ../scss/breakpoints/_base.scss */
 .sideMenu #listingForm label,
 .sideMenu #listingForm .byline {
   float: left;
@@ -2821,21 +2821,21 @@ ADMIN
   margin-right: 0;
 }
 
-/* line 1378, ../scss/breakpoints/_base.scss */
+/* line 1380, ../scss/breakpoints/_base.scss */
 .formSection {
   padding-bottom: 20px;
 }
-/* line 1380, ../scss/breakpoints/_base.scss */
+/* line 1382, ../scss/breakpoints/_base.scss */
 .formSection textarea, .formSection input {
   width: 100%;
 }
 
-/* line 1384, ../scss/breakpoints/_base.scss */
+/* line 1386, ../scss/breakpoints/_base.scss */
 input.invalid {
   border: 1px solid #9f0900 !important;
 }
 
-/* line 1389, ../scss/breakpoints/_base.scss */
+/* line 1391, ../scss/breakpoints/_base.scss */
 .eventsform .event select {
   width: auto;
   padding: 0 30px 0 10px;
@@ -2843,13 +2843,13 @@ input.invalid {
   margin-right: 20px;
 }
 
-/* line 1397, ../scss/breakpoints/_base.scss */
+/* line 1399, ../scss/breakpoints/_base.scss */
 .iconLink {
   border-bottom: 0;
   margin-right: 10px;
 }
 
-/* line 1403, ../scss/breakpoints/_base.scss */
+/* line 1405, ../scss/breakpoints/_base.scss */
 #listingForm {
   padding-right: 50px;
   display: block;
@@ -2860,30 +2860,30 @@ input.invalid {
   content: "";
   display: block;
 }
-/* line 1406, ../scss/breakpoints/_base.scss */
+/* line 1408, ../scss/breakpoints/_base.scss */
 #listingForm .info {
   padding-top: 10px;
   font-style: italic;
   font-size: .9em;
 }
 
-/* line 1414, ../scss/breakpoints/_base.scss */
+/* line 1416, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing {
   width: 100%;
   border: 1px solid grey;
   padding-top: 20px;
 }
-/* line 1418, ../scss/breakpoints/_base.scss */
+/* line 1420, ../scss/breakpoints/_base.scss */
 #newlistingDemo .listing .moreInfo {
   display: block;
 }
 
-/* line 1425, ../scss/breakpoints/_base.scss */
+/* line 1427, ../scss/breakpoints/_base.scss */
 .editVenue .venueList {
   padding-bottom: 20px;
 }
 
-/* line 1430, ../scss/breakpoints/_base.scss */
+/* line 1432, ../scss/breakpoints/_base.scss */
 .imageDrop {
   width: 100px;
   height: 100px;
@@ -2892,7 +2892,7 @@ input.invalid {
   cursor: pointer;
   position: relative;
 }
-/* line 1437, ../scss/breakpoints/_base.scss */
+/* line 1439, ../scss/breakpoints/_base.scss */
 .imageDrop p {
   position: absolute;
   top: 50%;
@@ -2908,7 +2908,7 @@ input.invalid {
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 1445, ../scss/breakpoints/_base.scss */
+/* line 1447, ../scss/breakpoints/_base.scss */
 .imageDrop p:hover {
   -webkit-transform: translate(-50%, -50%) scale(1.1);
   -moz-transform: translate(-50%, -50%) scale(1.1);
@@ -2916,7 +2916,7 @@ input.invalid {
   -o-transform: translate(-50%, -50%) scale(1.1);
   transform: translate(-50%, -50%) scale(1.1);
 }
-/* line 1449, ../scss/breakpoints/_base.scss */
+/* line 1451, ../scss/breakpoints/_base.scss */
 .imageDrop .dragged {
   position: absolute;
   top: 50%;
@@ -2927,11 +2927,11 @@ input.invalid {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* line 1455, ../scss/breakpoints/_base.scss */
+/* line 1457, ../scss/breakpoints/_base.scss */
 .imageDrop.formSection {
   border-color: #d70b00;
 }
-/* line 1457, ../scss/breakpoints/_base.scss */
+/* line 1459, ../scss/breakpoints/_base.scss */
 .imageDrop.formSection p {
   display: none;
 }
@@ -2961,35 +2961,39 @@ input[type="number"]:-ms-input-placeholder {
   color: #bbb;
 }
 
-/* line 1469, ../scss/breakpoints/_base.scss */
+/* line 1471, ../scss/breakpoints/_base.scss */
 option {
   color: #bbb;
 }
 
-/* line 1474, ../scss/breakpoints/_base.scss */
+/* line 1476, ../scss/breakpoints/_base.scss */
 .SignIn {
   padding: 20px;
 }
-/* line 1476, ../scss/breakpoints/_base.scss */
+/* line 1478, ../scss/breakpoints/_base.scss */
 .SignIn h2 {
   font-size: 2em;
 }
-/* line 1479, ../scss/breakpoints/_base.scss */
+/* line 1481, ../scss/breakpoints/_base.scss */
 .SignIn .loginForm, .SignIn .signupForm {
   margin: 30px 0px;
   border-radius: 5px;
 }
 
-/* line 1487, ../scss/breakpoints/_base.scss */
+/* line 1489, ../scss/breakpoints/_base.scss */
 .ad img {
   max-width: 100%;
 }
-
 /* line 1493, ../scss/breakpoints/_base.scss */
+.ad .desktopImage {
+  display: none;
+}
+
+/* line 1499, ../scss/breakpoints/_base.scss */
 .account .app-content {
   background-color: #F6F6f6;
 }
-/* line 1496, ../scss/breakpoints/_base.scss */
+/* line 1502, ../scss/breakpoints/_base.scss */
 .account .accountform {
   padding: 20px;
   background: white;
@@ -2998,7 +3002,7 @@ option {
   border-radius: 10px;
   position: relative;
 }
-/* line 1503, ../scss/breakpoints/_base.scss */
+/* line 1509, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap {
   position: absolute;
   width: 30%;
@@ -3010,18 +3014,18 @@ option {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* line 1509, ../scss/breakpoints/_base.scss */
+/* line 1515, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar {
   cursor: pointer;
 }
-/* line 1511, ../scss/breakpoints/_base.scss */
+/* line 1517, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar img {
   opacity: .5;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   transition: 0.5s;
 }
-/* line 1515, ../scss/breakpoints/_base.scss */
+/* line 1521, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar .delete {
   position: absolute;
   top: 50%;
@@ -3039,19 +3043,19 @@ option {
   -moz-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 1527, ../scss/breakpoints/_base.scss */
+/* line 1533, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar.loaded img {
   opacity: 1;
 }
-/* line 1531, ../scss/breakpoints/_base.scss */
+/* line 1537, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar:hover {
   opacity: .8;
 }
-/* line 1533, ../scss/breakpoints/_base.scss */
+/* line 1539, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .avatar:hover .delete {
   opacity: 1;
 }
-/* line 1538, ../scss/breakpoints/_base.scss */
+/* line 1544, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .imageDrop {
   width: 100%;
   padding-top: 100%;
@@ -3059,39 +3063,39 @@ option {
   border: 1px dotted #aaa;
   background: #eaedf2;
 }
-/* line 1544, ../scss/breakpoints/_base.scss */
+/* line 1550, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .imageDrop.formSection {
   padding: 100% 0 0 0;
 }
-/* line 1547, ../scss/breakpoints/_base.scss */
+/* line 1553, ../scss/breakpoints/_base.scss */
 .account .accountform .avatarWrap .imageDrop p {
   font-size: 100px;
 }
-/* line 1553, ../scss/breakpoints/_base.scss */
+/* line 1559, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap input {
   background: #F6F6f6;
 }
-/* line 1557, ../scss/breakpoints/_base.scss */
+/* line 1563, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap > input:nth-child(1) {
   width: 45%;
   margin-right: 5%;
   display: inline-block;
 }
-/* line 1562, ../scss/breakpoints/_base.scss */
+/* line 1568, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap > input:nth-child(2) {
   width: 50%;
   display: inline-block;
 }
-/* line 1567, ../scss/breakpoints/_base.scss */
+/* line 1573, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap .DraftEditor-root {
   background: #F6F6f6;
   margin-bottom: 20px;
 }
-/* line 1572, ../scss/breakpoints/_base.scss */
+/* line 1578, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap .form-text {
   margin-bottom: 20px;
 }
-/* line 1575, ../scss/breakpoints/_base.scss */
+/* line 1581, ../scss/breakpoints/_base.scss */
 .account .accountform .infoWrap button {
   margin-top: 20px;
 }
@@ -3571,7 +3575,7 @@ you can add resource intensive styles.
   .mainList .left-col:last-child {
     margin-right: 0;
   }
-  /* line 304, ../scss/breakpoints/_768up.scss */
+  /* line 305, ../scss/breakpoints/_768up.scss */
   .mainList .left-col h1 {
     float: left;
     display: block;
@@ -3582,7 +3586,12 @@ you can add resource intensive styles.
   .mainList .left-col h1:last-child {
     margin-right: 0;
   }
-  /* line 307, ../scss/breakpoints/_768up.scss */
+  /* line 309, ../scss/breakpoints/_768up.scss */
+  .mainList .left-col p {
+    float: left;
+    margin-top: -40px;
+  }
+  /* line 314, ../scss/breakpoints/_768up.scss */
   .mainList .left-col .hoodNav {
     float: left;
     display: block;
@@ -3594,21 +3603,18 @@ you can add resource intensive styles.
   .mainList .left-col .hoodNav:last-child {
     margin-right: 0;
   }
-  /* line 312, ../scss/breakpoints/_768up.scss */
+  /* line 319, ../scss/breakpoints/_768up.scss */
   .mainList .right-col {
     float: left;
     display: block;
     margin-right: 2.3576520234%;
-    width: -2.3576520234%;
-    position: fixed;
-    float: none;
-    right: 2.3576520234%;
+    width: 100%;
   }
   /* line 89, ../scss/neat/grid/_span-columns.scss */
   .mainList .right-col:last-child {
     margin-right: 0;
   }
-  /* line 318, ../scss/breakpoints/_768up.scss */
+  /* line 323, ../scss/breakpoints/_768up.scss */
   .mainList .main-col {
     float: left;
     display: block;
@@ -3622,7 +3628,7 @@ you can add resource intensive styles.
     margin-right: 0;
   }
 
-  /* line 326, ../scss/breakpoints/_768up.scss */
+  /* line 331, ../scss/breakpoints/_768up.scss */
   .listingsWrap {
     float: left;
     display: block;
@@ -3633,35 +3639,35 @@ you can add resource intensive styles.
   .listingsWrap:last-child {
     margin-right: 0;
   }
-  /* line 328, ../scss/breakpoints/_768up.scss */
+  /* line 333, ../scss/breakpoints/_768up.scss */
   .listingsWrap .city {
     margin-top: -100px;
     padding-top: 100px;
   }
 
-  /* line 335, ../scss/breakpoints/_768up.scss */
+  /* line 340, ../scss/breakpoints/_768up.scss */
   .venue:hover .address {
     opacity: 1;
   }
 
-  /* line 345, ../scss/breakpoints/_768up.scss */
+  /* line 350, ../scss/breakpoints/_768up.scss */
   .condensed .listing p,
   .condensed .event p {
     font-size: 16px;
   }
-  /* line 350, ../scss/breakpoints/_768up.scss */
+  /* line 355, ../scss/breakpoints/_768up.scss */
   .condensed .listing .listingAdd .addButton:hover,
   .condensed .event .listingAdd .addButton:hover {
     color: #d70b00;
   }
 
-  /* line 361, ../scss/breakpoints/_768up.scss */
+  /* line 366, ../scss/breakpoints/_768up.scss */
   .events.mainList .left-col {
     position: fixed;
     float: none;
     padding-right: 4%;
   }
-  /* line 366, ../scss/breakpoints/_768up.scss */
+  /* line 371, ../scss/breakpoints/_768up.scss */
   .events.mainList .left-col .DayPicker {
     display: none;
     -webkit-transform: translate(-20%) scale(0.8);
@@ -3670,7 +3676,7 @@ you can add resource intensive styles.
     -o-transform: translate(-20%) scale(0.8);
     transform: translate(-20%) scale(0.8);
   }
-  /* line 371, ../scss/breakpoints/_768up.scss */
+  /* line 376, ../scss/breakpoints/_768up.scss */
   .events.mainList .main-col {
     float: left;
     display: block;
@@ -3681,17 +3687,17 @@ you can add resource intensive styles.
   .events.mainList .main-col:last-child {
     margin-right: 0;
   }
-  /* line 373, ../scss/breakpoints/_768up.scss */
+  /* line 378, ../scss/breakpoints/_768up.scss */
   .events.mainList .main-col h2 {
     margin-top: 0;
     border-bottom: 0;
   }
 
-  /* line 382, ../scss/breakpoints/_768up.scss */
+  /* line 387, ../scss/breakpoints/_768up.scss */
   .glance h1 {
     display: none;
   }
-  /* line 385, ../scss/breakpoints/_768up.scss */
+  /* line 390, ../scss/breakpoints/_768up.scss */
   .glance ul.tabs__labels {
     display: block;
     padding: 0;
@@ -3705,7 +3711,7 @@ you can add resource intensive styles.
   .glance ul.tabs__labels:last-child {
     margin-right: 0;
   }
-  /* line 390, ../scss/breakpoints/_768up.scss */
+  /* line 395, ../scss/breakpoints/_768up.scss */
   .glance ul.tabs__labels:before {
     content: 'Week at a Glance';
     color: #d70b00;
@@ -3713,7 +3719,7 @@ you can add resource intensive styles.
     margin-bottom: 30px;
     display: block;
   }
-  /* line 398, ../scss/breakpoints/_768up.scss */
+  /* line 403, ../scss/breakpoints/_768up.scss */
   .glance div.tabs__content {
     margin-left: 25.5894130058%;
     float: left;
@@ -3725,7 +3731,7 @@ you can add resource intensive styles.
   .glance div.tabs__content:last-child {
     margin-right: 0;
   }
-  /* line 401, ../scss/breakpoints/_768up.scss */
+  /* line 406, ../scss/breakpoints/_768up.scss */
   .glance div.tabs__content .day {
     display: block;
   }
@@ -3735,7 +3741,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 403, ../scss/breakpoints/_768up.scss */
+  /* line 408, ../scss/breakpoints/_768up.scss */
   .glance div.tabs__content .day .listingsWrap {
     float: left;
     display: block;
@@ -3749,7 +3755,7 @@ you can add resource intensive styles.
   .glance div.tabs__content .day .listingsWrap:last-child {
     margin-right: 0;
   }
-  /* line 409, ../scss/breakpoints/_768up.scss */
+  /* line 414, ../scss/breakpoints/_768up.scss */
   .glance div.tabs__content .day .featuredSection {
     float: left;
     display: block;
@@ -3763,16 +3769,16 @@ you can add resource intensive styles.
     margin-right: 0;
   }
 
-  /* line 418, ../scss/breakpoints/_768up.scss */
+  /* line 423, ../scss/breakpoints/_768up.scss */
   .feature-wrap .info {
     margin-top: 30px;
   }
 
-  /* line 423, ../scss/breakpoints/_768up.scss */
+  /* line 428, ../scss/breakpoints/_768up.scss */
   .iconLink {
     cursor: pointer;
   }
-  /* line 425, ../scss/breakpoints/_768up.scss */
+  /* line 430, ../scss/breakpoints/_768up.scss */
   .iconLink:hover {
     -webkit-transform: scale(1.1);
     -moz-transform: scale(1.1);
@@ -3781,12 +3787,12 @@ you can add resource intensive styles.
     transform: scale(1.1);
   }
 
-  /* line 433, ../scss/breakpoints/_768up.scss */
+  /* line 438, ../scss/breakpoints/_768up.scss */
   .tabs .tabs__select {
     display: none;
   }
 
-  /* line 440, ../scss/breakpoints/_768up.scss */
+  /* line 445, ../scss/breakpoints/_768up.scss */
   .map.app-container, .mylistPage.connected.app-container {
     min-height: 100%;
     padding: 0;
@@ -3794,55 +3800,55 @@ you can add resource intensive styles.
     position: absolute;
     width: 100%;
   }
-  /* line 446, ../scss/breakpoints/_768up.scss */
+  /* line 451, ../scss/breakpoints/_768up.scss */
   .map.app-container .app-content, .mylistPage.connected.app-container .app-content {
     min-height: 100%;
     position: absolute;
     width: 100%;
   }
 
-  /* line 455, ../scss/breakpoints/_768up.scss */
+  /* line 460, ../scss/breakpoints/_768up.scss */
   .mapPage .app-content,
   .mylistPage .app-content {
     padding: 0 !important;
   }
 
-  /* line 460, ../scss/breakpoints/_768up.scss */
+  /* line 465, ../scss/breakpoints/_768up.scss */
   .myListwrap {
     height: 100%;
     width: 100%;
     position: absolute;
   }
-  /* line 465, ../scss/breakpoints/_768up.scss */
+  /* line 470, ../scss/breakpoints/_768up.scss */
   .myListwrap .myList {
     height: 100%;
     padding-top: 100px;
     display: flex;
     flex-direction: row;
   }
-  /* line 471, ../scss/breakpoints/_768up.scss */
+  /* line 476, ../scss/breakpoints/_768up.scss */
   .myListwrap .myList .mapWrap {
     height: 100%;
     overflow: hidden;
     position: relative;
     flex: 1;
   }
-  /* line 478, ../scss/breakpoints/_768up.scss */
+  /* line 483, ../scss/breakpoints/_768up.scss */
   .myListwrap .myList .mapInfo {
     flex: 0 0 500px;
     width: 500px;
     padding: 40px;
   }
-  /* line 483, ../scss/breakpoints/_768up.scss */
+  /* line 488, ../scss/breakpoints/_768up.scss */
   .myListwrap .myList .mapInfo .mapHeader {
     padding-bottom: 20px;
   }
-  /* line 487, ../scss/breakpoints/_768up.scss */
+  /* line 492, ../scss/breakpoints/_768up.scss */
   .myListwrap .myList .mapInfo .venue {
     background-color: #fff;
   }
 
-  /* line 494, ../scss/breakpoints/_768up.scss */
+  /* line 499, ../scss/breakpoints/_768up.scss */
   .currentMap,
   .venuePage {
     display: flex;
@@ -3852,7 +3858,7 @@ you can add resource intensive styles.
     width: 100%;
     padding-top: 100px;
   }
-  /* line 503, ../scss/breakpoints/_768up.scss */
+  /* line 508, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo,
   .venuePage .mapInfo {
     flex: 0 0 400px;
@@ -3861,37 +3867,37 @@ you can add resource intensive styles.
     display: flex;
     flex-direction: column;
   }
-  /* line 510, ../scss/breakpoints/_768up.scss */
+  /* line 515, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo h2,
   .venuePage .mapInfo h2 {
     font-size: 1.5em;
   }
-  /* line 513, ../scss/breakpoints/_768up.scss */
+  /* line 518, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .infoWrap,
   .venuePage .mapInfo .infoWrap {
     padding-left: 10px;
   }
-  /* line 516, ../scss/breakpoints/_768up.scss */
+  /* line 521, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .mapHeader,
   .venuePage .mapInfo .mapHeader {
     order: 1;
     flex: 0 0 auto;
     margin-bottom: 30px;
   }
-  /* line 521, ../scss/breakpoints/_768up.scss */
+  /* line 526, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .content,
   .venuePage .mapInfo .content {
     order: 2;
     flex: 1;
   }
-  /* line 525, ../scss/breakpoints/_768up.scss */
+  /* line 530, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .footer,
   .venuePage .mapInfo .footer {
     order: 3;
     flex: 0 0 auto;
     margin-top: 50px;
   }
-  /* line 530, ../scss/breakpoints/_768up.scss */
+  /* line 535, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .dragged,
   .venuePage .mapInfo .dragged {
     background: #fff;
@@ -3906,7 +3912,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 536, ../scss/breakpoints/_768up.scss */
+  /* line 541, ../scss/breakpoints/_768up.scss */
   .currentMap .mapInfo .listingsWrap,
   .venuePage .mapInfo .listingsWrap {
     float: left;
@@ -3919,7 +3925,7 @@ you can add resource intensive styles.
   .venuePage .mapInfo .listingsWrap:last-child {
     margin-right: 0;
   }
-  /* line 540, ../scss/breakpoints/_768up.scss */
+  /* line 545, ../scss/breakpoints/_768up.scss */
   .currentMap .mapWrap,
   .venuePage .mapWrap {
     height: 100%;
@@ -3927,7 +3933,7 @@ you can add resource intensive styles.
     position: relative;
     flex: 1;
   }
-  /* line 546, ../scss/breakpoints/_768up.scss */
+  /* line 551, ../scss/breakpoints/_768up.scss */
   .currentMap .mapWrap .label,
   .venuePage .mapWrap .label {
     display: block;
@@ -3939,27 +3945,27 @@ you can add resource intensive styles.
     padding: 5px;
   }
 
-  /* line 560, ../scss/breakpoints/_768up.scss */
+  /* line 565, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container {
     padding: 0;
     max-width: none;
   }
-  /* line 568, ../scss/breakpoints/_768up.scss */
+  /* line 573, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .listing:hover .listingAdd span,
   .mylistPage.app-container .event:hover .listingAdd span {
     background-color: #d70b00;
     color: white;
   }
-  /* line 576, ../scss/breakpoints/_768up.scss */
+  /* line 581, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .mapWrap {
     height: 100%;
     flex: 1;
   }
-  /* line 580, ../scss/breakpoints/_768up.scss */
+  /* line 585, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .mapInfo {
     display: none;
   }
-  /* line 583, ../scss/breakpoints/_768up.scss */
+  /* line 588, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .popupList {
     position: fixed;
     z-index: 10;
@@ -3969,7 +3975,7 @@ you can add resource intensive styles.
     left: 0;
     background-color: rgba(255, 255, 255, 0.5);
   }
-  /* line 592, ../scss/breakpoints/_768up.scss */
+  /* line 597, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .popupList div {
     background: #fff;
     position: absolute;
@@ -3983,12 +3989,12 @@ you can add resource intensive styles.
     padding: 50px;
     border-radius: 10px;
   }
-  /* line 600, ../scss/breakpoints/_768up.scss */
+  /* line 605, ../scss/breakpoints/_768up.scss */
   .mylistPage.app-container .mylist.deactivated .popupList div a {
     border-bottom: 0;
   }
 
-  /* line 607, ../scss/breakpoints/_768up.scss */
+  /* line 612, ../scss/breakpoints/_768up.scss */
   .SignIn {
     position: fixed;
     width: 100%;
@@ -4000,7 +4006,7 @@ you can add resource intensive styles.
     background-position: center;
     background-repeat: no-repeat;
   }
-  /* line 617, ../scss/breakpoints/_768up.scss */
+  /* line 622, ../scss/breakpoints/_768up.scss */
   .SignIn > div {
     background-color: #fff;
     position: absolute;
@@ -4020,7 +4026,7 @@ you can add resource intensive styles.
   /*********************
   Features Page
   *********************/
-  /* line 636, ../scss/breakpoints/_768up.scss */
+  /* line 641, ../scss/breakpoints/_768up.scss */
   .allFeatures .featuresWrap .feature {
     float: left;
     display: block;
@@ -4049,7 +4055,7 @@ you can add resource intensive styles.
     clear: left;
   }
 
-  /* line 645, ../scss/breakpoints/_768up.scss */
+  /* line 650, ../scss/breakpoints/_768up.scss */
   .singleFeature .left-col {
     float: left;
     display: block;
@@ -4060,7 +4066,7 @@ you can add resource intensive styles.
   .singleFeature .left-col:last-child {
     margin-right: 0;
   }
-  /* line 648, ../scss/breakpoints/_768up.scss */
+  /* line 653, ../scss/breakpoints/_768up.scss */
   .singleFeature .right-col {
     float: left;
     display: block;
@@ -4072,7 +4078,7 @@ you can add resource intensive styles.
   .singleFeature .right-col:last-child {
     margin-right: 0;
   }
-  /* line 652, ../scss/breakpoints/_768up.scss */
+  /* line 657, ../scss/breakpoints/_768up.scss */
   .singleFeature .right-col .feature-wrap .picture {
     float: left;
     display: block;
@@ -4083,7 +4089,7 @@ you can add resource intensive styles.
   .singleFeature .right-col .feature-wrap .picture:last-child {
     margin-right: 0;
   }
-  /* line 655, ../scss/breakpoints/_768up.scss */
+  /* line 660, ../scss/breakpoints/_768up.scss */
   .singleFeature .right-col .feature-wrap .info {
     margin-top: 0;
     float: left;
@@ -4100,27 +4106,27 @@ you can add resource intensive styles.
   /*********************
   Venue Page
   *********************/
-  /* line 667, ../scss/breakpoints/_768up.scss */
+  /* line 672, ../scss/breakpoints/_768up.scss */
   .venuePage {
     flex-direction: row;
   }
-  /* line 670, ../scss/breakpoints/_768up.scss */
+  /* line 675, ../scss/breakpoints/_768up.scss */
   .venuePage .mapInfo {
     flex: 0 0 600px;
     width: 600px;
   }
-  /* line 676, ../scss/breakpoints/_768up.scss */
+  /* line 681, ../scss/breakpoints/_768up.scss */
   .venuePage .mapWrap .map {
     height: 100%;
   }
 
-  /* line 683, ../scss/breakpoints/_768up.scss */
+  /* line 688, ../scss/breakpoints/_768up.scss */
   .loginForm, .signupForm, .resetForm {
     max-width: 500px;
     margin: 50px auto;
   }
 
-  /* line 690, ../scss/breakpoints/_768up.scss */
+  /* line 695, ../scss/breakpoints/_768up.scss */
   .account {
     display: block;
   }
@@ -4130,7 +4136,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 692, ../scss/breakpoints/_768up.scss */
+  /* line 697, ../scss/breakpoints/_768up.scss */
   .account .left-col {
     float: left;
     display: block;
@@ -4141,12 +4147,12 @@ you can add resource intensive styles.
   .account .left-col:last-child {
     margin-right: 0;
   }
-  /* line 694, ../scss/breakpoints/_768up.scss */
+  /* line 699, ../scss/breakpoints/_768up.scss */
   .account .left-col h1 {
     text-align: left;
     margin-top: 0;
   }
-  /* line 699, ../scss/breakpoints/_768up.scss */
+  /* line 704, ../scss/breakpoints/_768up.scss */
   .account .accountform {
     float: left;
     display: block;
@@ -4159,12 +4165,12 @@ you can add resource intensive styles.
     margin-right: 0;
   }
 
-  /* line 706, ../scss/breakpoints/_768up.scss */
+  /* line 711, ../scss/breakpoints/_768up.scss */
   .draftJsToolbar__toolbar__dNtBH button {
     margin: 0 0 0 0 !important;
   }
 
-  /* line 714, ../scss/breakpoints/_768up.scss */
+  /* line 719, ../scss/breakpoints/_768up.scss */
   .userList .mapInfo header {
     display: block;
     border-bottom: 1px solid #eaedf2;
@@ -4177,7 +4183,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 719, ../scss/breakpoints/_768up.scss */
+  /* line 724, ../scss/breakpoints/_768up.scss */
   .userList .mapInfo header .avatarWrap {
     float: left;
     display: block;
@@ -4188,14 +4194,14 @@ you can add resource intensive styles.
   .userList .mapInfo header .avatarWrap:last-child {
     margin-right: 0;
   }
-  /* line 721, ../scss/breakpoints/_768up.scss */
+  /* line 726, ../scss/breakpoints/_768up.scss */
   .userList .mapInfo header .avatarWrap .avatar {
     width: 100%;
     height: 0;
     background-size: cover;
     background-position: center;
   }
-  /* line 728, ../scss/breakpoints/_768up.scss */
+  /* line 733, ../scss/breakpoints/_768up.scss */
   .userList .mapInfo header .infoWrap {
     float: left;
     display: block;
@@ -4208,7 +4214,7 @@ you can add resource intensive styles.
     margin-right: 0;
   }
 
-  /* line 738, ../scss/breakpoints/_768up.scss */
+  /* line 743, ../scss/breakpoints/_768up.scss */
   .adminWrap {
     display: block;
     padding: 130px 50px;
@@ -4219,7 +4225,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 742, ../scss/breakpoints/_768up.scss */
+  /* line 747, ../scss/breakpoints/_768up.scss */
   .adminWrap .left-col {
     position: fixed;
     float: left;
@@ -4231,12 +4237,12 @@ you can add resource intensive styles.
   .adminWrap .left-col:last-child {
     margin-right: 0;
   }
-  /* line 746, ../scss/breakpoints/_768up.scss */
+  /* line 751, ../scss/breakpoints/_768up.scss */
   .adminWrap .left-col nav li {
     display: block;
     margin-bottom: 10px;
   }
-  /* line 752, ../scss/breakpoints/_768up.scss */
+  /* line 757, ../scss/breakpoints/_768up.scss */
   .adminWrap .admin-content {
     margin-left: 25.5894130058%;
     float: left;
@@ -4249,7 +4255,7 @@ you can add resource intensive styles.
   .adminWrap .admin-content:last-child {
     margin-right: 0;
   }
-  /* line 758, ../scss/breakpoints/_768up.scss */
+  /* line 763, ../scss/breakpoints/_768up.scss */
   .adminWrap .editHeader {
     display: block;
     padding-bottom: 20px;
@@ -4260,20 +4266,20 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 761, ../scss/breakpoints/_768up.scss */
+  /* line 766, ../scss/breakpoints/_768up.scss */
   .adminWrap .editHeader button {
     vertical-align: top;
   }
-  /* line 764, ../scss/breakpoints/_768up.scss */
+  /* line 769, ../scss/breakpoints/_768up.scss */
   .adminWrap .editHeader .search {
     float: right;
   }
-  /* line 766, ../scss/breakpoints/_768up.scss */
+  /* line 771, ../scss/breakpoints/_768up.scss */
   .adminWrap .editHeader .search .Select {
     width: 400px;
     display: inline-block;
   }
-  /* line 772, ../scss/breakpoints/_768up.scss */
+  /* line 777, ../scss/breakpoints/_768up.scss */
   .adminWrap .editVenue {
     display: block;
   }
@@ -4283,7 +4289,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 774, ../scss/breakpoints/_768up.scss */
+  /* line 779, ../scss/breakpoints/_768up.scss */
   .adminWrap .editVenue .venueEditing,
   .adminWrap .editVenue .venueLocation {
     float: left;
@@ -4296,18 +4302,18 @@ you can add resource intensive styles.
   .adminWrap .editVenue .venueLocation:last-child {
     margin-right: 0;
   }
-  /* line 782, ../scss/breakpoints/_768up.scss */
+  /* line 787, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #ListingList .Select {
     width: 100%;
     max-width: 500px;
     display: inline-block;
     margin-left: 10px;
   }
-  /* line 788, ../scss/breakpoints/_768up.scss */
+  /* line 793, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #ListingList button.btn {
     vertical-align: top;
   }
-  /* line 792, ../scss/breakpoints/_768up.scss */
+  /* line 797, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm {
     max-width: 600px;
     display: block;
@@ -4318,16 +4324,16 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 795, ../scss/breakpoints/_768up.scss */
+  /* line 800, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm label {
     text-transform: uppercase;
     font-size: .8em;
   }
-  /* line 800, ../scss/breakpoints/_768up.scss */
+  /* line 805, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm input::placeholder, .adminWrap .listingEdit #listingForm input::-webkit-input-placeholder, .adminWrap .listingEdit #listingForm input::-moz-placeholder, .adminWrap .listingEdit #listingForm input:-ms-input-placeholder, .adminWrap .listingEdit #listingForm input:-moz-placeholder {
     color: pink !important;
   }
-  /* line 808, ../scss/breakpoints/_768up.scss */
+  /* line 813, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-venue {
     float: left;
     display: block;
@@ -4338,13 +4344,13 @@ you can add resource intensive styles.
   .adminWrap .listingEdit #listingForm .group-venue:last-child {
     margin-right: 0;
   }
-  /* line 810, ../scss/breakpoints/_768up.scss */
+  /* line 815, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-venue button.btn {
     margin-top: 10px;
     background-color: #fff;
     color: #323944;
   }
-  /* line 816, ../scss/breakpoints/_768up.scss */
+  /* line 821, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-artists,
   .adminWrap .listingEdit #listingForm .group-name,
   .adminWrap .listingEdit #listingForm .group-description,
@@ -4365,7 +4371,7 @@ you can add resource intensive styles.
   .adminWrap .listingEdit #listingForm .group-dates:last-child {
     margin-right: 0;
   }
-  /* line 824, ../scss/breakpoints/_768up.scss */
+  /* line 829, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-thumbnail {
     float: left;
     display: block;
@@ -4377,7 +4383,7 @@ you can add resource intensive styles.
   .adminWrap .listingEdit #listingForm .group-thumbnail:last-child {
     margin-right: 0;
   }
-  /* line 828, ../scss/breakpoints/_768up.scss */
+  /* line 833, ../scss/breakpoints/_768up.scss */
   .adminWrap .listingEdit #listingForm .group-events {
     float: left;
     display: block;
@@ -4388,7 +4394,7 @@ you can add resource intensive styles.
   .adminWrap .listingEdit #listingForm .group-events:last-child {
     margin-right: 0;
   }
-  /* line 839, ../scss/breakpoints/_768up.scss */
+  /* line 844, ../scss/breakpoints/_768up.scss */
   .adminWrap .usersWrap .allUsers .card {
     float: left;
     display: block;
@@ -4402,7 +4408,7 @@ you can add resource intensive styles.
   .adminWrap .usersWrap .allUsers .card:last-child {
     margin-right: 0;
   }
-  /* line 844, ../scss/breakpoints/_768up.scss */
+  /* line 849, ../scss/breakpoints/_768up.scss */
   .adminWrap .usersWrap .allUsers .card:nth-of-type(2n) {
     margin-right: 2.3576520234%;
   }
@@ -4414,7 +4420,7 @@ you can add resource intensive styles.
   .adminWrap .usersWrap .allUsers .card:nth-child(3n+1) {
     clear: left;
   }
-  /* line 848, ../scss/breakpoints/_768up.scss */
+  /* line 853, ../scss/breakpoints/_768up.scss */
   .adminWrap .usersWrap .allUsers .card .card-block {
     -webkit-transform: translateY(-30%);
     -moz-transform: translateY(-30%);
@@ -4422,7 +4428,7 @@ you can add resource intensive styles.
     -o-transform: translateY(-30%);
     transform: translateY(-30%);
   }
-  /* line 853, ../scss/breakpoints/_768up.scss */
+  /* line 858, ../scss/breakpoints/_768up.scss */
   .adminWrap .allInfo {
     float: left;
     display: block;
@@ -4433,24 +4439,24 @@ you can add resource intensive styles.
   .adminWrap .allInfo:last-child {
     margin-right: 0;
   }
-  /* line 858, ../scss/breakpoints/_768up.scss */
+  /* line 863, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .tabs__labels {
     display: block;
   }
-  /* line 860, ../scss/breakpoints/_768up.scss */
+  /* line 865, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .tabs__labels li {
     display: inline-block;
     margin-bottom: 10px;
   }
-  /* line 864, ../scss/breakpoints/_768up.scss */
+  /* line 869, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .tabs__labels li a.active button {
     background-color: #eaedf2;
   }
-  /* line 870, ../scss/breakpoints/_768up.scss */
+  /* line 875, ../scss/breakpoints/_768up.scss */
   .adminWrap .featureAdmin .featureFormWrap {
     max-width: 500px;
   }
-  /* line 876, ../scss/breakpoints/_768up.scss */
+  /* line 881, ../scss/breakpoints/_768up.scss */
   .adminWrap .adsAdmin .wrap {
     display: block;
   }
@@ -4460,7 +4466,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 879, ../scss/breakpoints/_768up.scss */
+  /* line 884, ../scss/breakpoints/_768up.scss */
   .adminWrap .adsAdmin .allAds {
     float: left;
     display: block;
@@ -4471,7 +4477,7 @@ you can add resource intensive styles.
   .adminWrap .adsAdmin .allAds:last-child {
     margin-right: 0;
   }
-  /* line 883, ../scss/breakpoints/_768up.scss */
+  /* line 888, ../scss/breakpoints/_768up.scss */
   .adminWrap .adsAdmin .adsForm {
     float: left;
     display: block;
@@ -4483,7 +4489,7 @@ you can add resource intensive styles.
     margin-right: 0;
   }
 
-  /* line 890, ../scss/breakpoints/_768up.scss */
+  /* line 895, ../scss/breakpoints/_768up.scss */
   .picture img {
     max-width: 400px;
   }
@@ -4542,16 +4548,25 @@ you can add resource intensive styles.
     font-size: 1em;
   }
 
-  /* line 43, ../scss/breakpoints/_1030up.scss */
+  /* line 42, ../scss/breakpoints/_1030up.scss */
+  .ad .desktopImage {
+    display: block;
+  }
+  /* line 45, ../scss/breakpoints/_1030up.scss */
+  .ad .mobileImage {
+    display: none;
+  }
+
+  /* line 54, ../scss/breakpoints/_1030up.scss */
   .hoodNav ul {
     display: block;
   }
-  /* line 46, ../scss/breakpoints/_1030up.scss */
+  /* line 57, ../scss/breakpoints/_1030up.scss */
   .hoodNav select {
     display: none;
   }
 
-  /* line 52, ../scss/breakpoints/_1030up.scss */
+  /* line 63, ../scss/breakpoints/_1030up.scss */
   .mainList .left-col {
     float: left;
     display: block;
@@ -4564,7 +4579,7 @@ you can add resource intensive styles.
   .mainList .left-col:last-child {
     margin-right: 0;
   }
-  /* line 56, ../scss/breakpoints/_1030up.scss */
+  /* line 68, ../scss/breakpoints/_1030up.scss */
   .mainList .left-col h1 {
     float: left;
     display: block;
@@ -4576,7 +4591,12 @@ you can add resource intensive styles.
   .mainList .left-col h1:last-child {
     margin-right: 0;
   }
-  /* line 60, ../scss/breakpoints/_1030up.scss */
+  /* line 73, ../scss/breakpoints/_1030up.scss */
+  .mainList .left-col p {
+    float: none;
+    margin-top: 0;
+  }
+  /* line 78, ../scss/breakpoints/_1030up.scss */
   .mainList .left-col .hoodNav {
     float: left;
     display: block;
@@ -4588,11 +4608,11 @@ you can add resource intensive styles.
   .mainList .left-col .hoodNav:last-child {
     margin-right: 0;
   }
-  /* line 63, ../scss/breakpoints/_1030up.scss */
+  /* line 81, ../scss/breakpoints/_1030up.scss */
   .mainList .left-col .hoodNav h3 {
     display: none;
   }
-  /* line 67, ../scss/breakpoints/_1030up.scss */
+  /* line 85, ../scss/breakpoints/_1030up.scss */
   .mainList .left-col p {
     float: left;
     display: block;
@@ -4606,18 +4626,21 @@ you can add resource intensive styles.
   .mainList .left-col p:last-child {
     margin-right: 0;
   }
-  /* line 74, ../scss/breakpoints/_1030up.scss */
+  /* line 92, ../scss/breakpoints/_1030up.scss */
   .mainList .right-col {
     float: left;
     display: block;
     margin-right: 2.3576520234%;
     width: 14.7019566472%;
+    position: fixed;
+    float: none;
+    right: 2.3576520234%;
   }
   /* line 89, ../scss/neat/grid/_span-columns.scss */
   .mainList .right-col:last-child {
     margin-right: 0;
   }
-  /* line 77, ../scss/breakpoints/_1030up.scss */
+  /* line 98, ../scss/breakpoints/_1030up.scss */
   .mainList .main-col {
     float: left;
     display: block;
@@ -4631,7 +4654,7 @@ you can add resource intensive styles.
     margin-right: 0;
   }
 
-  /* line 85, ../scss/breakpoints/_1030up.scss */
+  /* line 106, ../scss/breakpoints/_1030up.scss */
   .adminWrap .featureAdmin {
     display: block;
   }
@@ -4641,7 +4664,7 @@ you can add resource intensive styles.
     content: "";
     display: block;
   }
-  /* line 87, ../scss/breakpoints/_1030up.scss */
+  /* line 108, ../scss/breakpoints/_1030up.scss */
   .adminWrap .featureAdmin .featureFormWrap {
     float: left;
     display: block;
@@ -4653,7 +4676,7 @@ you can add resource intensive styles.
   .adminWrap .featureAdmin .featureFormWrap:last-child {
     margin-right: 0;
   }
-  /* line 91, ../scss/breakpoints/_1030up.scss */
+  /* line 112, ../scss/breakpoints/_1030up.scss */
   .adminWrap .featureAdmin .preview {
     float: left;
     display: block;
@@ -4670,7 +4693,7 @@ you can add resource intensive styles.
   /*********************
   Features Page
   *********************/
-  /* line 105, ../scss/breakpoints/_1030up.scss */
+  /* line 126, ../scss/breakpoints/_1030up.scss */
   .allFeatures .featuresWrap .feature {
     float: left;
     display: block;

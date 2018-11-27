@@ -1279,6 +1279,8 @@ ADMIN
     }
 }
 
+
+
 //Artists editing
 .react-tagsinput{
     .react-tagsinput-tag{
@@ -1486,6 +1488,10 @@ option{
 .ad{
     img{
         max-width: 100%;
+    }
+
+    .desktopImage{
+        display: none;
     }
 }
 

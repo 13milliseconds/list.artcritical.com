@@ -16,7 +16,7 @@ export default class AdBlock extends React.Component {
 
                 return <a href={ad.link} target="_blank" key={ad._id}>
                             <img className="desktopImage" src={image} />
-                            {this.props.mobileImage && <img className="mobileImage" src={mobileImage} />}
+                            {ad.mobileImage && <img className="mobileImage" src={mobileImage} />}
                         </a>
             } else {
                 return false

@@ -301,19 +301,24 @@ header.mainHeader{
         left: 0;
         padding: 20px;
         border-bottom: 1px solid $gray;
+
         h1{
             @include span-columns(4);
         }
+
+        p{
+            float: left;
+            margin-top: -40px;
+        }
+
         .hoodNav{
             @include span-columns(8);
             @include omega();
         }
     }
     .right-col{
-        @include span-columns(0);
-        position: fixed;
-        float: none;
-        right: 2.3576520234%;
+        @include span-columns(12);
+        
 	}
 	.main-col{
         @include span-columns(12);
