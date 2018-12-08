@@ -541,6 +541,12 @@ class ListStore {
     //FEATURED
     onUpdateFeatureSuccess(data){
         this.success.updateFeature = true
+        console.log(data[0])
+        var number = data[1]
+        this.features[number] = data[0]
+
+        console.log(this.features)
+
         var that = this;
         setTimeout(() => {
             that.success.updateFeature = false;
@@ -552,18 +558,14 @@ class ListStore {
     }
     onFeatureReset(day){
         if (Number.isInteger(day)){
-            this.features[day]= {
-                text: '',
-                list: {},
-                venue: {},
-                event: {}
-            }
+            this.features[day]= {}
         }
         this.success.feature = false
     }
     onDeleteFeatureSuccess(){
         console.log('feature deleted')
         this.success.deleteFeature = true
+
         var that = this;
         setTimeout(() => {
             that.success.deleteFeature = false

@@ -571,6 +571,8 @@ router.post('/feature', function (req, res) {
 
     if (req.body._id) {
 
+        console.log('Updating feature')
+
         //Update feature
 
         var theFeature = new Feature(req.body);
@@ -606,13 +608,17 @@ router.post('/feature', function (req, res) {
 
 
     } else {
+
+        console.log('Create new feature')
+
         // New feature
         var theFeature = new Feature(req.body);
-        console.log('To save: ', theFeature)
 
         //Save this new entry
         theFeature.save(function (err, newFeature) {
-            res.send((err === null) ? { data: newFeature } : { msg: err });
+            var savedFeature = req.body
+            savedFeature._id = newFeature._id
+            res.send((err === null) ? savedFeature : { msg: err })
         });
     }
 

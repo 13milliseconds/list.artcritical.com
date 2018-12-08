@@ -3,7 +3,9 @@ var mongoose = require('mongoose');
 // Create the Listings table ==================================
 
 var featureSchema = mongoose.Schema({
-    date: Date,
+    date: { 
+        type: Date,
+        unique: true},
     text: String,
     type: String,
     list: {

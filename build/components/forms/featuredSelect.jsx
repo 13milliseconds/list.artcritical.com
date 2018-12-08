@@ -25,14 +25,18 @@ export default class FeaturedSelect extends React.Component {
     // Add the listing to the database
     handleSubmit() {
         let newFeature = this.props.feature
-        newFeature._id = this.props.feature._id || null
+        if (this.props.feature._id) {
+            newFeature._id = this.props.feature._id
+        } else {
+            delete newFeature._id
+        }
         newFeature.date = this.props.date
         newFeature.text = this.state.text
         newFeature.venue = this.props.feature.type === 'event'
-            ? this.props.feature.event.venue._id
-            : this.props.feature.list.venue._id
+            ? this.props.feature.event.venue
+            : this.props.feature.list.venue
 
-        ListActions.updateFeature(newFeature)
+        ListActions.updateFeature(newFeature, this.props.dayNumber)
       }
 
       handleDelete() {

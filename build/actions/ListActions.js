@@ -380,7 +380,7 @@ class ListActions {
     }
     
     // Update or save a featured article
-    async updateFeature (data) {
+    async updateFeature (data, dayNumber) { 
 
         console.log('Update feature', data)
 
@@ -402,7 +402,7 @@ class ListActions {
           return null;
         })
         .then((json) => {
-            this.updateFeatureSuccess(json);
+            this.updateFeatureSuccess(json, dayNumber);
             return true;
         })
         .catch((error) => {

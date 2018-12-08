@@ -85,9 +85,6 @@ export default class ListingForm extends React.Component {
     
     render() {
 
-        console.log(this.props)
-
-
         let image = this.props.list
             ? this.props.list.image
             : this.props.event 
