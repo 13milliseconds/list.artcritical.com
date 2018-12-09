@@ -27,6 +27,8 @@ class ListStore {
         this.eventsListings = [];
         this.glanceListings = [];
         this.latestListings = []
+        this.latestEvents = []
+        this.latestVenues = []
         // Auth states
         this.user = {};
         this.user.isLoggedIn = false;
@@ -90,6 +92,9 @@ class ListStore {
         this.loading.featureByDate = false
         this.loading.glance = false
         this.loading.certifyReset = false
+        this.loading.latestListings = false
+        this.loading.latestVenues = false
+        this.loading.latestEvents = false
         this.loading.ads = {}
         //Error Messages
         this.error = {};
@@ -158,13 +163,6 @@ class ListStore {
         this.loading.glance = false
         this.glanceListings = data;
     }
-    getLatestListingsSuccess(data){
-        this.latestListings = data
-    }
-    getLatestListingsFail(error){
-        console.log(error)
-    }
-
 
     onGetCurrentFail(jqXhr) {
         this.loading.current = false;
@@ -191,13 +189,57 @@ class ListStore {
         toastr.error(jqXhr.responseJSON && jqXhr.responseJSON.message || jqXhr.responseText || jqXhr.statusText);
     }
 
+
+    //GET Latest Listings for Review
+    onGetLatestEventsAttempt(){
+        this.loading.latestListings = true
+    }
+    onGetLatestListingsSuccess(data){
+        this.latestListings = data
+        this.loading.latestListings = false
+    }
+    onGetLatestListingsFail(error){
+        this.loading.latestListings = false
+        console.log(error)
+    }
+
+    //GET Latest Events for Review
+    onGetLatestEventsAttempt(){
+        this.loading.latestEvents = true
+    }
+    onGetLatestEventsSuccess(data){
+        this.latestEvents = data
+        this.loading.latestEvents = false
+    }
+    onGetLatestEventsFail(error){
+        console.log(error)
+        this.loading.latestEvents = false
+    }
+
+    //GET Latest Venues for Review
+    onGetLatestVenuesSuccess(){
+        this.loading.latestVenues = false
+    }
+    onGetLatestVenuesSuccess(data){
+        this.latestVenues = data
+        this.loading.latestVenues = false
+    }
+    onGetLatestVenuesFail(error){
+        console.log(error)
+        this.loading.latestVenues = false
+    }
+
     onCleanupAttempt(){
         console.log('Cleaning up...');
+        this.loading.cleanup = true
     }   
     onCleanupSuccess(docs){
-        console.log('Cleaned up ' + docs.length + ' listings!');
+        this.loading.cleanup = false
+        this.success.cleanup = 'Cleaned up ' + docs.length + ' listings!'
+        console.log(this.success.cleanup);
     }
     onCleanupFailure(){
+        this.loading.cleanup = false
         console.log('Cleaning failed');
     }
     

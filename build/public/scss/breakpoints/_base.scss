@@ -1148,6 +1148,7 @@ ADMIN
             }
         }
     }
+
     .overviewWrap{
         .allVenues{
             margin-top: 20px;
@@ -1202,6 +1203,12 @@ ADMIN
             &.dormant{
                 background-color: grey;
             }
+        }
+    }
+    //REVIEW
+    .reviewWrap{
+        select{
+            margin: 20px 0;
         }
     }
     //USERS

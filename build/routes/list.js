@@ -162,6 +162,41 @@ router.get('/latestlistings', function (req, res) {
 });
 
 //#######################
+// GET LATEST EVENTS to review
+//#######################
+
+router.get('/latestevents', function (req, res) {
+    var Event = req.event;
+
+    Event.find().
+    where('venue').ne('').
+    where('updated_at').ne('').
+    sort({updated_at: -1}).
+    limit(20).
+    populate('venue').
+    populate('artists').
+    exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+//#######################
+// GET LATEST VENUES to review
+//#######################
+
+router.get('/latestvenues', function (req, res) {
+    var Venue = req.venue;
+
+    Venue.find().
+    where('updated_at').ne('').
+    sort({updated_at: -1}).
+    limit(20).
+    exec(function (e, docs) {
+        res.json(docs);
+    });
+});
+
+//#######################
 /* FIND listings based on text */
 //#######################
 

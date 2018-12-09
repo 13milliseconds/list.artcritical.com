@@ -21,8 +21,15 @@ class ListActions {
             'getGlanceAttempt',
             'getGlanceSuccess',
             'getGlanceFail',
+            'getLatestListingsAttempt',
             'getLatestListingsSuccess',
             'getLatestListingsFail',
+            'getLatestEventsAttempt',
+            'getLatestEventsSuccess',
+            'getLatestEventsFail',
+            'getLatestVenuesAttempt',
+            'getLatestVenuesSuccess',
+            'getLatestVenuesFail',
             'getListingInfoSuccess',
             'getListingInfoFailure',
             'getVenueInfoSuccess',
@@ -218,6 +225,9 @@ class ListActions {
     }
 
     getLatestListings() {
+
+        this.getLatestListingsAttempt.defer()
+
         return dispatch => {
             $.ajax({
                     url: '/list/latestlistings'
@@ -227,6 +237,40 @@ class ListActions {
                 })
                 .fail((error) => {
                     this.getLatestListingsFail(error)
+                });
+        };
+    }
+
+    getLatestEvents() {
+
+        this.getLatestEventsAttempt.defer()
+
+        return dispatch => {
+            $.ajax({
+                    url: '/list/latestevents'
+                })
+                .done((data) => {
+                    this.getLatestEventsSuccess(data)
+                })
+                .fail((error) => {
+                    this.getLatestEventsFail(error)
+                });
+        };
+    }
+
+    getLatestVenues() {
+
+        this.getLatestVenuesAttempt.defer()
+
+        return dispatch => {
+            $.ajax({
+                    url: '/list/latestvenues'
+                })
+                .done((data) => {
+                    this.getLatestVenuesSuccess(data)
+                })
+                .fail((error) => {
+                    this.getLatestVenuesFail(error)
                 });
         };
     }
