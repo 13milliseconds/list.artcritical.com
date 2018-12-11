@@ -643,6 +643,31 @@ Features Page
             @include omega-reset(2n);
             @include omega(3n);
             margin-bottom: 50px;
+
+            &.archive{
+                @include span-columns(6);
+                @include omega-reset(3n);
+                @include omega(2n);
+                margin-bottom: 30px;
+
+                .img{
+                    @include span-columns(4);
+                    height: 100px;
+                    overflow: hidden;
+                    display: flex;
+
+                    img{
+                        flex: 0;
+                        min-width: 100%;
+                        min-height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                .text{
+                    @include span-columns(8);
+                }
+            }
         }
     }
 }

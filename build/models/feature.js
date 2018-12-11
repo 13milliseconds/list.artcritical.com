@@ -12,6 +12,10 @@ var featureSchema = mongoose.Schema({
         ref: 'List',
         type: String
       },
+    archive: {
+        ref: 'Archive',
+        type: String
+      },
     event: {
         ref: 'Event',
         type: String

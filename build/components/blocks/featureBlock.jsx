@@ -52,7 +52,8 @@ export default class FeatureBlock extends React.Component {
         const feature = this.props.feature
 
         const venue = feature.venue ? feature.venue : {}
-        const listing = feature.list ? feature.list : {}
+        const listing = feature.list ? feature.list : feature.archive ? feature.archive : {}
+        console.log(feature)
         const event = feature.event ? feature.event : {}
         const relatedEvent = feature.relatedEvent
         const type = feature.type
@@ -89,7 +90,7 @@ export default class FeatureBlock extends React.Component {
         let StrippedDescription = feature && feature.text && feature.text.replace(/(<([^>]+)>)/ig,"")
       
     return (
-        <div className="feature-wrap">
+        <div className="feature-wrap" data-id={feature._id}>
         <h5><Link to="/features">Featured</Link></h5>
             
             {this.props.isSingle && 

@@ -520,7 +520,7 @@ class ListActions {
 
     async getFeatureByDate(date){
 
-        this.featureDateAttempt.defer()
+        this.featureDateAttempt()
         
         await fetch(
           '/list/findfeaturesbydate/' + date,

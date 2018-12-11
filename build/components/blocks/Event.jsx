@@ -54,6 +54,7 @@ export default class Event extends React.Component {
     render() {
 
         let event = this.props.event
+        let listing = event.list ? event.list : {}
 
         let address = event.venue && <span className="address">{event.venue.address1} {event.venue.address2}{event.venue.city !== '' && ', ' }{event.venue.city}</span>
         
@@ -65,6 +66,12 @@ export default class Event extends React.Component {
                                         ? <span><ListingNameDisplay {...event.list} artists={event.artists} /></span>
                                         : <span>{event.name && event.name + ': '}<ListingNameDisplay {...event.list} artists={event.artists} /></span>
                                 : event.name
+
+        //Group Show display
+        let isGroupShow = listing.artists && listing.artists.length > 3 ? true : false
+        let artists = listing.artists && listing.artists.map((artist, index) => {
+            return <span key={index} className="artist" >{artist.name}</span>
+        })
 
         
         
@@ -126,6 +133,7 @@ export default class Event extends React.Component {
                         <CardTitle>Information</CardTitle>
                         <CardBlock>
                             {event.description && <div className="notes"><h3>Notes</h3> {event.description}</div>}
+                            {isGroupShow && <div className="artists"><h3>Artists</h3> {artists}</div>}
                             {fullDates}
                             <div className="venueFullInfo">
                                 <Link className="venueName" to={"/venue/" + event.venue.slug}>{event.venue.name}</Link><br/>

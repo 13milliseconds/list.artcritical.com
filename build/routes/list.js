@@ -308,6 +308,7 @@ router.get('/findall/:regex_input', function (req, res, next) {
 router.get('/cleanup', function (req, res, next) {
     var List = req.list;
     var Archive = req.archive;
+    var Feature = req.feature;
 
     var twodaysago = moment().utcOffset(-4).subtract(2, 'days');
 
@@ -324,12 +325,33 @@ router.get('/cleanup', function (req, res, next) {
             swap._id = mongoose.Types.ObjectId()
             swap.isNew = true
 
-            swap.save((err) => {
-                if (err) 
-                    console.log('Error: ', err)
+            Feature.findOne({list: doc._id}, function(err, feature){
+                if (feature){
+                    //Swap feature info
+                    let featureSwap = feature
+                    featureSwap.archive = swap._id
+                    delete featureSwap.list
 
-                doc.remove();
-            });
+                    featureSwap.save((err) => {
+                        if (err) 
+                            console.log('Error saving feature: ', err)
+
+                        // Move the listing to the archive
+                        swap.save((err) => {
+                            if (err) 
+                                console.log('Error: ', err)            
+                            doc.remove();
+                        });
+                    })
+                } else {
+                    // Move the listing to the archive
+                    swap.save((err) => {
+                        if (err) 
+                            console.log('Error: ', err)
+                        doc.remove();
+                    });
+                }
+            })
         });
 
         res.json(docs);
@@ -670,10 +692,11 @@ router.post('/findfeatures', function (req, res) {
     console.log("Find all features");
 
     Feature.find()
-    .sort('-date')
+    .sort({archive: 1, date: -1})
     .populate('list')
     .populate('event')
     .populate('venue')
+    .populate('archive')
     .populate('relatedEvent')
     .exec(function (e, docs) {
 
@@ -765,8 +788,6 @@ router.post('/findcurrentfeatures', function (req, res) {
 router.post('/findfeaturesbydate/:date', function (req, res) {
     var Feature = req.feature;
 
-    console.log("Find feature by date");
-
     let start = moment.utc(req.params.date, 'MMDDYY').startOf('day')
     let end = moment.utc(req.params.date, 'MMDDYY').endOf('day')
 
@@ -775,6 +796,7 @@ router.post('/findfeaturesbydate/:date', function (req, res) {
     })
     .populate('list')
     .populate('event') 
+    .populate('archive')
     .populate('venue')
     .populate('relatedEvent')
     .exec(function (e, docs) {

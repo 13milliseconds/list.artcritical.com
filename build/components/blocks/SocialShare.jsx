@@ -15,6 +15,7 @@ export default class SocialShare extends React.Component {
             <TwitterShareButton url={shareUrl} children={<FontAwesomeIcon icon={['fab', 'twitter']}/>}/>
             <EmailShareButton 
                 url={shareUrl} 
+                body={this.props.emailContent}
                 children={<FontAwesomeIcon icon={['far', 'envelope']}/>}
                 subject="Check out the List at artcritical"
                 />

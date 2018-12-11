@@ -21,7 +21,7 @@ export default class SingleFeature extends React.Component {
         this.onEditButton = this.onEditButton.bind(this)
     }
 
-    componentDidMount() {
+    componentWillMount() {
         ListActions.getFeatureByDate(this.props.params.date);
     }
 
@@ -32,6 +32,8 @@ export default class SingleFeature extends React.Component {
     }
 
     render() {
+
+        console.log(this.props.loading.featureByDate)
 
         let date = moment.utc(this.props.params.date, 'MMDDYY').format('MMMM D YYYY')
 

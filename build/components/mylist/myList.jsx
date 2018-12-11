@@ -178,6 +178,17 @@ export default class MyList extends React.Component {
     render() {
 
         let hasList = this.props.user.mylist && this.props.user.mylist.length > 0? true : false
+
+        //Create a simple list to Export by email
+        let emailContent = ''
+        if (hasList){
+            this.props.user.mylist.map(listing => {
+                var listingTitle = listing.title +  ' at ' + listing.venue.name + '\n' 
+                var listingAddress = listing.venue.address1 + ', ' + listing.venue.address2 + ' ' + listing.venue.city + '\n' 
+                emailContent = emailContent + listingTitle + listingAddress + '\n'
+            })
+        }
+        let emailTitle = "MyList at artcritical"
         
         return ( 
                 <div className={hasList? "myList" : "mylist deactivated"}>
@@ -185,7 +196,7 @@ export default class MyList extends React.Component {
                     <div className="mapHeader">
                     <h2>My List</h2>
 					<a target="_blank" href={window.location.href + '/' + this.props.user.slug}>Public page</a>
-                    <SocialShare url={this.state.publicUrl} />
+                    <SocialShare url={this.state.publicUrl} emailContent={emailContent} emailTitle={emailTitle}/>
                     </div>
                     <div className="content">
                     {hasList && <MyListings 

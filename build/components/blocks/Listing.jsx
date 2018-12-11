@@ -111,7 +111,7 @@ export default class Listing extends React.Component {
       
       
     return (
-        <div className = {"listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected') }>
+        <div className = {"listing " + (this.state.fullInfo ? 'active ' : '') + (mylistIndex > 0 ? 'selected' : 'notselected') } data-id={listing._id}>
         {this.props.user._id &&
             <div className="listingAdd">
                 {this.props.mylisting 

@@ -706,14 +706,17 @@ class ListStore {
             this.error.feature = "No Features";
         }
     }
-    featureDateAttempt(){
+    onFeatureDateAttempt(){
         this.loading.featureByDate = true
+        console.log('start loading')
     }
-    featureDateSuccess(json){
+    onFeatureDateSuccess(json){
+        console.log('stop loading')
         this.loading.featureByDate = false
+        console.log('feature by date: ', json)
         this.feature = json
     }
-    featureDateFailure(error){
+    onFeatureDateFailure(error){
         this.loading.featureByDate = false
         console.log('Error retrieving Feature article', error)
     }

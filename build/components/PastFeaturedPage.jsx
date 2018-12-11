@@ -21,10 +21,17 @@ export default class FeaturePage extends React.Component {
 
     render() {
     
-        var allFeatures = features => features.map((feature, index) => {
+        let archiveSection = false
+        let allFeatures = features => features.map((feature, index) => {
 
-            let listing = feature.list
+            let listing = feature.list ? feature.list : feature.archive ? feature.archive : {}
             let event = feature.event
+
+            let archiveTitle = ''
+            if (!archiveSection && feature.archive) {
+                archiveTitle = <h1>Archive</h1> 
+                archiveSection = true
+            }
 
             if (listing || event) {
                 let type = feature.type
@@ -38,12 +45,16 @@ export default class FeaturePage extends React.Component {
                     ? moment.utc(feature.date).format('ddd, MMM DD YYYY')
                     : ''
 
-                return <div className="feature" key={feature._id}>
-                            {listing && listing.image && <ImageBlock image={listing.image} />}
-                            {event && event.image && <ImageBlock image={event.image} />}
-                            <h4><Link to={'features/' + moment.utc(feature.date).format('MMDDYY')}>{title} at {venue.name}</Link></h4>
-                            <h5>{featureDay}</h5>
-                        </div>
+                return [archiveTitle, <div className={feature.archive ? "archive feature" : "feature"} key={feature._id}>
+                            <div className="img">
+                                {listing && listing.image && <ImageBlock image={listing.image} />}
+                                {event && event.image && <ImageBlock image={event.image} />}
+                            </div>
+                            <div className="text">
+                                <h4><Link to={'features/' + moment.utc(feature.date).format('MMDDYY')}>{title} at {venue.name}</Link></h4>
+                                <h5>{featureDay}</h5>
+                            </div>
+                        </div>]
             } else {
                 return false
             }
@@ -51,7 +62,7 @@ export default class FeaturePage extends React.Component {
         
         return ( 
             <div className = "allFeatures">
-              <h2>Archive of Featured Listings</h2>
+              <h2>Featured Listings</h2>
               <div className="featuresWrap">
                 {this.props.loading.features
                         ? <Loading />
