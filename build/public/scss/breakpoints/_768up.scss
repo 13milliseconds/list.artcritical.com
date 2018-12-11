@@ -866,22 +866,27 @@ Venue Page
     }
     //USERS
     .usersWrap .allUsers{
+        @include span-columns(6);
+
         .card{
-            @include span-columns(4);
-            float: none;
-            display: inline-block;
-            margin-top: 100px;
-            &:nth-of-type(2n){
-                margin-right: 2.3576520234%;
+            //@include span-columns(4);
+            width: 100%;
+
+            .avatarWrap{
+                @include span-columns(4);
             }
-            @include omega(3n);
+
             .card-block{
-                @include transform(translateY(-30%));
+                @include span-columns(8)
+                //@include transform(translateY(-30%));
             }
         }
     }
     .allInfo{
-        @include span-columns(6);
+        @include span-columns(4);
+        position: fixed;
+        right: 50px;
+        top: 130px;
     }
     //FEATURES
     .featureAdmin{

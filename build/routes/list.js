@@ -470,15 +470,13 @@ router.post('/add', function (req, res) {
     
         savedEvents.then(data => {
 
-            console.log('Saved related events: ', data)
-
             newlisting.relatedEvents = data;
             newlisting = new List(newlisting);
 
             //Save the events again now that we have an id
             newlisting.relatedEvents.map(event => {
                 Event.update({ _id: event._id}, { $set: { list: newlisting._id }}, function(err, updatedEvent){
-                    console.log('event updated', err, updatedEvent)
+                    console.log('event updated')
                 });
             })
 

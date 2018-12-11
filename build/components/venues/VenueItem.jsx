@@ -5,6 +5,7 @@ import DateBlock from '../blocks/DateBlock'
 import ListingNameDisplay from '../blocks/ListingNameDisplay'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {Alert} from 'reactstrap'
 
 //Find today's date
 let today = moment()
@@ -15,7 +16,7 @@ export default class VenueItem extends React.Component {
         super(props);
         
         this.state = {
-            expired: true,
+            expired: false,
             soon: false,
             archived: false,
             old: false,
@@ -29,16 +30,17 @@ export default class VenueItem extends React.Component {
     }
     
     componentDidMount(){
+
         //Check if it has been used recently and is not disabled
         this.props.listings
-			? this.props.listings.length == 0 && this.setState({ old: true})
-            : this.setState({ old: true})
+			? this.props.listings.length == 0 && this.setState({ expired: true})
+            : this.setState({ expired: true})
         this.props.disabled 
-            && this.setState({ old: true, expired: true})
+            && this.setState({ old: true})
         //Check if it has a current listing
         if (!this.props.disabled && this.props.listings) {
             var allCurrent = []
-            this.props.listings.map(function (listing, index) {
+            this.props.listings.map(function (listing) {
                 let listingStart = moment(listing.start)
                 let listingEnd = moment(listing.end)
                 
@@ -91,6 +93,9 @@ export default class VenueItem extends React.Component {
 
             {!this.state.old && currentListings(this.state.currentListings)}
             {nextListing && <div>Upcoming: <ListingNameDisplay {...nextListing} /> - Starting <DateBlock date={nextListing.start}/></div>}
+
+            {!this.props.zipcode && <p className="warning">This Venue needs a zipcode</p>}
+            {(!this.props.coordinates || !this.props.coordinates.lat) && <Alert color="danger">This Venue needs coordinates</Alert>}
       </div>
     );
   }

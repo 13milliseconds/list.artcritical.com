@@ -1173,6 +1173,7 @@ ADMIN
             & > div{
                 padding-left: 20px;
             }
+
             a{
                 color: green;
                 border-bottom: 0;
@@ -1180,9 +1181,16 @@ ADMIN
                     font-size: .8em;
                 }
             }
+
             .title{
                 display: inline;
             }
+
+            .warning{
+                color: $dark-gray;
+                font-size: .8em;
+            }
+
             &.expired{
                 a{
                 color: $red;   
@@ -1229,25 +1237,29 @@ ADMIN
     }
     //USERS
     .usersWrap{
+
         .allUsers{
+
             .card{
-                @include span-columns(6);
+                //@include span-columns(6);
+                //@include omega(2n);
                 float: none;
                 display: inline-block;
                 vertical-align: top;
-                margin-top: 60px;
-                text-align: center;
-                @include omega(2n);
+                margin-bottom: 20px;
+                
                 .avatarWrap{
                     width: 50%;
                     margin: auto;
-                    @include transform(translateY(-50%));
+                    padding: 20px;
+                    //@include transform(translateY(-50%));
                 }
                 .card-block{
                     padding: 20px;
-                    @include transform(translateY(-20%));
+                    //@include transform(translateY(-20%));
+
                     button{
-                        margin-top: 20px;
+                        margin-top: 10px;
                     }
                 }
             }
