@@ -32,9 +32,22 @@ export default class DownloadCSV extends React.Component {
             compiling: true
         })
 
+        //Order the listings from North to South
+        function compare(a,b) {
+            if (a.venue && b.venue){
+                if (a.venue.coordinates.lat > b.venue.coordinates.lat)
+                    return -1;
+                if (a.venue.coordinates.lat < b.venue.coordinates.lat)
+                    return 1;
+            }
+            return 0;
+          }
+        var sortedListings = listings
+        sortedListings.sort(compare)
+
         //Prepare the JSON into CSV
         var data = 'Title,Notes,Start Date,End Date,Venue,Address,City,Neighborhood, Website,Phone \n';
-        listings.map(listing => {
+        sortedListings.map(listing => {
             data += listing.title ? '"' + listing.title + '",' : '"' + DisplayActions.listingName(listing) + '",'
             data += listing.description ? '"' + listing.description + '",' : ','
             data += listing.start ? moment(listing.start).format('MM/DD/YY') + ',' : ','
