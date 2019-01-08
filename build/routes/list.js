@@ -653,18 +653,13 @@ router.post('/feature', function (req, res) {
                     //Save the associated event
                     const event = req.body.event
                     Event.update({_id: event._id}, { $set: event}, function(err){
-                        if(!err) {
-                            console.log('Saved', newFeature)
-                            res.send((err === null) ? { msg: '', feature: newFeature} : { msg: err });
-                        }
+                        res.send((err === null) ? req.body : { msg: err });
                     })
                 } else {
                     //Save the associated listing
                     const listing = req.body.list
                     List.update({_id: listing._id}, { $set: listing}, function(err){
-                        if(!err) {
-                            res.send((err === null) ? { msg: '', feature: newFeature} : { msg: err });
-                        }
+                        res.send((err === null) ? req.body : { msg: err });
                     })
                 }
             }
@@ -673,16 +668,32 @@ router.post('/feature', function (req, res) {
 
     } else {
 
-        console.log('Create new feature')
+        console.log('Create new feature', req.body)
 
         // New feature
         var theFeature = new Feature(req.body);
 
         //Save this new entry
-        theFeature.save(function (err, newFeature) {
+        theFeature.save(function (error, newFeature) {
             var savedFeature = req.body
             savedFeature._id = newFeature._id
-            res.send((err === null) ? savedFeature : { msg: err })
+
+            if (!error){
+
+                if (req.body.type === 'event'){
+                    //Save the associated event
+                    const event = req.body.event
+                    Event.update({_id: event._id}, { $set: event}, function(err){
+                        res.send((err === null) ? savedFeature : { msg: err })
+                    })
+                } else {
+                    //Save the associated listing
+                    const listing = req.body.list
+                    List.update({_id: listing._id}, { $set: listing}, function(err){
+                        res.send((err === null) ? savedFeature : { msg: err })
+                    })
+                }
+            }
         });
     }
 
