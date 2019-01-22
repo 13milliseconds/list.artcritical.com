@@ -1,8 +1,14 @@
 # artcritical
 A modern art listing tool for the art magazine artcritical
 
-Tools used:
+## Tools used
 Nodejs, React, React Router, Flux
-Webpack, Babel, npm
-Passport, auth0-js, Cloudinary, Draft
-Bourbon Neat, d3
+
+Webpack, Babel
+
+Passport, Cloudinary, Draft, MapBox
+
+Bootstrap, Bourbon Neat, d3
+
+## Contact
+For bugs and support, contact francois@13milliseconds.com
