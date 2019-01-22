@@ -7,7 +7,6 @@ import MapCluster from './blocks/MapCluster';
 import VenueBlock from './blocks/VenueBlock'
 import {json as requestJson} from 'd3-request';
 import {Button} from 'reactstrap';
-import ListingNameDisplay from './blocks/ListingNameDisplay'
 
 var d3 = require('d3-ease');
 

@@ -1,7 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import GoogleMapReact from 'google-map-react'
-import ListActions from '../../actions/ListActions'
+
 //COMPONENT
 import SingleMarker from './singleMarker'
 import ReactMapGL, {Marker} from 'react-map-gl'
