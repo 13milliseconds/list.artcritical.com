@@ -1,8 +1,10 @@
-/node_modules
-/babel_cache
-/src/server.bundle.js
-/src/server.bundle.js.map
-/src/public/javascripts/bundle.js
-/src/public/javascripts/bundle.js.map
-/src/public/.sass-cache
-/src/.vscodesendgrid.env
+#Ignoring files
+node_modules
+babel_cache
+build/server.bundle.js
+build/server.bundle.js.map
+build/public/javascripts/bundle.js
+build/public/javascripts/bundle.js.map
+build/public/.sass-cache
+build/.vscodesendgrid.env
+.env
