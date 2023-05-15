@@ -1,6 +1,8 @@
 # artcritical
 **A modern art listing tool for the art magazine artcritical.com**
 
+![Scvreenshot](https://i.imgur.com/MVlBkKD.png?1)
+
 ## Functionalities
 The List lets visitors explore a list of all art shows in NYC and Philadelphia. It has not been updated since the COVID-19 pandemic but was before that the most thorough list available thanks to a dedicated team of editors. A calendar lists all art openings and events for the week and an interactive map displays all galleries and their currents shows. 
 
